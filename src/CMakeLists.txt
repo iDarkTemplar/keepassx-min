@@ -115,6 +115,7 @@ set(keepassx_SOURCES
         gui/ApplicationSettingsWidget.cpp
         gui/Icons.cpp
         gui/SearchWidget.cpp
+        gui/SettingsWidget.cpp
         gui/SortFilterHideProxyModel.cpp
         gui/SquareSvgWidget.cpp
         gui/TotpSetupDialog.cpp
@@ -164,7 +165,6 @@ set(keepassx_SOURCES
         gui/osutils/OSUtilsBase.cpp
         gui/osutils/ScreenLockListener.cpp
         gui/osutils/ScreenLockListenerPrivate.cpp
-        gui/settings/SettingsWidget.cpp
         gui/widgets/ElidedLabel.cpp
         gui/widgets/KPToolBar.cpp
         gui/widgets/PopupHelpWidget.cpp

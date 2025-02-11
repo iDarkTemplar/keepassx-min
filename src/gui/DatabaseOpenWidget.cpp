@@ -242,7 +242,7 @@ void DatabaseOpenWidget::load(const QString& filename)
     clearForms();
 
     m_filename = filename;
-    
+
     // Read public headers
     QString error;
     m_db.reset(new Database());
