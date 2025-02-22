@@ -4655,10 +4655,6 @@ You can enable the DuckDuckGo website icon service in the security section of th
         <source>Proton Pass JSON Export</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Remote Database (.kdbx)</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>KMessageWidget</name>
