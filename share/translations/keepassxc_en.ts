@@ -1479,6 +1479,10 @@ Would you like to migrate your existing settings now?</source>
 Are you sure you want to import?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Tags</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CsvParserModel</name>
@@ -8821,6 +8825,10 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source>%1, row: %2, column: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tags</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
