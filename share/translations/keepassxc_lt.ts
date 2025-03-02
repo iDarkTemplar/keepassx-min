@@ -218,16 +218,48 @@
         <translation>Norėdami nustatyti naują kalbą, turite iš naujo paleisti programą. Ar norite iš naujo paleisti programą dabar?</translation>
     </message>
     <message>
-        <source>Reset Settings?</source>
-        <translation>Atstatyti nustatymus?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to reset all general and security settings to default?</source>
-        <translation>Ar tikrai norite atstatyti kaip buvo visus bendruosius ir saugumo nustatymus?</translation>
-    </message>
-    <message>
         <source>Select backup storage directory</source>
         <translation>Pasirinkite atsarginių kopijų saugojimo katalogą</translation>
+    </message>
+    <message>
+        <source>Confirm Reset</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Are you sure you want to reset all settings to default?</source>
+        <translation>Ar norite atstatyti visus nustatymus į numatytąsias reikšmes?</translation>
+    </message>
+    <message>
+        <source>Import KeePassXC Settings</source>
+        <translation>Importuoti KeePassXC nustatymus</translation>
+    </message>
+    <message>
+        <source>Failed to import settings from %1, not a valid settings file.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export KeePassXC Settings</source>
+        <translation>Eksportuoti KeePassXC nustatymus</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -281,25 +313,6 @@
         <translation>Įtraukti beta versijas, kai tikrinami atnaujinimai</translation>
     </message>
     <message>
-        <source>On database unlock, show entries that </source>
-        <translation>Duomenų bazės atrakinimo metu rodyti įrašus, kurie </translation>
-    </message>
-    <message>
-        <source>have expired</source>
-        <comment>On database unlock, show entries that...</comment>
-        <translation>nustojo galioti</translation>
-    </message>
-    <message>
-        <source> days</source>
-        <comment>On database unlock, show entries that will expire within %1 days</comment>
-        <translation>dienos</translation>
-    </message>
-    <message>
-        <source>will expire within </source>
-        <comment>On database unlock, show entries that...</comment>
-        <translation>nustos galioti per</translation>
-    </message>
-    <message>
         <source>File Management</source>
         <translation>Failų tvarkymas</translation>
     </message>
@@ -324,20 +337,8 @@
         <translation>Išsaugoti duomenų bazę prieš išsaugant</translation>
     </message>
     <message>
-        <source>Backup destination</source>
-        <translation>Atsarginės kopijos darymo vieta</translation>
-    </message>
-    <message>
-        <source>Specifies the database backup file location. Occurrences of &quot;{DB_FILENAME}&quot; are replaced with the filename of the saved database without extension. {TIME:&lt;format&gt;} is replaced with the backup time, see https://doc.qt.io/qt-5/qdatetime.html#toString. &lt;format&gt; defaults to format string &quot;dd_MM_yyyy_hh-mm-ss&quot;.</source>
-        <translation>Nurodo duomenų bazės atsarginės kopijos failo vietą. Vietoj &quot;{DB_FILENAME}&quot; įrašomas išsaugotos duomenų bazės failo pavadinimas be plėtinio. {TIME:&lt;format&gt;} pakeičiamas atsarginės kopijos darymo laiku, žr. https://doc.qt.io/qt-5/qdatetime.html#toString. &lt;format&gt;  Pagal numatytuosius nustatymus naudojama formato eilutė &quot;dd_MM_yyyy_hh-mm-ss&quot;.</translation>
-    </message>
-    <message>
         <source>{DB_FILENAME}.old.kdbx</source>
         <translation>{DB_FILENAME}.old.kdbx</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation>Pasirinkti...</translation>
     </message>
     <message>
         <source>Use alternative saving method (may solve problems with Dropbox, Google Drive, GVFS, etc.)</source>
@@ -505,6 +506,71 @@
         <source>Remember last typed entry for:</source>
         <translation>Prisiminti paskutinį įvestą įrašą:</translation>
     </message>
+    <message>
+        <source>On database unlock, show entries that will expire within</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>On database unlock, show entries that will expire within </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source> days</source>
+        <comment>number of days warning for password expiration</comment>
+        <translation>dienos</translation>
+    </message>
+    <message>
+        <source>Destination format:</source>
+        <translation>Paskirties formatas:</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{DB_FILENAME}&lt;/span&gt; is replaced with the filename of the saved database without extension&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{TIME:&amp;lt;format&amp;gt;}&lt;/span&gt; is replaced with the specified time format (default: dd_MM_yyyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;See the User Guide for more details&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Choose folder...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show confirmation before moving entries to recycle bin</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Copy data on double clicking field in entry view</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show toolbar</source>
+        <translation>Rodyti įrankių juostą</translation>
+    </message>
+    <message>
+        <source>Show the menu bar by pressing the Alt key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show menubar</source>
+        <translation>Rodyti meniu juostą</translation>
+    </message>
+    <message>
+        <source>Import settings…</source>
+        <translation>Importuoti nustatymus…</translation>
+    </message>
+    <message>
+        <source>Export settings…</source>
+        <translation>Eksportuoti nustatymus…</translation>
+    </message>
+    <message>
+        <source>Open browser on double clicking URL field in entry view</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Font size:</source>
+        <translation>Šrifto dydis:</translation>
+    </message>
+    <message>
+        <source>Font size selection</source>
+        <translation>Šrifto dydžio pasirinkimas</translation>
+    </message>
 </context>
 <context>
     <name>ApplicationSettingsWidgetSecurity</name>
@@ -571,18 +637,6 @@
         <translation>Paslėpti slaptažodžius įrašo peržiūros skydelyje</translation>
     </message>
     <message>
-        <source>Hide entry notes by default</source>
-        <translation>Pagal numatymą, slėpti įrašo pastabas</translation>
-    </message>
-    <message>
-        <source>Move entries to recycle bin without confirmation</source>
-        <translation>Perkelti įrašus į šiukšliadėžę be patvirtinimo</translation>
-    </message>
-    <message>
-        <source>Enable double click to copy the username/password entry columns</source>
-        <translation>Įgalinkite dvigubą paspaudimą, kad nukopijuotumėte slapyvardžio ir slaptažodžio įrašų stulpelius</translation>
-    </message>
-    <message>
         <source>Privacy</source>
         <translation>Privatumas</translation>
     </message>
@@ -592,6 +646,18 @@
     </message>
     <message>
         <source>Hide TOTP in the entry preview panel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Lock databases when switching user</source>
+        <translation>Užrakinti duomenų bazes perjungiant naudotoją</translation>
+    </message>
+    <message>
+        <source>Lock Options</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide notes in the entry preview panel</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -640,19 +706,6 @@
     <message>
         <source>Entry does not have attribute for PICKCHARS: %1</source>
         <translation>Įrašas neturi PICKCHARS atributo: %1</translation>
-    </message>
-    <message>
-        <source>Invalid conversion type: %1</source>
-        <translation>Netinkamas vertimo tipas: %1</translation>
-    </message>
-    <message>
-        <source>Invalid conversion syntax: %1</source>
-        <translation>Netinkama vertimo sintaksė: %1</translation>
-    </message>
-    <message>
-        <source>Invalid regular expression syntax %1
-%2</source>
-        <translation>Netinkama regexp sintaksė</translation>
     </message>
     <message>
         <source>Invalid placeholder: %1</source>
@@ -821,7 +874,7 @@ Ctrl+4 - naudoti virtualią klaviatūrą (tik Windows)</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation>Atšaukti</translation>
     </message>
 </context>
 <context>
@@ -853,7 +906,7 @@ Prisijungimo duomenų įrašymui, pasirinkite teisingą duomenų bazę.</transla
     </message>
     <message>
         <source>Update</source>
-        <translation type="unfinished"/>
+        <translation>Atnaujinti</translation>
     </message>
     <message>
         <source>Authenticate</source>
@@ -877,7 +930,7 @@ Prisijungimo duomenų įrašymui, pasirinkite teisingą duomenų bazę.</transla
     </message>
     <message>
         <source>Username: %1</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojo vardas: %1</translation>
     </message>
     <message>
         <source>KeePassXC - Passkey credentials</source>
@@ -1019,10 +1072,6 @@ Do you want to overwrite the passkey in %1 - %2?</source>
     <message>
         <source>General</source>
         <translation>Bendra</translation>
-    </message>
-    <message>
-        <source>Browsers installed as snaps are currently not supported.</source>
-        <translation>Šiuo metu nepalaikomos naršyklės, įdiegtos kaip snapai.</translation>
     </message>
     <message>
         <source>Enable integration for these browsers:</source>
@@ -1221,7 +1270,7 @@ Do you want to overwrite the passkey in %1 - %2?</source>
     </message>
     <message>
         <source>&lt;b&gt;Warning:&lt;/b&gt; Only adjust these settings if necessary.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Įspėjimas:&lt;/b&gt; Derinkite šiuos nustatymus tik tuo atveju, jei to reikia.</translation>
     </message>
     <message>
         <source>The custom proxy location does not exist.</source>
@@ -1245,6 +1294,10 @@ Do you want to overwrite the passkey in %1 - %2?</source>
     </message>
     <message>
         <source>KeePassXC-Browser is needed for the browser integration to work. &lt;br /&gt;Download it for %1 and %2 and %3.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Browsers installed using Snap or Flatpak are not supported with exception to Firefox installed using Snap.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1383,11 +1436,11 @@ Do you want to overwrite the passkey in %1 - %2?</source>
     </message>
     <message>
         <source>Failed to parse CSV file: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko išnagrinėti CSV failo: %1</translation>
     </message>
     <message>
         <source>Imported from CSV file: %1</source>
-        <translation type="unfinished"/>
+        <translation>Importuota iš CSV failo: %1</translation>
     </message>
     <message>
         <source>No Title Selected</source>
@@ -1397,6 +1450,10 @@ Do you want to overwrite the passkey in %1 - %2?</source>
         <source>No title column was selected, entries will be hard to tell apart.
 Are you sure you want to import?</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Žymos</translation>
     </message>
 </context>
 <context>
@@ -1460,6 +1517,14 @@ Atsarginė duomenų bazė, esanti %2</translation>
     <message>
         <source>Recycle Bin</source>
         <translation>Šiukšlinė</translation>
+    </message>
+    <message>
+        <source>Database file read error.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No file path was provided.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1610,20 +1675,12 @@ Kad ši klaida nepasirodytų, turite eiti į &quot;Duomenų bazės nustatymai / 
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Click to add a key file.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Use hardware key [Serial: %1]</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Use hardware key</source>
-        <translation type="unfinished"/>
+        <translation>Naudoti aparatinės įrangos raktą</translation>
     </message>
     <message>
         <source>Your database file is NOT a key file!
@@ -1647,6 +1704,18 @@ Are you sure you want to continue with this file?.</source>
     </message>
     <message>
         <source>Refresh Hardware Keys</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Click to add a key file.</source>
+        <translation>Spustelėkite norėdami pridėti rakto failą.</translation>
+    </message>
+    <message>
+        <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
+        <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;Aš turiu rakto failą&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <source>Hardware keys found, but no slots are configured.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1684,8 +1753,20 @@ Are you sure you want to continue with this file?.</source>
         <translation>Priežiūra</translation>
     </message>
     <message>
+        <source>KeeShare</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Secret Service Integration</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Remote Sync</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database Settings: %1</source>
+        <translation>Duomenų bazės nustatymai: %1</translation>
     </message>
 </context>
 <context>
@@ -1800,7 +1881,7 @@ Tai būtina tik tuo atveju, jei jūsų duomenų bazė yra kito kopija ir naršyk
     </message>
     <message>
         <source>No keys found</source>
-        <translation type="unfinished"/>
+        <translation>Nerasta jokių raktų</translation>
     </message>
     <message>
         <source>Removed keys from database</source>
@@ -2006,7 +2087,7 @@ Jei išlaikysite šį numerį, jūsų duomenų bazė nebus apsaugota nuo brutali
     </message>
     <message>
         <source>Encryption Settings:</source>
-        <translation type="unfinished"/>
+        <translation>Šifravimo nustatymai:</translation>
     </message>
     <message>
         <source>Basic</source>
@@ -2157,6 +2238,50 @@ removed from the database.</source>
         <source>Autosave delay since last change checkbox</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Public Database Metadata</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Warning: the following settings are not encrypted.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Display name:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Publically visible display name used on the unlock dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database public display name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Display color:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Publically visible color used on the unlock dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database public display color chooser</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Išvalyti</translation>
+    </message>
+    <message>
+        <source>Display icon:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Select Database Icon</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DatabaseSettingsWidgetKeeShare</name>
@@ -2276,11 +2401,11 @@ removed from the database.</source>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>Atsisiųsti</translation>
     </message>
     <message>
         <source>Command:</source>
-        <translation type="unfinished"/>
+        <translation>Komanda:</translation>
     </message>
     <message>
         <source>Download command field</source>
@@ -2320,11 +2445,11 @@ removed from the database.</source>
     </message>
     <message>
         <source>Test</source>
-        <translation type="unfinished"/>
+        <translation>Išbandyti</translation>
     </message>
     <message>
         <source>Download command cannot be empty.</source>
-        <translation type="unfinished"/>
+        <translation>Atsiuntimo komanda negali būti tuščia.</translation>
     </message>
     <message>
         <source>Download failed with error: %1</source>
@@ -2336,7 +2461,7 @@ removed from the database.</source>
     </message>
     <message>
         <source>Download successful.</source>
-        <translation type="unfinished"/>
+        <translation>Atsiuntimas sėkmingas.</translation>
     </message>
     <message>
         <source>Save Remote Settings</source>
@@ -2365,6 +2490,14 @@ exit
 The command has to exit. In case of `sftp` as last command `exit` has to be sent
             </source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Timeout:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source> seconds</source>
+        <translation> sekundžių</translation>
     </message>
 </context>
 <context>
@@ -2569,26 +2702,6 @@ Išsaugoti pakeitimus?</translation>
         <translation>Failas pasikeitė</translation>
     </message>
     <message>
-        <source>The database file has changed. Do you want to load the changes?</source>
-        <translation>Duomenų bazės failas pasikeitė. Ar norite įkelti pakeitimus?</translation>
-    </message>
-    <message>
-        <source>Merge Request</source>
-        <translation>Suliejimo užklausa</translation>
-    </message>
-    <message>
-        <source>The database file has changed and you have unsaved changes.
-Do you want to merge your changes?</source>
-        <translation>Duomenų bazės failas pasikeitė ir jūs turite neįrašytų pakeitimų.
-Ar norite sulieti savo pakeitimus?</translation>
-    </message>
-    <message>
-        <source>Could not open the new database file while attempting to autoreload.
-Error: %1</source>
-        <translation>Nepavyko atidaryti naujos duomenų bazės failo bandant automatiškai įkelti.
-Klaida: %1</translation>
-    </message>
-    <message>
         <source>Disable safe saves?</source>
         <translation>Išjungti saugų išsaugojimą?</translation>
     </message>
@@ -2653,11 +2766,11 @@ Išjunkite saugų išsaugojimą ir bandykite dar kartą?</translation>
     </message>
     <message>
         <source>Error while saving database %1: %2</source>
-        <translation type="unfinished"/>
+        <translation>Klaida įrašant duomenų bazę %1: %2</translation>
     </message>
     <message>
         <source>Downloading...</source>
-        <translation type="unfinished"/>
+        <translation>Atsiunčiama...</translation>
     </message>
     <message>
         <source>Uploading...</source>
@@ -2665,7 +2778,7 @@ Išjunkite saugų išsaugojimą ir bandykite dar kartą?</translation>
     </message>
     <message>
         <source>Syncing...</source>
-        <translation type="unfinished"/>
+        <translation>Sinchronizuojama...</translation>
     </message>
     <message>
         <source>Remove passkey from entry</source>
@@ -2673,6 +2786,50 @@ Išjunkite saugų išsaugojimą ir bandykite dar kartą?</translation>
     </message>
     <message>
         <source>Do you want to remove the passkey from this entry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you want to load the changes?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reloading database…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload canceled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload successful</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload pending user action…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes&lt;br&gt;Ignore the changes on disk until save&lt;br&gt;Discard unsaved changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes then save&lt;br&gt;Overwrite the changes on disk&lt;br&gt;Discard unsaved changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database file overwritten.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database file on disk cannot be unlocked with current credentials.&lt;br&gt;Enter new credentials and/or present hardware key to continue.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3004,16 +3161,8 @@ Ar norėtumėte ją ištaisyti?</translation>
         <translation>Praleisti šio įrašo automatinį pateikimą</translation>
     </message>
     <message>
-        <source>Only send this setting to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
-        <translation>Siųskite šį parametrą tik į naršyklę HTTP Auth dialogo langams. Jei įjungta, įprastose prisijungimo formose šis pasirinkimo įrašas nebus rodomas.</translation>
-    </message>
-    <message>
         <source>Use this entry only with HTTP Basic Auth</source>
         <translation>Naudokite šį įrašą tik su HTTP Basic Auth</translation>
-    </message>
-    <message>
-        <source>Do not send this setting to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
-        <translation>Nesiųskite šio parametro į naršyklę HTTP Auth dialogams. Jei įjungta, HTTP Auth dialogo languose šis pasirinkimo įrašas nebus rodomas.</translation>
     </message>
     <message>
         <source>Do not use this entry with HTTP Basic Auth</source>
@@ -3037,6 +3186,14 @@ Ar norėtumėte ją ištaisyti?</translation>
     </message>
     <message>
         <source>Additional URLs</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Only send this entry to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not send this entry to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3135,7 +3292,7 @@ Ar norėtumėte ją ištaisyti?</translation>
     </message>
     <message>
         <source>&amp;Username:</source>
-        <translation type="unfinished"/>
+        <translation>Na&amp;udotojo vardas:</translation>
     </message>
     <message>
         <source>&amp;Title:</source>
@@ -3143,11 +3300,11 @@ Ar norėtumėte ją ištaisyti?</translation>
     </message>
     <message>
         <source>&amp;Password:</source>
-        <translation type="unfinished"/>
+        <translation>Sla&amp;ptažodis:</translation>
     </message>
     <message>
         <source>UR&amp;L:</source>
-        <translation type="unfinished"/>
+        <translation>UR&amp;L:</translation>
     </message>
     <message>
         <source>&amp;Notes:</source>
@@ -3159,11 +3316,11 @@ Ar norėtumėte ją ištaisyti?</translation>
     </message>
     <message>
         <source>T&amp;ags:</source>
-        <translation type="unfinished"/>
+        <translation>Ž&amp;ymės:</translation>
     </message>
     <message>
         <source>&amp;Expires:</source>
-        <translation type="unfinished"/>
+        <translation>Ba&amp;igia galioti:</translation>
     </message>
 </context>
 <context>
@@ -3260,6 +3417,10 @@ Ar norėtumėte ją ištaisyti?</translation>
     <message>
         <source> seconds</source>
         <translation> sekundžių</translation>
+    </message>
+    <message>
+        <source>Clear agent</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3707,12 +3868,41 @@ Dėl to gali sutrikti paveiktų papildinių veikimas.</translation>
         <source>Passkey</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Invalid conversion type: %1</source>
+        <translation>Netinkamas vertimo tipas: %1</translation>
+    </message>
+    <message>
+        <source>Invalid conversion syntax: %1</source>
+        <translation>Netinkama vertimo sintaksė: %1</translation>
+    </message>
+    <message>
+        <source>Invalid regular expression syntax %1
+%2</source>
+        <translation>Netinkama regexp sintaksė %1
+</translation>
+    </message>
 </context>
 <context>
     <name>EntryAttachments</name>
     <message>
         <source>Cannot open file &quot;%1&quot;</source>
         <translation>Nepavyko atidaryti failo &quot;%1&quot;</translation>
+    </message>
+</context>
+<context>
+    <name>EntryAttachmentsDialog</name>
+    <message>
+        <source>Form</source>
+        <translation>Forma</translation>
+    </message>
+    <message>
+        <source>File name</source>
+        <translation>Failo pavadinimas</translation>
+    </message>
+    <message>
+        <source>File contents...</source>
+        <translation>Failo turinys...</translation>
     </message>
 </context>
 <context>
@@ -3751,14 +3941,6 @@ Dėl to gali sutrikti paveiktų papildinių veikimas.</translation>
     <message>
         <source>Remove</source>
         <translation>Šalinti</translation>
-    </message>
-    <message>
-        <source>Rename selected attachment</source>
-        <translation>Pervadinti pasirinktą priedą</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Pervadinti</translation>
     </message>
     <message>
         <source>Open selected attachment</source>
@@ -3876,6 +4058,18 @@ Klaida: %1</translation>
 Would you like to overwrite the existing attachment?</source>
         <translation>Priedas &quot;%1&quot; jau egzistuoja. 
 Ar norite perrašyti esamą priedą?</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Naujas</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Peržiūra</translation>
+    </message>
+    <message>
+        <source>Failed to preview an attachment: Attachment not found</source>
+        <translation>Nepavyko peržiūrėti priedo: Priedas nerastas</translation>
     </message>
 </context>
 <context>
@@ -4073,7 +4267,11 @@ Ar norite perrašyti esamą priedą?</translation>
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"/>
+        <translation>Fono spalva</translation>
+    </message>
+    <message>
+        <source>Group Path</source>
+        <translation>Grupės kelias</translation>
     </message>
 </context>
 <context>
@@ -4180,7 +4378,7 @@ Ar norite perrašyti esamą priedą?</translation>
     </message>
     <message>
         <source>Double click to copy to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Spustelėkite du raktus norėdami nukopijuoti į iškarpinę</translation>
     </message>
 </context>
 <context>
@@ -4436,7 +4634,7 @@ DuckDuckGo svetainės piktogramų paslaugą galite įjungti programos nustatymų
     <name>ImportWizard</name>
     <message>
         <source>Import Wizard</source>
-        <translation type="unfinished"/>
+        <translation>Importavimo vediklis</translation>
     </message>
 </context>
 <context>
@@ -4469,6 +4667,14 @@ DuckDuckGo svetainės piktogramų paslaugą galite įjungti programos nustatymų
         <source>Url</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Could not load key file.</source>
+        <translation>Nepavyko įkelti rakto failo.</translation>
+    </message>
+    <message>
+        <source>Could not open remote database. Password or key file may be incorrect.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ImportWizardPageSelect</name>
@@ -4494,7 +4700,7 @@ DuckDuckGo svetainės piktogramų paslaugą galite įjungti programos nustatymų
     </message>
     <message>
         <source>Import Into:</source>
-        <translation type="unfinished"/>
+        <translation>Importuoti į:</translation>
     </message>
     <message>
         <source>New Database</source>
@@ -4526,7 +4732,7 @@ DuckDuckGo svetainės piktogramų paslaugą galite įjungti programos nustatymų
     </message>
     <message>
         <source>Bitwarden (.json)</source>
-        <translation type="unfinished"/>
+        <translation>Bitwarden (.json)</translation>
     </message>
     <message>
         <source>KeePass 1 Database (.kdb)</source>
@@ -4570,6 +4776,44 @@ DuckDuckGo svetainės piktogramų paslaugą galite įjungti programos nustatymų
     </message>
     <message>
         <source>KeePass1 Database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Proton Pass (.json)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Proton Pass JSON Export</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Temporary Database</source>
+        <translation>Laikina duomenų bazė</translation>
+    </message>
+    <message>
+        <source>Command:</source>
+        <translation>Komanda:</translation>
+    </message>
+    <message>
+        <source>e.g.: &quot;sftp user@hostname&quot; or &quot;scp user@hostname:DatabaseOnRemote.kdbx {TEMP_DATABASE}&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Input:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>e.g.:
+get DatabaseOnRemote.kdbx {TEMP_DATABASE}
+exit
+---
+{TEMP_DATABASE} is used as placeholder to store the database in a temporary location
+The command has to exit. In case of `sftp` as last commend `exit` has to be sent
+         </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remote Database (.kdbx)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -5657,7 +5901,7 @@ Ar tikrai norite tęsti darbą su šiuo failu?</translation>
     </message>
     <message>
         <source>Show Menubar</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti meniu juostą</translation>
     </message>
     <message>
         <source>Show Toolbar</source>
@@ -5712,12 +5956,6 @@ Egzistuoja didelė pažeidimų rizika, turėkite atsarginę duomenų bazių kopi
 Expect some bugs and minor issues, this version is meant for testing purposes.</source>
         <translation>PASTABA: Jūs naudojate ankstyvąją KeePassXC versiją.
 Tikėkitės klaidų ir nedidelių problemų, ši versija skirta testavimo tikslams.</translation>
-    </message>
-    <message>
-        <source>WARNING: Your Qt version may cause KeePassXC to crash with an On-Screen Keyboard.
-We recommend you use the AppImage available on our downloads page.</source>
-        <translation>ĮSPĖJIMAS: Dėl jūsų Qt versijos &quot;KeePassXC&quot; gali sugesti naudojant ekrano klaviatūrą.
-Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų puslapyje.</translation>
     </message>
     <message>
         <source>No Tags</source>
@@ -5781,7 +6019,7 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Import…</source>
-        <translation type="unfinished"/>
+        <translation>Importuoti…</translation>
     </message>
     <message>
         <source>Passkeys…</source>
@@ -5789,6 +6027,10 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Import Passkey</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remote S&amp;ync…</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -5801,11 +6043,11 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Open Database</source>
-        <translation type="unfinished"/>
+        <translation>Atverti duomenų bazę</translation>
     </message>
     <message>
         <source>Create Database</source>
-        <translation type="unfinished"/>
+        <translation>Sukurti duomenų bazę</translation>
     </message>
     <message>
         <source>Merge From Database</source>
@@ -5813,7 +6055,7 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Create Entry</source>
-        <translation type="unfinished"/>
+        <translation>Sukurti įrašą</translation>
     </message>
     <message>
         <source>Edit Entry</source>
@@ -5821,11 +6063,11 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Delete Entry</source>
-        <translation type="unfinished"/>
+        <translation>Ištrinti įrašą</translation>
     </message>
     <message>
         <source>Create Group</source>
-        <translation type="unfinished"/>
+        <translation>Sukurti grupę</translation>
     </message>
     <message>
         <source>Edit Group</source>
@@ -5833,7 +6075,7 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Delete Group</source>
-        <translation type="unfinished"/>
+        <translation>Ištrinti grupę</translation>
     </message>
     <message>
         <source>Download All Favicons</source>
@@ -5873,11 +6115,11 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Move Entry Up</source>
-        <translation type="unfinished"/>
+        <translation>Pakelti įrašą</translation>
     </message>
     <message>
         <source>Move Entry Down</source>
-        <translation type="unfinished"/>
+        <translation>Nuleisti įrašą</translation>
     </message>
     <message>
         <source>Copy Username</source>
@@ -5893,6 +6135,10 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Show Password Generator</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remove Passkey From Entry</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -5921,7 +6167,7 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Copy URL</source>
-        <translation type="unfinished"/>
+        <translation>Kopijuoti URL</translation>
     </message>
     <message>
         <source>Copy Notes</source>
@@ -5929,11 +6175,11 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Export to CSV</source>
-        <translation type="unfinished"/>
+        <translation>Eksportuoti į CSV</translation>
     </message>
     <message>
         <source>Export to HTML</source>
-        <translation type="unfinished"/>
+        <translation>Eksportuoti į HTML</translation>
     </message>
     <message>
         <source>Import KeePass1 Database</source>
@@ -5945,7 +6191,7 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Import CSV File</source>
-        <translation type="unfinished"/>
+        <translation>Importuoti CSV failą</translation>
     </message>
     <message>
         <source>Show TOTP QR Code</source>
@@ -6033,22 +6279,38 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     </message>
     <message>
         <source>Export to XML</source>
-        <translation type="unfinished"/>
+        <translation>Eksportuoti į XML</translation>
     </message>
     <message>
         <source>Toggle Allow Screen Capture</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Remote S&amp;ync…</source>
+        <source>Show Group Panel</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Remove Passkey From Entry</source>
+        <source>Toggle Show Group Panel</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Setup Remote Sync…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password Generator</source>
+        <translation>Slaptažodžių generatorius</translation>
+    </message>
+    <message>
+        <source>E&amp;xpire Entry…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear SSH Agent</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear all identities in ssh-agent</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6199,6 +6461,25 @@ Rekomenduojame naudoti &quot;AppImage&quot;, pasiekiamą mūsų atsisiuntimų pu
     <message>
         <source>Please fill in the display name and an optional description for your new database:</source>
         <translation>Užpildykite rodomą pavadinimą ir pasirinktinį naujos duomenų bazės aprašymą:</translation>
+    </message>
+</context>
+<context>
+    <name>NewEntryAttachmentsDialog</name>
+    <message>
+        <source>Attachment name cannot be empty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Attachment with the same name already exists</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Save attachment</source>
+        <translation>Įrašyti priedą</translation>
+    </message>
+    <message>
+        <source>New entry attachment</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6457,15 +6738,15 @@ Do you want to overwrite it?
     </message>
     <message>
         <source>Cannot open file</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyksta atverti fail</translation>
     </message>
     <message>
         <source>Cannot open file &quot;%1&quot; for writing.</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyksta atverti failo „%1“ rašymui</translation>
     </message>
     <message>
         <source>Cannot write to file</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyksta rašyti į failą</translation>
     </message>
 </context>
 <context>
@@ -6476,7 +6757,7 @@ Do you want to overwrite it?
     </message>
     <message>
         <source>Username: %1</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojo vardas: %1</translation>
     </message>
     <message>
         <source>Group</source>
@@ -6504,7 +6785,7 @@ Do you want to overwrite it?
     </message>
     <message>
         <source>Create new entry</source>
-        <translation type="unfinished"/>
+        <translation>Sukurti naują įrašą</translation>
     </message>
     <message>
         <source>Relying Party: %1</source>
@@ -6535,11 +6816,11 @@ Do you want to overwrite it?
     </message>
     <message>
         <source>Cannot open file</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyksta atverti fail</translation>
     </message>
     <message>
         <source>Cannot open file &quot;%1&quot; for reading.</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko atverti failo „%1“ skaitymui.</translation>
     </message>
     <message>
         <source>Open passkey file</source>
@@ -6743,10 +7024,6 @@ The following data is missing:
         <translation>Taip pat pasirinkti iš:</translation>
     </message>
     <message>
-        <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;</source>
-        <translation>Neįtraukti simboliai: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;.</translation>
-    </message>
-    <message>
         <source>Exclude look-alike characters</source>
         <translation>Pašalinti panašiai atrodančius simbolius</translation>
     </message>
@@ -6771,10 +7048,6 @@ The following data is missing:
         <translation>Žodžių skaičius:</translation>
     </message>
     <message>
-        <source>Character Count:</source>
-        <translation>Simbolių skaičius:</translation>
-    </message>
-    <message>
         <source>Word Case:</source>
         <translation>Žodžio atvejis:</translation>
     </message>
@@ -6785,10 +7058,6 @@ The following data is missing:
     <message>
         <source>Add custom wordlist</source>
         <translation>Pridėti pasirinktinį žodžių sąrašą</translation>
-    </message>
-    <message>
-        <source>character</source>
-        <translation>simbolis</translation>
     </message>
     <message>
         <source>Close</source>
@@ -6896,6 +7165,22 @@ Ar norite jį perrašyti?</translation>
         <source>Special Characters</source>
         <translation>Specialūs simboliai</translation>
     </message>
+    <message>
+        <source>passwordLength</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Characters: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>MIXED case</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;, &quot;B&quot;, &quot;8&quot;, &quot;G&quot;, &quot;6&quot;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PasswordWidget</name>
@@ -6964,6 +7249,21 @@ Ar norite jį perrašyti?</translation>
     </message>
 </context>
 <context>
+    <name>PreviewEntryAttachmentsDialog</name>
+    <message>
+        <source>Preview entry attachment</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No preview available</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Image format not supported</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QMessageBox</name>
     <message>
         <source>Overwrite</source>
@@ -7003,7 +7303,7 @@ Ar norite jį perrašyti?</translation>
     </message>
     <message>
         <source>Continue with weak password</source>
-        <translation type="unfinished"/>
+        <translation>Tęsti naudojant silpną slaptažodį</translation>
     </message>
 </context>
 <context>
@@ -7642,10 +7942,6 @@ Ar norite jį perrašyti?</translation>
         <translation>Neteisingas žodžių skaičius %1</translation>
     </message>
     <message>
-        <source>The word list is too small (&lt; 1000 items)</source>
-        <translation>Žodžių sąrašas per mažas (&lt; 1000 items)</translation>
-    </message>
-    <message>
         <source>Title for the entry.</source>
         <translation>Įrašo pavadinimas.</translation>
     </message>
@@ -7788,10 +8084,6 @@ Ar norite jį perrašyti?</translation>
     <message>
         <source>Exit interactive mode.</source>
         <translation>Išeikite iš interaktyvaus režimo.</translation>
-    </message>
-    <message>
-        <source>Format to use when exporting. Available choices are &apos;xml&apos; or &apos;csv&apos;. Defaults to &apos;xml&apos;.</source>
-        <translation>Formatas, kurį naudoti eksportuojant. Galima pasirinkti &apos;xml&apos; arba &apos;csv&apos;. Numatytasis yra &apos;xml&apos;.</translation>
     </message>
     <message>
         <source>Exports the content of a database to standard output in the specified format.</source>
@@ -8381,18 +8673,6 @@ Branduolys: %3 %4</translation>
         <translation>failas tuščias</translation>
     </message>
     <message>
-        <source>malformed string</source>
-        <translation>netaisyklinga eilutė</translation>
-    </message>
-    <message>
-        <source>missing closing quote</source>
-        <translation>trūksta užveriamosios kabutės</translation>
-    </message>
-    <message>
-        <source>%1: (row, col) %2,%3</source>
-        <translation>%1: (eil., stulp.) %2,%3</translation>
-    </message>
-    <message>
         <source>AES 256-bit</source>
         <translation>AES 256 bitų</translation>
     </message>
@@ -8639,7 +8919,7 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source>Databases have been locked.</source>
-        <translation type="unfinished"/>
+        <translation>Duomenų bazės užrakintos.</translation>
     </message>
     <message>
         <source>Attestation not supported</source>
@@ -8760,11 +9040,11 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source>File does not exist.</source>
-        <translation type="unfinished"/>
+        <translation>Failo nėra.</translation>
     </message>
     <message>
         <source>Cannot open file: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyksta atverti failo: %1</translation>
     </message>
     <message>
         <source>Cannot parse file: %1 at position %2</source>
@@ -8784,7 +9064,7 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source>Wrong password</source>
-        <translation type="unfinished"/>
+        <translation>Neteisingas slaptažodis</translation>
     </message>
     <message>
         <source>Invalid encrypted data field</source>
@@ -8796,11 +9076,11 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source>Cannot initialize cipher</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyksta inicijuoti šifro</translation>
     </message>
     <message>
         <source>Cannot decrypt data</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyksta iššifruoti duomenų</translation>
     </message>
     <message>
         <source>Bitwarden Import</source>
@@ -8850,6 +9130,74 @@ This option is deprecated, use --set-key-file instead.</source>
     <message>
         <source>Only PBKDF and Argon2 are supported, cannot decrypt json file</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reset Shortcuts</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Double click an action to change its shortcut</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Filter...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Shortcut Conflict</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Shortcut %1 conflicts with &apos;%2&apos;. Overwrite shortcut?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cannot generate valid passphrases because the wordlist is too short</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Encrypted files are not supported.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Proton Pass Import</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete plugin data?</source>
+        <translation>Ištrinti papildinių duomenis?</translation>
+    </message>
+    <message numerus="yes">
+        <source>Delete plugin data from Entry(s)?</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Passkey</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Format to use when exporting. Available choices are &apos;xml&apos;, &apos;csv&apos; or &apos;html&apos;. Defaults to &apos;xml&apos;.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>start minimized to the system tray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>malformed string, possible unescaped delimiter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>missing closing delimiter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1, row: %2, column: %3</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Žymos</translation>
     </message>
 </context>
 <context>
@@ -8983,6 +9331,10 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Exclude from reports</source>
         <translation>Neįtraukti į ataskaitas</translation>
     </message>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
     <message>
         <source>Only show entries that have a URL</source>
         <translation type="unfinished"/>
@@ -8993,41 +9345,38 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source>Show expired entries</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti nebegaliojančius įrašus</translation>
     </message>
     <message>
         <source> (Expired)</source>
-        <translation type="unfinished"/>
+        <translation> (Nebegalioja)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Delete plugin data from Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
     <name>ReportsWidgetHealthcheck</name>
     <message>
-        <source>Hover over reason to show additional details. Double-click entries to edit.</source>
-        <translation>Užveskite pelės žymeklį virš priežasties, kad parodytumėte papildomą informaciją. Dukart spustelėkite įrašus, kuriuos norite redaguoti.</translation>
+        <source>Show expired entries</source>
+        <translation>Rodyti nebegaliojančius įrašus</translation>
     </message>
     <message>
-        <source>Bad</source>
-        <comment>Password quality</comment>
-        <translation>Blogas</translation>
+        <source> (Expired)</source>
+        <translation> (Nebegalioja)</translation>
+    </message>
+    <message>
+        <source>Hover over reason to show additional details. Double-click entries to edit.</source>
+        <translation>Užveskite pelės žymeklį virš priežasties, kad parodytumėte papildomą informaciją. Dukart spustelėkite įrašus, kuriuos norite redaguoti.</translation>
     </message>
     <message>
         <source>Bad — password must be changed</source>
         <translation>Blogas - slaptažodis turi būti pakeistas</translation>
     </message>
     <message>
-        <source>Poor</source>
-        <comment>Password quality</comment>
-        <translation>Blogas</translation>
-    </message>
-    <message>
         <source>Poor — password should be changed</source>
         <translation>Prastas — slaptažodis turėtų būti pakeistas</translation>
-    </message>
-    <message>
-        <source>Weak</source>
-        <comment>Password quality</comment>
-        <translation>Silpnas</translation>
     </message>
     <message>
         <source>Weak — consider changing the password</source>
@@ -9077,16 +9426,12 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Exclude from reports</source>
         <translation>Neįtraukti į ataskaitas</translation>
     </message>
-    <message>
-        <source>Show expired entries</source>
-        <translation type="unfinished"/>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <source>Show entries that have been excluded from reports</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source> (Expired)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -9184,6 +9529,10 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Exclude from reports</source>
         <translation>Neįtraukti į ataskaitas</translation>
     </message>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
 </context>
 <context>
     <name>ReportsWidgetPasskeys</name>
@@ -9229,11 +9578,11 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source>Show expired entries</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti nebegaliojančius įrašus</translation>
     </message>
     <message>
         <source> (Expired)</source>
-        <translation type="unfinished"/>
+        <translation> (Nebegalioja)</translation>
     </message>
     <message>
         <source>Export Confirmation</source>
@@ -9424,6 +9773,14 @@ This option is deprecated, use --set-key-file instead.</source>
     <message>
         <source>No agent running, cannot list identities.</source>
         <translation>Joks agentas neveikia, negali išvardyti tapatybių.</translation>
+    </message>
+    <message>
+        <source>Failed to remove all SSH identities from agent.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>All SSH identities removed from agent.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -9711,29 +10068,6 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
 </context>
 <context>
-    <name>ShortcutSettingsWidget</name>
-    <message>
-        <source>Double click an action to change its shortcut</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Shortcut Conflict</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Filter...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Shortcut %1 conflicts with &apos;%2&apos;. Overwrite shortcut?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Reset Shortcuts</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>TagModel</name>
     <message>
         <source>Clear Search</source>
@@ -9942,15 +10276,15 @@ Pavyzdys: JBSWY3DPEHPK3PXP</translation>
     </message>
     <message>
         <source>Create Database</source>
-        <translation type="unfinished"/>
+        <translation>Sukurti duomenų bazę</translation>
     </message>
     <message>
         <source>Open Database</source>
-        <translation type="unfinished"/>
+        <translation>Atverti duomenų bazę</translation>
     </message>
     <message>
         <source>Import File</source>
-        <translation type="unfinished"/>
+        <translation>Importuoti failą</translation>
     </message>
 </context>
 <context>
@@ -10022,11 +10356,15 @@ Pavyzdys: JBSWY3DPEHPK3PXP</translation>
         <translation>Neaptikti jokie aparatūros raktai</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed as &lt;a href=&quot;https://docs.yubico.com/yesdk/users-manual/application-otp/challenge-response.html&quot;&gt;HMAC-SHA1 Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
+        <source>Refresh hardware keys</source>
+        <translation>Iš naujo įkelti aparatinės įrangos raktus</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed with &lt;a href=&quot;https://keepassxc.org/docs/#faq-yubikey-howto&quot;&gt;Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Refresh hardware keys</source>
+        <source>Hardware keys found, but no slots are configured</source>
         <translation type="unfinished"/>
     </message>
 </context>

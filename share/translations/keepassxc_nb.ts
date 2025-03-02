@@ -218,16 +218,48 @@
         <translation>Du må starte programmet på nytt for å angi det nye språket. Vil du starte på nytt nå?</translation>
     </message>
     <message>
-        <source>Reset Settings?</source>
-        <translation>Tilbakestill innstillinger?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to reset all general and security settings to default?</source>
-        <translation>Er du sikker på at du vil tilbakestille alle generelle og sikkerhetsinnstillinger til standard?</translation>
-    </message>
-    <message>
         <source>Select backup storage directory</source>
         <translation>Velg lagringsmappe for sikkerhetskopiering</translation>
+    </message>
+    <message>
+        <source>Confirm Reset</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Are you sure you want to reset all settings to default?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Import KeePassXC Settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to import settings from %1, not a valid settings file.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export KeePassXC Settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -281,25 +313,6 @@
         <translation>Ta med betaversjoner når du ser etter oppdateringer</translation>
     </message>
     <message>
-        <source>On database unlock, show entries that </source>
-        <translation>Ved databaseopplåsing, vis oppføringer som </translation>
-    </message>
-    <message>
-        <source>have expired</source>
-        <comment>On database unlock, show entries that...</comment>
-        <translation>er utløpt</translation>
-    </message>
-    <message>
-        <source> days</source>
-        <comment>On database unlock, show entries that will expire within %1 days</comment>
-        <translation> dager</translation>
-    </message>
-    <message>
-        <source>will expire within </source>
-        <comment>On database unlock, show entries that...</comment>
-        <translation>vil utløpe innen </translation>
-    </message>
-    <message>
         <source>File Management</source>
         <translation>Filhåndtering</translation>
     </message>
@@ -324,20 +337,8 @@
         <translation>Sikkerhetskopier database-filen før lagring</translation>
     </message>
     <message>
-        <source>Backup destination</source>
-        <translation>Mål for sikkerhetskopiering</translation>
-    </message>
-    <message>
-        <source>Specifies the database backup file location. Occurrences of &quot;{DB_FILENAME}&quot; are replaced with the filename of the saved database without extension. {TIME:&lt;format&gt;} is replaced with the backup time, see https://doc.qt.io/qt-5/qdatetime.html#toString. &lt;format&gt; defaults to format string &quot;dd_MM_yyyy_hh-mm-ss&quot;.</source>
-        <translation>Angir filplasseringen til database-sikkerhetskopien. Forekomster av {DB_FILENAME} erstattes med filnavnet til den lagrede databasen uten filtype. {TIME:&lt;format&gt;} erstattes med sikkerhetskopi-tidspunktet, se https://doc.qt.io/qt-5/qdatetime.html#toString. &lt;format&gt;standardformatet er &quot;dd_MM_yyyy_hh-mm-ss&quot;.</translation>
-    </message>
-    <message>
         <source>{DB_FILENAME}.old.kdbx</source>
         <translation>{DB_FILENAME}.old.kdbx</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation>Velg…</translation>
     </message>
     <message>
         <source>Use alternative saving method (may solve problems with Dropbox, Google Drive, GVFS, etc.)</source>
@@ -505,6 +506,71 @@
         <source>Remember last typed entry for:</source>
         <translation>Husk siste inntasta oppføring i:</translation>
     </message>
+    <message>
+        <source>On database unlock, show entries that will expire within</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>On database unlock, show entries that will expire within </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source> days</source>
+        <comment>number of days warning for password expiration</comment>
+        <translation> dager</translation>
+    </message>
+    <message>
+        <source>Destination format:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{DB_FILENAME}&lt;/span&gt; is replaced with the filename of the saved database without extension&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{TIME:&amp;lt;format&amp;gt;}&lt;/span&gt; is replaced with the specified time format (default: dd_MM_yyyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;See the User Guide for more details&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Choose folder...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show confirmation before moving entries to recycle bin</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Copy data on double clicking field in entry view</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show toolbar</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show the menu bar by pressing the Alt key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show menubar</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Import settings…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export settings…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open browser on double clicking URL field in entry view</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Font size:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Font size selection</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ApplicationSettingsWidgetSecurity</name>
@@ -571,18 +637,6 @@
         <translation>Skjul passord i oppføringspanelet</translation>
     </message>
     <message>
-        <source>Hide entry notes by default</source>
-        <translation>Skjul notater i oppføringa som standard</translation>
-    </message>
-    <message>
-        <source>Move entries to recycle bin without confirmation</source>
-        <translation>Flytt oppføringer til søppelbøtte uten bekreftelse</translation>
-    </message>
-    <message>
-        <source>Enable double click to copy the username/password entry columns</source>
-        <translation>Aktiver dobbeltklikk for å kopiere brukernavn-/passord-oppføringer</translation>
-    </message>
-    <message>
         <source>Privacy</source>
         <translation>Personvern</translation>
     </message>
@@ -593,6 +647,18 @@
     <message>
         <source>Hide TOTP in the entry preview panel</source>
         <translation>Skjul TOTP i forhåndsvisningspanelet</translation>
+    </message>
+    <message>
+        <source>Lock databases when switching user</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Lock Options</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide notes in the entry preview panel</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -640,20 +706,6 @@
     <message>
         <source>Entry does not have attribute for PICKCHARS: %1</source>
         <translation>Oppføringen har ikke attributt for PICKCHARS: %1</translation>
-    </message>
-    <message>
-        <source>Invalid conversion type: %1</source>
-        <translation>Ugyldig konverteringstype: %1</translation>
-    </message>
-    <message>
-        <source>Invalid conversion syntax: %1</source>
-        <translation>Ugyldig konverteringssyntaks: %1</translation>
-    </message>
-    <message>
-        <source>Invalid regular expression syntax %1
-%2</source>
-        <translation>Ugyldig syntaks for regulært uttrykk %1
-%2</translation>
     </message>
     <message>
         <source>Invalid placeholder: %1</source>
@@ -1023,10 +1075,6 @@ Vil du erstatte tilgangsnøkkelen i %1 - %2?</translation>
         <translation>Generelt</translation>
     </message>
     <message>
-        <source>Browsers installed as snaps are currently not supported.</source>
-        <translation>Nettlesere installert som Snap støttes ikke for øyeblikket.</translation>
-    </message>
-    <message>
         <source>Enable integration for these browsers:</source>
         <translation>Bruk tillegget i disse nettleserne:</translation>
     </message>
@@ -1249,6 +1297,10 @@ Vil du erstatte tilgangsnøkkelen i %1 - %2?</translation>
         <source>KeePassXC-Browser is needed for the browser integration to work. &lt;br /&gt;Download it for %1 and %2 and %3.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Browsers installed using Snap or Flatpak are not supported with exception to Firefox installed using Snap.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CloneDialog</name>
@@ -1400,6 +1452,10 @@ Vil du erstatte tilgangsnøkkelen i %1 - %2?</translation>
 Are you sure you want to import?</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Tags</source>
+        <translation>Tagger</translation>
+    </message>
 </context>
 <context>
     <name>CsvParserModel</name>
@@ -1462,6 +1518,14 @@ Sikkerhetskopi av database lokalisert på %2</translation>
     <message>
         <source>Recycle Bin</source>
         <translation>Papirkurv</translation>
+    </message>
+    <message>
+        <source>Database file read error.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No file path was provided.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1612,14 +1676,6 @@ For å forhindre at denne feilen vises, må du gå til &quot;Databaseinnstilling
         <translation>&lt;p&gt;I tillegg til passord, kan du bruke en nøkkelfil for å forbedre sikkerheten til databasen. Denne fila kan opprettes i databasens sikkerhetsinnstillinger.&lt;/p&gt; &lt;p&gt;Dette er &lt;strong&gt;ikke&lt;/strong&gt; *.kdbx-databasefilen din!&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>Click to add a key file.</source>
-        <translation>Trykk for å legge til en nøkkelfil</translation>
-    </message>
-    <message>
-        <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;Jeg har en nøkkelfil&lt;/a&gt;</translation>
-    </message>
-    <message>
         <source>Use hardware key [Serial: %1]</source>
         <translation>Bruk maskinvarenøkkel [Serial: %1]</translation>
     </message>
@@ -1654,6 +1710,18 @@ Er du sikker på at du vil fortsette med denne filen?</translation>
     <message>
         <source>Refresh Hardware Keys</source>
         <translation>Oppdater maskinvarenøkler</translation>
+    </message>
+    <message>
+        <source>Click to add a key file.</source>
+        <translation>Trykk for å legge til en nøkkelfil</translation>
+    </message>
+    <message>
+        <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
+        <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;Jeg har en nøkkelfil&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <source>Hardware keys found, but no slots are configured.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1690,8 +1758,20 @@ Er du sikker på at du vil fortsette med denne filen?</translation>
         <translation>Vedlikehold</translation>
     </message>
     <message>
+        <source>KeeShare</source>
+        <translation>KeeShare</translation>
+    </message>
+    <message>
+        <source>Secret Service Integration</source>
+        <translation>Integrasjon av &apos;Secret Service&apos;</translation>
+    </message>
+    <message>
         <source>Remote Sync</source>
         <translation>Fjernsynkronisering</translation>
+    </message>
+    <message>
+        <source>Database Settings: %1</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2172,6 +2252,50 @@ fjernet fra databasen.</translation>
         <source>Autosave delay since last change checkbox</source>
         <translation>Autolagringsforsinkelse siden siste endring i avkrysningsboksa</translation>
     </message>
+    <message>
+        <source>Public Database Metadata</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Warning: the following settings are not encrypted.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Display name:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Publically visible display name used on the unlock dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database public display name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Display color:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Publically visible color used on the unlock dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database public display color chooser</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Tøm</translation>
+    </message>
+    <message>
+        <source>Display icon:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Select Database Icon</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DatabaseSettingsWidgetKeeShare</name>
@@ -2381,6 +2505,14 @@ The command has to exit. In case of `sftp` as last command `exit` has to be sent
             </source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Timeout:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source> seconds</source>
+        <translation>sekunder</translation>
+    </message>
 </context>
 <context>
     <name>DatabaseTabWidget</name>
@@ -2584,26 +2716,6 @@ Lagre endringer?</translation>
         <translation>Fil er endret</translation>
     </message>
     <message>
-        <source>The database file has changed. Do you want to load the changes?</source>
-        <translation>Databasen er endret. Ønsker du å laste inn endringene?</translation>
-    </message>
-    <message>
-        <source>Merge Request</source>
-        <translation>Forespørsel om sammenslåing</translation>
-    </message>
-    <message>
-        <source>The database file has changed and you have unsaved changes.
-Do you want to merge your changes?</source>
-        <translation>Databasefila er endra og du har ulagra endringer.
-Vil du slå sammen fila med endringene dine?</translation>
-    </message>
-    <message>
-        <source>Could not open the new database file while attempting to autoreload.
-Error: %1</source>
-        <translation>Kunne ikke åpne den nye databasefilen under forsøk på å laste den inn på nytt automatisk.
-Feil: %1</translation>
-    </message>
-    <message>
         <source>Disable safe saves?</source>
         <translation>Deaktivere sikker lagring?</translation>
     </message>
@@ -2689,6 +2801,50 @@ Deaktivere sikker lagring og prøve igjen?</translation>
     <message>
         <source>Do you want to remove the passkey from this entry?</source>
         <translation>Vil du fjerne tilgangsnøkkelen fra denne oppføringen?</translation>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you want to load the changes?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reloading database…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload canceled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload successful</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload pending user action…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes&lt;br&gt;Ignore the changes on disk until save&lt;br&gt;Discard unsaved changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes then save&lt;br&gt;Overwrite the changes on disk&lt;br&gt;Discard unsaved changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database file overwritten.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database file on disk cannot be unlocked with current credentials.&lt;br&gt;Enter new credentials and/or present hardware key to continue.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3019,16 +3175,8 @@ Vil du rette den?</translation>
         <translation>Hopp over automatisk utførelse for denne oppføringen</translation>
     </message>
     <message>
-        <source>Only send this setting to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
-        <translation>Send denne innstillingen bare til nettleseren for «HTTP Auth»-dialoger. Hvis aktivert vil ikke vanlige påloggingsskjemaer få vist denne oppføringen for valg.</translation>
-    </message>
-    <message>
         <source>Use this entry only with HTTP Basic Auth</source>
         <translation>Bruk denne oppføringen bare med «HTTP Basic Auth»</translation>
-    </message>
-    <message>
-        <source>Do not send this setting to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
-        <translation>Ikke send denne innstillingen til nettleseren for «HTTP Auth»-dialoger. Hvis aktivert viser ikke «HTTP Auth»-dialoger denne oppføringen for valg.</translation>
     </message>
     <message>
         <source>Do not use this entry with HTTP Basic Auth</source>
@@ -3053,6 +3201,14 @@ Vil du rette den?</translation>
     <message>
         <source>Additional URLs</source>
         <translation>Ytterligere URL-er</translation>
+    </message>
+    <message>
+        <source>Only send this entry to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not send this entry to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3275,6 +3431,10 @@ Vil du rette den?</translation>
     <message>
         <source> seconds</source>
         <translation>sekunder</translation>
+    </message>
+    <message>
+        <source>Clear agent</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3722,12 +3882,41 @@ Dette kan føre til feil for de berørte programtilleggene.</translation>
         <source>Passkey</source>
         <translation>Tilgangsnøkkel</translation>
     </message>
+    <message>
+        <source>Invalid conversion type: %1</source>
+        <translation>Ugyldig konverteringstype: %1</translation>
+    </message>
+    <message>
+        <source>Invalid conversion syntax: %1</source>
+        <translation>Ugyldig konverteringssyntaks: %1</translation>
+    </message>
+    <message>
+        <source>Invalid regular expression syntax %1
+%2</source>
+        <translation>Ugyldig syntaks for regulært uttrykk %1
+%2</translation>
+    </message>
 </context>
 <context>
     <name>EntryAttachments</name>
     <message>
         <source>Cannot open file &quot;%1&quot;</source>
         <translation>Kan ikke åpne filen %1</translation>
+    </message>
+</context>
+<context>
+    <name>EntryAttachmentsDialog</name>
+    <message>
+        <source>Form</source>
+        <translation>Skjema</translation>
+    </message>
+    <message>
+        <source>File name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File contents...</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3766,14 +3955,6 @@ Dette kan føre til feil for de berørte programtilleggene.</translation>
     <message>
         <source>Remove</source>
         <translation>Fjern</translation>
-    </message>
-    <message>
-        <source>Rename selected attachment</source>
-        <translation>Gi nytt navn til valgt vedlegg</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Gi nytt navn</translation>
     </message>
     <message>
         <source>Open selected attachment</source>
@@ -3889,6 +4070,18 @@ Feil: %1</translation>
 Would you like to overwrite the existing attachment?</source>
         <translation>Vedlegg %1 finnes allerede. 
 Vil du erstatte det eksisterende vedlegget?</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Forhåndsvis</translation>
+    </message>
+    <message>
+        <source>Failed to preview an attachment: Attachment not found</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -4087,6 +4280,10 @@ Vil du erstatte det eksisterende vedlegget?</translation>
     <message>
         <source>Background Color</source>
         <translation>Bakgrunnsfarge</translation>
+    </message>
+    <message>
+        <source>Group Path</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -4483,6 +4680,14 @@ Du kan aktivere DuckDuckGo-ikonetjenesten i sikkerhetsdelen av applikasjonsinnst
         <source>Url</source>
         <translation>URL</translation>
     </message>
+    <message>
+        <source>Could not load key file.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Could not open remote database. Password or key file may be incorrect.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ImportWizardPageSelect</name>
@@ -4585,6 +4790,44 @@ Du kan aktivere DuckDuckGo-ikonetjenesten i sikkerhetsdelen av applikasjonsinnst
     <message>
         <source>KeePass1 Database</source>
         <translation>KeePass1-database</translation>
+    </message>
+    <message>
+        <source>Proton Pass (.json)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Proton Pass JSON Export</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Temporary Database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Command:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>e.g.: &quot;sftp user@hostname&quot; or &quot;scp user@hostname:DatabaseOnRemote.kdbx {TEMP_DATABASE}&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Input:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>e.g.:
+get DatabaseOnRemote.kdbx {TEMP_DATABASE}
+exit
+---
+{TEMP_DATABASE} is used as placeholder to store the database in a temporary location
+The command has to exit. In case of `sftp` as last commend `exit` has to be sent
+         </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remote Database (.kdbx)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -5728,12 +5971,6 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 Forvent enkelte feil og mindre problemer, denne versjonen er ment for testformål.</translation>
     </message>
     <message>
-        <source>WARNING: Your Qt version may cause KeePassXC to crash with an On-Screen Keyboard.
-We recommend you use the AppImage available on our downloads page.</source>
-        <translation>ADVARSEL: Qt-versjonen din kan føre til at KeePassXC krasjer med et skjermtastatur.
-Vi anbefaler at du bruker det AppImage som er tilgjengelig på nedlastingssidene våre.</translation>
-    </message>
-    <message>
         <source>No Tags</source>
         <translation>Ingen tagger</translation>
     </message>
@@ -5804,6 +6041,10 @@ Vi anbefaler at du bruker det AppImage som er tilgjengelig på nedlastingssidene
     <message>
         <source>Import Passkey</source>
         <translation>Importer tilgangsnøkkel</translation>
+    </message>
+    <message>
+        <source>Remote S&amp;ync…</source>
+        <translation>Fjernsynkronisering...</translation>
     </message>
     <message>
         <source>Quit Application</source>
@@ -5908,6 +6149,10 @@ Vi anbefaler at du bruker det AppImage som er tilgjengelig på nedlastingssidene
     <message>
         <source>Show Password Generator</source>
         <translation>Vis passordgenerator</translation>
+    </message>
+    <message>
+        <source>Remove Passkey From Entry</source>
+        <translation>Slett tilgangsnøkkel fra oppføring</translation>
     </message>
     <message>
         <source>Perform Auto-Type: {USERNAME}</source>
@@ -6054,15 +6299,31 @@ Vi anbefaler at du bruker det AppImage som er tilgjengelig på nedlastingssidene
         <translation>Veksle tillat skjermopptak av/på</translation>
     </message>
     <message>
-        <source>Remote S&amp;ync…</source>
-        <translation>Fjernsynkronisering...</translation>
+        <source>Show Group Panel</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Remove Passkey From Entry</source>
-        <translation>Slett tilgangsnøkkel fra oppføring</translation>
+        <source>Toggle Show Group Panel</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Setup Remote Sync…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password Generator</source>
+        <translation>Passordgenerator</translation>
+    </message>
+    <message>
+        <source>E&amp;xpire Entry…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear SSH Agent</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear all identities in ssh-agent</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6213,6 +6474,25 @@ Vi anbefaler at du bruker det AppImage som er tilgjengelig på nedlastingssidene
     <message>
         <source>Please fill in the display name and an optional description for your new database:</source>
         <translation>Fyll ut visningsnavnet og en valgfri beskrivelse av den nye databasen:</translation>
+    </message>
+</context>
+<context>
+    <name>NewEntryAttachmentsDialog</name>
+    <message>
+        <source>Attachment name cannot be empty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Attachment with the same name already exists</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Save attachment</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>New entry attachment</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6758,10 +7038,6 @@ The following data is missing:
         <translation>Velg også mellom:</translation>
     </message>
     <message>
-        <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;</source>
-        <translation>Ekskluderte tegn: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;</translation>
-    </message>
-    <message>
         <source>Exclude look-alike characters</source>
         <translation>Ekskluder tegn som er nesten makne</translation>
     </message>
@@ -6786,10 +7062,6 @@ The following data is missing:
         <translation>Antall ord:</translation>
     </message>
     <message>
-        <source>Character Count:</source>
-        <translation>Antall tegn:</translation>
-    </message>
-    <message>
         <source>Word Case:</source>
         <translation>Ord-format:</translation>
     </message>
@@ -6800,10 +7072,6 @@ The following data is missing:
     <message>
         <source>Add custom wordlist</source>
         <translation>Legg til egendefinert ordliste</translation>
-    </message>
-    <message>
-        <source>character</source>
-        <translation>tegn</translation>
     </message>
     <message>
         <source>Close</source>
@@ -6911,6 +7179,22 @@ Vil du erstatte den?</translation>
         <source>Special Characters</source>
         <translation>Spesialtegn</translation>
     </message>
+    <message>
+        <source>passwordLength</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Characters: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>MIXED case</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;, &quot;B&quot;, &quot;8&quot;, &quot;G&quot;, &quot;6&quot;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PasswordWidget</name>
@@ -6976,6 +7260,21 @@ Vil du erstatte den?</translation>
     <message>
         <source>Press &amp;Tab between characters</source>
         <translation>Trykk &amp;Tab mellom tegn</translation>
+    </message>
+</context>
+<context>
+    <name>PreviewEntryAttachmentsDialog</name>
+    <message>
+        <source>Preview entry attachment</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No preview available</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Image format not supported</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7657,10 +7956,6 @@ Vil du erstatte den?</translation>
         <translation>Ugyldig ordtelling %1</translation>
     </message>
     <message>
-        <source>The word list is too small (&lt; 1000 items)</source>
-        <translation>Ordlisten er for liten (&lt; 1000 element)</translation>
-    </message>
-    <message>
         <source>Title for the entry.</source>
         <translation>Tittel for oppføringa.</translation>
     </message>
@@ -7803,10 +8098,6 @@ Vil du erstatte den?</translation>
     <message>
         <source>Exit interactive mode.</source>
         <translation>Avslutt interaktiv modus.</translation>
-    </message>
-    <message>
-        <source>Format to use when exporting. Available choices are &apos;xml&apos; or &apos;csv&apos;. Defaults to &apos;xml&apos;.</source>
-        <translation>Format som skal brukes ved eksport. Tilgjengelige valg er XML eller CSV. Standardvalg er XML.</translation>
     </message>
     <message>
         <source>Exports the content of a database to standard output in the specified format.</source>
@@ -8397,18 +8688,6 @@ Kjerne: %3 %4</translation>
         <translation>fil tom</translation>
     </message>
     <message>
-        <source>malformed string</source>
-        <translation>Deformert streng</translation>
-    </message>
-    <message>
-        <source>missing closing quote</source>
-        <translation>Manglende avsluttende anførselstegn</translation>
-    </message>
-    <message>
-        <source>%1: (row, col) %2,%3</source>
-        <translation>%1: (rad, kolonne) %2,%3</translation>
-    </message>
-    <message>
         <source>AES 256-bit</source>
         <translation>AES 256-biter</translation>
     </message>
@@ -8867,6 +9146,74 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Only PBKDF and Argon2 are supported, cannot decrypt json file</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Reset Shortcuts</source>
+        <translation>Tilbakestill snarveier</translation>
+    </message>
+    <message>
+        <source>Double click an action to change its shortcut</source>
+        <translation>Dobbeltrykk på en handling for å endre snarveien</translation>
+    </message>
+    <message>
+        <source>Filter...</source>
+        <translation>Filtrer...</translation>
+    </message>
+    <message>
+        <source>Shortcut Conflict</source>
+        <translation>Snarveikonflikt</translation>
+    </message>
+    <message>
+        <source>Shortcut %1 conflicts with &apos;%2&apos;. Overwrite shortcut?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cannot generate valid passphrases because the wordlist is too short</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Encrypted files are not supported.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Proton Pass Import</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete plugin data?</source>
+        <translation>Slett programtillegg-data?</translation>
+    </message>
+    <message numerus="yes">
+        <source>Delete plugin data from Entry(s)?</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Passkey</source>
+        <translation>Tilgangsnøkkel</translation>
+    </message>
+    <message>
+        <source>Format to use when exporting. Available choices are &apos;xml&apos;, &apos;csv&apos; or &apos;html&apos;. Defaults to &apos;xml&apos;.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>start minimized to the system tray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>malformed string, possible unescaped delimiter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>missing closing delimiter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1, row: %2, column: %3</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Tagger</translation>
+    </message>
 </context>
 <context>
     <name>QtIOCompressor</name>
@@ -8999,6 +9346,10 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Exclude from reports</source>
         <translation>Utelat fra rapporter</translation>
     </message>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
     <message>
         <source>Only show entries that have a URL</source>
         <translation>Vis bare oppføringer som har en URL</translation>
@@ -9015,35 +9366,32 @@ This option is deprecated, use --set-key-file instead.</source>
         <source> (Expired)</source>
         <translation> (Utløpt)</translation>
     </message>
+    <message numerus="yes">
+        <source>Delete plugin data from Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
 </context>
 <context>
     <name>ReportsWidgetHealthcheck</name>
     <message>
-        <source>Hover over reason to show additional details. Double-click entries to edit.</source>
-        <translation>Hold pekeren over årsaken for å vise flere detaljer. Dobbeltklikk på oppføringer for å redigere.</translation>
+        <source>Show expired entries</source>
+        <translation>Vis utløpte oppføringer</translation>
     </message>
     <message>
-        <source>Bad</source>
-        <comment>Password quality</comment>
-        <translation>Dårlig</translation>
+        <source> (Expired)</source>
+        <translation> (Utløpt)</translation>
+    </message>
+    <message>
+        <source>Hover over reason to show additional details. Double-click entries to edit.</source>
+        <translation>Hold pekeren over årsaken for å vise flere detaljer. Dobbeltklikk på oppføringer for å redigere.</translation>
     </message>
     <message>
         <source>Bad — password must be changed</source>
         <translation>Dårlig – passordet må endres</translation>
     </message>
     <message>
-        <source>Poor</source>
-        <comment>Password quality</comment>
-        <translation>Dårlig</translation>
-    </message>
-    <message>
         <source>Poor — password should be changed</source>
         <translation>Dårlig – passordet bør endres</translation>
-    </message>
-    <message>
-        <source>Weak</source>
-        <comment>Password quality</comment>
-        <translation>Svak</translation>
     </message>
     <message>
         <source>Weak — consider changing the password</source>
@@ -9093,17 +9441,13 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Exclude from reports</source>
         <translation>Ekskluder fra rapporter</translation>
     </message>
-    <message>
-        <source>Show expired entries</source>
-        <translation>Vis utløpte oppføringer</translation>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <source>Show entries that have been excluded from reports</source>
         <translation>Vis oppføringer som er ekskluderte fra rapporter</translation>
-    </message>
-    <message>
-        <source> (Expired)</source>
-        <translation> (Utløpt)</translation>
     </message>
 </context>
 <context>
@@ -9199,6 +9543,10 @@ This option is deprecated, use --set-key-file instead.</source>
     <message>
         <source>Exclude from reports</source>
         <translation>Ekskluder fra rapporter</translation>
+    </message>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
@@ -9440,6 +9788,14 @@ This option is deprecated, use --set-key-file instead.</source>
     <message>
         <source>No agent running, cannot list identities.</source>
         <translation>Ingen agent kjører, kan ikke liste opp identiteter.</translation>
+    </message>
+    <message>
+        <source>Failed to remove all SSH identities from agent.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>All SSH identities removed from agent.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -9724,29 +10080,6 @@ This option is deprecated, use --set-key-file instead.</source>
     <message>
         <source>Export to %1</source>
         <translation>Eksporter til %1</translation>
-    </message>
-</context>
-<context>
-    <name>ShortcutSettingsWidget</name>
-    <message>
-        <source>Double click an action to change its shortcut</source>
-        <translation>Dobbeltrykk på en handling for å endre snarveien</translation>
-    </message>
-    <message>
-        <source>Shortcut Conflict</source>
-        <translation>Snarveikonflikt</translation>
-    </message>
-    <message>
-        <source>Filter...</source>
-        <translation>Filtrer...</translation>
-    </message>
-    <message>
-        <source>Shortcut %1 conflicts with &apos;%2&apos;. Overwrite shortcut?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Reset Shortcuts</source>
-        <translation>Tilbakestill snarveier</translation>
     </message>
 </context>
 <context>
@@ -10038,12 +10371,16 @@ Eksempel: JBSWY3DPEHPK3PXP</translation>
         <translation>Ingen maskinvarenøkler oppdaget</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed as &lt;a href=&quot;https://docs.yubico.com/yesdk/users-manual/application-otp/challenge-response.html&quot;&gt;HMAC-SHA1 Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Hvis du eier en &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; eller &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, kan du bruke den for ekstra sikkerhet.&lt;/p&gt;&lt;p&gt;Nøkkelen krever at et av sporene er programmert som &lt;a href=&quot;https://docs.yubico.com/yesdk/users-manual/application-otp/utfordrerrespons.html&quot;&gt;HMAC-SHA1 utfordrerrespons&lt;/a&gt;.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Refresh hardware keys</source>
         <translation>Oppdater maskinvarenøkler</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed with &lt;a href=&quot;https://keepassxc.org/docs/#faq-yubikey-howto&quot;&gt;Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hardware keys found, but no slots are configured</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

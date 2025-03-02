@@ -218,16 +218,48 @@
         <translation>Você precisa reiniciar o aplicativo para aplicar o novo idioma. Você gostaria de reiniciar agora?</translation>
     </message>
     <message>
-        <source>Reset Settings?</source>
-        <translation>Restaurar as configurações?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to reset all general and security settings to default?</source>
-        <translation>Tem certeza que deseja restaurar todas as configurações gerais e as configurações de segurança para o padrão?</translation>
-    </message>
-    <message>
         <source>Select backup storage directory</source>
         <translation>Selecione o diretório onde o backup será armazenado</translation>
+    </message>
+    <message>
+        <source>Confirm Reset</source>
+        <translation>Confirmar Redefinição</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to reset all settings to default?</source>
+        <translation>Tem certeza de que deseja redefinir todas as configurações para o padrão?</translation>
+    </message>
+    <message>
+        <source>Import KeePassXC Settings</source>
+        <translation>Importar Configurações do KeePassXC</translation>
+    </message>
+    <message>
+        <source>Failed to import settings from %1, not a valid settings file.</source>
+        <translation>Falha ao importar configurações de %1; arquivo de configurações inválido.</translation>
+    </message>
+    <message>
+        <source>Export KeePassXC Settings</source>
+        <translation>Exportar Configurações do KeePassXC</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation>Pequeno</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normal</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Médio</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation>Grande</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Personalizado</translation>
     </message>
 </context>
 <context>
@@ -262,7 +294,7 @@
     </message>
     <message>
         <source> recent files</source>
-        <translation>arquivos recentes</translation>
+        <translation> arquivos recentes</translation>
     </message>
     <message>
         <source>Load previously open databases on startup</source>
@@ -279,25 +311,6 @@
     <message>
         <source>Include beta releases when checking for updates</source>
         <translation>Incluir versões betas durante a verificação de atualizações</translation>
-    </message>
-    <message>
-        <source>On database unlock, show entries that </source>
-        <translation>Ao desbloquear o banco de dados, mostrar entradas que</translation>
-    </message>
-    <message>
-        <source>have expired</source>
-        <comment>On database unlock, show entries that...</comment>
-        <translation>Caducou</translation>
-    </message>
-    <message>
-        <source> days</source>
-        <comment>On database unlock, show entries that will expire within %1 days</comment>
-        <translation>dias</translation>
-    </message>
-    <message>
-        <source>will expire within </source>
-        <comment>On database unlock, show entries that...</comment>
-        <translation>irá expirar dentro de</translation>
     </message>
     <message>
         <source>File Management</source>
@@ -324,20 +337,8 @@
         <translation>Fazer cópia de segurança do banco de dados antes de salvar</translation>
     </message>
     <message>
-        <source>Backup destination</source>
-        <translation>Destino do backup</translation>
-    </message>
-    <message>
-        <source>Specifies the database backup file location. Occurrences of &quot;{DB_FILENAME}&quot; are replaced with the filename of the saved database without extension. {TIME:&lt;format&gt;} is replaced with the backup time, see https://doc.qt.io/qt-5/qdatetime.html#toString. &lt;format&gt; defaults to format string &quot;dd_MM_yyyy_hh-mm-ss&quot;.</source>
-        <translation>Especifica a localização para o backup do banco de dados. As ocorrências de &quot;{DB_FILENAME}&quot; serão substituídas pelo nome do arquivo do banco de dados salvo mas sem extensão. {TIME:&lt;format&gt;} será substituído pelo horário do backup. Consulte https://doc.qt.io/qt-5/qdatetime.html#toString. &lt;format&gt; Os valores padrão a utilizar serão &quot;dd_MM_yyyy_hh-mm-ss&quot;.</translation>
-    </message>
-    <message>
         <source>{DB_FILENAME}.old.kdbx</source>
         <translation>{DB_FILENAME}.antigo.kdbx</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation>Escolher...</translation>
     </message>
     <message>
         <source>Use alternative saving method (may solve problems with Dropbox, Google Drive, GVFS, etc.)</source>
@@ -505,6 +506,71 @@
         <source>Remember last typed entry for:</source>
         <translation>Lembrar última entrada digitada para:</translation>
     </message>
+    <message>
+        <source>On database unlock, show entries that will expire within</source>
+        <translation>No desbloqueio do banco de dados, mostre as entradas que expirarão dentro</translation>
+    </message>
+    <message>
+        <source>On database unlock, show entries that will expire within </source>
+        <translation>No desbloqueio do banco de dados, mostre as entradas que expirarão dentro</translation>
+    </message>
+    <message>
+        <source> days</source>
+        <comment>number of days warning for password expiration</comment>
+        <translation>dias</translation>
+    </message>
+    <message>
+        <source>Destination format:</source>
+        <translation>Formato de destino:</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{DB_FILENAME}&lt;/span&gt; is replaced with the filename of the saved database without extension&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{TIME:&amp;lt;format&amp;gt;}&lt;/span&gt; is replaced with the specified time format (default: dd_MM_yyyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;See the User Guide for more details&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{DB_FILENAME}&lt;/span&gt; é substituído pelo nome do arquivo do banco de dados salvo sem extensão&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{TIME:&amp;lt;format&amp;gt;}&lt;/span&gt; é substituído pelo formato de hora especificado (default: dd_MM_yyyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;Consulte o Guia do Usuário para obter mais detalhes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Choose folder...</source>
+        <translation>Escolher a pasta:</translation>
+    </message>
+    <message>
+        <source>Show confirmation before moving entries to recycle bin</source>
+        <translation>Mostrar confirmação antes de mover entradas para a lixeira</translation>
+    </message>
+    <message>
+        <source>Copy data on double clicking field in entry view</source>
+        <translation>Copie os dados no campo de clique duplo na entrada exibida</translation>
+    </message>
+    <message>
+        <source>Show toolbar</source>
+        <translation>Mostrar barra de ferramentas</translation>
+    </message>
+    <message>
+        <source>Show the menu bar by pressing the Alt key</source>
+        <translation>Mostrar a barra de menu pressionando a tecla Alt</translation>
+    </message>
+    <message>
+        <source>Show menubar</source>
+        <translation>Exibir barra de menu</translation>
+    </message>
+    <message>
+        <source>Import settings…</source>
+        <translation>Importar configurações...</translation>
+    </message>
+    <message>
+        <source>Export settings…</source>
+        <translation>Exportar configurações...</translation>
+    </message>
+    <message>
+        <source>Open browser on double clicking URL field in entry view</source>
+        <translation>Abra o navegador clicando duas vezes no campo URL na entrada exibida</translation>
+    </message>
+    <message>
+        <source>Font size:</source>
+        <translation>Tamanho da fonte:</translation>
+    </message>
+    <message>
+        <source>Font size selection</source>
+        <translation>Seleção do tamanho da fonte</translation>
+    </message>
 </context>
 <context>
     <name>ApplicationSettingsWidgetSecurity</name>
@@ -571,18 +637,6 @@
         <translation>Ocultar senhas no painel da prévia de entrada</translation>
     </message>
     <message>
-        <source>Hide entry notes by default</source>
-        <translation>Esconder notas de entrada por padrão</translation>
-    </message>
-    <message>
-        <source>Move entries to recycle bin without confirmation</source>
-        <translation>Mover entradas para a lixeira sem confirmação</translation>
-    </message>
-    <message>
-        <source>Enable double click to copy the username/password entry columns</source>
-        <translation>Ativar duplo clique para copiar a entrada nome de utilizador/palavra-passe</translation>
-    </message>
-    <message>
         <source>Privacy</source>
         <translation>Privacidade</translation>
     </message>
@@ -593,6 +647,18 @@
     <message>
         <source>Hide TOTP in the entry preview panel</source>
         <translation>Ocultar TOTP no painel de visualização da entrada</translation>
+    </message>
+    <message>
+        <source>Lock databases when switching user</source>
+        <translation>Bloquear bancos de dados ao trocar de usuário</translation>
+    </message>
+    <message>
+        <source>Lock Options</source>
+        <translation>Opções de Bloqueio</translation>
+    </message>
+    <message>
+        <source>Hide notes in the entry preview panel</source>
+        <translation>Ocultar notas no painel de visualização da entrada</translation>
     </message>
 </context>
 <context>
@@ -640,20 +706,6 @@
     <message>
         <source>Entry does not have attribute for PICKCHARS: %1</source>
         <translation>A entrada não tem o atributo para PICKCHARS: %1</translation>
-    </message>
-    <message>
-        <source>Invalid conversion type: %1</source>
-        <translation>Tipo de conversão inválido: %1</translation>
-    </message>
-    <message>
-        <source>Invalid conversion syntax: %1</source>
-        <translation>Sintaxe de conversão inválida: %1</translation>
-    </message>
-    <message>
-        <source>Invalid regular expression syntax %1
-%2</source>
-        <translation>Sintaxe de expressão regular inválida %1
-%2</translation>
     </message>
     <message>
         <source>Invalid placeholder: %1</source>
@@ -1027,10 +1079,6 @@ Deseja substituir a chave de acesso em %1 - %2?</translation>
         <translation>Geral</translation>
     </message>
     <message>
-        <source>Browsers installed as snaps are currently not supported.</source>
-        <translation>Navegadores instalados como snaps atualmente não são suportados.</translation>
-    </message>
-    <message>
         <source>Enable integration for these browsers:</source>
         <translation>Habilitar integração para estes navegadores:</translation>
     </message>
@@ -1251,7 +1299,11 @@ Deseja substituir a chave de acesso em %1 - %2?</translation>
     </message>
     <message>
         <source>KeePassXC-Browser is needed for the browser integration to work. &lt;br /&gt;Download it for %1 and %2 and %3.</source>
-        <translation type="unfinished"/>
+        <translation>KeePassXC-Browser é necessário para que a integração do navegador funcione. &lt;br /&gt;Baixe-o para %1 e %2 e %3.</translation>
+    </message>
+    <message>
+        <source>Browsers installed using Snap or Flatpak are not supported with exception to Firefox installed using Snap.</source>
+        <translation>Navegadores instalados usando Snap ou Flatpak não são suportados, com exceção do Firefox instalado usando Snap.</translation>
     </message>
 </context>
 <context>
@@ -1397,12 +1449,17 @@ Deseja substituir a chave de acesso em %1 - %2?</translation>
     </message>
     <message>
         <source>No Title Selected</source>
-        <translation type="unfinished"/>
+        <translation>Nenhum Título Selecionado</translation>
     </message>
     <message>
         <source>No title column was selected, entries will be hard to tell apart.
 Are you sure you want to import?</source>
-        <translation type="unfinished"/>
+        <translation>Nenhuma coluna de título foi selecionada, será difícil distinguir as entradas.
+Tem certeza de que deseja importar?</translation>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Etiquetas</translation>
     </message>
 </context>
 <context>
@@ -1466,6 +1523,14 @@ Backup do banco de dados alocado em %2</translation>
     <message>
         <source>Recycle Bin</source>
         <translation>Lixeira</translation>
+    </message>
+    <message>
+        <source>Database file read error.</source>
+        <translation>Erro de leitura do arquivo de banco de dados.</translation>
+    </message>
+    <message>
+        <source>No file path was provided.</source>
+        <translation>Nenhum caminho de arquivo foi fornecido.</translation>
     </message>
 </context>
 <context>
@@ -1616,14 +1681,6 @@ Para impedir que esses erros apareçam, você deve ir em &quot;Configurações d
         <translation>&lt;p&gt;Além de uma senha, você pode usar um arquivo secreto para aumentar a segurança do seu banco de dados. Este arquivo pode ser gerado nas configurações de segurança do seu banco de dados.&lt;/p&gt;&lt;p&gt;Este &lt;strong&gt;não é&lt;/strong&gt; o seu arquivo de banco de dados *.kdbx!&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>Click to add a key file.</source>
-        <translation>Clique para adicionar um arquivo-chave.</translation>
-    </message>
-    <message>
-        <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;Eu tenho um arquivo-chave&lt;/a&gt;</translation>
-    </message>
-    <message>
         <source>Use hardware key [Serial: %1]</source>
         <translation>Usar uma chave de hardware [Serial: %1]</translation>
     </message>
@@ -1658,6 +1715,18 @@ Tem certeza de que deseja continuar com este arquivo?</translation>
     <message>
         <source>Refresh Hardware Keys</source>
         <translation>Atualizar Chaves de Hardware</translation>
+    </message>
+    <message>
+        <source>Click to add a key file.</source>
+        <translation>Clique para adicionar um arquivo-chave.</translation>
+    </message>
+    <message>
+        <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
+        <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;Eu tenho um arquivo-chave&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <source>Hardware keys found, but no slots are configured.</source>
+        <translation>Chaves de hardware encontradas, mas nenhum slot configurado.</translation>
     </message>
 </context>
 <context>
@@ -1694,8 +1763,20 @@ Tem certeza de que deseja continuar com este arquivo?</translation>
         <translation>Manutenção</translation>
     </message>
     <message>
+        <source>KeeShare</source>
+        <translation>KeeShare</translation>
+    </message>
+    <message>
+        <source>Secret Service Integration</source>
+        <translation>Integração com Secret Service</translation>
+    </message>
+    <message>
         <source>Remote Sync</source>
-        <translation type="unfinished"/>
+        <translation>Sincronização Remota</translation>
+    </message>
+    <message>
+        <source>Database Settings: %1</source>
+        <translation>Configurações do Banco de Dados: %1</translation>
     </message>
 </context>
 <context>
@@ -1873,7 +1954,7 @@ Tem certeza de que deseja continuar sem uma senha?</translation>
     </message>
     <message>
         <source>The provided password does not meet the minimum quality requirement.</source>
-        <translation type="unfinished"/>
+        <translation>A senha fornecida não atende aos requisitos mínimos de qualidade.</translation>
     </message>
 </context>
 <context>
@@ -2012,7 +2093,7 @@ Se você manter este número, seu banco de dados não estará protegido de ataqu
     <message numerus="yes">
         <source> thread(s)</source>
         <comment>Threads for parallel execution (KDF settings)</comment>
-        <translation><numerusform>processo(s)</numerusform><numerusform>processo(s)</numerusform><numerusform>processo(s)</numerusform></translation>
+        <translation><numerusform> processo(s)</numerusform><numerusform> processo(s)</numerusform><numerusform> processo(s)</numerusform></translation>
     </message>
     <message>
         <source>Encryption Settings:</source>
@@ -2176,6 +2257,50 @@ removidos do banco de dados</translation>
         <source>Autosave delay since last change checkbox</source>
         <translation>Atraso de salvamento automático desde a última caixa de seleção</translation>
     </message>
+    <message>
+        <source>Public Database Metadata</source>
+        <translation>Metadados do Banco de Dados Público</translation>
+    </message>
+    <message>
+        <source>Warning: the following settings are not encrypted.</source>
+        <translation>Aviso: as configurações a seguir não são criptografadas.</translation>
+    </message>
+    <message>
+        <source>Display name:</source>
+        <translation>Nome de exibição:</translation>
+    </message>
+    <message>
+        <source>Publically visible display name used on the unlock dialog</source>
+        <translation>Nome de exibição publicamente visível usado na caixa de diálogo de desbloqueio</translation>
+    </message>
+    <message>
+        <source>Database public display name</source>
+        <translation>Nome de exibição público do banco de dados</translation>
+    </message>
+    <message>
+        <source>Display color:</source>
+        <translation>Cor de exibição:</translation>
+    </message>
+    <message>
+        <source>Publically visible color used on the unlock dialog</source>
+        <translation>Cor publicamente visível usada na caixa de diálogo de desbloqueio</translation>
+    </message>
+    <message>
+        <source>Database public display color chooser</source>
+        <translation>Seletor de cores de exibição pública do banco de dados</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Limpar</translation>
+    </message>
+    <message>
+        <source>Display icon:</source>
+        <translation>Ícone de exibição:</translation>
+    </message>
+    <message>
+        <source>Select Database Icon</source>
+        <translation>Selecionar o Ícone do Banco de Dados</translation>
+    </message>
 </context>
 <context>
     <name>DatabaseSettingsWidgetKeeShare</name>
@@ -2275,7 +2400,7 @@ removidos do banco de dados</translation>
     <name>DatabaseSettingsWidgetRemote</name>
     <message>
         <source>Sync Commands</source>
-        <translation type="unfinished"/>
+        <translation>Comandos de Sincronização</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -2283,7 +2408,7 @@ removidos do banco de dados</translation>
     </message>
     <message>
         <source>Command Settings</source>
-        <translation type="unfinished"/>
+        <translation>Configurações de Comando</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2295,75 +2420,75 @@ removidos do banco de dados</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>Baixar</translation>
     </message>
     <message>
         <source>Command:</source>
-        <translation type="unfinished"/>
+        <translation>Comando:</translation>
     </message>
     <message>
         <source>Download command field</source>
-        <translation type="unfinished"/>
+        <translation>Campo do comando baixar</translation>
     </message>
     <message>
         <source>e.g.: &quot;sftp user@hostname&quot; or &quot;scp user@hostname:DatabaseOnRemote.kdbx {TEMP_DATABASE}&quot;</source>
-        <translation type="unfinished"/>
+        <translation>por exemplo: &apos;sftp user@hostname&apos; ou &apos;scp user@hostname:DatabaseOnRemote.kdbx {TEMP_DATABASE}&apos;</translation>
     </message>
     <message>
         <source>Input:</source>
-        <translation type="unfinished"/>
+        <translation>Entrada:</translation>
     </message>
     <message>
         <source>Download input field</source>
-        <translation type="unfinished"/>
+        <translation>Campo do comando baixar</translation>
     </message>
     <message>
         <source>Upload</source>
-        <translation type="unfinished"/>
+        <translation>Enviar</translation>
     </message>
     <message>
         <source>Upload command field</source>
-        <translation type="unfinished"/>
+        <translation>Campo do comando enviar</translation>
     </message>
     <message>
         <source>e.g.: &quot;sftp user@hostname&quot; or &quot;scp {TEMP_DATABASE} user@hostname:DatabaseOnRemote.kdbx&quot;</source>
-        <translation type="unfinished"/>
+        <translation>por exemplo: &apos;sftp user@hostname&apos; ou &apos;scp {TEMP_DATABASE} user@hostname:DatabaseOnRemote.kdbx&apos;</translation>
     </message>
     <message>
         <source>Upload input field</source>
-        <translation type="unfinished"/>
+        <translation>Campo de entrada enviar</translation>
     </message>
     <message>
         <source>Name cannot be empty.</source>
-        <translation type="unfinished"/>
+        <translation>O nome não pode ficar vazio.</translation>
     </message>
     <message>
         <source>Test</source>
-        <translation type="unfinished"/>
+        <translation>Testar</translation>
     </message>
     <message>
         <source>Download command cannot be empty.</source>
-        <translation type="unfinished"/>
+        <translation>O comando de baixar não pode estar vazio.</translation>
     </message>
     <message>
         <source>Download failed with error: %1</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao baixar com erro: %1</translation>
     </message>
     <message>
         <source>Download finished, but file %1 could not be found.</source>
-        <translation type="unfinished"/>
+        <translation>O download foi concluído, mas o arquivo %1 não foi encontrado.</translation>
     </message>
     <message>
         <source>Download successful.</source>
-        <translation type="unfinished"/>
+        <translation>Download bem-sucedido.</translation>
     </message>
     <message>
         <source>Save Remote Settings</source>
-        <translation type="unfinished"/>
+        <translation>Salvar Configurações Remotas</translation>
     </message>
     <message>
         <source>You have unsaved changes. Do you want to save them?</source>
-        <translation type="unfinished"/>
+        <translation>Você tem alterações não salvas. Você quer salvá-los?</translation>
     </message>
     <message>
         <source>e.g.:
@@ -2373,7 +2498,12 @@ exit
 {TEMP_DATABASE} is used as placeholder to store the database in a temporary location
 The command has to exit. In case of `sftp` as last command `exit` has to be sent
             </source>
-        <translation type="unfinished"/>
+        <translation>por exemplo:
+obtenha DatabaseOnRemote.kdbx {TEMP_DATABASE}
+sair
+---
+{TEMP_DATABASE} é usado como espaço reservado para armazenar o banco de dados em um local temporário
+O comando tem que sair. No caso de `sftp` como último comando `exit` deve ser enviado</translation>
     </message>
     <message>
         <source>e.g.:
@@ -2383,7 +2513,20 @@ exit
 {TEMP_DATABASE} is used as placeholder to store the database in a temporary location
 The command has to exit. In case of `sftp` as last command `exit` has to be sent
             </source>
-        <translation type="unfinished"/>
+        <translation>por exemplo:
+coloque {TEMP_DATABASE} DatabaseOnRemote.kdbx
+sair
+---
+{TEMP_DATABASE} é usado como espaço reservado para armazenar o banco de dados em um local temporário
+O comando tem que sair. No caso de `sftp` como último comando `exit` deve ser enviado</translation>
+    </message>
+    <message>
+        <source>Timeout:</source>
+        <translation>Esgotamento:</translation>
+    </message>
+    <message>
+        <source> seconds</source>
+        <translation>segundos</translation>
     </message>
 </context>
 <context>
@@ -2462,7 +2605,7 @@ Este é definitivamente um bug, por favor denuncie para os desenvolvedores.</tra
     <message>
         <source>%1 [Temporary]</source>
         <comment>Database tab name modifier</comment>
-        <translation type="unfinished"/>
+        <translation>%1 [Temporário]</translation>
     </message>
 </context>
 <context>
@@ -2588,26 +2731,6 @@ Salvar alterações?</translation>
         <translation>O arquivo foi modificado</translation>
     </message>
     <message>
-        <source>The database file has changed. Do you want to load the changes?</source>
-        <translation>O banco de dados foi alterado. Deseja carregar as alterações?</translation>
-    </message>
-    <message>
-        <source>Merge Request</source>
-        <translation>Juntar Pedido</translation>
-    </message>
-    <message>
-        <source>The database file has changed and you have unsaved changes.
-Do you want to merge your changes?</source>
-        <translation>O arquivo de banco de dados foi alterado e você tem alterações não salvas.
-Você deseja combinar suas alterações?</translation>
-    </message>
-    <message>
-        <source>Could not open the new database file while attempting to autoreload.
-Error: %1</source>
-        <translation>Não foi possível abrir o novo arquivo de banco de dados ao tentar executar o carregamento automático.
-Erro: %1</translation>
-    </message>
-    <message>
         <source>Disable safe saves?</source>
         <translation>Desativar armazenamento seguro?</translation>
     </message>
@@ -2660,19 +2783,19 @@ Deseja desabilitar salvamento seguro e tentar novamente?</translation>
     </message>
     <message>
         <source>Remote Sync did not contain any download or upload commands.</source>
-        <translation type="unfinished"/>
+        <translation>A Sincronização Remota não continha nenhum comando de download ou upload.</translation>
     </message>
     <message>
         <source>Remote sync &apos;%1&apos; completed successfully!</source>
-        <translation type="unfinished"/>
+        <translation>A sincronização remota &apos;%1&apos; foi concluída com sucesso!</translation>
     </message>
     <message>
         <source>Remote sync &apos;%1&apos; failed: %2</source>
-        <translation type="unfinished"/>
+        <translation>Falha na sincronização remota &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <source>Error while saving database %1: %2</source>
-        <translation type="unfinished"/>
+        <translation>Erro ao salvar o banco de dados %1: %2</translation>
     </message>
     <message>
         <source>Downloading...</source>
@@ -2680,11 +2803,11 @@ Deseja desabilitar salvamento seguro e tentar novamente?</translation>
     </message>
     <message>
         <source>Uploading...</source>
-        <translation type="unfinished"/>
+        <translation>Enviando...</translation>
     </message>
     <message>
         <source>Syncing...</source>
-        <translation type="unfinished"/>
+        <translation>Sincronizando...</translation>
     </message>
     <message>
         <source>Remove passkey from entry</source>
@@ -2693,6 +2816,50 @@ Deseja desabilitar salvamento seguro e tentar novamente?</translation>
     <message>
         <source>Do you want to remove the passkey from this entry?</source>
         <translation>Deseja remover a chave de acesso desta entrada?</translation>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally</source>
+        <translation>O arquivo de banco de dados &quot;%1&quot; foi modificado externamente</translation>
+    </message>
+    <message>
+        <source>Do you want to load the changes?</source>
+        <translation>Você quer carregar as alterações?</translation>
+    </message>
+    <message>
+        <source>Reload database</source>
+        <translation>Recarregar banco de dados</translation>
+    </message>
+    <message>
+        <source>Reloading database…</source>
+        <translation>Recarregando banco de dados...</translation>
+    </message>
+    <message>
+        <source>Reload canceled</source>
+        <translation>Recarregar cancelado</translation>
+    </message>
+    <message>
+        <source>Reload successful</source>
+        <translation>Recarregar com sucesso</translation>
+    </message>
+    <message>
+        <source>Reload pending user action…</source>
+        <translation>Recarregar pendente da ação do usuário...</translation>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes&lt;br&gt;Ignore the changes on disk until save&lt;br&gt;Discard unsaved changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes then save&lt;br&gt;Overwrite the changes on disk&lt;br&gt;Discard unsaved changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database file overwritten.</source>
+        <translation>Arquivo de banco de dados substituído.</translation>
+    </message>
+    <message>
+        <source>Database file on disk cannot be unlocked with current credentials.&lt;br&gt;Enter new credentials and/or present hardware key to continue.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3023,16 +3190,8 @@ Gostaria de a corrigir?</translation>
         <translation>Ignorar Auto-Envio para esta entrada</translation>
     </message>
     <message>
-        <source>Only send this setting to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
-        <translation>Envia esta configuração apenas ao navegador para caixas de diálogo de Autenticação HTTP. Se ativado, os formulários de login normais não mostrarão esta entrada para seleção.</translation>
-    </message>
-    <message>
         <source>Use this entry only with HTTP Basic Auth</source>
         <translation>Usar esta entrada somente com Autenticação HTTP Básica</translation>
-    </message>
-    <message>
-        <source>Do not send this setting to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
-        <translation>Não envia esta configuração para o navegador para caixas de diálogo de Autenticação HTTP. Se ativado, as caixas de diálogo de Autenticação HTTP não mostrarão esta entrada para seleção.</translation>
     </message>
     <message>
         <source>Do not use this entry with HTTP Basic Auth</source>
@@ -3057,6 +3216,14 @@ Gostaria de a corrigir?</translation>
     <message>
         <source>Additional URLs</source>
         <translation>URLs adicionais</translation>
+    </message>
+    <message>
+        <source>Only send this entry to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
+        <translation>Envie esta entrada apenas para o navegador para caixas de diálogo de autenticação HTTP. Se ativado, os formulários de login normais não mostrarão esta entrada para seleção.</translation>
+    </message>
+    <message>
+        <source>Do not send this entry to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
+        <translation>Não envie esta entrada ao navegador para caixas de diálogo de autenticação HTTP. Se ativado, as caixas de diálogo HTTP Auth não mostrarão esta entrada para seleção.</translation>
     </message>
 </context>
 <context>
@@ -3279,6 +3446,10 @@ Gostaria de a corrigir?</translation>
     <message>
         <source> seconds</source>
         <translation>segundos</translation>
+    </message>
+    <message>
+        <source>Clear agent</source>
+        <translation>Limpar agente</translation>
     </message>
 </context>
 <context>
@@ -3726,12 +3897,41 @@ Isto pode causar mal funcionamento dos plugins afetados.</translation>
         <source>Passkey</source>
         <translation>Chave de acesso</translation>
     </message>
+    <message>
+        <source>Invalid conversion type: %1</source>
+        <translation>Tipo de conversão inválido: %1</translation>
+    </message>
+    <message>
+        <source>Invalid conversion syntax: %1</source>
+        <translation>Sintaxe de conversão inválida: %1</translation>
+    </message>
+    <message>
+        <source>Invalid regular expression syntax %1
+%2</source>
+        <translation>Sintaxe de expressão regular inválida %1
+%2</translation>
+    </message>
 </context>
 <context>
     <name>EntryAttachments</name>
     <message>
         <source>Cannot open file &quot;%1&quot;</source>
         <translation>Não é possível abrir o arquivo %1.</translation>
+    </message>
+</context>
+<context>
+    <name>EntryAttachmentsDialog</name>
+    <message>
+        <source>Form</source>
+        <translation>Formulário</translation>
+    </message>
+    <message>
+        <source>File name</source>
+        <translation>Nome do arquivo</translation>
+    </message>
+    <message>
+        <source>File contents...</source>
+        <translation>Conteúdo do arquivo...</translation>
     </message>
 </context>
 <context>
@@ -3770,14 +3970,6 @@ Isto pode causar mal funcionamento dos plugins afetados.</translation>
     <message>
         <source>Remove</source>
         <translation>Remover</translation>
-    </message>
-    <message>
-        <source>Rename selected attachment</source>
-        <translation>Renomear anexo selecionado</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Renomear</translation>
     </message>
     <message>
         <source>Open selected attachment</source>
@@ -3894,6 +4086,18 @@ Erro: %1</translation>
 Would you like to overwrite the existing attachment?</source>
         <translation>O anexo &quot;%1&quot; já existe.
 Deseja fazer a substituição do anexo já existente?</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Visualização</translation>
+    </message>
+    <message>
+        <source>Failed to preview an attachment: Attachment not found</source>
+        <translation>Falha ao visualizar um anexo: Anexo não encontrado</translation>
     </message>
 </context>
 <context>
@@ -4092,6 +4296,10 @@ Deseja fazer a substituição do anexo já existente?</translation>
     <message>
         <source>Background Color</source>
         <translation>Cor de fundo</translation>
+    </message>
+    <message>
+        <source>Group Path</source>
+        <translation>Caminho do Grupo</translation>
     </message>
 </context>
 <context>
@@ -4487,6 +4695,14 @@ Você pode habilitar o serviço de ícones do DuckDuckGo na seção de seguranç
         <source>Url</source>
         <translation>Url</translation>
     </message>
+    <message>
+        <source>Could not load key file.</source>
+        <translation>Não foi possível carregar o arquivo de chave.</translation>
+    </message>
+    <message>
+        <source>Could not open remote database. Password or key file may be incorrect.</source>
+        <translation>Não foi possível abrir o banco de dados remoto. A senha ou o arquivo de chave podem estar incorretos.</translation>
+    </message>
 </context>
 <context>
     <name>ImportWizardPageSelect</name>
@@ -4589,6 +4805,49 @@ Você pode habilitar o serviço de ícones do DuckDuckGo na seção de seguranç
     <message>
         <source>KeePass1 Database</source>
         <translation>Banco de dados do KeePass1</translation>
+    </message>
+    <message>
+        <source>Proton Pass (.json)</source>
+        <translation>Proton Pass (.json)</translation>
+    </message>
+    <message>
+        <source>Proton Pass JSON Export</source>
+        <translation>Exportar para Proton Pass JSON</translation>
+    </message>
+    <message>
+        <source>Temporary Database</source>
+        <translation>Banco de Dados Temporário</translation>
+    </message>
+    <message>
+        <source>Command:</source>
+        <translation>Comando:</translation>
+    </message>
+    <message>
+        <source>e.g.: &quot;sftp user@hostname&quot; or &quot;scp user@hostname:DatabaseOnRemote.kdbx {TEMP_DATABASE}&quot;</source>
+        <translation>por exemplo: &apos;sftp user@hostname&apos; ou &apos;scp user@hostname:DatabaseOnRemote.kdbx {TEMP_DATABASE}&apos;</translation>
+    </message>
+    <message>
+        <source>Input:</source>
+        <translation>Entrada:</translation>
+    </message>
+    <message>
+        <source>e.g.:
+get DatabaseOnRemote.kdbx {TEMP_DATABASE}
+exit
+---
+{TEMP_DATABASE} is used as placeholder to store the database in a temporary location
+The command has to exit. In case of `sftp` as last commend `exit` has to be sent
+         </source>
+        <translation>por exemplo:
+get DatabaseOnRemote.kdbx {TEMP_DATABASE}
+exit
+---
+{TEMP_DATABASE} é usado como espaço reservado para armazenar o banco de dados em um local temporário
+O comando tem que sair. No caso de `sftp` como último comando `exit` deve ser enviado</translation>
+    </message>
+    <message>
+        <source>Remote Database (.kdbx)</source>
+        <translation>Banco de Dados Remoto (.kdbx)</translation>
     </message>
 </context>
 <context>
@@ -5732,12 +5991,6 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 Pode encontrar erros graves e esta versão não deve ser utilizada em ambientes de produção.</translation>
     </message>
     <message>
-        <source>WARNING: Your Qt version may cause KeePassXC to crash with an On-Screen Keyboard.
-We recommend you use the AppImage available on our downloads page.</source>
-        <translation>AVISO: Sua versão do Qt pode fazer com que o KeePassXC trave com um teclado na tela!
-Recomendamos que você use o AppImage disponível em nossa página de downloads.</translation>
-    </message>
-    <message>
         <source>No Tags</source>
         <translation>Sem Etiquetas</translation>
     </message>
@@ -5808,6 +6061,10 @@ Recomendamos que você use o AppImage disponível em nossa página de downloads.
     <message>
         <source>Import Passkey</source>
         <translation>Importar Chave de Acesso</translation>
+    </message>
+    <message>
+        <source>Remote S&amp;ync…</source>
+        <translation>S&amp;incronização Remota...</translation>
     </message>
     <message>
         <source>Quit Application</source>
@@ -5912,6 +6169,10 @@ Recomendamos que você use o AppImage disponível em nossa página de downloads.
     <message>
         <source>Show Password Generator</source>
         <translation>Mostrar Gerador de Senhas</translation>
+    </message>
+    <message>
+        <source>Remove Passkey From Entry</source>
+        <translation>Remover a chave de acesso da entrada</translation>
     </message>
     <message>
         <source>Perform Auto-Type: {USERNAME}</source>
@@ -6058,15 +6319,31 @@ Recomendamos que você use o AppImage disponível em nossa página de downloads.
         <translation>Alternar para Permitir Captura de Tela</translation>
     </message>
     <message>
-        <source>Remote S&amp;ync…</source>
-        <translation type="unfinished"/>
+        <source>Show Group Panel</source>
+        <translation>Mostrar Painel do Grupo</translation>
     </message>
     <message>
-        <source>Remove Passkey From Entry</source>
-        <translation>remover a chave de acesso da entrada</translation>
+        <source>Toggle Show Group Panel</source>
+        <translation>Alternar Exibição do Painel do Grupo</translation>
     </message>
     <message>
         <source>Setup Remote Sync…</source>
+        <translation>Configurar Sincronização Remota...</translation>
+    </message>
+    <message>
+        <source>Password Generator</source>
+        <translation>Gerador de Senha</translation>
+    </message>
+    <message>
+        <source>E&amp;xpire Entry…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear SSH Agent</source>
+        <translation>Limpar agente SSH</translation>
+    </message>
+    <message>
+        <source>Clear all identities in ssh-agent</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6217,6 +6494,25 @@ Recomendamos que você use o AppImage disponível em nossa página de downloads.
     <message>
         <source>Please fill in the display name and an optional description for your new database:</source>
         <translation>Por favor preencha o nome de exibição e uma descrição opcional para o seu novo banco de dados:</translation>
+    </message>
+</context>
+<context>
+    <name>NewEntryAttachmentsDialog</name>
+    <message>
+        <source>Attachment name cannot be empty</source>
+        <translation>O nome do anexo não pode estar vazio</translation>
+    </message>
+    <message>
+        <source>Attachment with the same name already exists</source>
+        <translation>Anexo com o mesmo nome já existe</translation>
+    </message>
+    <message>
+        <source>Save attachment</source>
+        <translation>Salvar anexo</translation>
+    </message>
+    <message>
+        <source>New entry attachment</source>
+        <translation>Novo anexo da entrada</translation>
     </message>
 </context>
 <context>
@@ -6765,10 +7061,6 @@ Os seguintes dados estão faltando:
         <translation>Escolher também de:</translation>
     </message>
     <message>
-        <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;</source>
-        <translation>Caracteres excluídos: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;</translation>
-    </message>
-    <message>
         <source>Exclude look-alike characters</source>
         <translation>Excluir caracteres semelhantes</translation>
     </message>
@@ -6793,10 +7085,6 @@ Os seguintes dados estão faltando:
         <translation>Número de Palavras:</translation>
     </message>
     <message>
-        <source>Character Count:</source>
-        <translation>Número de Caracteres:</translation>
-    </message>
-    <message>
         <source>Word Case:</source>
         <translation>Caixa da palavra:</translation>
     </message>
@@ -6807,10 +7095,6 @@ Os seguintes dados estão faltando:
     <message>
         <source>Add custom wordlist</source>
         <translation>Adicionar lista de palavras personalizada</translation>
-    </message>
-    <message>
-        <source>character</source>
-        <translation>caractere</translation>
     </message>
     <message>
         <source>Close</source>
@@ -6918,6 +7202,22 @@ Tem certeza que deseja substitui-la?</translation>
         <source>Special Characters</source>
         <translation>Caracteres Especiais</translation>
     </message>
+    <message>
+        <source>passwordLength</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Characters: %1</source>
+        <translation>Caracteres: %1</translation>
+    </message>
+    <message>
+        <source>MIXED case</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;, &quot;B&quot;, &quot;8&quot;, &quot;G&quot;, &quot;6&quot;</source>
+        <translation>Caracteres excluídos: &apos;0&apos;, &apos;1&apos;, &apos;l&apos;, &apos;I&apos;, &apos;O&apos;, &apos;|&apos;, &apos;﹒&apos;, &apos;B&apos;, &apos;8&apos;, &apos;G&apos;, &apos;6&apos;</translation>
+    </message>
 </context>
 <context>
     <name>PasswordWidget</name>
@@ -6983,6 +7283,21 @@ Tem certeza que deseja substitui-la?</translation>
     <message>
         <source>Press &amp;Tab between characters</source>
         <translation>Pressione &amp;Tab entre os caracteres</translation>
+    </message>
+</context>
+<context>
+    <name>PreviewEntryAttachmentsDialog</name>
+    <message>
+        <source>Preview entry attachment</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No preview available</source>
+        <translation>Nenhuma prévia disponível </translation>
+    </message>
+    <message>
+        <source>Image format not supported</source>
+        <translation>Formato de imagem não suportado</translation>
     </message>
 </context>
 <context>
@@ -7664,10 +7979,6 @@ Tem certeza que deseja substitui-la?</translation>
         <translation>Contador de palavra %1 inválido</translation>
     </message>
     <message>
-        <source>The word list is too small (&lt; 1000 items)</source>
-        <translation>A lista de palavras é muito pequena (&lt;1000 itens)</translation>
-    </message>
-    <message>
         <source>Title for the entry.</source>
         <translation>Título para a entrada.</translation>
     </message>
@@ -7810,10 +8121,6 @@ Tem certeza que deseja substitui-la?</translation>
     <message>
         <source>Exit interactive mode.</source>
         <translation>Sair do modo interativo.</translation>
-    </message>
-    <message>
-        <source>Format to use when exporting. Available choices are &apos;xml&apos; or &apos;csv&apos;. Defaults to &apos;xml&apos;.</source>
-        <translation>Formato usado ao exportar. Escolhas disponíveis são &apos;xml&apos; ou &apos;csv&apos;. O padrão é &apos;xml&apos;.</translation>
     </message>
     <message>
         <source>Exports the content of a database to standard output in the specified format.</source>
@@ -8404,18 +8711,6 @@ Foi encontrada a versão %2.%3.%4</translation>
         <translation>arquivo vazio</translation>
     </message>
     <message>
-        <source>malformed string</source>
-        <translation>sequência de caracteres malformada</translation>
-    </message>
-    <message>
-        <source>missing closing quote</source>
-        <translation>apóstrofo de fechamento ausente</translation>
-    </message>
-    <message>
-        <source>%1: (row, col) %2,%3</source>
-        <translation>%1: (linha, coluna) %2,%3</translation>
-    </message>
-    <message>
         <source>AES 256-bit</source>
         <translation>AES 256-bit</translation>
     </message>
@@ -8865,15 +9160,83 @@ Essa opção está obsoleta; em vez disso, use --set-key-file.</translation>
     </message>
     <message>
         <source>Invalid KDF iterations, cannot decrypt json file</source>
-        <translation type="unfinished"/>
+        <translation>Iterações KDF inválidas, não é possível descriptografar o arquivo json</translation>
     </message>
     <message>
         <source>Unsupported format, ensure your Bitwarden export is password-protected</source>
-        <translation type="unfinished"/>
+        <translation>Formato não suportado, certifique-se de que sua exportação Bitwarden esteja protegida por senha</translation>
     </message>
     <message>
         <source>Only PBKDF and Argon2 are supported, cannot decrypt json file</source>
+        <translation>Apenas PBKDF e Argon2 são suportados, não é possível descriptografar o arquivo json</translation>
+    </message>
+    <message>
+        <source>Reset Shortcuts</source>
+        <translation>Redefinir Atalhos</translation>
+    </message>
+    <message>
+        <source>Double click an action to change its shortcut</source>
+        <translation>Clique duas vezes em uma ação para alterar seu atalho</translation>
+    </message>
+    <message>
+        <source>Filter...</source>
+        <translation>Filtro...</translation>
+    </message>
+    <message>
+        <source>Shortcut Conflict</source>
+        <translation>Conflito de Atalhos</translation>
+    </message>
+    <message>
+        <source>Shortcut %1 conflicts with &apos;%2&apos;. Overwrite shortcut?</source>
+        <translation>O atalho %1 está em conflito com &apos;%2&apos;. Substituir o atalho?</translation>
+    </message>
+    <message>
+        <source>Cannot generate valid passphrases because the wordlist is too short</source>
+        <translation>Não é possível gerar senhas válidas porque a lista de palavras é muito curta</translation>
+    </message>
+    <message>
+        <source>Encrypted files are not supported.</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Proton Pass Import</source>
+        <translation>Importar do Proton Pass</translation>
+    </message>
+    <message>
+        <source>Delete plugin data?</source>
+        <translation>Apagar dados do plugin?</translation>
+    </message>
+    <message numerus="yes">
+        <source>Delete plugin data from Entry(s)?</source>
+        <translation><numerusform>Excluir dados do plugin da Entrada?</numerusform><numerusform>Excluir dados do plugin da(s) Entrada(s)?</numerusform><numerusform>Excluir dados do plugin da(s) Entrada(s)?</numerusform></translation>
+    </message>
+    <message>
+        <source>Passkey</source>
+        <translation>Chave de acesso</translation>
+    </message>
+    <message>
+        <source>Format to use when exporting. Available choices are &apos;xml&apos;, &apos;csv&apos; or &apos;html&apos;. Defaults to &apos;xml&apos;.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>start minimized to the system tray</source>
+        <translation>iniciar minimizado na bandeja do sistema</translation>
+    </message>
+    <message>
+        <source>malformed string, possible unescaped delimiter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>missing closing delimiter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1, row: %2, column: %3</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Etiquetas</translation>
     </message>
 </context>
 <context>
@@ -8922,7 +9285,7 @@ Essa opção está obsoleta; em vez disso, use --set-key-file.</translation>
     </message>
     <message>
         <source>Invalid download parameters provided.</source>
-        <translation type="unfinished"/>
+        <translation>Parâmetros de download inválidos fornecidos.</translation>
     </message>
     <message>
         <source>Command `%1` failed to download database.</source>
@@ -8930,7 +9293,7 @@ Essa opção está obsoleta; em vez disso, use --set-key-file.</translation>
     </message>
     <message>
         <source>Invalid database pointer or upload parameters provided.</source>
-        <translation type="unfinished"/>
+        <translation>Ponteiro de banco de dados ou parâmetros de upload inválidos fornecidos.</translation>
     </message>
     <message>
         <source>Command `%1` exited with status code: %2</source>
@@ -9007,6 +9370,10 @@ Essa opção está obsoleta; em vez disso, use --set-key-file.</translation>
         <source>Exclude from reports</source>
         <translation>Excluir dos relatórios</translation>
     </message>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
     <message>
         <source>Only show entries that have a URL</source>
         <translation>Mostrar apenas entradas que tenham a URL</translation>
@@ -9023,35 +9390,32 @@ Essa opção está obsoleta; em vez disso, use --set-key-file.</translation>
         <source> (Expired)</source>
         <translation> (Expirada)</translation>
     </message>
+    <message numerus="yes">
+        <source>Delete plugin data from Entry(s)…</source>
+        <translation><numerusform>Excluir dados de plugin da Entrada...</numerusform><numerusform>Excluir dados de plugin(s) da(s) Entrada(s)...</numerusform><numerusform>Excluir dados de plugin(s) da(s) Entrada(s)...</numerusform></translation>
+    </message>
 </context>
 <context>
     <name>ReportsWidgetHealthcheck</name>
     <message>
-        <source>Hover over reason to show additional details. Double-click entries to edit.</source>
-        <translation>Passe o mouse sobre o motivo para mostrar detalhes adicionais. Clique duas vezes nas entradas para editar.</translation>
+        <source>Show expired entries</source>
+        <translation>Mostrar entradas expiradas</translation>
     </message>
     <message>
-        <source>Bad</source>
-        <comment>Password quality</comment>
-        <translation>Ruim</translation>
+        <source> (Expired)</source>
+        <translation> (Expirada)</translation>
+    </message>
+    <message>
+        <source>Hover over reason to show additional details. Double-click entries to edit.</source>
+        <translation>Passe o mouse sobre o motivo para mostrar detalhes adicionais. Clique duas vezes nas entradas para editar.</translation>
     </message>
     <message>
         <source>Bad — password must be changed</source>
         <translation>Ruim — a senha precisa ser mudada</translation>
     </message>
     <message>
-        <source>Poor</source>
-        <comment>Password quality</comment>
-        <translation>Pobre</translation>
-    </message>
-    <message>
         <source>Poor — password should be changed</source>
         <translation>Pobre — a senha precisa ser mudada</translation>
-    </message>
-    <message>
-        <source>Weak</source>
-        <comment>Password quality</comment>
-        <translation>Fraco</translation>
     </message>
     <message>
         <source>Weak — consider changing the password</source>
@@ -9101,17 +9465,13 @@ Essa opção está obsoleta; em vez disso, use --set-key-file.</translation>
         <source>Exclude from reports</source>
         <translation>Excluir dos relatórios</translation>
     </message>
-    <message>
-        <source>Show expired entries</source>
-        <translation>Mostrar entradas expiradas</translation>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <source>Show entries that have been excluded from reports</source>
         <translation>Mostrar entradas que foram excluídas dos relatórios</translation>
-    </message>
-    <message>
-        <source> (Expired)</source>
-        <translation> (Expirada)</translation>
     </message>
 </context>
 <context>
@@ -9207,6 +9567,10 @@ Essa opção está obsoleta; em vez disso, use --set-key-file.</translation>
     <message>
         <source>Exclude from reports</source>
         <translation>Excluir dos relatórios</translation>
+    </message>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
@@ -9448,6 +9812,14 @@ Essa opção está obsoleta; em vez disso, use --set-key-file.</translation>
     <message>
         <source>No agent running, cannot list identities.</source>
         <translation>Nenhum agente em execução, não é possível listar identidades.</translation>
+    </message>
+    <message>
+        <source>Failed to remove all SSH identities from agent.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>All SSH identities removed from agent.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -9732,29 +10104,6 @@ Essa opção está obsoleta; em vez disso, use --set-key-file.</translation>
     <message>
         <source>Export to %1</source>
         <translation>Exportar para %1</translation>
-    </message>
-</context>
-<context>
-    <name>ShortcutSettingsWidget</name>
-    <message>
-        <source>Double click an action to change its shortcut</source>
-        <translation>Clique duas vezes em uma ação para alterar seu atalho</translation>
-    </message>
-    <message>
-        <source>Shortcut Conflict</source>
-        <translation>Conflito de Atalhos</translation>
-    </message>
-    <message>
-        <source>Filter...</source>
-        <translation>Filtro...</translation>
-    </message>
-    <message>
-        <source>Shortcut %1 conflicts with &apos;%2&apos;. Overwrite shortcut?</source>
-        <translation>O atalho %1 está em conflito com &apos;%2&apos;. Substituir o atalho?</translation>
-    </message>
-    <message>
-        <source>Reset Shortcuts</source>
-        <translation>Redefinir Atalhos</translation>
     </message>
 </context>
 <context>
@@ -10046,12 +10395,16 @@ Exemplo: JBSWY3DPEHPK3PXP</translation>
         <translation>Nenhuma chave física detectada</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed as &lt;a href=&quot;https://docs.yubico.com/yesdk/users-manual/application-otp/challenge-response.html&quot;&gt;HMAC-SHA1 Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Se você possui um &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; ou &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, você pode usá-lo como uma segurança adicional.&lt;/p&gt;&lt;p&gt;A chave requer que um dos seus slots seja programado como &lt;a href=&quot;https://docs.yubico.com/yesdk/users-manual/application-otp/challenge-response.html&quot;&gt;HMAC-SHA1 Challenge-Response&lt;/a&gt;.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Refresh hardware keys</source>
         <translation>Atualizar chaves de hardware</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed with &lt;a href=&quot;https://keepassxc.org/docs/#faq-yubikey-howto&quot;&gt;Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hardware keys found, but no slots are configured</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

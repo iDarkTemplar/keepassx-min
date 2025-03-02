@@ -218,16 +218,48 @@
         <translation>За да настроите нов език, приложението трябва да рестартира. Желаете ли приложението да рестартира сега?</translation>
     </message>
     <message>
-        <source>Reset Settings?</source>
-        <translation>Да бъдат ли нулирани настройките?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to reset all general and security settings to default?</source>
-        <translation>Желаете ли основните настройки и настройките на сигурността да бъдат нулирани?</translation>
-    </message>
-    <message>
         <source>Select backup storage directory</source>
         <translation>Изберете папка, в която да бъдат за запазвани резервните копия</translation>
+    </message>
+    <message>
+        <source>Confirm Reset</source>
+        <translation>Потвърждаване на нулиране</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to reset all settings to default?</source>
+        <translation>Желаете ли всички настройки да бъдат нулирани?</translation>
+    </message>
+    <message>
+        <source>Import KeePassXC Settings</source>
+        <translation>Внасяне на настройки на KeePassXC</translation>
+    </message>
+    <message>
+        <source>Failed to import settings from %1, not a valid settings file.</source>
+        <translation>Грешка при внасяне на настройки от %1: не е приемлив файл с настройки.</translation>
+    </message>
+    <message>
+        <source>Export KeePassXC Settings</source>
+        <translation>Изнасяне на настройки на KeePassXC</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation>Малък</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Стандартен</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Среден</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation>Голям</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Потребителски</translation>
     </message>
 </context>
 <context>
@@ -270,7 +302,7 @@
     </message>
     <message>
         <source>Remember database key files and security dongles</source>
-        <translation>Запомняне на файловете-ключ и преносимите защитни устройства за хранилищата</translation>
+        <translation>Запомняне на файловете с ключ и преносимите защитни устройства за хранилищата</translation>
     </message>
     <message>
         <source>Check for updates at application startup once per week</source>
@@ -279,25 +311,6 @@
     <message>
         <source>Include beta releases when checking for updates</source>
         <translation>При проверка за обновяване да се проверяват и бета изданията</translation>
-    </message>
-    <message>
-        <source>On database unlock, show entries that </source>
-        <translation>При отключване на хранилище се показват записите</translation>
-    </message>
-    <message>
-        <source>have expired</source>
-        <comment>On database unlock, show entries that...</comment>
-        <translation>с изтекла давност</translation>
-    </message>
-    <message>
-        <source> days</source>
-        <comment>On database unlock, show entries that will expire within %1 days</comment>
-        <translation> дни</translation>
-    </message>
-    <message>
-        <source>will expire within </source>
-        <comment>On database unlock, show entries that...</comment>
-        <translation>с давност до </translation>
     </message>
     <message>
         <source>File Management</source>
@@ -324,20 +337,8 @@
         <translation>Резервно копие на хранилището преди запазване</translation>
     </message>
     <message>
-        <source>Backup destination</source>
-        <translation>Път към резервно копие</translation>
-    </message>
-    <message>
-        <source>Specifies the database backup file location. Occurrences of &quot;{DB_FILENAME}&quot; are replaced with the filename of the saved database without extension. {TIME:&lt;format&gt;} is replaced with the backup time, see https://doc.qt.io/qt-5/qdatetime.html#toString. &lt;format&gt; defaults to format string &quot;dd_MM_yyyy_hh-mm-ss&quot;.</source>
-        <translation>Указва местонахождението на файла, съдържащ резервното копие на хранилището. Където се среща низът „{DB_FILENAME}“ се заменя с името на файла на запазеното хранилище без разширението. {TIME:&lt;format&gt;} се заменя с времето на създаване на резервното копие, повече на https://doc.qt.io/qt-5/qdatetime.html#toString. &lt;format&gt; връща формата на низа по подразбиране: „dd_MM_yyyy_hh-mm-ss“.</translation>
-    </message>
-    <message>
         <source>{DB_FILENAME}.old.kdbx</source>
         <translation>{DB_FILENAME}.old.kdbx</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation>Избиране…</translation>
     </message>
     <message>
         <source>Use alternative saving method (may solve problems with Dropbox, Google Drive, GVFS, etc.)</source>
@@ -487,7 +488,7 @@
     <message>
         <source> ms</source>
         <comment>Milliseconds</comment>
-        <translation>мс</translation>
+        <translation> мс</translation>
     </message>
     <message>
         <source>Auto-Type typing delay:</source>
@@ -504,6 +505,71 @@
     <message>
         <source>Remember last typed entry for:</source>
         <translation>Запомняне на последния въведен запис за:</translation>
+    </message>
+    <message>
+        <source>On database unlock, show entries that will expire within</source>
+        <translation>При отключване на хранилище се показват записите, с изтичаща валидност след</translation>
+    </message>
+    <message>
+        <source>On database unlock, show entries that will expire within </source>
+        <translation>При отключване на хранилище се показват записите, с изтичаща валидност след </translation>
+    </message>
+    <message>
+        <source> days</source>
+        <comment>number of days warning for password expiration</comment>
+        <translation> дни</translation>
+    </message>
+    <message>
+        <source>Destination format:</source>
+        <translation>Целеви формат:</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{DB_FILENAME}&lt;/span&gt; is replaced with the filename of the saved database without extension&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{TIME:&amp;lt;format&amp;gt;}&lt;/span&gt; is replaced with the specified time format (default: dd_MM_yyyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;See the User Guide for more details&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{DB_FILENAME}&lt;/span&gt; се заменя с името на файла на хранилището, но без разширението&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{TIME:&amp;lt;format&amp;gt;}&lt;/span&gt; се заменя с избрания формат на датата (стандартно: dd_MM_yyyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;За подробности прочетете ръководството на потребителя&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Choose folder...</source>
+        <translation>Избиране на папка…</translation>
+    </message>
+    <message>
+        <source>Show confirmation before moving entries to recycle bin</source>
+        <translation>Потвърждаване при преместване на записи в кошчето</translation>
+    </message>
+    <message>
+        <source>Copy data on double clicking field in entry view</source>
+        <translation>Копиране на данните при двойно щракване върху поле в изгледа за въвеждане</translation>
+    </message>
+    <message>
+        <source>Show toolbar</source>
+        <translation>Лентата с инструменти</translation>
+    </message>
+    <message>
+        <source>Show the menu bar by pressing the Alt key</source>
+        <translation>При натискане на клавиш Alt се показва лентата с менюто</translation>
+    </message>
+    <message>
+        <source>Show menubar</source>
+        <translation>Лента с менюто</translation>
+    </message>
+    <message>
+        <source>Import settings…</source>
+        <translation>Внасяне на настройки…</translation>
+    </message>
+    <message>
+        <source>Export settings…</source>
+        <translation>Изнасяне на настройки…</translation>
+    </message>
+    <message>
+        <source>Open browser on double clicking URL field in entry view</source>
+        <translation>Отваряне на мрежовия четец при двойно щракване върху интернет адрес в изгледа за въвеждане</translation>
+    </message>
+    <message>
+        <source>Font size:</source>
+        <translation>Размер на шрифта</translation>
+    </message>
+    <message>
+        <source>Font size selection</source>
+        <translation>Списък с размери на шрифта</translation>
     </message>
 </context>
 <context>
@@ -568,19 +634,7 @@
     </message>
     <message>
         <source>Hide passwords in the entry preview panel</source>
-        <translation>Премахване на паролите от панела за преглед на записи</translation>
-    </message>
-    <message>
-        <source>Hide entry notes by default</source>
-        <translation>Бележките са скрити по подразбиране</translation>
-    </message>
-    <message>
-        <source>Move entries to recycle bin without confirmation</source>
-        <translation>Преместване на записите в кошчето без потвърждаване</translation>
-    </message>
-    <message>
-        <source>Enable double click to copy the username/password entry columns</source>
-        <translation>Двукратното щракване копира потребителско име/парола</translation>
+        <translation>Скриване на паролите в панела за преглед на запис</translation>
     </message>
     <message>
         <source>Privacy</source>
@@ -592,7 +646,19 @@
     </message>
     <message>
         <source>Hide TOTP in the entry preview panel</source>
-        <translation>Премахване на TOTP от панела за преглед на записи</translation>
+        <translation>Скриване на TOTP в панела за преглед на запис</translation>
+    </message>
+    <message>
+        <source>Lock databases when switching user</source>
+        <translation>Заключване на хранилищата при смяна на потребител</translation>
+    </message>
+    <message>
+        <source>Lock Options</source>
+        <translation>Настройки на заключване</translation>
+    </message>
+    <message>
+        <source>Hide notes in the entry preview panel</source>
+        <translation>Скриване на бележката в панела за преглед на запис</translation>
     </message>
 </context>
 <context>
@@ -640,20 +706,6 @@
     <message>
         <source>Entry does not have attribute for PICKCHARS: %1</source>
         <translation>Записът няма атрибут за PICKCHARS: %1</translation>
-    </message>
-    <message>
-        <source>Invalid conversion type: %1</source>
-        <translation>Неправилен тип на преобразуване: %1</translation>
-    </message>
-    <message>
-        <source>Invalid conversion syntax: %1</source>
-        <translation>Неправилен синтаксис на преобразуване: %1</translation>
-    </message>
-    <message>
-        <source>Invalid regular expression syntax %1
-%2</source>
-        <translation>Неправилен синтаксис на регулярен израз %1
-%2</translation>
     </message>
     <message>
         <source>Invalid placeholder: %1</source>
@@ -1018,15 +1070,11 @@ Do you want to overwrite the passkey in %1 - %2?</source>
     </message>
     <message>
         <source>Enable browser integration</source>
-        <translation>Разрешаване на съчетаването с мрежовия четец</translation>
+        <translation>Разрешаване на съчетаване с мрежови четци</translation>
     </message>
     <message>
         <source>General</source>
         <translation>Основни</translation>
-    </message>
-    <message>
-        <source>Browsers installed as snaps are currently not supported.</source>
-        <translation>Мрежови четци, инсталирани от пакети на Snap не се поддържат.</translation>
     </message>
     <message>
         <source>Enable integration for these browsers:</source>
@@ -1087,11 +1135,11 @@ Do you want to overwrite the passkey in %1 - %2?</source>
     </message>
     <message>
         <source>Returns expired credentials. String [expired] is added to the title.</source>
-        <translation>Връща самоличност с изтекла давност. Към заглавието е добавен низът „[изтекъл]“.</translation>
+        <translation>Връща самоличност с изтекла давност. Към заглавието е добавен низът „(изтекла давност)“.</translation>
     </message>
     <message>
         <source>Allow returning expired credentials</source>
-        <translation>Позволяване на връщане на самоличности с изтекла давност</translation>
+        <translation>Връщане и на записи с изтекла давност</translation>
     </message>
     <message>
         <source>All databases connected to the extension will return matching credentials.</source>
@@ -1249,7 +1297,11 @@ Do you want to overwrite the passkey in %1 - %2?</source>
     </message>
     <message>
         <source>KeePassXC-Browser is needed for the browser integration to work. &lt;br /&gt;Download it for %1 and %2 and %3.</source>
-        <translation type="unfinished"/>
+        <translation>Разширението KeePassXC-Browser е необходимо, за да работи съчетаването с мрежовия четец.&lt;br /&gt;Изтеглете за %1 и %2 и %3.</translation>
+    </message>
+    <message>
+        <source>Browsers installed using Snap or Flatpak are not supported with exception to Firefox installed using Snap.</source>
+        <translation>Не се поддържат мрежови четци, инсталирани от Снап или Флатпак, с изключение на Firefox, инсталиран от Снап.</translation>
     </message>
 </context>
 <context>
@@ -1403,6 +1455,10 @@ Are you sure you want to import?</source>
         <translation>Не е избрана колона за заглавие, следователно записите ще бъдат трудни за разграничаване.
 Желаете ли внасянето да бъде извършено?</translation>
     </message>
+    <message>
+        <source>Tags</source>
+        <translation>Етикети</translation>
+    </message>
 </context>
 <context>
     <name>CsvParserModel</name>
@@ -1466,6 +1522,14 @@ Backup database located at %2</source>
         <source>Recycle Bin</source>
         <translation>Кошче</translation>
     </message>
+    <message>
+        <source>Database file read error.</source>
+        <translation>Грешка при четене на файла на хранилището.</translation>
+    </message>
+    <message>
+        <source>No file path was provided.</source>
+        <translation>Не е зададен път до файл.</translation>
+    </message>
 </context>
 <context>
     <name>DatabaseOpenDialog</name>
@@ -1494,11 +1558,11 @@ Backup database located at %2</source>
     </message>
     <message>
         <source>Key file to unlock the database</source>
-        <translation>Файл-ключ за отключване на хранилището</translation>
+        <translation>Файл с ключ за отключване на хранилището</translation>
     </message>
     <message>
         <source>Browse for key file</source>
-        <translation>Избор на файл-ключ</translation>
+        <translation>Избор на файл с ключ</translation>
     </message>
     <message>
         <source>Browse…</source>
@@ -1566,7 +1630,7 @@ To prevent this error from appearing, you must go to &quot;Database Settings / S
     </message>
     <message>
         <source>Failed to open key file: %1</source>
-        <translation>Грешка при отваряне на файл-ключ: %1</translation>
+        <translation>Грешка при отваряне на файл с ключ: %1</translation>
     </message>
     <message>
         <source>Old key file format</source>
@@ -1586,15 +1650,15 @@ To prevent this error from appearing, you must go to &quot;Database Settings / S
     </message>
     <message>
         <source>Key files</source>
-        <translation>Файл-ключове</translation>
+        <translation>Файлове с ключ</translation>
     </message>
     <message>
         <source>Select key file</source>
-        <translation>Избор на файл-ключ</translation>
+        <translation>Избор на файл с ключ</translation>
     </message>
     <message>
         <source>Cannot use database file as key file</source>
-        <translation>Файл на хранилище не може да бъде използван като файл-ключ.</translation>
+        <translation>Файл на хранилище не може да бъде използван като файл с ключ.</translation>
     </message>
     <message>
         <source>authenticate to access the database</source>
@@ -1611,14 +1675,6 @@ To prevent this error from appearing, you must go to &quot;Database Settings / S
     <message>
         <source>&lt;p&gt;In addition to a password, you can use a secret file to enhance the security of your database. This file can be generated in your database&apos;s security settings.&lt;/p&gt;&lt;p&gt;This is &lt;strong&gt;not&lt;/strong&gt; your *.kdbx database file!&lt;/p&gt;</source>
         <translation>&lt;p&gt;В допълнение към паролата, можете да използвате таен файл за подобряване на защитата на хранилището. Този файл може да бъде създаден в настройките за защита на хранилището.&lt;/p&gt;&lt;p&gt;Това &lt;strong&gt;не&lt;/strong&gt; е файл на *.kdbx с хранилище!&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Click to add a key file.</source>
-        <translation>За да добавите файл с ключ щракнете тук.</translation>
-    </message>
-    <message>
-        <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;Имам файл с ключ&lt;/a&gt;</translation>
     </message>
     <message>
         <source>Use hardware key [Serial: %1]</source>
@@ -1654,6 +1710,18 @@ Are you sure you want to continue with this file?.</source>
         <source>Refresh Hardware Keys</source>
         <translation>Презареждане на хардуерните ключове</translation>
     </message>
+    <message>
+        <source>Click to add a key file.</source>
+        <translation>За да добавите файл с ключ щракнете тук.</translation>
+    </message>
+    <message>
+        <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
+        <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;Имам файл с ключ&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <source>Hardware keys found, but no slots are configured.</source>
+        <translation>Открити са хардуерни ключове, но без настроени слотове.</translation>
+    </message>
 </context>
 <context>
     <name>DatabaseSettingWidgetMetaData</name>
@@ -1678,19 +1746,31 @@ Are you sure you want to continue with this file?.</source>
     </message>
     <message>
         <source>Encryption Settings</source>
-        <translation>Настройки на шифроване</translation>
+        <translation>Настройки на шифроването</translation>
     </message>
     <message>
         <source>Browser Integration</source>
-        <translation>Съчетаване с мрежовия четец</translation>
+        <translation>Съчетаване с мрежов четец</translation>
     </message>
     <message>
         <source>Maintenance</source>
         <translation>Профилактика</translation>
     </message>
     <message>
+        <source>KeeShare</source>
+        <translation>KeeShare</translation>
+    </message>
+    <message>
+        <source>Secret Service Integration</source>
+        <translation>Съчетаване с Услуга за тайни</translation>
+    </message>
+    <message>
         <source>Remote Sync</source>
         <translation>Отдалечено синхронизиране</translation>
+    </message>
+    <message>
+        <source>Database Settings: %1</source>
+        <translation>Настройки на хранилището: %1</translation>
     </message>
 </context>
 <context>
@@ -1705,7 +1785,7 @@ Are you sure you want to continue with this file?.</source>
     </message>
     <message>
         <source>Forget all site-specific settings on entries</source>
-        <translation>Премахване на всички специфични за страниците настройки на записите</translation>
+        <translation>Премахване на специфичните за страници настройки от записите</translation>
     </message>
     <message>
         <source>Refresh database root group ID</source>
@@ -1765,7 +1845,7 @@ This may prevent connection to the browser plugin.</source>
     </message>
     <message numerus="yes">
         <source>Successfully removed %n encryption key(s) from KeePassXC settings.</source>
-        <translation><numerusform>Успешно отстранен %n шифроващ ключ от настройките на KeePassXC.</numerusform><numerusform>Успешно отстранен %n ключ(а) за шифроване от настройките на KeePassXC.</numerusform></translation>
+        <translation><numerusform>Успешно е отстранен %n шифроващ ключ от настройките на KeePassXC.</numerusform><numerusform>Успешно са отстранени %n шифроващи ключа от настройките на KeePassXC.</numerusform></translation>
     </message>
     <message>
         <source>Do you really want forget all site-specific settings on every entry?
@@ -1801,7 +1881,7 @@ This is only necessary if your database is a copy of another and the browser ext
     </message>
     <message>
         <source>Convert legacy KeePassHTTP attributes to KeePassXC-Browser compatible custom data</source>
-        <translation>Преобразуване на стари KeePassHTTP свойствa в съвместими с KeePassXC-Browser такива</translation>
+        <translation>Преобразуване на изведени от употреба атрибути на  KeePassHTTP в съвместими с KeePassXC-Browser</translation>
     </message>
     <message>
         <source>No keys found</source>
@@ -1943,11 +2023,11 @@ Are you sure you want to continue without a password?</source>
     </message>
     <message>
         <source>Parallelism:</source>
-        <translation>Паралелно изпълняване:</translation>
+        <translation>Паралелно изпълнение:</translation>
     </message>
     <message>
         <source>Parallelism</source>
-        <translation>Паралелно изпълняване</translation>
+        <translation>Паралелно изпълнение</translation>
     </message>
     <message>
         <source>KDBX 4 (recommended)</source>
@@ -2007,11 +2087,11 @@ If you keep this number, your database will not be protected from brute force at
     <message numerus="yes">
         <source> thread(s)</source>
         <comment>Threads for parallel execution (KDF settings)</comment>
-        <translation><numerusform>резба(и)</numerusform><numerusform> нишка(и)</numerusform></translation>
+        <translation><numerusform> нишка</numerusform><numerusform> нишки</numerusform></translation>
     </message>
     <message>
         <source>Encryption Settings:</source>
-        <translation>Настройки на шифроване:</translation>
+        <translation>Настройки на шифроването:</translation>
     </message>
     <message>
         <source>Basic</source>
@@ -2163,11 +2243,55 @@ removed from the database.</source>
     </message>
     <message>
         <source> min</source>
-        <translation>мин</translation>
+        <translation> мин</translation>
     </message>
     <message>
         <source>Autosave delay since last change checkbox</source>
         <translation>Отметка на изчакването на автоматичното запазване след промяна</translation>
+    </message>
+    <message>
+        <source>Public Database Metadata</source>
+        <translation>Публични описателни данни на хранилището</translation>
+    </message>
+    <message>
+        <source>Warning: the following settings are not encrypted.</source>
+        <translation>Внимание: следните настройки не са шифровани.</translation>
+    </message>
+    <message>
+        <source>Display name:</source>
+        <translation>Име:</translation>
+    </message>
+    <message>
+        <source>Publically visible display name used on the unlock dialog</source>
+        <translation>Общодостъпно име, използвано в диалога за отключване</translation>
+    </message>
+    <message>
+        <source>Database public display name</source>
+        <translation>Публично име на хранилището</translation>
+    </message>
+    <message>
+        <source>Display color:</source>
+        <translation>Цвят:</translation>
+    </message>
+    <message>
+        <source>Publically visible color used on the unlock dialog</source>
+        <translation>Общодостъпен цвят, използван в диалога за отключване</translation>
+    </message>
+    <message>
+        <source>Database public display color chooser</source>
+        <translation>Контрол за избор на цвят на хранилището</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Изчистване</translation>
+    </message>
+    <message>
+        <source>Display icon:</source>
+        <translation>Пиктограма:</translation>
+    </message>
+    <message>
+        <source>Select Database Icon</source>
+        <translation>Избор на пиктограма на хранилището</translation>
     </message>
 </context>
 <context>
@@ -2230,7 +2354,7 @@ removed from the database.</source>
     </message>
     <message>
         <source>Custom Icons Are In Use</source>
-        <translation>Потребителски пиктограми се използват</translation>
+        <translation>Потребителските пиктограми се използват</translation>
     </message>
     <message>
         <source>All custom icons are in use by at least one entry or group.</source>
@@ -2388,6 +2512,14 @@ exit
 Низът {TEMP_DATABASE} се използва за заместител на временното местоположение на хранилището
 Командата трябва да завърши. В случая на `sftp` последната изпратена команда трябва да бъде `exit`
             </translation>
+    </message>
+    <message>
+        <source>Timeout:</source>
+        <translation>Време на изчакване:</translation>
+    </message>
+    <message>
+        <source> seconds</source>
+        <translation> секунди</translation>
     </message>
 </context>
 <context>
@@ -2592,26 +2724,6 @@ Save changes?</source>
         <translation>Файлът е променен</translation>
     </message>
     <message>
-        <source>The database file has changed. Do you want to load the changes?</source>
-        <translation>Файлът с хранилището е променен. Желаете ли промените да бъдат заредени?</translation>
-    </message>
-    <message>
-        <source>Merge Request</source>
-        <translation>Заявка за сливане</translation>
-    </message>
-    <message>
-        <source>The database file has changed and you have unsaved changes.
-Do you want to merge your changes?</source>
-        <translation>Файлът с хранилището е променен, а имате незаписани промени.
-Желаете ли да промените да бъдат сляти?</translation>
-    </message>
-    <message>
-        <source>Could not open the new database file while attempting to autoreload.
-Error: %1</source>
-        <translation>При опит за автоматично презареждане новият файл на хранилището не е отворен.
-Грешка: %1</translation>
-    </message>
-    <message>
         <source>Disable safe saves?</source>
         <translation>Забраняване на безопасно запазване?</translation>
     </message>
@@ -2664,15 +2776,15 @@ Disable safe saves and try again?</source>
     </message>
     <message>
         <source>Remote Sync did not contain any download or upload commands.</source>
-        <translation type="unfinished"/>
+        <translation>Отдалеченото синхронизиране не съдържа команди за изтегляне или качване.</translation>
     </message>
     <message>
         <source>Remote sync &apos;%1&apos; completed successfully!</source>
-        <translation type="unfinished"/>
+        <translation>Отдалеченото синхронизиране „%1“ завърши!</translation>
     </message>
     <message>
         <source>Remote sync &apos;%1&apos; failed: %2</source>
-        <translation type="unfinished"/>
+        <translation>Отдалеченото синхронизиране „%1“ завърши с грешка: %2</translation>
     </message>
     <message>
         <source>Error while saving database %1: %2</source>
@@ -2697,6 +2809,50 @@ Disable safe saves and try again?</source>
     <message>
         <source>Do you want to remove the passkey from this entry?</source>
         <translation>Желаете ли този passkey да бъде премахнат от записа?</translation>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally</source>
+        <translation>Файлът на хранилището „%1“ е променен от друго приложение</translation>
+    </message>
+    <message>
+        <source>Do you want to load the changes?</source>
+        <translation>Желаете ли промените да бъдат заредени?</translation>
+    </message>
+    <message>
+        <source>Reload database</source>
+        <translation>Презареждане на хранилището</translation>
+    </message>
+    <message>
+        <source>Reloading database…</source>
+        <translation>Презареждане на хранилището…</translation>
+    </message>
+    <message>
+        <source>Reload canceled</source>
+        <translation>Презареждането е прекъснато</translation>
+    </message>
+    <message>
+        <source>Reload successful</source>
+        <translation>Успешно презаредено</translation>
+    </message>
+    <message>
+        <source>Reload pending user action…</source>
+        <translation>Презареждането изчаква действие от потребителя…</translation>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes&lt;br&gt;Ignore the changes on disk until save&lt;br&gt;Discard unsaved changes</source>
+        <translation>Файлът на хранилището „%1“ е променен от друго приложение&lt;br&gt;Как желаете да продължите?&lt;br&gt;&lt;br&gt;Сливане на промените&lt;br&gt;Пренебрегване на промените на диска до запазване&lt;br&gt;Отказ от незапазените промени</translation>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes then save&lt;br&gt;Overwrite the changes on disk&lt;br&gt;Discard unsaved changes</source>
+        <translation>Файлът на хранилището „%1“ е променен от друго приложение&lt;br&gt;Как желаете да продължите?&lt;br&gt;&lt;br&gt;Сливане на промените&lt;br&gt;Презаписване на промените на диска&lt;br&gt;Отказ от незапазените промени</translation>
+    </message>
+    <message>
+        <source>Database file overwritten.</source>
+        <translation>Файлът на хранилището е презаписан.</translation>
+    </message>
+    <message>
+        <source>Database file on disk cannot be unlocked with current credentials.&lt;br&gt;Enter new credentials and/or present hardware key to continue.</source>
+        <translation>Файлът на хранилището не може да бъде отключено с текущите данни за отключване.&lt;br&gt;За да продължите въведете данните за отключване и/или включете хардуерен ключ.</translation>
     </message>
 </context>
 <context>
@@ -3027,16 +3183,8 @@ Would you like to correct it?</source>
         <translation>Без автоматично изпращане на формуляр с този запис</translation>
     </message>
     <message>
-        <source>Only send this setting to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
-        <translation>Изпраща към мрежовия четец този запис само при диалози за HTTP Auth. Ако е отметнато, този запис няма да е достъпен за обикновените формуляри за вход.</translation>
-    </message>
-    <message>
         <source>Use this entry only with HTTP Basic Auth</source>
         <translation>Използване на записа само с HTTP Basic Auth</translation>
-    </message>
-    <message>
-        <source>Do not send this setting to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
-        <translation>Не изпраща към мрежовия четец този запис при диалози за HTTP Auth. Ако е отметнато, този запис няма да е достъпен за диалозите за HTTP Auth.</translation>
     </message>
     <message>
         <source>Do not use this entry with HTTP Basic Auth</source>
@@ -3061,6 +3209,14 @@ Would you like to correct it?</source>
     <message>
         <source>Additional URLs</source>
         <translation>Допълнителни адреси</translation>
+    </message>
+    <message>
+        <source>Only send this entry to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
+        <translation>Изпраща към мрежовия четец този запис само при диалози за HTTP Auth. Ако е отметнато, този запис няма да е достъпен за обикновените формуляри за вход.</translation>
+    </message>
+    <message>
+        <source>Do not send this entry to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
+        <translation>Не изпраща към мрежовия четец този запис при диалози за HTTP Auth. Ако е отметнато, този запис няма да е достъпен за диалозите за HTTP Auth.</translation>
     </message>
 </context>
 <context>
@@ -3233,7 +3389,7 @@ Would you like to correct it?</source>
     </message>
     <message>
         <source>External key file</source>
-        <translation>Външен файл-ключ</translation>
+        <translation>Външен файл с ключ</translation>
     </message>
     <message>
         <source>Add to agent</source>
@@ -3249,7 +3405,7 @@ Would you like to correct it?</source>
     </message>
     <message>
         <source>Browser for key file</source>
-        <translation>Избор на файл-ключ</translation>
+        <translation>Избор на файл с ключ</translation>
     </message>
     <message>
         <source>Browse…</source>
@@ -3283,6 +3439,10 @@ Would you like to correct it?</source>
     <message>
         <source> seconds</source>
         <translation> секунди</translation>
+    </message>
+    <message>
+        <source>Clear agent</source>
+        <translation>Изчистване на агента</translation>
     </message>
 </context>
 <context>
@@ -3730,12 +3890,41 @@ This may cause the affected plugins to malfunction.</source>
         <source>Passkey</source>
         <translation>Passkey</translation>
     </message>
+    <message>
+        <source>Invalid conversion type: %1</source>
+        <translation>Неправилен тип на преобразуване: %1</translation>
+    </message>
+    <message>
+        <source>Invalid conversion syntax: %1</source>
+        <translation>Неправилен синтаксис на преобразуване: %1</translation>
+    </message>
+    <message>
+        <source>Invalid regular expression syntax %1
+%2</source>
+        <translation>Неправилен синтаксис на регулярен израз %1
+%2</translation>
+    </message>
 </context>
 <context>
     <name>EntryAttachments</name>
     <message>
         <source>Cannot open file &quot;%1&quot;</source>
         <translation>Файлът „%1“ не може да бъде отворен</translation>
+    </message>
+</context>
+<context>
+    <name>EntryAttachmentsDialog</name>
+    <message>
+        <source>Form</source>
+        <translation>Формуляр</translation>
+    </message>
+    <message>
+        <source>File name</source>
+        <translation>Име на файл</translation>
+    </message>
+    <message>
+        <source>File contents...</source>
+        <translation>Съдържание…</translation>
     </message>
 </context>
 <context>
@@ -3774,14 +3963,6 @@ This may cause the affected plugins to malfunction.</source>
     <message>
         <source>Remove</source>
         <translation>Премахване</translation>
-    </message>
-    <message>
-        <source>Rename selected attachment</source>
-        <translation>Преименуване на избрания прикачен файл</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Преименуване</translation>
     </message>
     <message>
         <source>Open selected attachment</source>
@@ -3899,6 +4080,18 @@ Would you like to overwrite the existing attachment?</source>
 Желаете ли 
 Желаете ли съществуващият прикачен файл да бъде презаписан?</translation>
     </message>
+    <message>
+        <source>New</source>
+        <translation>Добавяне</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Преглед</translation>
+    </message>
+    <message>
+        <source>Failed to preview an attachment: Attachment not found</source>
+        <translation>Грешка: прикачен файл не е намерен</translation>
+    </message>
 </context>
 <context>
     <name>EntryAttributesModel</name>
@@ -3963,7 +4156,7 @@ Would you like to overwrite the existing attachment?</source>
     </message>
     <message>
         <source>Expiration</source>
-        <translation>Давност</translation>
+        <translation>Изтичаща давност</translation>
     </message>
     <message>
         <source>TOTP</source>
@@ -4047,7 +4240,7 @@ Would you like to overwrite the existing attachment?</source>
     </message>
     <message>
         <source>Group name</source>
-        <translation>Име на група</translation>
+        <translation>Име на групата</translation>
     </message>
     <message>
         <source>Entry title</source>
@@ -4097,6 +4290,10 @@ Would you like to overwrite the existing attachment?</source>
         <source>Background Color</source>
         <translation>Цвят на фона</translation>
     </message>
+    <message>
+        <source>Group Path</source>
+        <translation>Път на групата</translation>
+    </message>
 </context>
 <context>
     <name>EntryPreviewWidget</name>
@@ -4122,7 +4319,7 @@ Would you like to overwrite the existing attachment?</source>
     </message>
     <message>
         <source>Expiration</source>
-        <translation>Давност</translation>
+        <translation>Изтичаща давност</translation>
     </message>
     <message>
         <source>Tags</source>
@@ -4491,6 +4688,14 @@ You can enable the DuckDuckGo website icon service in the security section of th
         <source>Url</source>
         <translation>Адрес</translation>
     </message>
+    <message>
+        <source>Could not load key file.</source>
+        <translation>Грешка при зареждане на файл с ключ.</translation>
+    </message>
+    <message>
+        <source>Could not open remote database. Password or key file may be incorrect.</source>
+        <translation>Грешка при отваряне на отдалечено хранилище. Паролата или файлът с ключ вероятно са грешни.</translation>
+    </message>
 </context>
 <context>
     <name>ImportWizardPageSelect</name>
@@ -4508,7 +4713,7 @@ You can enable the DuckDuckGo website icon service in the security section of th
     </message>
     <message>
         <source>Key File:</source>
-        <translation>Файл-ключ:</translation>
+        <translation>Файл с ключ:</translation>
     </message>
     <message>
         <source>Browse…</source>
@@ -4572,7 +4777,7 @@ You can enable the DuckDuckGo website icon service in the security section of th
     </message>
     <message>
         <source>Select key file</source>
-        <translation>Избор на файл-ключ</translation>
+        <translation>Избор на файл с ключ</translation>
     </message>
     <message>
         <source>Comma Separated Values</source>
@@ -4593,6 +4798,49 @@ You can enable the DuckDuckGo website icon service in the security section of th
     <message>
         <source>KeePass1 Database</source>
         <translation>Хранилище на KeePass 1</translation>
+    </message>
+    <message>
+        <source>Proton Pass (.json)</source>
+        <translation>Proton Pass (.json)</translation>
+    </message>
+    <message>
+        <source>Proton Pass JSON Export</source>
+        <translation>Изнесен JSON от Proton Pass</translation>
+    </message>
+    <message>
+        <source>Temporary Database</source>
+        <translation>Временно хранилище</translation>
+    </message>
+    <message>
+        <source>Command:</source>
+        <translation>Команда:</translation>
+    </message>
+    <message>
+        <source>e.g.: &quot;sftp user@hostname&quot; or &quot;scp user@hostname:DatabaseOnRemote.kdbx {TEMP_DATABASE}&quot;</source>
+        <translation>напр.: „sftp user@hostname“ или „scp user@hostname:отдалечено-хранилище.kdbx {TEMP_DATABASE}“</translation>
+    </message>
+    <message>
+        <source>Input:</source>
+        <translation>Въвеждане:</translation>
+    </message>
+    <message>
+        <source>e.g.:
+get DatabaseOnRemote.kdbx {TEMP_DATABASE}
+exit
+---
+{TEMP_DATABASE} is used as placeholder to store the database in a temporary location
+The command has to exit. In case of `sftp` as last commend `exit` has to be sent
+         </source>
+        <translation>напр.:
+get отдалечено-хранилище.kdbx {TEMP_DATABASE}
+exit
+---
+Низът {TEMP_DATABASE} се използва за заместител на временното местоположение на хранилището
+Командата трябва да завърши. В случая на `sftp` последната изпратена команда трябва да бъде `exit`</translation>
+    </message>
+    <message>
+        <source>Remote Database (.kdbx)</source>
+        <translation>Отдалечено хранилище (.kdbx)</translation>
     </message>
 </context>
 <context>
@@ -5033,7 +5281,7 @@ Line %2, column %3</source>
     <name>KeePass1Reader</name>
     <message>
         <source>Unable to read keyfile.</source>
-        <translation>Файлът-ключ не може да бъде прочетен.</translation>
+        <translation>Файлът с ключ не може да бъде прочетен.</translation>
     </message>
     <message>
         <source>Not a KeePass database.</source>
@@ -5737,12 +5985,6 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 Очаквайте дефекти и несъществени проблеми, изданието е предназначено за изпитателни цели.</translation>
     </message>
     <message>
-        <source>WARNING: Your Qt version may cause KeePassXC to crash with an On-Screen Keyboard.
-We recommend you use the AppImage available on our downloads page.</source>
-        <translation>ВНИМАНИЕ: Използваното издание на Qt може да доведе до срив на KeePassXC при работа с екранна клавиатура!
-Препоръчваме да използвате AppImage, достъпен от страницата за изтегляне.</translation>
-    </message>
-    <message>
         <source>No Tags</source>
         <translation>Липсват етикети</translation>
     </message>
@@ -5813,6 +6055,10 @@ We recommend you use the AppImage available on our downloads page.</source>
     <message>
         <source>Import Passkey</source>
         <translation>Внасяне на Passkey</translation>
+    </message>
+    <message>
+        <source>Remote S&amp;ync…</source>
+        <translation>Отдалечено &amp;синхронизиране…</translation>
     </message>
     <message>
         <source>Quit Application</source>
@@ -5917,6 +6163,10 @@ We recommend you use the AppImage available on our downloads page.</source>
     <message>
         <source>Show Password Generator</source>
         <translation>Показва екрана за създаване на пароли</translation>
+    </message>
+    <message>
+        <source>Remove Passkey From Entry</source>
+        <translation>Премахване на passkey от запис</translation>
     </message>
     <message>
         <source>Perform Auto-Type: {USERNAME}</source>
@@ -6063,16 +6313,32 @@ We recommend you use the AppImage available on our downloads page.</source>
         <translation>Превключва разрешението за правене на екранни снимки</translation>
     </message>
     <message>
-        <source>Remote S&amp;ync…</source>
-        <translation type="unfinished"/>
+        <source>Show Group Panel</source>
+        <translation>Показване на панела „Група“</translation>
     </message>
     <message>
-        <source>Remove Passkey From Entry</source>
-        <translation>Премахване на passkey от запис</translation>
+        <source>Toggle Show Group Panel</source>
+        <translation>Превключване на панела „Група“</translation>
     </message>
     <message>
         <source>Setup Remote Sync…</source>
-        <translation type="unfinished"/>
+        <translation>Настройка на отдалеч. синхронизиране…</translation>
+    </message>
+    <message>
+        <source>Password Generator</source>
+        <translation>Създаване на парола</translation>
+    </message>
+    <message>
+        <source>E&amp;xpire Entry…</source>
+        <translation>Прекратяване на &amp;давността…</translation>
+    </message>
+    <message>
+        <source>Clear SSH Agent</source>
+        <translation>Изчистване на агента на SSH</translation>
+    </message>
+    <message>
+        <source>Clear all identities in ssh-agent</source>
+        <translation>Изчистване на самоличностите в ssh-agent</translation>
     </message>
 </context>
 <context>
@@ -6206,7 +6472,7 @@ We recommend you use the AppImage available on our downloads page.</source>
     <name>NewDatabaseWizardPageEncryption</name>
     <message>
         <source>Encryption Settings</source>
-        <translation>Настройки на шифроване</translation>
+        <translation>Настройки на шифроването</translation>
     </message>
     <message>
         <source>Here you can adjust the database encryption settings. Don&apos;t worry, you can change them later in the database settings.</source>
@@ -6222,6 +6488,25 @@ We recommend you use the AppImage available on our downloads page.</source>
     <message>
         <source>Please fill in the display name and an optional description for your new database:</source>
         <translation>Въведете име и незадължително описание на новото хранилище:</translation>
+    </message>
+</context>
+<context>
+    <name>NewEntryAttachmentsDialog</name>
+    <message>
+        <source>Attachment name cannot be empty</source>
+        <translation>Името на прикачения файл не може да е празно</translation>
+    </message>
+    <message>
+        <source>Attachment with the same name already exists</source>
+        <translation>Прикачен файл със същото име вече съществува</translation>
+    </message>
+    <message>
+        <source>Save attachment</source>
+        <translation>Запазване</translation>
+    </message>
+    <message>
+        <source>New entry attachment</source>
+        <translation>Прикачен файл към нов запис</translation>
     </message>
 </context>
 <context>
@@ -6770,10 +7055,6 @@ The following data is missing:
         <translation>Допълнителни знаци:</translation>
     </message>
     <message>
-        <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;</source>
-        <translation>Изключени знаци: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;</translation>
-    </message>
-    <message>
         <source>Exclude look-alike characters</source>
         <translation>Изключване на еднакво изглеждащите знаци</translation>
     </message>
@@ -6798,10 +7079,6 @@ The following data is missing:
         <translation>Брой думи:</translation>
     </message>
     <message>
-        <source>Character Count:</source>
-        <translation>Брой знаци:</translation>
-    </message>
-    <message>
         <source>Word Case:</source>
         <translation>Регистър на думите:</translation>
     </message>
@@ -6812,10 +7089,6 @@ The following data is missing:
     <message>
         <source>Add custom wordlist</source>
         <translation>Добавяне на потребителски списък с думи</translation>
-    </message>
-    <message>
-        <source>character</source>
-        <translation>знак</translation>
     </message>
     <message>
         <source>Close</source>
@@ -6923,6 +7196,22 @@ Do you want to overwrite it?</source>
         <source>Special Characters</source>
         <translation>Специални знаци</translation>
     </message>
+    <message>
+        <source>passwordLength</source>
+        <translation>passwordLength</translation>
+    </message>
+    <message>
+        <source>Characters: %1</source>
+        <translation>Знаци: %1</translation>
+    </message>
+    <message>
+        <source>MIXED case</source>
+        <translation>Смесване на регистри</translation>
+    </message>
+    <message>
+        <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;, &quot;B&quot;, &quot;8&quot;, &quot;G&quot;, &quot;6&quot;</source>
+        <translation>Изключени знаци: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;, &quot;B&quot;, &quot;8&quot;, &quot;G&quot;, &quot;6&quot;</translation>
+    </message>
 </context>
 <context>
     <name>PasswordWidget</name>
@@ -6988,6 +7277,21 @@ Do you want to overwrite it?</source>
     <message>
         <source>Press &amp;Tab between characters</source>
         <translation>Натиснете &amp;Табулатор между знаците</translation>
+    </message>
+</context>
+<context>
+    <name>PreviewEntryAttachmentsDialog</name>
+    <message>
+        <source>Preview entry attachment</source>
+        <translation>Преглед на прикачен файл към запис</translation>
+    </message>
+    <message>
+        <source>No preview available</source>
+        <translation>Не е възможен преглед</translation>
+    </message>
+    <message>
+        <source>Image format not supported</source>
+        <translation>Този вид изображения не се поддържат</translation>
     </message>
 </context>
 <context>
@@ -7669,10 +7973,6 @@ Do you want to overwrite it?</source>
         <translation>Неприемлив брой думи %1</translation>
     </message>
     <message>
-        <source>The word list is too small (&lt; 1000 items)</source>
-        <translation>Списъкът с думи е твърде къс (&lt; 1000 елемента)</translation>
-    </message>
-    <message>
         <source>Title for the entry.</source>
         <translation>Заглавие на записа.</translation>
     </message>
@@ -7815,10 +8115,6 @@ Do you want to overwrite it?</source>
     <message>
         <source>Exit interactive mode.</source>
         <translation>Излизане от интерактивен режим.</translation>
-    </message>
-    <message>
-        <source>Format to use when exporting. Available choices are &apos;xml&apos; or &apos;csv&apos;. Defaults to &apos;xml&apos;.</source>
-        <translation>Формат при изнасяне. Възможностите са „xml“ и „csv“. По подразбиране е „xml“.</translation>
     </message>
     <message>
         <source>Exports the content of a database to standard output in the specified format.</source>
@@ -8249,7 +8545,7 @@ Please consider generating a new key file.</source>
     </message>
     <message>
         <source>Password expiry was %1</source>
-        <translation>Давността на паролата е до %1</translation>
+        <translation>Давността на паролата е била до %1</translation>
     </message>
     <message>
         <source>Password expires on %1</source>
@@ -8257,7 +8553,7 @@ Please consider generating a new key file.</source>
     </message>
     <message>
         <source>Password is about to expire</source>
-        <translation>Давността на паролата скоро ще изтече</translation>
+        <translation>Давността на паролата изтича</translation>
     </message>
     <message numerus="yes">
         <source>Password expires in %1 day(s)</source>
@@ -8265,7 +8561,7 @@ Please consider generating a new key file.</source>
     </message>
     <message>
         <source>Password will expire soon</source>
-        <translation>Давността на паролата ще изтече скоро</translation>
+        <translation>Давността на паролата изтича</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -8406,18 +8702,6 @@ Kernel: %3 %4</source>
     <message>
         <source>file empty</source>
         <translation>празен файл</translation>
-    </message>
-    <message>
-        <source>malformed string</source>
-        <translation>повреден низ</translation>
-    </message>
-    <message>
-        <source>missing closing quote</source>
-        <translation>липсваща затваряща кавичка</translation>
-    </message>
-    <message>
-        <source>%1: (row, col) %2,%3</source>
-        <translation>%1: (ред, колона) %2,%3</translation>
     </message>
     <message>
         <source>AES 256-bit</source>
@@ -8719,7 +9003,7 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source>Could not read key in keyring</source>
-        <translation>Ключ не може да бъде прочетен от ключодържател</translation>
+        <translation>Ключ не може да бъде прочетен в ключодържателя</translation>
     </message>
     <message>
         <source>AES decrypt failed</source>
@@ -8869,15 +9153,83 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source>Invalid KDF iterations, cannot decrypt json file</source>
-        <translation type="unfinished"/>
+        <translation>Неподдържан брой преобразувания с ФИК, файлът с JSON не може да бъде разшифрован</translation>
     </message>
     <message>
         <source>Unsupported format, ensure your Bitwarden export is password-protected</source>
-        <translation type="unfinished"/>
+        <translation>Неподдържан формат, уверете се, че изнесеното от Bitwarden е защитено с парола</translation>
     </message>
     <message>
         <source>Only PBKDF and Argon2 are supported, cannot decrypt json file</source>
-        <translation type="unfinished"/>
+        <translation>Поддържат се само PBKDF и Argon2, файлът с JSON не може да бъде разшифрован</translation>
+    </message>
+    <message>
+        <source>Reset Shortcuts</source>
+        <translation>Нулиране на клавишни комбинации</translation>
+    </message>
+    <message>
+        <source>Double click an action to change its shortcut</source>
+        <translation>За да промените клавишната комбинация щракнете двукратно върху желаното действие.</translation>
+    </message>
+    <message>
+        <source>Filter...</source>
+        <translation>Филтър…</translation>
+    </message>
+    <message>
+        <source>Shortcut Conflict</source>
+        <translation>Конфликт на клавишни комбинации</translation>
+    </message>
+    <message>
+        <source>Shortcut %1 conflicts with &apos;%2&apos;. Overwrite shortcut?</source>
+        <translation>Комбинацията %1 е в конфликт с „%2“. Презаписване на клавишната комбинация?</translation>
+    </message>
+    <message>
+        <source>Cannot generate valid passphrases because the wordlist is too short</source>
+        <translation>Не може да бъде създадена приемлива парола, защото списъкът с думи е твърде кратък.</translation>
+    </message>
+    <message>
+        <source>Encrypted files are not supported.</source>
+        <translation>Не се поддържат шифровани файлове.</translation>
+    </message>
+    <message>
+        <source>Proton Pass Import</source>
+        <translation>Внасяне от Proton Pass</translation>
+    </message>
+    <message>
+        <source>Delete plugin data?</source>
+        <translation>Изтриване на данни от разширението?</translation>
+    </message>
+    <message numerus="yes">
+        <source>Delete plugin data from Entry(s)?</source>
+        <translation><numerusform>Премахване на информация от добавката от запис?</numerusform><numerusform>Премахване на информация от добавката от записи?</numerusform></translation>
+    </message>
+    <message>
+        <source>Passkey</source>
+        <translation>Passkey</translation>
+    </message>
+    <message>
+        <source>Format to use when exporting. Available choices are &apos;xml&apos;, &apos;csv&apos; or &apos;html&apos;. Defaults to &apos;xml&apos;.</source>
+        <translation>Формат при изнасяне. Възможностите са „xml“, „csv“ и „html“ . По подразбиране е „xml“.</translation>
+    </message>
+    <message>
+        <source>start minimized to the system tray</source>
+        <translation>стартиране скрито в областта за известия</translation>
+    </message>
+    <message>
+        <source>malformed string, possible unescaped delimiter</source>
+        <translation>не добре форматиран низ вероятно има разделител без избягващ знак</translation>
+    </message>
+    <message>
+        <source>missing closing delimiter</source>
+        <translation>липсващ затварящ разделител</translation>
+    </message>
+    <message>
+        <source>%1, row: %2, column: %3</source>
+        <translation>%1, ред: %2, колона: %3</translation>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Етикети</translation>
     </message>
 </context>
 <context>
@@ -8918,31 +9270,31 @@ This option is deprecated, use --set-key-file instead.</source>
     <name>RemoteHandler</name>
     <message>
         <source>Command `%1` did not finish in time. Process was killed.</source>
-        <translation type="unfinished"/>
+        <translation>Командата `%1` не завърши навреме. Процесът ѝ е спрян.</translation>
     </message>
     <message>
         <source>Failed to upload merged database. Command `%1` did not finish in time. Process was killed.</source>
-        <translation type="unfinished"/>
+        <translation>Грешка при качване на слятото хранилище. Командата `%1` не завърши навреме. Процесът ѝ е спрян.</translation>
     </message>
     <message>
         <source>Invalid download parameters provided.</source>
-        <translation type="unfinished"/>
+        <translation>Подадени са недействителни параметри за изтеглянето.</translation>
     </message>
     <message>
         <source>Command `%1` failed to download database.</source>
-        <translation type="unfinished"/>
+        <translation>Командата `%1` успя да изтегли хранилище.</translation>
     </message>
     <message>
         <source>Invalid database pointer or upload parameters provided.</source>
-        <translation type="unfinished"/>
+        <translation>Недействителен указател към хранилище или подадени недействителни параметри за качването.</translation>
     </message>
     <message>
         <source>Command `%1` exited with status code: %2</source>
-        <translation type="unfinished"/>
+        <translation>Командата `%1` завърши с код на състоянието: %2</translation>
     </message>
     <message>
         <source>Failed to upload merged database. Command `%1` exited with status code: %2</source>
-        <translation type="unfinished"/>
+        <translation>Грешка при качване на слятото хранилище. Командата `%1` завърши с код на състоянието: %2</translation>
     </message>
 </context>
 <context>
@@ -9011,6 +9363,10 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Exclude from reports</source>
         <translation>Изключване от отчети</translation>
     </message>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation><numerusform>Прекратяване на давността</numerusform><numerusform>Прекратяване на давността</numerusform></translation>
+    </message>
     <message>
         <source>Only show entries that have a URL</source>
         <translation>Показване само на записи с адреси</translation>
@@ -9025,37 +9381,34 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source> (Expired)</source>
-        <translation>(Изтекла давност)</translation>
+        <translation> (изтекла давност)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Delete plugin data from Entry(s)…</source>
+        <translation><numerusform>Премахване на информация от добавката от запис…</numerusform><numerusform>Премахване на информация от добавката от записи…</numerusform></translation>
     </message>
 </context>
 <context>
     <name>ReportsWidgetHealthcheck</name>
     <message>
-        <source>Hover over reason to show additional details. Double-click entries to edit.</source>
-        <translation>За подробности, задръжте показалеца на мишката върху причината. За да промените запис, щракнете двукратно върху него.</translation>
+        <source>Show expired entries</source>
+        <translation>Показване на записи с изтекла давност</translation>
     </message>
     <message>
-        <source>Bad</source>
-        <comment>Password quality</comment>
-        <translation>Много лоша</translation>
+        <source> (Expired)</source>
+        <translation> (изтекла давност)</translation>
+    </message>
+    <message>
+        <source>Hover over reason to show additional details. Double-click entries to edit.</source>
+        <translation>За подробности, задръжте показалеца на мишката върху причината. За да промените запис, щракнете двукратно върху него.</translation>
     </message>
     <message>
         <source>Bad — password must be changed</source>
         <translation>Много лоша — паролата трябва да бъде променена</translation>
     </message>
     <message>
-        <source>Poor</source>
-        <comment>Password quality</comment>
-        <translation>Лоша</translation>
-    </message>
-    <message>
         <source>Poor — password should be changed</source>
         <translation>Лоша — добре е паролата да бъде променена</translation>
-    </message>
-    <message>
-        <source>Weak</source>
-        <comment>Password quality</comment>
-        <translation>Слаба</translation>
     </message>
     <message>
         <source>Weak — consider changing the password</source>
@@ -9105,17 +9458,13 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Exclude from reports</source>
         <translation>Изключване от отчети</translation>
     </message>
-    <message>
-        <source>Show expired entries</source>
-        <translation>Показване на записи с изтекла давност</translation>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation><numerusform>Прекратяване на давността</numerusform><numerusform>Прекратяване на давността</numerusform></translation>
     </message>
     <message>
         <source>Show entries that have been excluded from reports</source>
         <translation>Показване и на изключените от отчети записи</translation>
-    </message>
-    <message>
-        <source> (Expired)</source>
-        <translation>(Изтекла давност)</translation>
     </message>
 </context>
 <context>
@@ -9212,6 +9561,10 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Exclude from reports</source>
         <translation>Изключване от отчети</translation>
     </message>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation><numerusform>Прекратяване на давността</numerusform><numerusform>Прекратяване на давността</numerusform></translation>
+    </message>
 </context>
 <context>
     <name>ReportsWidgetPasskeys</name>
@@ -9261,7 +9614,7 @@ This option is deprecated, use --set-key-file instead.</source>
     </message>
     <message>
         <source> (Expired)</source>
-        <translation>(Изтекла давност)</translation>
+        <translation> (изтекла давност)</translation>
     </message>
     <message>
         <source>Export Confirmation</source>
@@ -9452,6 +9805,14 @@ This option is deprecated, use --set-key-file instead.</source>
     <message>
         <source>No agent running, cannot list identities.</source>
         <translation>Няма работещ агент, самоличностите не могат да бъдат изброени.</translation>
+    </message>
+    <message>
+        <source>Failed to remove all SSH identities from agent.</source>
+        <translation>Грешка при изчистване на самоличностите от ssh-agent.</translation>
+    </message>
+    <message>
+        <source>All SSH identities removed from agent.</source>
+        <translation>Самоличностите са изчистени от агента на SSH.</translation>
     </message>
 </context>
 <context>
@@ -9736,29 +10097,6 @@ This option is deprecated, use --set-key-file instead.</source>
     <message>
         <source>Export to %1</source>
         <translation>Изнасяне в %1</translation>
-    </message>
-</context>
-<context>
-    <name>ShortcutSettingsWidget</name>
-    <message>
-        <source>Double click an action to change its shortcut</source>
-        <translation>За да промените клавишната комбинация щракнете двукратно върху желаното действие.</translation>
-    </message>
-    <message>
-        <source>Shortcut Conflict</source>
-        <translation>Конфликт на клавишни комбинации</translation>
-    </message>
-    <message>
-        <source>Filter...</source>
-        <translation>Филтър…</translation>
-    </message>
-    <message>
-        <source>Shortcut %1 conflicts with &apos;%2&apos;. Overwrite shortcut?</source>
-        <translation>Комбинацията %1 е в конфликт с „%2“. Презаписване на клавишната комбинация?</translation>
-    </message>
-    <message>
-        <source>Reset Shortcuts</source>
-        <translation>Нулиране на клавишни комбинации</translation>
     </message>
 </context>
 <context>
@@ -10050,12 +10388,16 @@ Example: JBSWY3DPEHPK3PXP</source>
         <translation>Не са открити хардуерни ключове</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed as &lt;a href=&quot;https://docs.yubico.com/yesdk/users-manual/application-otp/challenge-response.html&quot;&gt;HMAC-SHA1 Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Ако разполагате с ключ като &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; или &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, можете да го използвате като допълнителна защита.&lt;/p&gt;&lt;p&gt; За целта, една от позициите на ключа трябва да е настроена като &lt;a href=&quot;https://docs.yubico.com/yesdk/users-manual/application-otp/challenge-response.html&quot;&gt;Предизвикване-отговор HMAC-SHA1&lt;/a&gt;.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Refresh hardware keys</source>
         <translation>Презареждане на хардуерните ключове</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed with &lt;a href=&quot;https://keepassxc.org/docs/#faq-yubikey-howto&quot;&gt;Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ако разполагате със защитно устройство като &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; или &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, можете да го използвате като допълнителна защита.&lt;/p&gt;&lt;p&gt;За целта, една от позициите на ключа трябва да е настроена като &lt;a href=&quot;https://keepassxc.org/docs/#faq-yubikey-howto&quot;&gt;Предизвикване-отговор&lt;/a&gt;.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Hardware keys found, but no slots are configured</source>
+        <translation>Открити са хардуерни ключове, но без настроени слотове.</translation>
     </message>
 </context>
 <context>

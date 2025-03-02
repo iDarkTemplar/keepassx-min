@@ -218,16 +218,48 @@
         <translation>Πρέπει να επανεκκινήσετε την εφαρμογή για να οριστεί η νέα γλώσσα. Θέλετε να κάνετε επανεκκίνηση τώρα;</translation>
     </message>
     <message>
-        <source>Reset Settings?</source>
-        <translation>Επαναφορά Ρυθμίσεων;</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to reset all general and security settings to default?</source>
-        <translation>Είστε βέβαιοι ότι θέλετε να επαναφέρετε όλες τις γενικές και ασφαλείας ρυθμίσεις στις προεπιλογές;</translation>
-    </message>
-    <message>
         <source>Select backup storage directory</source>
         <translation>Επιλογή καταλόγου αποθήκευσης αντιγράφων ασφαλείας</translation>
+    </message>
+    <message>
+        <source>Confirm Reset</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Are you sure you want to reset all settings to default?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Import KeePassXC Settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to import settings from %1, not a valid settings file.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export KeePassXC Settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -281,25 +313,6 @@
         <translation>Συμπεριλάβετε εκδόσεις beta κατά τον έλεγχο για ενημερώσεις</translation>
     </message>
     <message>
-        <source>On database unlock, show entries that </source>
-        <translation>Στο ξεκλείδωμα της βάσης δεδομένων, εμφανίστε τις καταχωρήσεις που</translation>
-    </message>
-    <message>
-        <source>have expired</source>
-        <comment>On database unlock, show entries that...</comment>
-        <translation>έχουν λήξει</translation>
-    </message>
-    <message>
-        <source> days</source>
-        <comment>On database unlock, show entries that will expire within %1 days</comment>
-        <translation>ημέρες</translation>
-    </message>
-    <message>
-        <source>will expire within </source>
-        <comment>On database unlock, show entries that...</comment>
-        <translation>θα λήξουν εντός</translation>
-    </message>
-    <message>
         <source>File Management</source>
         <translation>Διαχείριση αρχείων</translation>
     </message>
@@ -324,20 +337,8 @@
         <translation>Δημιουργία αντίγραφου ασφαλείας του αρχείου της βάσης δεδομένων πριν την αποθήκευση</translation>
     </message>
     <message>
-        <source>Backup destination</source>
-        <translation>Προορισμός αντιγράφων ασφαλείας</translation>
-    </message>
-    <message>
-        <source>Specifies the database backup file location. Occurrences of &quot;{DB_FILENAME}&quot; are replaced with the filename of the saved database without extension. {TIME:&lt;format&gt;} is replaced with the backup time, see https://doc.qt.io/qt-5/qdatetime.html#toString. &lt;format&gt; defaults to format string &quot;dd_MM_yyyy_hh-mm-ss&quot;.</source>
-        <translation>Καθορίζει τη θέση του αρχείου αντιγράφων ασφαλείας της βάσης δεδομένων. Οι εμφανίσεις του &quot;{ΒΔ_ΟΝΟΜΑ ΑΡΧΕΙΟΥ}&quot; αντικαθίστανται με το όνομα αρχείου της αποθηκευμένης βάσης δεδομένων χωρίς επέκταση. {ΩΡΑ:&lt;format&gt;} αντικαθίσταται με το χρόνο δημιουργίας αντιγράφων ασφαλείας, ανατρέξτε https://doc.qt.io/qt-5/qdatetime.html#toString. &lt;format&gt; Προεπιλογές για τη μορφοποίηση συμβολοσειράς &quot;dd_MM_yyyy_hh mm-ss&quot;.</translation>
-    </message>
-    <message>
         <source>{DB_FILENAME}.old.kdbx</source>
         <translation>{ΒΔ_ΟΝΟΜΑ ΑΡΧΕΙΟΥ}.old.kdbx</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation>Επιλογή...</translation>
     </message>
     <message>
         <source>Use alternative saving method (may solve problems with Dropbox, Google Drive, GVFS, etc.)</source>
@@ -505,6 +506,71 @@
         <source>Remember last typed entry for:</source>
         <translation>Να θυμάστε την τελευταία πληκτρολογημένη καταχώρηση για:</translation>
     </message>
+    <message>
+        <source>On database unlock, show entries that will expire within</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>On database unlock, show entries that will expire within </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source> days</source>
+        <comment>number of days warning for password expiration</comment>
+        <translation>ημέρες</translation>
+    </message>
+    <message>
+        <source>Destination format:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{DB_FILENAME}&lt;/span&gt; is replaced with the filename of the saved database without extension&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{TIME:&amp;lt;format&amp;gt;}&lt;/span&gt; is replaced with the specified time format (default: dd_MM_yyyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;See the User Guide for more details&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Choose folder...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show confirmation before moving entries to recycle bin</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Copy data on double clicking field in entry view</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show toolbar</source>
+        <translation>Εμφάνιση γραμμής εργαλείων</translation>
+    </message>
+    <message>
+        <source>Show the menu bar by pressing the Alt key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show menubar</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Import settings…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export settings…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open browser on double clicking URL field in entry view</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Font size:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Font size selection</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ApplicationSettingsWidgetSecurity</name>
@@ -571,18 +637,6 @@
         <translation>Απόκρυψη κωδικών πρόσβασης στο πάνελ προεπισκόπησης καταχώρησης</translation>
     </message>
     <message>
-        <source>Hide entry notes by default</source>
-        <translation>Να αποκρύπτονται εξ ορισμού οι σημειώσεις καταχωρήσεων</translation>
-    </message>
-    <message>
-        <source>Move entries to recycle bin without confirmation</source>
-        <translation>Μετακίνηση καταχωρήσεων στον Κάδο Ανακύκλωσης χωρίς επιβεβαίωση</translation>
-    </message>
-    <message>
-        <source>Enable double click to copy the username/password entry columns</source>
-        <translation>Ενεργοποίηση διπλού κλικ για αντιγραφή των στηλών εισαγωγής ονόματος χρήστη/κωδικού πρόσβασης</translation>
-    </message>
-    <message>
         <source>Privacy</source>
         <translation>Ιδιωτικότητα</translation>
     </message>
@@ -593,6 +647,18 @@
     <message>
         <source>Hide TOTP in the entry preview panel</source>
         <translation>Απόκρυψη TOTP στον πίνακα προεπισκόπησης καταχώρησης</translation>
+    </message>
+    <message>
+        <source>Lock databases when switching user</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Lock Options</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide notes in the entry preview panel</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -640,20 +706,6 @@
     <message>
         <source>Entry does not have attribute for PICKCHARS: %1</source>
         <translation>Η καταχώρηση δεν έχει χαρακτηριστικό για PICKCHARS: %1</translation>
-    </message>
-    <message>
-        <source>Invalid conversion type: %1</source>
-        <translation>Μη έγκυρος τύπος μετατροπής: %1</translation>
-    </message>
-    <message>
-        <source>Invalid conversion syntax: %1</source>
-        <translation>Μη έγκυρη σύνταξη μετατροπής: %1</translation>
-    </message>
-    <message>
-        <source>Invalid regular expression syntax %1
-%2</source>
-        <translation>Μη έγκυρη σύνταξη κανονικής έκφρασης % 1
-%2</translation>
     </message>
     <message>
         <source>Invalid placeholder: %1</source>
@@ -1023,10 +1075,6 @@ Do you want to overwrite the passkey in %1 - %2?</source>
         <translation>Γενικά</translation>
     </message>
     <message>
-        <source>Browsers installed as snaps are currently not supported.</source>
-        <translation>Προς το παρόν δεν υποστηρίζονται προγράμματα περιήγησης που έχουν εγκατασταθεί ως snaps.</translation>
-    </message>
-    <message>
         <source>Enable integration for these browsers:</source>
         <translation>Ενεργοποίηση της ενσωμάτωσης για αυτά τα προγράμματα περιήγησης:</translation>
     </message>
@@ -1249,6 +1297,10 @@ Do you want to overwrite the passkey in %1 - %2?</source>
         <source>KeePassXC-Browser is needed for the browser integration to work. &lt;br /&gt;Download it for %1 and %2 and %3.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Browsers installed using Snap or Flatpak are not supported with exception to Firefox installed using Snap.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CloneDialog</name>
@@ -1400,6 +1452,10 @@ Do you want to overwrite the passkey in %1 - %2?</source>
 Are you sure you want to import?</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Tags</source>
+        <translation>Ετικέτες</translation>
+    </message>
 </context>
 <context>
     <name>CsvParserModel</name>
@@ -1462,6 +1518,14 @@ Backup database located at %2</source>
     <message>
         <source>Recycle Bin</source>
         <translation>Κάδος Ανακύκλωσης</translation>
+    </message>
+    <message>
+        <source>Database file read error.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No file path was provided.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1612,14 +1676,6 @@ To prevent this error from appearing, you must go to &quot;Database Settings / S
         <translation>&lt;p&gt;Εκτός από έναν κωδικό πρόσβασης, μπορείτε να χρησιμοποιήσετε ένα μυστικό αρχείο για να βελτιώσετε την ασφάλεια της βάσης δεδομένων σας. Αυτό το αρχείο μπορεί να δημιουργηθεί στις ρυθμίσεις ασφαλείας της βάσης δεδομένων σας.&lt;/p&gt; &lt;p&gt;Αυτό &lt;strong&gt;δεν&lt;/strong&gt; είναι το αρχείο βάσης δεδομένων *.kdbx!&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>Click to add a key file.</source>
-        <translation>Κάντε κλικ για να προσθέσετε ένα κλειδί αρχείου.</translation>
-    </message>
-    <message>
-        <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;Έχω ένα αρχείο κλειδί&lt;/a&gt;</translation>
-    </message>
-    <message>
         <source>Use hardware key [Serial: %1]</source>
         <translation>Χρησιμοποιήστε κλειδί υλικού [Serial: %1]</translation>
     </message>
@@ -1654,6 +1710,18 @@ Are you sure you want to continue with this file?.</source>
     <message>
         <source>Refresh Hardware Keys</source>
         <translation>Ανανέωση Κλειδιών Υλικού</translation>
+    </message>
+    <message>
+        <source>Click to add a key file.</source>
+        <translation>Κάντε κλικ για να προσθέσετε ένα κλειδί αρχείου.</translation>
+    </message>
+    <message>
+        <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
+        <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;Έχω ένα αρχείο κλειδί&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <source>Hardware keys found, but no slots are configured.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1690,7 +1758,19 @@ Are you sure you want to continue with this file?.</source>
         <translation>Συντήρηση</translation>
     </message>
     <message>
+        <source>KeeShare</source>
+        <translation>KeeShare</translation>
+    </message>
+    <message>
+        <source>Secret Service Integration</source>
+        <translation>Ενσωμάτωση Secret Service</translation>
+    </message>
+    <message>
         <source>Remote Sync</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database Settings: %1</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -2172,6 +2252,50 @@ removed from the database.</source>
         <source>Autosave delay since last change checkbox</source>
         <translation>Καθυστέρηση αυτόματης αποθήκευσης από την τελευταία αλλαγή του checkbox</translation>
     </message>
+    <message>
+        <source>Public Database Metadata</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Warning: the following settings are not encrypted.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Display name:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Publically visible display name used on the unlock dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database public display name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Display color:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Publically visible color used on the unlock dialog</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database public display color chooser</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Καθαρισμός</translation>
+    </message>
+    <message>
+        <source>Display icon:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Select Database Icon</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DatabaseSettingsWidgetKeeShare</name>
@@ -2381,6 +2505,14 @@ The command has to exit. In case of `sftp` as last command `exit` has to be sent
             </source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Timeout:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source> seconds</source>
+        <translation> δευτερόλεπτα</translation>
+    </message>
 </context>
 <context>
     <name>DatabaseTabWidget</name>
@@ -2584,26 +2716,6 @@ Save changes?</source>
         <translation>Το αρχείο έχει αλλάξει</translation>
     </message>
     <message>
-        <source>The database file has changed. Do you want to load the changes?</source>
-        <translation>Το αρχείο βάσης δεδομένων έχει αλλάξει. Θέλετε να φορτώσετε τις αλλαγές;</translation>
-    </message>
-    <message>
-        <source>Merge Request</source>
-        <translation>Αίτημα Συγχώνευσης</translation>
-    </message>
-    <message>
-        <source>The database file has changed and you have unsaved changes.
-Do you want to merge your changes?</source>
-        <translation>Το αρχείο βάσης δεδομένων έχει αλλάξει και έχετε μη αποθηκευμένες αλλαγές.
-Θέλετε να συγχωνεύσετε τις αλλαγές σας;</translation>
-    </message>
-    <message>
-        <source>Could not open the new database file while attempting to autoreload.
-Error: %1</source>
-        <translation>Δεν ήταν δυνατό το άνοιγμα του νέου αρχείου βάσης δεδομένων κατά την προσπάθεια αυτόματης φόρτωσης.
-Σφάλμα: %1</translation>
-    </message>
-    <message>
         <source>Disable safe saves?</source>
         <translation>Απενεργοποίηση ασφαλών αποθηκεύσεων;</translation>
     </message>
@@ -2688,6 +2800,50 @@ Disable safe saves and try again?</source>
     </message>
     <message>
         <source>Do you want to remove the passkey from this entry?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do you want to load the changes?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reloading database…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload canceled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload successful</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload pending user action…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes&lt;br&gt;Ignore the changes on disk until save&lt;br&gt;Discard unsaved changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes then save&lt;br&gt;Overwrite the changes on disk&lt;br&gt;Discard unsaved changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database file overwritten.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Database file on disk cannot be unlocked with current credentials.&lt;br&gt;Enter new credentials and/or present hardware key to continue.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3019,16 +3175,8 @@ Would you like to correct it?</source>
         <translation>Παράλειψη Αυτόματης Υποβολής για αυτήν την καταχώρηση</translation>
     </message>
     <message>
-        <source>Only send this setting to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
-        <translation>Μόνο αποστολή αυτής της ρύθμισης στο πρόγραμμα περιήγησης για παράθυρα διαλόγου HTTP Auth. Εάν ενεργοποιηθεί, οι κανονικές φόρμες σύνδεσης δεν θα εμφανίζουν αυτήν την καταχώρηση για επιλογή.</translation>
-    </message>
-    <message>
         <source>Use this entry only with HTTP Basic Auth</source>
         <translation>Χρήση αυτής της καταχώρησης μόνο με HTTP Basic Auth</translation>
-    </message>
-    <message>
-        <source>Do not send this setting to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
-        <translation>Μην στέλνετε αυτήν τη ρύθμιση στο πρόγραμμα περιήγησης για παράθυρα διαλόγου HTTP Auth. Εάν είναι ενεργοποιημένο, τα παράθυρα διαλόγου HTTP Auth δεν θα εμφανίζουν αυτήν την καταχώρηση για επιλογή.</translation>
     </message>
     <message>
         <source>Do not use this entry with HTTP Basic Auth</source>
@@ -3052,6 +3200,14 @@ Would you like to correct it?</source>
     </message>
     <message>
         <source>Additional URLs</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Only send this entry to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Do not send this entry to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3275,6 +3431,10 @@ Would you like to correct it?</source>
     <message>
         <source> seconds</source>
         <translation> δευτερόλεπτα</translation>
+    </message>
+    <message>
+        <source>Clear agent</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3722,12 +3882,41 @@ This may cause the affected plugins to malfunction.</source>
         <source>Passkey</source>
         <translation>Passkey</translation>
     </message>
+    <message>
+        <source>Invalid conversion type: %1</source>
+        <translation>Μη έγκυρος τύπος μετατροπής: %1</translation>
+    </message>
+    <message>
+        <source>Invalid conversion syntax: %1</source>
+        <translation>Μη έγκυρη σύνταξη μετατροπής: %1</translation>
+    </message>
+    <message>
+        <source>Invalid regular expression syntax %1
+%2</source>
+        <translation>Μη έγκυρη σύνταξη κανονικής έκφρασης % 1
+%2</translation>
+    </message>
 </context>
 <context>
     <name>EntryAttachments</name>
     <message>
         <source>Cannot open file &quot;%1&quot;</source>
         <translation>Δεν είναι δυνατό το άνοιγμα του αρχείου &quot;%1&quot;</translation>
+    </message>
+</context>
+<context>
+    <name>EntryAttachmentsDialog</name>
+    <message>
+        <source>Form</source>
+        <translation>Μορφή</translation>
+    </message>
+    <message>
+        <source>File name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File contents...</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3766,14 +3955,6 @@ This may cause the affected plugins to malfunction.</source>
     <message>
         <source>Remove</source>
         <translation>Κατάργηση</translation>
-    </message>
-    <message>
-        <source>Rename selected attachment</source>
-        <translation>Μετονομασία επιλεγμένου συνημμένου</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>Μετονομασία</translation>
     </message>
     <message>
         <source>Open selected attachment</source>
@@ -3889,6 +4070,18 @@ Error: %1</source>
 Would you like to overwrite the existing attachment?</source>
         <translation>Το συνημμένο &quot;%1&quot; υπάρχει ήδη. 
 Θέλετε να αντικαταστήσετε το υπάρχον συνημμένο;</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Προεπισκόπηση</translation>
+    </message>
+    <message>
+        <source>Failed to preview an attachment: Attachment not found</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -4087,6 +4280,10 @@ Would you like to overwrite the existing attachment?</source>
     <message>
         <source>Background Color</source>
         <translation>Χρώμα Φόντου</translation>
+    </message>
+    <message>
+        <source>Group Path</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -4482,6 +4679,14 @@ You can enable the DuckDuckGo website icon service in the security section of th
         <source>Url</source>
         <translation>Url</translation>
     </message>
+    <message>
+        <source>Could not load key file.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Could not open remote database. Password or key file may be incorrect.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>ImportWizardPageSelect</name>
@@ -4583,6 +4788,44 @@ You can enable the DuckDuckGo website icon service in the security section of th
     </message>
     <message>
         <source>KeePass1 Database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Proton Pass (.json)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Proton Pass JSON Export</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Temporary Database</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Command:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>e.g.: &quot;sftp user@hostname&quot; or &quot;scp user@hostname:DatabaseOnRemote.kdbx {TEMP_DATABASE}&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Input:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>e.g.:
+get DatabaseOnRemote.kdbx {TEMP_DATABASE}
+exit
+---
+{TEMP_DATABASE} is used as placeholder to store the database in a temporary location
+The command has to exit. In case of `sftp` as last commend `exit` has to be sent
+         </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remote Database (.kdbx)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -5727,12 +5970,6 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 Περιμένετε ορισμένα σφάλματα και μικρά ζητήματα, αυτή η έκδοση προορίζεται για σκοπούς δοκιμών.</translation>
     </message>
     <message>
-        <source>WARNING: Your Qt version may cause KeePassXC to crash with an On-Screen Keyboard.
-We recommend you use the AppImage available on our downloads page.</source>
-        <translation>ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Η έκδοση Qt ενδέχεται να προκαλέσει αιφνίδια διακοπή λειτουργίας του KeePassXC με Πληκτρολόγιο Οθόνης.
-Σας συνιστούμε να χρησιμοποιήσετε το AppImage που είναι διαθέσιμο στη σελίδα λήψεων.</translation>
-    </message>
-    <message>
         <source>No Tags</source>
         <translation>Χωρίς Ετικέτες</translation>
     </message>
@@ -5803,6 +6040,10 @@ We recommend you use the AppImage available on our downloads page.</source>
     <message>
         <source>Import Passkey</source>
         <translation>Εισαγωγή Passkey</translation>
+    </message>
+    <message>
+        <source>Remote S&amp;ync…</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Quit Application</source>
@@ -5907,6 +6148,10 @@ We recommend you use the AppImage available on our downloads page.</source>
     <message>
         <source>Show Password Generator</source>
         <translation>Εμφάνιση Γεννήτριας Κωδικών Πρόσβασης</translation>
+    </message>
+    <message>
+        <source>Remove Passkey From Entry</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Perform Auto-Type: {USERNAME}</source>
@@ -6053,15 +6298,31 @@ We recommend you use the AppImage available on our downloads page.</source>
         <translation>Εναλλαγή Επιτρεπόμενης Καταγραφής Οθόνης</translation>
     </message>
     <message>
-        <source>Remote S&amp;ync…</source>
+        <source>Show Group Panel</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Remove Passkey From Entry</source>
+        <source>Toggle Show Group Panel</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Setup Remote Sync…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password Generator</source>
+        <translation>Γεννήτρια Κωδικών</translation>
+    </message>
+    <message>
+        <source>E&amp;xpire Entry…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear SSH Agent</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear all identities in ssh-agent</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -6212,6 +6473,25 @@ We recommend you use the AppImage available on our downloads page.</source>
     <message>
         <source>Please fill in the display name and an optional description for your new database:</source>
         <translation>Συμπληρώστε το εμφανιζόμενο όνομα και μια προαιρετική περιγραφή για τη νέα σας βάση δεδομένων:</translation>
+    </message>
+</context>
+<context>
+    <name>NewEntryAttachmentsDialog</name>
+    <message>
+        <source>Attachment name cannot be empty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Attachment with the same name already exists</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Save attachment</source>
+        <translation>Αποθήκευση συνημμένου</translation>
+    </message>
+    <message>
+        <source>New entry attachment</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6758,10 +7038,6 @@ The following data is missing:
         <translation>Επιλέξτε επίσης από:</translation>
     </message>
     <message>
-        <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;</source>
-        <translation>Εξαιρούμενοι χαρακτήρες: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;.&quot;.</translation>
-    </message>
-    <message>
         <source>Exclude look-alike characters</source>
         <translation>Εξαίρεση παρόμοιων χαρακτήρων</translation>
     </message>
@@ -6786,10 +7062,6 @@ The following data is missing:
         <translation>Αριθμός Λέξεων:</translation>
     </message>
     <message>
-        <source>Character Count:</source>
-        <translation>Αριθμός Χαρακτήρων:</translation>
-    </message>
-    <message>
         <source>Word Case:</source>
         <translation>Κουτί Λέξεων:</translation>
     </message>
@@ -6800,10 +7072,6 @@ The following data is missing:
     <message>
         <source>Add custom wordlist</source>
         <translation>Προσθήκη προσαρμοσμένης λίστας λέξεων</translation>
-    </message>
-    <message>
-        <source>character</source>
-        <translation>χαρακτήρας</translation>
     </message>
     <message>
         <source>Close</source>
@@ -6911,6 +7179,22 @@ Do you want to overwrite it?</source>
         <source>Special Characters</source>
         <translation>Ειδικοί χαρακτήρες</translation>
     </message>
+    <message>
+        <source>passwordLength</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Characters: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>MIXED case</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;, &quot;B&quot;, &quot;8&quot;, &quot;G&quot;, &quot;6&quot;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>PasswordWidget</name>
@@ -6976,6 +7260,21 @@ Do you want to overwrite it?</source>
     <message>
         <source>Press &amp;Tab between characters</source>
         <translation>Πατήστε το πλήκτρο &amp;Τab μεταξύ χαρακτήρων</translation>
+    </message>
+</context>
+<context>
+    <name>PreviewEntryAttachmentsDialog</name>
+    <message>
+        <source>Preview entry attachment</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No preview available</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Image format not supported</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7657,10 +7956,6 @@ Do you want to overwrite it?</source>
         <translation>Μη έγκυρος αριθμός λέξεων %1</translation>
     </message>
     <message>
-        <source>The word list is too small (&lt; 1000 items)</source>
-        <translation>Η λίστα λέξεων είναι πολύ μικρή (&lt; 1000 στοιχεία)</translation>
-    </message>
-    <message>
         <source>Title for the entry.</source>
         <translation>Τίτλος για την καταχώρηση.</translation>
     </message>
@@ -7803,10 +8098,6 @@ Do you want to overwrite it?</source>
     <message>
         <source>Exit interactive mode.</source>
         <translation>Έξοδος από διαδραστική λειτουργία.</translation>
-    </message>
-    <message>
-        <source>Format to use when exporting. Available choices are &apos;xml&apos; or &apos;csv&apos;. Defaults to &apos;xml&apos;.</source>
-        <translation>Μορφή για χρήση κατά την εξαγωγή. Οι διαθέσιμες επιλογές είναι «xml» ή «csv». Προεπιλογή σε &quot;xml&quot;.</translation>
     </message>
     <message>
         <source>Exports the content of a database to standard output in the specified format.</source>
@@ -8397,18 +8688,6 @@ Kernel: %3 %4</source>
         <translation>κενό αρχείο</translation>
     </message>
     <message>
-        <source>malformed string</source>
-        <translation>παραμορφωμένο string</translation>
-    </message>
-    <message>
-        <source>missing closing quote</source>
-        <translation>Λείπει το τελείωμα αποσπάσματος</translation>
-    </message>
-    <message>
-        <source>%1: (row, col) %2,%3</source>
-        <translation>%1: (γραμμή, στήλη) %2,%3</translation>
-    </message>
-    <message>
         <source>AES 256-bit</source>
         <translation>AES 256-bit</translation>
     </message>
@@ -8867,6 +9146,74 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Only PBKDF and Argon2 are supported, cannot decrypt json file</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Reset Shortcuts</source>
+        <translation>Επαναφορά Συντομεύσεων</translation>
+    </message>
+    <message>
+        <source>Double click an action to change its shortcut</source>
+        <translation>Κάντε διπλό κλικ σε μια ενέργεια για να αλλάξετε τη συντόμευσή της.</translation>
+    </message>
+    <message>
+        <source>Filter...</source>
+        <translation>Φίλτρο...</translation>
+    </message>
+    <message>
+        <source>Shortcut Conflict</source>
+        <translation>Διένεξη Συντομεύσεων</translation>
+    </message>
+    <message>
+        <source>Shortcut %1 conflicts with &apos;%2&apos;. Overwrite shortcut?</source>
+        <translation>Η συντόμευση %1 έρχεται σε διένεξη με την &apos;%2&apos;. Να αντικατασταθεί η συντόμευση;</translation>
+    </message>
+    <message>
+        <source>Cannot generate valid passphrases because the wordlist is too short</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Encrypted files are not supported.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Proton Pass Import</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete plugin data?</source>
+        <translation>Διαγραφή δεδομένων πρόσθετου;</translation>
+    </message>
+    <message numerus="yes">
+        <source>Delete plugin data from Entry(s)?</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Passkey</source>
+        <translation>Passkey</translation>
+    </message>
+    <message>
+        <source>Format to use when exporting. Available choices are &apos;xml&apos;, &apos;csv&apos; or &apos;html&apos;. Defaults to &apos;xml&apos;.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>start minimized to the system tray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>malformed string, possible unescaped delimiter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>missing closing delimiter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1, row: %2, column: %3</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Tags</source>
+        <translation>Ετικέτες</translation>
+    </message>
 </context>
 <context>
     <name>QtIOCompressor</name>
@@ -8999,6 +9346,10 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Exclude from reports</source>
         <translation>Εξαίρεση από αναφορές</translation>
     </message>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
     <message>
         <source>Only show entries that have a URL</source>
         <translation>Εμφάνιση μόνο καταχωρίσεων που έχουν διεύθυνση URL</translation>
@@ -9015,35 +9366,32 @@ This option is deprecated, use --set-key-file instead.</source>
         <source> (Expired)</source>
         <translation>(Εχει λήξει)</translation>
     </message>
+    <message numerus="yes">
+        <source>Delete plugin data from Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
 </context>
 <context>
     <name>ReportsWidgetHealthcheck</name>
     <message>
-        <source>Hover over reason to show additional details. Double-click entries to edit.</source>
-        <translation>Τοποθετήστε το δείκτη του ποντικιού για να εμφανίσετε επιπλέον λεπτομέρειες. Κάντε διπλό κλικ στις καταχωρήσεις για επεξεργασία.</translation>
+        <source>Show expired entries</source>
+        <translation>Εμφάνιση καταχωρήσεων που έχουν λήξει</translation>
     </message>
     <message>
-        <source>Bad</source>
-        <comment>Password quality</comment>
-        <translation>Κακός</translation>
+        <source> (Expired)</source>
+        <translation>(Εχει λήξει)</translation>
+    </message>
+    <message>
+        <source>Hover over reason to show additional details. Double-click entries to edit.</source>
+        <translation>Τοποθετήστε το δείκτη του ποντικιού για να εμφανίσετε επιπλέον λεπτομέρειες. Κάντε διπλό κλικ στις καταχωρήσεις για επεξεργασία.</translation>
     </message>
     <message>
         <source>Bad — password must be changed</source>
         <translation>κακός — ο κωδικός πρόσβασης πρέπει να αλλάξει</translation>
     </message>
     <message>
-        <source>Poor</source>
-        <comment>Password quality</comment>
-        <translation>Φτωχός</translation>
-    </message>
-    <message>
         <source>Poor — password should be changed</source>
         <translation>Φτωχός — ο κωδικός πρόσβασης πρέπει να αλλάξει</translation>
-    </message>
-    <message>
-        <source>Weak</source>
-        <comment>Password quality</comment>
-        <translation>Αδύναμος</translation>
     </message>
     <message>
         <source>Weak — consider changing the password</source>
@@ -9093,17 +9441,13 @@ This option is deprecated, use --set-key-file instead.</source>
         <source>Exclude from reports</source>
         <translation>Εξαίρεση από αναφορές</translation>
     </message>
-    <message>
-        <source>Show expired entries</source>
-        <translation>Εμφάνιση καταχωρήσεων που έχουν λήξει</translation>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <source>Show entries that have been excluded from reports</source>
         <translation>Εμφάνιση καταχωρήσεων που έχουν εξαιρεθεί από τις αναφορές</translation>
-    </message>
-    <message>
-        <source> (Expired)</source>
-        <translation>(Εχει λήξει)</translation>
     </message>
 </context>
 <context>
@@ -9199,6 +9543,10 @@ This option is deprecated, use --set-key-file instead.</source>
     <message>
         <source>Exclude from reports</source>
         <translation>Εξαίρεση από αναφορές</translation>
+    </message>
+    <message numerus="yes">
+        <source>Expire Entry(s)…</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
@@ -9440,6 +9788,14 @@ This option is deprecated, use --set-key-file instead.</source>
     <message>
         <source>No agent running, cannot list identities.</source>
         <translation>Κανένας agent δεν εκτελείται, δεν μπορεί να αναφέρει τις ταυτότητες.</translation>
+    </message>
+    <message>
+        <source>Failed to remove all SSH identities from agent.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>All SSH identities removed from agent.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -9724,29 +10080,6 @@ This option is deprecated, use --set-key-file instead.</source>
     <message>
         <source>Export to %1</source>
         <translation>Εξαγωγή σε %1</translation>
-    </message>
-</context>
-<context>
-    <name>ShortcutSettingsWidget</name>
-    <message>
-        <source>Double click an action to change its shortcut</source>
-        <translation>Κάντε διπλό κλικ σε μια ενέργεια για να αλλάξετε τη συντόμευσή της.</translation>
-    </message>
-    <message>
-        <source>Shortcut Conflict</source>
-        <translation>Διένεξη Συντομεύσεων</translation>
-    </message>
-    <message>
-        <source>Filter...</source>
-        <translation>Φίλτρο...</translation>
-    </message>
-    <message>
-        <source>Shortcut %1 conflicts with &apos;%2&apos;. Overwrite shortcut?</source>
-        <translation>Η συντόμευση %1 έρχεται σε διένεξη με την &apos;%2&apos;. Να αντικατασταθεί η συντόμευση;</translation>
-    </message>
-    <message>
-        <source>Reset Shortcuts</source>
-        <translation>Επαναφορά Συντομεύσεων</translation>
     </message>
 </context>
 <context>
@@ -10038,11 +10371,15 @@ Example: JBSWY3DPEHPK3PXP</source>
         <translation>Δεν εντοπίστηκαν hardware κλειδιά</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed as &lt;a href=&quot;https://docs.yubico.com/yesdk/users-manual/application-otp/challenge-response.html&quot;&gt;HMAC-SHA1 Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Εάν είστε ιδιοκτήτης ενός &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; ή &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, μπορείτε να το χρησιμοποιήσετε για πρόσθετη ασφάλεια.&lt;/p&gt; &lt;p&gt;Το κλειδί απαιτεί μία από τις υποδοχές του να προγραμματιστεί ως &lt;a href=&quot;https://docs.yubico.com/yesdk/users-manual/application-otp/challenge-response.html&quot;&gt;HMAC-SHA1 Πρόκληση-Απόκριση&lt;/a&gt;.&lt;/p&gt;</translation>
+        <source>Refresh hardware keys</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Refresh hardware keys</source>
+        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed with &lt;a href=&quot;https://keepassxc.org/docs/#faq-yubikey-howto&quot;&gt;Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hardware keys found, but no slots are configured</source>
         <translation type="unfinished"/>
     </message>
 </context>
