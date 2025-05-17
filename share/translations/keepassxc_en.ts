@@ -1811,6 +1811,10 @@ Are you sure you want to continue with this file?.</source>
         <source>Secret Service Integration</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Database Settings: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DatabaseSettingsWidgetBrowser</name>

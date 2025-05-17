@@ -97,6 +97,10 @@ DatabaseSettingsDialog::~DatabaseSettingsDialog()
 
 void DatabaseSettingsDialog::load(const QSharedPointer<Database>& db)
 {
+    // Default to the main page on load
+    setCurrentPage(0);
+    setHeadline(tr("Database Settings: %1").arg(db->canonicalFilePath()));
+
     m_generalWidget->loadSettings(db);
     m_databaseKeyWidget->loadSettings(db);
     m_encryptionWidget->loadSettings(db);
