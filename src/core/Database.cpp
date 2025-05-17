@@ -829,8 +829,13 @@ void Database::updateTagList()
         }
     }
 
-    m_tagList = tagSet.toList();
-    m_tagList.sort();
+    m_tagList = tagSet.values();
+
+    QCollator collator;
+    collator.setNumericMode(true);
+    collator.setCaseSensitivity(Qt::CaseInsensitive);
+    std::sort(m_tagList.begin(), m_tagList.end(), collator);
+
     emit tagListUpdated();
 }
 
