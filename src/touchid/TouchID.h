@@ -11,7 +11,7 @@ public:
 private:
     TouchID()
     {
-       // Nothing to do here
+        // Nothing to do here
     }
 
 public:

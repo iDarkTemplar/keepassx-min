@@ -198,7 +198,6 @@ public:
         PasswordGenerator_Type,
 
         Messages_NoLegacyKeyFileWarning,
-        Messages_Qt55CompatibilityWarning,
         Messages_HidePreReleaseWarning,
 
         // Special internal value
