@@ -29,6 +29,7 @@
 #include "autotype/AutoTypePlatformPlugin.h"
 #include "autotype/AutoTypeSelectDialog.h"
 #include "autotype/PickcharsDialog.h"
+#include "core/Global.h"
 #include "core/Resources.h"
 #include "core/Tools.h"
 #include "gui/MainWindow.h"

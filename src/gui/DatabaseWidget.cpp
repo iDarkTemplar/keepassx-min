@@ -1016,7 +1016,16 @@ void DatabaseWidget::openUrlForEntry(Entry* entry)
         }
 
         if (launch) {
-            QProcess::startDetached(cmdString.mid(6));
+            const QString cmd = cmdString.mid(6);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+            QStringList cmdList = QProcess::splitCommand(cmd);
+            if (!cmdList.isEmpty()) {
+                const QString program = cmdList.takeFirst();
+                QProcess::startDetached(program, cmdList);
+            }
+#else
+            QProcess::startDetached(cmd);
+#endif
 
             if (config()->get(Config::MinimizeOnOpenUrl).toBool()) {
                 getMainWindow()->minimizeOrHide();
@@ -2367,7 +2376,7 @@ bool DatabaseWidget::saveAs()
                                      + (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbx") : defaultFileName));
     }
     const QString newFilePath = fileDialog()->getSaveFileName(
-        this, tr("Save database as"), oldFilePath, tr("KeePass 2 Database").append(" (*.kdbx)"), nullptr, nullptr);
+        this, tr("Save database as"), oldFilePath, tr("KeePass 2 Database").append(" (*.kdbx)"));
 
     bool ok = false;
     if (!newFilePath.isEmpty()) {

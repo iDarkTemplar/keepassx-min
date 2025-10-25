@@ -49,6 +49,7 @@
 #include <QJsonObject>
 #include <QListWidget>
 #include <QLocalSocket>
+#include <QLocale>
 #include <QProgressDialog>
 #include <QStringView>
 #include <QUrl>

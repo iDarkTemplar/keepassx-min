@@ -25,6 +25,7 @@
 #include <QFileInfo>
 #include <QList>
 #include <QProcessEnvironment>
+#include <QSet>
 
 class QIODevice;
 class QRegularExpression;

@@ -18,6 +18,7 @@
 #include "Diceware.h"
 
 #include "Utils.h"
+#include "core/Global.h"
 #include "core/PassphraseGenerator.h"
 
 #include <QCommandLineParser>
@@ -56,7 +57,7 @@ int Diceware::execute(const QStringList& arguments)
     if (wordCount.isEmpty()) {
         dicewareGenerator.setWordCount(PassphraseGenerator::DefaultWordCount);
     } else if (wordCount.toInt() <= 0) {
-        err << QObject::tr("Invalid word count %1").arg(wordCount) << endl;
+        err << QObject::tr("Invalid word count %1").arg(wordCount) << Qt::endl;
         return EXIT_FAILURE;
     } else {
         dicewareGenerator.setWordCount(wordCount.toInt());
@@ -73,7 +74,7 @@ int Diceware::execute(const QStringList& arguments)
     }
 
     QString password = dicewareGenerator.generatePassphrase();
-    out << password << endl;
+    out << password << Qt::endl;
 
     return EXIT_SUCCESS;
 }
