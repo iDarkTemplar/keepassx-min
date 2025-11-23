@@ -43,7 +43,7 @@ from urllib.request import urlretrieve
 ###########################################################################################
 
 # class Check(Command)
-# class Merge(Command)
+# class Tag(Command)
 # class Build(Command)
 # class BuildSrc(Command)
 # class AppSign(Command)
@@ -203,7 +203,7 @@ def _run(cmd, *args, cwd, path=None, env=None, input=None, capture_output=True, 
         cmd = docker_cmd + cmd
 
     try:
-        logger.debug('Running command: %s', ' '.join(cmd))
+        logger.debug('Running command: %s', ' '.join(str(cmd)))
         return subprocess.run(
             cmd, *args,
             input=input,
@@ -450,6 +450,7 @@ class Check(Command):
             cls.check_version_in_cmake(version, src_dir)
             cls.check_changelog(version, src_dir)
             cls.check_app_stream_info(version, src_dir)
+        return git_ref
 
     @staticmethod
     def check_src_dir_exists(src_dir):
@@ -541,8 +542,8 @@ class Check(Command):
             raise Error('xcrun command not found! Please check that you have correctly installed Xcode.')
 
 
-class Merge(Command):
-    """Merge release branch into main branch and create release tags."""
+class Tag(Command):
+    """Update translations and tag release."""
 
     @classmethod
     def setup_arg_parser(cls, parser: argparse.ArgumentParser):
@@ -564,7 +565,7 @@ class Merge(Command):
             skip_translations, tx_resource, tx_min_perc):
         major, minor, patch = _split_version(version)
         Check.perform_basic_checks(src_dir)
-        Check.perform_version_checks(version, src_dir, release_branch)
+        release_branch = Check.perform_version_checks(version, src_dir, release_branch)
         Check.check_gnupg()
         sign_key = GPGSign.get_secret_key(sign_key)
 
@@ -1196,9 +1197,9 @@ def main():
     Check.setup_arg_parser(check_parser)
     check_parser.set_defaults(_cmd=Check)
 
-    merge_parser = subparsers.add_parser('merge', help=Merge.__doc__)
-    Merge.setup_arg_parser(merge_parser)
-    merge_parser.set_defaults(_cmd=Merge)
+    merge_parser = subparsers.add_parser('tag', help=Tag.__doc__)
+    Tag.setup_arg_parser(merge_parser)
+    merge_parser.set_defaults(_cmd=Tag)
 
     build_parser = subparsers.add_parser('build', help=Build.__doc__)
     Build.setup_arg_parser(build_parser)
