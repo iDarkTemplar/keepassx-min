@@ -37,7 +37,7 @@ include(CheckCCompilerFlag)
 include(CheckCXXCompilerFlag)
 include(CheckCXXSourceCompiles)
 
-option(WITH_TESTS "Enable building of unit tests" ON)
+option(WITH_TESTS "Enable building of unit tests" OFF)
 option(WITH_GUI_TESTS "Enable building of GUI tests" OFF)
 option(WITH_DEV_BUILD "Use only for development. Disables/warns about deprecated methods." OFF)
 option(WITH_ASAN "Enable address sanitizer checks (Linux / macOS only)" OFF)
@@ -47,80 +47,16 @@ option(WITH_CCACHE "Use ccache for build" OFF)
 
 set(WITH_XC_ALL OFF CACHE BOOL "Build in all available plugins")
 
-option(WITH_XC_AUTOTYPE "Include Auto-Type." ON)
+option(WITH_XC_AUTOTYPE "Include Auto-Type." OFF)
 option(WITH_XC_NETWORKING "Include networking code (e.g. for downloading website icons)." OFF)
 option(WITH_XC_BROWSER "Include browser integration with keepassxc-browser." OFF)
 option(WITH_XC_BROWSER_PASSKEYS "Passkeys support for browser integration." OFF)
 option(WITH_XC_YUBIKEY "Include YubiKey support." OFF)
 option(WITH_XC_SSHAGENT "Include SSH agent support." OFF)
 option(WITH_XC_KEESHARE "Sharing integration with KeeShare" OFF)
-option(WITH_XC_UPDATECHECK "Include automatic update checks; disable for controlled distributions" ON)
-if(UNIX AND NOT APPLE)
-    option(WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API." OFF)
-    set(WITH_XC_X11 ON CACHE BOOL "Enable building with X11 deps")
-endif()
-if(WIN32 OR APPLE)
-    set(WITH_XC_CODESIGN_IDENTITY "" CACHE STRING "Certificate to be used for signing binaries before packaging.")
-    if(WIN32)
-        set(WITH_XC_CODESIGN_TIMESTAMP_URL "http://timestamp.sectigo.com" CACHE STRING "Timestamp URL for Windows code signing.")
-    elseif(APPLE)
-        set(WITH_XC_NOTARY_KEYCHAIN_PROFILE "" CACHE STRING "Keychain profile name for stored Apple notarization credentials.")
-    endif()
-endif()
-
-if(APPLE)
-    # Perform the platform checks before applying the stricter compiler flags.
-    # Otherwise the kSecAccessControlTouchIDCurrentSet deprecation warning will result in an error.
-    try_compile(XC_APPLE_COMPILER_SUPPORT_BIOMETRY
-       ${CMAKE_CURRENT_BINARY_DIR}/tiometry_test/
-       ${CMAKE_CURRENT_SOURCE_DIR}/cmake/compiler-checks/macos/control_biometry_support.mm)
-    message(STATUS "Biometry compiler support: ${XC_APPLE_COMPILER_SUPPORT_BIOMETRY}")
-
-    try_compile(XC_APPLE_COMPILER_SUPPORT_TOUCH_ID
-       ${CMAKE_CURRENT_BINARY_DIR}/touch_id_test/
-       ${CMAKE_CURRENT_SOURCE_DIR}/cmake/compiler-checks/macos/control_touch_id_support.mm)
-    message(STATUS "Touch ID compiler support: ${XC_APPLE_COMPILER_SUPPORT_TOUCH_ID}")
-
-    try_compile(XC_APPLE_COMPILER_SUPPORT_WATCH
-       ${CMAKE_CURRENT_BINARY_DIR}/tiometry_test/
-       ${CMAKE_CURRENT_SOURCE_DIR}/cmake/compiler-checks/macos/control_watch_support.mm)
-    message(STATUS "Apple watch compiler support: ${XC_APPLE_COMPILER_SUPPORT_WATCH}")
-endif()
-
-if(WITH_CCACHE)
-    # Use the Compiler Cache (ccache) program
-    # (install with: sudo apt get ccache)
-    find_program(CCACHE_FOUND ccache)
-    if(NOT CCACHE_FOUND)
-        message(FATAL_ERROR "ccache requested but cannot be found.")
-    endif()
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ${CCACHE_FOUND})
-endif()
-
-if(WITH_XC_ALL)
-    # Enable all options (except update check and docs)
-    set(WITH_XC_AUTOTYPE ON)
-    set(WITH_XC_NETWORKING ON)
-    set(WITH_XC_BROWSER ON)
-    set(WITH_XC_BROWSER_PASSKEYS ON)
-    set(WITH_XC_YUBIKEY ON)
-    set(WITH_XC_SSHAGENT ON)
-    set(WITH_XC_KEESHARE ON)
-    if(UNIX AND NOT APPLE)
-        set(WITH_XC_FDOSECRETS ON)
-    endif()
-endif()
-
-# Prefer WITH_XC_NETWORKING setting over WITH_XC_UPDATECHECK
-if(NOT WITH_XC_NETWORKING AND WITH_XC_UPDATECHECK)
-    message(STATUS "Disabling WITH_XC_UPDATECHECK because WITH_XC_NETWORKING is disabled")
-    set(WITH_XC_UPDATECHECK OFF)
-endif()
-
-if(UNIX AND NOT APPLE AND NOT WITH_XC_X11)
-    message(STATUS "Disabling WITH_XC_AUTOTYPE because WITH_XC_X11 is disabled")
-    set(WITH_XC_AUTOTYPE OFF)
-endif()
+option(WITH_XC_UPDATECHECK "Include automatic update checks; disable for controlled distributions" OFF)
+option(WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API." OFF)
+set(WITH_XC_X11 ON CACHE BOOL "Enable building with X11 deps")
 
 set(KEEPASSXC_VERSION_MAJOR "2")
 set(KEEPASSXC_VERSION_MINOR "7")
@@ -188,25 +124,9 @@ endif()
 
 message(STATUS "Setting up build for KeePassXC v${KEEPASSXC_VERSION}\n")
 
-# Distribution info
-set(KEEPASSXC_DIST ON)
-set(KEEPASSXC_DIST_TYPE "Other" CACHE STRING "KeePassXC Distribution Type")
-set_property(CACHE KEEPASSXC_DIST_TYPE PROPERTY STRINGS Snap AppImage Flatpak Other)
-if(KEEPASSXC_DIST_TYPE STREQUAL "Snap")
-    set(KEEPASSXC_DIST_SNAP ON)
-elseif(KEEPASSXC_DIST_TYPE STREQUAL "AppImage")
-    set(KEEPASSXC_DIST_APPIMAGE ON)
-elseif(KEEPASSXC_DIST_TYPE STREQUAL "Flatpak")
-    set(KEEPASSXC_DIST_FLATPAK ON)
-elseif(KEEPASSXC_DIST_TYPE STREQUAL "Other")
-    unset(KEEPASSXC_DIST)
-endif()
-
-if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.14.0")
-    cmake_policy(SET CMP0083 NEW)
-    include(CheckPIESupported)
-    check_pie_supported()
-endif()
+cmake_policy(SET CMP0083 NEW)
+include(CheckPIESupported)
+check_pie_supported()
 
 find_package(ZXCVBN REQUIRED)
 
@@ -302,10 +222,6 @@ if(NOT IS_DEBUG_BUILD)
     add_definitions(-DQT_NO_DEBUG_OUTPUT)
 endif()
 
-if(WITH_APP_BUNDLE)
-    add_definitions(-DWITH_APP_BUNDLE)
-endif()
-
 add_gcc_compiler_flags("-fno-common")
 find_package(OpenMP)
 if(OpenMP_FOUND)
@@ -327,12 +243,10 @@ if(CMAKE_BUILD_TYPE_LOWER STREQUAL "debug")
     endif()
 endif()
 
-if (NOT HAIKU)
-    if((CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.8.999) OR CMAKE_COMPILER_IS_CLANGXX)
-        add_gcc_compiler_flags("-fstack-protector-strong")
-    else()
-        add_gcc_compiler_flags("-fstack-protector --param=ssp-buffer-size=4")
-    endif()
+if((CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.8.999) OR CMAKE_COMPILER_IS_CLANGXX)
+    add_gcc_compiler_flags("-fstack-protector-strong")
+else()
+    add_gcc_compiler_flags("-fstack-protector --param=ssp-buffer-size=4")
 endif()
 
 add_gcc_compiler_cxxflags("-Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual")
@@ -361,13 +275,11 @@ check_add_gcc_compiler_flag("-Werror=format-security")
 check_add_gcc_compiler_flag("-Werror=implicit-function-declaration" C)
 check_add_gcc_compiler_flag("-Wcast-align")
 
-if(UNIX AND NOT APPLE)
-    check_add_gcc_compiler_flag("-Qunused-arguments")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--as-needed -Wl,--no-undefined")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-z,relro,-z,now -pie")
-    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,--as-needed")
-    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-z,relro,-z,now")
-endif()
+check_add_gcc_compiler_flag("-Qunused-arguments")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--as-needed -Wl,--no-undefined")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-z,relro,-z,now -pie")
+set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,--as-needed")
+set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-z,relro,-z,now")
 
 set(CMAKE_C_STANDARD 99)
 if(WITH_XC_BOTAN3)
@@ -390,10 +302,6 @@ if(CXX_HAS_fsized_deallocation)
     unset(CMAKE_REQUIRED_FLAGS)
 endif()
 
-if(APPLE AND CMAKE_COMPILER_IS_CLANGXX)
-    add_gcc_compiler_cxxflags("-stdlib=libc++")
-endif()
-
 if(WITH_DEV_BUILD)
     add_definitions(-DQT_DEPRECATED_WARNINGS)
 else()
@@ -401,78 +309,15 @@ else()
     add_gcc_compiler_cxxflags("-Wno-deprecated-declarations")
 endif()
 
-# MSVC specific options
-if (MSVC)
-    if(MSVC_TOOLSET_VERSION LESS 141)
-        message(FATAL_ERROR "Only Microsoft Visual Studio 17 and newer are supported!")
-    endif()
-    add_compile_options(/permissive- /utf-8)
-    # Clang-cl does not support /MP, /Zf, or /fsanitize=address
-    if (NOT CMAKE_COMPILER_IS_CLANG_MSVC)
-        add_compile_options(/MP)
-        if(IS_DEBUG_BUILD)
-            add_compile_options(/Zf)
-            if(MSVC_TOOLSET_VERSION GREATER 141)
-                add_compile_definitions(/fsanitize=address)
-            endif()
-        endif()
-    endif()
-endif()
+set(PROGNAME keepassxc)
 
-if(WIN32)
-    set(CMAKE_RC_COMPILER_INIT windres)
-    enable_language(RC)
-    if(MINGW)
-        set(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
-    endif()
-    if(NOT IS_DEBUG_BUILD)
-        if(MSVC)
-            # By default MSVC enables NXCOMPAT
-            add_compile_options(/guard:cf)
-            add_link_options(/DYNAMICBASE /HIGHENTROPYVA /GUARD:CF)
-        else()
-            set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--nxcompat -Wl,--dynamicbase")
-            set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,--nxcompat -Wl,--dynamicbase")
-            # Enable high entropy ASLR for 64-bit builds
-            if(NOT IS_32BIT)
-                set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--high-entropy-va")
-                set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,--high-entropy-va")
-            endif()
-        endif()
-    endif()
-    # Determine if we can link against the Windows SDK, used for Windows Hello support
-    find_library(WINSDK WindowsApp.lib)
-endif()
+include(GNUInstallDirs)
 
-if(APPLE AND WITH_APP_BUNDLE OR WIN32)
-    set(PROGNAME KeePassXC)
-else()
-    set(PROGNAME keepassxc)
-endif()
-
-if(WIN32)
-    set(CLI_INSTALL_DIR ".")
-    set(PROXY_INSTALL_DIR ".")
-    set(BIN_INSTALL_DIR ".")
-    set(PLUGIN_INSTALL_DIR ".")
-    set(DATA_INSTALL_DIR "share")
-elseif(APPLE AND WITH_APP_BUNDLE)
-    set(BUNDLE_INSTALL_DIR "${PROGNAME}.app/Contents")
-    set(CMAKE_INSTALL_MANDIR "${BUNDLE_INSTALL_DIR}/Resources/man")
-    set(CLI_INSTALL_DIR "${BUNDLE_INSTALL_DIR}/MacOS")
-    set(PROXY_INSTALL_DIR "${BUNDLE_INSTALL_DIR}/MacOS")
-    set(BIN_INSTALL_DIR "${BUNDLE_INSTALL_DIR}/MacOS")
-    set(PLUGIN_INSTALL_DIR "${BUNDLE_INSTALL_DIR}/PlugIns")
-    set(DATA_INSTALL_DIR "${BUNDLE_INSTALL_DIR}/Resources")
-else()
-    include(GNUInstallDirs)
-
-    set(CLI_INSTALL_DIR "${CMAKE_INSTALL_BINDIR}")
-    set(PROXY_INSTALL_DIR "${CMAKE_INSTALL_BINDIR}")
-    set(BIN_INSTALL_DIR "${CMAKE_INSTALL_BINDIR}")
-    set(PLUGIN_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/keepassxc")
-    set(DATA_INSTALL_DIR "${CMAKE_INSTALL_DATADIR}/keepassxc")
-endif()
+set(CLI_INSTALL_DIR "${CMAKE_INSTALL_BINDIR}")
+set(PROXY_INSTALL_DIR "${CMAKE_INSTALL_BINDIR}")
+set(BIN_INSTALL_DIR "${CMAKE_INSTALL_BINDIR}")
+set(PLUGIN_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/keepassxc")
+set(DATA_INSTALL_DIR "${CMAKE_INSTALL_DATADIR}/keepassxc")
 
 if(WITH_TESTS)
     enable_testing()
@@ -507,34 +352,13 @@ if(WITH_COVERAGE)
 endif()
 
 set(QT_COMPONENTS Core Network Concurrent Gui Svg Widgets Test LinguistTools)
-if(UNIX AND NOT APPLE)
-    if(WITH_XC_X11)
-        list(APPEND QT_COMPONENTS X11Extras)
-    endif()
-    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED)
-elseif(APPLE)
-    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} REQUIRED HINTS
-            /usr/local/opt/qt@5/lib/cmake
-            /usr/local/Cellar/qt@5/*/lib/cmake
-            /opt/homebrew/opt/qt@5/lib/cmake
-            ENV PATH)
-    find_package(Qt5 COMPONENTS MacExtras HINTS
-            /usr/local/opt/qt@5/lib/cmake
-            /usr/local/Cellar/qt@5/*/lib/cmake
-            /opt/homebrew/opt/qt@5/lib/cmake
-            ENV PATH)
-else()
-    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+if(WITH_XC_X11)
+    list(APPEND QT_COMPONENTS X11Extras)
 endif()
+find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED)
 
 if(Qt5Core_VERSION VERSION_LESS "5.12.0")
     message(FATAL_ERROR "Qt version 5.12.0 or higher is required")
-endif()
-
-get_filename_component(Qt5_PREFIX ${Qt5_DIR}/../../.. REALPATH)
-if(APPLE)
-    # Add includes under Qt5 Prefix in case Qt6 is also installed
-    include_directories(SYSTEM ${Qt5_PREFIX}/include)
 endif()
 
 # Process moc automatically
@@ -543,22 +367,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 # Process .qrc files automatically
 set(CMAKE_AUTORCC ON)
-
-if(APPLE)
-    set(CMAKE_MACOSX_RPATH TRUE)
-    find_program(MACDEPLOYQT_EXE macdeployqt HINTS ${Qt5_PREFIX}/bin ${Qt5_PREFIX}/tools/qt5/bin ENV PATH)
-    if(NOT MACDEPLOYQT_EXE)
-        message(FATAL_ERROR "macdeployqt is required to build on macOS")
-    endif()
-    message(STATUS "Using macdeployqt: ${MACDEPLOYQT_EXE}")
-    set(MACDEPLOYQT_EXTRA_BINARIES "")
-elseif(WIN32)
-    find_program(WINDEPLOYQT_EXE windeployqt HINTS ${Qt5_PREFIX}/bin ${Qt5_PREFIX}/tools/qt5/bin ENV PATH)
-    if(NOT WINDEPLOYQT_EXE)
-        message(FATAL_ERROR "windeployqt is required to build on Windows")
-    endif()
-    message(STATUS "Using windeployqt: ${WINDEPLOYQT_EXE}")
-endif()
 
 # Debian sets the build type to None for package builds.
 # Make sure we don't enable asserts there.
@@ -579,54 +387,28 @@ include_directories(SYSTEM ${ZLIB_INCLUDE_DIR})
 # Find Minizip
 find_package(Minizip REQUIRED)
 
-if(WITH_XC_YUBIKEY)
-    find_package(PCSC REQUIRED)
-    include_directories(SYSTEM ${PCSC_INCLUDE_DIRS})
+check_cxx_source_compiles("#include <sys/prctl.h>
+int main() { prctl(PR_SET_DUMPABLE, 0); return 0; }"
+        HAVE_PR_SET_DUMPABLE)
 
-    if(UNIX AND NOT APPLE)
-        find_library(LIBUSB_LIBRARIES NAMES usb-1.0 REQUIRED)
-        find_path(LIBUSB_INCLUDE_DIR NAMES libusb.h PATH_SUFFIXES "libusb-1.0" "libusb" REQUIRED)
-        include_directories(SYSTEM ${LIBUSB_INCLUDE_DIR})
-    endif()
-endif()
+check_cxx_source_compiles("#include <malloc.h>
+int main() { return 0; }"
+        HAVE_MALLOC_H)
 
-if(UNIX)
-    check_cxx_source_compiles("#include <sys/prctl.h>
-    int main() { prctl(PR_SET_DUMPABLE, 0); return 0; }"
-            HAVE_PR_SET_DUMPABLE)
+check_cxx_source_compiles("#include <malloc.h>
+int main() { malloc_usable_size(NULL); return 0; }"
+        HAVE_MALLOC_USABLE_SIZE)
 
-    check_cxx_source_compiles("#include <malloc.h>
-    int main() { return 0; }"
-            HAVE_MALLOC_H)
-
-    check_cxx_source_compiles("#include <malloc.h>
-    int main() { malloc_usable_size(NULL); return 0; }"
-            HAVE_MALLOC_USABLE_SIZE)
-
-    check_cxx_source_compiles("#include <sys/resource.h>
-    int main() {
-      struct rlimit limit;
-      limit.rlim_cur = 0;
-      limit.rlim_max = 0;
-      setrlimit(RLIMIT_CORE, &limit);
-      return 0;
-    }" HAVE_RLIMIT_CORE)
-
-    if(APPLE)
-        check_cxx_source_compiles("#include <sys/types.h>
-      #include <sys/ptrace.h>
-      int main() { ptrace(PT_DENY_ATTACH, 0, 0, 0); return 0; }"
-                HAVE_PT_DENY_ATTACH)
-    endif()
-endif()
+check_cxx_source_compiles("#include <sys/resource.h>
+int main() {
+  struct rlimit limit;
+  limit.rlim_cur = 0;
+  limit.rlim_max = 0;
+  setrlimit(RLIMIT_CORE, &limit);
+  return 0;
+}" HAVE_RLIMIT_CORE)
 
 include_directories(SYSTEM ${ZLIB_INCLUDE_DIR})
-
-find_library(ZXCVBN_LIBRARIES zxcvbn)
-if(NOT ZXCVBN_LIBRARIES)
-    add_subdirectory(src/thirdparty/zxcvbn)
-    set(ZXCVBN_LIBRARIES zxcvbn)
-endif(NOT ZXCVBN_LIBRARIES)
 
 add_subdirectory(src)
 add_subdirectory(share)
@@ -634,11 +416,6 @@ if(WITH_TESTS)
     add_subdirectory(tests)
 endif(WITH_TESTS)
 
-if(PRINT_SUMMARY)
-    # This will print ENABLED, REQUIRED and DISABLED
-    feature_summary(WHAT ALL)
-else()
-    # This will only print ENABLED and DISABLED feature
-    feature_summary(WHAT ENABLED_FEATURES DESCRIPTION "Enabled features:")
-    feature_summary(WHAT DISABLED_FEATURES DESCRIPTION "Disabled features:")
-endif()
+# This will only print ENABLED and DISABLED feature
+feature_summary(WHAT ENABLED_FEATURES DESCRIPTION "Enabled features:")
+feature_summary(WHAT DISABLED_FEATURES DESCRIPTION "Disabled features:")
