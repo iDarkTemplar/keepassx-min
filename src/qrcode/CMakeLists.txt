@@ -14,6 +14,7 @@
 
 set(qrcode_SOURCES
     QrCode.cpp
+    QrCode.h
 )
 
 find_package(QREncode REQUIRED)

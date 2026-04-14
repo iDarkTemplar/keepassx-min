@@ -4,31 +4,48 @@ if(WITH_XC_FDOSECRETS)
     add_library(fdosecrets STATIC
         # app settings page
         FdoSecretsPlugin.cpp
+        FdoSecretsPlugin.h
         widgets/SettingsModels.cpp
+        widgets/SettingsModels.h
         widgets/SettingsWidgetFdoSecrets.cpp
+        widgets/SettingsWidgetFdoSecrets.h
         widgets/RowButtonHelper.cpp
+        widgets/RowButtonHelper.h
 
         # per database settings page
         widgets/DatabaseSettingsWidgetFdoSecrets.cpp
+        widgets/DatabaseSettingsWidgetFdoSecrets.h
 
         # prompt dialog
         widgets/AccessControlDialog.cpp
+        widgets/AccessControlDialog.h
 
         # setting storage
         FdoSecretsSettings.cpp
+        FdoSecretsSettings.h
 
         # dbus objects
         dbus/DBusClient.cpp
+        dbus/DBusClient.h
         dbus/DBusMgr.cpp
+        dbus/DBusMgr.h
         dbus/DBusDispatch.cpp
         dbus/DBusObject.cpp
+        dbus/DBusObject.h
         objects/Service.cpp
+        objects/Service.h
         objects/Session.cpp
+        objects/Session.h
         objects/SessionCipher.cpp
+        objects/SessionCipher.h
         objects/Collection.cpp
+        objects/Collection.h
         objects/Item.cpp
+        objects/Item.h
         objects/Prompt.cpp
+        objects/Prompt.h
         dbus/DBusTypes.cpp
+        dbus/DBusTypes.h
     )
     target_link_libraries(fdosecrets Qt5::Core Qt5::Widgets Qt5::DBus ${BOTAN_LIBRARIES})
 endif()

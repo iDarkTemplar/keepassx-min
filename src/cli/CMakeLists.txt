@@ -14,34 +14,64 @@
 
 set(cli_SOURCES
         Add.cpp
+        Add.h
         AddGroup.cpp
+        AddGroup.h
         Analyze.cpp
+        Analyze.h
         AttachmentExport.cpp
+        AttachmentExport.h
         AttachmentImport.cpp
+        AttachmentImport.h
         AttachmentRemove.cpp
+        AttachmentRemove.h
         Clip.cpp
+        Clip.h
         Close.cpp
+        Close.h
         Command.cpp
+        Command.h
         DatabaseCommand.cpp
+        DatabaseCommand.h
         DatabaseCreate.cpp
+        DatabaseCreate.h
         DatabaseEdit.cpp
+        DatabaseEdit.h
         DatabaseInfo.cpp
+        DatabaseInfo.h
         Diceware.cpp
+        Diceware.h
         Edit.cpp
+        Edit.h
         Estimate.cpp
+        Estimate.h
         Exit.cpp
+        Exit.h
         Export.cpp
+        Export.h
         Generate.cpp
+        Generate.h
         Help.cpp
+        Help.h
         Import.cpp
+        Import.h
         List.cpp
+        List.h
         Merge.cpp
+        Merge.h
         Move.cpp
+        Move.h
         Open.cpp
+        Open.h
         Remove.cpp
+        Remove.h
         RemoveGroup.cpp
+        RemoveGroup.h
         Search.cpp
-        Show.cpp)
+        Search.h
+        Show.cpp
+        Show.h
+        )
 
 add_library(cli STATIC ${cli_SOURCES})
 target_include_directories(cli SYSTEM PRIVATE ${ZXCVBN_INCLUDE_DIR})

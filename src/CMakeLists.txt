@@ -17,183 +17,363 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
 set(keepassx_SOURCES
         core/Alloc.cpp
+        core/AsyncTask.h
         core/AutoTypeAssociations.cpp
+        core/AutoTypeAssociations.h
         core/Base32.cpp
+        core/Base32.h
         core/Bootstrap.cpp
+        core/Bootstrap.h
         core/Clock.cpp
+        core/Clock.h
+        core/Compare.h
         core/Config.cpp
+        core/Config.h
         core/CustomData.cpp
+        core/CustomData.h
         core/Database.cpp
+        core/Database.h
         core/DatabaseStats.cpp
+        core/DatabaseStats.h
+        core/Endian.h
         core/Entry.cpp
+        core/Entry.h
         core/EntryAttachments.cpp
+        core/EntryAttachments.h
         core/EntryAttributes.cpp
+        core/EntryAttributes.h
         core/EntrySearcher.cpp
+        core/EntrySearcher.h
+        core/Exporter.h
         core/FileWatcher.cpp
+        core/FileWatcher.h
+        core/Global.h
         core/Group.cpp
+        core/Group.h
         core/HibpOffline.cpp
+        core/HibpOffline.h
         core/InactivityTimer.cpp
+        core/InactivityTimer.h
+        core/ListDeleter.h
         core/Merger.cpp
+        core/Merger.h
         core/Metadata.cpp
+        core/Metadata.h
         core/ModifiableObject.cpp
+        core/ModifiableObject.h
         core/PasswordGenerator.cpp
+        core/PasswordGenerator.h
         core/PasswordHealth.cpp
+        core/PasswordHealth.h
         core/PassphraseGenerator.cpp
+        core/PassphraseGenerator.h
         core/Resources.cpp
+        core/Resources.h
         core/SignalMultiplexer.cpp
+        core/SignalMultiplexer.h
         core/TimeDelta.cpp
+        core/TimeDelta.h
         core/TimeInfo.cpp
+        core/TimeInfo.h
         core/Tools.cpp
+        core/Tools.h
         core/Totp.cpp
+        core/Totp.h
         core/Translator.cpp
+        core/Translator.h
         core/UrlTools.cpp
+        core/UrlTools.h
         cli/Utils.cpp
+        cli/Utils.h
         cli/TextStream.cpp
+        cli/TextStream.h
         crypto/Crypto.cpp
+        crypto/Crypto.h
         crypto/CryptoHash.cpp
+        crypto/CryptoHash.h
         crypto/Random.cpp
+        crypto/Random.h
         crypto/SymmetricCipher.cpp
+        crypto/SymmetricCipher.h
         crypto/kdf/Kdf.cpp
+        crypto/kdf/Kdf.h
         crypto/kdf/AesKdf.cpp
+        crypto/kdf/AesKdf.h
         crypto/kdf/Argon2Kdf.cpp
+        crypto/kdf/Argon2Kdf.h
         format/BitwardenReader.cpp
+        format/BitwardenReader.h
         format/CsvExporter.cpp
+        format/CsvExporter.h
         format/CsvParser.cpp
+        format/CsvParser.h
         format/HtmlExporter.cpp
+        format/HtmlExporter.h
+        format/KeePass1.h
         format/KeePass1Reader.cpp
+        format/KeePass1Reader.h
         format/KeePass2.cpp
+        format/KeePass2.h
         format/KeePass2RandomStream.cpp
+        format/KeePass2RandomStream.h
         format/KdbxReader.cpp
+        format/KdbxReader.h
         format/KdbxWriter.cpp
+        format/KdbxWriter.h
         format/KdbxXmlReader.cpp
+        format/KdbxXmlReader.h
         format/KeePass2Reader.cpp
+        format/KeePass2Reader.h
         format/KeePass2Writer.cpp
+        format/KeePass2Writer.h
         format/Kdbx3Reader.cpp
+        format/Kdbx3Reader.h
         format/Kdbx3Writer.cpp
+        format/Kdbx3Writer.h
         format/Kdbx4Reader.cpp
+        format/Kdbx4Reader.h
         format/Kdbx4Writer.cpp
+        format/Kdbx4Writer.h
         format/KdbxXmlWriter.cpp
+        format/KdbxXmlWriter.h
         format/OpData01.cpp
+        format/OpData01.h
         format/OPUXReader.cpp
+        format/OPUXReader.h
         format/OpVaultReader.cpp
+        format/OpVaultReader.h
         format/OpVaultReaderAttachments.cpp
         format/OpVaultReaderBandEntry.cpp
         format/OpVaultReaderSections.cpp
         format/ProtonPassReader.cpp
+        format/ProtonPassReader.h
         gui/styles/styles.qrc
         gui/styles/StateColorPalette.cpp
+        gui/styles/StateColorPalette.h
         gui/styles/base/phantomcolor.cpp
+        gui/styles/base/phantomcolor.h
         gui/styles/base/BaseStyle.cpp
+        gui/styles/base/BaseStyle.h
         gui/styles/dark/DarkStyle.cpp
+        gui/styles/dark/DarkStyle.h
         gui/styles/light/LightStyle.cpp
+        gui/styles/light/LightStyle.h
         gui/AboutDialog.cpp
+        gui/AboutDialog.h
         gui/Application.cpp
+        gui/Application.h
         gui/CategoryListWidget.cpp
+        gui/CategoryListWidget.h
         gui/Clipboard.cpp
+        gui/Clipboard.h
         gui/CloneDialog.cpp
+        gui/CloneDialog.h
         gui/DatabaseIcons.cpp
+        gui/DatabaseIcons.h
         gui/DatabaseOpenWidget.cpp
+        gui/DatabaseOpenWidget.h
         gui/DatabaseTabWidget.cpp
+        gui/DatabaseTabWidget.h
         gui/DatabaseWidget.cpp
+        gui/DatabaseWidget.h
         gui/DatabaseWidgetStateSync.cpp
+        gui/DatabaseWidgetStateSync.h
         gui/EntryPreviewWidget.cpp
+        gui/EntryPreviewWidget.h
         gui/DialogyWidget.cpp
+        gui/DialogyWidget.h
         gui/EditWidget.cpp
+        gui/EditWidget.h
         gui/EditWidgetIcons.cpp
+        gui/EditWidgetIcons.h
         gui/EditWidgetProperties.cpp
+        gui/EditWidgetProperties.h
         gui/FileDialog.cpp
+        gui/FileDialog.h
         gui/Font.cpp
+        gui/Font.h
         gui/GuiTools.cpp
+        gui/GuiTools.h
         gui/HtmlGuiExporter.cpp
+        gui/HtmlGuiExporter.h
         gui/IconModels.cpp
+        gui/IconModels.h
         gui/KMessageWidget.cpp
+        gui/KMessageWidget.h
         gui/MainWindow.cpp
+        gui/MainWindow.h
         gui/MergeDialog.cpp
+        gui/MergeDialog.h
         gui/MessageBox.cpp
+        gui/MessageBox.h
         gui/MessageWidget.cpp
+        gui/MessageWidget.h
         gui/PasswordWidget.cpp
+        gui/PasswordWidget.h
         gui/PasswordGeneratorWidget.cpp
+        gui/PasswordGeneratorWidget.h
         gui/ApplicationSettingsWidget.cpp
+        gui/ApplicationSettingsWidget.h
         gui/Icons.cpp
+        gui/Icons.h
         gui/SearchWidget.cpp
+        gui/SearchWidget.h
         gui/SettingsWidget.cpp
+        gui/SettingsWidget.h
         gui/SortFilterHideProxyModel.cpp
+        gui/SortFilterHideProxyModel.h
         gui/SquareSvgWidget.cpp
+        gui/SquareSvgWidget.h
         gui/TotpSetupDialog.cpp
+        gui/TotpSetupDialog.h
         gui/TotpDialog.cpp
+        gui/TotpDialog.h
         gui/TotpExportSettingsDialog.cpp
+        gui/TotpExportSettingsDialog.h
         gui/DatabaseOpenDialog.cpp
+        gui/DatabaseOpenDialog.h
         gui/URLEdit.cpp
+        gui/URLEdit.h
         gui/WelcomeWidget.cpp
+        gui/WelcomeWidget.h
         gui/csvImport/CsvImportWidget.cpp
+        gui/csvImport/CsvImportWidget.h
         gui/csvImport/CsvParserModel.cpp
+        gui/csvImport/CsvParserModel.h
         gui/entry/AutoTypeAssociationsModel.cpp
+        gui/entry/AutoTypeAssociationsModel.h
         gui/entry/EditEntryWidget.cpp
+        gui/entry/EditEntryWidget.h
         gui/entry/EntryAttachmentsModel.cpp
+        gui/entry/EntryAttachmentsModel.h
         gui/entry/EntryAttachmentsWidget.cpp
+        gui/entry/EntryAttachmentsWidget.h
         gui/entry/EntryAttributesModel.cpp
+        gui/entry/EntryAttributesModel.h
         gui/entry/EditEntryAttachmentsDialog.cpp
+        gui/entry/EditEntryAttachmentsDialog.h
         gui/entry/PreviewEntryAttachmentsDialog.cpp
+        gui/entry/PreviewEntryAttachmentsDialog.h
         gui/entry/attachments/TextAttachmentsWidget.cpp
+        gui/entry/attachments/TextAttachmentsWidget.h
         gui/entry/attachments/ImageAttachmentsWidget.cpp
+        gui/entry/attachments/ImageAttachmentsWidget.h
         gui/entry/attachments/ImageAttachmentsView.cpp
+        gui/entry/attachments/ImageAttachmentsView.h
         gui/entry/attachments/TextAttachmentsPreviewWidget.cpp
+        gui/entry/attachments/TextAttachmentsPreviewWidget.h
         gui/entry/attachments/TextAttachmentsEditWidget.cpp
+        gui/entry/attachments/TextAttachmentsEditWidget.h
         gui/entry/attachments/AttachmentWidget.cpp
+        gui/entry/attachments/AttachmentWidget.h
         gui/entry/EntryHistoryModel.cpp
+        gui/entry/EntryHistoryModel.h
         gui/entry/EntryModel.cpp
+        gui/entry/EntryModel.h
         gui/entry/EntryView.cpp
+        gui/entry/EntryView.h
         gui/export/ExportDialog.cpp
+        gui/export/ExportDialog.h
         gui/group/EditGroupWidget.cpp
+        gui/group/EditGroupWidget.h
         gui/group/GroupModel.cpp
+        gui/group/GroupModel.h
         gui/group/GroupView.cpp
+        gui/group/GroupView.h
         gui/tag/TagModel.cpp
+        gui/tag/TagModel.h
         gui/tag/TagView.cpp
+        gui/tag/TagView.h
         gui/tag/TagsEdit.cpp
+        gui/tag/TagsEdit.h
         gui/databasekey/KeyComponentWidget.cpp
+        gui/databasekey/KeyComponentWidget.h
         gui/databasekey/PasswordEditWidget.cpp
+        gui/databasekey/PasswordEditWidget.h
         gui/databasekey/YubiKeyEditWidget.cpp
+        gui/databasekey/YubiKeyEditWidget.h
         gui/databasekey/KeyFileEditWidget.cpp
+        gui/databasekey/KeyFileEditWidget.h
         gui/dbsettings/DatabaseSettingsWidget.cpp
+        gui/dbsettings/DatabaseSettingsWidget.h
         gui/dbsettings/DatabaseSettingsDialog.cpp
+        gui/dbsettings/DatabaseSettingsDialog.h
         gui/dbsettings/DatabaseSettingsWidgetGeneral.cpp
+        gui/dbsettings/DatabaseSettingsWidgetGeneral.h
         gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp
+        gui/dbsettings/DatabaseSettingsWidgetMaintenance.h
         gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.cpp
+        gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.h
         gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp
+        gui/dbsettings/DatabaseSettingsWidgetEncryption.h
         gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp
+        gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.h
         gui/reports/ReportsWidget.cpp
+        gui/reports/ReportsWidget.h
         gui/reports/ReportsDialog.cpp
+        gui/reports/ReportsDialog.h
         gui/reports/ReportsWidgetHealthcheck.cpp
+        gui/reports/ReportsWidgetHealthcheck.h
         gui/reports/ReportsPageHealthcheck.cpp
+        gui/reports/ReportsPageHealthcheck.h
         gui/reports/ReportsWidgetHibp.cpp
+        gui/reports/ReportsWidgetHibp.h
         gui/reports/ReportsPageHibp.cpp
+        gui/reports/ReportsPageHibp.h
         gui/reports/ReportsWidgetStatistics.cpp
+        gui/reports/ReportsWidgetStatistics.h
         gui/reports/ReportsPageStatistics.cpp
+        gui/reports/ReportsPageStatistics.h
         gui/osutils/OSUtilsBase.cpp
+        gui/osutils/OSUtilsBase.h
         gui/osutils/ScreenLockListener.cpp
+        gui/osutils/ScreenLockListener.h
         gui/osutils/ScreenLockListenerPrivate.cpp
         gui/widgets/ElidedLabel.cpp
+        gui/widgets/ElidedLabel.h
         gui/widgets/KPToolBar.cpp
+        gui/widgets/KPToolBar.h
         gui/widgets/PopupHelpWidget.cpp
+        gui/widgets/PopupHelpWidget.h
         gui/wizard/ImportWizard.cpp
+        gui/wizard/ImportWizard.h
         gui/wizard/ImportWizardPageReview.cpp
+        gui/wizard/ImportWizardPageReview.h
         gui/wizard/ImportWizardPageSelect.cpp
+        gui/wizard/ImportWizardPageSelect.h
         gui/wizard/NewDatabaseWizard.cpp
+        gui/wizard/NewDatabaseWizard.h
         gui/wizard/NewDatabaseWizardPage.cpp
+        gui/wizard/NewDatabaseWizardPage.h
         gui/wizard/NewDatabaseWizardPageMetaData.cpp
+        gui/wizard/NewDatabaseWizardPageMetaData.h
         gui/wizard/NewDatabaseWizardPageEncryption.cpp
+        gui/wizard/NewDatabaseWizardPageEncryption.h
         gui/wizard/NewDatabaseWizardPageDatabaseKey.cpp
+        gui/wizard/NewDatabaseWizardPageDatabaseKey.h
         keys/CompositeKey.cpp
+        keys/CompositeKey.h
         keys/FileKey.cpp
+        keys/FileKey.h
         keys/PasswordKey.cpp
+        keys/PasswordKey.h
         keys/ChallengeResponseKey.cpp
+        keys/ChallengeResponseKey.h
         streams/HashedBlockStream.cpp
+        streams/HashedBlockStream.h
         streams/HashingStream.cpp
+        streams/HashingStream.h
         streams/HmacBlockStream.cpp
+        streams/HmacBlockStream.h
         streams/LayeredStream.cpp
+        streams/LayeredStream.h
         streams/qtiocompressor.cpp
+        streams/qtiocompressor.h
         streams/StoreDataStream.cpp
-        streams/SymmetricCipherStream.cpp)
+        streams/StoreDataStream.h
+        streams/SymmetricCipherStream.cpp
+        streams/SymmetricCipherStream.h
+        )
 if(APPLE)
     set(keepassx_SOURCES
             ${keepassx_SOURCES}
@@ -207,10 +387,15 @@ if(UNIX AND NOT APPLE)
     set(keepassx_SOURCES
             ${keepassx_SOURCES}
             gui/osutils/nixutils/ScreenLockListenerDBus.cpp
-            gui/osutils/nixutils/NixUtils.cpp)
+            gui/osutils/nixutils/ScreenLockListenerDBus.h
+            gui/osutils/nixutils/NixUtils.cpp
+            gui/osutils/nixutils/NixUtils.h
+            )
     if(WITH_XC_X11)
         list(APPEND keepassx_SOURCES
-            gui/osutils/nixutils/X11Funcs.cpp)
+            gui/osutils/nixutils/X11Funcs.cpp
+            gui/osutils/nixutils/X11Funcs.h
+            )
     endif()
     qt5_add_dbus_adaptor(keepassx_SOURCES
             gui/org.keepassxc.KeePassXC.MainWindow.xml
