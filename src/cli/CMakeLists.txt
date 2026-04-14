@@ -44,7 +44,8 @@ set(cli_SOURCES
         Show.cpp)
 
 add_library(cli STATIC ${cli_SOURCES})
-target_link_libraries(cli ${ZXCVBN_LIBRARIES} Qt5::Core)
+target_include_directories(cli SYSTEM PRIVATE ${ZXCVBN_INCLUDE_DIR})
+target_link_libraries(cli ${ZXCVBN_LIBRARY} Qt5::Core)
 
 find_package(Readline)
 

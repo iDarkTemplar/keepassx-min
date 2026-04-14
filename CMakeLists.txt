@@ -211,13 +211,15 @@ if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.14.0")
     check_pie_supported()
 endif()
 
+find_package(ZXCVBN REQUIRED)
+
 # Find Botan early since the version affects subsequent compiler options
 find_package(Botan REQUIRED)
 if(BOTAN_VERSION VERSION_GREATER_EQUAL "3.0.0")
     set(WITH_XC_BOTAN3 TRUE)
 elseif(BOTAN_VERSION VERSION_LESS "2.11.0")
     # Check for minimum Botan version
-    message(FATAL_ERROR "Botan 2.11.0 or higher is required")   
+    message(FATAL_ERROR "Botan 2.11.0 or higher is required")
 endif()
 include_directories(SYSTEM ${BOTAN_INCLUDE_DIR})
 

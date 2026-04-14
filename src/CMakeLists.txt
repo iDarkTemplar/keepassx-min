@@ -351,6 +351,7 @@ target_link_libraries(autotype Qt5::Core Qt5::Widgets)
 
 add_library(keepassx_core STATIC ${keepassx_SOURCES})
 
+target_include_directories(keepassx_core SYSTEM PRIVATE ${ZXCVBN_INCLUDE_DIR})
 set_target_properties(keepassx_core PROPERTIES COMPILE_DEFINITIONS KEEPASSX_BUILDING_CORE)
 target_link_libraries(keepassx_core
         autotype
@@ -363,7 +364,7 @@ target_link_libraries(keepassx_core
         Qt5::Widgets
         ${BOTAN_LIBRARIES}
         ${PCSC_LIBRARIES}
-        ${ZXCVBN_LIBRARIES}
+        ${ZXCVBN_LIBRARY}
         ${ZLIB_LIBRARIES}
         ${MINIZIP_LIBRARIES}
         ${ARGON2_LIBRARIES}
