@@ -19,46 +19,48 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <QMutexLocker>
 
-ScreenLockListenerMac* ScreenLockListenerMac::instance()
+ScreenLockListenerMac *ScreenLockListenerMac::instance()
 {
-    static QMutex mutex;
-    QMutexLocker lock(&mutex);
+	static QMutex mutex;
+	QMutexLocker lock(&mutex);
 
-    static ScreenLockListenerMac* m_ptr = nullptr;
-    if (m_ptr == nullptr) {
-        m_ptr = new ScreenLockListenerMac();
-    }
-    return m_ptr;
+	static ScreenLockListenerMac *m_ptr = nullptr;
+	if (m_ptr == nullptr)
+	{
+		m_ptr = new ScreenLockListenerMac();
+	}
+	return m_ptr;
 }
 
 void ScreenLockListenerMac::notificationCenterCallBack(CFNotificationCenterRef,
-                                                       void*,
+                                                       void *,
                                                        CFStringRef,
-                                                       const void*,
+                                                       const void *,
                                                        CFDictionaryRef)
 {
-    instance()->onSignalReception();
+	instance()->onSignalReception();
 }
 
-ScreenLockListenerMac::ScreenLockListenerMac(QWidget* parent)
-    : ScreenLockListenerPrivate(parent)
+ScreenLockListenerMac::ScreenLockListenerMac(QWidget *parent)
+	: ScreenLockListenerPrivate(parent)
 {
-    CFNotificationCenterRef distCenter;
-    CFStringRef screenIsLockedSignal = CFSTR("com.apple.screenIsLocked");
-    distCenter = CFNotificationCenterGetDistributedCenter();
-    if (nullptr == distCenter) {
-        return;
-    }
+	CFNotificationCenterRef distCenter;
+	CFStringRef screenIsLockedSignal = CFSTR("com.apple.screenIsLocked");
+	distCenter = CFNotificationCenterGetDistributedCenter();
+	if (nullptr == distCenter)
+	{
+		return;
+	}
 
-    CFNotificationCenterAddObserver(distCenter,
-                                    this,
-                                    &ScreenLockListenerMac::notificationCenterCallBack,
-                                    screenIsLockedSignal,
-                                    nullptr,
-                                    CFNotificationSuspensionBehaviorDeliverImmediately);
+	CFNotificationCenterAddObserver(distCenter,
+	                                this,
+	                                &ScreenLockListenerMac::notificationCenterCallBack,
+	                                screenIsLockedSignal,
+	                                nullptr,
+	                                CFNotificationSuspensionBehaviorDeliverImmediately);
 }
 
 void ScreenLockListenerMac::onSignalReception()
 {
-    emit screenLocked();
+	emit screenLocked();
 }

@@ -24,45 +24,48 @@
 
 AttachmentRemove::AttachmentRemove()
 {
-    name = QString("attachment-rm");
-    description = QObject::tr("Remove an attachment of an entry.");
-    positionalArguments.append(
-        {QString("entry"), QObject::tr("Path of the entry with the target attachment."), QString("")});
-    positionalArguments.append({QString("name"), QObject::tr("Name of the attachment to be removed."), QString("")});
+	name = QString("attachment-rm");
+	description = QObject::tr("Remove an attachment of an entry.");
+	positionalArguments.append(
+		{QString("entry"), QObject::tr("Path of the entry with the target attachment."), QString("")});
+	positionalArguments.append({QString("name"), QObject::tr("Name of the attachment to be removed."), QString("")});
 }
 
 int AttachmentRemove::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser> parser)
 {
-    auto& out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    auto args = parser->positionalArguments();
-    auto entryPath = args.at(1);
+	auto args = parser->positionalArguments();
+	auto entryPath = args.at(1);
 
-    auto entry = database->rootGroup()->findEntryByPath(entryPath);
-    if (!entry) {
-        err << QObject::tr("Could not find entry with path %1.").arg(entryPath) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	auto entry = database->rootGroup()->findEntryByPath(entryPath);
+	if (!entry)
+	{
+		err << QObject::tr("Could not find entry with path %1.").arg(entryPath) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    auto attachmentName = args.at(2);
+	auto attachmentName = args.at(2);
 
-    auto attachments = entry->attachments();
-    if (!attachments->hasKey(attachmentName)) {
-        err << QObject::tr("Could not find attachment with name %1.").arg(attachmentName) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	auto attachments = entry->attachments();
+	if (!attachments->hasKey(attachmentName))
+	{
+		err << QObject::tr("Could not find attachment with name %1.").arg(attachmentName) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    entry->beginUpdate();
-    attachments->remove(attachmentName);
-    entry->endUpdate();
+	entry->beginUpdate();
+	attachments->remove(attachmentName);
+	entry->endUpdate();
 
-    QString errorMessage;
-    if (!database->save(Database::Atomic, {}, &errorMessage)) {
-        err << QObject::tr("Writing the database failed %1.").arg(errorMessage) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	QString errorMessage;
+	if (!database->save(Database::Atomic, {}, &errorMessage))
+	{
+		err << QObject::tr("Writing the database failed %1.").arg(errorMessage) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    out << QObject::tr("Successfully removed attachment %1 from entry %2.").arg(attachmentName, entryPath) << Qt::endl;
-    return EXIT_SUCCESS;
+	out << QObject::tr("Successfully removed attachment %1 from entry %2.").arg(attachmentName, entryPath) << Qt::endl;
+	return EXIT_SUCCESS;
 }

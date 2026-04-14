@@ -22,39 +22,39 @@
 class PassphraseGenerator
 {
 public:
-    PassphraseGenerator();
-    Q_DISABLE_COPY(PassphraseGenerator)
+	PassphraseGenerator();
+	Q_DISABLE_COPY(PassphraseGenerator)
 
-    enum PassphraseWordCase
-    {
-        LOWERCASE,
-        UPPERCASE,
-        TITLECASE,
-        MIXEDCASE
-    };
+	enum PassphraseWordCase
+	{
+		LOWERCASE,
+		UPPERCASE,
+		TITLECASE,
+		MIXEDCASE
+	};
 
-    double estimateEntropy(int wordCount = 0);
-    void setWordCount(int wordCount);
-    void setWordList(const QString& path);
-    void setWordCase(PassphraseWordCase wordCase);
-    void setDefaultWordList();
-    void setWordSeparator(const QString& separator);
-    bool isWordListValid() const;
+	double estimateEntropy(int wordCount = 0);
+	void setWordCount(int wordCount);
+	void setWordList(const QString &path);
+	void setWordCase(PassphraseWordCase wordCase);
+	void setDefaultWordList();
+	void setWordSeparator(const QString &separator);
+	bool isWordListValid() const;
 
-    QString generatePassphrase() const;
+	QString generatePassphrase() const;
 
-    static const int DefaultWordCount;
-    static const char* DefaultSeparator;
-    static const char* DefaultWordList;
+	static const int DefaultWordCount;
+	static const char *DefaultSeparator;
+	static const char *DefaultWordList;
 
 private:
-    int m_wordCount;
-    int m_minWordListSize = 1296;
-    PassphraseWordCase m_wordCase;
-    QString m_separator;
-    QList<QString> m_wordlist;
+	int m_wordCount;
+	int m_minWordListSize = 1296;
+	PassphraseWordCase m_wordCase;
+	QString m_separator;
+	QList<QString> m_wordlist;
 
-    friend class TestPassphraseGenerator;
+	friend class TestPassphraseGenerator;
 };
 
 #endif // KEEPASSX_PASSPHRASEGENERATOR_H

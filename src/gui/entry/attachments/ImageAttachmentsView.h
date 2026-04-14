@@ -18,28 +18,28 @@
 
 #include <QGraphicsView>
 
-class ImageAttachmentsView : public QGraphicsView
+class ImageAttachmentsView: public QGraphicsView
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit ImageAttachmentsView(QWidget* parent = nullptr);
+	explicit ImageAttachmentsView(QWidget *parent = nullptr);
 
-    void enableAutoFitInView();
-    void disableAutoFitInView();
-    bool isAutoFitInViewActivated() const;
+	void enableAutoFitInView();
+	void disableAutoFitInView();
+	bool isAutoFitInViewActivated() const;
 
-    double calculateFitInViewFactor() const;
+	double calculateFitInViewFactor() const;
 
 signals:
-    void ctrlWheelEvent(QWheelEvent* event);
+	void ctrlWheelEvent(QWheelEvent *event);
 
 protected:
-    void wheelEvent(QWheelEvent* event) override;
-    void showEvent(QShowEvent* event) override;
-    void resizeEvent(QResizeEvent* event) override;
+	void wheelEvent(QWheelEvent *event) override;
+	void showEvent(QShowEvent *event) override;
+	void resizeEvent(QResizeEvent *event) override;
 
 private:
-    void fitSceneInView();
+	void fitSceneInView();
 
-    bool m_autoFitInView = false;
+	bool m_autoFitInView = false;
 };

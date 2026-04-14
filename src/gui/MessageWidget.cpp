@@ -25,70 +25,80 @@ const int MessageWidget::DefaultAutoHideTimeout = 6000;
 const int MessageWidget::LongAutoHideTimeout = 15000;
 const int MessageWidget::DisableAutoHide = -1;
 
-MessageWidget::MessageWidget(QWidget* parent)
-    : KMessageWidget(parent)
-    , m_autoHideTimer(new QTimer(this))
-    , m_autoHideTimeout(DefaultAutoHideTimeout)
+MessageWidget::MessageWidget(QWidget *parent)
+	: KMessageWidget(parent)
+	, m_autoHideTimer(new QTimer(this))
+	, m_autoHideTimeout(DefaultAutoHideTimeout)
 {
-    m_autoHideTimer->setSingleShot(true);
-    connect(m_autoHideTimer, SIGNAL(timeout()), this, SLOT(animatedHide()));
-    connect(this, SIGNAL(hideAnimationFinished()), m_autoHideTimer, SLOT(stop()));
+	m_autoHideTimer->setSingleShot(true);
+	connect(m_autoHideTimer, SIGNAL(timeout()), this, SLOT(animatedHide()));
+	connect(this, SIGNAL(hideAnimationFinished()), m_autoHideTimer, SLOT(stop()));
 }
 
 void MessageWidget::setAnimate(bool state)
 {
-    m_animate = state;
+	m_animate = state;
 }
 
 int MessageWidget::autoHideTimeout() const
 {
-    return m_autoHideTimeout;
+	return m_autoHideTimeout;
 }
 
-void MessageWidget::showMessage(const QString& text, MessageWidget::MessageType type)
+void MessageWidget::showMessage(const QString &text, MessageWidget::MessageType type)
 {
-    showMessage(text, type, m_autoHideTimeout);
+	showMessage(text, type, m_autoHideTimeout);
 }
 
-void MessageWidget::showMessage(const QString& text, KMessageWidget::MessageType type, int autoHideTimeout)
+void MessageWidget::showMessage(const QString &text, KMessageWidget::MessageType type, int autoHideTimeout)
 {
-    setMessageType(type);
-    setText(text);
+	setMessageType(type);
+	setText(text);
 
-    emit showAnimationStarted();
-    if (m_animate) {
-        animatedShow();
-    } else {
-        show();
-        emit showAnimationFinished();
-    }
+	emit showAnimationStarted();
+	if (m_animate)
+	{
+		animatedShow();
+	}
+	else
+	{
+		show();
+		emit showAnimationFinished();
+	}
 
-    if (autoHideTimeout > 0) {
-        m_autoHideTimer->start(autoHideTimeout);
-    } else {
-        m_autoHideTimer->stop();
-    }
+	if (autoHideTimeout > 0)
+	{
+		m_autoHideTimer->start(autoHideTimeout);
+	}
+	else
+	{
+		m_autoHideTimer->stop();
+	}
 }
 
 void MessageWidget::hideMessage()
 {
-    emit hideAnimationStarted();
-    if (m_animate) {
-        animatedHide();
-    } else {
-        hide();
-        emit hideAnimationFinished();
-    }
+	emit hideAnimationStarted();
+	if (m_animate)
+	{
+		animatedHide();
+	}
+	else
+	{
+		hide();
+		emit hideAnimationFinished();
+	}
 
-    m_autoHideTimer->stop();
+	m_autoHideTimer->stop();
 }
 
 void MessageWidget::setAutoHideTimeout(int autoHideTimeout)
 {
-    m_autoHideTimeout = autoHideTimeout;
-    if (autoHideTimeout <= 0) {
-        m_autoHideTimer->stop();
-    }
+	m_autoHideTimeout = autoHideTimeout;
+	if (autoHideTimeout <= 0)
+	{
+		m_autoHideTimer->stop();
+	}
 }
 
 /**
@@ -97,9 +107,10 @@ void MessageWidget::setAutoHideTimeout(int autoHideTimeout)
  *
  * @param link link URL
  */
-void MessageWidget::openHttpUrl(const QString& link)
+void MessageWidget::openHttpUrl(const QString &link)
 {
-    if (link.startsWith("http://") || link.startsWith("https://")) {
-        QDesktopServices::openUrl(QUrl(link));
-    }
+	if (link.startsWith("http://") || link.startsWith("https://"))
+	{
+		QDesktopServices::openUrl(QUrl(link));
+	}
 }

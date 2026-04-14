@@ -19,50 +19,50 @@
 
 #include "TestKeePass2Format.h"
 
-class TestKdbx4Argon2 : public TestKeePass2Format
+class TestKdbx4Argon2: public TestKeePass2Format
 {
-    Q_OBJECT
+	Q_OBJECT
 
 protected:
-    void initTestCaseImpl() override;
+	void initTestCaseImpl() override;
 
-    QSharedPointer<Database> readXml(QBuffer* buf, bool strictMode, bool& hasError, QString& errorString) override;
-    QSharedPointer<Database>
-    readXml(const QString& path, bool strictMode, bool& hasError, QString& errorString) override;
-    void writeXml(QBuffer* buf, Database* db, bool& hasError, QString& errorString) override;
+	QSharedPointer<Database> readXml(QBuffer *buf, bool strictMode, bool &hasError, QString &errorString) override;
+	QSharedPointer<Database>
+		readXml(const QString &path, bool strictMode, bool &hasError, QString &errorString) override;
+	void writeXml(QBuffer *buf, Database *db, bool &hasError, QString &errorString) override;
 
-    void readKdbx(QIODevice* device,
-                  QSharedPointer<const CompositeKey> key,
-                  QSharedPointer<Database> db,
-                  bool& hasError,
-                  QString& errorString) override;
-    void writeKdbx(QIODevice* device, Database* db, bool& hasError, QString& errorString) override;
+	void readKdbx(QIODevice *device,
+	              QSharedPointer<const CompositeKey> key,
+	              QSharedPointer<Database> db,
+	              bool &hasError,
+	              QString &errorString) override;
+	void writeKdbx(QIODevice *device, Database *db, bool &hasError, QString &errorString) override;
 };
 
-class TestKdbx4AesKdf : public TestKdbx4Argon2
+class TestKdbx4AesKdf: public TestKdbx4Argon2
 {
-    Q_OBJECT
+	Q_OBJECT
 
 protected:
-    void initTestCaseImpl() override;
+	void initTestCaseImpl() override;
 };
 
 /**
  * KDF-independent KDBX4 format tests.
  */
-class TestKdbx4Format : public QObject
+class TestKdbx4Format: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void testFormat400();
-    void testFormat400Upgrade();
-    void testFormat400Upgrade_data();
-    void testFormat410Upgrade();
-    void testUpgradeMasterKeyIntegrity();
-    void testUpgradeMasterKeyIntegrity_data();
-    void testAttachmentIndexStability();
-    void testCustomData();
+	void testFormat400();
+	void testFormat400Upgrade();
+	void testFormat400Upgrade_data();
+	void testFormat410Upgrade();
+	void testUpgradeMasterKeyIntegrity();
+	void testUpgradeMasterKeyIntegrity_data();
+	void testAttachmentIndexStability();
+	void testCustomData();
 };
 
 #endif // KEEPASSXC_TEST_KDBX4_H

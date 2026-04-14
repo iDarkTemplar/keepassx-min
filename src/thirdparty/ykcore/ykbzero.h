@@ -28,8 +28,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef	__YKBZERO_H_INCLUDED__
-#define	__YKBZERO_H_INCLUDED__
+#ifndef __YKBZERO_H_INCLUDED__
+#define __YKBZERO_H_INCLUDED__
 
 #ifdef _WIN32
 #include <windows.h>
@@ -46,17 +46,21 @@
 #elif defined(HAVE_EXPLICIT_MEMSET)
 #define insecure_memzero(buf, len) explicit_memset(buf, 0, len)
 #elif defined(HAVE_INLINE_ASM)
-#define insecure_memzero(buf, len) do {                                 \
-                memset(buf, 0, len);                                    \
-                __asm__ __volatile__ ("" : : "r"(buf) : "memory");      \
-        } while (0)
+#define insecure_memzero(buf, len)                                                                                     \
+	do                                                                                                                 \
+	{                                                                                                                  \
+		memset(buf, 0, len);                                                                                           \
+		__asm__ __volatile__("" : : "r"(buf) : "memory");                                                              \
+	} while (0)
 #else
-#define insecure_memzero(buf, len) do {                                 \
-                volatile unsigned char *volatile __buf_ =               \
-                        (volatile unsigned char *volatile)buf;          \
-                size_t __i_ = 0;                                        \
-                while (__i_ < len) __buf_[__i_++] = 0;                  \
-        } while (0)
+#define insecure_memzero(buf, len)                                                                                     \
+	do                                                                                                                 \
+	{                                                                                                                  \
+		volatile unsigned char *volatile __buf_ = (volatile unsigned char *volatile)buf;                               \
+		size_t __i_ = 0;                                                                                               \
+		while (__i_ < len)                                                                                             \
+			__buf_[__i_++] = 0;                                                                                        \
+	} while (0)
 #endif
 
-#endif	/* __YKBZERO_H_INCLUDED__ */
+#endif /* __YKBZERO_H_INCLUDED__ */

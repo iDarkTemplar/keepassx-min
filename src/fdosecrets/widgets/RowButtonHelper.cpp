@@ -21,44 +21,46 @@
 
 namespace
 {
-    class WidgetItemDelegate : public QStyledItemDelegate
-    {
-        std::function<QWidget*(QWidget*, const QModelIndex&)> m_create;
+	class WidgetItemDelegate: public QStyledItemDelegate
+	{
+		std::function<QWidget *(QWidget *, const QModelIndex &)> m_create;
 
-    public:
-        explicit WidgetItemDelegate(QObject* parent, std::function<QWidget*(QWidget*, const QModelIndex&)>&& create)
-            : QStyledItemDelegate(parent)
-            , m_create(std::move(create))
-        {
-        }
+	public:
+		explicit WidgetItemDelegate(QObject *parent, std::function<QWidget *(QWidget *, const QModelIndex &)> &&create)
+			: QStyledItemDelegate(parent)
+			, m_create(std::move(create))
+		{
+		}
 
-        QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem&, const QModelIndex& index) const override
-        {
-            if (!index.isValid())
-                return nullptr;
-            return m_create(parent, index);
-        }
-    };
+		QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &, const QModelIndex &index) const override
+		{
+			if (!index.isValid())
+				return nullptr;
+			return m_create(parent, index);
+		}
+	};
 } // namespace
 
-void installWidgetItemDelegate(QAbstractItemView* view,
+void installWidgetItemDelegate(QAbstractItemView *view,
                                int column,
-                               std::function<QWidget*(QWidget*, const QModelIndex&)>&& create)
+                               std::function<QWidget *(QWidget *, const QModelIndex &)> &&create)
 {
-    auto delegate = new WidgetItemDelegate(view, std::move(create));
-    // doesn't take ownership
-    view->setItemDelegateForColumn(column, delegate);
+	auto delegate = new WidgetItemDelegate(view, std::move(create));
+	// doesn't take ownership
+	view->setItemDelegateForColumn(column, delegate);
 
-    for (int row = 0; row != view->model()->rowCount({}); ++row) {
-        view->openPersistentEditor(view->model()->index(row, column));
-    }
-    QObject::connect(view->model(),
-                     &QAbstractItemModel::rowsInserted,
-                     delegate,
-                     [view, column](const QModelIndex&, int first, int last) {
-                         for (int i = first; i <= last; ++i) {
-                             auto idx = view->model()->index(i, column);
-                             view->openPersistentEditor(idx);
-                         }
-                     });
+	for (int row = 0; row != view->model()->rowCount({}); ++row)
+	{
+		view->openPersistentEditor(view->model()->index(row, column));
+	}
+	QObject::connect(view->model(),
+	                 &QAbstractItemModel::rowsInserted,
+	                 delegate,
+	                 [view, column](const QModelIndex &, int first, int last) {
+						 for (int i = first; i <= last; ++i)
+						 {
+							 auto idx = view->model()->index(i, column);
+							 view->openPersistentEditor(idx);
+						 }
+					 });
 }

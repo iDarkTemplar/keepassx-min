@@ -18,49 +18,51 @@
 
 #include "crypto/Random.h"
 
-Kdf::Kdf(const QUuid& uuid)
-    : m_rounds(KDF_DEFAULT_ROUNDS)
-    , m_seed(QByteArray(KDF_MAX_SEED_SIZE, 0))
-    , m_uuid(uuid)
+Kdf::Kdf(const QUuid &uuid)
+	: m_rounds(KDF_DEFAULT_ROUNDS)
+	, m_seed(QByteArray(KDF_MAX_SEED_SIZE, 0))
+	, m_uuid(uuid)
 {
 }
 
-const QUuid& Kdf::uuid() const
+const QUuid &Kdf::uuid() const
 {
-    return m_uuid;
+	return m_uuid;
 }
 
 int Kdf::rounds() const
 {
-    return m_rounds;
+	return m_rounds;
 }
 
 QByteArray Kdf::seed() const
 {
-    return m_seed;
+	return m_seed;
 }
 
 bool Kdf::setRounds(int rounds)
 {
-    if (rounds >= 1 && rounds < INT_MAX) {
-        m_rounds = rounds;
-        return true;
-    }
-    m_rounds = 1;
-    return false;
+	if (rounds >= 1 && rounds < INT_MAX)
+	{
+		m_rounds = rounds;
+		return true;
+	}
+	m_rounds = 1;
+	return false;
 }
 
-bool Kdf::setSeed(const QByteArray& seed)
+bool Kdf::setSeed(const QByteArray &seed)
 {
-    if (seed.size() < KDF_MIN_SEED_SIZE || seed.size() > KDF_MAX_SEED_SIZE) {
-        return false;
-    }
+	if (seed.size() < KDF_MIN_SEED_SIZE || seed.size() > KDF_MAX_SEED_SIZE)
+	{
+		return false;
+	}
 
-    m_seed = seed;
-    return true;
+	m_seed = seed;
+	return true;
 }
 
 void Kdf::randomizeSeed()
 {
-    setSeed(randomGen()->randomArray(m_seed.size()));
+	setSeed(randomGen()->randomArray(m_seed.size()));
 }

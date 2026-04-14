@@ -19,12 +19,12 @@
 
 #include "DatabaseCommand.h"
 
-class Open : public DatabaseCommand
+class Open: public DatabaseCommand
 {
 public:
-    Open();
-    int execute(const QStringList& arguments) override;
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	Open();
+	int execute(const QStringList &arguments) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 };
 
 #endif // KEEPASSXC_OPEN_H

@@ -32,80 +32,80 @@ class Database;
 class Entry;
 class QPluginLoader;
 
-class AutoType : public QObject
+class AutoType: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    QStringList windowTitles();
-    bool registerGlobalShortcut(Qt::Key key, Qt::KeyboardModifiers modifiers, QString* error = nullptr);
-    void unregisterGlobalShortcut();
-    void performAutoType(const Entry* entry);
-    void performAutoTypeWithSequence(const Entry* entry, const QString& sequence);
+	QStringList windowTitles();
+	bool registerGlobalShortcut(Qt::Key key, Qt::KeyboardModifiers modifiers, QString *error = nullptr);
+	void unregisterGlobalShortcut();
+	void performAutoType(const Entry *entry);
+	void performAutoTypeWithSequence(const Entry *entry, const QString &sequence);
 
-    static bool verifyAutoTypeSyntax(const QString& sequence, const Entry* entry, QString& error);
+	static bool verifyAutoTypeSyntax(const QString &sequence, const Entry *entry, QString &error);
 
-    inline bool isAvailable()
-    {
-        return m_plugin;
-    }
+	inline bool isAvailable()
+	{
+		return m_plugin;
+	}
 
-    static AutoType* instance();
-    static void createTestInstance();
+	static AutoType *instance();
+	static void createTestInstance();
 
 public slots:
-    void performGlobalAutoType(const QList<QSharedPointer<Database>>& dbList, const QString& search = {});
-    void raiseWindow();
+	void performGlobalAutoType(const QList<QSharedPointer<Database>> &dbList, const QString &search = {});
+	void raiseWindow();
 
 signals:
-    void globalAutoTypeTriggered(const QString& search);
-    void autotypeFinished();
-    void autotypeRetypeTimeout();
+	void globalAutoTypeTriggered(const QString &search);
+	void autotypeFinished();
+	void autotypeRetypeTimeout();
 
 private slots:
-    void startGlobalAutoType(const QString& search);
-    void unloadPlugin();
-    void resetAutoTypeState();
+	void startGlobalAutoType(const QString &search);
+	void unloadPlugin();
+	void resetAutoTypeState();
 
 private:
-    enum WindowState
-    {
-        Normal,
-        Minimized,
-        Hidden
-    };
+	enum WindowState
+	{
+		Normal,
+		Minimized,
+		Hidden
+	};
 
-    explicit AutoType(QObject* parent = nullptr, bool test = false);
-    ~AutoType() override;
-    void loadPlugin(const QString& pluginPath);
-    void executeAutoTypeActions(const Entry* entry,
-                                const QString& sequence = QString(),
-                                WId window = 0,
-                                AutoTypeExecutor::Mode mode = AutoTypeExecutor::Mode::NORMAL);
-    void restoreWindowState();
+	explicit AutoType(QObject *parent = nullptr, bool test = false);
+	~AutoType() override;
+	void loadPlugin(const QString &pluginPath);
+	void executeAutoTypeActions(const Entry *entry,
+	                            const QString &sequence = QString(),
+	                            WId window = 0,
+	                            AutoTypeExecutor::Mode mode = AutoTypeExecutor::Mode::NORMAL);
+	void restoreWindowState();
 
-    static QList<QSharedPointer<AutoTypeAction>>
-    parseSequence(const QString& entrySequence, const Entry* entry, QString& error, bool syntaxOnly = false);
+	static QList<QSharedPointer<AutoTypeAction>>
+		parseSequence(const QString &entrySequence, const Entry *entry, QString &error, bool syntaxOnly = false);
 
-    QMutex m_inAutoType;
-    QMutex m_inGlobalAutoTypeDialog;
-    QPluginLoader* m_pluginLoader;
-    AutoTypePlatformInterface* m_plugin;
-    AutoTypeExecutor* m_executor;
-    static AutoType* m_instance;
+	QMutex m_inAutoType;
+	QMutex m_inGlobalAutoTypeDialog;
+	QPluginLoader *m_pluginLoader;
+	AutoTypePlatformInterface *m_plugin;
+	AutoTypeExecutor *m_executor;
+	static AutoType *m_instance;
 
-    QString m_windowTitleForGlobal;
-    WindowState m_windowState;
-    WId m_windowForGlobal;
-    AutoTypeMatch m_lastMatch;
-    QTimer m_lastMatchRetypeTimer;
+	QString m_windowTitleForGlobal;
+	WindowState m_windowState;
+	WId m_windowForGlobal;
+	AutoTypeMatch m_lastMatch;
+	QTimer m_lastMatchRetypeTimer;
 
-    Q_DISABLE_COPY(AutoType)
+	Q_DISABLE_COPY(AutoType)
 };
 
-inline AutoType* autoType()
+inline AutoType *autoType()
 {
-    return AutoType::instance();
+	return AutoType::instance();
 }
 
 #endif // KEEPASSX_AUTOTYPE_H

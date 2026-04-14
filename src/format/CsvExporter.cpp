@@ -21,99 +21,106 @@
 
 #include "core/Group.h"
 
-bool CsvExporter::exportDatabase(const QString& filename, const QSharedPointer<const Database>& db)
+bool CsvExporter::exportDatabase(const QString &filename, const QSharedPointer<const Database> &db)
 {
-    QFile file(filename);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        m_error = file.errorString();
-        return false;
-    }
-    return exportDatabase(&file, db);
+	QFile file(filename);
+	if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+	{
+		m_error = file.errorString();
+		return false;
+	}
+	return exportDatabase(&file, db);
 }
 
-bool CsvExporter::exportDatabase(QIODevice* device, const QSharedPointer<const Database>& db)
+bool CsvExporter::exportDatabase(QIODevice *device, const QSharedPointer<const Database> &db)
 {
-    if (device->write(exportHeader().toUtf8()) == -1) {
-        m_error = device->errorString();
-        return false;
-    }
+	if (device->write(exportHeader().toUtf8()) == -1)
+	{
+		m_error = device->errorString();
+		return false;
+	}
 
-    if (device->write(exportGroup(db->rootGroup()).toUtf8()) == -1) {
-        m_error = device->errorString();
-        return false;
-    }
+	if (device->write(exportGroup(db->rootGroup()).toUtf8()) == -1)
+	{
+		m_error = device->errorString();
+		return false;
+	}
 
-    return true;
+	return true;
 }
 
-QString CsvExporter::exportDatabase(const QSharedPointer<const Database>& db)
+QString CsvExporter::exportDatabase(const QSharedPointer<const Database> &db)
 {
-    return exportHeader() + exportGroup(db->rootGroup());
+	return exportHeader() + exportGroup(db->rootGroup());
 }
 
 QString CsvExporter::errorString() const
 {
-    return m_error;
+	return m_error;
 }
 
 QString CsvExporter::exportHeader()
 {
-    QString header;
-    addColumn(header, "Group");
-    addColumn(header, "Title");
-    addColumn(header, "Username");
-    addColumn(header, "Password");
-    addColumn(header, "URL");
-    addColumn(header, "Notes");
-    addColumn(header, "TOTP");
-    addColumn(header, "Icon");
-    addColumn(header, "Last Modified");
-    addColumn(header, "Created");
-    return header + QString("\n");
+	QString header;
+	addColumn(header, "Group");
+	addColumn(header, "Title");
+	addColumn(header, "Username");
+	addColumn(header, "Password");
+	addColumn(header, "URL");
+	addColumn(header, "Notes");
+	addColumn(header, "TOTP");
+	addColumn(header, "Icon");
+	addColumn(header, "Last Modified");
+	addColumn(header, "Created");
+	return header + QString("\n");
 }
 
-QString CsvExporter::exportGroup(const Group* group, QString groupPath)
+QString CsvExporter::exportGroup(const Group *group, QString groupPath)
 {
-    QString response;
-    if (!groupPath.isEmpty()) {
-        groupPath.append("/");
-    }
-    groupPath.append(group->name());
+	QString response;
+	if (!groupPath.isEmpty())
+	{
+		groupPath.append("/");
+	}
+	groupPath.append(group->name());
 
-    const QList<Entry*>& entryList = group->entries();
-    for (const Entry* entry : entryList) {
-        QString line;
+	const QList<Entry *> &entryList = group->entries();
+	for (const Entry *entry: entryList)
+	{
+		QString line;
 
-        addColumn(line, groupPath);
-        addColumn(line, entry->title());
-        addColumn(line, entry->username());
-        addColumn(line, entry->password());
-        addColumn(line, entry->url());
-        addColumn(line, entry->notes());
-        addColumn(line, entry->totpSettingsString());
-        addColumn(line, QString::number(entry->iconNumber()));
-        addColumn(line, entry->timeInfo().lastModificationTime().toString(Qt::ISODate));
-        addColumn(line, entry->timeInfo().creationTime().toString(Qt::ISODate));
+		addColumn(line, groupPath);
+		addColumn(line, entry->title());
+		addColumn(line, entry->username());
+		addColumn(line, entry->password());
+		addColumn(line, entry->url());
+		addColumn(line, entry->notes());
+		addColumn(line, entry->totpSettingsString());
+		addColumn(line, QString::number(entry->iconNumber()));
+		addColumn(line, entry->timeInfo().lastModificationTime().toString(Qt::ISODate));
+		addColumn(line, entry->timeInfo().creationTime().toString(Qt::ISODate));
 
-        line.append("\n");
-        response.append(line);
-    }
+		line.append("\n");
+		response.append(line);
+	}
 
-    const QList<Group*>& children = group->children();
-    for (const Group* child : children) {
-        response.append(exportGroup(child, groupPath));
-    }
+	const QList<Group *> &children = group->children();
+	for (const Group *child: children)
+	{
+		response.append(exportGroup(child, groupPath));
+	}
 
-    return response;
+	return response;
 }
 
-void CsvExporter::addColumn(QString& str, const QString& column)
+void CsvExporter::addColumn(QString &str, const QString &column)
 {
-    if (!str.isEmpty()) {
-        str.append(",");
-    }
+	if (!str.isEmpty())
+	{
+		str.append(",");
+	}
 
-    str.append("\"");
-    str.append(QString(column).replace("\"", "\"\""));
-    str.append("\"");
+	str.append("\"");
+	str.append(QString(column).replace("\"", "\"\""));
+	str.append("\"");
 }

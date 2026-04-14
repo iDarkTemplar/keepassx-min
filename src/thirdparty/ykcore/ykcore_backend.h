@@ -29,26 +29,24 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef	__YKCORE_BACKEND_H_INCLUDED__
-#define	__YKCORE_BACKEND_H_INCLUDED__
+#ifndef __YKCORE_BACKEND_H_INCLUDED__
+#define __YKCORE_BACKEND_H_INCLUDED__
 
-#define	FEATURE_RPT_SIZE		8
+#define FEATURE_RPT_SIZE 8
 
-#define	REPORT_TYPE_FEATURE		0x03
+#define REPORT_TYPE_FEATURE 0x03
 
 int _ykusb_start(void);
 int _ykusb_stop(void);
 
-void * _ykusb_open_device(const int* vendor_ids, size_t vids_len, const int *product_ids, size_t pids_len, int index);
+void *_ykusb_open_device(const int *vendor_ids, size_t vids_len, const int *product_ids, size_t pids_len, int index);
 int _ykusb_close_device(void *);
 
-int _ykusb_read(void *dev, int report_type, int report_number,
-		char *buffer, int buffer_size);
-int _ykusb_write(void *dev, int report_type, int report_number,
-		 char *buffer, int buffer_size);
+int _ykusb_read(void *dev, int report_type, int report_number, char *buffer, int buffer_size);
+int _ykusb_write(void *dev, int report_type, int report_number, char *buffer, int buffer_size);
 
 int _ykusb_get_vid_pid(void *dev, int *vid, int *pid);
 
 const char *_ykusb_strerror(void);
 
-#endif	/* __YKCORE_BACKEND_H_INCLUDED__ */
+#endif /* __YKCORE_BACKEND_H_INCLUDED__ */

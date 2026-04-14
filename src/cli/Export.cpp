@@ -25,41 +25,49 @@
 #include <QCommandLineParser>
 
 const QCommandLineOption Export::FormatOption = QCommandLineOption(
-    QStringList() << "f" << "format",
-    QObject::tr("Format to use when exporting. Available choices are 'xml', 'csv' or 'html'. Defaults to 'xml'."),
-    QStringLiteral("xml|csv|html"));
+	QStringList() << "f" << "format",
+	QObject::tr("Format to use when exporting. Available choices are 'xml', 'csv' or 'html'. Defaults to 'xml'."),
+	QStringLiteral("xml|csv|html"));
 
 Export::Export()
 {
-    name = QStringLiteral("export");
-    options.append(Export::FormatOption);
-    description = QObject::tr("Exports the content of a database to standard output in the specified format.");
+	name = QStringLiteral("export");
+	options.append(Export::FormatOption);
+	description = QObject::tr("Exports the content of a database to standard output in the specified format.");
 }
 
 int Export::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser> parser)
 {
-    TextStream out(Utils::STDOUT.device());
-    auto& err = Utils::STDERR;
+	TextStream out(Utils::STDOUT.device());
+	auto &err = Utils::STDERR;
 
-    QString format = parser->value(Export::FormatOption);
-    if (format.isEmpty() || format.startsWith(QStringLiteral("xml"), Qt::CaseInsensitive)) {
-        QByteArray xmlData;
-        QString errorMessage;
-        if (!database->extract(xmlData, &errorMessage)) {
-            err << QObject::tr("Unable to export database to XML: %1").arg(errorMessage) << Qt::endl;
-            return EXIT_FAILURE;
-        }
-        out.write(xmlData.constData());
-    } else if (format.startsWith(QStringLiteral("csv"), Qt::CaseInsensitive)) {
-        CsvExporter csvExporter;
-        out << csvExporter.exportDatabase(database);
-    } else if (format.startsWith(QStringLiteral("html"), Qt::CaseInsensitive)) {
-        HtmlExporter htmlExporter;
-        out << htmlExporter.exportDatabase(database);
-    } else {
-        err << QObject::tr("Unsupported format %1").arg(format) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	QString format = parser->value(Export::FormatOption);
+	if (format.isEmpty() || format.startsWith(QStringLiteral("xml"), Qt::CaseInsensitive))
+	{
+		QByteArray xmlData;
+		QString errorMessage;
+		if (!database->extract(xmlData, &errorMessage))
+		{
+			err << QObject::tr("Unable to export database to XML: %1").arg(errorMessage) << Qt::endl;
+			return EXIT_FAILURE;
+		}
+		out.write(xmlData.constData());
+	}
+	else if (format.startsWith(QStringLiteral("csv"), Qt::CaseInsensitive))
+	{
+		CsvExporter csvExporter;
+		out << csvExporter.exportDatabase(database);
+	}
+	else if (format.startsWith(QStringLiteral("html"), Qt::CaseInsensitive))
+	{
+		HtmlExporter htmlExporter;
+		out << htmlExporter.exportDatabase(database);
+	}
+	else
+	{
+		err << QObject::tr("Unsupported format %1").arg(format) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

@@ -24,124 +24,144 @@ SignalMultiplexer::SignalMultiplexer()
 
 SignalMultiplexer::~SignalMultiplexer()
 {
-    // disconnect all connections
-    setCurrentObject(nullptr);
+	// disconnect all connections
+	setCurrentObject(nullptr);
 }
 
-QObject* SignalMultiplexer::currentObject() const
+QObject *SignalMultiplexer::currentObject() const
 {
-    return m_currentObject;
+	return m_currentObject;
 }
 
-void SignalMultiplexer::setCurrentObject(QObject* object)
+void SignalMultiplexer::setCurrentObject(QObject *object)
 {
-    // remove all Connections from the list whose senders/receivers have been deleted
-    QMutableListIterator<Connection> i = m_connections;
-    while (i.hasNext()) {
-        const Connection& con = i.next();
+	// remove all Connections from the list whose senders/receivers have been deleted
+	QMutableListIterator<Connection> i = m_connections;
+	while (i.hasNext())
+	{
+		const Connection &con = i.next();
 
-        if (!con.sender && !con.receiver) {
-            i.remove();
-        }
-    }
+		if (!con.sender && !con.receiver)
+		{
+			i.remove();
+		}
+	}
 
-    if (m_currentObject) {
-        for (const Connection& con : asConst(m_connections)) {
-            disconnect(con);
-        }
-    }
+	if (m_currentObject)
+	{
+		for (const Connection &con: asConst(m_connections))
+		{
+			disconnect(con);
+		}
+	}
 
-    m_currentObject = object;
+	m_currentObject = object;
 
-    if (object) {
-        for (const Connection& con : asConst(m_connections)) {
-            connect(con);
-        }
-    }
+	if (object)
+	{
+		for (const Connection &con: asConst(m_connections))
+		{
+			connect(con);
+		}
+	}
 }
 
-void SignalMultiplexer::connect(QObject* sender, const char* signal, const char* slot)
+void SignalMultiplexer::connect(QObject *sender, const char *signal, const char *slot)
 {
-    Q_ASSERT(sender);
+	Q_ASSERT(sender);
 
-    Connection con;
-    con.slot = slot;
-    con.sender = sender;
-    con.signal = signal;
-    m_connections << con;
+	Connection con;
+	con.slot = slot;
+	con.sender = sender;
+	con.signal = signal;
+	m_connections << con;
 
-    if (m_currentObject) {
-        connect(con);
-    }
+	if (m_currentObject)
+	{
+		connect(con);
+	}
 }
 
-void SignalMultiplexer::connect(const char* signal, QObject* receiver, const char* slot)
+void SignalMultiplexer::connect(const char *signal, QObject *receiver, const char *slot)
 {
-    Q_ASSERT(receiver);
+	Q_ASSERT(receiver);
 
-    Connection con;
-    con.receiver = receiver;
-    con.signal = signal;
-    con.slot = slot;
-    m_connections << con;
+	Connection con;
+	con.receiver = receiver;
+	con.signal = signal;
+	con.slot = slot;
+	m_connections << con;
 
-    if (m_currentObject) {
-        connect(con);
-    }
+	if (m_currentObject)
+	{
+		connect(con);
+	}
 }
 
-void SignalMultiplexer::disconnect(QObject* sender, const char* signal, const char* slot)
+void SignalMultiplexer::disconnect(QObject *sender, const char *signal, const char *slot)
 {
-    Q_ASSERT(sender);
+	Q_ASSERT(sender);
 
-    QMutableListIterator<Connection> i = m_connections;
-    while (i.hasNext()) {
-        const Connection& con = i.next();
+	QMutableListIterator<Connection> i = m_connections;
+	while (i.hasNext())
+	{
+		const Connection &con = i.next();
 
-        if (con.sender == sender && qstrcmp(con.signal, signal) == 0 && qstrcmp(con.slot, slot) == 0) {
-            if (m_currentObject) {
-                disconnect(con);
-            }
-            i.remove();
-        }
-    }
+		if (con.sender == sender && qstrcmp(con.signal, signal) == 0 && qstrcmp(con.slot, slot) == 0)
+		{
+			if (m_currentObject)
+			{
+				disconnect(con);
+			}
+			i.remove();
+		}
+	}
 }
 
-void SignalMultiplexer::disconnect(const char* signal, QObject* receiver, const char* slot)
+void SignalMultiplexer::disconnect(const char *signal, QObject *receiver, const char *slot)
 {
-    Q_ASSERT(receiver);
+	Q_ASSERT(receiver);
 
-    QMutableListIterator<Connection> i = m_connections;
-    while (i.hasNext()) {
-        const Connection& con = i.next();
+	QMutableListIterator<Connection> i = m_connections;
+	while (i.hasNext())
+	{
+		const Connection &con = i.next();
 
-        if (con.receiver == receiver && qstrcmp(con.signal, signal) == 0 && qstrcmp(con.slot, slot) == 0) {
-            if (m_currentObject) {
-                disconnect(con);
-            }
-            i.remove();
-        }
-    }
+		if (con.receiver == receiver && qstrcmp(con.signal, signal) == 0 && qstrcmp(con.slot, slot) == 0)
+		{
+			if (m_currentObject)
+			{
+				disconnect(con);
+			}
+			i.remove();
+		}
+	}
 }
 
-void SignalMultiplexer::connect(const Connection& con)
+void SignalMultiplexer::connect(const Connection &con)
 {
-    Q_ASSERT(con.sender || con.receiver);
+	Q_ASSERT(con.sender || con.receiver);
 
-    if (con.sender) {
-        QObject::connect(con.sender, con.signal, m_currentObject, con.slot);
-    } else {
-        QObject::connect(m_currentObject, con.signal, con.receiver, con.slot);
-    }
+	if (con.sender)
+	{
+		QObject::connect(con.sender, con.signal, m_currentObject, con.slot);
+	}
+	else
+	{
+		QObject::connect(m_currentObject, con.signal, con.receiver, con.slot);
+	}
 }
 
-void SignalMultiplexer::disconnect(const Connection& con)
+void SignalMultiplexer::disconnect(const Connection &con)
 {
-    Q_ASSERT(con.sender || con.receiver);
+	Q_ASSERT(con.sender || con.receiver);
 
-    if (con.sender) {
-        QObject::disconnect(con.sender, con.signal, m_currentObject, con.slot);
-    } else {
-        QObject::disconnect(m_currentObject, con.signal, con.receiver, con.slot);
-    }
+	if (con.sender)
+	{
+		QObject::disconnect(con.sender, con.signal, m_currentObject, con.slot);
+	}
+	else
+	{
+		QObject::disconnect(m_currentObject, con.signal, con.receiver, con.slot);
+	}
 }

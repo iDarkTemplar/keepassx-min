@@ -20,86 +20,97 @@
 
 #include "gui/DatabaseIcons.h"
 
-DefaultIconModel::DefaultIconModel(QObject* parent)
-    : QAbstractListModel(parent)
+DefaultIconModel::DefaultIconModel(QObject *parent)
+	: QAbstractListModel(parent)
 {
 }
 
-int DefaultIconModel::rowCount(const QModelIndex& parent) const
+int DefaultIconModel::rowCount(const QModelIndex &parent) const
 {
-    if (!parent.isValid()) {
-        return databaseIcons()->count();
-    } else {
-        return 0;
-    }
+	if (!parent.isValid())
+	{
+		return databaseIcons()->count();
+	}
+	else
+	{
+		return 0;
+	}
 }
 
-QVariant DefaultIconModel::data(const QModelIndex& index, int role) const
+QVariant DefaultIconModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) {
-        return QVariant();
-    }
+	if (!index.isValid())
+	{
+		return QVariant();
+	}
 
-    Q_ASSERT(index.row() < databaseIcons()->count());
+	Q_ASSERT(index.row() < databaseIcons()->count());
 
-    if (role == Qt::DecorationRole) {
-        return databaseIcons()->icon(index.row(), IconSize::Medium);
-    }
+	if (role == Qt::DecorationRole)
+	{
+		return databaseIcons()->icon(index.row(), IconSize::Medium);
+	}
 
-    return QVariant();
+	return QVariant();
 }
 
-CustomIconModel::CustomIconModel(QObject* parent)
-    : QAbstractListModel(parent)
+CustomIconModel::CustomIconModel(QObject *parent)
+	: QAbstractListModel(parent)
 {
 }
 
-void CustomIconModel::setIcons(const QHash<QUuid, QPixmap>& icons, const QList<QUuid>& iconsOrder)
+void CustomIconModel::setIcons(const QHash<QUuid, QPixmap> &icons, const QList<QUuid> &iconsOrder)
 {
-    beginResetModel();
+	beginResetModel();
 
-    m_icons = icons;
-    m_iconsOrder = iconsOrder;
-    Q_ASSERT(m_icons.count() == m_iconsOrder.count());
+	m_icons = icons;
+	m_iconsOrder = iconsOrder;
+	Q_ASSERT(m_icons.count() == m_iconsOrder.count());
 
-    endResetModel();
+	endResetModel();
 }
 
-int CustomIconModel::rowCount(const QModelIndex& parent) const
+int CustomIconModel::rowCount(const QModelIndex &parent) const
 {
-    if (!parent.isValid()) {
-        return m_icons.size();
-    } else {
-        return 0;
-    }
+	if (!parent.isValid())
+	{
+		return m_icons.size();
+	}
+	else
+	{
+		return 0;
+	}
 }
 
-QVariant CustomIconModel::data(const QModelIndex& index, int role) const
+QVariant CustomIconModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) {
-        return QVariant();
-    }
+	if (!index.isValid())
+	{
+		return QVariant();
+	}
 
-    if (role == Qt::DecorationRole) {
-        QUuid uuid = uuidFromIndex(index);
-        return m_icons.value(uuid);
-    }
+	if (role == Qt::DecorationRole)
+	{
+		QUuid uuid = uuidFromIndex(index);
+		return m_icons.value(uuid);
+	}
 
-    return QVariant();
+	return QVariant();
 }
 
-QUuid CustomIconModel::uuidFromIndex(const QModelIndex& index) const
+QUuid CustomIconModel::uuidFromIndex(const QModelIndex &index) const
 {
-    Q_ASSERT(index.isValid());
+	Q_ASSERT(index.isValid());
 
-    return m_iconsOrder.value(index.row());
+	return m_iconsOrder.value(index.row());
 }
 
-QModelIndex CustomIconModel::indexFromUuid(const QUuid& uuid) const
+QModelIndex CustomIconModel::indexFromUuid(const QUuid &uuid) const
 {
-    int idx = m_iconsOrder.indexOf(uuid);
-    if (idx > -1) {
-        return index(idx, 0);
-    }
-    return {};
+	int idx = m_iconsOrder.indexOf(uuid);
+	if (idx > -1)
+	{
+		return index(idx, 0);
+	}
+	return {};
 }

@@ -32,20 +32,20 @@
  * environment variable, but otherwise prefer Windows-850 on Windows and UTF-8
  * on any other system, even if LANG is set to something else.
  */
-class TextStream : public QTextStream
+class TextStream: public QTextStream
 {
 public:
-    TextStream();
-    explicit TextStream(QIODevice* device);
-    explicit TextStream(FILE* fileHandle, QIODevice::OpenMode openMode = QIODevice::ReadWrite);
-    explicit TextStream(QString* string, QIODevice::OpenMode openMode = QIODevice::ReadWrite);
-    explicit TextStream(QByteArray* array, QIODevice::OpenMode openMode = QIODevice::ReadWrite);
-    explicit TextStream(const QByteArray& array, QIODevice::OpenMode openMode = QIODevice::ReadOnly);
+	TextStream();
+	explicit TextStream(QIODevice *device);
+	explicit TextStream(FILE *fileHandle, QIODevice::OpenMode openMode = QIODevice::ReadWrite);
+	explicit TextStream(QString *string, QIODevice::OpenMode openMode = QIODevice::ReadWrite);
+	explicit TextStream(QByteArray *array, QIODevice::OpenMode openMode = QIODevice::ReadWrite);
+	explicit TextStream(const QByteArray &array, QIODevice::OpenMode openMode = QIODevice::ReadOnly);
 
-    void write(const char* str);
+	void write(const char *str);
 
 private:
-    void detectCodec();
+	void detectCodec();
 };
 
 #endif // KEEPASSXC_TEXTSTREAM_H

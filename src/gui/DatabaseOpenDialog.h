@@ -29,49 +29,49 @@ class Database;
 class DatabaseWidget;
 class DatabaseOpenWidget;
 
-class DatabaseOpenDialog : public QDialog
+class DatabaseOpenDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    enum class Intent
-    {
-        None,
-        AutoType,
-        Merge,
-        Browser
-    };
+	enum class Intent
+	{
+		None,
+		AutoType,
+		Merge,
+		Browser
+	};
 
-    explicit DatabaseOpenDialog(QWidget* parent = nullptr);
-    void setTarget(DatabaseWidget* dbWidget, const QString& filePath);
-    void addDatabaseTab(DatabaseWidget* dbWidget);
-    void setActiveDatabaseTab(DatabaseWidget* dbWidget);
-    void setIntent(Intent intent);
-    Intent intent() const;
-    QSharedPointer<Database> database() const;
-    void clearForms();
-    void showMessage(const QString& text, MessageWidget::MessageType type, int autoHideTimeout);
+	explicit DatabaseOpenDialog(QWidget *parent = nullptr);
+	void setTarget(DatabaseWidget *dbWidget, const QString &filePath);
+	void addDatabaseTab(DatabaseWidget *dbWidget);
+	void setActiveDatabaseTab(DatabaseWidget *dbWidget);
+	void setIntent(Intent intent);
+	Intent intent() const;
+	QSharedPointer<Database> database() const;
+	void clearForms();
+	void showMessage(const QString &text, MessageWidget::MessageType type, int autoHideTimeout);
 
 signals:
-    void dialogFinished(bool accepted, DatabaseWidget* dbWidget);
+	void dialogFinished(bool accepted, DatabaseWidget *dbWidget);
 
 public slots:
-    void done(int result) override;
-    void complete(bool accepted);
-    void tabChanged(int index);
+	void done(int result) override;
+	void complete(bool accepted);
+	void tabChanged(int index);
 
 protected:
-    void showEvent(QShowEvent* event) override;
+	void showEvent(QShowEvent *event) override;
 
 private:
-    void selectTabOffset(int offset);
+	void selectTabOffset(int offset);
 
-    QPointer<DatabaseOpenWidget> m_view;
-    QPointer<QTabBar> m_tabBar;
-    QSharedPointer<Database> m_db;
-    QList<QPointer<DatabaseWidget>> m_tabDbWidgets;
-    QPointer<DatabaseWidget> m_currentDbWidget;
-    Intent m_intent = Intent::None;
+	QPointer<DatabaseOpenWidget> m_view;
+	QPointer<QTabBar> m_tabBar;
+	QSharedPointer<Database> m_db;
+	QList<QPointer<DatabaseWidget>> m_tabDbWidgets;
+	QPointer<DatabaseWidget> m_currentDbWidget;
+	Intent m_intent = Intent::None;
 };
 
 #endif // KEEPASSX_UNLOCKDATABASEDIALOG_H

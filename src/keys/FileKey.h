@@ -25,46 +25,46 @@
 
 class QIODevice;
 
-class FileKey : public Key
+class FileKey: public Key
 {
 public:
-    static QUuid UUID;
+	static QUuid UUID;
 
-    enum Type
-    {
-        None,
-        Hashed,
-        KeePass2XML,
-        KeePass2XMLv2,
-        FixedBinary,
-        FixedBinaryHex
-    };
+	enum Type
+	{
+		None,
+		Hashed,
+		KeePass2XML,
+		KeePass2XMLv2,
+		FixedBinary,
+		FixedBinaryHex
+	};
 
-    FileKey();
-    ~FileKey() override = default;
-    bool load(QIODevice* device, QString* errorMsg = nullptr);
-    bool load(const QString& fileName, QString* errorMsg = nullptr);
-    QByteArray rawKey() const override;
-    void setRawKey(const QByteArray& data) override;
-    Type type() const;
-    static void createRandom(QIODevice* device, int size = 128);
-    static void createXMLv2(QIODevice* device, int size = 32);
-    static bool create(const QString& fileName, QString* errorMsg = nullptr);
+	FileKey();
+	~FileKey() override = default;
+	bool load(QIODevice *device, QString *errorMsg = nullptr);
+	bool load(const QString &fileName, QString *errorMsg = nullptr);
+	QByteArray rawKey() const override;
+	void setRawKey(const QByteArray &data) override;
+	Type type() const;
+	static void createRandom(QIODevice *device, int size = 128);
+	static void createXMLv2(QIODevice *device, int size = 32);
+	static bool create(const QString &fileName, QString *errorMsg = nullptr);
 
-    QByteArray serialize() const override;
-    void deserialize(const QByteArray& data) override;
+	QByteArray serialize() const override;
+	void deserialize(const QByteArray &data) override;
 
 private:
-    static constexpr int SHA256_SIZE = 32;
+	static constexpr int SHA256_SIZE = 32;
 
-    bool loadXml(QIODevice* device, QString* errorMsg = nullptr);
-    bool loadBinary(QIODevice* device);
-    bool loadHex(QIODevice* device);
-    bool loadHashed(QIODevice* device);
+	bool loadXml(QIODevice *device, QString *errorMsg = nullptr);
+	bool loadBinary(QIODevice *device);
+	bool loadHex(QIODevice *device);
+	bool loadHashed(QIODevice *device);
 
-    Botan::secure_vector<char> m_key;
-    Type m_type = None;
-    QString m_file;
+	Botan::secure_vector<char> m_key;
+	Type m_type = None;
+	QString m_file;
 };
 
 #endif // KEEPASSX_FILEKEY_H

@@ -24,23 +24,23 @@
 
 namespace Ui
 {
-    class AgentSettingsWidget;
+	class AgentSettingsWidget;
 }
 
-class AgentSettingsWidget : public QWidget
+class AgentSettingsWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit AgentSettingsWidget(QWidget* parent = nullptr);
-    ~AgentSettingsWidget();
+	explicit AgentSettingsWidget(QWidget *parent = nullptr);
+	~AgentSettingsWidget();
 
 public slots:
-    void loadSettings();
-    void saveSettings();
-    void toggleSettingsEnabled();
+	void loadSettings();
+	void saveSettings();
+	void toggleSettingsEnabled();
 
 private:
-    QScopedPointer<Ui::AgentSettingsWidget> m_ui;
+	QScopedPointer<Ui::AgentSettingsWidget> m_ui;
 };
 
 #endif // AGENTSETTINGSWIDGET_H

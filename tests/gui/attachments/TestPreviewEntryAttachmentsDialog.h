@@ -22,18 +22,18 @@
 
 #include <qscopedpointer.h>
 
-class TestPreviewEntryAttachmentsDialog : public QObject
+class TestPreviewEntryAttachmentsDialog: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
+	void initTestCase();
 
-    void testSetAttachment();
-    void testSetAttachmentTwice();
+	void testSetAttachment();
+	void testSetAttachmentTwice();
 
-    void testBottonsBox();
+	void testBottonsBox();
 
 private:
-    QScopedPointer<PreviewEntryAttachmentsDialog> m_previewDialog{};
+	QScopedPointer<PreviewEntryAttachmentsDialog> m_previewDialog{};
 };

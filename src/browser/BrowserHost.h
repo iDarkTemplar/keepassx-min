@@ -26,34 +26,34 @@ class QLocalServer;
 class QLocalSocket;
 class QString;
 
-class BrowserHost : public QObject
+class BrowserHost: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit BrowserHost(QObject* parent = nullptr);
-    ~BrowserHost() override;
+	explicit BrowserHost(QObject *parent = nullptr);
+	~BrowserHost() override;
 
-    void start();
-    void stop();
+	void start();
+	void stop();
 
-    void broadcastClientMessage(const QJsonObject& json);
-    void sendClientMessage(QLocalSocket* socket, const QJsonObject& json);
+	void broadcastClientMessage(const QJsonObject &json);
+	void sendClientMessage(QLocalSocket *socket, const QJsonObject &json);
 
 signals:
-    void clientMessageReceived(QLocalSocket* socket, const QJsonObject& json);
+	void clientMessageReceived(QLocalSocket *socket, const QJsonObject &json);
 
 private slots:
-    void proxyConnected();
-    void readProxyMessage();
-    void proxyDisconnected();
+	void proxyConnected();
+	void readProxyMessage();
+	void proxyDisconnected();
 
 private:
-    void sendClientData(QLocalSocket* socket, const QString& data);
+	void sendClientData(QLocalSocket *socket, const QString &data);
 
 private:
-    QPointer<QLocalServer> m_localServer;
-    QList<QLocalSocket*> m_socketList;
+	QPointer<QLocalServer> m_localServer;
+	QList<QLocalSocket *> m_socketList;
 };
 
 #endif // KEEPASSXC_NATIVEMESSAGINGHOST_H

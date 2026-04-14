@@ -20,318 +20,362 @@
 #include "crypto/Random.h"
 
 const int PasswordGenerator::DefaultLength = 32;
-const char* PasswordGenerator::DefaultCustomCharacterSet = "";
-const char* PasswordGenerator::DefaultExcludedChars = "";
+const char *PasswordGenerator::DefaultCustomCharacterSet = "";
+const char *PasswordGenerator::DefaultExcludedChars = "";
 
 PasswordGenerator::PasswordGenerator()
-    : m_length(PasswordGenerator::DefaultLength)
-    , m_classes(PasswordGenerator::CharClass::DefaultCharset)
-    , m_flags(PasswordGenerator::GeneratorFlag::DefaultFlags)
-    , m_custom(PasswordGenerator::DefaultCustomCharacterSet)
-    , m_excluded(PasswordGenerator::DefaultExcludedChars)
+	: m_length(PasswordGenerator::DefaultLength)
+	, m_classes(PasswordGenerator::CharClass::DefaultCharset)
+	, m_flags(PasswordGenerator::GeneratorFlag::DefaultFlags)
+	, m_custom(PasswordGenerator::DefaultCustomCharacterSet)
+	, m_excluded(PasswordGenerator::DefaultExcludedChars)
 {
 }
 
 void PasswordGenerator::setLength(int length)
 {
-    m_length = length;
+	m_length = length;
 }
 
-void PasswordGenerator::setCharClasses(const PasswordGenerator::CharClasses& classes)
+void PasswordGenerator::setCharClasses(const PasswordGenerator::CharClasses &classes)
 {
-    m_classes = classes;
+	m_classes = classes;
 }
 
-void PasswordGenerator::setCustomCharacterSet(const QString& customCharacterSet)
+void PasswordGenerator::setCustomCharacterSet(const QString &customCharacterSet)
 {
-    m_custom = customCharacterSet;
+	m_custom = customCharacterSet;
 }
-void PasswordGenerator::setExcludedCharacterSet(const QString& excludedCharacterSet)
+void PasswordGenerator::setExcludedCharacterSet(const QString &excludedCharacterSet)
 {
-    m_excluded = excludedCharacterSet;
+	m_excluded = excludedCharacterSet;
 }
 
-void PasswordGenerator::setFlags(const GeneratorFlags& flags)
+void PasswordGenerator::setFlags(const GeneratorFlags &flags)
 {
-    m_flags = flags;
+	m_flags = flags;
 }
 
 QString PasswordGenerator::generatePassword() const
 {
-    Q_ASSERT(isValid());
+	Q_ASSERT(isValid());
 
-    const QVector<PasswordGroup> groups = passwordGroups();
+	const QVector<PasswordGroup> groups = passwordGroups();
 
-    QVector<QChar> passwordChars;
-    for (const PasswordGroup& group : groups) {
-        for (QChar ch : group) {
-            passwordChars.append(ch);
-        }
-    }
+	QVector<QChar> passwordChars;
+	for (const PasswordGroup &group: groups)
+	{
+		for (QChar ch: group)
+		{
+			passwordChars.append(ch);
+		}
+	}
 
-    QString password;
+	QString password;
 
-    if (m_flags & CharFromEveryGroup) {
-        for (const auto& group : groups) {
-            int pos = randomGen()->randomUInt(static_cast<quint32>(group.size()));
+	if (m_flags & CharFromEveryGroup)
+	{
+		for (const auto &group: groups)
+		{
+			int pos = randomGen()->randomUInt(static_cast<quint32>(group.size()));
 
-            password.append(group[pos]);
-        }
+			password.append(group[pos]);
+		}
 
-        for (int i = groups.size(); i < m_length; i++) {
-            int pos = randomGen()->randomUInt(static_cast<quint32>(passwordChars.size()));
+		for (int i = groups.size(); i < m_length; i++)
+		{
+			int pos = randomGen()->randomUInt(static_cast<quint32>(passwordChars.size()));
 
-            password.append(passwordChars[pos]);
-        }
+			password.append(passwordChars[pos]);
+		}
 
-        // shuffle chars
-        for (int i = (password.size() - 1); i >= 1; i--) {
-            int j = randomGen()->randomUInt(static_cast<quint32>(i + 1));
+		// shuffle chars
+		for (int i = (password.size() - 1); i >= 1; i--)
+		{
+			int j = randomGen()->randomUInt(static_cast<quint32>(i + 1));
 
-            QChar tmp = password[i];
-            password[i] = password[j];
-            password[j] = tmp;
-        }
-    } else {
-        for (int i = 0; i < m_length; i++) {
-            int pos = randomGen()->randomUInt(static_cast<quint32>(passwordChars.size()));
+			QChar tmp = password[i];
+			password[i] = password[j];
+			password[j] = tmp;
+		}
+	}
+	else
+	{
+		for (int i = 0; i < m_length; i++)
+		{
+			int pos = randomGen()->randomUInt(static_cast<quint32>(passwordChars.size()));
 
-            password.append(passwordChars[pos]);
-        }
-    }
+			password.append(passwordChars[pos]);
+		}
+	}
 
-    return password;
+	return password;
 }
 
 bool PasswordGenerator::isValid() const
 {
-    if (m_classes == CharClass::NoClass && m_custom.isEmpty()) {
-        return false;
-    } else if (m_length <= 0) {
-        return false;
-    }
+	if (m_classes == CharClass::NoClass && m_custom.isEmpty())
+	{
+		return false;
+	}
+	else if (m_length <= 0)
+	{
+		return false;
+	}
 
-    if ((m_flags & CharFromEveryGroup) && (m_length < numCharClasses())) {
-        return false;
-    }
+	if ((m_flags & CharFromEveryGroup) && (m_length < numCharClasses()))
+	{
+		return false;
+	}
 
-    return !passwordGroups().isEmpty();
+	return !passwordGroups().isEmpty();
 }
 
 QVector<PasswordGroup> PasswordGenerator::passwordGroups() const
 {
-    QVector<PasswordGroup> passwordGroups;
+	QVector<PasswordGroup> passwordGroups;
 
-    if (m_classes & LowerLetters) {
-        PasswordGroup group;
+	if (m_classes & LowerLetters)
+	{
+		PasswordGroup group;
 
-        for (int i = 97; i <= (97 + 25); i++) {
+		for (int i = 97; i <= (97 + 25); i++)
+		{
 
-            if ((m_flags & ExcludeLookAlike) && (i == 108)) { // "l"
-                continue;
-            }
+			if ((m_flags & ExcludeLookAlike) && (i == 108))
+			{ // "l"
+				continue;
+			}
 
-            group.append(i);
-        }
+			group.append(i);
+		}
 
-        passwordGroups.append(group);
-    }
-    if (m_classes & UpperLetters) {
-        PasswordGroup group;
+		passwordGroups.append(group);
+	}
+	if (m_classes & UpperLetters)
+	{
+		PasswordGroup group;
 
-        for (int i = 65; i <= (65 + 25); i++) {
+		for (int i = 65; i <= (65 + 25); i++)
+		{
 
-            if ((m_flags & ExcludeLookAlike) && (i == 66 || i == 71 || i == 73 || i == 79)) { //"B", "G", "I" and "O"
-                continue;
-            }
+			if ((m_flags & ExcludeLookAlike) && (i == 66 || i == 71 || i == 73 || i == 79))
+			{ //"B", "G", "I" and "O"
+				continue;
+			}
 
-            group.append(i);
-        }
+			group.append(i);
+		}
 
-        passwordGroups.append(group);
-    }
-    if (m_classes & Numbers) {
-        PasswordGroup group;
+		passwordGroups.append(group);
+	}
+	if (m_classes & Numbers)
+	{
+		PasswordGroup group;
 
-        for (int i = 48; i < (48 + 10); i++) {
-            if ((m_flags & ExcludeLookAlike) && (i == 48 || i == 49 || i == 54 || i == 56)) { // "0", "1", "6", and "8"
-                continue;
-            }
+		for (int i = 48; i < (48 + 10); i++)
+		{
+			if ((m_flags & ExcludeLookAlike) && (i == 48 || i == 49 || i == 54 || i == 56))
+			{ // "0", "1", "6", and "8"
+				continue;
+			}
 
-            group.append(i);
-        }
+			group.append(i);
+		}
 
-        passwordGroups.append(group);
-    }
-    if (m_classes & Braces) {
-        PasswordGroup group;
+		passwordGroups.append(group);
+	}
+	if (m_classes & Braces)
+	{
+		PasswordGroup group;
 
-        // ()[]{}
-        group.append(40);
-        group.append(41);
-        group.append(91);
-        group.append(93);
-        group.append(123);
-        group.append(125);
+		// ()[]{}
+		group.append(40);
+		group.append(41);
+		group.append(91);
+		group.append(93);
+		group.append(123);
+		group.append(125);
 
-        passwordGroups.append(group);
-    }
-    if (m_classes & Punctuation) {
-        PasswordGroup group;
+		passwordGroups.append(group);
+	}
+	if (m_classes & Punctuation)
+	{
+		PasswordGroup group;
 
-        // .,:;
-        group.append(44);
-        group.append(46);
-        group.append(58);
-        group.append(59);
+		// .,:;
+		group.append(44);
+		group.append(46);
+		group.append(58);
+		group.append(59);
 
-        passwordGroups.append(group);
-    }
-    if (m_classes & Quotes) {
-        PasswordGroup group;
+		passwordGroups.append(group);
+	}
+	if (m_classes & Quotes)
+	{
+		PasswordGroup group;
 
-        // "'
-        group.append(34);
-        group.append(39);
+		// "'
+		group.append(34);
+		group.append(39);
 
-        passwordGroups.append(group);
-    }
-    if (m_classes & Dashes) {
-        PasswordGroup group;
+		passwordGroups.append(group);
+	}
+	if (m_classes & Dashes)
+	{
+		PasswordGroup group;
 
-        // -/\_|
-        group.append(45);
-        group.append(47);
-        group.append(92);
-        group.append(95);
-        if (!(m_flags & ExcludeLookAlike)) {
-            group.append(124); // "|"
-        }
+		// -/\_|
+		group.append(45);
+		group.append(47);
+		group.append(92);
+		group.append(95);
+		if (!(m_flags & ExcludeLookAlike))
+		{
+			group.append(124); // "|"
+		}
 
-        passwordGroups.append(group);
-    }
-    if (m_classes & Math) {
-        PasswordGroup group;
+		passwordGroups.append(group);
+	}
+	if (m_classes & Math)
+	{
+		PasswordGroup group;
 
-        // !*+<=>?
-        group.append(33);
-        group.append(42);
-        group.append(43);
-        group.append(60);
-        group.append(61);
-        group.append(62);
-        group.append(63);
+		// !*+<=>?
+		group.append(33);
+		group.append(42);
+		group.append(43);
+		group.append(60);
+		group.append(61);
+		group.append(62);
+		group.append(63);
 
-        passwordGroups.append(group);
-    }
-    if (m_classes & Logograms) {
-        PasswordGroup group;
+		passwordGroups.append(group);
+	}
+	if (m_classes & Logograms)
+	{
+		PasswordGroup group;
 
-        // #$%&
-        for (int i = 35; i <= 38; i++) {
-            group.append(i);
-        }
-        // @^`~
-        group.append(64);
-        group.append(94);
-        group.append(96);
-        group.append(126);
+		// #$%&
+		for (int i = 35; i <= 38; i++)
+		{
+			group.append(i);
+		}
+		// @^`~
+		group.append(64);
+		group.append(94);
+		group.append(96);
+		group.append(126);
 
-        passwordGroups.append(group);
-    }
-    if (m_classes & EASCII) {
-        PasswordGroup group;
+		passwordGroups.append(group);
+	}
+	if (m_classes & EASCII)
+	{
+		PasswordGroup group;
 
-        // [U+0080, U+009F] are C1 control characters,
-        // U+00A0 is non-breaking space
-        for (int i = 161; i <= 172; i++) {
-            group.append(i);
-        }
-        // U+00AD is soft hyphen (format character)
-        for (int i = 174; i <= 255; i++) {
-            if ((m_flags & ExcludeLookAlike) && (i == 249)) { // "﹒"
-                continue;
-            }
-            group.append(i);
-        }
+		// [U+0080, U+009F] are C1 control characters,
+		// U+00A0 is non-breaking space
+		for (int i = 161; i <= 172; i++)
+		{
+			group.append(i);
+		}
+		// U+00AD is soft hyphen (format character)
+		for (int i = 174; i <= 255; i++)
+		{
+			if ((m_flags & ExcludeLookAlike) && (i == 249))
+			{ // "﹒"
+				continue;
+			}
+			group.append(i);
+		}
 
-        passwordGroups.append(group);
-    }
-    if (!m_custom.isEmpty()) {
-        PasswordGroup group;
+		passwordGroups.append(group);
+	}
+	if (!m_custom.isEmpty())
+	{
+		PasswordGroup group;
 
-        for (const auto& ch : m_custom) {
-            if (!group.contains(ch)) {
-                group.append(ch);
-            }
-        }
+		for (const auto &ch: m_custom)
+		{
+			if (!group.contains(ch))
+			{
+				group.append(ch);
+			}
+		}
 
-        passwordGroups.append(group);
-    }
+		passwordGroups.append(group);
+	}
 
-    // Loop over character groups and remove excluded characters from them;
-    // remove empty groups
-    int i = 0;
-    while (i != passwordGroups.size()) {
-        PasswordGroup group = passwordGroups[i];
+	// Loop over character groups and remove excluded characters from them;
+	// remove empty groups
+	int i = 0;
+	while (i != passwordGroups.size())
+	{
+		PasswordGroup group = passwordGroups[i];
 
-        for (QChar ch : m_excluded) {
-            int j = group.indexOf(ch);
-            while (j != -1) {
-                group.remove(j);
-                j = group.indexOf(ch);
-            }
-        }
-        if (!group.isEmpty()) {
-            passwordGroups.replace(i, group);
-            ++i;
-        } else {
-            passwordGroups.remove(i);
-        }
-    }
+		for (QChar ch: m_excluded)
+		{
+			int j = group.indexOf(ch);
+			while (j != -1)
+			{
+				group.remove(j);
+				j = group.indexOf(ch);
+			}
+		}
+		if (!group.isEmpty())
+		{
+			passwordGroups.replace(i, group);
+			++i;
+		}
+		else
+		{
+			passwordGroups.remove(i);
+		}
+	}
 
-    return passwordGroups;
+	return passwordGroups;
 }
 
 int PasswordGenerator::numCharClasses() const
 {
-    // Actually compute the non empty password groups
-    auto non_empty_groups = passwordGroups();
-    return non_empty_groups.size();
+	// Actually compute the non empty password groups
+	auto non_empty_groups = passwordGroups();
+	return non_empty_groups.size();
 }
 
 int PasswordGenerator::getMinLength() const
 {
-    if ((m_flags & CharFromEveryGroup)) {
-        return numCharClasses();
-    }
-    return 1;
+	if ((m_flags & CharFromEveryGroup))
+	{
+		return numCharClasses();
+	}
+	return 1;
 }
 void PasswordGenerator::reset()
 {
-    m_classes = CharClass::DefaultCharset;
-    m_flags = GeneratorFlag::DefaultFlags;
-    m_custom = DefaultCustomCharacterSet;
-    m_excluded = DefaultExcludedChars;
-    m_length = DefaultLength;
+	m_classes = CharClass::DefaultCharset;
+	m_flags = GeneratorFlag::DefaultFlags;
+	m_custom = DefaultCustomCharacterSet;
+	m_excluded = DefaultExcludedChars;
+	m_length = DefaultLength;
 }
 int PasswordGenerator::getLength() const
 {
-    return m_length;
+	return m_length;
 }
-const PasswordGenerator::GeneratorFlags& PasswordGenerator::getFlags() const
+const PasswordGenerator::GeneratorFlags &PasswordGenerator::getFlags() const
 {
-    return m_flags;
+	return m_flags;
 }
-const PasswordGenerator::CharClasses& PasswordGenerator::getActiveClasses() const
+const PasswordGenerator::CharClasses &PasswordGenerator::getActiveClasses() const
 {
-    return m_classes;
+	return m_classes;
 }
-const QString& PasswordGenerator::getCustomCharacterSet() const
+const QString &PasswordGenerator::getCustomCharacterSet() const
 {
-    return m_custom;
+	return m_custom;
 }
-const QString& PasswordGenerator::getExcludedCharacterSet() const
+const QString &PasswordGenerator::getExcludedCharacterSet() const
 {
-    return m_excluded;
+	return m_excluded;
 }

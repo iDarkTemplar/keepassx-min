@@ -29,47 +29,47 @@ class QStandardItemModel;
 
 namespace Ui
 {
-    class ReportsWidgetPasskeys;
+	class ReportsWidgetPasskeys;
 }
 
-class ReportsWidgetPasskeys : public QWidget
+class ReportsWidgetPasskeys: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit ReportsWidgetPasskeys(QWidget* parent = nullptr);
-    ~ReportsWidgetPasskeys() override;
+	explicit ReportsWidgetPasskeys(QWidget *parent = nullptr);
+	~ReportsWidgetPasskeys() override;
 
-    void loadSettings(QSharedPointer<Database> db);
-    void saveSettings();
+	void loadSettings(QSharedPointer<Database> db);
+	void saveSettings();
 
 protected:
-    void showEvent(QShowEvent* event) override;
+	void showEvent(QShowEvent *event) override;
 
 signals:
-    void entryActivated(Entry*);
+	void entryActivated(Entry *);
 
 public slots:
-    void updateEntries();
-    void emitEntryActivated(const QModelIndex& index);
-    void customMenuRequested(QPoint);
-    void deleteSelectedEntries();
+	void updateEntries();
+	void emitEntryActivated(const QModelIndex &index);
+	void customMenuRequested(QPoint);
+	void deleteSelectedEntries();
 
 private slots:
-    void selectionChanged();
-    void importPasskey();
-    void exportPasskey();
+	void selectionChanged();
+	void importPasskey();
+	void exportPasskey();
 
 private:
-    void addPasskeyRow(Group*, Entry*);
-    QList<Entry*> getSelectedEntries();
+	void addPasskeyRow(Group *, Entry *);
+	QList<Entry *> getSelectedEntries();
 
-    QScopedPointer<Ui::ReportsWidgetPasskeys> m_ui;
+	QScopedPointer<Ui::ReportsWidgetPasskeys> m_ui;
 
-    bool m_entriesUpdated = false;
-    QScopedPointer<QStandardItemModel> m_referencesModel;
-    QScopedPointer<QSortFilterProxyModel> m_modelProxy;
-    QSharedPointer<Database> m_db;
-    QList<QPair<Group*, Entry*>> m_rowToEntry;
+	bool m_entriesUpdated = false;
+	QScopedPointer<QStandardItemModel> m_referencesModel;
+	QScopedPointer<QSortFilterProxyModel> m_modelProxy;
+	QSharedPointer<Database> m_db;
+	QList<QPair<Group *, Entry *>> m_rowToEntry;
 };
 
 #endif // KEEPASSXC_REPORTSWIDGETPASSKEYS_H

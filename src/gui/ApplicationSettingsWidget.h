@@ -22,60 +22,60 @@
 
 namespace Ui
 {
-    class ApplicationSettingsWidgetGeneral;
-    class ApplicationSettingsWidgetSecurity;
+	class ApplicationSettingsWidgetGeneral;
+	class ApplicationSettingsWidgetSecurity;
 } // namespace Ui
 
 class ISettingsPage
 {
 public:
-    virtual ~ISettingsPage()
-    {
-    }
-    virtual QString name() = 0;
-    virtual QIcon icon() = 0;
-    virtual QWidget* createWidget() = 0;
-    virtual void loadSettings(QWidget* widget) = 0;
-    virtual void saveSettings(QWidget* widget) = 0;
+	virtual ~ISettingsPage()
+	{
+	}
+	virtual QString name() = 0;
+	virtual QIcon icon() = 0;
+	virtual QWidget *createWidget() = 0;
+	virtual void loadSettings(QWidget *widget) = 0;
+	virtual void saveSettings(QWidget *widget) = 0;
 };
 
-class ApplicationSettingsWidget : public EditWidget
+class ApplicationSettingsWidget: public EditWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit ApplicationSettingsWidget(QWidget* parent = nullptr);
-    ~ApplicationSettingsWidget();
-    void addSettingsPage(ISettingsPage* page);
-    void loadSettings();
+	explicit ApplicationSettingsWidget(QWidget *parent = nullptr);
+	~ApplicationSettingsWidget();
+	void addSettingsPage(ISettingsPage *page);
+	void loadSettings();
 
 signals:
-    void settingsReset();
+	void settingsReset();
 
 private slots:
-    void saveSettings();
-    void resetSettings();
-    void importSettings();
-    void exportSettings();
-    void reject();
-    void autoSaveToggled(bool checked);
-    void hideWindowOnCopyCheckBoxToggled(bool checked);
-    void systrayToggled(bool checked);
-    void rememberDatabasesToggled(bool checked);
-    void checkUpdatesToggled(bool checked);
-    void showExpiredEntriesOnDatabaseUnlockToggled(bool checked);
-    void autoTypeAskToggled(bool checked);
-    void selectBackupDirectory();
+	void saveSettings();
+	void resetSettings();
+	void importSettings();
+	void exportSettings();
+	void reject();
+	void autoSaveToggled(bool checked);
+	void hideWindowOnCopyCheckBoxToggled(bool checked);
+	void systrayToggled(bool checked);
+	void rememberDatabasesToggled(bool checked);
+	void checkUpdatesToggled(bool checked);
+	void showExpiredEntriesOnDatabaseUnlockToggled(bool checked);
+	void autoTypeAskToggled(bool checked);
+	void selectBackupDirectory();
 
 private:
-    QWidget* const m_secWidget;
-    QWidget* const m_generalWidget;
-    const QScopedPointer<Ui::ApplicationSettingsWidgetSecurity> m_secUi;
-    const QScopedPointer<Ui::ApplicationSettingsWidgetGeneral> m_generalUi;
-    Qt::Key m_globalAutoTypeKey;
-    Qt::KeyboardModifiers m_globalAutoTypeModifiers;
-    class ExtraPage;
-    QList<ExtraPage> m_extraPages;
+	QWidget *const m_secWidget;
+	QWidget *const m_generalWidget;
+	const QScopedPointer<Ui::ApplicationSettingsWidgetSecurity> m_secUi;
+	const QScopedPointer<Ui::ApplicationSettingsWidgetGeneral> m_generalUi;
+	Qt::Key m_globalAutoTypeKey;
+	Qt::KeyboardModifiers m_globalAutoTypeModifiers;
+	class ExtraPage;
+	QList<ExtraPage> m_extraPages;
 };
 
 #endif // KEEPASSX_SETTINGSWIDGET_H

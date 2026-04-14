@@ -22,9 +22,9 @@
 
 namespace Crypto
 {
-    bool init();
-    QString errorString();
-    QString debugInfo();
+	bool init();
+	QString errorString();
+	QString debugInfo();
 }; // namespace Crypto
 
 #endif // KEEPASSXC_CRYPTO_H

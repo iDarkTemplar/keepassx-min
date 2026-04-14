@@ -19,21 +19,21 @@
 
 #include <QObject>
 
-class TestModified : public QObject
+class TestModified: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void init();
-    void cleanup();
-    void testSignals();
-    void testGroupSets();
-    void testEntrySets();
-    void testHistoryItems();
-    void testHistoryMaxSize();
-    void testCustomData();
-    void testBlockModifiedSignal();
+	void initTestCase();
+	void init();
+	void cleanup();
+	void testSignals();
+	void testGroupSets();
+	void testEntrySets();
+	void testHistoryItems();
+	void testHistoryMaxSize();
+	void testCustomData();
+	void testBlockModifiedSignal();
 };
 
 #endif // KEEPASSX_TESTMODIFIED_H

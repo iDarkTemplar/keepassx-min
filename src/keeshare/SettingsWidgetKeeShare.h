@@ -29,33 +29,33 @@ class QStandardItemModel;
 
 namespace Ui
 {
-    class SettingsWidgetKeeShare;
+	class SettingsWidgetKeeShare;
 }
 
-class SettingsWidgetKeeShare : public QWidget
+class SettingsWidgetKeeShare: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit SettingsWidgetKeeShare(QWidget* parent = nullptr);
-    ~SettingsWidgetKeeShare();
+	explicit SettingsWidgetKeeShare(QWidget *parent = nullptr);
+	~SettingsWidgetKeeShare();
 
-    void loadSettings();
-    void saveSettings();
+	void loadSettings();
+	void saveSettings();
 
 signals:
-    void settingsMessage(const QString&, MessageWidget::MessageType type);
+	void settingsMessage(const QString &, MessageWidget::MessageType type);
 
 private slots:
-    void setVerificationExporter(const QString& signer);
+	void setVerificationExporter(const QString &signer);
 
-    void generateCertificate();
+	void generateCertificate();
 
 private:
-    void updateOwnCertificate();
+	void updateOwnCertificate();
 
-    QScopedPointer<Ui::SettingsWidgetKeeShare> m_ui;
+	QScopedPointer<Ui::SettingsWidgetKeeShare> m_ui;
 
-    KeeShareSettings::Own m_own;
+	KeeShareSettings::Own m_own;
 };
 
 #endif // KEEPASSXC_SETTINGSWIDGETKEESHARE_H

@@ -29,264 +29,292 @@
 #include <QTemporaryFile>
 #include <QUrl>
 
-EntryAttachments::EntryAttachments(QObject* parent)
-    : ModifiableObject(parent)
+EntryAttachments::EntryAttachments(QObject *parent)
+	: ModifiableObject(parent)
 {
 }
 
 EntryAttachments::~EntryAttachments()
 {
-    clear();
+	clear();
 }
 
 QList<QString> EntryAttachments::keys() const
 {
-    return m_attachments.keys();
+	return m_attachments.keys();
 }
 
-bool EntryAttachments::hasKey(const QString& key) const
+bool EntryAttachments::hasKey(const QString &key) const
 {
-    return m_attachments.contains(key);
+	return m_attachments.contains(key);
 }
 
 QSet<QByteArray> EntryAttachments::values() const
 {
-    return Tools::asSet(m_attachments.values());
+	return Tools::asSet(m_attachments.values());
 }
 
-QByteArray EntryAttachments::value(const QString& key) const
+QByteArray EntryAttachments::value(const QString &key) const
 {
-    return m_attachments.value(key);
+	return m_attachments.value(key);
 }
 
-void EntryAttachments::set(const QString& key, const QByteArray& value)
+void EntryAttachments::set(const QString &key, const QByteArray &value)
 {
-    bool shouldEmitModified = false;
-    bool addAttachment = !m_attachments.contains(key);
+	bool shouldEmitModified = false;
+	bool addAttachment = !m_attachments.contains(key);
 
-    if (addAttachment) {
-        emit aboutToBeAdded(key);
-    }
+	if (addAttachment)
+	{
+		emit aboutToBeAdded(key);
+	}
 
-    if (addAttachment || m_attachments.value(key) != value) {
-        m_attachments.insert(key, value);
-        shouldEmitModified = true;
-    }
+	if (addAttachment || m_attachments.value(key) != value)
+	{
+		m_attachments.insert(key, value);
+		shouldEmitModified = true;
+	}
 
-    if (addAttachment) {
-        emit added(key);
-    } else {
-        emit keyModified(key);
-    }
+	if (addAttachment)
+	{
+		emit added(key);
+	}
+	else
+	{
+		emit keyModified(key);
+	}
 
-    if (shouldEmitModified) {
-        emitModified();
-    }
+	if (shouldEmitModified)
+	{
+		emitModified();
+	}
 }
 
-void EntryAttachments::remove(const QString& key)
+void EntryAttachments::remove(const QString &key)
 {
-    if (!m_attachments.contains(key)) {
-        Q_ASSERT_X(false, "EntryAttachments::remove", qPrintable(QString("Can't find attachment for key %1").arg(key)));
-        return;
-    }
+	if (!m_attachments.contains(key))
+	{
+		Q_ASSERT_X(false, "EntryAttachments::remove", qPrintable(QString("Can't find attachment for key %1").arg(key)));
+		return;
+	}
 
-    emit aboutToBeRemoved(key);
+	emit aboutToBeRemoved(key);
 
-    m_attachments.remove(key);
+	m_attachments.remove(key);
 
-    if (m_openedAttachments.contains(key)) {
-        disconnectAndEraseExternalFile(m_openedAttachments.value(key));
-    }
+	if (m_openedAttachments.contains(key))
+	{
+		disconnectAndEraseExternalFile(m_openedAttachments.value(key));
+	}
 
-    emit removed(key);
-    emitModified();
+	emit removed(key);
+	emitModified();
 }
 
-void EntryAttachments::remove(const QStringList& keys)
+void EntryAttachments::remove(const QStringList &keys)
 {
-    if (keys.isEmpty()) {
-        return;
-    }
+	if (keys.isEmpty())
+	{
+		return;
+	}
 
-    bool emitStatus = modifiedSignalEnabled();
-    setEmitModified(false);
+	bool emitStatus = modifiedSignalEnabled();
+	setEmitModified(false);
 
-    bool isModified = false;
-    for (const QString& key : keys) {
-        isModified |= m_attachments.contains(key);
-        remove(key);
-    }
+	bool isModified = false;
+	for (const QString &key: keys)
+	{
+		isModified |= m_attachments.contains(key);
+		remove(key);
+	}
 
-    setEmitModified(emitStatus);
+	setEmitModified(emitStatus);
 
-    if (isModified) {
-        emitModified();
-    }
+	if (isModified)
+	{
+		emitModified();
+	}
 }
 
-void EntryAttachments::rename(const QString& key, const QString& newKey)
+void EntryAttachments::rename(const QString &key, const QString &newKey)
 {
-    const QByteArray val = value(key);
-    remove(key);
-    set(newKey, val);
+	const QByteArray val = value(key);
+	remove(key);
+	set(newKey, val);
 }
 
 bool EntryAttachments::isEmpty() const
 {
-    return m_attachments.isEmpty();
+	return m_attachments.isEmpty();
 }
 
 void EntryAttachments::clear()
 {
-    if (m_attachments.isEmpty()) {
-        return;
-    }
+	if (m_attachments.isEmpty())
+	{
+		return;
+	}
 
-    emit aboutToBeReset();
+	emit aboutToBeReset();
 
-    m_attachments.clear();
+	m_attachments.clear();
 
-    const auto externalPath = m_openedAttachments.values();
-    for (auto& path : externalPath) {
-        disconnectAndEraseExternalFile(path);
-    }
+	const auto externalPath = m_openedAttachments.values();
+	for (auto &path: externalPath)
+	{
+		disconnectAndEraseExternalFile(path);
+	}
 
-    emit reset();
-    emitModified();
+	emit reset();
+	emitModified();
 }
 
-void EntryAttachments::disconnectAndEraseExternalFile(const QString& path)
+void EntryAttachments::disconnectAndEraseExternalFile(const QString &path)
 {
-    if (m_openedAttachmentsInverse.contains(path)) {
-        m_attachmentFileWatchers.value(path)->stop();
-        m_attachmentFileWatchers.remove(path);
+	if (m_openedAttachmentsInverse.contains(path))
+	{
+		m_attachmentFileWatchers.value(path)->stop();
+		m_attachmentFileWatchers.remove(path);
 
-        m_openedAttachments.remove(m_openedAttachmentsInverse.value(path));
-        m_openedAttachmentsInverse.remove(path);
-    }
+		m_openedAttachments.remove(m_openedAttachmentsInverse.value(path));
+		m_openedAttachmentsInverse.remove(path);
+	}
 
-    QFile f(path);
-    if (f.open(QFile::ReadWrite)) {
-        qint64 blocks = f.size() / 128 + 1;
-        for (qint64 i = 0; i < blocks; ++i) {
-            f.write(randomGen()->randomArray(128));
-        }
-        f.close();
-    }
-    f.remove();
+	QFile f(path);
+	if (f.open(QFile::ReadWrite))
+	{
+		qint64 blocks = f.size() / 128 + 1;
+		for (qint64 i = 0; i < blocks; ++i)
+		{
+			f.write(randomGen()->randomArray(128));
+		}
+		f.close();
+	}
+	f.remove();
 }
 
-void EntryAttachments::copyDataFrom(const EntryAttachments* other)
+void EntryAttachments::copyDataFrom(const EntryAttachments *other)
 {
-    if (*this != *other) {
-        emit aboutToBeReset();
+	if (*this != *other)
+	{
+		emit aboutToBeReset();
 
-        // Reset all externally opened files
-        const auto externalPath = m_openedAttachments.values();
-        for (auto& path : externalPath) {
-            disconnectAndEraseExternalFile(path);
-        }
+		// Reset all externally opened files
+		const auto externalPath = m_openedAttachments.values();
+		for (auto &path: externalPath)
+		{
+			disconnectAndEraseExternalFile(path);
+		}
 
-        m_attachments = other->m_attachments;
+		m_attachments = other->m_attachments;
 
-        emit reset();
-        emitModified();
-    }
+		emit reset();
+		emitModified();
+	}
 }
 
-bool EntryAttachments::operator==(const EntryAttachments& other) const
+bool EntryAttachments::operator==(const EntryAttachments &other) const
 {
-    return m_attachments == other.m_attachments;
+	return m_attachments == other.m_attachments;
 }
 
-bool EntryAttachments::operator!=(const EntryAttachments& other) const
+bool EntryAttachments::operator!=(const EntryAttachments &other) const
 {
-    return m_attachments != other.m_attachments;
+	return m_attachments != other.m_attachments;
 }
 
 int EntryAttachments::attachmentsSize() const
 {
-    int size = 0;
-    for (auto it = m_attachments.constBegin(); it != m_attachments.constEnd(); ++it) {
-        size += it.key().toUtf8().size() + it.value().size();
-    }
-    return size;
+	int size = 0;
+	for (auto it = m_attachments.constBegin(); it != m_attachments.constEnd(); ++it)
+	{
+		size += it.key().toUtf8().size() + it.value().size();
+	}
+	return size;
 }
 
-bool EntryAttachments::openAttachment(const QString& key, QString* errorMessage)
+bool EntryAttachments::openAttachment(const QString &key, QString *errorMessage)
 {
-    if (!m_openedAttachments.contains(key)) {
-        const QByteArray attachmentData = value(key);
-        auto ext = key.contains(".") ? "." + key.split(".").last() : "";
+	if (!m_openedAttachments.contains(key))
+	{
+		const QByteArray attachmentData = value(key);
+		auto ext = key.contains(".") ? "." + key.split(".").last() : "";
 
 #if defined(KEEPASSXC_DIST_SNAP)
-        const QString tmpFileTemplate =
-            QString("%1/XXXXXXXXXXXX%2").arg(QProcessEnvironment::systemEnvironment().value("SNAP_USER_DATA"), ext);
+		const QString tmpFileTemplate =
+			QString("%1/XXXXXXXXXXXX%2").arg(QProcessEnvironment::systemEnvironment().value("SNAP_USER_DATA"), ext);
 #elif defined(KEEPASSXC_DIST_FLATPAK)
-        const QString tmpFileTemplate =
-            QString("%1/app/%2/XXXXXX.%3")
-                .arg(QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation), "org.keepassxc.KeePassXC", ext);
+		const QString tmpFileTemplate =
+			QString("%1/app/%2/XXXXXX.%3")
+				.arg(QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation), "org.keepassxc.KeePassXC", ext);
 #else
-        const QString tmpFileTemplate = QDir::temp().absoluteFilePath(QString("XXXXXXXXXXXX").append(ext));
+		const QString tmpFileTemplate = QDir::temp().absoluteFilePath(QString("XXXXXXXXXXXX").append(ext));
 #endif
 
-        QTemporaryFile tmpFile(tmpFileTemplate);
+		QTemporaryFile tmpFile(tmpFileTemplate);
 
-        const bool saveOk = tmpFile.open() && tmpFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner)
-                            && tmpFile.write(attachmentData) == attachmentData.size() && tmpFile.flush();
+		const bool saveOk = tmpFile.open() && tmpFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner)
+		                    && tmpFile.write(attachmentData) == attachmentData.size() && tmpFile.flush();
 
-        if (!saveOk) {
-            if (errorMessage) {
-                *errorMessage = QString("%1 - %2").arg(key, tmpFile.errorString());
-            }
-            return false;
-        }
+		if (!saveOk)
+		{
+			if (errorMessage)
+			{
+				*errorMessage = QString("%1 - %2").arg(key, tmpFile.errorString());
+			}
+			return false;
+		}
 
-        tmpFile.close();
-        tmpFile.setAutoRemove(false);
-        m_openedAttachments.insert(key, tmpFile.fileName());
-        m_openedAttachmentsInverse.insert(tmpFile.fileName(), key);
+		tmpFile.close();
+		tmpFile.setAutoRemove(false);
+		m_openedAttachments.insert(key, tmpFile.fileName());
+		m_openedAttachmentsInverse.insert(tmpFile.fileName(), key);
 
-        auto watcher = QSharedPointer<FileWatcher>::create();
-        watcher->start(tmpFile.fileName(), 5);
-        connect(watcher.data(), &FileWatcher::fileChanged, this, &EntryAttachments::attachmentFileModified);
-        m_attachmentFileWatchers.insert(tmpFile.fileName(), watcher);
-    } else if (auto path = m_openedAttachments.value(key); m_attachmentFileWatchers.contains(path)) {
-        // If we are already watching an open attachment file, overwrite it with the information from the entry
-        auto watcher = m_attachmentFileWatchers.value(path);
-        watcher->stop();
+		auto watcher = QSharedPointer<FileWatcher>::create();
+		watcher->start(tmpFile.fileName(), 5);
+		connect(watcher.data(), &FileWatcher::fileChanged, this, &EntryAttachments::attachmentFileModified);
+		m_attachmentFileWatchers.insert(tmpFile.fileName(), watcher);
+	}
+	else if (auto path = m_openedAttachments.value(key); m_attachmentFileWatchers.contains(path))
+	{
+		// If we are already watching an open attachment file, overwrite it with the information from the entry
+		auto watcher = m_attachmentFileWatchers.value(path);
+		watcher->stop();
 
-        QFile file(path);
-        auto finally = qScopeGuard([&file, &watcher, &path] {
-            file.close();
-            watcher->start(path, 5);
-        });
+		QFile file(path);
+		auto finally = qScopeGuard([&file, &watcher, &path] {
+			file.close();
+			watcher->start(path, 5);
+		});
 
-        const auto attachmentData = value(key);
-        const bool saveOk = file.open(QIODevice::WriteOnly) && file.setPermissions(QFile::ReadOwner | QFile::WriteOwner)
-                            && file.write(attachmentData) == attachmentData.size() && file.flush();
+		const auto attachmentData = value(key);
+		const bool saveOk = file.open(QIODevice::WriteOnly) && file.setPermissions(QFile::ReadOwner | QFile::WriteOwner)
+		                    && file.write(attachmentData) == attachmentData.size() && file.flush();
 
-        if (!saveOk) {
-            if (errorMessage) {
-                *errorMessage = QString("%1 - %2").arg(key, file.errorString());
-            }
-            return false;
-        }
-    }
+		if (!saveOk)
+		{
+			if (errorMessage)
+			{
+				*errorMessage = QString("%1 - %2").arg(key, file.errorString());
+			}
+			return false;
+		}
+	}
 
-    const bool openOk = QDesktopServices::openUrl(QUrl::fromLocalFile(m_openedAttachments.value(key)));
-    if (!openOk && errorMessage) {
-        *errorMessage = tr("Cannot open file \"%1\"").arg(key);
-    }
+	const bool openOk = QDesktopServices::openUrl(QUrl::fromLocalFile(m_openedAttachments.value(key)));
+	if (!openOk && errorMessage)
+	{
+		*errorMessage = tr("Cannot open file \"%1\"").arg(key);
+	}
 
-    return openOk;
+	return openOk;
 }
 
-void EntryAttachments::attachmentFileModified(const QString& path)
+void EntryAttachments::attachmentFileModified(const QString &path)
 {
-    auto it = m_openedAttachmentsInverse.find(path);
-    if (it != m_openedAttachmentsInverse.end()) {
-        emit valueModifiedExternally(it.value(), path);
-    }
+	auto it = m_openedAttachmentsInverse.find(path);
+	if (it != m_openedAttachmentsInverse.end())
+	{
+		emit valueModifiedExternally(it.value(), path);
+	}
 }

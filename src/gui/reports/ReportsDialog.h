@@ -37,61 +37,61 @@ class ReportsPagePasskeys;
 
 namespace Ui
 {
-    class ReportsDialog;
+	class ReportsDialog;
 }
 
 class IReportsPage
 {
 public:
-    virtual ~IReportsPage()
-    {
-    }
-    virtual QString name() = 0;
-    virtual QIcon icon() = 0;
-    virtual QWidget* createWidget() = 0;
-    virtual void loadSettings(QWidget* widget, QSharedPointer<Database> db) = 0;
-    virtual void saveSettings(QWidget* widget) = 0;
+	virtual ~IReportsPage()
+	{
+	}
+	virtual QString name() = 0;
+	virtual QIcon icon() = 0;
+	virtual QWidget *createWidget() = 0;
+	virtual void loadSettings(QWidget *widget, QSharedPointer<Database> db) = 0;
+	virtual void saveSettings(QWidget *widget) = 0;
 };
 
-class ReportsDialog : public DialogyWidget
+class ReportsDialog: public DialogyWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit ReportsDialog(QWidget* parent = nullptr);
-    ~ReportsDialog() override;
-    Q_DISABLE_COPY(ReportsDialog);
+	explicit ReportsDialog(QWidget *parent = nullptr);
+	~ReportsDialog() override;
+	Q_DISABLE_COPY(ReportsDialog);
 
-    void load(const QSharedPointer<Database>& db);
-    void addPage(QSharedPointer<IReportsPage> page);
-    void activatePasskeysPage();
-    bool onPassKeysPage();
+	void load(const QSharedPointer<Database> &db);
+	void addPage(QSharedPointer<IReportsPage> page);
+	void activatePasskeysPage();
+	bool onPassKeysPage();
 
 signals:
-    void editFinished(bool accepted);
+	void editFinished(bool accepted);
 
 private slots:
-    void reject();
-    void entryActivationSignalReceived(Entry* entry);
-    void switchToMainView(bool previousDialogAccepted);
+	void reject();
+	void entryActivationSignalReceived(Entry *entry);
+	void switchToMainView(bool previousDialogAccepted);
 
 private:
-    QSharedPointer<Database> m_db;
-    const QScopedPointer<Ui::ReportsDialog> m_ui;
-    const QSharedPointer<ReportsPageHealthcheck> m_healthPage;
-    const QSharedPointer<ReportsPageHibp> m_hibpPage;
-    const QSharedPointer<ReportsPageStatistics> m_statPage;
+	QSharedPointer<Database> m_db;
+	const QScopedPointer<Ui::ReportsDialog> m_ui;
+	const QSharedPointer<ReportsPageHealthcheck> m_healthPage;
+	const QSharedPointer<ReportsPageHibp> m_hibpPage;
+	const QSharedPointer<ReportsPageStatistics> m_statPage;
 #ifdef WITH_XC_BROWSER
-    const QSharedPointer<ReportsPageBrowserStatistics> m_browserStatPage;
+	const QSharedPointer<ReportsPageBrowserStatistics> m_browserStatPage;
 #endif
 #ifdef WITH_XC_BROWSER_PASSKEYS
-    const QSharedPointer<ReportsPagePasskeys> m_passkeysPage;
+	const QSharedPointer<ReportsPagePasskeys> m_passkeysPage;
 #endif
-    QPointer<EditEntryWidget> m_editEntryWidget;
-    QWidget* m_sender = nullptr;
+	QPointer<EditEntryWidget> m_editEntryWidget;
+	QWidget *m_sender = nullptr;
 
-    class ExtraPage;
-    QList<ExtraPage> m_extraPages;
+	class ExtraPage;
+	QList<ExtraPage> m_extraPages;
 };
 
 #endif // KEEPASSX_REPORTSWIDGET_H

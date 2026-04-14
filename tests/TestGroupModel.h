@@ -19,13 +19,13 @@
 
 #include <QObject>
 
-class TestGroupModel : public QObject
+class TestGroupModel: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void test();
+	void initTestCase();
+	void test();
 };
 
 #endif // KEEPASSX_TESTGROUPMODEL_H

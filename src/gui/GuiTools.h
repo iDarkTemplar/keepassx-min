@@ -25,31 +25,32 @@ class Entry;
 
 namespace GuiTools
 {
-    bool confirmDeleteEntries(QWidget* parent, const QList<Entry*>& entries, bool permanent);
-    bool confirmDeletePluginData(QWidget* parent, const QList<Entry*>& entries);
-    size_t deleteEntriesResolveReferences(QWidget* parent, const QList<Entry*>& entries, bool permanent);
+	bool confirmDeleteEntries(QWidget *parent, const QList<Entry *> &entries, bool permanent);
+	bool confirmDeletePluginData(QWidget *parent, const QList<Entry *> &entries);
+	size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry *> &entries, bool permanent);
 } // namespace GuiTools
 
 /**
  * Helper class to ignore mouse wheel events on non-focused widgets
  * NOTE: The widget must NOT have a focus policy of "WHEEL"
  */
-class MouseWheelEventFilter : public QObject
+class MouseWheelEventFilter: public QObject
 {
 public:
-    explicit MouseWheelEventFilter(QObject* parent)
-        : QObject(parent){};
+	explicit MouseWheelEventFilter(QObject *parent)
+		: QObject(parent) {};
 
 protected:
-    bool eventFilter(QObject* obj, QEvent* event) override
-    {
-        const auto* widget = qobject_cast<QWidget*>(obj);
-        if (event->type() == QEvent::Wheel && widget && !widget->hasFocus()) {
-            event->ignore();
-            return true;
-        }
-        return QObject::eventFilter(obj, event);
-    }
+	bool eventFilter(QObject *obj, QEvent *event) override
+	{
+		const auto *widget = qobject_cast<QWidget *>(obj);
+		if (event->type() == QEvent::Wheel && widget && !widget->hasFocus())
+		{
+			event->ignore();
+			return true;
+		}
+		return QObject::eventFilter(obj, event);
+	}
 };
 
 #endif // KEEPASSXC_GUITOOLS_H

@@ -21,29 +21,29 @@
 
 namespace Ui
 {
-    class PickcharsDialog;
+	class PickcharsDialog;
 }
 
-class PickcharsDialog : public QDialog
+class PickcharsDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit PickcharsDialog(const QString& string, QWidget* parent = nullptr);
-    QString selectedChars();
-    bool pressTab();
+	explicit PickcharsDialog(const QString &string, QWidget *parent = nullptr);
+	QString selectedChars();
+	bool pressTab();
 
 protected:
-    void showEvent(QShowEvent*) override;
+	void showEvent(QShowEvent *) override;
 
 private slots:
-    void charSelected();
-    void upPressed();
-    void downPressed();
+	void charSelected();
+	void upPressed();
+	void downPressed();
 
 private:
-    QSharedPointer<Ui::PickcharsDialog> m_ui;
-    int m_lastSelected;
+	QSharedPointer<Ui::PickcharsDialog> m_ui;
+	int m_lastSelected;
 };
 
 #endif // KEEPASSXC_PICKCHARSDIALOG_H

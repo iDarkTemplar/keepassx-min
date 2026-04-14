@@ -27,44 +27,44 @@
 class Kdf
 {
 public:
-    explicit Kdf(const QUuid& uuid);
-    virtual ~Kdf() = default;
+	explicit Kdf(const QUuid &uuid);
+	virtual ~Kdf() = default;
 
-    const QUuid& uuid() const;
+	const QUuid &uuid() const;
 
-    int rounds() const;
-    virtual bool setRounds(int rounds);
-    QByteArray seed() const;
-    virtual bool setSeed(const QByteArray& seed);
-    virtual void randomizeSeed();
+	int rounds() const;
+	virtual bool setRounds(int rounds);
+	QByteArray seed() const;
+	virtual bool setSeed(const QByteArray &seed);
+	virtual void randomizeSeed();
 
-    virtual bool processParameters(const QVariantMap& p) = 0;
-    virtual QVariantMap writeParameters() = 0;
-    virtual bool transform(const QByteArray& raw, QByteArray& result) const = 0;
-    virtual QSharedPointer<Kdf> clone() const = 0;
+	virtual bool processParameters(const QVariantMap &p) = 0;
+	virtual QVariantMap writeParameters() = 0;
+	virtual bool transform(const QByteArray &raw, QByteArray &result) const = 0;
+	virtual QSharedPointer<Kdf> clone() const = 0;
 
-    virtual QString toString() const = 0;
+	virtual QString toString() const = 0;
 
-    virtual int benchmark(int msec) const = 0;
+	virtual int benchmark(int msec) const = 0;
 
-    /*
-     * Default target encryption time, in MS.
-     */
-    static const int DEFAULT_ENCRYPTION_TIME = 1000;
-    /*
-     * Minimum target encryption time, in MS.
-     */
-    static const int MIN_ENCRYPTION_TIME = 100;
-    /*
-     * Maximum target encryption time, in MS.
-     */
-    static const int MAX_ENCRYPTION_TIME = 5000;
+	/*
+	 * Default target encryption time, in MS.
+	 */
+	static const int DEFAULT_ENCRYPTION_TIME = 1000;
+	/*
+	 * Minimum target encryption time, in MS.
+	 */
+	static const int MIN_ENCRYPTION_TIME = 100;
+	/*
+	 * Maximum target encryption time, in MS.
+	 */
+	static const int MAX_ENCRYPTION_TIME = 5000;
 
 protected:
-    int m_rounds;
-    QByteArray m_seed;
+	int m_rounds;
+	QByteArray m_seed;
 
 private:
-    const QUuid m_uuid;
+	const QUuid m_uuid;
 };
 #endif // KEEPASSX_KDF_H

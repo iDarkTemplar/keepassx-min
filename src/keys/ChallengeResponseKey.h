@@ -21,30 +21,30 @@
 #include "Key.h"
 #include "drivers/YubiKey.h"
 
-class ChallengeResponseKey : public Key
+class ChallengeResponseKey: public Key
 {
 public:
-    explicit ChallengeResponseKey(YubiKeySlot keySlot = {});
-    ~ChallengeResponseKey() override = default;
+	explicit ChallengeResponseKey(YubiKeySlot keySlot = {});
+	~ChallengeResponseKey() override = default;
 
-    QByteArray rawKey() const override;
-    void setRawKey(const QByteArray&) override;
-    YubiKeySlot slotData() const;
+	QByteArray rawKey() const override;
+	void setRawKey(const QByteArray &) override;
+	YubiKeySlot slotData() const;
 
-    virtual bool challenge(const QByteArray& challenge);
-    QString error() const;
+	virtual bool challenge(const QByteArray &challenge);
+	QString error() const;
 
-    QByteArray serialize() const override;
-    void deserialize(const QByteArray& data) override;
+	QByteArray serialize() const override;
+	void deserialize(const QByteArray &data) override;
 
-    static QUuid UUID;
+	static QUuid UUID;
 
 private:
-    Q_DISABLE_COPY(ChallengeResponseKey);
+	Q_DISABLE_COPY(ChallengeResponseKey);
 
-    QString m_error;
-    Botan::secure_vector<char> m_key;
-    YubiKeySlot m_keySlot;
+	QString m_error;
+	Botan::secure_vector<char> m_key;
+	YubiKeySlot m_keySlot;
 };
 
 #endif // KPXC_CHALLENGE_RESPONSE_KEY_H

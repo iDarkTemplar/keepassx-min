@@ -16,39 +16,40 @@
 
 #include "SortFilterHideProxyModel.h"
 
-SortFilterHideProxyModel::SortFilterHideProxyModel(QObject* parent)
-    : QSortFilterProxyModel(parent)
+SortFilterHideProxyModel::SortFilterHideProxyModel(QObject *parent)
+	: QSortFilterProxyModel(parent)
 {
-    m_collator.setNumericMode(true);
+	m_collator.setNumericMode(true);
 }
 
 Qt::DropActions SortFilterHideProxyModel::supportedDragActions() const
 {
-    return sourceModel()->supportedDragActions();
+	return sourceModel()->supportedDragActions();
 }
 
 void SortFilterHideProxyModel::hideColumn(int column, bool hide)
 {
-    m_hiddenColumns.resize(column + 1);
-    m_hiddenColumns[column] = hide;
+	m_hiddenColumns.resize(column + 1);
+	m_hiddenColumns[column] = hide;
 
-    invalidateFilter();
+	invalidateFilter();
 }
 
-bool SortFilterHideProxyModel::filterAcceptsColumn(int sourceColumn, const QModelIndex& sourceParent) const
+bool SortFilterHideProxyModel::filterAcceptsColumn(int sourceColumn, const QModelIndex &sourceParent) const
 {
-    Q_UNUSED(sourceParent)
+	Q_UNUSED(sourceParent)
 
-    return sourceColumn >= m_hiddenColumns.size() || !m_hiddenColumns.at(sourceColumn);
+	return sourceColumn >= m_hiddenColumns.size() || !m_hiddenColumns.at(sourceColumn);
 }
 
-bool SortFilterHideProxyModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
+bool SortFilterHideProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
-    auto leftData = sourceModel()->data(left, sortRole());
-    auto rightData = sourceModel()->data(right, sortRole());
-    if (leftData.type() == QVariant::String) {
-        return m_collator.compare(leftData.toString(), rightData.toString()) < 0;
-    }
+	auto leftData = sourceModel()->data(left, sortRole());
+	auto rightData = sourceModel()->data(right, sortRole());
+	if (leftData.type() == QVariant::String)
+	{
+		return m_collator.compare(leftData.toString(), rightData.toString()) < 0;
+	}
 
-    return QSortFilterProxyModel::lessThan(left, right);
+	return QSortFilterProxyModel::lessThan(left, right);
 }

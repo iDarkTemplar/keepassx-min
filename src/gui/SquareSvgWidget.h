@@ -19,16 +19,16 @@
 
 #include <QSvgWidget>
 
-class SquareSvgWidget : public QSvgWidget
+class SquareSvgWidget: public QSvgWidget
 {
 public:
-    explicit SquareSvgWidget(QWidget* parent);
-    ~SquareSvgWidget() override = default;
+	explicit SquareSvgWidget(QWidget *parent);
+	~SquareSvgWidget() override = default;
 
-    bool hasHeightForWidth() const override;
-    int heightForWidth(int width) const override;
+	bool hasHeightForWidth() const override;
+	int heightForWidth(int width) const override;
 
-    void resizeEvent(QResizeEvent* event) override;
+	void resizeEvent(QResizeEvent *event) override;
 };
 
 #endif // KEEPASSX_SquareSvgWidget_H

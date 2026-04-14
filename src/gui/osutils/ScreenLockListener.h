@@ -20,19 +20,19 @@
 
 class ScreenLockListenerPrivate;
 
-class ScreenLockListener : public QObject
+class ScreenLockListener: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit ScreenLockListener(QWidget* parent);
-    ~ScreenLockListener() override;
+	explicit ScreenLockListener(QWidget *parent);
+	~ScreenLockListener() override;
 
 signals:
-    void screenLocked();
+	void screenLocked();
 
 private:
-    ScreenLockListenerPrivate* m_listener;
+	ScreenLockListenerPrivate *m_listener;
 };
 
 #endif // SCREENLOCKLISTENER_H

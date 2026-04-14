@@ -27,62 +27,62 @@ class FileWatcher;
 class Group;
 class Database;
 
-class ShareObserver : public QObject
+class ShareObserver: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit ShareObserver(QSharedPointer<Database> db, QObject* parent = nullptr);
-    ~ShareObserver();
+	explicit ShareObserver(QSharedPointer<Database> db, QObject *parent = nullptr);
+	~ShareObserver();
 
-    QSharedPointer<Database> database();
-    void setEnabled(bool enabled);
+	QSharedPointer<Database> database();
+	void setEnabled(bool enabled);
 
-    struct Result
-    {
-        enum Type
-        {
-            Success,
-            Info,
-            Warning,
-            Error
-        };
+	struct Result
+	{
+		enum Type
+		{
+			Success,
+			Info,
+			Warning,
+			Error
+		};
 
-        QString path;
-        Type type;
-        QString message;
+		QString path;
+		Type type;
+		QString message;
 
-        Result(const QString& path = QString(), Type type = Success, const QString& message = QString());
+		Result(const QString &path = QString(), Type type = Success, const QString &message = QString());
 
-        bool isValid() const;
-        bool isError() const;
-        bool isWarning() const;
-        bool isInfo() const;
-    };
+		bool isValid() const;
+		bool isError() const;
+		bool isWarning() const;
+		bool isInfo() const;
+	};
 
 signals:
-    void sharingMessage(QString, MessageWidget::MessageType);
+	void sharingMessage(QString, MessageWidget::MessageType);
 
 private slots:
-    void handleDatabaseChanged();
-    void handleDatabaseSaved();
-    void handleFileUpdated(const QString& path);
+	void handleDatabaseChanged();
+	void handleDatabaseSaved();
+	void handleFileUpdated(const QString &path);
 
 private:
-    Result importShare(const QString& path);
-    QList<Result> exportShares();
+	Result importShare(const QString &path);
+	QList<Result> exportShares();
 
-    void deinitialize();
-    void reinitialize();
-    void notifyAbout(const QStringList& success, const QStringList& warning, const QStringList& error);
+	void deinitialize();
+	void reinitialize();
+	void notifyAbout(const QStringList &success, const QStringList &warning, const QStringList &error);
 
 private:
-    QSharedPointer<Database> m_db;
-    QMap<QPointer<Group>, KeeShareSettings::Reference> m_groupToReference;
-    QMap<QString, QPointer<Group>> m_shareToGroup;
-    QMap<QString, QSharedPointer<FileWatcher>> m_fileWatchers;
-    bool m_inFileUpdate = false;
-    bool m_enabled = true;
+	QSharedPointer<Database> m_db;
+	QMap<QPointer<Group>, KeeShareSettings::Reference> m_groupToReference;
+	QMap<QString, QPointer<Group>> m_shareToGroup;
+	QMap<QString, QSharedPointer<FileWatcher>> m_fileWatchers;
+	bool m_inFileUpdate = false;
+	bool m_enabled = true;
 };
 
 #endif // KEEPASSXC_SHAREOBSERVER_H

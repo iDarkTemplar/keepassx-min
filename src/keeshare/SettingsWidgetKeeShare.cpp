@@ -26,14 +26,14 @@
 #include <QStandardPaths>
 #include <QTextStream>
 
-SettingsWidgetKeeShare::SettingsWidgetKeeShare(QWidget* parent)
-    : QWidget(parent)
-    , m_ui(new Ui::SettingsWidgetKeeShare())
+SettingsWidgetKeeShare::SettingsWidgetKeeShare(QWidget *parent)
+	: QWidget(parent)
+	, m_ui(new Ui::SettingsWidgetKeeShare())
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    connect(m_ui->ownCertificateSignerEdit, SIGNAL(textChanged(QString)), SLOT(setVerificationExporter(QString)));
-    connect(m_ui->generateOwnCerticateButton, SIGNAL(clicked(bool)), SLOT(generateCertificate()));
+	connect(m_ui->ownCertificateSignerEdit, SIGNAL(textChanged(QString)), SLOT(setVerificationExporter(QString)));
+	connect(m_ui->generateOwnCerticateButton, SIGNAL(clicked(bool)), SLOT(generateCertificate()));
 }
 
 SettingsWidgetKeeShare::~SettingsWidgetKeeShare()
@@ -42,43 +42,43 @@ SettingsWidgetKeeShare::~SettingsWidgetKeeShare()
 
 void SettingsWidgetKeeShare::loadSettings()
 {
-    const auto active = KeeShare::active();
-    m_ui->enableExportCheckBox->setChecked(active.out);
-    m_ui->enableImportCheckBox->setChecked(active.in);
+	const auto active = KeeShare::active();
+	m_ui->enableExportCheckBox->setChecked(active.out);
+	m_ui->enableImportCheckBox->setChecked(active.in);
 
-    m_own = KeeShare::own();
-    updateOwnCertificate();
+	m_own = KeeShare::own();
+	updateOwnCertificate();
 }
 
 void SettingsWidgetKeeShare::updateOwnCertificate()
 {
-    m_ui->ownCertificateSignerEdit->setText(m_own.certificate.signer);
-    m_ui->ownCertificateFingerprintEdit->setText(m_own.certificate.fingerprint());
+	m_ui->ownCertificateSignerEdit->setText(m_own.certificate.signer);
+	m_ui->ownCertificateFingerprintEdit->setText(m_own.certificate.fingerprint());
 }
 
 void SettingsWidgetKeeShare::saveSettings()
 {
-    KeeShareSettings::Active active;
-    active.out = m_ui->enableExportCheckBox->isChecked();
-    active.in = m_ui->enableImportCheckBox->isChecked();
-    // TODO HNH: This depends on the order of saving new data - a better model would be to
-    //           store changes to the settings in a temporary object and check on the final values
-    //           of this object (similar scheme to Entry) - this way we could validate the settings before save
-    KeeShare::setOwn(m_own);
-    KeeShare::setActive(active);
+	KeeShareSettings::Active active;
+	active.out = m_ui->enableExportCheckBox->isChecked();
+	active.in = m_ui->enableImportCheckBox->isChecked();
+	// TODO HNH: This depends on the order of saving new data - a better model would be to
+	//           store changes to the settings in a temporary object and check on the final values
+	//           of this object (similar scheme to Entry) - this way we could validate the settings before save
+	KeeShare::setOwn(m_own);
+	KeeShare::setActive(active);
 
-    config()->set(Config::KeeShare_QuietSuccess, m_ui->quietSuccessCheckBox->isChecked());
+	config()->set(Config::KeeShare_QuietSuccess, m_ui->quietSuccessCheckBox->isChecked());
 }
 
-void SettingsWidgetKeeShare::setVerificationExporter(const QString& signer)
+void SettingsWidgetKeeShare::setVerificationExporter(const QString &signer)
 {
-    m_own.certificate.signer = signer;
-    m_ui->ownCertificateSignerEdit->setText(m_own.certificate.signer);
+	m_own.certificate.signer = signer;
+	m_ui->ownCertificateSignerEdit->setText(m_own.certificate.signer);
 }
 
 void SettingsWidgetKeeShare::generateCertificate()
 {
-    m_own = KeeShareSettings::Own::generate();
-    m_ui->ownCertificateSignerEdit->setText(m_own.certificate.signer);
-    m_ui->ownCertificateFingerprintEdit->setText(m_own.certificate.fingerprint());
+	m_own = KeeShareSettings::Own::generate();
+	m_ui->ownCertificateSignerEdit->setText(m_own.certificate.signer);
+	m_ui->ownCertificateFingerprintEdit->setText(m_own.certificate.fingerprint());
 }

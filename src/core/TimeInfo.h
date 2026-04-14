@@ -24,36 +24,36 @@
 class TimeInfo
 {
 public:
-    TimeInfo();
+	TimeInfo();
 
-    QDateTime lastModificationTime() const;
-    QDateTime creationTime() const;
-    QDateTime lastAccessTime() const;
-    QDateTime expiryTime() const;
-    bool expires() const;
-    int usageCount() const;
-    QDateTime locationChanged() const;
+	QDateTime lastModificationTime() const;
+	QDateTime creationTime() const;
+	QDateTime lastAccessTime() const;
+	QDateTime expiryTime() const;
+	bool expires() const;
+	int usageCount() const;
+	QDateTime locationChanged() const;
 
-    bool operator==(const TimeInfo& other) const;
-    bool operator!=(const TimeInfo& other) const;
-    bool equals(const TimeInfo& other, CompareItemOptions options = CompareItemDefault) const;
+	bool operator==(const TimeInfo &other) const;
+	bool operator!=(const TimeInfo &other) const;
+	bool equals(const TimeInfo &other, CompareItemOptions options = CompareItemDefault) const;
 
-    void setLastModificationTime(const QDateTime& dateTime);
-    void setCreationTime(const QDateTime& dateTime);
-    void setLastAccessTime(const QDateTime& dateTime);
-    void setExpiryTime(const QDateTime& dateTime);
-    void setExpires(bool expires);
-    void setUsageCount(int count);
-    void setLocationChanged(const QDateTime& dateTime);
+	void setLastModificationTime(const QDateTime &dateTime);
+	void setCreationTime(const QDateTime &dateTime);
+	void setLastAccessTime(const QDateTime &dateTime);
+	void setExpiryTime(const QDateTime &dateTime);
+	void setExpires(bool expires);
+	void setUsageCount(int count);
+	void setLocationChanged(const QDateTime &dateTime);
 
 private:
-    QDateTime m_lastModificationTime;
-    QDateTime m_creationTime;
-    QDateTime m_lastAccessTime;
-    QDateTime m_expiryTime;
-    bool m_expires;
-    int m_usageCount;
-    QDateTime m_locationChanged;
+	QDateTime m_lastModificationTime;
+	QDateTime m_creationTime;
+	QDateTime m_lastAccessTime;
+	QDateTime m_expiryTime;
+	bool m_expires;
+	int m_usageCount;
+	QDateTime m_locationChanged;
 };
 
 #endif // KEEPASSX_TIMEINFO_H

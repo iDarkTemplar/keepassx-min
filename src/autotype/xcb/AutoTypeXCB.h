@@ -30,78 +30,78 @@
 
 #define N_MOD_INDICES (Mod5MapIndex + 1)
 
-class AutoTypePlatformX11 : public QObject, public AutoTypePlatformInterface
+class AutoTypePlatformX11: public QObject, public AutoTypePlatformInterface
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.keepassx.AutoTypePlatformX11")
-    Q_INTERFACES(AutoTypePlatformInterface)
+	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "org.keepassx.AutoTypePlatformX11")
+	Q_INTERFACES(AutoTypePlatformInterface)
 
 public:
-    AutoTypePlatformX11();
-    bool isAvailable() override;
-    void unload() override;
-    QStringList windowTitles() override;
-    WId activeWindow() override;
-    QString activeWindowTitle() override;
-    bool raiseWindow(WId window) override;
-    AutoTypeExecutor* createExecutor() override;
-    void updateKeymap();
+	AutoTypePlatformX11();
+	bool isAvailable() override;
+	void unload() override;
+	QStringList windowTitles() override;
+	WId activeWindow() override;
+	QString activeWindowTitle() override;
+	bool raiseWindow(WId window) override;
+	AutoTypeExecutor *createExecutor() override;
+	void updateKeymap();
 
-    AutoTypeAction::Result sendKey(KeySym keysym, unsigned int modifiers = 0);
+	AutoTypeAction::Result sendKey(KeySym keysym, unsigned int modifiers = 0);
 
 private:
-    QString windowTitle(Window window, bool useBlacklist);
-    QStringList windowTitlesRecursive(Window window);
-    QString windowClassName(Window window);
-    QList<Window> widgetsToX11Windows(const QWidgetList& widgetList);
-    bool isTopLevelWindow(Window window);
+	QString windowTitle(Window window, bool useBlacklist);
+	QStringList windowTitlesRecursive(Window window);
+	QString windowClassName(Window window);
+	QList<Window> widgetsToX11Windows(const QWidgetList &widgetList);
+	bool isTopLevelWindow(Window window);
 
-    XkbDescPtr getKeyboard();
-    bool RemapKeycode(KeySym keysym);
-    void SendKeyEvent(unsigned keycode, bool press);
-    void SendModifiers(unsigned int mask, bool press);
-    bool GetKeycode(KeySym keysym, int* keycode, int* group, unsigned int* mask, bool* repeat);
+	XkbDescPtr getKeyboard();
+	bool RemapKeycode(KeySym keysym);
+	void SendKeyEvent(unsigned keycode, bool press);
+	void SendModifiers(unsigned int mask, bool press);
+	bool GetKeycode(KeySym keysym, int *keycode, int *group, unsigned int *mask, bool *repeat);
 
-    static int MyErrorHandler(Display* my_dpy, XErrorEvent* event);
+	static int MyErrorHandler(Display *my_dpy, XErrorEvent *event);
 
-    Display* m_dpy;
-    Window m_rootWindow;
-    Atom m_atomWmState;
-    Atom m_atomWmName;
-    Atom m_atomNetWmName;
-    Atom m_atomString;
-    Atom m_atomUtf8String;
-    Atom m_atomNetActiveWindow;
-    Atom m_atomTransientFor;
-    Atom m_atomWindow;
-    QSet<QString> m_classBlacklist;
+	Display *m_dpy;
+	Window m_rootWindow;
+	Atom m_atomWmState;
+	Atom m_atomWmName;
+	Atom m_atomNetWmName;
+	Atom m_atomString;
+	Atom m_atomUtf8String;
+	Atom m_atomNetActiveWindow;
+	Atom m_atomTransientFor;
+	Atom m_atomWindow;
+	QSet<QString> m_classBlacklist;
 
-    typedef struct
-    {
-        KeySym sym;
-        int code;
-        int group;
-        int mask;
-    } KeyDesc;
+	typedef struct
+	{
+		KeySym sym;
+		int code;
+		int group;
+		int mask;
+	} KeyDesc;
 
-    XkbDescPtr m_xkb;
-    QList<KeyDesc> m_keymap;
-    KeyCode m_modifier_keycode[N_MOD_INDICES];
-    KeyCode m_remapKeycode;
-    bool m_loaded;
+	XkbDescPtr m_xkb;
+	QList<KeyDesc> m_keymap;
+	KeyCode m_modifier_keycode[N_MOD_INDICES];
+	KeyCode m_remapKeycode;
+	bool m_loaded;
 };
 
-class AutoTypeExecutorX11 : public AutoTypeExecutor
+class AutoTypeExecutorX11: public AutoTypeExecutor
 {
 public:
-    explicit AutoTypeExecutorX11(AutoTypePlatformX11* platform);
+	explicit AutoTypeExecutorX11(AutoTypePlatformX11 *platform);
 
-    AutoTypeAction::Result execBegin(const AutoTypeBegin* action) override;
-    AutoTypeAction::Result execType(const AutoTypeKey* action) override;
-    AutoTypeAction::Result execClearField(const AutoTypeClearField* action) override;
+	AutoTypeAction::Result execBegin(const AutoTypeBegin *action) override;
+	AutoTypeAction::Result execType(const AutoTypeKey *action) override;
+	AutoTypeAction::Result execClearField(const AutoTypeClearField *action) override;
 
 private:
-    AutoTypePlatformX11* const m_platform;
+	AutoTypePlatformX11 *const m_platform;
 };
 
 #endif // KEEPASSX_AUTOTYPEXCB_H

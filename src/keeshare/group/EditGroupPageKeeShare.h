@@ -22,15 +22,15 @@
 class Group;
 class Database;
 
-class EditGroupPageKeeShare : public IEditGroupPage
+class EditGroupPageKeeShare: public IEditGroupPage
 {
 public:
-    EditGroupPageKeeShare(EditGroupWidget* widget);
-    QString name() override;
-    QIcon icon() override;
-    QWidget* createWidget() override;
-    void set(QWidget* widget, Group* temporaryGroup, QSharedPointer<Database> database) override;
-    void assign(QWidget* widget) override;
+	EditGroupPageKeeShare(EditGroupWidget *widget);
+	QString name() override;
+	QIcon icon() override;
+	QWidget *createWidget() override;
+	void set(QWidget *widget, Group *temporaryGroup, QSharedPointer<Database> database) override;
+	void assign(QWidget *widget) override;
 };
 
 #endif // KEEPASSXC_EDITGROUPPAGEKEESHARE_H

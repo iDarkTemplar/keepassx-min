@@ -22,69 +22,69 @@
 
 namespace Ui
 {
-    class EntryPreviewWidget;
+	class EntryPreviewWidget;
 }
 
 class QTabWidget;
 class QTextEdit;
 
-class EntryPreviewWidget : public QWidget
+class EntryPreviewWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit EntryPreviewWidget(QWidget* parent = nullptr);
-    ~EntryPreviewWidget() override;
+	explicit EntryPreviewWidget(QWidget *parent = nullptr);
+	~EntryPreviewWidget() override;
 
 public slots:
-    void setEntry(Entry* selectedEntry);
-    void setGroup(Group* selectedGroup);
-    void setDatabaseMode(DatabaseWidget::Mode mode);
-    void refresh();
-    void clear();
+	void setEntry(Entry *selectedEntry);
+	void setGroup(Group *selectedGroup);
+	void setDatabaseMode(DatabaseWidget::Mode mode);
+	void refresh();
+	void clear();
 
 signals:
-    void entryUrlActivated(Entry* entry);
-    void copyTextRequested(const QString& text);
+	void entryUrlActivated(Entry *entry);
+	void copyTextRequested(const QString &text);
 
 protected:
-    bool eventFilter(QObject* object, QEvent* event) override;
+	bool eventFilter(QObject *object, QEvent *event) override;
 
 private slots:
-    void updateEntryHeaderLine();
-    void updateEntryTotp();
-    void updateEntryGeneralTab();
-    void updateEntryAdvancedTab();
-    void updateEntryAutotypeTab();
-    void setUsernameVisible(bool state);
-    void setPasswordVisible(bool state);
-    void setEntryNotesVisible(bool state);
-    void setGroupNotesVisible(bool state);
-    void setNotesVisible(QTextEdit* notesWidget, const QString& notes, bool state);
+	void updateEntryHeaderLine();
+	void updateEntryTotp();
+	void updateEntryGeneralTab();
+	void updateEntryAdvancedTab();
+	void updateEntryAutotypeTab();
+	void setUsernameVisible(bool state);
+	void setPasswordVisible(bool state);
+	void setEntryNotesVisible(bool state);
+	void setGroupNotesVisible(bool state);
+	void setNotesVisible(QTextEdit *notesWidget, const QString &notes, bool state);
 
-    void updateGroupHeaderLine();
-    void updateGroupGeneralTab();
+	void updateGroupHeaderLine();
+	void updateGroupGeneralTab();
 #if defined(WITH_XC_KEESHARE)
-    void updateGroupSharingTab();
+	void updateGroupSharingTab();
 #endif
 
-    void updateTotpLabel();
-    void updateTabIndexes();
-    void openEntryUrl();
+	void updateTotpLabel();
+	void updateTabIndexes();
+	void openEntryUrl();
 
 private:
-    void removeTab(QTabWidget* tabWidget, QWidget* widget);
-    void setTabEnabled(QTabWidget* tabWidget, QWidget* widget, bool enabled);
+	void removeTab(QTabWidget *tabWidget, QWidget *widget);
+	void setTabEnabled(QTabWidget *tabWidget, QWidget *widget, bool enabled);
 
-    static QString hierarchy(const Group* group, const QString& title);
+	static QString hierarchy(const Group *group, const QString &title);
 
-    const QScopedPointer<Ui::EntryPreviewWidget> m_ui;
-    bool m_locked;
-    QPointer<Entry> m_currentEntry;
-    QPointer<Group> m_currentGroup;
-    QTimer m_totpTimer;
-    quint8 m_selectedTabEntry;
-    quint8 m_selectedTabGroup;
+	const QScopedPointer<Ui::EntryPreviewWidget> m_ui;
+	bool m_locked;
+	QPointer<Entry> m_currentEntry;
+	QPointer<Group> m_currentGroup;
+	QTimer m_totpTimer;
+	quint8 m_selectedTabEntry;
+	quint8 m_selectedTabGroup;
 };
 
 #endif // KEEPASSX_DETAILSWIDGET_H

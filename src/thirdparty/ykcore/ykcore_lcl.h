@@ -28,8 +28,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef	__YKCORE_LCL_H_INCLUDED__
-#define	__YKCORE_LCL_H_INCLUDED__
+#ifndef __YKCORE_LCL_H_INCLUDED__
+#define __YKCORE_LCL_H_INCLUDED__
 
 /* This is a hack to map official structure names (in ykcore.h) to
    internal ones (in ykdef.h) */
@@ -62,8 +62,6 @@
  * Functions to send and receive data to/from the key.
  *
  ****/
-extern int yk_read_from_key(YK_KEY *k, uint8_t slot,
-			    void *buf, unsigned int bufsize,
-			    unsigned int *bufcount);
+extern int yk_read_from_key(YK_KEY *k, uint8_t slot, void *buf, unsigned int bufsize, unsigned int *bufcount);
 
-#endif	/* __YKCORE_LCL_H_INCLUDED__ */
+#endif /* __YKCORE_LCL_H_INCLUDED__ */

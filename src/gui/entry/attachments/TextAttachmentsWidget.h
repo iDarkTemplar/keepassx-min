@@ -24,7 +24,7 @@
 
 namespace Ui
 {
-    class TextAttachmentsWidget;
+	class TextAttachmentsWidget;
 }
 
 class QSplitter;
@@ -32,30 +32,30 @@ class QTimer;
 class TextAttachmentsPreviewWidget;
 class TextAttachmentsEditWidget;
 
-class TextAttachmentsWidget : public QWidget
+class TextAttachmentsWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit TextAttachmentsWidget(QWidget* parent = nullptr);
-    ~TextAttachmentsWidget() override;
+	explicit TextAttachmentsWidget(QWidget *parent = nullptr);
+	~TextAttachmentsWidget() override;
 
-    void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
-    attachments::Attachment getAttachment() const;
+	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
+	attachments::Attachment getAttachment() const;
 
 private slots:
-    void updatePreviewWidget();
+	void updatePreviewWidget();
 
 private:
-    void initWidget();
-    void updateWidget();
-    bool isPreviewVisible() const;
+	void initWidget();
+	void updateWidget();
+	bool isPreviewVisible() const;
 
-    QPointer<QSplitter> m_splitter;
-    QPointer<TextAttachmentsEditWidget> m_editWidget;
-    QPointer<TextAttachmentsPreviewWidget> m_previewWidget;
-    QPointer<QTimer> m_previewUpdateTimer;
-    bool m_previewVisible = false;
+	QPointer<QSplitter> m_splitter;
+	QPointer<TextAttachmentsEditWidget> m_editWidget;
+	QPointer<TextAttachmentsPreviewWidget> m_previewWidget;
+	QPointer<QTimer> m_previewUpdateTimer;
+	bool m_previewVisible = false;
 
-    attachments::Attachment m_attachment;
-    attachments::OpenMode m_mode;
+	attachments::Attachment m_attachment;
+	attachments::OpenMode m_mode;
 };

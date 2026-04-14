@@ -21,11 +21,11 @@
 #include "core/Database.h"
 #include "gui/dbsettings/DatabaseSettingsWidget.h"
 
-NewDatabaseWizardPage::NewDatabaseWizardPage(QWidget* parent)
-    : QWizardPage(parent)
-    , m_ui(new Ui::NewDatabaseWizardPage())
+NewDatabaseWizardPage::NewDatabaseWizardPage(QWidget *parent)
+	: QWizardPage(parent)
+	, m_ui(new Ui::NewDatabaseWizardPage())
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 }
 
 NewDatabaseWizardPage::~NewDatabaseWizardPage()
@@ -38,18 +38,18 @@ NewDatabaseWizardPage::~NewDatabaseWizardPage()
  *
  * @param page database settings page widget
  */
-void NewDatabaseWizardPage::setPageWidget(DatabaseSettingsWidget* page)
+void NewDatabaseWizardPage::setPageWidget(DatabaseSettingsWidget *page)
 {
-    m_pageWidget = page;
-    m_ui->pageContent->setWidget(m_pageWidget);
+	m_pageWidget = page;
+	m_ui->pageContent->setWidget(m_pageWidget);
 }
 
 /**
  * @return database settings widget of this page widget.
  */
-DatabaseSettingsWidget* NewDatabaseWizardPage::pageWidget()
+DatabaseSettingsWidget *NewDatabaseWizardPage::pageWidget()
 {
-    return m_pageWidget;
+	return m_pageWidget;
 }
 
 /**
@@ -60,27 +60,29 @@ DatabaseSettingsWidget* NewDatabaseWizardPage::pageWidget()
  */
 void NewDatabaseWizardPage::setDatabase(QSharedPointer<Database> db)
 {
-    m_db = std::move(db);
+	m_db = std::move(db);
 }
 
 void NewDatabaseWizardPage::initializePage()
 {
-    Q_ASSERT(m_pageWidget && m_db);
-    if (!m_pageWidget || !m_db) {
-        return;
-    }
+	Q_ASSERT(m_pageWidget && m_db);
+	if (!m_pageWidget || !m_db)
+	{
+		return;
+	}
 
-    m_pageWidget->loadSettings(m_db);
+	m_pageWidget->loadSettings(m_db);
 }
 
 bool NewDatabaseWizardPage::validatePage()
 {
-    Q_ASSERT(m_pageWidget && m_db);
-    if (!m_pageWidget || !m_db) {
-        return false;
-    }
+	Q_ASSERT(m_pageWidget && m_db);
+	if (!m_pageWidget || !m_db)
+	{
+		return false;
+	}
 
-    bool valid = m_pageWidget->saveSettings();
-    m_pageWidget->uninitialize();
-    return valid;
+	bool valid = m_pageWidget->saveSettings();
+	m_pageWidget->uninitialize();
+	return valid;
 }

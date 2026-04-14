@@ -20,17 +20,17 @@
 
 #include "gui/ApplicationSettingsWidget.h"
 
-class BrowserSettingsPage : public ISettingsPage
+class BrowserSettingsPage: public ISettingsPage
 {
 public:
-    explicit BrowserSettingsPage() = default;
-    ~BrowserSettingsPage() override = default;
+	explicit BrowserSettingsPage() = default;
+	~BrowserSettingsPage() override = default;
 
-    QString name() override;
-    QIcon icon() override;
-    QWidget* createWidget() override;
-    void loadSettings(QWidget* widget) override;
-    void saveSettings(QWidget* widget) override;
+	QString name() override;
+	QIcon icon() override;
+	QWidget *createWidget() override;
+	void loadSettings(QWidget *widget) override;
+	void saveSettings(QWidget *widget) override;
 };
 
 #endif // KEEPASSXC_BROWSERSETTINGSPAGE_H

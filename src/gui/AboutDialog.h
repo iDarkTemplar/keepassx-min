@@ -22,22 +22,22 @@
 
 namespace Ui
 {
-    class AboutDialog;
+	class AboutDialog;
 }
 
-class AboutDialog : public QDialog
+class AboutDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit AboutDialog(QWidget* parent = nullptr);
-    ~AboutDialog();
+	explicit AboutDialog(QWidget *parent = nullptr);
+	~AboutDialog();
 
 protected slots:
-    void copyToClipboard();
+	void copyToClipboard();
 
 private:
-    QScopedPointer<Ui::AboutDialog> m_ui;
+	QScopedPointer<Ui::AboutDialog> m_ui;
 };
 
 #endif // KEEPASSX_ABOUTDIALOG_H

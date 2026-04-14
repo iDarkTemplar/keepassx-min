@@ -27,47 +27,52 @@
 
 DatabaseInfo::DatabaseInfo()
 {
-    name = QString("db-info");
-    description = QObject::tr("Show a database's information.");
+	name = QString("db-info");
+	description = QObject::tr("Show a database's information.");
 }
 
 int DatabaseInfo::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser>)
 {
-    auto& out = Utils::STDOUT;
+	auto &out = Utils::STDOUT;
 
-    out << QObject::tr("UUID: ") << database->uuid().toString() << Qt::endl;
-    out << QObject::tr("Name: ") << database->metadata()->name() << Qt::endl;
-    out << QObject::tr("Description: ") << database->metadata()->description() << Qt::endl;
-    for (auto& cipher : asConst(KeePass2::CIPHERS)) {
-        if (cipher == database->cipher()) {
-            out << QObject::tr("Cipher: ") << KeePass2::cipherToString(cipher) << Qt::endl;
-        }
-    }
-    out << QObject::tr("KDF: ") << database->kdf()->toString() << Qt::endl;
-    if (database->metadata()->recycleBinEnabled()) {
-        out << QObject::tr("Recycle bin is enabled.") << Qt::endl;
-    } else {
-        out << QObject::tr("Recycle bin is not enabled.") << Qt::endl;
-    }
+	out << QObject::tr("UUID: ") << database->uuid().toString() << Qt::endl;
+	out << QObject::tr("Name: ") << database->metadata()->name() << Qt::endl;
+	out << QObject::tr("Description: ") << database->metadata()->description() << Qt::endl;
+	for (auto &cipher: asConst(KeePass2::CIPHERS))
+	{
+		if (cipher == database->cipher())
+		{
+			out << QObject::tr("Cipher: ") << KeePass2::cipherToString(cipher) << Qt::endl;
+		}
+	}
+	out << QObject::tr("KDF: ") << database->kdf()->toString() << Qt::endl;
+	if (database->metadata()->recycleBinEnabled())
+	{
+		out << QObject::tr("Recycle bin is enabled.") << Qt::endl;
+	}
+	else
+	{
+		out << QObject::tr("Recycle bin is not enabled.") << Qt::endl;
+	}
 
-    DatabaseStats stats(database);
-    out << QObject::tr("Location") << ": " << database->filePath() << Qt::endl;
-    out << QObject::tr("Database created") << ": " << Clock::toString(database->rootGroup()->timeInfo().creationTime())
-        << Qt::endl;
-    out << QObject::tr("Last saved") << ": " << Clock::toString(stats.modified) << Qt::endl;
-    out << QObject::tr("Unsaved changes") << ": " << (database->isModified() ? QObject::tr("yes") : QObject::tr("no"))
-        << Qt::endl;
-    out << QObject::tr("Number of groups") << ": " << QString::number(stats.groupCount) << Qt::endl;
-    out << QObject::tr("Number of entries") << ": " << QString::number(stats.entryCount) << Qt::endl;
-    out << QObject::tr("Number of expired entries") << ": " << QString::number(stats.expiredEntries) << Qt::endl;
-    out << QObject::tr("Unique passwords") << ": " << QString::number(stats.uniquePasswords) << Qt::endl;
-    out << QObject::tr("Non-unique passwords") << ": " << QString::number(stats.reusedPasswords) << Qt::endl;
-    out << QObject::tr("Maximum password reuse") << ": " << QString::number(stats.maxPwdReuse()) << Qt::endl;
-    out << QObject::tr("Number of short passwords") << ": " << QString::number(stats.shortPasswords) << Qt::endl;
-    out << QObject::tr("Number of weak passwords") << ": " << QString::number(stats.weakPasswords) << Qt::endl;
-    out << QObject::tr("Entries excluded from reports") << ": " << QString::number(stats.excludedEntries) << Qt::endl;
-    out << QObject::tr("Average password length") << ": "
-        << QObject::tr("%1 character(s)", "", stats.averagePwdLength()).arg(stats.averagePwdLength()) << Qt::endl;
+	DatabaseStats stats(database);
+	out << QObject::tr("Location") << ": " << database->filePath() << Qt::endl;
+	out << QObject::tr("Database created") << ": " << Clock::toString(database->rootGroup()->timeInfo().creationTime())
+		<< Qt::endl;
+	out << QObject::tr("Last saved") << ": " << Clock::toString(stats.modified) << Qt::endl;
+	out << QObject::tr("Unsaved changes") << ": " << (database->isModified() ? QObject::tr("yes") : QObject::tr("no"))
+		<< Qt::endl;
+	out << QObject::tr("Number of groups") << ": " << QString::number(stats.groupCount) << Qt::endl;
+	out << QObject::tr("Number of entries") << ": " << QString::number(stats.entryCount) << Qt::endl;
+	out << QObject::tr("Number of expired entries") << ": " << QString::number(stats.expiredEntries) << Qt::endl;
+	out << QObject::tr("Unique passwords") << ": " << QString::number(stats.uniquePasswords) << Qt::endl;
+	out << QObject::tr("Non-unique passwords") << ": " << QString::number(stats.reusedPasswords) << Qt::endl;
+	out << QObject::tr("Maximum password reuse") << ": " << QString::number(stats.maxPwdReuse()) << Qt::endl;
+	out << QObject::tr("Number of short passwords") << ": " << QString::number(stats.shortPasswords) << Qt::endl;
+	out << QObject::tr("Number of weak passwords") << ": " << QString::number(stats.weakPasswords) << Qt::endl;
+	out << QObject::tr("Entries excluded from reports") << ": " << QString::number(stats.excludedEntries) << Qt::endl;
+	out << QObject::tr("Average password length") << ": "
+		<< QObject::tr("%1 character(s)", "", stats.averagePwdLength()).arg(stats.averagePwdLength()) << Qt::endl;
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

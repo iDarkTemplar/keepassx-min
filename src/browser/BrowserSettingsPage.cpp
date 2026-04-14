@@ -24,26 +24,26 @@
 
 QString BrowserSettingsPage::name()
 {
-    return QObject::tr("Browser Integration");
+	return QObject::tr("Browser Integration");
 }
 
 QIcon BrowserSettingsPage::icon()
 {
-    return icons()->icon("internet-web-browser");
+	return icons()->icon("internet-web-browser");
 }
 
-QWidget* BrowserSettingsPage::createWidget()
+QWidget *BrowserSettingsPage::createWidget()
 {
-    return new BrowserSettingsWidget();
+	return new BrowserSettingsWidget();
 }
 
-void BrowserSettingsPage::loadSettings(QWidget* widget)
+void BrowserSettingsPage::loadSettings(QWidget *widget)
 {
-    qobject_cast<BrowserSettingsWidget*>(widget)->loadSettings();
+	qobject_cast<BrowserSettingsWidget *>(widget)->loadSettings();
 }
 
-void BrowserSettingsPage::saveSettings(QWidget* widget)
+void BrowserSettingsPage::saveSettings(QWidget *widget)
 {
-    qobject_cast<BrowserSettingsWidget*>(widget)->saveSettings();
-    browserService()->setEnabled(browserSettings()->isEnabled());
+	qobject_cast<BrowserSettingsWidget *>(widget)->saveSettings();
+	browserService()->setEnabled(browserSettings()->isEnabled());
 }

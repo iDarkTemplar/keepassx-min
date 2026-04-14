@@ -24,13 +24,13 @@
 #include <QApplication>
 #include <QMenu>
 
-TagModel::TagModel(QObject* parent)
-    : QAbstractListModel(parent)
+TagModel::TagModel(QObject *parent)
+	: QAbstractListModel(parent)
 {
-    m_defaultSearches << qMakePair(tr("Clear Search"), QString("")) << qMakePair(tr("All Entries"), QString("*"))
-                      << qMakePair(tr("Expired"), QString("is:expired"))
-                      << qMakePair(tr("Weak Passwords"), QString("is:weak"))
-                      << qMakePair(tr("TOTP Entries"), QString("has:totp"));
+	m_defaultSearches << qMakePair(tr("Clear Search"), QString("")) << qMakePair(tr("All Entries"), QString("*"))
+					  << qMakePair(tr("Expired"), QString("is:expired"))
+					  << qMakePair(tr("Weak Passwords"), QString("is:weak"))
+					  << qMakePair(tr("TOTP Entries"), QString("has:totp"));
 }
 
 TagModel::~TagModel()
@@ -39,84 +39,95 @@ TagModel::~TagModel()
 
 void TagModel::setDatabase(QSharedPointer<Database> db)
 {
-    if (m_db) {
-        disconnect(m_db.data());
-    }
+	if (m_db)
+	{
+		disconnect(m_db.data());
+	}
 
-    m_db = db;
-    if (!m_db) {
-        m_tagList.clear();
-        return;
-    }
+	m_db = db;
+	if (!m_db)
+	{
+		m_tagList.clear();
+		return;
+	}
 
-    connect(m_db.data(), SIGNAL(tagListUpdated()), SLOT(updateTagList()));
-    connect(m_db->metadata()->customData(), SIGNAL(modified()), SLOT(updateTagList()));
+	connect(m_db.data(), SIGNAL(tagListUpdated()), SLOT(updateTagList()));
+	connect(m_db->metadata()->customData(), SIGNAL(modified()), SLOT(updateTagList()));
 
-    updateTagList();
+	updateTagList();
 }
 
 void TagModel::updateTagList()
 {
-    beginResetModel();
-    m_tagList.clear();
+	beginResetModel();
+	m_tagList.clear();
 
-    m_tagList << m_defaultSearches;
+	m_tagList << m_defaultSearches;
 
-    auto savedSearches = m_db->metadata()->savedSearches();
-    for (auto search : savedSearches.keys()) {
-        m_tagList << qMakePair(search, savedSearches[search].toString());
-    }
+	auto savedSearches = m_db->metadata()->savedSearches();
+	for (auto search: savedSearches.keys())
+	{
+		m_tagList << qMakePair(search, savedSearches[search].toString());
+	}
 
-    m_tagListStart = m_tagList.size();
-    for (auto tag : m_db->tagList()) {
-        auto escapedTag = tag;
-        escapedTag.replace("\"", "\\\"");
-        m_tagList << qMakePair(tag, QString("tag:\"%1\"").arg(escapedTag));
-    }
+	m_tagListStart = m_tagList.size();
+	for (auto tag: m_db->tagList())
+	{
+		auto escapedTag = tag;
+		escapedTag.replace("\"", "\\\"");
+		m_tagList << qMakePair(tag, QString("tag:\"%1\"").arg(escapedTag));
+	}
 
-    endResetModel();
+	endResetModel();
 }
 
-TagModel::TagType TagModel::itemType(const QModelIndex& index)
+TagModel::TagType TagModel::itemType(const QModelIndex &index)
 {
-    int row = index.row();
-    if (row < m_defaultSearches.size()) {
-        return TagType::DEFAULT_SEARCH;
-    } else if (row < m_tagListStart) {
-        return TagType::SAVED_SEARCH;
-    }
-    return TagType::TAG;
+	int row = index.row();
+	if (row < m_defaultSearches.size())
+	{
+		return TagType::DEFAULT_SEARCH;
+	}
+	else if (row < m_tagListStart)
+	{
+		return TagType::SAVED_SEARCH;
+	}
+	return TagType::TAG;
 }
 
-int TagModel::rowCount(const QModelIndex& parent) const
+int TagModel::rowCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
-    return m_tagList.size();
+	Q_UNUSED(parent);
+	return m_tagList.size();
 }
 
-QVariant TagModel::data(const QModelIndex& index, int role) const
+QVariant TagModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() || index.row() >= m_tagList.size()) {
-        return {};
-    }
+	if (!index.isValid() || index.row() >= m_tagList.size())
+	{
+		return {};
+	}
 
-    const auto row = index.row();
-    switch (role) {
-    case Qt::DecorationRole:
-        if (row < m_tagListStart) {
-            return icons()->icon("database-search");
-        }
-        return icons()->icon("tag");
-    case Qt::DisplayRole:
-        return m_tagList.at(row).first;
-    case Qt::UserRole:
-        return m_tagList.at(row).second;
-    case Qt::UserRole + 1:
-        if (row == (m_defaultSearches.size() - 1)) {
-            return true;
-        }
-        return false;
-    }
+	const auto row = index.row();
+	switch (role)
+	{
+	case Qt::DecorationRole:
+		if (row < m_tagListStart)
+		{
+			return icons()->icon("database-search");
+		}
+		return icons()->icon("tag");
+	case Qt::DisplayRole:
+		return m_tagList.at(row).first;
+	case Qt::UserRole:
+		return m_tagList.at(row).second;
+	case Qt::UserRole + 1:
+		if (row == (m_defaultSearches.size() - 1))
+		{
+			return true;
+		}
+		return false;
+	}
 
-    return {};
+	return {};
 }

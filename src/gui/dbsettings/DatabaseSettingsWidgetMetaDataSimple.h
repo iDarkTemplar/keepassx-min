@@ -22,28 +22,28 @@
 class Database;
 namespace Ui
 {
-    class DatabaseSettingsWidgetMetaDataSimple;
+	class DatabaseSettingsWidgetMetaDataSimple;
 }
 
-class DatabaseSettingWidgetMetaData : public DatabaseSettingsWidget
+class DatabaseSettingWidgetMetaData: public DatabaseSettingsWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DatabaseSettingWidgetMetaData(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(DatabaseSettingWidgetMetaData);
-    ~DatabaseSettingWidgetMetaData() override;
+	explicit DatabaseSettingWidgetMetaData(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(DatabaseSettingWidgetMetaData);
+	~DatabaseSettingWidgetMetaData() override;
 
 public slots:
-    void initialize() override;
-    void uninitialize() override;
-    bool saveSettings() override;
+	void initialize() override;
+	void uninitialize() override;
+	bool saveSettings() override;
 
 protected:
-    void showEvent(QShowEvent* event) override;
+	void showEvent(QShowEvent *event) override;
 
 private:
-    const QScopedPointer<Ui::DatabaseSettingsWidgetMetaDataSimple> m_ui;
+	const QScopedPointer<Ui::DatabaseSettingsWidgetMetaDataSimple> m_ui;
 };
 
 #endif // KEEPASSXC_DATABASESETTINGSWIDGEMETADATA_H

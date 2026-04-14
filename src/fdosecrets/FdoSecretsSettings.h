@@ -25,42 +25,42 @@ class Database;
 namespace FdoSecrets
 {
 
-    class FdoSecretsSettings
-    {
-    public:
-        FdoSecretsSettings() = default;
-        static FdoSecretsSettings* instance();
+	class FdoSecretsSettings
+	{
+	public:
+		FdoSecretsSettings() = default;
+		static FdoSecretsSettings *instance();
 
-        bool isEnabled() const;
-        void setEnabled(bool enabled);
+		bool isEnabled() const;
+		void setEnabled(bool enabled);
 
-        bool showNotification() const;
-        void setShowNotification(bool show);
+		bool showNotification() const;
+		void setShowNotification(bool show);
 
-        bool confirmDeleteItem() const;
-        void setConfirmDeleteItem(bool confirm);
+		bool confirmDeleteItem() const;
+		void setConfirmDeleteItem(bool confirm);
 
-        bool confirmAccessItem() const;
-        void setConfirmAccessItem(bool confirmAccessItem);
+		bool confirmAccessItem() const;
+		void setConfirmAccessItem(bool confirmAccessItem);
 
-        bool unlockBeforeSearch() const;
-        void setUnlockBeforeSearch(bool unlockBeforeSearch);
+		bool unlockBeforeSearch() const;
+		void setUnlockBeforeSearch(bool unlockBeforeSearch);
 
-        // Per db settings
+		// Per db settings
 
-        QUuid exposedGroup(const QSharedPointer<Database>& db) const;
-        void setExposedGroup(const QSharedPointer<Database>& db, const QUuid& group);
-        QUuid exposedGroup(Database* db) const;
-        void setExposedGroup(Database* db, const QUuid& group);
+		QUuid exposedGroup(const QSharedPointer<Database> &db) const;
+		void setExposedGroup(const QSharedPointer<Database> &db, const QUuid &group);
+		QUuid exposedGroup(Database *db) const;
+		void setExposedGroup(Database *db, const QUuid &group);
 
-    private:
-        static FdoSecretsSettings* m_instance;
-    };
+	private:
+		static FdoSecretsSettings *m_instance;
+	};
 
-    inline FdoSecretsSettings* settings()
-    {
-        return FdoSecretsSettings::instance();
-    }
+	inline FdoSecretsSettings *settings()
+	{
+		return FdoSecretsSettings::instance();
+	}
 
 } // namespace FdoSecrets
 

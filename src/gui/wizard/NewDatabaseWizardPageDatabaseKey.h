@@ -19,14 +19,14 @@
 
 #include "NewDatabaseWizardPage.h"
 
-class NewDatabaseWizardPageDatabaseKey : public NewDatabaseWizardPage
+class NewDatabaseWizardPageDatabaseKey: public NewDatabaseWizardPage
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit NewDatabaseWizardPageDatabaseKey(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(NewDatabaseWizardPageDatabaseKey);
-    ~NewDatabaseWizardPageDatabaseKey() override;
+	explicit NewDatabaseWizardPageDatabaseKey(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(NewDatabaseWizardPageDatabaseKey);
+	~NewDatabaseWizardPageDatabaseKey() override;
 };
 
 #endif // KEEPASSXC_NEWDATABASEWIZARDPAGEDATABASEKEY_H

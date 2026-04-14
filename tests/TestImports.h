@@ -19,18 +19,18 @@
 
 #include <QObject>
 
-class TestImports : public QObject
+class TestImports: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testOPUX();
-    void testOPVault();
-    void testBitwarden();
-    void testBitwardenEncrypted();
-    void testBitwardenPasskey();
-    void testProtonPass();
+	void initTestCase();
+	void testOPUX();
+	void testOPVault();
+	void testBitwarden();
+	void testBitwardenEncrypted();
+	void testBitwardenPasskey();
+	void testProtonPass();
 };
 
 #endif /* TEST_IMPORTS_H */

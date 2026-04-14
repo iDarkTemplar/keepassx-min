@@ -25,59 +25,59 @@
 
 namespace Ui
 {
-    class PasswordWidget;
+	class PasswordWidget;
 }
 
-class PasswordWidget : public QWidget
+class PasswordWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
-    Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged USER true)
+	Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged USER true)
 public:
-    explicit PasswordWidget(QWidget* parent = nullptr);
-    ~PasswordWidget() override;
-    void enablePasswordGenerator();
-    void setRepeatPartner(PasswordWidget* repeatPartner);
-    void setQualityVisible(bool state);
+	explicit PasswordWidget(QWidget *parent = nullptr);
+	~PasswordWidget() override;
+	void enablePasswordGenerator();
+	void setRepeatPartner(PasswordWidget *repeatPartner);
+	void setQualityVisible(bool state);
 
-    bool isPasswordVisible() const;
-    QString text();
+	bool isPasswordVisible() const;
+	QString text();
 
-    bool eventFilter(QObject* watched, QEvent* event) override;
+	bool eventFilter(QObject *watched, QEvent *event) override;
 
 signals:
-    void textChanged(QString text);
+	void textChanged(QString text);
 
 public slots:
-    void setText(const QString& text);
-    void setShowPassword(bool show);
+	void setText(const QString &text);
+	void setShowPassword(bool show);
 
-    void clear();
-    void selectAll();
-    void setReadOnly(bool state);
-    void setEchoMode(QLineEdit::EchoMode mode);
-    void setClearButtonEnabled(bool enabled);
+	void clear();
+	void selectAll();
+	void setReadOnly(bool state);
+	void setEchoMode(QLineEdit::EchoMode mode);
+	void setClearButtonEnabled(bool enabled);
 
 private slots:
-    void popupPasswordGenerator();
-    void updateRepeatStatus();
-    void updatePasswordStrength(const QString& password);
+	void popupPasswordGenerator();
+	void updateRepeatStatus();
+	void updatePasswordStrength(const QString &password);
 
 private:
-    void checkCapslockState();
-    void setParentPasswordEdit(PasswordWidget* parent);
+	void checkCapslockState();
+	void setParentPasswordEdit(PasswordWidget *parent);
 
-    const QScopedPointer<Ui::PasswordWidget> m_ui;
+	const QScopedPointer<Ui::PasswordWidget> m_ui;
 
-    QPointer<QAction> m_errorAction;
-    QPointer<QAction> m_correctAction;
-    QPointer<QAction> m_toggleVisibleAction;
-    QPointer<QAction> m_passwordGeneratorAction;
-    QPointer<QAction> m_capslockAction;
-    QPointer<PasswordWidget> m_repeatPasswordWidget;
-    QPointer<PasswordWidget> m_parentPasswordWidget;
+	QPointer<QAction> m_errorAction;
+	QPointer<QAction> m_correctAction;
+	QPointer<QAction> m_toggleVisibleAction;
+	QPointer<QAction> m_passwordGeneratorAction;
+	QPointer<QAction> m_capslockAction;
+	QPointer<PasswordWidget> m_repeatPasswordWidget;
+	QPointer<PasswordWidget> m_parentPasswordWidget;
 
-    bool m_capslockState = false;
+	bool m_capslockState = false;
 };
 
 #endif // KEEPASSX_PASSWORDWIDGET_H

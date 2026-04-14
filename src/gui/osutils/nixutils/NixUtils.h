@@ -22,75 +22,75 @@
 #include <QSharedPointer>
 #include <QtDBus/QDBusVariant>
 
-class NixUtils : public OSUtilsBase, QAbstractNativeEventFilter
+class NixUtils: public OSUtilsBase, QAbstractNativeEventFilter
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    static NixUtils* instance();
+	static NixUtils *instance();
 
-    bool isDarkMode() const override;
-    bool isStatusBarDark() const override;
-    bool isLaunchAtStartupEnabled() const override;
-    void setLaunchAtStartup(bool enable) override;
-    bool isCapslockEnabled() override;
-    void setUserInputProtection(bool enable) override;
+	bool isDarkMode() const override;
+	bool isStatusBarDark() const override;
+	bool isLaunchAtStartupEnabled() const override;
+	void setLaunchAtStartup(bool enable) override;
+	bool isCapslockEnabled() override;
+	void setUserInputProtection(bool enable) override;
 
-    void registerNativeEventFilter() override;
+	void registerNativeEventFilter() override;
 
-    bool registerGlobalShortcut(const QString& name,
-                                Qt::Key key,
-                                Qt::KeyboardModifiers modifiers,
-                                QString* error = nullptr) override;
-    bool unregisterGlobalShortcut(const QString& name) override;
+	bool registerGlobalShortcut(const QString &name,
+	                            Qt::Key key,
+	                            Qt::KeyboardModifiers modifiers,
+	                            QString *error = nullptr) override;
+	bool unregisterGlobalShortcut(const QString &name) override;
 
-    bool canPreventScreenCapture() const override
-    {
-        return false;
-    }
+	bool canPreventScreenCapture() const override
+	{
+		return false;
+	}
 
 private slots:
-    void handleColorSchemeRead(QDBusVariant value);
-    void handleColorSchemeChanged(QString ns, QString key, QDBusVariant value);
-    void launchAtStartupRequested(uint response, const QVariantMap& results);
+	void handleColorSchemeRead(QDBusVariant value);
+	void handleColorSchemeChanged(QString ns, QString key, QDBusVariant value);
+	void launchAtStartupRequested(uint response, const QVariantMap &results);
 
 private:
-    explicit NixUtils(QObject* parent = nullptr);
-    ~NixUtils() override;
+	explicit NixUtils(QObject *parent = nullptr);
+	~NixUtils() override;
 
-    bool nativeEventFilter(const QByteArray& eventType, void* message, long*) override;
-    QString getAutostartDesktopFilename(bool createDirs = false) const;
+	bool nativeEventFilter(const QByteArray &eventType, void *message, long *) override;
+	QString getAutostartDesktopFilename(bool createDirs = false) const;
 
-    bool triggerGlobalShortcut(uint keycode, uint modifiers);
+	bool triggerGlobalShortcut(uint keycode, uint modifiers);
 
-    static QPointer<NixUtils> m_instance;
+	static QPointer<NixUtils> m_instance;
 
-    struct globalShortcut
-    {
-        uint nativeKeyCode;
-        uint nativeModifiers;
-    };
-    QHash<QString, QSharedPointer<globalShortcut>> m_globalShortcuts;
+	struct globalShortcut
+	{
+		uint nativeKeyCode;
+		uint nativeModifiers;
+	};
+	QHash<QString, QSharedPointer<globalShortcut>> m_globalShortcuts;
 
-    // defined as per "org.freedesktop.appearance color-scheme" spec in
-    // https://github.com/flatpak/xdg-desktop-portal/blob/d7a304a00697d7d608821253cd013f3b97ac0fb6/data/org.freedesktop.impl.portal.Settings.xml#L33-L45
-    enum ColorschemePref
-    {
-        PreferNone,
-        PreferDark,
-        PreferLight
-    };
-    ColorschemePref m_systemColorschemePref = ColorschemePref::PreferNone;
-    bool m_systemColorschemePrefExists;
+	// defined as per "org.freedesktop.appearance color-scheme" spec in
+	// https://github.com/flatpak/xdg-desktop-portal/blob/d7a304a00697d7d608821253cd013f3b97ac0fb6/data/org.freedesktop.impl.portal.Settings.xml#L33-L45
+	enum ColorschemePref
+	{
+		PreferNone,
+		PreferDark,
+		PreferLight
+	};
+	ColorschemePref m_systemColorschemePref = ColorschemePref::PreferNone;
+	bool m_systemColorschemePrefExists;
 
-    void setColorScheme(QDBusVariant value);
+	void setColorScheme(QDBusVariant value);
 
-    Q_DISABLE_COPY(NixUtils)
+	Q_DISABLE_COPY(NixUtils)
 };
 
-inline NixUtils* nixUtils()
+inline NixUtils *nixUtils()
 {
-    return NixUtils::instance();
+	return NixUtils::instance();
 }
 
 #endif // KEEPASSXC_NIXUTILS_H

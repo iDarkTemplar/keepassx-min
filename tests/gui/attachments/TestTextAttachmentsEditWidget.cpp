@@ -12,38 +12,38 @@
 
 void TestTextAttachmentsEditWidget::initTestCase()
 {
-    m_widget.reset(new TextAttachmentsEditWidget());
+	m_widget.reset(new TextAttachmentsEditWidget());
 }
 
 void TestTextAttachmentsEditWidget::testEmitTextChanged()
 {
-    QSignalSpy textChangedSignal(m_widget.data(), &TextAttachmentsEditWidget::textChanged);
+	QSignalSpy textChangedSignal(m_widget.data(), &TextAttachmentsEditWidget::textChanged);
 
-    m_widget->openAttachment({.name = "test.txt", .data = {}}, attachments::OpenMode::ReadWrite);
+	m_widget->openAttachment({.name = "test.txt", .data = {}}, attachments::OpenMode::ReadWrite);
 
-    QCoreApplication::processEvents();
+	QCoreApplication::processEvents();
 
-    auto textEdit = m_widget->findChild<QTextEdit*>("attachmentsTextEdit");
-    QVERIFY(textEdit);
+	auto textEdit = m_widget->findChild<QTextEdit *>("attachmentsTextEdit");
+	QVERIFY(textEdit);
 
-    const QByteArray NewText = "New test text";
-    textEdit->setText(NewText);
+	const QByteArray NewText = "New test text";
+	textEdit->setText(NewText);
 
-    QVERIFY(textChangedSignal.count() > 0);
+	QVERIFY(textChangedSignal.count() > 0);
 }
 
 void TestTextAttachmentsEditWidget::testEmitPreviewButtonClicked()
 {
-    QSignalSpy previwButtonClickedSignal(m_widget.data(), &TextAttachmentsEditWidget::previewButtonClicked);
+	QSignalSpy previwButtonClickedSignal(m_widget.data(), &TextAttachmentsEditWidget::previewButtonClicked);
 
-    m_widget->openAttachment({.name = "test.txt", .data = {}}, attachments::OpenMode::ReadWrite);
+	m_widget->openAttachment({.name = "test.txt", .data = {}}, attachments::OpenMode::ReadWrite);
 
-    QCoreApplication::processEvents();
+	QCoreApplication::processEvents();
 
-    auto previewButton = m_widget->findChild<QPushButton*>("previewPushButton");
-    QVERIFY(previewButton);
+	auto previewButton = m_widget->findChild<QPushButton *>("previewPushButton");
+	QVERIFY(previewButton);
 
-    QTest::mouseClick(previewButton, Qt::LeftButton);
+	QTest::mouseClick(previewButton, Qt::LeftButton);
 
-    QCOMPARE(previwButtonClickedSignal.count(), 1);
+	QCOMPARE(previwButtonClickedSignal.count(), 1);
 }

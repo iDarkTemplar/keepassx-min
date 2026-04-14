@@ -24,35 +24,35 @@
 #include <QFrame>
 #include <QPalette>
 
-ImportWizard::ImportWizard(QWidget* parent)
-    : QWizard(parent)
-    , m_pageSelect(new ImportWizardPageSelect)
-    , m_pageReview(new ImportWizardPageReview)
+ImportWizard::ImportWizard(QWidget *parent)
+	: QWizard(parent)
+	, m_pageSelect(new ImportWizardPageSelect)
+	, m_pageReview(new ImportWizardPageReview)
 {
-    setWizardStyle(MacStyle);
-    setOption(HaveHelpButton, false);
-    setOption(NoDefaultButton, false); // Needed for macOS
+	setWizardStyle(MacStyle);
+	setOption(HaveHelpButton, false);
+	setOption(NoDefaultButton, false); // Needed for macOS
 
-    addPage(m_pageSelect.data());
-    addPage(m_pageReview.data());
+	addPage(m_pageSelect.data());
+	addPage(m_pageReview.data());
 
-    setWindowTitle(tr("Import Wizard"));
+	setWindowTitle(tr("Import Wizard"));
 
-    Q_INIT_RESOURCE(wizard);
-    setPixmap(BackgroundPixmap, QPixmap(":/wizard/background-pixmap.png"));
+	Q_INIT_RESOURCE(wizard);
+	setPixmap(BackgroundPixmap, QPixmap(":/wizard/background-pixmap.png"));
 
-    // Fix MacStyle QWizard page frame too bright in dark mode (QTBUG-70346, QTBUG-71696)
-    QPalette defaultPalette;
-    auto windowColor = defaultPalette.color(QPalette::Window);
-    windowColor.setAlpha(153);
-    auto baseColor = defaultPalette.color(QPalette::Base);
-    baseColor.setAlpha(153);
+	// Fix MacStyle QWizard page frame too bright in dark mode (QTBUG-70346, QTBUG-71696)
+	QPalette defaultPalette;
+	auto windowColor = defaultPalette.color(QPalette::Window);
+	windowColor.setAlpha(153);
+	auto baseColor = defaultPalette.color(QPalette::Base);
+	baseColor.setAlpha(153);
 
-    auto* pageFrame = findChildren<QFrame*>()[0];
-    auto framePalette = pageFrame->palette();
-    framePalette.setBrush(QPalette::Window, windowColor.lighter(120));
-    framePalette.setBrush(QPalette::Base, baseColor.lighter(120));
-    pageFrame->setPalette(framePalette);
+	auto *pageFrame = findChildren<QFrame *>()[0];
+	auto framePalette = pageFrame->palette();
+	framePalette.setBrush(QPalette::Window, windowColor.lighter(120));
+	framePalette.setBrush(QPalette::Base, baseColor.lighter(120));
+	pageFrame->setPalette(framePalette);
 }
 
 ImportWizard::~ImportWizard()
@@ -61,23 +61,25 @@ ImportWizard::~ImportWizard()
 
 bool ImportWizard::validateCurrentPage()
 {
-    bool ret = QWizard::validateCurrentPage();
-    if (ret && currentPage() == m_pageReview) {
-        m_db = m_pageReview->database();
-    }
-    return ret;
+	bool ret = QWizard::validateCurrentPage();
+	if (ret && currentPage() == m_pageReview)
+	{
+		m_db = m_pageReview->database();
+	}
+	return ret;
 }
 
 QPair<QUuid, QUuid> ImportWizard::importInto()
 {
-    auto list = field("ImportInto").toList();
-    if (list.size() >= 2) {
-        return qMakePair(QUuid(list[0].toString()), QUuid(list[1].toString()));
-    }
-    return {};
+	auto list = field("ImportInto").toList();
+	if (list.size() >= 2)
+	{
+		return qMakePair(QUuid(list[0].toString()), QUuid(list[1].toString()));
+	}
+	return {};
 }
 
 QSharedPointer<Database> ImportWizard::database()
 {
-    return m_db;
+	return m_db;
 }

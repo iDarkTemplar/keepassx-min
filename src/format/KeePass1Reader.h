@@ -28,55 +28,55 @@ class QIODevice;
 
 class KeePass1Reader
 {
-    Q_DECLARE_TR_FUNCTIONS(KeePass1Reader)
+	Q_DECLARE_TR_FUNCTIONS(KeePass1Reader)
 
 public:
-    KeePass1Reader();
-    QSharedPointer<Database> readDatabase(QIODevice* device, const QString& password, QIODevice* keyfileDevice);
-    QSharedPointer<Database> readDatabase(QIODevice* device, const QString& password, const QString& keyfileName);
-    QSharedPointer<Database> readDatabase(const QString& filename, const QString& password, const QString& keyfileName);
-    bool hasError();
-    QString errorString();
+	KeePass1Reader();
+	QSharedPointer<Database> readDatabase(QIODevice *device, const QString &password, QIODevice *keyfileDevice);
+	QSharedPointer<Database> readDatabase(QIODevice *device, const QString &password, const QString &keyfileName);
+	QSharedPointer<Database> readDatabase(const QString &filename, const QString &password, const QString &keyfileName);
+	bool hasError();
+	QString errorString();
 
 private:
-    enum PasswordEncoding
-    {
-        Windows1252,
-        Latin1,
-        UTF8
-    };
+	enum PasswordEncoding
+	{
+		Windows1252,
+		Latin1,
+		UTF8
+	};
 
-    SymmetricCipherStream* testKeys(const QString& password, const QByteArray& keyfileData, qint64 contentPos);
-    QByteArray key(const QByteArray& password, const QByteArray& keyfileData);
-    bool verifyKey(SymmetricCipherStream* cipherStream);
-    Group* readGroup(QIODevice* cipherStream);
-    Entry* readEntry(QIODevice* cipherStream);
-    void parseNotes(const QString& rawNotes, Entry* entry);
-    bool constructGroupTree(const QList<Group*>& groups);
-    void parseMetaStream(const Entry* entry);
-    bool parseGroupTreeState(const QByteArray& data);
-    bool parseCustomIcons4(const QByteArray& data);
-    void raiseError(const QString& errorMessage);
-    static QByteArray readKeyfile(QIODevice* device);
-    static QDateTime dateFromPackedStruct(const QByteArray& data);
-    static bool isMetaStream(const Entry* entry);
+	SymmetricCipherStream *testKeys(const QString &password, const QByteArray &keyfileData, qint64 contentPos);
+	QByteArray key(const QByteArray &password, const QByteArray &keyfileData);
+	bool verifyKey(SymmetricCipherStream *cipherStream);
+	Group *readGroup(QIODevice *cipherStream);
+	Entry *readEntry(QIODevice *cipherStream);
+	void parseNotes(const QString &rawNotes, Entry *entry);
+	bool constructGroupTree(const QList<Group *> &groups);
+	void parseMetaStream(const Entry *entry);
+	bool parseGroupTreeState(const QByteArray &data);
+	bool parseCustomIcons4(const QByteArray &data);
+	void raiseError(const QString &errorMessage);
+	static QByteArray readKeyfile(QIODevice *device);
+	static QDateTime dateFromPackedStruct(const QByteArray &data);
+	static bool isMetaStream(const Entry *entry);
 
-    QSharedPointer<Database> m_db;
-    Group* m_tmpParent;
-    QIODevice* m_device;
-    quint32 m_encryptionFlags;
-    QByteArray m_masterSeed;
-    QByteArray m_encryptionIV;
-    QByteArray m_contentHashHeader;
-    QByteArray m_transformSeed;
-    quint32 m_transformRounds;
-    QHash<quint32, Group*> m_groupIds;
-    QHash<Group*, quint32> m_groupLevels;
-    QHash<QByteArray, Entry*> m_entryUuids;
-    QHash<Entry*, quint32> m_entryGroupIds;
+	QSharedPointer<Database> m_db;
+	Group *m_tmpParent;
+	QIODevice *m_device;
+	quint32 m_encryptionFlags;
+	QByteArray m_masterSeed;
+	QByteArray m_encryptionIV;
+	QByteArray m_contentHashHeader;
+	QByteArray m_transformSeed;
+	quint32 m_transformRounds;
+	QHash<quint32, Group *> m_groupIds;
+	QHash<Group *, quint32> m_groupLevels;
+	QHash<QByteArray, Entry *> m_entryUuids;
+	QHash<Entry *, quint32> m_entryGroupIds;
 
-    bool m_error;
-    QString m_errorStr;
+	bool m_error;
+	QString m_errorStr;
 };
 
 #endif // KEEPASSX_KEEPASS1READER_H

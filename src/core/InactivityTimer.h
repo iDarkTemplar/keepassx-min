@@ -22,29 +22,29 @@
 
 class QTimer;
 
-class InactivityTimer : public QObject
+class InactivityTimer: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit InactivityTimer(QObject* parent = nullptr);
-    void activate(int inactivityTimeout);
-    void deactivate();
+	explicit InactivityTimer(QObject *parent = nullptr);
+	void activate(int inactivityTimeout);
+	void deactivate();
 
 signals:
-    void inactivityDetected();
+	void inactivityDetected();
 
 protected:
-    bool eventFilter(QObject* watched, QEvent* event);
+	bool eventFilter(QObject *watched, QEvent *event);
 
 private slots:
-    void timeout();
+	void timeout();
 
 private:
-    QTimer* m_timer;
-    bool m_active = false;
-    bool m_resetBlocked = false;
-    QMutex m_emitMutx;
+	QTimer *m_timer;
+	bool m_active = false;
+	bool m_resetBlocked = false;
+	QMutex m_emitMutx;
 };
 
 #endif // KEEPASSX_INACTIVITYTIMER_H

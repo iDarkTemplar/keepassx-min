@@ -21,44 +21,44 @@
 
 enum IconSize
 {
-    Default,
-    Medium,
-    Large
+	Default,
+	Medium,
+	Large
 };
 
 class DatabaseIcons
 {
 public:
-    static DatabaseIcons* instance();
+	static DatabaseIcons *instance();
 
-    static constexpr int ExpiredIconIndex = 45;
+	static constexpr int ExpiredIconIndex = 45;
 
-    enum Badges
-    {
-        ShareActive = 0,
-        ShareInactive,
-        Expired
-    };
+	enum Badges
+	{
+		ShareActive = 0,
+		ShareInactive,
+		Expired
+	};
 
-    QPixmap icon(int index, IconSize size = IconSize::Default);
-    QPixmap applyBadge(const QPixmap& basePixmap, Badges badgeIndex);
-    int count();
+	QPixmap icon(int index, IconSize size = IconSize::Default);
+	QPixmap applyBadge(const QPixmap &basePixmap, Badges badgeIndex);
+	int count();
 
-    int iconSize(IconSize size);
+	int iconSize(IconSize size);
 
 private:
-    DatabaseIcons();
+	DatabaseIcons();
 
-    static DatabaseIcons* m_instance;
-    QHash<QString, QIcon> m_iconCache;
-    bool m_compactMode;
+	static DatabaseIcons *m_instance;
+	QHash<QString, QIcon> m_iconCache;
+	bool m_compactMode;
 
-    Q_DISABLE_COPY(DatabaseIcons)
+	Q_DISABLE_COPY(DatabaseIcons)
 };
 
-inline DatabaseIcons* databaseIcons()
+inline DatabaseIcons *databaseIcons()
 {
-    return DatabaseIcons::instance();
+	return DatabaseIcons::instance();
 }
 
 #endif // KEEPASSX_DATABASEICONS_H

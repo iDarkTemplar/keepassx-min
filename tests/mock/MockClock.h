@@ -21,29 +21,29 @@
 
 #include <QDateTime>
 
-class MockClock : public Clock
+class MockClock: public Clock
 {
 public:
-    MockClock(int year, int month, int day, int hour, int min, int second);
+	MockClock(int year, int month, int day, int hour, int min, int second);
 
-    MockClock(QDateTime utcBase = QDateTime::currentDateTimeUtc());
+	MockClock(QDateTime utcBase = QDateTime::currentDateTimeUtc());
 
-    const QDateTime& advanceSecond(int seconds);
-    const QDateTime& advanceMinute(int minutes);
-    const QDateTime& advanceHour(int hours);
-    const QDateTime& advanceDay(int days);
-    const QDateTime& advanceMonth(int months);
-    const QDateTime& advanceYear(int years);
+	const QDateTime &advanceSecond(int seconds);
+	const QDateTime &advanceMinute(int minutes);
+	const QDateTime &advanceHour(int hours);
+	const QDateTime &advanceDay(int days);
+	const QDateTime &advanceMonth(int months);
+	const QDateTime &advanceYear(int years);
 
-    static void setup(Clock* clock);
-    static void teardown();
+	static void setup(Clock *clock);
+	static void teardown();
 
 protected:
-    QDateTime currentDateTimeUtcImpl() const;
-    QDateTime currentDateTimeImpl() const;
+	QDateTime currentDateTimeUtcImpl() const;
+	QDateTime currentDateTimeImpl() const;
 
 private:
-    QDateTime m_utcCurrent;
+	QDateTime m_utcCurrent;
 };
 
 #endif // KEEPASSXC_TESTCLOCK_H

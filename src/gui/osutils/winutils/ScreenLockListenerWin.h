@@ -22,16 +22,16 @@
 
 #include "gui/osutils/ScreenLockListenerPrivate.h"
 
-class ScreenLockListenerWin : public ScreenLockListenerPrivate, public QAbstractNativeEventFilter
+class ScreenLockListenerWin: public ScreenLockListenerPrivate, public QAbstractNativeEventFilter
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit ScreenLockListenerWin(QWidget* parent);
-    ~ScreenLockListenerWin();
-    virtual bool nativeEventFilter(const QByteArray& eventType, void* message, long* result) override;
+	explicit ScreenLockListenerWin(QWidget *parent);
+	~ScreenLockListenerWin();
+	virtual bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) override;
 
 private:
-    void* m_powerNotificationHandle;
+	void *m_powerNotificationHandle;
 };
 
 #endif // SCREENLOCKLISTENERWIN_H

@@ -17,26 +17,30 @@
 
 #include "CustomTableWidget.h"
 
-CustomTableWidget::CustomTableWidget(QWidget* parent)
-    : QTableWidget(parent)
+CustomTableWidget::CustomTableWidget(QWidget *parent)
+	: QTableWidget(parent)
 {
 }
 
-void CustomTableWidget::keyPressEvent(QKeyEvent* event)
+void CustomTableWidget::keyPressEvent(QKeyEvent *event)
 {
-    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) && !selectedItems().isEmpty()) {
-        emit acceptSelections();
-    } else {
-        QTableView::keyPressEvent(event);
-    }
+	if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) && !selectedItems().isEmpty())
+	{
+		emit acceptSelections();
+	}
+	else
+	{
+		QTableView::keyPressEvent(event);
+	}
 }
 
-void CustomTableWidget::focusInEvent(QFocusEvent* event)
+void CustomTableWidget::focusInEvent(QFocusEvent *event)
 {
-    // For some reason accept button gets selected if table is clicked without any
-    // selections, even if the button is actually disabled. Connecting to this
-    // signal and adjusting the button focuses fixes the issue.
-    if (event->reason() == Qt::MouseFocusReason && selectedItems().isEmpty()) {
-        emit focusInWithoutSelections();
-    }
+	// For some reason accept button gets selected if table is clicked without any
+	// selections, even if the button is actually disabled. Connecting to this
+	// signal and adjusting the button focuses fixes the issue.
+	if (event->reason() == Qt::MouseFocusReason && selectedItems().isEmpty())
+	{
+		emit focusInWithoutSelections();
+	}
 }

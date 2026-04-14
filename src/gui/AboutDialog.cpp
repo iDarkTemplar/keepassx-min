@@ -314,34 +314,34 @@ static const QString aboutContributors = R"(
 </ul>
 )";
 
-AboutDialog::AboutDialog(QWidget* parent)
-    : QDialog(parent)
-    , m_ui(new Ui::AboutDialog())
+AboutDialog::AboutDialog(QWidget *parent)
+	: QDialog(parent)
+	, m_ui(new Ui::AboutDialog())
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    resize(minimumSize());
-    setWindowFlags(Qt::Sheet);
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+	resize(minimumSize());
+	setWindowFlags(Qt::Sheet);
+	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-    m_ui->nameLabel->setText(m_ui->nameLabel->text().replace("${VERSION}", KEEPASSXC_VERSION));
-    QFont nameLabelFont = m_ui->nameLabel->font();
-    nameLabelFont.setPointSize(nameLabelFont.pointSize() + 4);
-    m_ui->nameLabel->setFont(nameLabelFont);
+	m_ui->nameLabel->setText(m_ui->nameLabel->text().replace("${VERSION}", KEEPASSXC_VERSION));
+	QFont nameLabelFont = m_ui->nameLabel->font();
+	nameLabelFont.setPointSize(nameLabelFont.pointSize() + 4);
+	m_ui->nameLabel->setFont(nameLabelFont);
 
-    m_ui->iconLabel->setPixmap(icons()->applicationIcon().pixmap(48));
+	m_ui->iconLabel->setPixmap(icons()->applicationIcon().pixmap(48));
 
-    QString debugInfo = Tools::debugInfo().append("\n").append(Crypto::debugInfo());
-    m_ui->debugInfo->setPlainText(debugInfo);
+	QString debugInfo = Tools::debugInfo().append("\n").append(Crypto::debugInfo());
+	m_ui->debugInfo->setPlainText(debugInfo);
 
-    m_ui->maintainers->setText(aboutMaintainers);
-    m_ui->contributors->setText(aboutContributors);
+	m_ui->maintainers->setText(aboutMaintainers);
+	m_ui->contributors->setText(aboutContributors);
 
-    setAttribute(Qt::WA_DeleteOnClose);
-    connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
-    connect(m_ui->copyToClipboard, SIGNAL(clicked()), SLOT(copyToClipboard()));
+	setAttribute(Qt::WA_DeleteOnClose);
+	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
+	connect(m_ui->copyToClipboard, SIGNAL(clicked()), SLOT(copyToClipboard()));
 
-    m_ui->buttonBox->button(QDialogButtonBox::Close)->setDefault(true);
+	m_ui->buttonBox->button(QDialogButtonBox::Close)->setDefault(true);
 }
 
 AboutDialog::~AboutDialog()
@@ -350,6 +350,6 @@ AboutDialog::~AboutDialog()
 
 void AboutDialog::copyToClipboard()
 {
-    QClipboard* clipboard = QApplication::clipboard();
-    clipboard->setText(m_ui->debugInfo->toPlainText());
+	QClipboard *clipboard = QApplication::clipboard();
+	clipboard->setText(m_ui->debugInfo->toPlainText());
 }

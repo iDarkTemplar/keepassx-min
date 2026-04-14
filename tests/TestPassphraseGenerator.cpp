@@ -26,44 +26,44 @@ QTEST_GUILESS_MAIN(TestPassphraseGenerator)
 
 void TestPassphraseGenerator::initTestCase()
 {
-    QVERIFY(Crypto::init());
+	QVERIFY(Crypto::init());
 }
 
 void TestPassphraseGenerator::testWordCase()
 {
-    PassphraseGenerator generator;
-    generator.setWordSeparator(" ");
-    QVERIFY(generator.isWordListValid());
+	PassphraseGenerator generator;
+	generator.setWordSeparator(" ");
+	QVERIFY(generator.isWordListValid());
 
-    QString passphrase;
-    passphrase = generator.generatePassphrase();
-    QCOMPARE(passphrase, passphrase.toLower());
+	QString passphrase;
+	passphrase = generator.generatePassphrase();
+	QCOMPARE(passphrase, passphrase.toLower());
 
-    generator.setWordCase(PassphraseGenerator::LOWERCASE);
-    passphrase = generator.generatePassphrase();
-    QCOMPARE(passphrase, passphrase.toLower());
+	generator.setWordCase(PassphraseGenerator::LOWERCASE);
+	passphrase = generator.generatePassphrase();
+	QCOMPARE(passphrase, passphrase.toLower());
 
-    generator.setWordCase(PassphraseGenerator::UPPERCASE);
-    passphrase = generator.generatePassphrase();
-    QCOMPARE(passphrase, passphrase.toUpper());
+	generator.setWordCase(PassphraseGenerator::UPPERCASE);
+	passphrase = generator.generatePassphrase();
+	QCOMPARE(passphrase, passphrase.toUpper());
 
-    generator.setWordCase(PassphraseGenerator::TITLECASE);
-    passphrase = generator.generatePassphrase();
-    QRegularExpression regex("^(?:[A-Z][a-z-]* )*[A-Z][a-z-]*$");
-    QVERIFY2(regex.match(passphrase).hasMatch(), qPrintable(passphrase));
+	generator.setWordCase(PassphraseGenerator::TITLECASE);
+	passphrase = generator.generatePassphrase();
+	QRegularExpression regex("^(?:[A-Z][a-z-]* )*[A-Z][a-z-]*$");
+	QVERIFY2(regex.match(passphrase).hasMatch(), qPrintable(passphrase));
 }
 
 void TestPassphraseGenerator::testUniqueEntriesInWordlist()
 {
-    PassphraseGenerator generator;
-    // set the limit down, so we don't have to do a very large file
-    generator.m_minWordListSize = 4;
+	PassphraseGenerator generator;
+	// set the limit down, so we don't have to do a very large file
+	generator.m_minWordListSize = 4;
 
-    // link to bad wordlist
-    QString path = QString(KEEPASSX_TEST_DATA_DIR).append("/wordlists/bad_wordlist_with_duplicate_entries.wordlist");
+	// link to bad wordlist
+	QString path = QString(KEEPASSX_TEST_DATA_DIR).append("/wordlists/bad_wordlist_with_duplicate_entries.wordlist");
 
-    // setting will work, it creates the warning however, and isWordListValid will fail
-    generator.setWordList(path);
-    // so this fails
-    QVERIFY(!generator.isWordListValid());
+	// setting will work, it creates the warning however, and isWordListValid will fail
+	generator.setWordList(path);
+	// so this fails
+	QVERIFY(!generator.isWordListValid());
 }

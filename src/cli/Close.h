@@ -19,11 +19,11 @@
 
 #include "Command.h"
 
-class Close : public Command
+class Close: public Command
 {
 public:
-    Close();
-    int execute(const QStringList& arguments) override;
+	Close();
+	int execute(const QStringList &arguments) override;
 };
 
 #endif // KEEPASSXC_CLOSE_H

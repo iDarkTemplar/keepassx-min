@@ -18,47 +18,54 @@
 
 namespace
 {
-    template <typename T> T findParent(const QObject* obj)
-    {
-        if (!obj) {
-            return {};
-        }
+	template <typename T> T findParent(const QObject *obj)
+	{
+		if (!obj)
+		{
+			return {};
+		}
 
-        auto p = obj->parent();
-        while (p) {
-            auto casted = qobject_cast<T>(p);
-            if (casted) {
-                return casted;
-            }
-            p = p->parent();
-        }
-        return {};
-    }
+		auto p = obj->parent();
+		while (p)
+		{
+			auto casted = qobject_cast<T>(p);
+			if (casted)
+			{
+				return casted;
+			}
+			p = p->parent();
+		}
+		return {};
+	}
 } // namespace
 
 bool ModifiableObject::modifiedSignalEnabled() const
 {
-    auto p = this;
-    while (p) {
-        if (!p->m_emitModified) {
-            return false;
-        }
-        p = findParent<ModifiableObject*>(p);
-    }
-    return true;
+	auto p = this;
+	while (p)
+	{
+		if (!p->m_emitModified)
+		{
+			return false;
+		}
+		p = findParent<ModifiableObject *>(p);
+	}
+	return true;
 }
 
 void ModifiableObject::setEmitModified(bool value)
 {
-    if (m_emitModified != value) {
-        m_emitModified = value;
-        emit emitModifiedChanged(m_emitModified);
-    }
+	if (m_emitModified != value)
+	{
+		m_emitModified = value;
+		emit emitModifiedChanged(m_emitModified);
+	}
 }
 
 void ModifiableObject::emitModified()
 {
-    if (modifiedSignalEnabled()) {
-        emit modified();
-    }
+	if (modifiedSignalEnabled())
+	{
+		emit modified();
+	}
 }

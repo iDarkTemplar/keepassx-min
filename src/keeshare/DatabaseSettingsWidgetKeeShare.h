@@ -26,24 +26,24 @@ class QStandardItemModel;
 
 namespace Ui
 {
-    class DatabaseSettingsWidgetKeeShare;
+	class DatabaseSettingsWidgetKeeShare;
 }
 
-class DatabaseSettingsWidgetKeeShare : public QWidget
+class DatabaseSettingsWidgetKeeShare: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit DatabaseSettingsWidgetKeeShare(QWidget* parent = nullptr);
-    ~DatabaseSettingsWidgetKeeShare();
+	explicit DatabaseSettingsWidgetKeeShare(QWidget *parent = nullptr);
+	~DatabaseSettingsWidgetKeeShare();
 
-    void loadSettings(const QSharedPointer<Database>& db);
-    void saveSettings();
+	void loadSettings(const QSharedPointer<Database> &db);
+	void saveSettings();
 
 private:
-    QScopedPointer<Ui::DatabaseSettingsWidgetKeeShare> m_ui;
+	QScopedPointer<Ui::DatabaseSettingsWidgetKeeShare> m_ui;
 
-    QScopedPointer<QStandardItemModel> m_referencesModel;
-    QSharedPointer<Database> m_db;
+	QScopedPointer<QStandardItemModel> m_referencesModel;
+	QSharedPointer<Database> m_db;
 };
 
 #endif // KEEPASSXC_DATABASESETTINGSWIDGETKEESHARE_H

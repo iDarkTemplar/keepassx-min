@@ -31,12 +31,12 @@
 
 KeeAgentSettings::KeeAgentSettings()
 {
-    reset();
+	reset();
 }
 
-bool KeeAgentSettings::operator==(const KeeAgentSettings& other) const
+bool KeeAgentSettings::operator==(const KeeAgentSettings &other) const
 {
-    // clang-format off
+	// clang-format off
     return (m_allowUseOfSshKey == other.m_allowUseOfSshKey && m_addAtDatabaseOpen == other.m_addAtDatabaseOpen
             && m_removeAtDatabaseClose == other.m_removeAtDatabaseClose
             && m_useConfirmConstraintWhenAdding == other.m_useConfirmConstraintWhenAdding
@@ -46,12 +46,12 @@ bool KeeAgentSettings::operator==(const KeeAgentSettings& other) const
             && m_attachmentName == other.m_attachmentName
             && m_saveAttachmentToTempFile == other.m_saveAttachmentToTempFile
             && m_fileName == other.m_fileName);
-    // clang-format on
+	// clang-format on
 }
 
-bool KeeAgentSettings::operator!=(const KeeAgentSettings& other) const
+bool KeeAgentSettings::operator!=(const KeeAgentSettings &other) const
 {
-    return !(*this == other);
+	return !(*this == other);
 }
 
 /**
@@ -61,8 +61,8 @@ bool KeeAgentSettings::operator!=(const KeeAgentSettings& other) const
  */
 bool KeeAgentSettings::isDefault() const
 {
-    KeeAgentSettings defaultSettings;
-    return (*this == defaultSettings);
+	KeeAgentSettings defaultSettings;
+	return (*this == defaultSettings);
 }
 
 /**
@@ -70,18 +70,18 @@ bool KeeAgentSettings::isDefault() const
  */
 void KeeAgentSettings::reset()
 {
-    m_allowUseOfSshKey = false;
-    m_addAtDatabaseOpen = false;
-    m_removeAtDatabaseClose = false;
-    m_useConfirmConstraintWhenAdding = false;
-    m_useLifetimeConstraintWhenAdding = false;
-    m_lifetimeConstraintDuration = 600;
+	m_allowUseOfSshKey = false;
+	m_addAtDatabaseOpen = false;
+	m_removeAtDatabaseClose = false;
+	m_useConfirmConstraintWhenAdding = false;
+	m_useLifetimeConstraintWhenAdding = false;
+	m_lifetimeConstraintDuration = 600;
 
-    m_selectedType = QStringLiteral("file");
-    m_attachmentName.clear();
-    m_saveAttachmentToTempFile = false;
-    m_fileName.clear();
-    m_error.clear();
+	m_selectedType = QStringLiteral("file");
+	m_attachmentName.clear();
+	m_saveAttachmentToTempFile = false;
+	m_fileName.clear();
+	m_error.clear();
 }
 
 /**
@@ -91,128 +91,128 @@ void KeeAgentSettings::reset()
  */
 const QString KeeAgentSettings::errorString() const
 {
-    return m_error;
+	return m_error;
 }
 
 bool KeeAgentSettings::allowUseOfSshKey() const
 {
-    return m_allowUseOfSshKey;
+	return m_allowUseOfSshKey;
 }
 
 bool KeeAgentSettings::addAtDatabaseOpen() const
 {
-    return m_addAtDatabaseOpen;
+	return m_addAtDatabaseOpen;
 }
 
 bool KeeAgentSettings::removeAtDatabaseClose() const
 {
-    return m_removeAtDatabaseClose;
+	return m_removeAtDatabaseClose;
 }
 
 bool KeeAgentSettings::useConfirmConstraintWhenAdding() const
 {
-    return m_useConfirmConstraintWhenAdding;
+	return m_useConfirmConstraintWhenAdding;
 }
 
 bool KeeAgentSettings::useLifetimeConstraintWhenAdding() const
 {
-    return m_useLifetimeConstraintWhenAdding;
+	return m_useLifetimeConstraintWhenAdding;
 }
 
 int KeeAgentSettings::lifetimeConstraintDuration() const
 {
-    return m_lifetimeConstraintDuration;
+	return m_lifetimeConstraintDuration;
 }
 
 const QString KeeAgentSettings::selectedType() const
 {
-    return m_selectedType;
+	return m_selectedType;
 }
 
 const QString KeeAgentSettings::attachmentName() const
 {
-    return m_attachmentName;
+	return m_attachmentName;
 }
 
 bool KeeAgentSettings::saveAttachmentToTempFile() const
 {
-    return m_saveAttachmentToTempFile;
+	return m_saveAttachmentToTempFile;
 }
 
 const QString KeeAgentSettings::fileName() const
 {
-    return m_fileName;
+	return m_fileName;
 }
 
 const QString KeeAgentSettings::fileNameEnvSubst(QProcessEnvironment environment) const
 {
-    return Tools::envSubstitute(m_fileName, environment);
+	return Tools::envSubstitute(m_fileName, environment);
 }
 
 void KeeAgentSettings::setAllowUseOfSshKey(bool allowUseOfSshKey)
 {
-    m_allowUseOfSshKey = allowUseOfSshKey;
+	m_allowUseOfSshKey = allowUseOfSshKey;
 }
 
 void KeeAgentSettings::setAddAtDatabaseOpen(bool addAtDatabaseOpen)
 {
-    m_addAtDatabaseOpen = addAtDatabaseOpen;
+	m_addAtDatabaseOpen = addAtDatabaseOpen;
 }
 
 void KeeAgentSettings::setRemoveAtDatabaseClose(bool removeAtDatabaseClose)
 {
-    m_removeAtDatabaseClose = removeAtDatabaseClose;
+	m_removeAtDatabaseClose = removeAtDatabaseClose;
 }
 
 void KeeAgentSettings::setUseConfirmConstraintWhenAdding(bool useConfirmConstraintWhenAdding)
 {
-    m_useConfirmConstraintWhenAdding = useConfirmConstraintWhenAdding;
+	m_useConfirmConstraintWhenAdding = useConfirmConstraintWhenAdding;
 }
 
 void KeeAgentSettings::setUseLifetimeConstraintWhenAdding(bool useLifetimeConstraintWhenAdding)
 {
-    m_useLifetimeConstraintWhenAdding = useLifetimeConstraintWhenAdding;
+	m_useLifetimeConstraintWhenAdding = useLifetimeConstraintWhenAdding;
 }
 
 void KeeAgentSettings::setLifetimeConstraintDuration(int lifetimeConstraintDuration)
 {
-    m_lifetimeConstraintDuration = lifetimeConstraintDuration;
+	m_lifetimeConstraintDuration = lifetimeConstraintDuration;
 }
 
-void KeeAgentSettings::setSelectedType(const QString& selectedType)
+void KeeAgentSettings::setSelectedType(const QString &selectedType)
 {
-    m_selectedType = selectedType;
+	m_selectedType = selectedType;
 }
 
-void KeeAgentSettings::setAttachmentName(const QString& attachmentName)
+void KeeAgentSettings::setAttachmentName(const QString &attachmentName)
 {
-    m_attachmentName = attachmentName;
+	m_attachmentName = attachmentName;
 }
 
 void KeeAgentSettings::setSaveAttachmentToTempFile(bool saveAttachmentToTempFile)
 {
-    m_saveAttachmentToTempFile = saveAttachmentToTempFile;
+	m_saveAttachmentToTempFile = saveAttachmentToTempFile;
 }
 
-void KeeAgentSettings::setFileName(const QString& fileName)
+void KeeAgentSettings::setFileName(const QString &fileName)
 {
-    m_fileName = fileName;
+	m_fileName = fileName;
 }
 
-bool KeeAgentSettings::readBool(QXmlStreamReader& reader)
+bool KeeAgentSettings::readBool(QXmlStreamReader &reader)
 {
-    reader.readNext();
-    bool ret = (reader.text().startsWith("t", Qt::CaseInsensitive));
-    reader.readNext(); // tag end
-    return ret;
+	reader.readNext();
+	bool ret = (reader.text().startsWith("t", Qt::CaseInsensitive));
+	reader.readNext(); // tag end
+	return ret;
 }
 
-int KeeAgentSettings::readInt(QXmlStreamReader& reader)
+int KeeAgentSettings::readInt(QXmlStreamReader &reader)
 {
-    reader.readNext();
-    int ret = reader.text().toInt();
-    reader.readNext(); // tag end
-    return ret;
+	reader.readNext();
+	int ret = reader.text().toInt();
+	reader.readNext(); // tag end
+	return ret;
 }
 
 /**
@@ -223,62 +223,90 @@ int KeeAgentSettings::readInt(QXmlStreamReader& reader)
  * @param ba XML document
  * @return success
  */
-bool KeeAgentSettings::fromXml(const QByteArray& ba)
+bool KeeAgentSettings::fromXml(const QByteArray &ba)
 {
-    QXmlStreamReader reader;
-    reader.addData(ba);
+	QXmlStreamReader reader;
+	reader.addData(ba);
 
-    if (reader.error() || !reader.readNextStartElement()) {
-        m_error = reader.errorString();
-        return false;
-    }
+	if (reader.error() || !reader.readNextStartElement())
+	{
+		m_error = reader.errorString();
+		return false;
+	}
 
-    if (reader.qualifiedName() != "EntrySettings") {
-        m_error = QCoreApplication::translate("KeeAgentSettings", "Invalid KeeAgent settings file structure.");
-        return false;
-    }
+	if (reader.qualifiedName() != "EntrySettings")
+	{
+		m_error = QCoreApplication::translate("KeeAgentSettings", "Invalid KeeAgent settings file structure.");
+		return false;
+	}
 
-    while (!reader.error() && reader.readNextStartElement()) {
-        if (reader.name() == "AllowUseOfSshKey") {
-            m_allowUseOfSshKey = readBool(reader);
-        } else if (reader.name() == "AddAtDatabaseOpen") {
-            m_addAtDatabaseOpen = readBool(reader);
-        } else if (reader.name() == "RemoveAtDatabaseClose") {
-            m_removeAtDatabaseClose = readBool(reader);
-        } else if (reader.name() == "UseConfirmConstraintWhenAdding") {
-            m_useConfirmConstraintWhenAdding = readBool(reader);
-        } else if (reader.name() == "UseLifetimeConstraintWhenAdding") {
-            m_useLifetimeConstraintWhenAdding = readBool(reader);
-        } else if (reader.name() == "LifetimeConstraintDuration") {
-            m_lifetimeConstraintDuration = readInt(reader);
-        } else if (reader.name() == "Location") {
-            while (!reader.error() && reader.readNextStartElement()) {
-                if (reader.name() == "SelectedType") {
-                    reader.readNext();
-                    m_selectedType = reader.text().toString();
-                    reader.readNext();
-                } else if (reader.name() == "AttachmentName") {
-                    reader.readNext();
-                    m_attachmentName = reader.text().toString();
-                    reader.readNext();
-                } else if (reader.name() == "SaveAttachmentToTempFile") {
-                    m_saveAttachmentToTempFile = readBool(reader);
-                } else if (reader.name() == "FileName") {
-                    reader.readNext();
-                    m_fileName = reader.text().toString();
-                    reader.readNext();
-                } else {
-                    qWarning() << "Skipping location element" << reader.name();
-                    reader.skipCurrentElement();
-                }
-            }
-        } else {
-            qWarning() << "Skipping element" << reader.name();
-            reader.skipCurrentElement();
-        }
-    }
+	while (!reader.error() && reader.readNextStartElement())
+	{
+		if (reader.name() == "AllowUseOfSshKey")
+		{
+			m_allowUseOfSshKey = readBool(reader);
+		}
+		else if (reader.name() == "AddAtDatabaseOpen")
+		{
+			m_addAtDatabaseOpen = readBool(reader);
+		}
+		else if (reader.name() == "RemoveAtDatabaseClose")
+		{
+			m_removeAtDatabaseClose = readBool(reader);
+		}
+		else if (reader.name() == "UseConfirmConstraintWhenAdding")
+		{
+			m_useConfirmConstraintWhenAdding = readBool(reader);
+		}
+		else if (reader.name() == "UseLifetimeConstraintWhenAdding")
+		{
+			m_useLifetimeConstraintWhenAdding = readBool(reader);
+		}
+		else if (reader.name() == "LifetimeConstraintDuration")
+		{
+			m_lifetimeConstraintDuration = readInt(reader);
+		}
+		else if (reader.name() == "Location")
+		{
+			while (!reader.error() && reader.readNextStartElement())
+			{
+				if (reader.name() == "SelectedType")
+				{
+					reader.readNext();
+					m_selectedType = reader.text().toString();
+					reader.readNext();
+				}
+				else if (reader.name() == "AttachmentName")
+				{
+					reader.readNext();
+					m_attachmentName = reader.text().toString();
+					reader.readNext();
+				}
+				else if (reader.name() == "SaveAttachmentToTempFile")
+				{
+					m_saveAttachmentToTempFile = readBool(reader);
+				}
+				else if (reader.name() == "FileName")
+				{
+					reader.readNext();
+					m_fileName = reader.text().toString();
+					reader.readNext();
+				}
+				else
+				{
+					qWarning() << "Skipping location element" << reader.name();
+					reader.skipCurrentElement();
+				}
+			}
+		}
+		else
+		{
+			qWarning() << "Skipping element" << reader.name();
+			reader.skipCurrentElement();
+		}
+	}
 
-    return true;
+	return true;
 }
 
 /**
@@ -288,49 +316,55 @@ bool KeeAgentSettings::fromXml(const QByteArray& ba)
  */
 QByteArray KeeAgentSettings::toXml() const
 {
-    QByteArray ba;
-    QXmlStreamWriter writer(&ba);
+	QByteArray ba;
+	QXmlStreamWriter writer(&ba);
 
-    // real KeeAgent can only read UTF-16
-    writer.setCodec(QTextCodec::codecForName("UTF-16"));
-    writer.setAutoFormatting(true);
-    writer.setAutoFormattingIndent(2);
+	// real KeeAgent can only read UTF-16
+	writer.setCodec(QTextCodec::codecForName("UTF-16"));
+	writer.setAutoFormatting(true);
+	writer.setAutoFormattingIndent(2);
 
-    writer.writeStartDocument();
+	writer.writeStartDocument();
 
-    writer.writeStartElement("EntrySettings");
-    writer.writeAttribute("xmlns:xsd", "http://www.w3.org/2001/XMLSchema");
-    writer.writeAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+	writer.writeStartElement("EntrySettings");
+	writer.writeAttribute("xmlns:xsd", "http://www.w3.org/2001/XMLSchema");
+	writer.writeAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
 
-    writer.writeTextElement("AllowUseOfSshKey", m_allowUseOfSshKey ? "true" : "false");
-    writer.writeTextElement("AddAtDatabaseOpen", m_addAtDatabaseOpen ? "true" : "false");
-    writer.writeTextElement("RemoveAtDatabaseClose", m_removeAtDatabaseClose ? "true" : "false");
-    writer.writeTextElement("UseConfirmConstraintWhenAdding", m_useConfirmConstraintWhenAdding ? "true" : "false");
-    writer.writeTextElement("UseLifetimeConstraintWhenAdding", m_useLifetimeConstraintWhenAdding ? "true" : "false");
-    writer.writeTextElement("LifetimeConstraintDuration", QString::number(m_lifetimeConstraintDuration));
+	writer.writeTextElement("AllowUseOfSshKey", m_allowUseOfSshKey ? "true" : "false");
+	writer.writeTextElement("AddAtDatabaseOpen", m_addAtDatabaseOpen ? "true" : "false");
+	writer.writeTextElement("RemoveAtDatabaseClose", m_removeAtDatabaseClose ? "true" : "false");
+	writer.writeTextElement("UseConfirmConstraintWhenAdding", m_useConfirmConstraintWhenAdding ? "true" : "false");
+	writer.writeTextElement("UseLifetimeConstraintWhenAdding", m_useLifetimeConstraintWhenAdding ? "true" : "false");
+	writer.writeTextElement("LifetimeConstraintDuration", QString::number(m_lifetimeConstraintDuration));
 
-    writer.writeStartElement("Location");
-    writer.writeTextElement("SelectedType", m_selectedType);
+	writer.writeStartElement("Location");
+	writer.writeTextElement("SelectedType", m_selectedType);
 
-    if (!m_attachmentName.isEmpty()) {
-        writer.writeTextElement("AttachmentName", m_attachmentName);
-    } else {
-        writer.writeEmptyElement("AttachmentName");
-    }
+	if (!m_attachmentName.isEmpty())
+	{
+		writer.writeTextElement("AttachmentName", m_attachmentName);
+	}
+	else
+	{
+		writer.writeEmptyElement("AttachmentName");
+	}
 
-    writer.writeTextElement("SaveAttachmentToTempFile", m_saveAttachmentToTempFile ? "true" : "false");
+	writer.writeTextElement("SaveAttachmentToTempFile", m_saveAttachmentToTempFile ? "true" : "false");
 
-    if (!m_fileName.isEmpty()) {
-        writer.writeTextElement("FileName", m_fileName);
-    } else {
-        writer.writeEmptyElement("FileName");
-    }
+	if (!m_fileName.isEmpty())
+	{
+		writer.writeTextElement("FileName", m_fileName);
+	}
+	else
+	{
+		writer.writeEmptyElement("FileName");
+	}
 
-    writer.writeEndElement(); // Location
-    writer.writeEndElement(); // EntrySettings
-    writer.writeEndDocument();
+	writer.writeEndElement(); // Location
+	writer.writeEndElement(); // EntrySettings
+	writer.writeEndDocument();
 
-    return ba;
+	return ba;
 }
 
 /**
@@ -339,9 +373,9 @@ QByteArray KeeAgentSettings::toXml() const
  * @param attachments EntryAttachments to check the key
  * @return true if XML document exists
  */
-bool KeeAgentSettings::inEntryAttachments(const EntryAttachments* attachments)
+bool KeeAgentSettings::inEntryAttachments(const EntryAttachments *attachments)
 {
-    return attachments->hasKey("KeeAgent.settings");
+	return attachments->hasKey("KeeAgent.settings");
 }
 
 /**
@@ -352,13 +386,14 @@ bool KeeAgentSettings::inEntryAttachments(const EntryAttachments* attachments)
  * @param entry Entry to read the attachment from
  * @return true if XML document was loaded
  */
-bool KeeAgentSettings::fromEntry(const Entry* entry)
+bool KeeAgentSettings::fromEntry(const Entry *entry)
 {
-    const auto attachments = entry->attachments();
-    if (attachments->hasKey("KeeAgent.settings")) {
-        return fromXml(attachments->value("KeeAgent.settings"));
-    }
-    return false;
+	const auto attachments = entry->attachments();
+	if (attachments->hasKey("KeeAgent.settings"))
+	{
+		return fromXml(attachments->value("KeeAgent.settings"));
+	}
+	return false;
 }
 
 /**
@@ -366,15 +401,19 @@ bool KeeAgentSettings::fromEntry(const Entry* entry)
  *
  * @param entry Entry to create the attachment to
  */
-void KeeAgentSettings::toEntry(Entry* entry) const
+void KeeAgentSettings::toEntry(Entry *entry) const
 {
-    if (isDefault()) {
-        if (entry->attachments()->hasKey("KeeAgent.settings")) {
-            entry->attachments()->remove("KeeAgent.settings");
-        }
-    } else {
-        entry->attachments()->set("KeeAgent.settings", toXml());
-    }
+	if (isDefault())
+	{
+		if (entry->attachments()->hasKey("KeeAgent.settings"))
+		{
+			entry->attachments()->remove("KeeAgent.settings");
+		}
+	}
+	else
+	{
+		entry->attachments()->set("KeeAgent.settings", toXml());
+	}
 }
 
 /**
@@ -384,11 +423,14 @@ void KeeAgentSettings::toEntry(Entry* entry) const
  */
 bool KeeAgentSettings::keyConfigured() const
 {
-    if (m_selectedType == "attachment") {
-        return !m_attachmentName.isEmpty();
-    } else {
-        return !m_fileName.isEmpty();
-    }
+	if (m_selectedType == "attachment")
+	{
+		return !m_attachmentName.isEmpty();
+	}
+	else
+	{
+		return !m_fileName.isEmpty();
+	}
 }
 
 /**
@@ -401,10 +443,10 @@ bool KeeAgentSettings::keyConfigured() const
  * @param decrypt avoid private key decryption if possible (old RSA keys are always decrypted)
  * @return true if key was properly opened
  */
-bool KeeAgentSettings::toOpenSSHKey(const Entry* entry, OpenSSHKey& key, bool decrypt)
+bool KeeAgentSettings::toOpenSSHKey(const Entry *entry, OpenSSHKey &key, bool decrypt)
 {
-    return toOpenSSHKey(
-        entry->username(), entry->password(), entry->database()->filePath(), entry->attachments(), key, decrypt);
+	return toOpenSSHKey(
+		entry->username(), entry->password(), entry->database()->filePath(), entry->attachments(), key, decrypt);
 }
 
 /**
@@ -420,77 +462,90 @@ bool KeeAgentSettings::toOpenSSHKey(const Entry* entry, OpenSSHKey& key, bool de
  * @param decrypt avoid private key decryption if possible (old RSA keys are always decrypted)
  * @return true if key was properly opened
  */
-bool KeeAgentSettings::toOpenSSHKey(const QString& username,
-                                    const QString& password,
-                                    const QString& databasePath,
-                                    const EntryAttachments* attachments,
-                                    OpenSSHKey& key,
+bool KeeAgentSettings::toOpenSSHKey(const QString &username,
+                                    const QString &password,
+                                    const QString &databasePath,
+                                    const EntryAttachments *attachments,
+                                    OpenSSHKey &key,
                                     bool decrypt)
 {
-    QString fileName;
-    QByteArray privateKeyData;
+	QString fileName;
+	QByteArray privateKeyData;
 
-    if (m_selectedType == "attachment") {
-        if (!attachments) {
-            m_error = QCoreApplication::translate("KeeAgentSettings",
-                                                  "Private key is an attachment but no attachments provided.");
-            return false;
-        }
+	if (m_selectedType == "attachment")
+	{
+		if (!attachments)
+		{
+			m_error = QCoreApplication::translate("KeeAgentSettings",
+			                                      "Private key is an attachment but no attachments provided.");
+			return false;
+		}
 
-        fileName = m_attachmentName;
-        privateKeyData = attachments->value(fileName);
-    } else {
-        QString fileNameSubst = fileNameEnvSubst();
-        QFileInfo localFileInfo(fileNameSubst);
+		fileName = m_attachmentName;
+		privateKeyData = attachments->value(fileName);
+	}
+	else
+	{
+		QString fileNameSubst = fileNameEnvSubst();
+		QFileInfo localFileInfo(fileNameSubst);
 
-        // resolve relative private key path from database location
-        if (localFileInfo.isRelative()) {
-            QFileInfo databaseFileInfo(databasePath);
-            localFileInfo = QFileInfo(databaseFileInfo.absolutePath() + QDir::separator() + fileNameSubst);
-        }
+		// resolve relative private key path from database location
+		if (localFileInfo.isRelative())
+		{
+			QFileInfo databaseFileInfo(databasePath);
+			localFileInfo = QFileInfo(databaseFileInfo.absolutePath() + QDir::separator() + fileNameSubst);
+		}
 
-        fileName = localFileInfo.fileName();
+		fileName = localFileInfo.fileName();
 
-        QFile localFile(localFileInfo.absoluteFilePath());
+		QFile localFile(localFileInfo.absoluteFilePath());
 
-        if (localFile.fileName().isEmpty()) {
-            m_error = QCoreApplication::translate("KeeAgentSettings", "Private key is empty");
-            return false;
-        }
+		if (localFile.fileName().isEmpty())
+		{
+			m_error = QCoreApplication::translate("KeeAgentSettings", "Private key is empty");
+			return false;
+		}
 
-        if (localFile.size() > 1024 * 1024) {
-            m_error = QCoreApplication::translate("KeeAgentSettings", "File too large to be a private key");
-            return false;
-        }
+		if (localFile.size() > 1024 * 1024)
+		{
+			m_error = QCoreApplication::translate("KeeAgentSettings", "File too large to be a private key");
+			return false;
+		}
 
-        if (!localFile.open(QIODevice::ReadOnly)) {
-            m_error = QCoreApplication::translate("KeeAgentSettings", "Failed to open private key");
-            return false;
-        }
+		if (!localFile.open(QIODevice::ReadOnly))
+		{
+			m_error = QCoreApplication::translate("KeeAgentSettings", "Failed to open private key");
+			return false;
+		}
 
-        privateKeyData = localFile.readAll();
-    }
+		privateKeyData = localFile.readAll();
+	}
 
-    if (privateKeyData.isEmpty()) {
-        m_error = QCoreApplication::translate("KeeAgentSettings", "Private key is empty");
-        return false;
-    }
+	if (privateKeyData.isEmpty())
+	{
+		m_error = QCoreApplication::translate("KeeAgentSettings", "Private key is empty");
+		return false;
+	}
 
-    if (!key.parsePKCS1PEM(privateKeyData)) {
-        m_error = key.errorString();
-        return false;
-    }
+	if (!key.parsePKCS1PEM(privateKeyData))
+	{
+		m_error = key.errorString();
+		return false;
+	}
 
-    if (key.encrypted() && (decrypt || key.publicKey().isEmpty())) {
-        if (!key.openKey(password)) {
-            m_error = key.errorString();
-            return false;
-        }
-    }
+	if (key.encrypted() && (decrypt || key.publicKey().isEmpty()))
+	{
+		if (!key.openKey(password))
+		{
+			m_error = key.errorString();
+			return false;
+		}
+	}
 
-    if (key.comment().isEmpty()) {
-        key.setComment(QString("%1@%2").arg(username, fileName));
-    }
+	if (key.comment().isEmpty())
+	{
+		key.setComment(QString("%1@%2").arg(username, fileName));
+	}
 
-    return true;
+	return true;
 }

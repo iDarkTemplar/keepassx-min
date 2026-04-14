@@ -22,40 +22,40 @@
 
 class EntryAttributes;
 
-class EntryAttributesModel : public QAbstractListModel
+class EntryAttributesModel: public QAbstractListModel
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit EntryAttributesModel(QObject* parent = nullptr);
-    void setEntryAttributes(EntryAttributes* entryAttributes);
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
-    Qt::ItemFlags flags(const QModelIndex& index) const override;
-    QModelIndex indexByKey(const QString& key) const;
-    QString keyByIndex(const QModelIndex& index) const;
+	explicit EntryAttributesModel(QObject *parent = nullptr);
+	void setEntryAttributes(EntryAttributes *entryAttributes);
+	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+	int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
+	Qt::ItemFlags flags(const QModelIndex &index) const override;
+	QModelIndex indexByKey(const QString &key) const;
+	QString keyByIndex(const QModelIndex &index) const;
 
 private slots:
-    void attributeChange(const QString& key);
-    void attributeAboutToAdd(const QString& key);
-    void attributeAdd();
-    void attributeAboutToRemove(const QString& key);
-    void attributeRemove();
-    void attributeAboutToRename(const QString& oldKey, const QString& newKey);
-    void attributeRename(const QString& oldKey, const QString& newKey);
-    void aboutToReset();
-    void reset();
+	void attributeChange(const QString &key);
+	void attributeAboutToAdd(const QString &key);
+	void attributeAdd();
+	void attributeAboutToRemove(const QString &key);
+	void attributeRemove();
+	void attributeAboutToRename(const QString &oldKey, const QString &newKey);
+	void attributeRename(const QString &oldKey, const QString &newKey);
+	void aboutToReset();
+	void reset();
 
 private:
-    void updateAttributes();
+	void updateAttributes();
 
-    EntryAttributes* m_entryAttributes;
-    QList<QString> m_attributes;
-    bool m_nextRenameDataChange;
-    QCollator m_collator;
+	EntryAttributes *m_entryAttributes;
+	QList<QString> m_attributes;
+	bool m_nextRenameDataChange;
+	QCollator m_collator;
 };
 
 #endif // KEEPASSX_ENTRYATTRIBUTESMODEL_H

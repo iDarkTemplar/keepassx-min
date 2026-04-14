@@ -19,25 +19,25 @@
 
 #include <QIODevice>
 
-class LayeredStream : public QIODevice
+class LayeredStream: public QIODevice
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit LayeredStream(QIODevice* baseDevice);
-    virtual ~LayeredStream();
+	explicit LayeredStream(QIODevice *baseDevice);
+	virtual ~LayeredStream();
 
-    bool isSequential() const override;
-    bool open(QIODevice::OpenMode mode) override;
+	bool isSequential() const override;
+	bool open(QIODevice::OpenMode mode) override;
 
 protected:
-    qint64 readData(char* data, qint64 maxSize) override;
-    qint64 writeData(const char* data, qint64 maxSize) override;
+	qint64 readData(char *data, qint64 maxSize) override;
+	qint64 writeData(const char *data, qint64 maxSize) override;
 
-    QIODevice* const m_baseDevice;
+	QIODevice *const m_baseDevice;
 
 private slots:
-    void closeStream();
+	void closeStream();
 };
 
 #endif // KEEPASSX_LAYEREDSTREAM_H

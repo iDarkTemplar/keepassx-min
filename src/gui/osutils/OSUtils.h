@@ -20,17 +20,17 @@
 #if defined(Q_OS_WIN)
 
 #include "winutils/WinUtils.h"
-#define osUtils static_cast<OSUtilsBase*>(winUtils())
+#define osUtils static_cast<OSUtilsBase *>(winUtils())
 
 #elif defined(Q_OS_MACOS)
 
 #include "macutils/MacUtils.h"
-#define osUtils static_cast<OSUtilsBase*>(macUtils())
+#define osUtils static_cast<OSUtilsBase *>(macUtils())
 
 #elif defined(Q_OS_UNIX)
 
 #include "nixutils/NixUtils.h"
-#define osUtils static_cast<OSUtilsBase*>(nixUtils())
+#define osUtils static_cast<OSUtilsBase *>(nixUtils())
 
 #endif
 

@@ -19,13 +19,13 @@
 
 #include "DatabaseCommand.h"
 
-class Move : public DatabaseCommand
+class Move: public DatabaseCommand
 {
 public:
-    Move();
-    ~Move();
+	Move();
+	~Move();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
 };
 
 #endif // KEEPASSXC_MOVE_H

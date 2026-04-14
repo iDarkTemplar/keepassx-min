@@ -23,8 +23,8 @@ class OpenSSHKey;
 
 namespace ASN1Key
 {
-    bool parseDSA(QByteArray& ba, OpenSSHKey& key);
-    bool parseRSA(QByteArray& ba, OpenSSHKey& key);
+	bool parseDSA(QByteArray &ba, OpenSSHKey &key);
+	bool parseRSA(QByteArray &ba, OpenSSHKey &key);
 } // namespace ASN1Key
 
 #endif // KEEPASSXC_ASN1KEY_H

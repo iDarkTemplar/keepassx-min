@@ -25,28 +25,28 @@ class Entry;
 
 namespace Ui
 {
-    class PasskeyExportDialog;
+	class PasskeyExportDialog;
 }
 
-class PasskeyExportDialog : public QDialog
+class PasskeyExportDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit PasskeyExportDialog(QWidget* parent = nullptr);
-    ~PasskeyExportDialog() override;
+	explicit PasskeyExportDialog(QWidget *parent = nullptr);
+	~PasskeyExportDialog() override;
 
-    void setEntries(const QList<Entry*>& items);
-    QList<QTableWidgetItem*> getSelectedItems() const;
-    QString selectExportFolder();
+	void setEntries(const QList<Entry *> &items);
+	QList<QTableWidgetItem *> getSelectedItems() const;
+	QString selectExportFolder();
 
 private slots:
-    void selectionChanged();
+	void selectionChanged();
 
 private:
-    QScopedPointer<Ui::PasskeyExportDialog> m_ui;
-    QList<Entry*> m_entriesToConfirm;
-    QList<Entry*> m_allowedEntries;
+	QScopedPointer<Ui::PasskeyExportDialog> m_ui;
+	QList<Entry *> m_entriesToConfirm;
+	QList<Entry *> m_allowedEntries;
 };
 
 #endif // KEEPASSXC_PASSKEYEXPORTDIALOG_H

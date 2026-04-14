@@ -25,71 +25,71 @@
 class BrowserSettings
 {
 public:
-    explicit BrowserSettings() = default;
-    static BrowserSettings* instance();
+	explicit BrowserSettings() = default;
+	static BrowserSettings *instance();
 
-    bool isEnabled();
-    void setEnabled(bool enabled);
+	bool isEnabled();
+	void setEnabled(bool enabled);
 
-    bool showNotification(); // TODO!!
-    void setShowNotification(bool showNotification);
-    bool bestMatchOnly();
-    void setBestMatchOnly(bool bestMatchOnly);
-    bool unlockDatabase();
-    void setUnlockDatabase(bool unlockDatabase);
-    bool matchUrlScheme();
-    void setMatchUrlScheme(bool matchUrlScheme);
-    bool alwaysAllowAccess();
-    void setAlwaysAllowAccess(bool alwaysAllowAccess);
-    bool alwaysAllowUpdate();
-    void setAlwaysAllowUpdate(bool alwaysAllowUpdate);
-    bool searchInAllDatabases();
-    void setSearchInAllDatabases(bool searchInAllDatabases);
-    bool httpAuthPermission();
-    void setHttpAuthPermission(bool httpAuthPermission);
-    bool supportKphFields();
-    void setSupportKphFields(bool supportKphFields);
-    bool noMigrationPrompt();
-    void setNoMigrationPrompt(bool prompt);
-    bool allowLocalhostWithPasskeys();
-    void setAllowLocalhostWithPasskeys(bool enabled);
+	bool showNotification(); // TODO!!
+	void setShowNotification(bool showNotification);
+	bool bestMatchOnly();
+	void setBestMatchOnly(bool bestMatchOnly);
+	bool unlockDatabase();
+	void setUnlockDatabase(bool unlockDatabase);
+	bool matchUrlScheme();
+	void setMatchUrlScheme(bool matchUrlScheme);
+	bool alwaysAllowAccess();
+	void setAlwaysAllowAccess(bool alwaysAllowAccess);
+	bool alwaysAllowUpdate();
+	void setAlwaysAllowUpdate(bool alwaysAllowUpdate);
+	bool searchInAllDatabases();
+	void setSearchInAllDatabases(bool searchInAllDatabases);
+	bool httpAuthPermission();
+	void setHttpAuthPermission(bool httpAuthPermission);
+	bool supportKphFields();
+	void setSupportKphFields(bool supportKphFields);
+	bool noMigrationPrompt();
+	void setNoMigrationPrompt(bool prompt);
+	bool allowLocalhostWithPasskeys();
+	void setAllowLocalhostWithPasskeys(bool enabled);
 
-    bool useCustomProxy();
-    void setUseCustomProxy(bool enabled);
-    QString customProxyLocation();
-    void setCustomProxyLocation(const QString& location);
-    QString proxyLocation();
-    QString proxyLocationAsInstalled() const;
+	bool useCustomProxy();
+	void setUseCustomProxy(bool enabled);
+	QString customProxyLocation();
+	void setCustomProxyLocation(const QString &location);
+	QString proxyLocation();
+	QString proxyLocationAsInstalled() const;
 #ifdef QT_DEBUG
-    QString customExtensionId();
-    void setCustomExtensionId(const QString& id);
+	QString customExtensionId();
+	void setCustomExtensionId(const QString &id);
 #endif
-    bool updateBinaryPath();
-    void setUpdateBinaryPath(bool enabled);
-    bool allowExpiredCredentials();
-    void setAllowExpiredCredentials(bool enabled);
+	bool updateBinaryPath();
+	void setUpdateBinaryPath(bool enabled);
+	bool allowExpiredCredentials();
+	void setAllowExpiredCredentials(bool enabled);
 
-    bool browserSupport(BrowserShared::SupportedBrowsers browser);
-    void setBrowserSupport(BrowserShared::SupportedBrowsers browser, bool enabled);
-    bool customBrowserSupport();
-    void setCustomBrowserSupport(bool enabled);
-    int customBrowserType();
-    void setCustomBrowserType(int type);
-    QString customBrowserLocation();
-    void setCustomBrowserLocation(const QString& location);
-    void updateBinaryPaths();
-    QString replaceHomePath(QString location);
-    QString replaceTildeHomePath(QString location);
+	bool browserSupport(BrowserShared::SupportedBrowsers browser);
+	void setBrowserSupport(BrowserShared::SupportedBrowsers browser, bool enabled);
+	bool customBrowserSupport();
+	void setCustomBrowserSupport(bool enabled);
+	int customBrowserType();
+	void setCustomBrowserType(int type);
+	QString customBrowserLocation();
+	void setCustomBrowserLocation(const QString &location);
+	void updateBinaryPaths();
+	QString replaceHomePath(QString location);
+	QString replaceTildeHomePath(QString location);
 
 private:
-    static BrowserSettings* m_instance;
+	static BrowserSettings *m_instance;
 
-    NativeMessageInstaller m_nativeMessageInstaller;
+	NativeMessageInstaller m_nativeMessageInstaller;
 };
 
-inline BrowserSettings* browserSettings()
+inline BrowserSettings *browserSettings()
 {
-    return BrowserSettings::instance();
+	return BrowserSettings::instance();
 }
 
 #endif // KEEPASSXC_BROWSERSETTINGS_H

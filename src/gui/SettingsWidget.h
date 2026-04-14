@@ -24,44 +24,44 @@ class Database;
 /**
  * Pure-virtual base class for KeePassXC settings widgets.
  */
-class SettingsWidget : public QWidget
+class SettingsWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit SettingsWidget(QWidget* parent = nullptr);
-    ~SettingsWidget() override = default;
+	explicit SettingsWidget(QWidget *parent = nullptr);
+	~SettingsWidget() override = default;
 
 public slots:
-    /**
-     * Initialize settings widget.
-     */
-    virtual void initialize() = 0;
+	/**
+	 * Initialize settings widget.
+	 */
+	virtual void initialize() = 0;
 
-    /**
-     * Perform needed clean-up operations before widget is destroyed or re-initialized.
-     */
-    virtual void uninitialize() = 0;
+	/**
+	 * Perform needed clean-up operations before widget is destroyed or re-initialized.
+	 */
+	virtual void uninitialize() = 0;
 
-    /**
-     * Save settings.
-     *
-     * @return true on success, false on failure
-     */
-    virtual bool saveSettings() = 0;
+	/**
+	 * Save settings.
+	 *
+	 * @return true on success, false on failure
+	 */
+	virtual bool saveSettings() = 0;
 
-    /**
-     * Discard settings.
-     */
-    virtual void discard();
+	/**
+	 * Discard settings.
+	 */
+	virtual void discard();
 
 signals:
-    void editFinished(bool saved);
+	void editFinished(bool saved);
 
 private:
-    bool m_advancedMode = false;
+	bool m_advancedMode = false;
 
-    Q_DISABLE_COPY(SettingsWidget);
+	Q_DISABLE_COPY(SettingsWidget);
 };
 
 #endif // KEEPASSXC_SETTINGSWIDGET_H

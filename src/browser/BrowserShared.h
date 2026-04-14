@@ -22,22 +22,22 @@
 
 namespace BrowserShared
 {
-    constexpr int NATIVEMSG_MAX_LENGTH = 1024 * 1024;
+	constexpr int NATIVEMSG_MAX_LENGTH = 1024 * 1024;
 
-    enum SupportedBrowsers : int
-    {
-        CHROME = 0,
-        CHROMIUM,
-        FIREFOX,
-        VIVALDI,
-        TOR_BROWSER,
-        BRAVE,
-        EDGE,
-        CUSTOM,
-        MAX_SUPPORTED
-    };
+	enum SupportedBrowsers : int
+	{
+		CHROME = 0,
+		CHROMIUM,
+		FIREFOX,
+		VIVALDI,
+		TOR_BROWSER,
+		BRAVE,
+		EDGE,
+		CUSTOM,
+		MAX_SUPPORTED
+	};
 
-    QString localServerPath();
+	QString localServerPath();
 } // namespace BrowserShared
 
 #endif // KEEPASSXC_BROWSERSHARED_H

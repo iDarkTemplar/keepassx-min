@@ -21,64 +21,64 @@
 
 namespace FdoSecrets
 {
-    class CipherPair;
-    class Session : public DBusObject
-    {
-        Q_OBJECT
-        Q_CLASSINFO("D-Bus Interface", DBUS_INTERFACE_SECRET_SESSION_LITERAL)
+	class CipherPair;
+	class Session: public DBusObject
+	{
+		Q_OBJECT
+		Q_CLASSINFO("D-Bus Interface", DBUS_INTERFACE_SECRET_SESSION_LITERAL)
 
-        explicit Session(QSharedPointer<CipherPair> cipher, const QString& peer, Service* parent);
+		explicit Session(QSharedPointer<CipherPair> cipher, const QString &peer, Service *parent);
 
-    public:
-        /**
-         * @brief Create a new instance of `Session`.
-         * @param cipher the negotiated cipher
-         * @param peer connecting peer
-         * @param parent the owning Service
-         * @return pointer to newly created Session, or nullptr if error
-         * This may be caused by
-         *   - DBus path registration error
-         */
-        static Session* Create(QSharedPointer<CipherPair> cipher, const QString& peer, Service* parent);
+	public:
+		/**
+		 * @brief Create a new instance of `Session`.
+		 * @param cipher the negotiated cipher
+		 * @param peer connecting peer
+		 * @param parent the owning Service
+		 * @return pointer to newly created Session, or nullptr if error
+		 * This may be caused by
+		 *   - DBus path registration error
+		 */
+		static Session *Create(QSharedPointer<CipherPair> cipher, const QString &peer, Service *parent);
 
-        Q_INVOKABLE DBusResult close();
+		Q_INVOKABLE DBusResult close();
 
-        /**
-         * Encode the secret struct. Note only the value field is encoded.
-         * @param input
-         * @return
-         */
-        Secret encode(const Secret& input) const;
+		/**
+		 * Encode the secret struct. Note only the value field is encoded.
+		 * @param input
+		 * @return
+		 */
+		Secret encode(const Secret &input) const;
 
-        /**
-         * Decode the secret struct.
-         * @param input
-         * @return
-         */
-        Secret decode(const Secret& input) const;
+		/**
+		 * Decode the secret struct.
+		 * @param input
+		 * @return
+		 */
+		Secret decode(const Secret &input) const;
 
-        /**
-         * The peer application that opened this session
-         * @return
-         */
-        QString peer() const;
+		/**
+		 * The peer application that opened this session
+		 * @return
+		 */
+		QString peer() const;
 
-        QString id() const;
+		QString id() const;
 
-        Service* service() const;
+		Service *service() const;
 
-    signals:
-        /**
-         * The session is going to be closed
-         * @param sess
-         */
-        void aboutToClose();
+	signals:
+		/**
+		 * The session is going to be closed
+		 * @param sess
+		 */
+		void aboutToClose();
 
-    private:
-        QSharedPointer<CipherPair> m_cipher;
-        QString m_peer;
-        QUuid m_id;
-    };
+	private:
+		QSharedPointer<CipherPair> m_cipher;
+		QString m_peer;
+		QUuid m_id;
+	};
 
 } // namespace FdoSecrets
 

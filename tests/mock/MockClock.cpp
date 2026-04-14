@@ -17,69 +17,69 @@
 #include "MockClock.h"
 
 MockClock::MockClock(int year, int month, int day, int hour, int min, int second)
-    : Clock()
-    , m_utcCurrent(datetimeUtc(year, month, day, hour, min, second))
+	: Clock()
+	, m_utcCurrent(datetimeUtc(year, month, day, hour, min, second))
 {
 }
 
 MockClock::MockClock(QDateTime utcBase)
-    : Clock()
-    , m_utcCurrent(utcBase)
+	: Clock()
+	, m_utcCurrent(utcBase)
 {
 }
 
-const QDateTime& MockClock::advanceSecond(int seconds)
+const QDateTime &MockClock::advanceSecond(int seconds)
 {
-    m_utcCurrent = m_utcCurrent.addSecs(seconds);
-    return m_utcCurrent;
+	m_utcCurrent = m_utcCurrent.addSecs(seconds);
+	return m_utcCurrent;
 }
 
-const QDateTime& MockClock::advanceMinute(int minutes)
+const QDateTime &MockClock::advanceMinute(int minutes)
 {
-    m_utcCurrent = m_utcCurrent.addSecs(minutes * 60);
-    return m_utcCurrent;
+	m_utcCurrent = m_utcCurrent.addSecs(minutes * 60);
+	return m_utcCurrent;
 }
 
-const QDateTime& MockClock::advanceHour(int hours)
+const QDateTime &MockClock::advanceHour(int hours)
 {
-    m_utcCurrent = m_utcCurrent.addSecs(hours * 60 * 60);
-    return m_utcCurrent;
+	m_utcCurrent = m_utcCurrent.addSecs(hours * 60 * 60);
+	return m_utcCurrent;
 }
 
-const QDateTime& MockClock::advanceDay(int days)
+const QDateTime &MockClock::advanceDay(int days)
 {
-    m_utcCurrent = m_utcCurrent.addDays(days);
-    return m_utcCurrent;
+	m_utcCurrent = m_utcCurrent.addDays(days);
+	return m_utcCurrent;
 }
 
-const QDateTime& MockClock::advanceMonth(int months)
+const QDateTime &MockClock::advanceMonth(int months)
 {
-    m_utcCurrent = m_utcCurrent.addMonths(months);
-    return m_utcCurrent;
+	m_utcCurrent = m_utcCurrent.addMonths(months);
+	return m_utcCurrent;
 }
 
-const QDateTime& MockClock::advanceYear(int years)
+const QDateTime &MockClock::advanceYear(int years)
 {
-    m_utcCurrent = m_utcCurrent.addYears(years);
-    return m_utcCurrent;
+	m_utcCurrent = m_utcCurrent.addYears(years);
+	return m_utcCurrent;
 }
 
-void MockClock::setup(Clock* clock)
+void MockClock::setup(Clock *clock)
 {
-    Clock::setInstance(clock);
+	Clock::setInstance(clock);
 }
 
 void MockClock::teardown()
 {
-    Clock::resetInstance();
+	Clock::resetInstance();
 }
 
 QDateTime MockClock::currentDateTimeUtcImpl() const
 {
-    return m_utcCurrent;
+	return m_utcCurrent;
 }
 
 QDateTime MockClock::currentDateTimeImpl() const
 {
-    return m_utcCurrent.toLocalTime();
+	return m_utcCurrent.toLocalTime();
 }

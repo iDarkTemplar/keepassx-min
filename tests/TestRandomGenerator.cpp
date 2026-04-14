@@ -25,35 +25,37 @@ QTEST_GUILESS_MAIN(TestRandomGenerator)
 
 void TestRandomGenerator::testArray()
 {
-    auto ba = randomGen()->randomArray(10);
-    QCOMPARE(ba.size(), 10);
-    QVERIFY(ba != QByteArray(10, '\0'));
+	auto ba = randomGen()->randomArray(10);
+	QCOMPARE(ba.size(), 10);
+	QVERIFY(ba != QByteArray(10, '\0'));
 
-    auto ba2 = ba;
-    randomGen()->randomize(ba2);
-    QVERIFY(ba2 != ba);
+	auto ba2 = ba;
+	randomGen()->randomize(ba2);
+	QVERIFY(ba2 != ba);
 }
 
 void TestRandomGenerator::testUInt()
 {
-    QVERIFY(randomGen()->randomUInt(0) == 0);
-    QVERIFY(randomGen()->randomUInt(1) == 0);
+	QVERIFY(randomGen()->randomUInt(0) == 0);
+	QVERIFY(randomGen()->randomUInt(1) == 0);
 
-    // Run a bunch of trials creating random numbers to ensure we meet the standard
-    for (int i = 0; i < 100; ++i) {
-        QVERIFY(randomGen()->randomUInt(5) < 5);
-        QVERIFY(randomGen()->randomUInt(100) < 100);
-        QVERIFY(randomGen()->randomUInt(100000U) < 100000U);
-        QVERIFY(randomGen()->randomUInt((QUINT32_MAX / 2U) + 1U) < QUINT32_MAX / 2U + 1U);
-    }
+	// Run a bunch of trials creating random numbers to ensure we meet the standard
+	for (int i = 0; i < 100; ++i)
+	{
+		QVERIFY(randomGen()->randomUInt(5) < 5);
+		QVERIFY(randomGen()->randomUInt(100) < 100);
+		QVERIFY(randomGen()->randomUInt(100000U) < 100000U);
+		QVERIFY(randomGen()->randomUInt((QUINT32_MAX / 2U) + 1U) < QUINT32_MAX / 2U + 1U);
+	}
 }
 
 void TestRandomGenerator::testUIntRange()
 {
-    // Run a bunch of trials to ensure we stay within the range
-    for (int i = 0; i < 100; ++i) {
-        auto rand = randomGen()->randomUIntRange(100, 200);
-        QVERIFY(rand >= 100);
-        QVERIFY(rand < 200);
-    }
+	// Run a bunch of trials to ensure we stay within the range
+	for (int i = 0; i < 100; ++i)
+	{
+		auto rand = randomGen()->randomUIntRange(100, 200);
+		QVERIFY(rand >= 100);
+		QVERIFY(rand < 200);
+	}
 }

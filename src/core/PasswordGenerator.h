@@ -26,68 +26,68 @@ typedef QVector<QChar> PasswordGroup;
 class PasswordGenerator
 {
 public:
-    enum CharClass
-    {
-        NoClass = 0,
-        LowerLetters = (1 << 0),
-        UpperLetters = (1 << 1),
-        Numbers = (1 << 2),
-        Braces = (1 << 3),
-        Punctuation = (1 << 4),
-        Quotes = (1 << 5),
-        Dashes = (1 << 6),
-        Math = (1 << 7),
-        Logograms = (1 << 8),
-        SpecialCharacters = Braces | Punctuation | Quotes | Dashes | Math | Logograms,
-        EASCII = (1 << 9),
-        DefaultCharset = LowerLetters | UpperLetters | Numbers
-    };
-    Q_DECLARE_FLAGS(CharClasses, CharClass);
+	enum CharClass
+	{
+		NoClass = 0,
+		LowerLetters = (1 << 0),
+		UpperLetters = (1 << 1),
+		Numbers = (1 << 2),
+		Braces = (1 << 3),
+		Punctuation = (1 << 4),
+		Quotes = (1 << 5),
+		Dashes = (1 << 6),
+		Math = (1 << 7),
+		Logograms = (1 << 8),
+		SpecialCharacters = Braces | Punctuation | Quotes | Dashes | Math | Logograms,
+		EASCII = (1 << 9),
+		DefaultCharset = LowerLetters | UpperLetters | Numbers
+	};
+	Q_DECLARE_FLAGS(CharClasses, CharClass);
 
-    enum GeneratorFlag
-    {
-        NoFlags = 0,
-        ExcludeLookAlike = (1 << 0),
-        CharFromEveryGroup = (1 << 1),
-        AdvancedMode = (1 << 2),
-        DefaultFlags = ExcludeLookAlike | CharFromEveryGroup
-    };
-    Q_DECLARE_FLAGS(GeneratorFlags, GeneratorFlag)
+	enum GeneratorFlag
+	{
+		NoFlags = 0,
+		ExcludeLookAlike = (1 << 0),
+		CharFromEveryGroup = (1 << 1),
+		AdvancedMode = (1 << 2),
+		DefaultFlags = ExcludeLookAlike | CharFromEveryGroup
+	};
+	Q_DECLARE_FLAGS(GeneratorFlags, GeneratorFlag)
 
 public:
-    PasswordGenerator();
+	PasswordGenerator();
 
-    void setLength(int length);
-    void setFlags(const GeneratorFlags& flags);
-    void setCharClasses(const CharClasses& classes);
-    void setCustomCharacterSet(const QString& customCharacterSet);
-    void setExcludedCharacterSet(const QString& excludedCharacterSet);
-    void reset();
+	void setLength(int length);
+	void setFlags(const GeneratorFlags &flags);
+	void setCharClasses(const CharClasses &classes);
+	void setCustomCharacterSet(const QString &customCharacterSet);
+	void setExcludedCharacterSet(const QString &excludedCharacterSet);
+	void reset();
 
-    bool isValid() const;
-    int getMinLength() const;
+	bool isValid() const;
+	int getMinLength() const;
 
-    int getLength() const;
-    const GeneratorFlags& getFlags() const;
-    const CharClasses& getActiveClasses() const;
-    const QString& getCustomCharacterSet() const;
-    const QString& getExcludedCharacterSet() const;
+	int getLength() const;
+	const GeneratorFlags &getFlags() const;
+	const CharClasses &getActiveClasses() const;
+	const QString &getCustomCharacterSet() const;
+	const QString &getExcludedCharacterSet() const;
 
-    QString generatePassword() const;
+	QString generatePassword() const;
 
-    static const int DefaultLength;
-    static const char* DefaultCustomCharacterSet;
-    static const char* DefaultExcludedChars;
+	static const int DefaultLength;
+	static const char *DefaultCustomCharacterSet;
+	static const char *DefaultExcludedChars;
 
 private:
-    QVector<PasswordGroup> passwordGroups() const;
-    int numCharClasses() const;
+	QVector<PasswordGroup> passwordGroups() const;
+	int numCharClasses() const;
 
-    int m_length;
-    CharClasses m_classes;
-    GeneratorFlags m_flags;
-    QString m_custom;
-    QString m_excluded;
+	int m_length;
+	CharClasses m_classes;
+	GeneratorFlags m_flags;
+	QString m_custom;
+	QString m_excluded;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(PasswordGenerator::CharClasses)

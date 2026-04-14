@@ -19,14 +19,14 @@
 
 #include "NewDatabaseWizardPage.h"
 
-class NewDatabaseWizardPageEncryption : public NewDatabaseWizardPage
+class NewDatabaseWizardPageEncryption: public NewDatabaseWizardPage
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit NewDatabaseWizardPageEncryption(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(NewDatabaseWizardPageEncryption);
-    ~NewDatabaseWizardPageEncryption() override;
+	explicit NewDatabaseWizardPageEncryption(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(NewDatabaseWizardPageEncryption);
+	~NewDatabaseWizardPageEncryption() override;
 };
 
 #endif // KEEPASSXC_NEWDATABASEWIZARDPAGEENCRYPTION_H

@@ -23,17 +23,17 @@
 /**
  * KDBX4 writer implementation.
  */
-class Kdbx4Writer : public KdbxWriter
+class Kdbx4Writer: public KdbxWriter
 {
-    Q_DECLARE_TR_FUNCTIONS(Kdbx4Writer)
+	Q_DECLARE_TR_FUNCTIONS(Kdbx4Writer)
 
 public:
-    bool writeDatabase(QIODevice* device, Database* db) override;
+	bool writeDatabase(QIODevice *device, Database *db) override;
 
 private:
-    bool writeInnerHeaderField(QIODevice* device, KeePass2::InnerHeaderFieldID fieldId, const QByteArray& data);
-    KdbxXmlWriter::BinaryIdxMap writeAttachments(QIODevice* device, Database* db);
-    static bool serializeVariantMap(const QVariantMap& map, QByteArray& outputBytes);
+	bool writeInnerHeaderField(QIODevice *device, KeePass2::InnerHeaderFieldID fieldId, const QByteArray &data);
+	KdbxXmlWriter::BinaryIdxMap writeAttachments(QIODevice *device, Database *db);
+	static bool serializeVariantMap(const QVariantMap &map, QByteArray &outputBytes);
 };
 
 #endif // KEEPASSX_KDBX4WRITER_H

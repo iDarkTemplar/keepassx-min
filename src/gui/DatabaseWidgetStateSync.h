@@ -21,39 +21,39 @@
 
 #include "gui/DatabaseWidget.h"
 
-class DatabaseWidgetStateSync : public QObject
+class DatabaseWidgetStateSync: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DatabaseWidgetStateSync(QObject* parent = nullptr);
-    ~DatabaseWidgetStateSync() override;
+	explicit DatabaseWidgetStateSync(QObject *parent = nullptr);
+	~DatabaseWidgetStateSync() override;
 
 public slots:
-    void setActive(DatabaseWidget* dbWidget);
-    void applySplitterSizes();
-    void applyViewState();
+	void setActive(DatabaseWidget *dbWidget);
+	void applySplitterSizes();
+	void applyViewState();
 
 private slots:
-    void blockUpdates();
-    void updateSplitterSizes();
-    void updateViewState();
-    void updateAll(bool forceSync = false);
-    void sync();
+	void blockUpdates();
+	void updateSplitterSizes();
+	void updateViewState();
+	void updateAll(bool forceSync = false);
+	void sync();
 
 private:
-    static QList<int> variantToIntList(const QVariant& variant);
-    static QVariant intListToVariant(const QList<int>& list);
+	static QList<int> variantToIntList(const QVariant &variant);
+	static QVariant intListToVariant(const QList<int> &list);
 
-    QPointer<DatabaseWidget> m_activeDbWidget;
+	QPointer<DatabaseWidget> m_activeDbWidget;
 
-    bool m_blockUpdates;
-    QTimer m_syncTimer;
+	bool m_blockUpdates;
+	QTimer m_syncTimer;
 
-    QHash<Config::ConfigKey, QList<int>> m_splitterSizes;
+	QHash<Config::ConfigKey, QList<int>> m_splitterSizes;
 
-    QByteArray m_listViewState;
-    QByteArray m_searchViewState;
+	QByteArray m_listViewState;
+	QByteArray m_searchViewState;
 };
 
 #endif // KEEPASSX_DATABASEWIDGETSTATESYNC_H

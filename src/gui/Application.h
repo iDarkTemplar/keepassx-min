@@ -32,58 +32,58 @@ class QSocketNotifier;
 
 constexpr int RESTART_EXITCODE = -1;
 
-class Application : public QApplication
+class Application: public QApplication
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    Application(int& argc, char** argv);
-    ~Application() override;
+	Application(int &argc, char **argv);
+	~Application() override;
 
-    static void bootstrap(const QString& uiLanguage = "system");
-    static void applyFontSize();
+	static void bootstrap(const QString &uiLanguage = "system");
+	static void applyFontSize();
 
-    void applyTheme();
+	void applyTheme();
 
-    bool event(QEvent* event) override;
-    bool isAlreadyRunning() const;
-    bool isDarkTheme() const;
+	bool event(QEvent *event) override;
+	bool isAlreadyRunning() const;
+	bool isDarkTheme() const;
 
-    bool sendFileNamesToRunningInstance(const QStringList& fileNames);
-    bool sendLockToInstance();
+	bool sendFileNamesToRunningInstance(const QStringList &fileNames);
+	bool sendLockToInstance();
 
-    void restart();
+	void restart();
 
 signals:
-    void openFile(const QString& filename);
-    void anotherInstanceStarted();
-    void applicationActivated();
-    void quitSignalReceived();
+	void openFile(const QString &filename);
+	void anotherInstanceStarted();
+	void applicationActivated();
+	void quitSignalReceived();
 
 private slots:
 #if defined(Q_OS_UNIX)
-    void quitBySignal();
+	void quitBySignal();
 #endif
-    void processIncomingConnection();
-    void socketReadyRead();
+	void processIncomingConnection();
+	void socketReadyRead();
 
 private:
 #if defined(Q_OS_UNIX)
-    /**
-     * Register Unix signals such as SIGINT and SIGTERM for clean shutdown.
-     */
-    void registerUnixSignals();
-    QSocketNotifier* m_unixSignalNotifier;
-    static void handleUnixSignal(int sig);
-    static int unixSignalSocket[2];
+	/**
+	 * Register Unix signals such as SIGINT and SIGTERM for clean shutdown.
+	 */
+	void registerUnixSignals();
+	QSocketNotifier *m_unixSignalNotifier;
+	static void handleUnixSignal(int sig);
+	static int unixSignalSocket[2];
 #endif
-    bool m_alreadyRunning;
-    bool m_darkTheme = false;
-    QLockFile* m_lockFile;
-    QLocalServer m_lockServer;
-    QString m_socketName;
+	bool m_alreadyRunning;
+	bool m_darkTheme = false;
+	QLockFile *m_lockFile;
+	QLocalServer m_lockServer;
+	QString m_socketName;
 };
 
-#define kpxcApp qobject_cast<Application*>(Application::instance())
+#define kpxcApp qobject_cast<Application *>(Application::instance())
 
 #endif // KEEPASSX_APPLICATION_H

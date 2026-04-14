@@ -24,75 +24,78 @@
 
 TextStream::TextStream()
 {
-    detectCodec();
+	detectCodec();
 }
 
-TextStream::TextStream(QIODevice* device)
-    : QTextStream(device)
+TextStream::TextStream(QIODevice *device)
+	: QTextStream(device)
 {
-    detectCodec();
+	detectCodec();
 }
 
-TextStream::TextStream(FILE* fileHandle, QIODevice::OpenMode openMode)
-    : QTextStream(fileHandle, openMode)
+TextStream::TextStream(FILE *fileHandle, QIODevice::OpenMode openMode)
+	: QTextStream(fileHandle, openMode)
 {
-    detectCodec();
+	detectCodec();
 }
 
-TextStream::TextStream(QString* string, QIODevice::OpenMode openMode)
-    : QTextStream(string, openMode)
+TextStream::TextStream(QString *string, QIODevice::OpenMode openMode)
+	: QTextStream(string, openMode)
 {
-    detectCodec();
+	detectCodec();
 }
 
-TextStream::TextStream(QByteArray* array, QIODevice::OpenMode openMode)
-    : QTextStream(array, openMode)
+TextStream::TextStream(QByteArray *array, QIODevice::OpenMode openMode)
+	: QTextStream(array, openMode)
 {
-    detectCodec();
+	detectCodec();
 }
 
-TextStream::TextStream(const QByteArray& array, QIODevice::OpenMode openMode)
-    : QTextStream(array, openMode)
+TextStream::TextStream(const QByteArray &array, QIODevice::OpenMode openMode)
+	: QTextStream(array, openMode)
 {
-    detectCodec();
+	detectCodec();
 }
 
-void TextStream::write(const char* str)
+void TextStream::write(const char *str)
 {
-    // Workaround for an issue with QTextStream. Its operator<<(const char *string) will encode the
-    // string with a non-UTF-8 encoding. We work around this by wrapping the input string into
-    // a QString, thus enforcing UTF-8. More info:
-    // https://code.qt.io/cgit/qt/qtbase.git/commit?id=cec8cdba4d1b856e17c8743ba8803349d42dc701
-    *this << QString(str);
+	// Workaround for an issue with QTextStream. Its operator<<(const char *string) will encode the
+	// string with a non-UTF-8 encoding. We work around this by wrapping the input string into
+	// a QString, thus enforcing UTF-8. More info:
+	// https://code.qt.io/cgit/qt/qtbase.git/commit?id=cec8cdba4d1b856e17c8743ba8803349d42dc701
+	*this << QString(str);
 }
 
 void TextStream::detectCodec()
 {
-    QString codecName = "UTF-8";
-    auto env = QProcessEnvironment::systemEnvironment();
+	QString codecName = "UTF-8";
+	auto env = QProcessEnvironment::systemEnvironment();
 
 #ifdef Q_OS_WIN
-    bool success = false;
+	bool success = false;
 #ifdef CP_UTF8
-    success = SetConsoleOutputCP(CP_UTF8);
+	success = SetConsoleOutputCP(CP_UTF8);
 #endif
-    if (!success && !env.contains("SHELL")) {
-        // Fall back to cp850 if this is Windows without CP_UTF8 and we
-        // are running in a native shell (i.e., no Msys or Cygwin).
-        codecName = "Windows-850";
-    }
+	if (!success && !env.contains("SHELL"))
+	{
+		// Fall back to cp850 if this is Windows without CP_UTF8 and we
+		// are running in a native shell (i.e., no Msys or Cygwin).
+		codecName = "Windows-850";
+	}
 #else
-    if (env.contains("LANG") && !env.value("LANG").isEmpty() && env.value("LANG") != "C") {
-        // Only override codec if LANG is set, otherwise Qt will assume
-        // US-ASCII, which is almost always wrong and results in
-        // Unicode passwords being displayed as question marks.
-        codecName = QTextCodec::codecForLocale()->name();
-    }
+	if (env.contains("LANG") && !env.value("LANG").isEmpty() && env.value("LANG") != "C")
+	{
+		// Only override codec if LANG is set, otherwise Qt will assume
+		// US-ASCII, which is almost always wrong and results in
+		// Unicode passwords being displayed as question marks.
+		codecName = QTextCodec::codecForLocale()->name();
+	}
 #endif
 
-    codecName = env.value("ENCODING_OVERRIDE", codecName);
-    auto* codec = QTextCodec::codecForName(codecName.toLatin1());
-    if (codec) {
-        setCodec(codec);
-    }
+	codecName = env.value("ENCODING_OVERRIDE", codecName);
+	auto *codec = QTextCodec::codecForName(codecName.toLatin1());
+	if (codec)
+	{
+		setCodec(codec);
+	}
 }

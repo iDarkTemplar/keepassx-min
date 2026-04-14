@@ -22,34 +22,34 @@
 
 class Entry;
 
-class EntryHistoryModel : public QAbstractTableModel
+class EntryHistoryModel: public QAbstractTableModel
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit EntryHistoryModel(QObject* parent = nullptr);
+	explicit EntryHistoryModel(QObject *parent = nullptr);
 
-    Entry* entryFromIndex(const QModelIndex& index) const;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+	Entry *entryFromIndex(const QModelIndex &index) const;
+	int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+	QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
-    void setEntries(const QList<Entry*>& entries, Entry* parentEntry);
-    void clear();
-    void clearDeletedEntries();
-    QList<Entry*> deletedEntries();
-    void deleteIndex(QModelIndex index);
-    void deleteAll();
+	void setEntries(const QList<Entry *> &entries, Entry *parentEntry);
+	void clear();
+	void clearDeletedEntries();
+	QList<Entry *> deletedEntries();
+	void deleteIndex(QModelIndex index);
+	void deleteAll();
 
 private:
-    void calculateHistoryModifications();
+	void calculateHistoryModifications();
 
-    QLocale m_systemLocale;
-    QList<Entry*> m_historyEntries;
-    QList<Entry*> m_deletedHistoryEntries;
-    QStringList m_historyModifications;
-    const Entry* m_parentEntry;
+	QLocale m_systemLocale;
+	QList<Entry *> m_historyEntries;
+	QList<Entry *> m_deletedHistoryEntries;
+	QStringList m_historyModifications;
+	const Entry *m_parentEntry;
 };
 
 #endif // KEEPASSX_ENTRYHISTORYMODEL_H

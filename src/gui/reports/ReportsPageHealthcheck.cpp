@@ -20,33 +20,33 @@
 #include "gui/Icons.h"
 
 ReportsPageHealthcheck::ReportsPageHealthcheck()
-    : m_healthWidget(new ReportsWidgetHealthcheck())
+	: m_healthWidget(new ReportsWidgetHealthcheck())
 {
 }
 
 QString ReportsPageHealthcheck::name()
 {
-    return QObject::tr("Health Check");
+	return QObject::tr("Health Check");
 }
 
 QIcon ReportsPageHealthcheck::icon()
 {
-    return icons()->icon("health");
+	return icons()->icon("health");
 }
 
-QWidget* ReportsPageHealthcheck::createWidget()
+QWidget *ReportsPageHealthcheck::createWidget()
 {
-    return m_healthWidget;
+	return m_healthWidget;
 }
 
-void ReportsPageHealthcheck::loadSettings(QWidget* widget, QSharedPointer<Database> db)
+void ReportsPageHealthcheck::loadSettings(QWidget *widget, QSharedPointer<Database> db)
 {
-    const auto settingsWidget = reinterpret_cast<ReportsWidgetHealthcheck*>(widget);
-    settingsWidget->loadSettings(db);
+	const auto settingsWidget = reinterpret_cast<ReportsWidgetHealthcheck *>(widget);
+	settingsWidget->loadSettings(db);
 }
 
-void ReportsPageHealthcheck::saveSettings(QWidget* widget)
+void ReportsPageHealthcheck::saveSettings(QWidget *widget)
 {
-    const auto settingsWidget = reinterpret_cast<ReportsWidgetHealthcheck*>(widget);
-    settingsWidget->saveSettings();
+	const auto settingsWidget = reinterpret_cast<ReportsWidgetHealthcheck *>(widget);
+	settingsWidget->saveSettings();
 }

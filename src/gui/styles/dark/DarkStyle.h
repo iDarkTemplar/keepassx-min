@@ -19,19 +19,19 @@
 
 #include "gui/styles/base/BaseStyle.h"
 
-class DarkStyle : public BaseStyle
+class DarkStyle: public BaseStyle
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    DarkStyle();
-    QPalette standardPalette() const override;
+	DarkStyle();
+	QPalette standardPalette() const override;
 
-    using BaseStyle::polish;
-    void polish(QWidget* widget) override;
+	using BaseStyle::polish;
+	void polish(QWidget *widget) override;
 
 protected:
-    QString getAppStyleSheet() const override;
+	QString getAppStyleSheet() const override;
 };
 
 #endif // KEEPASSXC_DARKSTYLE_H

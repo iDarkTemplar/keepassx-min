@@ -19,11 +19,11 @@
 
 #include "Command.h"
 
-class Exit : public Command
+class Exit: public Command
 {
 public:
-    Exit(const QString& name);
-    int execute(const QStringList& arguments) override;
+	Exit(const QString &name);
+	int execute(const QStringList &arguments) override;
 };
 
 #endif // KEEPASSXC_EXIT_H

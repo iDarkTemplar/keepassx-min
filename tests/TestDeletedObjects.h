@@ -21,19 +21,19 @@
 
 class Database;
 
-class TestDeletedObjects : public QObject
+class TestDeletedObjects: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private:
-    void createAndDelete(QSharedPointer<Database> db, int delObjectsSize);
+	void createAndDelete(QSharedPointer<Database> db, int delObjectsSize);
 
 private slots:
-    void initTestCase();
-    void testDeletedObjectsFromFile();
-    void testDeletedObjectsFromNewDb();
-    void testDatabaseChange();
-    void testCustomIconDeletion();
+	void initTestCase();
+	void testDeletedObjectsFromFile();
+	void testDeletedObjectsFromNewDb();
+	void testDatabaseChange();
+	void testCustomIconDeletion();
 };
 
 #endif // KEEPASSX_TESTDELETEDOBJECTS_H

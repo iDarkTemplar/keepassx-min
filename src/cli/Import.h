@@ -19,11 +19,11 @@
 
 #include "Command.h"
 
-class Import : public Command
+class Import: public Command
 {
 public:
-    Import();
-    int execute(const QStringList& arguments) override;
+	Import();
+	int execute(const QStringList &arguments) override;
 };
 
 #endif // KEEPASSXC_IMPORT_H

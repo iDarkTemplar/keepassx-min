@@ -27,34 +27,34 @@ class ImportWizardPageReview;
 /**
  * Setup wizard for importing a file into a database.
  */
-class ImportWizard : public QWizard
+class ImportWizard: public QWizard
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit ImportWizard(QWidget* parent = nullptr);
-    ~ImportWizard() override;
+	explicit ImportWizard(QWidget *parent = nullptr);
+	~ImportWizard() override;
 
-    bool validateCurrentPage() override;
+	bool validateCurrentPage() override;
 
-    QSharedPointer<Database> database();
-    QPair<QUuid, QUuid> importInto();
+	QSharedPointer<Database> database();
+	QPair<QUuid, QUuid> importInto();
 
-    enum ImportType
-    {
-        IMPORT_NONE = 0,
-        IMPORT_CSV,
-        IMPORT_OPVAULT,
-        IMPORT_OPUX,
-        IMPORT_BITWARDEN,
-        IMPORT_PROTONPASS,
-        IMPORT_KEEPASS1
-    };
+	enum ImportType
+	{
+		IMPORT_NONE = 0,
+		IMPORT_CSV,
+		IMPORT_OPVAULT,
+		IMPORT_OPUX,
+		IMPORT_BITWARDEN,
+		IMPORT_PROTONPASS,
+		IMPORT_KEEPASS1
+	};
 
 private:
-    QSharedPointer<Database> m_db;
-    QPointer<ImportWizardPageSelect> m_pageSelect;
-    QPointer<ImportWizardPageReview> m_pageReview;
+	QSharedPointer<Database> m_db;
+	QPointer<ImportWizardPageSelect> m_pageSelect;
+	QPointer<ImportWizardPageReview> m_pageReview;
 };
 
 #endif // KEEPASSXC_IMPORTWIZARD_H

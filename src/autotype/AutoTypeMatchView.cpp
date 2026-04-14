@@ -23,126 +23,136 @@
 #include <QKeyEvent>
 #include <QSortFilterProxyModel>
 
-class CustomSortFilterProxyModel : public QSortFilterProxyModel
+class CustomSortFilterProxyModel: public QSortFilterProxyModel
 {
 public:
-    explicit CustomSortFilterProxyModel(QObject* parent = nullptr)
-        : QSortFilterProxyModel(parent){};
-    ~CustomSortFilterProxyModel() override = default;
+	explicit CustomSortFilterProxyModel(QObject *parent = nullptr)
+		: QSortFilterProxyModel(parent) {};
+	~CustomSortFilterProxyModel() override = default;
 
-    // Only search the first three columns (ie, ignore sequence column)
-    bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const override
-    {
-        auto index0 = sourceModel()->index(sourceRow, 0, sourceParent);
-        auto index1 = sourceModel()->index(sourceRow, 1, sourceParent);
-        auto index2 = sourceModel()->index(sourceRow, 2, sourceParent);
+	// Only search the first three columns (ie, ignore sequence column)
+	bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
+	{
+		auto index0 = sourceModel()->index(sourceRow, 0, sourceParent);
+		auto index1 = sourceModel()->index(sourceRow, 1, sourceParent);
+		auto index2 = sourceModel()->index(sourceRow, 2, sourceParent);
 
-        return sourceModel()->data(index0).toString().contains(filterRegExp())
-               || sourceModel()->data(index1).toString().contains(filterRegExp())
-               || sourceModel()->data(index2).toString().contains(filterRegExp());
-    }
+		return sourceModel()->data(index0).toString().contains(filterRegExp())
+		       || sourceModel()->data(index1).toString().contains(filterRegExp())
+		       || sourceModel()->data(index2).toString().contains(filterRegExp());
+	}
 };
 
-AutoTypeMatchView::AutoTypeMatchView(QWidget* parent)
-    : QTableView(parent)
-    , m_model(new AutoTypeMatchModel(this))
-    , m_sortModel(new CustomSortFilterProxyModel(this))
+AutoTypeMatchView::AutoTypeMatchView(QWidget *parent)
+	: QTableView(parent)
+	, m_model(new AutoTypeMatchModel(this))
+	, m_sortModel(new CustomSortFilterProxyModel(this))
 {
-    m_sortModel->setSourceModel(m_model);
-    m_sortModel->setDynamicSortFilter(true);
-    m_sortModel->setSortLocaleAware(true);
-    m_sortModel->setSortCaseSensitivity(Qt::CaseInsensitive);
-    m_sortModel->setFilterKeyColumn(-1);
-    m_sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    setModel(m_sortModel);
+	m_sortModel->setSourceModel(m_model);
+	m_sortModel->setDynamicSortFilter(true);
+	m_sortModel->setSortLocaleAware(true);
+	m_sortModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+	m_sortModel->setFilterKeyColumn(-1);
+	m_sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+	setModel(m_sortModel);
 
-    sortByColumn(0, Qt::AscendingOrder);
+	sortByColumn(0, Qt::AscendingOrder);
 
-    setContextMenuPolicy(Qt::CustomContextMenu);
+	setContextMenuPolicy(Qt::CustomContextMenu);
 
-    connect(this, &QTableView::doubleClicked, this, [this](const QModelIndex& index) {
-        emit matchActivated(matchFromIndex(index));
-    });
+	connect(this, &QTableView::doubleClicked, this, [this](const QModelIndex &index) {
+		emit matchActivated(matchFromIndex(index));
+	});
 }
 
-void AutoTypeMatchView::keyPressEvent(QKeyEvent* event)
+void AutoTypeMatchView::keyPressEvent(QKeyEvent *event)
 {
-    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) && currentIndex().isValid()) {
-        emit matchActivated(matchFromIndex(currentIndex()));
-    } else if (event->key() == Qt::Key_PageUp) {
-        moveSelection(-5);
-    } else if (event->key() == Qt::Key_PageDown) {
-        moveSelection(5);
-    } else {
-        QTableView::keyPressEvent(event);
-    }
+	if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) && currentIndex().isValid())
+	{
+		emit matchActivated(matchFromIndex(currentIndex()));
+	}
+	else if (event->key() == Qt::Key_PageUp)
+	{
+		moveSelection(-5);
+	}
+	else if (event->key() == Qt::Key_PageDown)
+	{
+		moveSelection(5);
+	}
+	else
+	{
+		QTableView::keyPressEvent(event);
+	}
 }
 
-void AutoTypeMatchView::setMatchList(const QList<AutoTypeMatch>& matches)
+void AutoTypeMatchView::setMatchList(const QList<AutoTypeMatch> &matches)
 {
-    m_model->setMatchList(matches);
-    m_sortModel->setFilterWildcard({});
+	m_model->setMatchList(matches);
+	m_sortModel->setFilterWildcard({});
 
-    horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
+	horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 
-    selectionModel()->clear();
-    emit currentMatchChanged(currentMatch());
+	selectionModel()->clear();
+	emit currentMatchChanged(currentMatch());
 }
 
 void AutoTypeMatchView::selectFirstMatch()
 {
-    selectionModel()->setCurrentIndex(m_sortModel->index(0, 0),
-                                      QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
-    emit currentMatchChanged(currentMatch());
+	selectionModel()->setCurrentIndex(m_sortModel->index(0, 0),
+	                                  QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
+	emit currentMatchChanged(currentMatch());
 }
 
-bool AutoTypeMatchView::selectMatch(const AutoTypeMatch& match)
+bool AutoTypeMatchView::selectMatch(const AutoTypeMatch &match)
 {
-    QModelIndex index = m_model->closestIndexFromMatch(match);
+	QModelIndex index = m_model->closestIndexFromMatch(match);
 
-    if (index.isValid()) {
-        selectionModel()->setCurrentIndex(m_sortModel->mapFromSource(index),
-                                          QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
-        emit currentMatchChanged(currentMatch());
-        return true;
-    }
+	if (index.isValid())
+	{
+		selectionModel()->setCurrentIndex(m_sortModel->mapFromSource(index),
+		                                  QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
+		emit currentMatchChanged(currentMatch());
+		return true;
+	}
 
-    return false;
+	return false;
 }
 
-void AutoTypeMatchView::filterList(const QString& filter)
+void AutoTypeMatchView::filterList(const QString &filter)
 {
-    m_sortModel->setFilterWildcard(filter);
-    setCurrentIndex(m_sortModel->index(0, 0));
+	m_sortModel->setFilterWildcard(filter);
+	setCurrentIndex(m_sortModel->index(0, 0));
 }
 
 void AutoTypeMatchView::moveSelection(int offset)
 {
-    auto index = currentIndex();
-    auto row = index.isValid() ? index.row() : -1;
-    selectRow(qBound(0, row + offset, model()->rowCount() - 1));
+	auto index = currentIndex();
+	auto row = index.isValid() ? index.row() : -1;
+	selectRow(qBound(0, row + offset, model()->rowCount() - 1));
 }
 
 AutoTypeMatch AutoTypeMatchView::currentMatch()
 {
-    QModelIndexList list = selectionModel()->selectedRows();
-    if (list.size() == 1) {
-        return m_model->matchFromIndex(m_sortModel->mapToSource(list.first()));
-    }
-    return {};
+	QModelIndexList list = selectionModel()->selectedRows();
+	if (list.size() == 1)
+	{
+		return m_model->matchFromIndex(m_sortModel->mapToSource(list.first()));
+	}
+	return {};
 }
 
-AutoTypeMatch AutoTypeMatchView::matchFromIndex(const QModelIndex& index)
+AutoTypeMatch AutoTypeMatchView::matchFromIndex(const QModelIndex &index)
 {
-    if (index.isValid()) {
-        return m_model->matchFromIndex(m_sortModel->mapToSource(index));
-    }
-    return {};
+	if (index.isValid())
+	{
+		return m_model->matchFromIndex(m_sortModel->mapToSource(index));
+	}
+	return {};
 }
 
-void AutoTypeMatchView::currentChanged(const QModelIndex& current, const QModelIndex& previous)
+void AutoTypeMatchView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
-    auto match = matchFromIndex(current);
-    emit currentMatchChanged(match);
-    QTableView::currentChanged(current, previous);
+	auto match = matchFromIndex(current);
+	emit currentMatchChanged(match);
+	QTableView::currentChanged(current, previous);
 }

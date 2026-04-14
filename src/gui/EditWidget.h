@@ -29,47 +29,47 @@ class QLabel;
 
 namespace Ui
 {
-    class EditWidget;
+	class EditWidget;
 }
 
-class EditWidget : public DialogyWidget
+class EditWidget: public DialogyWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit EditWidget(QWidget* parent = nullptr);
-    ~EditWidget();
+	explicit EditWidget(QWidget *parent = nullptr);
+	~EditWidget();
 
-    void addPage(const QString& labelText, const QIcon& icon, QWidget* widget);
-    bool hasPage(const QWidget* widget) const;
-    int pageIndex(const QWidget* widget) const;
-    void setPageHidden(QWidget* widget, bool hidden);
-    void setCurrentPage(int index);
-    void setHeadline(const QString& text);
-    QLabel* headlineLabel();
-    void setReadOnly(bool readOnly);
-    bool readOnly() const;
-    void enableApplyButton(bool enabled);
-    void showApplyButton(bool state);
-    virtual bool isModified() const;
+	void addPage(const QString &labelText, const QIcon &icon, QWidget *widget);
+	bool hasPage(const QWidget *widget) const;
+	int pageIndex(const QWidget *widget) const;
+	void setPageHidden(QWidget *widget, bool hidden);
+	void setCurrentPage(int index);
+	void setHeadline(const QString &text);
+	QLabel *headlineLabel();
+	void setReadOnly(bool readOnly);
+	bool readOnly() const;
+	void enableApplyButton(bool enabled);
+	void showApplyButton(bool state);
+	virtual bool isModified() const;
 
 signals:
-    void apply();
-    void accepted();
-    void rejected();
+	void apply();
+	void accepted();
+	void rejected();
 
 protected slots:
-    void showMessage(const QString& text, MessageWidget::MessageType type);
-    void hideMessage();
-    void setModified(bool state = true);
-    void buttonClicked(QAbstractButton* button);
+	void showMessage(const QString &text, MessageWidget::MessageType type);
+	void hideMessage();
+	void setModified(bool state = true);
+	void buttonClicked(QAbstractButton *button);
 
 private:
-    const QScopedPointer<Ui::EditWidget> m_ui;
-    bool m_readOnly;
-    bool m_modified;
+	const QScopedPointer<Ui::EditWidget> m_ui;
+	bool m_readOnly;
+	bool m_modified;
 
-    Q_DISABLE_COPY(EditWidget)
+	Q_DISABLE_COPY(EditWidget)
 };
 
 #endif // KEEPASSX_EDITWIDGET_H

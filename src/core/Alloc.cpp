@@ -35,46 +35,48 @@
  * Custom sized delete operator which securely zeroes out allocated
  * memory before freeing it (requires C++14 sized deallocation support).
  */
-void operator delete(void* ptr, std::size_t size) noexcept
+void operator delete(void *ptr, std::size_t size) noexcept
 {
-    if (!ptr) {
-        return;
-    }
+	if (!ptr)
+	{
+		return;
+	}
 
-    Botan::secure_scrub_memory(ptr, size);
-    std::free(ptr);
+	Botan::secure_scrub_memory(ptr, size);
+	std::free(ptr);
 }
 
-void operator delete[](void* ptr, std::size_t size) noexcept
+void operator delete[](void *ptr, std::size_t size) noexcept
 {
-    ::operator delete(ptr, size);
+	::operator delete(ptr, size);
 }
 
 /**
  * Custom delete operator which securely zeroes out
  * allocated memory before freeing it.
  */
-void operator delete(void* ptr) noexcept
+void operator delete(void *ptr) noexcept
 {
-    if (!ptr) {
-        return;
-    }
+	if (!ptr)
+	{
+		return;
+	}
 
 #if defined(Q_OS_WIN)
-    ::operator delete(ptr, _msize(ptr));
+	::operator delete(ptr, _msize(ptr));
 #elif defined(Q_OS_MACOS)
-    ::operator delete(ptr, malloc_size(ptr));
+	::operator delete(ptr, malloc_size(ptr));
 #elif defined(HAVE_MALLOC_USABLE_SIZE)
-    ::operator delete(ptr, malloc_usable_size(ptr));
+	::operator delete(ptr, malloc_usable_size(ptr));
 #else
-    // whatever OS this is, give up and simply free stuff
-    std::free(ptr);
+	// whatever OS this is, give up and simply free stuff
+	std::free(ptr);
 #endif
 }
 
-void operator delete[](void* ptr) noexcept
+void operator delete[](void *ptr) noexcept
 {
-    ::operator delete(ptr);
+	::operator delete(ptr);
 }
 
 // clang-format versions less than 10.0 refuse to put a space before "noexcept"
@@ -89,7 +91,7 @@ void operator delete(void* ptr, bool) noexcept
 }
 // clang-format on
 
-void operator delete[](void* ptr, bool) noexcept
+void operator delete[](void *ptr, bool) noexcept
 {
-    ::operator delete(ptr, false);
+	::operator delete(ptr, false);
 }

@@ -21,37 +21,37 @@
 #include <QObject>
 #include <botan/version.h>
 
-class TestPasskeys : public QObject
+class TestPasskeys: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void init();
+	void initTestCase();
+	void init();
 
-    void testBase64WithHexStrings();
-    void testDecodeResponseData();
+	void testBase64WithHexStrings();
+	void testDecodeResponseData();
 
-    void testLoadingECPrivateKeyFromPem();
-    void testLoadingRSAPrivateKeyFromPem();
-    void testCreatingAttestationObjectWithEC();
-    void testCreatingAttestationObjectWithRSA();
-    void testRegister();
-    void testGet();
+	void testLoadingECPrivateKeyFromPem();
+	void testLoadingRSAPrivateKeyFromPem();
+	void testCreatingAttestationObjectWithEC();
+	void testCreatingAttestationObjectWithRSA();
+	void testRegister();
+	void testGet();
 
-    void testExtensions();
-    void testParseFlags();
-    void testSetFlags();
+	void testExtensions();
+	void testParseFlags();
+	void testSetFlags();
 
-    void testEntry();
-    void testIsDomain();
-    void testRegistrableDomainSuffix();
-    void testRpIdValidation();
-    void testParseAttestation();
-    void testParseCredentialTypes();
-    void testIsAuthenticatorSelectionValid();
-    void testIsResidentKeyRequired();
-    void testIsUserVerificationRequired();
-    void testAllowLocalhostWithPasskeys();
+	void testEntry();
+	void testIsDomain();
+	void testRegistrableDomainSuffix();
+	void testRpIdValidation();
+	void testParseAttestation();
+	void testParseCredentialTypes();
+	void testIsAuthenticatorSelectionValid();
+	void testIsResidentKeyRequired();
+	void testIsUserVerificationRequired();
+	void testAllowLocalhostWithPasskeys();
 };
 #endif // KEEPASSXC_TESTPASSKEYS_H

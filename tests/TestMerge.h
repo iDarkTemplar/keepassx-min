@@ -20,55 +20,56 @@
 #include "core/Database.h"
 #include <functional>
 
-class TestMerge : public QObject
+class TestMerge: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 private slots:
-    void initTestCase();
-    void init();
-    void cleanup();
-    void testMergeIntoNew();
-    void testMergeNoChanges();
-    void testMergeCustomData();
-    void testResolveConflictNewer();
-    void testResolveConflictExisting();
-    void testResolveGroupConflictOlder();
-    void testMergeNotModified();
-    void testMergeModified();
-    void testResolveConflictEntry_Synchronize();
-    void testResolveConflictEntry_KeepNewer();
-    void testDeletionConflictEntry_Synchronized();
-    void testDeletionConflictEntry_KeepNewer();
-    void testMoveEntry();
-    void testMoveEntryPreserveChanges();
-    void testMoveEntryIntoNewGroup();
-    void testCreateNewGroups();
-    void testUpdateEntryDifferentLocation();
-    void testUpdateGroup();
-    void testUpdateGroupLocation();
-    void testMergeAndSync();
-    void testMergeCustomIcons();
-    void testMergeDuplicateCustomIcons();
-    void testMetadata();
-    void testCustomData();
-    void testDeletedEntry();
-    void testDeletedGroup();
-    void testDeletedRevertedEntry();
-    void testDeletedRevertedGroup();
+	void initTestCase();
+	void init();
+	void cleanup();
+	void testMergeIntoNew();
+	void testMergeNoChanges();
+	void testMergeCustomData();
+	void testResolveConflictNewer();
+	void testResolveConflictExisting();
+	void testResolveGroupConflictOlder();
+	void testMergeNotModified();
+	void testMergeModified();
+	void testResolveConflictEntry_Synchronize();
+	void testResolveConflictEntry_KeepNewer();
+	void testDeletionConflictEntry_Synchronized();
+	void testDeletionConflictEntry_KeepNewer();
+	void testMoveEntry();
+	void testMoveEntryPreserveChanges();
+	void testMoveEntryIntoNewGroup();
+	void testCreateNewGroups();
+	void testUpdateEntryDifferentLocation();
+	void testUpdateGroup();
+	void testUpdateGroupLocation();
+	void testMergeAndSync();
+	void testMergeCustomIcons();
+	void testMergeDuplicateCustomIcons();
+	void testMetadata();
+	void testCustomData();
+	void testDeletedEntry();
+	void testDeletedGroup();
+	void testDeletedRevertedEntry();
+	void testDeletedRevertedGroup();
 
 private:
-    Database* createTestDatabase();
-    Database* createTestDatabaseStructureClone(Database* source, int entryFlags, int groupFlags);
-    void testResolveConflictTemplate(int mergeMode,
-                                     std::function<void(Database*, const QMap<const char*, QDateTime>&)> verification);
-    void testDeletionConflictTemplate(int mergeMode,
-                                      std::function<void(Database*, const QMap<QString, QUuid>&)> verification);
-    static void assertDeletionNewerOnly(Database* db, const QMap<QString, QUuid>& identifiers);
-    static void assertDeletionLocalOnly(Database* db, const QMap<QString, QUuid>& identifiers);
-    static void assertUpdateMergedEntry1(Entry* entry, const QMap<const char*, QDateTime>& timestamps);
-    static void assertUpdateReappliedEntry2(Entry* entry, const QMap<const char*, QDateTime>& timestamps);
-    static void assertUpdateReappliedEntry1(Entry* entry, const QMap<const char*, QDateTime>& timestamps);
-    static void assertUpdateMergedEntry2(Entry* entry, const QMap<const char*, QDateTime>& timestamps);
+	Database *createTestDatabase();
+	Database *createTestDatabaseStructureClone(Database *source, int entryFlags, int groupFlags);
+	void testResolveConflictTemplate(
+		int mergeMode,
+		std::function<void(Database *, const QMap<const char *, QDateTime> &)> verification);
+	void testDeletionConflictTemplate(int mergeMode,
+	                                  std::function<void(Database *, const QMap<QString, QUuid> &)> verification);
+	static void assertDeletionNewerOnly(Database *db, const QMap<QString, QUuid> &identifiers);
+	static void assertDeletionLocalOnly(Database *db, const QMap<QString, QUuid> &identifiers);
+	static void assertUpdateMergedEntry1(Entry *entry, const QMap<const char *, QDateTime> &timestamps);
+	static void assertUpdateReappliedEntry2(Entry *entry, const QMap<const char *, QDateTime> &timestamps);
+	static void assertUpdateReappliedEntry1(Entry *entry, const QMap<const char *, QDateTime> &timestamps);
+	static void assertUpdateMergedEntry2(Entry *entry, const QMap<const char *, QDateTime> &timestamps);
 };
 
 #endif // KEEPASSX_TESTMERGE_H

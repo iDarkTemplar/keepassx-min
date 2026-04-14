@@ -19,20 +19,20 @@
 
 #include <QObject>
 
-class TestEntryModel : public QObject
+class TestEntryModel: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void test();
-    void testAttachmentsModel();
-    void testAttributesModel();
-    void testDefaultIconModel();
-    void testCustomIconModel();
-    void testAutoTypeAssociationsModel();
-    void testProxyModel();
-    void testDatabaseDelete();
+	void initTestCase();
+	void test();
+	void testAttachmentsModel();
+	void testAttributesModel();
+	void testDefaultIconModel();
+	void testCustomIconModel();
+	void testAutoTypeAssociationsModel();
+	void testProxyModel();
+	void testDatabaseDelete();
 };
 
 #endif // KEEPASSX_TESTENTRYMODEL_H

@@ -26,75 +26,75 @@
 
 namespace Ui
 {
-    class PasswordGeneratorWidget;
+	class PasswordGeneratorWidget;
 }
 
 class PasswordGenerator;
 class PasswordHealth;
 class PassphraseGenerator;
 
-class PasswordGeneratorWidget : public QWidget
+class PasswordGeneratorWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    enum GeneratorTypes
-    {
-        Password = 0,
-        Diceware = 1
-    };
+	enum GeneratorTypes
+	{
+		Password = 0,
+		Diceware = 1
+	};
 
-    explicit PasswordGeneratorWidget(QWidget* parent = nullptr);
-    ~PasswordGeneratorWidget();
+	explicit PasswordGeneratorWidget(QWidget *parent = nullptr);
+	~PasswordGeneratorWidget();
 
-    void loadSettings();
-    void saveSettings();
-    void setPasswordLength(int length);
-    void setStandaloneMode(bool standalone);
-    QString getGeneratedPassword();
-    bool isPasswordVisible() const;
-    bool isPasswordGenerated() const;
+	void loadSettings();
+	void saveSettings();
+	void setPasswordLength(int length);
+	void setStandaloneMode(bool standalone);
+	QString getGeneratedPassword();
+	bool isPasswordVisible() const;
+	bool isPasswordGenerated() const;
 
-    static PasswordGeneratorWidget* popupGenerator(QWidget* parent = nullptr);
+	static PasswordGeneratorWidget *popupGenerator(QWidget *parent = nullptr);
 
 signals:
-    void appliedPassword(const QString& password);
-    void closed();
+	void appliedPassword(const QString &password);
+	void closed();
 
 public slots:
-    void regeneratePassword();
-    void applyPassword();
-    void copyPassword();
-    void setPasswordVisible(bool visible);
-    void removeCustomWordList();
-    void addWordList();
+	void regeneratePassword();
+	void applyPassword();
+	void copyPassword();
+	void setPasswordVisible(bool visible);
+	void removeCustomWordList();
+	void addWordList();
 
 protected:
-    void closeEvent(QCloseEvent* event) override;
+	void closeEvent(QCloseEvent *event) override;
 
 private slots:
-    void updateButtonsEnabled(const QString& password);
-    void updatePasswordStrength();
-    void updatePasswordLengthLabel(const QString& password);
-    void setAdvancedMode(bool advanced);
-    void excludeHexChars();
+	void updateButtonsEnabled(const QString &password);
+	void updatePasswordStrength();
+	void updatePasswordLengthLabel(const QString &password);
+	void setAdvancedMode(bool advanced);
+	void excludeHexChars();
 
-    void passwordLengthChanged(int length);
-    void passphraseLengthChanged(int length);
+	void passwordLengthChanged(int length);
+	void passphraseLengthChanged(int length);
 
-    void updateGenerator();
+	void updateGenerator();
 
 private:
-    bool m_standalone = false;
-    bool m_passwordGenerated = false;
-    int m_firstCustomWordlistIndex;
+	bool m_standalone = false;
+	bool m_passwordGenerated = false;
+	int m_firstCustomWordlistIndex;
 
-    PasswordGenerator::CharClasses charClasses();
-    PasswordGenerator::GeneratorFlags generatorFlags();
+	PasswordGenerator::CharClasses charClasses();
+	PasswordGenerator::GeneratorFlags generatorFlags();
 
-    const QScopedPointer<PasswordGenerator> m_passwordGenerator;
-    const QScopedPointer<PassphraseGenerator> m_dicewareGenerator;
-    const QScopedPointer<Ui::PasswordGeneratorWidget> m_ui;
+	const QScopedPointer<PasswordGenerator> m_passwordGenerator;
+	const QScopedPointer<PassphraseGenerator> m_dicewareGenerator;
+	const QScopedPointer<Ui::PasswordGeneratorWidget> m_ui;
 };
 
 #endif // KEEPASSX_PASSWORDGENERATORWIDGET_H

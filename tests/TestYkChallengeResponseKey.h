@@ -20,15 +20,15 @@
 
 #include <QObject>
 
-class TestYubiKeyChallengeResponse : public QObject
+class TestYubiKeyChallengeResponse: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
+	void initTestCase();
 
-    void testDetectDevices();
-    void testKeyChallenge();
+	void testDetectDevices();
+	void testKeyChallenge();
 };
 
 #endif // KEEPASSX_TESTYUBIKEYCHALRESP_H

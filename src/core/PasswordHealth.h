@@ -31,69 +31,69 @@ class Entry;
 class PasswordHealth
 {
 public:
-    explicit PasswordHealth(double entropy);
-    explicit PasswordHealth(const QString& pwd);
+	explicit PasswordHealth(double entropy);
+	explicit PasswordHealth(const QString &pwd);
 
-    void init(double entropy);
+	void init(double entropy);
 
-    /*
-     * The password score is defined to be the greater the better
-     * (more secure) the password is. It doesn't have a dimension,
-     * there are no defined maximum or minimum values, and score
-     * values may change with different versions of the software.
-     */
-    int score() const
-    {
-        return m_score;
-    }
+	/*
+	 * The password score is defined to be the greater the better
+	 * (more secure) the password is. It doesn't have a dimension,
+	 * there are no defined maximum or minimum values, and score
+	 * values may change with different versions of the software.
+	 */
+	int score() const
+	{
+		return m_score;
+	}
 
-    void setScore(int score);
-    void adjustScore(int amount);
+	void setScore(int score);
+	void adjustScore(int amount);
 
-    /*
-     * A text description for the password's quality assessment
-     * (translated into the application language), and additional
-     * information. Empty if nothing is wrong with the password.
-     * May contain more than line, separated by '\n'.
-     */
-    QString scoreReason() const;
-    void addScoreReason(QString reason);
+	/*
+	 * A text description for the password's quality assessment
+	 * (translated into the application language), and additional
+	 * information. Empty if nothing is wrong with the password.
+	 * May contain more than line, separated by '\n'.
+	 */
+	QString scoreReason() const;
+	void addScoreReason(QString reason);
 
-    QString scoreDetails() const;
-    void addScoreDetails(QString details);
+	QString scoreDetails() const;
+	void addScoreDetails(QString details);
 
-    /*
-     * The password quality assessment (based on the score).
-     */
-    enum class Quality
-    {
-        Bad,
-        Poor,
-        Weak,
-        Good,
-        Excellent
-    };
-    Quality quality() const;
+	/*
+	 * The password quality assessment (based on the score).
+	 */
+	enum class Quality
+	{
+		Bad,
+		Poor,
+		Weak,
+		Good,
+		Excellent
+	};
+	Quality quality() const;
 
-    /*
-     * The password's raw entropy value, in bits.
-     */
-    double entropy() const
-    {
-        return m_entropy;
-    }
+	/*
+	 * The password's raw entropy value, in bits.
+	 */
+	double entropy() const
+	{
+		return m_entropy;
+	}
 
-    struct Length
-    {
-        static const int Short = 8;
-        static const int Long = 25;
-    };
+	struct Length
+	{
+		static const int Short = 8;
+		static const int Long = 25;
+	};
 
 private:
-    int m_score = 0;
-    double m_entropy = 0.0;
-    QStringList m_scoreReasons;
-    QStringList m_scoreDetails;
+	int m_score = 0;
+	double m_entropy = 0.0;
+	QStringList m_scoreReasons;
+	QStringList m_scoreDetails;
 };
 
 /**
@@ -104,14 +104,14 @@ private:
 class HealthChecker
 {
 public:
-    explicit HealthChecker(QSharedPointer<Database>);
+	explicit HealthChecker(QSharedPointer<Database>);
 
-    // Get the health status of an entry in the database
-    QSharedPointer<PasswordHealth> evaluate(const Entry* entry) const;
+	// Get the health status of an entry in the database
+	QSharedPointer<PasswordHealth> evaluate(const Entry *entry) const;
 
 private:
-    // To determine password re-use: first = password, second = entries that use it
-    QHash<QString, QStringList> m_reuse;
+	// To determine password re-use: first = password, second = entries that use it
+	QHash<QString, QStringList> m_reuse;
 };
 
 #endif // KEEPASSX_PASSWORDHEALTH_H

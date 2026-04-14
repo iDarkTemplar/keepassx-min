@@ -23,40 +23,40 @@ class Database;
 class Group;
 class GroupModel;
 
-class GroupView : public QTreeView
+class GroupView: public QTreeView
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit GroupView(Database* db, QWidget* parent = nullptr);
-    void changeDatabase(const QSharedPointer<Database>& newDb);
-    void setModel(QAbstractItemModel* model) override;
-    Group* currentGroup();
-    void setCurrentGroup(Group* group);
-    void expandGroup(Group* group, bool expand = true);
-    void sortGroups(bool reverse = false);
+	explicit GroupView(Database *db, QWidget *parent = nullptr);
+	void changeDatabase(const QSharedPointer<Database> &newDb);
+	void setModel(QAbstractItemModel *model) override;
+	Group *currentGroup();
+	void setCurrentGroup(Group *group);
+	void expandGroup(Group *group, bool expand = true);
+	void sortGroups(bool reverse = false);
 
 signals:
-    void groupSelectionChanged();
-    void groupFocused();
+	void groupSelectionChanged();
+	void groupFocused();
 
 private slots:
-    void expandedChanged(const QModelIndex& index);
-    void syncExpandedState(const QModelIndex& parent, int start, int end);
-    void modelReset();
-    void contextMenuShortcutPressed();
-    void selectPreviousGroup();
-    void selectNextGroup();
+	void expandedChanged(const QModelIndex &index);
+	void syncExpandedState(const QModelIndex &parent, int start, int end);
+	void modelReset();
+	void contextMenuShortcutPressed();
+	void selectPreviousGroup();
+	void selectNextGroup();
 
 protected:
-    void dragMoveEvent(QDragMoveEvent* event) override;
-    void focusInEvent(QFocusEvent* event) override;
+	void dragMoveEvent(QDragMoveEvent *event) override;
+	void focusInEvent(QFocusEvent *event) override;
 
 private:
-    void recInitExpanded(Group* group);
+	void recInitExpanded(Group *group);
 
-    GroupModel* const m_model;
-    bool m_updatingExpanded;
+	GroupModel *const m_model;
+	bool m_updatingExpanded;
 };
 
 #endif // KEEPASSX_GROUPVIEW_H

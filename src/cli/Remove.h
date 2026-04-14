@@ -19,12 +19,12 @@
 
 #include "DatabaseCommand.h"
 
-class Remove : public DatabaseCommand
+class Remove: public DatabaseCommand
 {
 public:
-    Remove();
+	Remove();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
 };
 
 #endif // KEEPASSXC_REMOVE_H

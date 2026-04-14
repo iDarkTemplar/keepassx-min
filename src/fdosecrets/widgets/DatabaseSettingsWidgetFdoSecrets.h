@@ -23,30 +23,30 @@
 
 namespace Ui
 {
-    class DatabaseSettingsWidgetFdoSecrets;
+	class DatabaseSettingsWidgetFdoSecrets;
 }
 
 class Database;
-class DatabaseSettingsWidgetFdoSecrets : public QWidget
+class DatabaseSettingsWidgetFdoSecrets: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit DatabaseSettingsWidgetFdoSecrets(QWidget* parent = nullptr);
-    ~DatabaseSettingsWidgetFdoSecrets() override;
+	explicit DatabaseSettingsWidgetFdoSecrets(QWidget *parent = nullptr);
+	~DatabaseSettingsWidgetFdoSecrets() override;
 
-    void loadSettings(QSharedPointer<Database> db);
-    void saveSettings();
-
-private:
-    void settingsWarning();
+	void loadSettings(QSharedPointer<Database> db);
+	void saveSettings();
 
 private:
-    QScopedPointer<Ui::DatabaseSettingsWidgetFdoSecrets> m_ui;
+	void settingsWarning();
 
-    QSharedPointer<Database> m_db;
+private:
+	QScopedPointer<Ui::DatabaseSettingsWidgetFdoSecrets> m_ui;
 
-    class GroupModelNoRecycle;
-    QScopedPointer<GroupModelNoRecycle> m_model;
+	QSharedPointer<Database> m_db;
+
+	class GroupModelNoRecycle;
+	QScopedPointer<GroupModelNoRecycle> m_model;
 };
 
 #endif // KEEPASSXC_DATABASESETTINGSWIDGETFDOSECRETS_H

@@ -21,14 +21,14 @@
 #include "keys/CompositeKey.h"
 #include "keys/PasswordKey.h"
 
-PasswordEditWidget::PasswordEditWidget(QWidget* parent)
-    : KeyComponentWidget(parent)
-    , m_compUi(new Ui::PasswordEditWidget())
+PasswordEditWidget::PasswordEditWidget(QWidget *parent)
+	: KeyComponentWidget(parent)
+	, m_compUi(new Ui::PasswordEditWidget())
 {
-    initComponent();
+	initComponent();
 
-    // Explicitly clear password on cancel
-    connect(this, &PasswordEditWidget::editCanceled, this, [this] { setPassword({}); });
+	// Explicitly clear password on cancel
+	connect(this, &PasswordEditWidget::editCanceled, this, [this] { setPassword({}); });
 }
 
 PasswordEditWidget::~PasswordEditWidget()
@@ -37,12 +37,13 @@ PasswordEditWidget::~PasswordEditWidget()
 
 bool PasswordEditWidget::addToCompositeKey(QSharedPointer<CompositeKey> key)
 {
-    QString pw = m_compUi->enterPasswordEdit->text();
-    if (!pw.isEmpty()) {
-        key->addKey(QSharedPointer<PasswordKey>::create(pw));
-        return true;
-    }
-    return false;
+	QString pw = m_compUi->enterPasswordEdit->text();
+	if (!pw.isEmpty())
+	{
+		key->addKey(QSharedPointer<PasswordKey>::create(pw));
+		return true;
+	}
+	return false;
 }
 
 /**
@@ -50,7 +51,7 @@ bool PasswordEditWidget::addToCompositeKey(QSharedPointer<CompositeKey> key)
  */
 void PasswordEditWidget::setPasswordVisible(bool visible)
 {
-    m_compUi->enterPasswordEdit->setShowPassword(visible);
+	m_compUi->enterPasswordEdit->setShowPassword(visible);
 }
 
 /**
@@ -58,68 +59,69 @@ void PasswordEditWidget::setPasswordVisible(bool visible)
  */
 bool PasswordEditWidget::isPasswordVisible() const
 {
-    return m_compUi->enterPasswordEdit->isPasswordVisible();
+	return m_compUi->enterPasswordEdit->isPasswordVisible();
 }
 
 bool PasswordEditWidget::isEmpty() const
 {
-    return m_compUi->enterPasswordEdit->text().isEmpty();
+	return m_compUi->enterPasswordEdit->text().isEmpty();
 }
 
 PasswordHealth::Quality PasswordEditWidget::getPasswordQuality() const
 {
-    QString pwd = m_compUi->enterPasswordEdit->text();
-    PasswordHealth passwordHealth(pwd);
+	QString pwd = m_compUi->enterPasswordEdit->text();
+	PasswordHealth passwordHealth(pwd);
 
-    return passwordHealth.quality();
+	return passwordHealth.quality();
 }
 
-QWidget* PasswordEditWidget::componentEditWidget()
+QWidget *PasswordEditWidget::componentEditWidget()
 {
-    m_compEditWidget = new QWidget();
-    m_compUi->setupUi(m_compEditWidget);
-    m_compUi->enterPasswordEdit->enablePasswordGenerator();
-    m_compUi->enterPasswordEdit->setRepeatPartner(m_compUi->repeatPasswordEdit);
-    return m_compEditWidget;
+	m_compEditWidget = new QWidget();
+	m_compUi->setupUi(m_compEditWidget);
+	m_compUi->enterPasswordEdit->enablePasswordGenerator();
+	m_compUi->enterPasswordEdit->setRepeatPartner(m_compUi->repeatPasswordEdit);
+	return m_compEditWidget;
 }
 
-void PasswordEditWidget::initComponentEditWidget(QWidget* widget)
+void PasswordEditWidget::initComponentEditWidget(QWidget *widget)
 {
-    Q_UNUSED(widget);
-    Q_ASSERT(m_compEditWidget);
-    setFocusProxy(m_compUi->enterPasswordEdit);
-    m_compUi->enterPasswordEdit->setQualityVisible(true);
-    m_compUi->repeatPasswordEdit->setQualityVisible(false);
+	Q_UNUSED(widget);
+	Q_ASSERT(m_compEditWidget);
+	setFocusProxy(m_compUi->enterPasswordEdit);
+	m_compUi->enterPasswordEdit->setQualityVisible(true);
+	m_compUi->repeatPasswordEdit->setQualityVisible(false);
 }
 
 void PasswordEditWidget::initComponent()
 {
-    // These need to be set in total for each credential type for translation purposes
-    m_ui->groupBox->setTitle(tr("Password"));
-    m_ui->addButton->setText(tr("Add Password"));
-    m_ui->changeButton->setText(tr("Change Password"));
-    m_ui->removeButton->setText(tr("Remove Password"));
-    m_ui->changeOrRemoveLabel->setText(tr("Password set, click to change or remove"));
+	// These need to be set in total for each credential type for translation purposes
+	m_ui->groupBox->setTitle(tr("Password"));
+	m_ui->addButton->setText(tr("Add Password"));
+	m_ui->changeButton->setText(tr("Change Password"));
+	m_ui->removeButton->setText(tr("Remove Password"));
+	m_ui->changeOrRemoveLabel->setText(tr("Password set, click to change or remove"));
 
-    m_ui->componentDescription->setText(
-        tr("<p>A password is the primary method for securing your database.</p>"
-           "<p>Good passwords are long and unique. KeePassXC can generate one for you.</p>"));
+	m_ui->componentDescription->setText(
+		tr("<p>A password is the primary method for securing your database.</p>"
+	       "<p>Good passwords are long and unique. KeePassXC can generate one for you.</p>"));
 }
 
-bool PasswordEditWidget::validate(QString& errorMessage) const
+bool PasswordEditWidget::validate(QString &errorMessage) const
 {
-    if (m_compUi->enterPasswordEdit->text() != m_compUi->repeatPasswordEdit->text()) {
-        errorMessage = tr("Passwords do not match.");
-        return false;
-    }
+	if (m_compUi->enterPasswordEdit->text() != m_compUi->repeatPasswordEdit->text())
+	{
+		errorMessage = tr("Passwords do not match.");
+		return false;
+	}
 
-    return true;
+	return true;
 }
 
-void PasswordEditWidget::setPassword(const QString& password)
+void PasswordEditWidget::setPassword(const QString &password)
 {
-    Q_ASSERT(m_compEditWidget);
+	Q_ASSERT(m_compEditWidget);
 
-    m_compUi->enterPasswordEdit->setText(password);
-    m_compUi->repeatPasswordEdit->setText(password);
+	m_compUi->enterPasswordEdit->setText(password);
+	m_compUi->repeatPasswordEdit->setText(password);
 }

@@ -19,20 +19,20 @@
 
 #include "streams/LayeredStream.h"
 
-class StoreDataStream : public LayeredStream
+class StoreDataStream: public LayeredStream
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit StoreDataStream(QIODevice* baseDevice);
-    bool open(QIODevice::OpenMode mode) override;
-    QByteArray storedData() const;
+	explicit StoreDataStream(QIODevice *baseDevice);
+	bool open(QIODevice::OpenMode mode) override;
+	QByteArray storedData() const;
 
 protected:
-    qint64 readData(char* data, qint64 maxSize) override;
+	qint64 readData(char *data, qint64 maxSize) override;
 
 private:
-    QByteArray m_storedData;
+	QByteArray m_storedData;
 };
 
 #endif // KEEPASSX_STOREDATASTREAM_H

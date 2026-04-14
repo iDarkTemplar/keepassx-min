@@ -17,8 +17,8 @@
 #include "DatabaseSettingsWidget.h"
 #include "core/Database.h"
 
-DatabaseSettingsWidget::DatabaseSettingsWidget(QWidget* parent)
-    : SettingsWidget(parent)
+DatabaseSettingsWidget::DatabaseSettingsWidget(QWidget *parent)
+	: SettingsWidget(parent)
 {
 }
 
@@ -34,11 +34,11 @@ DatabaseSettingsWidget::~DatabaseSettingsWidget()
  */
 void DatabaseSettingsWidget::loadSettings(QSharedPointer<Database> db)
 {
-    m_db = std::move(db);
-    initialize();
+	m_db = std::move(db);
+	initialize();
 }
 
 const QSharedPointer<Database> DatabaseSettingsWidget::getDatabase() const
 {
-    return m_db;
+	return m_db;
 }

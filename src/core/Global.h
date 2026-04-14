@@ -47,15 +47,15 @@
 // versions.
 namespace Qt
 {
-    const QString::SplitBehavior SkipEmptyParts = QString::SkipEmptyParts;
-    inline QTextStream& endl(QTextStream& s)
-    {
-        return ::endl(s);
-    }
-    inline QTextStream& flush(QTextStream& s)
-    {
-        return ::flush(s);
-    }
+	const QString::SplitBehavior SkipEmptyParts = QString::SkipEmptyParts;
+	inline QTextStream &endl(QTextStream &s)
+	{
+		return ::endl(s);
+	}
+	inline QTextStream &flush(QTextStream &s)
+	{
+		return ::flush(s);
+	}
 } // namespace Qt
 #endif
 
@@ -64,24 +64,24 @@ static const auto FALSE_STR = QStringLiteral("false");
 
 enum class AuthDecision
 {
-    Undecided,
-    Allowed,
-    AllowedOnce,
-    Denied,
-    DeniedOnce,
+	Undecided,
+	Allowed,
+	AllowedOnce,
+	Denied,
+	DeniedOnce,
 };
 
 template <typename T> struct AddConst
 {
-    typedef const T Type;
+	typedef const T Type;
 };
 
 // this adds const to non-const objects (like std::as_const)
-template <typename T> constexpr typename AddConst<T>::Type& asConst(T& t) noexcept
+template <typename T> constexpr typename AddConst<T>::Type &asConst(T &t) noexcept
 {
-    return t;
+	return t;
 }
 // prevent rvalue arguments:
-template <typename T> void asConst(const T&&) = delete;
+template <typename T> void asConst(const T &&) = delete;
 
 #endif // KEEPASSX_GLOBAL_H

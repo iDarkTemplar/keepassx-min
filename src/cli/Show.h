@@ -19,18 +19,18 @@
 
 #include "DatabaseCommand.h"
 
-class Show : public DatabaseCommand
+class Show: public DatabaseCommand
 {
 public:
-    Show();
+	Show();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
 
-    static const QCommandLineOption TotpOption;
-    static const QCommandLineOption AllAttributesOption;
-    static const QCommandLineOption AttributesOption;
-    static const QCommandLineOption ProtectedAttributesOption;
-    static const QCommandLineOption AttachmentsOption;
+	static const QCommandLineOption TotpOption;
+	static const QCommandLineOption AllAttributesOption;
+	static const QCommandLineOption AttributesOption;
+	static const QCommandLineOption ProtectedAttributesOption;
+	static const QCommandLineOption AttachmentsOption;
 };
 
 #endif // KEEPASSXC_SHOW_H

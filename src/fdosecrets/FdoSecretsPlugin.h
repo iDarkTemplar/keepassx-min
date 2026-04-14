@@ -26,73 +26,73 @@ class DatabaseTabWidget;
 
 namespace FdoSecrets
 {
-    class Service;
-    class DBusMgr;
+	class Service;
+	class DBusMgr;
 } // namespace FdoSecrets
 
-class FdoSecretsPlugin : public QObject, public ISettingsPage
+class FdoSecretsPlugin: public QObject, public ISettingsPage
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit FdoSecretsPlugin(DatabaseTabWidget* tabWidget);
-    ~FdoSecretsPlugin() override = default;
+	explicit FdoSecretsPlugin(DatabaseTabWidget *tabWidget);
+	~FdoSecretsPlugin() override = default;
 
-    QString name() override
-    {
-        return QObject::tr("Secret Service Integration");
-    }
+	QString name() override
+	{
+		return QObject::tr("Secret Service Integration");
+	}
 
-    QIcon icon() override
-    {
-        return icons()->icon("freedesktop");
-    }
+	QIcon icon() override
+	{
+		return icons()->icon("freedesktop");
+	}
 
-    QWidget* createWidget() override;
-    void loadSettings(QWidget* widget) override;
-    void saveSettings(QWidget* widget) override;
+	QWidget *createWidget() override;
+	void loadSettings(QWidget *widget) override;
+	void saveSettings(QWidget *widget) override;
 
-    void updateServiceState();
+	void updateServiceState();
 
-    /**
-     * @return The service instance, can be nullptr if the service is disabled.
-     */
-    FdoSecrets::Service* serviceInstance() const;
+	/**
+	 * @return The service instance, can be nullptr if the service is disabled.
+	 */
+	FdoSecrets::Service *serviceInstance() const;
 
-    /**
-     * @return The db tabs widget, containing opened databases. Can be nullptr.
-     */
-    DatabaseTabWidget* dbTabs() const;
+	/**
+	 * @return The db tabs widget, containing opened databases. Can be nullptr.
+	 */
+	DatabaseTabWidget *dbTabs() const;
 
-    /**
-     * @brief The dbus manager instance
-     * @return
-     */
-    const QSharedPointer<FdoSecrets::DBusMgr>& dbus() const;
+	/**
+	 * @brief The dbus manager instance
+	 * @return
+	 */
+	const QSharedPointer<FdoSecrets::DBusMgr> &dbus() const;
 
-    // TODO: Only used for testing. Need to split service functions away from settings page.
-    static FdoSecretsPlugin* getPlugin();
+	// TODO: Only used for testing. Need to split service functions away from settings page.
+	static FdoSecretsPlugin *getPlugin();
 
 public slots:
-    void emitRequestSwitchToDatabases();
-    void emitRequestShowNotification(const QString& msg, const QString& title = {});
+	void emitRequestSwitchToDatabases();
+	void emitRequestShowNotification(const QString &msg, const QString &title = {});
 
-    /**
-     * @brief Show error in the GUI
-     * @param msg
-     */
-    void emitError(const QString& msg);
+	/**
+	 * @brief Show error in the GUI
+	 * @param msg
+	 */
+	void emitError(const QString &msg);
 
 signals:
-    void error(const QString& msg);
-    void requestSwitchToDatabases();
-    void requestShowNotification(const QString& msg, const QString& title, int msTimeoutHint);
-    void secretServiceStarted();
-    void secretServiceStopped();
+	void error(const QString &msg);
+	void requestSwitchToDatabases();
+	void requestShowNotification(const QString &msg, const QString &title, int msTimeoutHint);
+	void secretServiceStarted();
+	void secretServiceStopped();
 
 private:
-    QPointer<DatabaseTabWidget> m_dbTabs;
-    QSharedPointer<FdoSecrets::DBusMgr> m_dbus;
-    QSharedPointer<FdoSecrets::Service> m_secretService;
+	QPointer<DatabaseTabWidget> m_dbTabs;
+	QSharedPointer<FdoSecrets::DBusMgr> m_dbus;
+	QSharedPointer<FdoSecrets::Service> m_secretService;
 };
 
 #endif // KEEPASSXC_FDOSECRETSPLUGIN_H

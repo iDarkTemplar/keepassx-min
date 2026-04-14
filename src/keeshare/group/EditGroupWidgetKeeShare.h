@@ -25,34 +25,34 @@ class Database;
 
 namespace Ui
 {
-    class EditGroupWidgetKeeShare;
+	class EditGroupWidgetKeeShare;
 }
 
-class EditGroupWidgetKeeShare : public QWidget
+class EditGroupWidgetKeeShare: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit EditGroupWidgetKeeShare(QWidget* parent = nullptr);
-    ~EditGroupWidgetKeeShare();
+	explicit EditGroupWidgetKeeShare(QWidget *parent = nullptr);
+	~EditGroupWidgetKeeShare();
 
-    void setGroup(Group* temporaryGroup, QSharedPointer<Database> database);
-
-private slots:
-    void updateSharingState();
+	void setGroup(Group *temporaryGroup, QSharedPointer<Database> database);
 
 private slots:
-    void update();
-    void clearInputs();
-    void selectType();
-    void selectPassword();
-    void launchPathSelectionDialog();
-    void selectPath();
-    void keepGroupsToggled(bool);
+	void updateSharingState();
+
+private slots:
+	void update();
+	void clearInputs();
+	void selectType();
+	void selectPassword();
+	void launchPathSelectionDialog();
+	void selectPath();
+	void keepGroupsToggled(bool);
 
 private:
-    QScopedPointer<Ui::EditGroupWidgetKeeShare> m_ui;
-    QPointer<Group> m_temporaryGroup;
-    QSharedPointer<Database> m_database;
+	QScopedPointer<Ui::EditGroupWidgetKeeShare> m_ui;
+	QPointer<Group> m_temporaryGroup;
+	QSharedPointer<Database> m_database;
 };
 
 #endif // KEEPASSXC_EDITGROUPWIDGETKEESHARE_H

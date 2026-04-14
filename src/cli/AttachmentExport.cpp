@@ -24,65 +24,70 @@
 #include <QFile>
 
 const QCommandLineOption AttachmentExport::StdoutOption =
-    QCommandLineOption(QStringList() << "stdout", QObject::tr(""));
+	QCommandLineOption(QStringList() << "stdout", QObject::tr(""));
 
 AttachmentExport::AttachmentExport()
 {
-    name = QString("attachment-export");
-    description = QObject::tr("Export an attachment of an entry.");
-    options.append(AttachmentExport::StdoutOption);
-    positionalArguments.append(
-        {QString("entry"), QObject::tr("Path of the entry with the target attachment."), QString("")});
-    positionalArguments.append(
-        {QString("attachment-name"), QObject::tr("Name of the attachment to be exported."), QString("")});
-    optionalArguments.append(
-        {QString("export-file"), QObject::tr("Path to which the attachment should be exported."), QString("")});
+	name = QString("attachment-export");
+	description = QObject::tr("Export an attachment of an entry.");
+	options.append(AttachmentExport::StdoutOption);
+	positionalArguments.append(
+		{QString("entry"), QObject::tr("Path of the entry with the target attachment."), QString("")});
+	positionalArguments.append(
+		{QString("attachment-name"), QObject::tr("Name of the attachment to be exported."), QString("")});
+	optionalArguments.append(
+		{QString("export-file"), QObject::tr("Path to which the attachment should be exported."), QString("")});
 }
 
 int AttachmentExport::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser> parser)
 {
-    auto& out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    auto args = parser->positionalArguments();
-    auto entryPath = args.at(1);
+	auto args = parser->positionalArguments();
+	auto entryPath = args.at(1);
 
-    auto entry = database->rootGroup()->findEntryByPath(entryPath);
-    if (!entry) {
-        err << QObject::tr("Could not find entry with path %1.").arg(entryPath) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	auto entry = database->rootGroup()->findEntryByPath(entryPath);
+	if (!entry)
+	{
+		err << QObject::tr("Could not find entry with path %1.").arg(entryPath) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    auto attachmentName = args.at(2);
+	auto attachmentName = args.at(2);
 
-    auto attachments = entry->attachments();
-    if (!attachments->hasKey(attachmentName)) {
-        err << QObject::tr("Could not find attachment with name %1.").arg(attachmentName) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	auto attachments = entry->attachments();
+	if (!attachments->hasKey(attachmentName))
+	{
+		err << QObject::tr("Could not find attachment with name %1.").arg(attachmentName) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    if (parser->isSet(AttachmentExport::StdoutOption)) {
-        // Output to STDOUT even in quiet mode
-        Utils::STDOUT << attachments->value(attachmentName) << Qt::flush;
-        return EXIT_SUCCESS;
-    }
+	if (parser->isSet(AttachmentExport::StdoutOption))
+	{
+		// Output to STDOUT even in quiet mode
+		Utils::STDOUT << attachments->value(attachmentName) << Qt::flush;
+		return EXIT_SUCCESS;
+	}
 
-    if (args.size() < 4) {
-        err << QObject::tr("No export target given. Please use '--stdout' or specify an 'export-file'.") << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	if (args.size() < 4)
+	{
+		err << QObject::tr("No export target given. Please use '--stdout' or specify an 'export-file'.") << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    auto exportFileName = args.at(3);
-    QFile exportFile(exportFileName);
-    if (!exportFile.open(QIODevice::WriteOnly)) {
-        err << QObject::tr("Could not open output file %1.").arg(exportFileName) << Qt::endl;
-        return EXIT_FAILURE;
-    }
-    exportFile.write(attachments->value(attachmentName));
+	auto exportFileName = args.at(3);
+	QFile exportFile(exportFileName);
+	if (!exportFile.open(QIODevice::WriteOnly))
+	{
+		err << QObject::tr("Could not open output file %1.").arg(exportFileName) << Qt::endl;
+		return EXIT_FAILURE;
+	}
+	exportFile.write(attachments->value(attachmentName));
 
-    out << QObject::tr("Successfully exported attachment %1 of entry %2 to %3.")
-               .arg(attachmentName, entryPath, exportFileName)
-        << Qt::endl;
+	out << QObject::tr("Successfully exported attachment %1 of entry %2 to %3.")
+			   .arg(attachmentName, entryPath, exportFileName)
+		<< Qt::endl;
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

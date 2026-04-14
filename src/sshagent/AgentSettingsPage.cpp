@@ -21,27 +21,27 @@
 
 QString AgentSettingsPage::name()
 {
-    return QObject::tr("SSH Agent");
+	return QObject::tr("SSH Agent");
 }
 
 QIcon AgentSettingsPage::icon()
 {
-    return icons()->icon("utilities-terminal");
+	return icons()->icon("utilities-terminal");
 }
 
-QWidget* AgentSettingsPage::createWidget()
+QWidget *AgentSettingsPage::createWidget()
 {
-    return new AgentSettingsWidget();
+	return new AgentSettingsWidget();
 }
 
-void AgentSettingsPage::loadSettings(QWidget* widget)
+void AgentSettingsPage::loadSettings(QWidget *widget)
 {
-    AgentSettingsWidget* agentWidget = reinterpret_cast<AgentSettingsWidget*>(widget);
-    agentWidget->loadSettings();
+	AgentSettingsWidget *agentWidget = reinterpret_cast<AgentSettingsWidget *>(widget);
+	agentWidget->loadSettings();
 }
 
-void AgentSettingsPage::saveSettings(QWidget* widget)
+void AgentSettingsPage::saveSettings(QWidget *widget)
 {
-    AgentSettingsWidget* agentWidget = reinterpret_cast<AgentSettingsWidget*>(widget);
-    agentWidget->saveSettings();
+	AgentSettingsWidget *agentWidget = reinterpret_cast<AgentSettingsWidget *>(widget);
+	agentWidget->saveSettings();
 }

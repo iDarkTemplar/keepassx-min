@@ -20,58 +20,61 @@
 #include "core/Tools.h"
 
 AutoTypeKey::AutoTypeKey(Qt::Key key, Qt::KeyboardModifiers modifiers)
-    : key(key)
-    , modifiers(modifiers)
+	: key(key)
+	, modifiers(modifiers)
 {
 }
 
-AutoTypeKey::AutoTypeKey(const QChar& character, Qt::KeyboardModifiers modifiers)
-    : character(character)
-    , modifiers(modifiers)
+AutoTypeKey::AutoTypeKey(const QChar &character, Qt::KeyboardModifiers modifiers)
+	: character(character)
+	, modifiers(modifiers)
 {
 }
 
-AutoTypeAction::Result AutoTypeKey::exec(AutoTypeExecutor* executor) const
+AutoTypeAction::Result AutoTypeKey::exec(AutoTypeExecutor *executor) const
 {
-    return executor->execType(this);
+	return executor->execType(this);
 }
 
 AutoTypeDelay::AutoTypeDelay(int delayMs, bool setExecDelay)
-    : delayMs(delayMs)
-    , setExecDelay(setExecDelay)
+	: delayMs(delayMs)
+	, setExecDelay(setExecDelay)
 {
 }
 
-AutoTypeAction::Result AutoTypeDelay::exec(AutoTypeExecutor* executor) const
+AutoTypeAction::Result AutoTypeDelay::exec(AutoTypeExecutor *executor) const
 {
-    if (setExecDelay) {
-        // Change the delay between actions
-        executor->execDelayMs = delayMs;
-    } else {
-        // Pause execution
-        Tools::wait(delayMs);
-    }
+	if (setExecDelay)
+	{
+		// Change the delay between actions
+		executor->execDelayMs = delayMs;
+	}
+	else
+	{
+		// Pause execution
+		Tools::wait(delayMs);
+	}
 
-    return AutoTypeAction::Result::Ok();
+	return AutoTypeAction::Result::Ok();
 }
 
-AutoTypeAction::Result AutoTypeClearField::exec(AutoTypeExecutor* executor) const
+AutoTypeAction::Result AutoTypeClearField::exec(AutoTypeExecutor *executor) const
 {
-    return executor->execClearField(this);
+	return executor->execClearField(this);
 }
 
-AutoTypeAction::Result AutoTypeBegin::exec(AutoTypeExecutor* executor) const
+AutoTypeAction::Result AutoTypeBegin::exec(AutoTypeExecutor *executor) const
 {
-    return executor->execBegin(this);
+	return executor->execBegin(this);
 }
 
 AutoTypeMode::AutoTypeMode(AutoTypeExecutor::Mode mode)
-    : mode(mode)
+	: mode(mode)
 {
 }
 
-AutoTypeAction::Result AutoTypeMode::exec(AutoTypeExecutor* executor) const
+AutoTypeAction::Result AutoTypeMode::exec(AutoTypeExecutor *executor) const
 {
-    executor->mode = mode;
-    return AutoTypeAction::Result::Ok();
+	executor->mode = mode;
+	return AutoTypeAction::Result::Ok();
 }

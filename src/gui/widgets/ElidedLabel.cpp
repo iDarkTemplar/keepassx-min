@@ -18,101 +18,107 @@
 
 namespace
 {
-    const QString htmlLinkTemplate("<a href=\"%1\">%2</a>");
+	const QString htmlLinkTemplate("<a href=\"%1\">%2</a>");
 }
 
-ElidedLabel::ElidedLabel(QWidget* parent, Qt::WindowFlags f)
-    : QLabel(parent, f)
-    , m_elideMode(Qt::ElideMiddle)
+ElidedLabel::ElidedLabel(QWidget *parent, Qt::WindowFlags f)
+	: QLabel(parent, f)
+	, m_elideMode(Qt::ElideMiddle)
 {
-    connect(this, SIGNAL(elideModeChanged(Qt::TextElideMode)), this, SLOT(updateElidedText()));
-    connect(this, SIGNAL(rawTextChanged(QString)), this, SLOT(updateElidedText()));
-    connect(this, SIGNAL(urlChanged(QString)), this, SLOT(updateElidedText()));
+	connect(this, SIGNAL(elideModeChanged(Qt::TextElideMode)), this, SLOT(updateElidedText()));
+	connect(this, SIGNAL(rawTextChanged(QString)), this, SLOT(updateElidedText()));
+	connect(this, SIGNAL(urlChanged(QString)), this, SLOT(updateElidedText()));
 }
 
-ElidedLabel::ElidedLabel(const QString& text, QWidget* parent, Qt::WindowFlags f)
-    : ElidedLabel(parent, f)
+ElidedLabel::ElidedLabel(const QString &text, QWidget *parent, Qt::WindowFlags f)
+	: ElidedLabel(parent, f)
 {
-    setText(text);
+	setText(text);
 }
 
 Qt::TextElideMode ElidedLabel::elideMode() const
 {
-    return m_elideMode;
+	return m_elideMode;
 }
 
 QString ElidedLabel::rawText() const
 {
-    return m_rawText;
+	return m_rawText;
 }
 
 QString ElidedLabel::url() const
 {
-    return m_url;
+	return m_url;
 }
 
 void ElidedLabel::setElideMode(Qt::TextElideMode elideMode)
 {
-    if (m_elideMode == elideMode) {
-        return;
-    }
+	if (m_elideMode == elideMode)
+	{
+		return;
+	}
 
-    if (m_elideMode != Qt::ElideNone) {
-        setWordWrap(false);
-    }
+	if (m_elideMode != Qt::ElideNone)
+	{
+		setWordWrap(false);
+	}
 
-    m_elideMode = elideMode;
-    emit elideModeChanged(m_elideMode);
+	m_elideMode = elideMode;
+	emit elideModeChanged(m_elideMode);
 }
 
-void ElidedLabel::setRawText(const QString& elidedText)
+void ElidedLabel::setRawText(const QString &elidedText)
 {
-    if (m_rawText == elidedText) {
-        return;
-    }
+	if (m_rawText == elidedText)
+	{
+		return;
+	}
 
-    m_rawText = elidedText;
-    emit rawTextChanged(m_rawText);
+	m_rawText = elidedText;
+	emit rawTextChanged(m_rawText);
 }
 
-void ElidedLabel::setUrl(const QString& url)
+void ElidedLabel::setUrl(const QString &url)
 {
-    if (m_url == url) {
-        return;
-    }
+	if (m_url == url)
+	{
+		return;
+	}
 
-    m_url = url;
-    emit urlChanged(m_url);
+	m_url = url;
+	emit urlChanged(m_url);
 }
 
 void ElidedLabel::clear()
 {
-    setRawText(QString());
-    setElideMode(Qt::ElideMiddle);
-    setUrl(QString());
-    QLabel::clear();
+	setRawText(QString());
+	setElideMode(Qt::ElideMiddle);
+	setUrl(QString());
+	QLabel::clear();
 }
 
 void ElidedLabel::updateElidedText()
 {
-    if (m_rawText.isEmpty()) {
-        QLabel::clear();
-        return;
-    }
+	if (m_rawText.isEmpty())
+	{
+		QLabel::clear();
+		return;
+	}
 
-    QString displayText = m_rawText;
-    if (m_elideMode != Qt::ElideNone) {
-        const QFontMetrics metrix(font());
-        displayText = metrix.elidedText(m_rawText, m_elideMode, width() - 2);
-    }
+	QString displayText = m_rawText;
+	if (m_elideMode != Qt::ElideNone)
+	{
+		const QFontMetrics metrix(font());
+		displayText = metrix.elidedText(m_rawText, m_elideMode, width() - 2);
+	}
 
-    bool hasUrl = !m_url.isEmpty();
-    setText(hasUrl ? htmlLinkTemplate.arg(m_url.toHtmlEscaped(), displayText) : displayText);
-    setOpenExternalLinks(!hasUrl);
+	bool hasUrl = !m_url.isEmpty();
+	setText(hasUrl ? htmlLinkTemplate.arg(m_url.toHtmlEscaped(), displayText) : displayText);
+	setOpenExternalLinks(!hasUrl);
 }
 
-void ElidedLabel::resizeEvent(QResizeEvent* event)
+void ElidedLabel::resizeEvent(QResizeEvent *event)
 {
-    updateElidedText();
-    QLabel::resizeEvent(event);
+	updateElidedText();
+	QLabel::resizeEvent(event);
 }

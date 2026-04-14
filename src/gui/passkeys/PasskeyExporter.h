@@ -25,20 +25,20 @@
 
 class Entry;
 
-class PasskeyExporter : public QObject
+class PasskeyExporter: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit PasskeyExporter(QWidget* parent = nullptr);
+	explicit PasskeyExporter(QWidget *parent = nullptr);
 
-    void showExportDialog(const QList<Entry*>& items);
-
-private:
-    void exportSelectedEntry(const Entry* entry, const QString& folder);
+	void showExportDialog(const QList<Entry *> &items);
 
 private:
-    QPointer<QWidget> m_parent;
+	void exportSelectedEntry(const Entry *entry, const QString &folder);
+
+private:
+	QPointer<QWidget> m_parent;
 };
 
 #endif // KEEPASSXC_PASSKEYEXPORTER_H

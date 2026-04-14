@@ -28,44 +28,44 @@ class Database;
 class Entry;
 class Group;
 
-class TestAutoType : public QObject
+class TestAutoType: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void init();
-    void cleanup();
+	void initTestCase();
+	void init();
+	void cleanup();
 
-    void testInternal();
-    void testSingleAutoType();
-    void testGlobalAutoTypeWithNoMatch();
-    void testGlobalAutoTypeWithOneMatch();
-    void testGlobalAutoTypeTitleMatch();
-    void testGlobalAutoTypeUrlMatch();
-    void testGlobalAutoTypeUrlSubdomainMatch();
-    void testGlobalAutoTypeTitleMatchDisabled();
-    void testGlobalAutoTypeRegExp();
-    void testAutoTypeResults();
-    void testAutoTypeResults_data();
-    void testAutoTypeSyntaxChecks();
-    void testAutoTypeEffectiveSequences();
-    void testAutoTypeEmptyWindowAssociation();
-    void testAutoTypeTotpDelay();
+	void testInternal();
+	void testSingleAutoType();
+	void testGlobalAutoTypeWithNoMatch();
+	void testGlobalAutoTypeWithOneMatch();
+	void testGlobalAutoTypeTitleMatch();
+	void testGlobalAutoTypeUrlMatch();
+	void testGlobalAutoTypeUrlSubdomainMatch();
+	void testGlobalAutoTypeTitleMatchDisabled();
+	void testGlobalAutoTypeRegExp();
+	void testAutoTypeResults();
+	void testAutoTypeResults_data();
+	void testAutoTypeSyntaxChecks();
+	void testAutoTypeEffectiveSequences();
+	void testAutoTypeEmptyWindowAssociation();
+	void testAutoTypeTotpDelay();
 
 private:
-    AutoTypePlatformInterface* m_platform;
-    AutoTypeTestInterface* m_test;
-    AutoType* m_autoType;
-    QSharedPointer<Database> m_db;
-    QList<QSharedPointer<Database>> m_dbList;
-    Group* m_group;
-    Entry* m_entry1;
-    Entry* m_entry2;
-    Entry* m_entry3;
-    Entry* m_entry4;
-    Entry* m_entry5;
-    Entry* m_entry6;
+	AutoTypePlatformInterface *m_platform;
+	AutoTypeTestInterface *m_test;
+	AutoType *m_autoType;
+	QSharedPointer<Database> m_db;
+	QList<QSharedPointer<Database>> m_dbList;
+	Group *m_group;
+	Entry *m_entry1;
+	Entry *m_entry2;
+	Entry *m_entry3;
+	Entry *m_entry4;
+	Entry *m_entry5;
+	Entry *m_entry6;
 };
 
 #endif // KEEPASSX_TESTAUTOTYPE_H

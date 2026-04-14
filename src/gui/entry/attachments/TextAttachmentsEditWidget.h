@@ -23,29 +23,29 @@
 
 namespace Ui
 {
-    class TextAttachmentsEditWidget;
+	class TextAttachmentsEditWidget;
 }
 
-class TextAttachmentsEditWidget : public QWidget
+class TextAttachmentsEditWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit TextAttachmentsEditWidget(QWidget* parent = nullptr);
-    ~TextAttachmentsEditWidget() override;
+	explicit TextAttachmentsEditWidget(QWidget *parent = nullptr);
+	~TextAttachmentsEditWidget() override;
 
-    void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
-    attachments::Attachment getAttachment() const;
+	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
+	attachments::Attachment getAttachment() const;
 
 signals:
-    void textChanged();
-    void scrollChanged(double percent);
-    void previewButtonClicked(bool isChecked);
+	void textChanged();
+	void scrollChanged(double percent);
+	void previewButtonClicked(bool isChecked);
 
 private:
-    void updateUi();
+	void updateUi();
 
-    QScopedPointer<Ui::TextAttachmentsEditWidget> m_ui;
+	QScopedPointer<Ui::TextAttachmentsEditWidget> m_ui;
 
-    attachments::Attachment m_attachment;
-    attachments::OpenMode m_mode;
+	attachments::Attachment m_attachment;
+	attachments::OpenMode m_mode;
 };

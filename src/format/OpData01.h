@@ -24,35 +24,35 @@
  * used to encypt and provide HMAC for encrypted data.
  * \sa https://support.1password.com/opvault-design/#opdata01
  */
-class OpData01 : public QObject
+class OpData01: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit OpData01(QObject* parent = nullptr);
-    ~OpData01() override;
+	explicit OpData01(QObject *parent = nullptr);
+	~OpData01() override;
 
-    /*!
-     * The convenience equivalent of decode01(OpData01,const QByteArray,const QByteArray,const QByteArray) that simply
-     * decodes the provided base64 string into its underlying \c QByteArray.
-     */
-    bool decodeBase64(QString const& b64String, const QByteArray& key, const QByteArray& hmacKey);
+	/*!
+	 * The convenience equivalent of decode01(OpData01,const QByteArray,const QByteArray,const QByteArray) that simply
+	 * decodes the provided base64 string into its underlying \c QByteArray.
+	 */
+	bool decodeBase64(QString const &b64String, const QByteArray &key, const QByteArray &hmacKey);
 
-    /*!
-     * Populates the given \code OpData01 structure by decoding the provided blob of data,
-     * using the given key and then verifies using the given HMAC key.
-     * \returns true if things went well and \code m_clearText is usable, false and \code m_errorStr will contain
-     * details.
-     */
-    bool decode(const QByteArray& data, const QByteArray& key, const QByteArray& hmacKey);
+	/*!
+	 * Populates the given \code OpData01 structure by decoding the provided blob of data,
+	 * using the given key and then verifies using the given HMAC key.
+	 * \returns true if things went well and \code m_clearText is usable, false and \code m_errorStr will contain
+	 * details.
+	 */
+	bool decode(const QByteArray &data, const QByteArray &key, const QByteArray &hmacKey);
 
-    QByteArray getClearText();
+	QByteArray getClearText();
 
-    QString errorString();
+	QString errorString();
 
 private:
-    QByteArray m_clearText;
-    QString m_errorStr;
+	QByteArray m_clearText;
+	QString m_errorStr;
 };
 
 #endif // KEEPASSXC_OPDATA01_H

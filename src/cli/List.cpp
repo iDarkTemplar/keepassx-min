@@ -23,43 +23,45 @@
 #include <QCommandLineParser>
 
 const QCommandLineOption List::RecursiveOption =
-    QCommandLineOption(QStringList() << "R" << "recursive", QObject::tr("Recursively list the elements of the group."));
+	QCommandLineOption(QStringList() << "R" << "recursive", QObject::tr("Recursively list the elements of the group."));
 
 const QCommandLineOption List::FlattenOption =
-    QCommandLineOption(QStringList() << "f" << "flatten", QObject::tr("Flattens the output to single lines."));
+	QCommandLineOption(QStringList() << "f" << "flatten", QObject::tr("Flattens the output to single lines."));
 
 List::List()
 {
-    name = QString("ls");
-    description = QObject::tr("List database entries.");
-    options.append(List::RecursiveOption);
-    options.append(List::FlattenOption);
-    optionalArguments.append(
-        {QString("group"), QObject::tr("Path of the group to list. Default is /"), QString("[group]")});
+	name = QString("ls");
+	description = QObject::tr("List database entries.");
+	options.append(List::RecursiveOption);
+	options.append(List::FlattenOption);
+	optionalArguments.append(
+		{QString("group"), QObject::tr("Path of the group to list. Default is /"), QString("[group]")});
 }
 
 int List::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser> parser)
 {
-    auto& out = Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    const QStringList args = parser->positionalArguments();
-    bool recursive = parser->isSet(List::RecursiveOption);
-    bool flatten = parser->isSet(List::FlattenOption);
+	const QStringList args = parser->positionalArguments();
+	bool recursive = parser->isSet(List::RecursiveOption);
+	bool flatten = parser->isSet(List::FlattenOption);
 
-    // No group provided, defaulting to root group.
-    if (args.size() == 1) {
-        out << database->rootGroup()->print(recursive, flatten) << Qt::flush;
-        return EXIT_SUCCESS;
-    }
+	// No group provided, defaulting to root group.
+	if (args.size() == 1)
+	{
+		out << database->rootGroup()->print(recursive, flatten) << Qt::flush;
+		return EXIT_SUCCESS;
+	}
 
-    const QString& groupPath = args.at(1);
-    Group* group = database->rootGroup()->findGroupByPath(groupPath);
-    if (!group) {
-        err << QObject::tr("Cannot find group %1.").arg(groupPath) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	const QString &groupPath = args.at(1);
+	Group *group = database->rootGroup()->findGroupByPath(groupPath);
+	if (!group)
+	{
+		err << QObject::tr("Cannot find group %1.").arg(groupPath) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    out << group->print(recursive, flatten) << Qt::flush;
-    return EXIT_SUCCESS;
+	out << group->print(recursive, flatten) << Qt::flush;
+	return EXIT_SUCCESS;
 }

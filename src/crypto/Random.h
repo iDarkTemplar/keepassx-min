@@ -24,34 +24,34 @@
 class Random
 {
 public:
-    static QSharedPointer<Random> instance();
+	static QSharedPointer<Random> instance();
 
-    void randomize(QByteArray& ba);
-    QByteArray randomArray(int len);
+	void randomize(QByteArray &ba);
+	QByteArray randomArray(int len);
 
-    /**
-     * Generate a random quint32 in the range [0, @p limit)
-     */
-    quint32 randomUInt(quint32 limit);
+	/**
+	 * Generate a random quint32 in the range [0, @p limit)
+	 */
+	quint32 randomUInt(quint32 limit);
 
-    /**
-     * Generate a random quint32 in the range [@p min, @p max)
-     */
-    quint32 randomUIntRange(quint32 min, quint32 max);
+	/**
+	 * Generate a random quint32 in the range [@p min, @p max)
+	 */
+	quint32 randomUIntRange(quint32 min, quint32 max);
 
-    QSharedPointer<Botan::RandomNumberGenerator> getRng();
+	QSharedPointer<Botan::RandomNumberGenerator> getRng();
 
 private:
-    explicit Random();
-    Q_DISABLE_COPY(Random);
+	explicit Random();
+	Q_DISABLE_COPY(Random);
 
-    static QSharedPointer<Random> m_instance;
-    QSharedPointer<Botan::RandomNumberGenerator> m_rng;
+	static QSharedPointer<Random> m_instance;
+	QSharedPointer<Botan::RandomNumberGenerator> m_rng;
 };
 
 static inline QSharedPointer<Random> randomGen()
 {
-    return Random::instance();
+	return Random::instance();
 }
 
 #endif // KEEPASSX_RANDOM_H

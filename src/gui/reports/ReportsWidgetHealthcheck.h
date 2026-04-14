@@ -29,43 +29,43 @@ class QStandardItemModel;
 
 namespace Ui
 {
-    class ReportsWidgetHealthcheck;
+	class ReportsWidgetHealthcheck;
 }
 
-class ReportsWidgetHealthcheck : public QWidget
+class ReportsWidgetHealthcheck: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit ReportsWidgetHealthcheck(QWidget* parent = nullptr);
-    ~ReportsWidgetHealthcheck() override;
+	explicit ReportsWidgetHealthcheck(QWidget *parent = nullptr);
+	~ReportsWidgetHealthcheck() override;
 
-    void loadSettings(QSharedPointer<Database> db);
-    void saveSettings();
+	void loadSettings(QSharedPointer<Database> db);
+	void saveSettings();
 
 protected:
-    void showEvent(QShowEvent* event) override;
+	void showEvent(QShowEvent *event) override;
 
 signals:
-    void entryActivated(Entry*);
+	void entryActivated(Entry *);
 
 public slots:
-    void calculateHealth();
-    void emitEntryActivated(const QModelIndex& index);
-    void customMenuRequested(QPoint);
-    QList<Entry*> getSelectedEntries();
-    void expireSelectedEntries();
-    void deleteSelectedEntries();
+	void calculateHealth();
+	void emitEntryActivated(const QModelIndex &index);
+	void customMenuRequested(QPoint);
+	QList<Entry *> getSelectedEntries();
+	void expireSelectedEntries();
+	void deleteSelectedEntries();
 
 private:
-    void addHealthRow(QSharedPointer<PasswordHealth>, Group*, Entry*, bool excluded);
+	void addHealthRow(QSharedPointer<PasswordHealth>, Group *, Entry *, bool excluded);
 
-    QScopedPointer<Ui::ReportsWidgetHealthcheck> m_ui;
+	QScopedPointer<Ui::ReportsWidgetHealthcheck> m_ui;
 
-    bool m_healthCalculated = false;
-    QScopedPointer<QStandardItemModel> m_referencesModel;
-    QScopedPointer<QSortFilterProxyModel> m_modelProxy;
-    QSharedPointer<Database> m_db;
-    QList<QPair<Group*, Entry*>> m_rowToEntry;
+	bool m_healthCalculated = false;
+	QScopedPointer<QStandardItemModel> m_referencesModel;
+	QScopedPointer<QSortFilterProxyModel> m_modelProxy;
+	QSharedPointer<Database> m_db;
+	QList<QPair<Group *, Entry *>> m_rowToEntry;
 };
 
 #endif // KEEPASSXC_REPORTSWIDGETHEALTHCHECK_H

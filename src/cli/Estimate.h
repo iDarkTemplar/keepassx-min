@@ -19,13 +19,13 @@
 
 #include "Command.h"
 
-class Estimate : public Command
+class Estimate: public Command
 {
 public:
-    Estimate();
-    int execute(const QStringList& arguments) override;
+	Estimate();
+	int execute(const QStringList &arguments) override;
 
-    static const QCommandLineOption AdvancedOption;
+	static const QCommandLineOption AdvancedOption;
 };
 
 #endif // KEEPASSXC_ESTIMATE_H

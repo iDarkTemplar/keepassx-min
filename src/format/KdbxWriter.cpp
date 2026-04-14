@@ -22,12 +22,12 @@
 
 bool KdbxWriter::hasError() const
 {
-    return m_error;
+	return m_error;
 }
 
 QString KdbxWriter::errorString() const
 {
-    return m_errorStr;
+	return m_errorStr;
 }
 
 /**
@@ -39,13 +39,13 @@ QString KdbxWriter::errorString() const
  * @param version KDBX version
  * @return true if magic numbers were written successfully
  */
-bool KdbxWriter::writeMagicNumbers(QIODevice* device, quint32 sig1, quint32 sig2, quint32 version)
+bool KdbxWriter::writeMagicNumbers(QIODevice *device, quint32 sig1, quint32 sig2, quint32 version)
 {
-    CHECK_RETURN_FALSE(writeData(device, Endian::sizedIntToBytes<qint32>(sig1, KeePass2::BYTEORDER)));
-    CHECK_RETURN_FALSE(writeData(device, Endian::sizedIntToBytes<qint32>(sig2, KeePass2::BYTEORDER)));
-    CHECK_RETURN_FALSE(writeData(device, Endian::sizedIntToBytes<qint32>(version, KeePass2::BYTEORDER)));
+	CHECK_RETURN_FALSE(writeData(device, Endian::sizedIntToBytes<qint32>(sig1, KeePass2::BYTEORDER)));
+	CHECK_RETURN_FALSE(writeData(device, Endian::sizedIntToBytes<qint32>(sig2, KeePass2::BYTEORDER)));
+	CHECK_RETURN_FALSE(writeData(device, Endian::sizedIntToBytes<qint32>(version, KeePass2::BYTEORDER)));
 
-    return true;
+	return true;
 }
 
 /**
@@ -56,24 +56,25 @@ bool KdbxWriter::writeMagicNumbers(QIODevice* device, quint32 sig1, quint32 sig2
  * @param data byte contents
  * @return true on success
  */
-bool KdbxWriter::writeData(QIODevice* device, const QByteArray& data)
+bool KdbxWriter::writeData(QIODevice *device, const QByteArray &data)
 {
-    if (device->write(data) != data.size()) {
-        raiseError(device->errorString());
-        return false;
-    }
-    return true;
+	if (device->write(data) != data.size())
+	{
+		raiseError(device->errorString());
+		return false;
+	}
+	return true;
 }
 
-void KdbxWriter::extractDatabase(QByteArray& xmlOutput, Database* db)
+void KdbxWriter::extractDatabase(QByteArray &xmlOutput, Database *db)
 {
-    QBuffer buffer;
-    buffer.setBuffer(&xmlOutput);
-    buffer.open(QIODevice::WriteOnly);
-    KdbxXmlWriter::BinaryIdxMap idxMap;
-    KdbxXmlWriter writer(db->formatVersion(), idxMap);
-    writer.disableInnerStreamProtection(true);
-    writer.writeDatabase(&buffer, db);
+	QBuffer buffer;
+	buffer.setBuffer(&xmlOutput);
+	buffer.open(QIODevice::WriteOnly);
+	KdbxXmlWriter::BinaryIdxMap idxMap;
+	KdbxXmlWriter writer(db->formatVersion(), idxMap);
+	writer.disableInnerStreamProtection(true);
+	writer.writeDatabase(&buffer, db);
 }
 
 /**
@@ -81,8 +82,8 @@ void KdbxWriter::extractDatabase(QByteArray& xmlOutput, Database* db)
  *
  * @param errorMessage error message
  */
-void KdbxWriter::raiseError(const QString& errorMessage)
+void KdbxWriter::raiseError(const QString &errorMessage)
 {
-    m_error = true;
-    m_errorStr = errorMessage;
+	m_error = true;
+	m_errorStr = errorMessage;
 }

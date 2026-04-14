@@ -19,13 +19,13 @@
 
 #include <QObject>
 
-class TestUpdateCheck : public QObject
+class TestUpdateCheck: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testCompareVersion();
+	void initTestCase();
+	void testCompareVersion();
 };
 
 #endif // #define KEEPASSX_TESTUPDATECHECK_H

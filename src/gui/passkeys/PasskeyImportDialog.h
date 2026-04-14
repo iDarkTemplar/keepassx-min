@@ -25,50 +25,50 @@
 
 namespace Ui
 {
-    class PasskeyImportDialog;
+	class PasskeyImportDialog;
 }
 
-class PasskeyImportDialog : public QDialog
+class PasskeyImportDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit PasskeyImportDialog(QWidget* parent = nullptr);
-    ~PasskeyImportDialog() override;
+	explicit PasskeyImportDialog(QWidget *parent = nullptr);
+	~PasskeyImportDialog() override;
 
-    void setInfo(const QString& relyingParty,
-                 const QString& username,
-                 const QSharedPointer<Database>& database,
-                 bool isEntry,
-                 const QString& titleText = {},
-                 const QString& infoText = {},
-                 const QString& importButtonText = {});
-    QSharedPointer<Database> getSelectedDatabase() const;
-    QUuid getSelectedEntryUuid() const;
-    QUuid getSelectedGroupUuid() const;
-    bool useDefaultGroup() const;
-    bool createNewEntry() const;
+	void setInfo(const QString &relyingParty,
+	             const QString &username,
+	             const QSharedPointer<Database> &database,
+	             bool isEntry,
+	             const QString &titleText = {},
+	             const QString &infoText = {},
+	             const QString &importButtonText = {});
+	QSharedPointer<Database> getSelectedDatabase() const;
+	QUuid getSelectedEntryUuid() const;
+	QUuid getSelectedGroupUuid() const;
+	bool useDefaultGroup() const;
+	bool createNewEntry() const;
 
 private:
-    void addDatabases();
+	void addDatabases();
 
 signals:
-    void updateEntries();
-    void updateGroups();
+	void updateEntries();
+	void updateGroups();
 
 private slots:
-    void addEntries();
-    void addGroups();
-    void changeDatabase(int index);
-    void changeEntry(int index);
-    void changeGroup(int index);
+	void addEntries();
+	void addGroups();
+	void changeDatabase(int index);
+	void changeEntry(int index);
+	void changeGroup(int index);
 
 private:
-    QScopedPointer<Ui::PasskeyImportDialog> m_ui;
-    QSharedPointer<Database> m_selectedDatabase;
-    QUuid m_selectedDatabaseUuid;
-    QUuid m_selectedEntryUuid;
-    QUuid m_selectedGroupUuid;
+	QScopedPointer<Ui::PasskeyImportDialog> m_ui;
+	QSharedPointer<Database> m_selectedDatabase;
+	QUuid m_selectedDatabaseUuid;
+	QUuid m_selectedEntryUuid;
+	QUuid m_selectedGroupUuid;
 };
 
 #endif // KEEPASSXC_PASSKEYIMPORTDIALOG_H

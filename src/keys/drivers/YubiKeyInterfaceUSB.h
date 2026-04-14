@@ -25,51 +25,51 @@
 /**
  * Singleton class to manage the USB interface to hardware key(s)
  */
-class YubiKeyInterfaceUSB : public YubiKeyInterface
+class YubiKeyInterfaceUSB: public YubiKeyInterface
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    static YubiKeyInterfaceUSB* instance();
-    static constexpr int YUBICO_USB_VID = YUBICO_VID;
-    static constexpr int ONLYKEY_USB_VID = ONLYKEY_VID;
+	static YubiKeyInterfaceUSB *instance();
+	static constexpr int YUBICO_USB_VID = YUBICO_VID;
+	static constexpr int ONLYKEY_USB_VID = ONLYKEY_VID;
 
-    YubiKey::KeyMap findValidKeys(int& connectedKeys) override;
+	YubiKey::KeyMap findValidKeys(int &connectedKeys) override;
 
-    YubiKey::ChallengeResult
-    challenge(YubiKeySlot slot, const QByteArray& challenge, Botan::secure_vector<char>& response) override;
-    bool testChallenge(YubiKeySlot slot, bool* wouldBlock) override;
+	YubiKey::ChallengeResult
+		challenge(YubiKeySlot slot, const QByteArray &challenge, Botan::secure_vector<char> &response) override;
+	bool testChallenge(YubiKeySlot slot, bool *wouldBlock) override;
 
 private:
-    explicit YubiKeyInterfaceUSB();
-    ~YubiKeyInterfaceUSB();
+	explicit YubiKeyInterfaceUSB();
+	~YubiKeyInterfaceUSB();
 
-    static YubiKeyInterfaceUSB* m_instance;
+	static YubiKeyInterfaceUSB *m_instance;
 
-    YubiKey::ChallengeResult performChallenge(void* key,
-                                              int slot,
-                                              bool mayBlock,
-                                              const QByteArray& challenge,
-                                              Botan::secure_vector<char>& response) override;
-    bool performTestChallenge(void* key, int slot, bool* wouldBlock) override;
+	YubiKey::ChallengeResult performChallenge(void *key,
+	                                          int slot,
+	                                          bool mayBlock,
+	                                          const QByteArray &challenge,
+	                                          Botan::secure_vector<char> &response) override;
+	bool performTestChallenge(void *key, int slot, bool *wouldBlock) override;
 
-    // This map provides display names for the various USB PIDs of the Yubikeys
-    const QHash<int, QString> m_pid_names = {{YUBIKEY_PID, "YubiKey %ver"},
-                                             {NEO_OTP_PID, "YubiKey NEO - OTP"},
-                                             {NEO_OTP_CCID_PID, "YubiKey NEO - OTP+CCID"},
-                                             {NEO_CCID_PID, "YubiKey NEO - CCID"},
-                                             {NEO_U2F_PID, "YubiKey NEO - FIDO"},
-                                             {NEO_OTP_U2F_PID, "YubiKey NEO - OTP+FIDO"},
-                                             {NEO_U2F_CCID_PID, "YubiKey NEO - FIDO+CCID"},
-                                             {NEO_OTP_U2F_CCID_PID, "YubiKey NEO - OTP+FIDO+CCID"},
-                                             {YK4_OTP_PID, "YubiKey %ver - OTP"},
-                                             {YK4_U2F_PID, "YubiKey %ver - U2F"},
-                                             {YK4_OTP_U2F_PID, "YubiKey %ver - OTP+FIDO"},
-                                             {YK4_CCID_PID, "YubiKey %ver - CCID"},
-                                             {YK4_OTP_CCID_PID, "YubiKey %ver - OTP+CCID"},
-                                             {YK4_U2F_CCID_PID, "YubiKey %ver - FIDO+CCID"},
-                                             {YK4_OTP_U2F_CCID_PID, "YubiKey %ver - OTP+FIDO+CCID"},
-                                             {PLUS_U2F_OTP_PID, "YubiKey plus - OTP+FIDO"}};
+	// This map provides display names for the various USB PIDs of the Yubikeys
+	const QHash<int, QString> m_pid_names = {{YUBIKEY_PID, "YubiKey %ver"},
+	                                         {NEO_OTP_PID, "YubiKey NEO - OTP"},
+	                                         {NEO_OTP_CCID_PID, "YubiKey NEO - OTP+CCID"},
+	                                         {NEO_CCID_PID, "YubiKey NEO - CCID"},
+	                                         {NEO_U2F_PID, "YubiKey NEO - FIDO"},
+	                                         {NEO_OTP_U2F_PID, "YubiKey NEO - OTP+FIDO"},
+	                                         {NEO_U2F_CCID_PID, "YubiKey NEO - FIDO+CCID"},
+	                                         {NEO_OTP_U2F_CCID_PID, "YubiKey NEO - OTP+FIDO+CCID"},
+	                                         {YK4_OTP_PID, "YubiKey %ver - OTP"},
+	                                         {YK4_U2F_PID, "YubiKey %ver - U2F"},
+	                                         {YK4_OTP_U2F_PID, "YubiKey %ver - OTP+FIDO"},
+	                                         {YK4_CCID_PID, "YubiKey %ver - CCID"},
+	                                         {YK4_OTP_CCID_PID, "YubiKey %ver - OTP+CCID"},
+	                                         {YK4_U2F_CCID_PID, "YubiKey %ver - FIDO+CCID"},
+	                                         {YK4_OTP_U2F_CCID_PID, "YubiKey %ver - OTP+FIDO+CCID"},
+	                                         {PLUS_U2F_OTP_PID, "YubiKey plus - OTP+FIDO"}};
 };
 
 #endif // KEEPASSX_YUBIKEY_INTERFACE_USB_H

@@ -19,15 +19,15 @@
 
 #include "Command.h"
 
-class Diceware : public Command
+class Diceware: public Command
 {
 public:
-    Diceware();
+	Diceware();
 
-    int execute(const QStringList& arguments) override;
+	int execute(const QStringList &arguments) override;
 
-    static const QCommandLineOption WordCountOption;
-    static const QCommandLineOption WordListOption;
+	static const QCommandLineOption WordCountOption;
+	static const QCommandLineOption WordListOption;
 };
 
 #endif // KEEPASSXC_DICEWARE_H

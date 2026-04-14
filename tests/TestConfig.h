@@ -19,12 +19,12 @@
 
 #include "core/Config.h"
 
-class TestConfig : public QObject
+class TestConfig: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 private slots:
-    void testUpgrade();
-    void testURLDoubleClickMigration();
+	void testUpgrade();
+	void testURLDoubleClickMigration();
 };
 
 #endif // KEEPASSX_TESTCONFIG_H

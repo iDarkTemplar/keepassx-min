@@ -34,28 +34,28 @@
 
 /* Define thread-specific data primitives */
 #if defined _WIN32
-#include <windows.h>
 #include <errno.h>
-#define yk__TSD_TYPE			DWORD
-#define yk__TSD_ALLOC(key,nop)		((key = TlsAlloc()) == TLS_OUT_OF_INDEXES ? EAGAIN : 0)
-#define yk__TSD_FREE(key)		(!TlsFree(key))
-#define yk__TSD_SET(key,value)		(!TlsSetValue(key,value))
-#define yk__TSD_GET(key)		TlsGetValue(key)
+#include <windows.h>
+#define yk__TSD_TYPE DWORD
+#define yk__TSD_ALLOC(key, nop) ((key = TlsAlloc()) == TLS_OUT_OF_INDEXES ? EAGAIN : 0)
+#define yk__TSD_FREE(key) (!TlsFree(key))
+#define yk__TSD_SET(key, value) (!TlsSetValue(key, value))
+#define yk__TSD_GET(key) TlsGetValue(key)
 #else
 #include <pthread.h>
-#define yk__TSD_TYPE			pthread_key_t
-#define yk__TSD_ALLOC(key,destr)	pthread_key_create(&key, destr)
-#define yk__TSD_FREE(key)		pthread_key_delete(key)
-#define yk__TSD_SET(key,value)		pthread_setspecific(key,(void *)value)
-#define yk__TSD_GET(key)		pthread_getspecific(key)
+#define yk__TSD_TYPE pthread_key_t
+#define yk__TSD_ALLOC(key, destr) pthread_key_create(&key, destr)
+#define yk__TSD_FREE(key) pthread_key_delete(key)
+#define yk__TSD_SET(key, value) pthread_setspecific(key, (void *)value)
+#define yk__TSD_GET(key) pthread_getspecific(key)
 #endif
 
 /* Define the high-level macros that we use.  */
-#define YK_TSD_METADATA(x)		yk__tsd_##x
-#define YK_DEFINE_TSD_METADATA(x)	static yk__TSD_TYPE YK_TSD_METADATA(x)
-#define YK_TSD_INIT(x,destr)		yk__TSD_ALLOC(YK_TSD_METADATA(x),destr)
-#define YK_TSD_DESTROY(x)		yk__TSD_FREE(YK_TSD_METADATA(x))
-#define YK_TSD_SET(x,value)		yk__TSD_SET(YK_TSD_METADATA(x),value)
-#define YK_TSD_GET(type,x)		(type)yk__TSD_GET(YK_TSD_METADATA(x))
+#define YK_TSD_METADATA(x) yk__tsd_##x
+#define YK_DEFINE_TSD_METADATA(x) static yk__TSD_TYPE YK_TSD_METADATA(x)
+#define YK_TSD_INIT(x, destr) yk__TSD_ALLOC(YK_TSD_METADATA(x), destr)
+#define YK_TSD_DESTROY(x) yk__TSD_FREE(YK_TSD_METADATA(x))
+#define YK_TSD_SET(x, value) yk__TSD_SET(YK_TSD_METADATA(x), value)
+#define YK_TSD_GET(type, x) (type) yk__TSD_GET(YK_TSD_METADATA(x))
 
 #endif

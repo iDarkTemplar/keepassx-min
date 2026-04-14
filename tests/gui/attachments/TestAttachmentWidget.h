@@ -21,17 +21,17 @@
 #include <QObject>
 #include <QScopedPointer>
 
-class TestAttachmentsWidget : public QObject
+class TestAttachmentsWidget: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
+	void initTestCase();
 
-    void testTextAttachment();
-    void testImageAttachment();
-    void testUnknownAttachment();
+	void testTextAttachment();
+	void testImageAttachment();
+	void testUnknownAttachment();
 
 private:
-    QScopedPointer<AttachmentWidget> m_attachmentWidget;
+	QScopedPointer<AttachmentWidget> m_attachmentWidget;
 };

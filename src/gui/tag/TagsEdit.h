@@ -31,49 +31,49 @@
 
 /// Tag multi-line editor widget
 /// `Space` commits a tag and initiates a new tag edition
-class TagsEdit : public QAbstractScrollArea
+class TagsEdit: public QAbstractScrollArea
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit TagsEdit(QWidget* parent = nullptr);
-    ~TagsEdit() override;
+	explicit TagsEdit(QWidget *parent = nullptr);
+	~TagsEdit() override;
 
-    // QWidget
-    QSize sizeHint() const override;
-    QSize minimumSizeHint() const override;
-    int heightForWidth(int w) const override;
+	// QWidget
+	QSize sizeHint() const override;
+	QSize minimumSizeHint() const override;
+	int heightForWidth(int w) const override;
 
-    /// Set completions
-    void completion(QStringList const& completions);
+	/// Set completions
+	void completion(QStringList const &completions);
 
-    /// Set tags
-    void tags(QStringList const& tags);
+	/// Set tags
+	void tags(QStringList const &tags);
 
-    /// Get tags
-    QStringList tags() const;
+	/// Get tags
+	QStringList tags() const;
 
-    void setReadOnly(bool readOnly);
+	void setReadOnly(bool readOnly);
 
 signals:
-    void tagsEdited();
+	void tagsEdited();
 
 protected:
-    // QWidget
-    void paintEvent(QPaintEvent* event) override;
-    void timerEvent(QTimerEvent* event) override;
-    void mousePressEvent(QMouseEvent* event) override;
-    void resizeEvent(QResizeEvent* event) override;
-    void focusInEvent(QFocusEvent* event) override;
-    void focusOutEvent(QFocusEvent* event) override;
-    void keyPressEvent(QKeyEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
-    void hideEvent(QHideEvent* event) override;
+	// QWidget
+	void paintEvent(QPaintEvent *event) override;
+	void timerEvent(QTimerEvent *event) override;
+	void mousePressEvent(QMouseEvent *event) override;
+	void resizeEvent(QResizeEvent *event) override;
+	void focusInEvent(QFocusEvent *event) override;
+	void focusOutEvent(QFocusEvent *event) override;
+	void keyPressEvent(QKeyEvent *event) override;
+	void mouseMoveEvent(QMouseEvent *event) override;
+	void hideEvent(QHideEvent *event) override;
 
 private:
-    bool isAcceptableInput(QKeyEvent const* event) const;
+	bool isAcceptableInput(QKeyEvent const *event) const;
 
-    struct Impl;
-    std::unique_ptr<Impl> impl;
-    bool m_readOnly;
+	struct Impl;
+	std::unique_ptr<Impl> impl;
+	bool m_readOnly;
 };

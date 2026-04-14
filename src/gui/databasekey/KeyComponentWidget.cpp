@@ -19,27 +19,27 @@
 
 #include <QTimer>
 
-KeyComponentWidget::KeyComponentWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_ui(new Ui::KeyComponentWidget())
+KeyComponentWidget::KeyComponentWidget(QWidget *parent)
+	: QWidget(parent)
+	, m_ui(new Ui::KeyComponentWidget())
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    connect(m_ui->addButton, SIGNAL(clicked(bool)), SIGNAL(componentAddRequested()));
-    connect(m_ui->changeButton, SIGNAL(clicked(bool)), SIGNAL(componentEditRequested()));
-    connect(m_ui->removeButton, SIGNAL(clicked(bool)), SIGNAL(componentRemovalRequested()));
-    connect(m_ui->cancelButton, SIGNAL(clicked(bool)), SLOT(cancelEdit()));
+	connect(m_ui->addButton, SIGNAL(clicked(bool)), SIGNAL(componentAddRequested()));
+	connect(m_ui->changeButton, SIGNAL(clicked(bool)), SIGNAL(componentEditRequested()));
+	connect(m_ui->removeButton, SIGNAL(clicked(bool)), SIGNAL(componentRemovalRequested()));
+	connect(m_ui->cancelButton, SIGNAL(clicked(bool)), SLOT(cancelEdit()));
 
-    connect(m_ui->stackedWidget, SIGNAL(currentChanged(int)), SLOT(resetComponentEditWidget()));
+	connect(m_ui->stackedWidget, SIGNAL(currentChanged(int)), SLOT(resetComponentEditWidget()));
 
-    connect(this, SIGNAL(componentAddRequested()), SLOT(doAdd()));
-    connect(this, SIGNAL(componentEditRequested()), SLOT(doEdit()));
-    connect(this, SIGNAL(componentRemovalRequested()), SLOT(doRemove()));
-    connect(this, SIGNAL(componentAddChanged(bool)), SLOT(updateAddStatus(bool)));
+	connect(this, SIGNAL(componentAddRequested()), SLOT(doAdd()));
+	connect(this, SIGNAL(componentEditRequested()), SLOT(doEdit()));
+	connect(this, SIGNAL(componentRemovalRequested()), SLOT(doRemove()));
+	connect(this, SIGNAL(componentAddChanged(bool)), SLOT(updateAddStatus(bool)));
 
-    bool prev = m_ui->stackedWidget->blockSignals(true);
-    m_ui->stackedWidget->setCurrentIndex(Page::AddNew);
-    m_ui->stackedWidget->blockSignals(prev);
+	bool prev = m_ui->stackedWidget->blockSignals(true);
+	m_ui->stackedWidget->setCurrentIndex(Page::AddNew);
+	m_ui->stackedWidget->blockSignals(prev);
 }
 
 KeyComponentWidget::~KeyComponentWidget()
@@ -48,88 +48,99 @@ KeyComponentWidget::~KeyComponentWidget()
 
 void KeyComponentWidget::setComponentAdded(bool added)
 {
-    if (m_isComponentAdded == added) {
-        return;
-    }
+	if (m_isComponentAdded == added)
+	{
+		return;
+	}
 
-    m_isComponentAdded = added;
-    emit componentAddChanged(added);
+	m_isComponentAdded = added;
+	emit componentAddChanged(added);
 }
 
 bool KeyComponentWidget::componentAdded() const
 {
-    return m_isComponentAdded;
+	return m_isComponentAdded;
 }
 
 void KeyComponentWidget::changeVisiblePage(KeyComponentWidget::Page page)
 {
-    m_previousPage = static_cast<Page>(m_ui->stackedWidget->currentIndex());
-    m_ui->stackedWidget->setCurrentIndex(page);
+	m_previousPage = static_cast<Page>(m_ui->stackedWidget->currentIndex());
+	m_ui->stackedWidget->setCurrentIndex(page);
 }
 
 KeyComponentWidget::Page KeyComponentWidget::visiblePage() const
 {
-    return static_cast<Page>(m_ui->stackedWidget->currentIndex());
+	return static_cast<Page>(m_ui->stackedWidget->currentIndex());
 }
 
 void KeyComponentWidget::updateAddStatus(bool added)
 {
-    if (m_ui->stackedWidget->currentIndex() == Page::Edit) {
-        emit editCanceled();
-    }
+	if (m_ui->stackedWidget->currentIndex() == Page::Edit)
+	{
+		emit editCanceled();
+	}
 
-    if (added) {
-        m_ui->stackedWidget->setCurrentIndex(Page::LeaveOrRemove);
-    } else {
-        m_ui->stackedWidget->setCurrentIndex(Page::AddNew);
-    }
+	if (added)
+	{
+		m_ui->stackedWidget->setCurrentIndex(Page::LeaveOrRemove);
+	}
+	else
+	{
+		m_ui->stackedWidget->setCurrentIndex(Page::AddNew);
+	}
 }
 
 void KeyComponentWidget::doAdd()
 {
-    changeVisiblePage(Page::Edit);
+	changeVisiblePage(Page::Edit);
 }
 
 void KeyComponentWidget::doEdit()
 {
-    changeVisiblePage(Page::Edit);
+	changeVisiblePage(Page::Edit);
 }
 
 void KeyComponentWidget::doRemove()
 {
-    changeVisiblePage(Page::AddNew);
+	changeVisiblePage(Page::AddNew);
 }
 
 void KeyComponentWidget::cancelEdit()
 {
-    m_ui->stackedWidget->setCurrentIndex(m_previousPage);
-    emit editCanceled();
+	m_ui->stackedWidget->setCurrentIndex(m_previousPage);
+	emit editCanceled();
 }
 
 void KeyComponentWidget::resetComponentEditWidget()
 {
-    if (!m_componentWidget || static_cast<Page>(m_ui->stackedWidget->currentIndex()) == Page::Edit) {
-        if (m_componentWidget) {
-            delete m_componentWidget;
-        }
+	if (!m_componentWidget || static_cast<Page>(m_ui->stackedWidget->currentIndex()) == Page::Edit)
+	{
+		if (m_componentWidget)
+		{
+			delete m_componentWidget;
+		}
 
-        m_componentWidget = componentEditWidget();
-        m_ui->componentWidgetLayout->addWidget(m_componentWidget);
-        initComponentEditWidget(m_componentWidget);
-    }
+		m_componentWidget = componentEditWidget();
+		m_ui->componentWidgetLayout->addWidget(m_componentWidget);
+		initComponentEditWidget(m_componentWidget);
+	}
 
-    QTimer::singleShot(0, this, SLOT(updateSize()));
+	QTimer::singleShot(0, this, SLOT(updateSize()));
 }
 
 void KeyComponentWidget::updateSize()
 {
-    for (int i = 0; i < m_ui->stackedWidget->count(); ++i) {
-        if (m_ui->stackedWidget->currentIndex() == i) {
-            m_ui->stackedWidget->widget(i)->setSizePolicy(
-                m_ui->stackedWidget->widget(i)->sizePolicy().horizontalPolicy(), QSizePolicy::Preferred);
-        } else {
-            m_ui->stackedWidget->widget(i)->setSizePolicy(
-                m_ui->stackedWidget->widget(i)->sizePolicy().horizontalPolicy(), QSizePolicy::Ignored);
-        }
-    }
+	for (int i = 0; i < m_ui->stackedWidget->count(); ++i)
+	{
+		if (m_ui->stackedWidget->currentIndex() == i)
+		{
+			m_ui->stackedWidget->widget(i)->setSizePolicy(
+				m_ui->stackedWidget->widget(i)->sizePolicy().horizontalPolicy(), QSizePolicy::Preferred);
+		}
+		else
+		{
+			m_ui->stackedWidget->widget(i)->setSizePolicy(
+				m_ui->stackedWidget->widget(i)->sizePolicy().horizontalPolicy(), QSizePolicy::Ignored);
+		}
+	}
 }

@@ -25,41 +25,42 @@
 #include <QFrame>
 #include <QPalette>
 
-NewDatabaseWizard::NewDatabaseWizard(QWidget* parent)
-    : QWizard(parent)
-    , m_pages()
+NewDatabaseWizard::NewDatabaseWizard(QWidget *parent)
+	: QWizard(parent)
+	, m_pages()
 {
-    setWizardStyle(QWizard::MacStyle);
-    setOption(QWizard::WizardOption::HaveHelpButton, false);
-    setOption(QWizard::WizardOption::NoDefaultButton, false); // Needed for macOS
+	setWizardStyle(QWizard::MacStyle);
+	setOption(QWizard::WizardOption::HaveHelpButton, false);
+	setOption(QWizard::WizardOption::NoDefaultButton, false); // Needed for macOS
 
-    // clang-format off
+	// clang-format off
     m_pages << new NewDatabaseWizardPageMetaData()
             << new NewDatabaseWizardPageEncryption()
             << new NewDatabaseWizardPageDatabaseKey();
-    // clang-format on
+	// clang-format on
 
-    for (const auto& page : asConst(m_pages)) {
-        addPage(page);
-    }
+	for (const auto &page: asConst(m_pages))
+	{
+		addPage(page);
+	}
 
-    setWindowTitle(tr("Create a new KeePassXC database…"));
+	setWindowTitle(tr("Create a new KeePassXC database…"));
 
-    Q_INIT_RESOURCE(wizard);
-    setPixmap(QWizard::BackgroundPixmap, QPixmap(":/wizard/background-pixmap.png"));
+	Q_INIT_RESOURCE(wizard);
+	setPixmap(QWizard::BackgroundPixmap, QPixmap(":/wizard/background-pixmap.png"));
 
-    // Fix MacStyle QWizard page frame too bright in dark mode (QTBUG-70346, QTBUG-71696)
-    QPalette defaultPalette;
-    auto windowColor = defaultPalette.color(QPalette::Window);
-    windowColor.setAlpha(153);
-    auto baseColor = defaultPalette.color(QPalette::Base);
-    baseColor.setAlpha(153);
+	// Fix MacStyle QWizard page frame too bright in dark mode (QTBUG-70346, QTBUG-71696)
+	QPalette defaultPalette;
+	auto windowColor = defaultPalette.color(QPalette::Window);
+	windowColor.setAlpha(153);
+	auto baseColor = defaultPalette.color(QPalette::Base);
+	baseColor.setAlpha(153);
 
-    auto* pageFrame = findChildren<QFrame*>()[0];
-    auto framePalette = pageFrame->palette();
-    framePalette.setBrush(QPalette::Window, windowColor.lighter(120));
-    framePalette.setBrush(QPalette::Base, baseColor.lighter(120));
-    pageFrame->setPalette(framePalette);
+	auto *pageFrame = findChildren<QFrame *>()[0];
+	auto framePalette = pageFrame->palette();
+	framePalette.setBrush(QPalette::Window, windowColor.lighter(120));
+	framePalette.setBrush(QPalette::Base, baseColor.lighter(120));
+	pageFrame->setPalette(framePalette);
 }
 
 NewDatabaseWizard::~NewDatabaseWizard()
@@ -68,7 +69,7 @@ NewDatabaseWizard::~NewDatabaseWizard()
 
 bool NewDatabaseWizard::validateCurrentPage()
 {
-    return m_pages[currentId()]->validatePage();
+	return m_pages[currentId()]->validatePage();
 }
 
 /**
@@ -78,20 +79,21 @@ bool NewDatabaseWizard::validateCurrentPage()
  */
 QSharedPointer<Database> NewDatabaseWizard::takeDatabase()
 {
-    auto tmpPointer = m_db;
-    m_db.reset();
-    return tmpPointer;
+	auto tmpPointer = m_db;
+	m_db.reset();
+	return tmpPointer;
 }
 
 void NewDatabaseWizard::initializePage(int id)
 {
-    if (id == startId()) {
-        m_db = QSharedPointer<Database>::create();
-        m_db->rootGroup()->setName(tr("Root", "Root group"));
-        m_db->setKdf({});
-        m_db->setKey({});
-    }
+	if (id == startId())
+	{
+		m_db = QSharedPointer<Database>::create();
+		m_db->rootGroup()->setName(tr("Root", "Root group"));
+		m_db->setKdf({});
+		m_db->setKey({});
+	}
 
-    m_pages[id]->setDatabase(m_db);
-    m_pages[id]->initializePage();
+	m_pages[id]->setDatabase(m_db);
+	m_pages[id]->initializePage();
 }

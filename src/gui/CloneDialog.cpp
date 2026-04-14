@@ -17,50 +17,53 @@
 #include "CloneDialog.h"
 #include "ui_CloneDialog.h"
 
-CloneDialog::CloneDialog(DatabaseWidget* parent, Database* db, Entry* entry)
-    : QDialog(parent)
-    , m_ui(new Ui::CloneDialog())
+CloneDialog::CloneDialog(DatabaseWidget *parent, Database *db, Entry *entry)
+	: QDialog(parent)
+	, m_ui(new Ui::CloneDialog())
 {
-    m_db = db;
-    m_entry = entry;
-    m_parent = parent;
+	m_db = db;
+	m_entry = entry;
+	m_parent = parent;
 
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    window()->layout()->setSizeConstraint(QLayout::SetFixedSize);
+	window()->layout()->setSizeConstraint(QLayout::SetFixedSize);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
-    setWindowFlag(Qt::WindowContextHelpButtonHint, false);
+	setWindowFlag(Qt::WindowContextHelpButtonHint, false);
 #else
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 #endif
-    setAttribute(Qt::WA_DeleteOnClose);
+	setAttribute(Qt::WA_DeleteOnClose);
 
-    connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
-    connect(m_ui->buttonBox, SIGNAL(accepted()), SLOT(cloneEntry()));
+	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
+	connect(m_ui->buttonBox, SIGNAL(accepted()), SLOT(cloneEntry()));
 }
 
 void CloneDialog::cloneEntry()
 {
-    Entry::CloneFlags flags = Entry::CloneNewUuid | Entry::CloneResetTimeInfo;
+	Entry::CloneFlags flags = Entry::CloneNewUuid | Entry::CloneResetTimeInfo;
 
-    if (m_ui->titleClone->isChecked()) {
-        flags |= Entry::CloneRenameTitle;
-    }
+	if (m_ui->titleClone->isChecked())
+	{
+		flags |= Entry::CloneRenameTitle;
+	}
 
-    if (m_ui->referencesClone->isChecked()) {
-        flags |= Entry::CloneUserAsRef;
-        flags |= Entry::ClonePassAsRef;
-    }
+	if (m_ui->referencesClone->isChecked())
+	{
+		flags |= Entry::CloneUserAsRef;
+		flags |= Entry::ClonePassAsRef;
+	}
 
-    if (m_ui->historyClone->isChecked()) {
-        flags |= Entry::CloneIncludeHistory;
-    }
+	if (m_ui->historyClone->isChecked())
+	{
+		flags |= Entry::CloneIncludeHistory;
+	}
 
-    auto entry = m_entry->clone(flags);
-    entry->setGroup(m_entry->group());
+	auto entry = m_entry->clone(flags);
+	entry->setGroup(m_entry->group());
 
-    emit entryCloned(entry);
-    close();
+	emit entryCloned(entry);
+	close();
 }
 
 CloneDialog::~CloneDialog()

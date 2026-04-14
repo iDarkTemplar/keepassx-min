@@ -19,14 +19,14 @@
 
 #include "DatabaseCommand.h"
 
-class Export : public DatabaseCommand
+class Export: public DatabaseCommand
 {
 public:
-    Export();
+	Export();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 
-    static const QCommandLineOption FormatOption;
+	static const QCommandLineOption FormatOption;
 };
 
 #endif // KEEPASSXC_EXPORT_H

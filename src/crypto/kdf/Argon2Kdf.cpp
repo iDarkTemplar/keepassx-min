@@ -31,183 +31,193 @@
  * or associated data. KeePass uses the latest version of Argon2, v1.3.
  */
 Argon2Kdf::Argon2Kdf(Type type)
-    : Kdf::Kdf(type == Type::Argon2d ? KeePass2::KDF_ARGON2D : KeePass2::KDF_ARGON2ID)
-    , m_version(ARGON2_DEFAULT_VERSION)
-    , m_memory(ARGON2_DEFAULT_MEMORY)
-    , m_parallelism(qMin<quint32>(QThread::idealThreadCount(), ARGON2_DEFAULT_PARALLELISM))
+	: Kdf::Kdf(type == Type::Argon2d ? KeePass2::KDF_ARGON2D : KeePass2::KDF_ARGON2ID)
+	, m_version(ARGON2_DEFAULT_VERSION)
+	, m_memory(ARGON2_DEFAULT_MEMORY)
+	, m_parallelism(qMin<quint32>(QThread::idealThreadCount(), ARGON2_DEFAULT_PARALLELISM))
 {
-    m_rounds = ARGON2_DEFAULT_ROUNDS;
+	m_rounds = ARGON2_DEFAULT_ROUNDS;
 }
 
 quint32 Argon2Kdf::version() const
 {
-    return m_version;
+	return m_version;
 }
 
 bool Argon2Kdf::setVersion(quint32 version)
 {
-    // MIN=0x10; MAX=0x13)
-    if (version >= 0x10 && version <= 0x13) {
-        m_version = version;
-        return true;
-    }
-    m_version = ARGON2_DEFAULT_VERSION;
-    return false;
+	// MIN=0x10; MAX=0x13)
+	if (version >= 0x10 && version <= 0x13)
+	{
+		m_version = version;
+		return true;
+	}
+	m_version = ARGON2_DEFAULT_VERSION;
+	return false;
 }
 
 Argon2Kdf::Type Argon2Kdf::type() const
 {
-    return uuid() == KeePass2::KDF_ARGON2D ? Type::Argon2d : Type::Argon2id;
+	return uuid() == KeePass2::KDF_ARGON2D ? Type::Argon2d : Type::Argon2id;
 }
 
 quint64 Argon2Kdf::memory() const
 {
-    return m_memory;
+	return m_memory;
 }
 
 bool Argon2Kdf::setMemory(quint64 kibibytes)
 {
-    // MIN=8KB; MAX=2,147,483,648KB
-    if (kibibytes >= 8 && kibibytes < (1ULL << 32)) {
-        m_memory = kibibytes;
-        return true;
-    }
-    m_memory = ARGON2_DEFAULT_MEMORY;
-    return false;
+	// MIN=8KB; MAX=2,147,483,648KB
+	if (kibibytes >= 8 && kibibytes < (1ULL << 32))
+	{
+		m_memory = kibibytes;
+		return true;
+	}
+	m_memory = ARGON2_DEFAULT_MEMORY;
+	return false;
 }
 
 quint32 Argon2Kdf::parallelism() const
 {
-    return m_parallelism;
+	return m_parallelism;
 }
 
 bool Argon2Kdf::setParallelism(quint32 threads)
 {
-    // MIN=1; MAX=16,777,215
-    if (threads >= 1 && threads < (1 << 24)) {
-        m_parallelism = threads;
-        return true;
-    }
-    m_parallelism = ARGON2_DEFAULT_PARALLELISM;
-    return false;
+	// MIN=1; MAX=16,777,215
+	if (threads >= 1 && threads < (1 << 24))
+	{
+		m_parallelism = threads;
+		return true;
+	}
+	m_parallelism = ARGON2_DEFAULT_PARALLELISM;
+	return false;
 }
 
-bool Argon2Kdf::processParameters(const QVariantMap& p)
+bool Argon2Kdf::processParameters(const QVariantMap &p)
 {
-    QByteArray salt = p.value(KeePass2::KDFPARAM_ARGON2_SALT).toByteArray();
-    if (!setSeed(salt)) {
-        return false;
-    }
+	QByteArray salt = p.value(KeePass2::KDFPARAM_ARGON2_SALT).toByteArray();
+	if (!setSeed(salt))
+	{
+		return false;
+	}
 
-    bool ok;
-    quint32 version = p.value(KeePass2::KDFPARAM_ARGON2_VERSION).toUInt(&ok);
-    if (!ok || !setVersion(version)) {
-        return false;
-    }
+	bool ok;
+	quint32 version = p.value(KeePass2::KDFPARAM_ARGON2_VERSION).toUInt(&ok);
+	if (!ok || !setVersion(version))
+	{
+		return false;
+	}
 
-    quint32 lanes = p.value(KeePass2::KDFPARAM_ARGON2_PARALLELISM).toUInt(&ok);
-    if (!ok || !setParallelism(lanes)) {
-        return false;
-    }
+	quint32 lanes = p.value(KeePass2::KDFPARAM_ARGON2_PARALLELISM).toUInt(&ok);
+	if (!ok || !setParallelism(lanes))
+	{
+		return false;
+	}
 
-    quint64 memory = p.value(KeePass2::KDFPARAM_ARGON2_MEMORY).toULongLong(&ok) / 1024ULL;
-    if (!ok || !setMemory(memory)) {
-        return false;
-    }
+	quint64 memory = p.value(KeePass2::KDFPARAM_ARGON2_MEMORY).toULongLong(&ok) / 1024ULL;
+	if (!ok || !setMemory(memory))
+	{
+		return false;
+	}
 
-    quint64 iterations = p.value(KeePass2::KDFPARAM_ARGON2_ITERATIONS).toULongLong(&ok);
-    if (!ok || !setRounds(iterations)) {
-        return false;
-    }
+	quint64 iterations = p.value(KeePass2::KDFPARAM_ARGON2_ITERATIONS).toULongLong(&ok);
+	if (!ok || !setRounds(iterations))
+	{
+		return false;
+	}
 
-    /* KeePass2 does not currently implement these parameters
-     *
-    QByteArray secret = p.value(KeePass2::KDFPARAM_ARGON2_SECRET).toByteArray();
-    if (!argon2Kdf->setSecret(secret)) {
-        return nullptr;
-    }
+	/* KeePass2 does not currently implement these parameters
+	 *
+	QByteArray secret = p.value(KeePass2::KDFPARAM_ARGON2_SECRET).toByteArray();
+	if (!argon2Kdf->setSecret(secret)) {
+	    return nullptr;
+	}
 
-    QByteArray ad = p.value(KeePass2::KDFPARAM_ARGON2_ASSOCDATA).toByteArray();
-    if (!argon2Kdf->setAssocData(ad)) {
-        return nullptr;
-    }
-    */
+	QByteArray ad = p.value(KeePass2::KDFPARAM_ARGON2_ASSOCDATA).toByteArray();
+	if (!argon2Kdf->setAssocData(ad)) {
+	    return nullptr;
+	}
+	*/
 
-    return true;
+	return true;
 }
 
 QVariantMap Argon2Kdf::writeParameters()
 {
-    QVariantMap p;
-    p.insert(KeePass2::KDFPARAM_UUID, uuid().toRfc4122());
-    p.insert(KeePass2::KDFPARAM_ARGON2_VERSION, version());
-    p.insert(KeePass2::KDFPARAM_ARGON2_PARALLELISM, parallelism());
-    p.insert(KeePass2::KDFPARAM_ARGON2_MEMORY, memory() * 1024);
-    p.insert(KeePass2::KDFPARAM_ARGON2_ITERATIONS, static_cast<quint64>(rounds()));
-    p.insert(KeePass2::KDFPARAM_ARGON2_SALT, seed());
+	QVariantMap p;
+	p.insert(KeePass2::KDFPARAM_UUID, uuid().toRfc4122());
+	p.insert(KeePass2::KDFPARAM_ARGON2_VERSION, version());
+	p.insert(KeePass2::KDFPARAM_ARGON2_PARALLELISM, parallelism());
+	p.insert(KeePass2::KDFPARAM_ARGON2_MEMORY, memory() * 1024);
+	p.insert(KeePass2::KDFPARAM_ARGON2_ITERATIONS, static_cast<quint64>(rounds()));
+	p.insert(KeePass2::KDFPARAM_ARGON2_SALT, seed());
 
-    /* KeePass2 does not currently implement these
-     *
-    if (!assocData().isEmpty()) {
-        p.insert(KeePass2::KDFPARAM_ARGON2_ASSOCDATA, argon2Kdf.assocData());
-    }
+	/* KeePass2 does not currently implement these
+	 *
+	if (!assocData().isEmpty()) {
+	    p.insert(KeePass2::KDFPARAM_ARGON2_ASSOCDATA, argon2Kdf.assocData());
+	}
 
-    if (!secret().isEmpty()) {
-        p.insert(KeePass2::KDFPARAM_ARGON2_SECRET, argon2Kdf.secret());
-    }
-    */
+	if (!secret().isEmpty()) {
+	    p.insert(KeePass2::KDFPARAM_ARGON2_SECRET, argon2Kdf.secret());
+	}
+	*/
 
-    return p;
+	return p;
 }
 
-bool Argon2Kdf::transform(const QByteArray& raw, QByteArray& result) const
+bool Argon2Kdf::transform(const QByteArray &raw, QByteArray &result) const
 {
-    result.clear();
-    result.resize(32);
-    // Time Cost, Mem Cost, Threads/Lanes, Password, length, Salt, length, out, length
+	result.clear();
+	result.resize(32);
+	// Time Cost, Mem Cost, Threads/Lanes, Password, length, Salt, length, out, length
 
-    int rc = argon2_hash(rounds(),
-                         memory(),
-                         parallelism(),
-                         raw.data(),
-                         raw.size(),
-                         seed().data(),
-                         seed().size(),
-                         result.data(),
-                         result.size(),
-                         nullptr,
-                         0,
-                         type() == Type::Argon2d ? Argon2_d : Argon2_id,
-                         version());
-    if (rc != ARGON2_OK) {
-        qWarning("Argon2 error: %s", argon2_error_message(rc));
-        return false;
-    }
+	int rc = argon2_hash(rounds(),
+	                     memory(),
+	                     parallelism(),
+	                     raw.data(),
+	                     raw.size(),
+	                     seed().data(),
+	                     seed().size(),
+	                     result.data(),
+	                     result.size(),
+	                     nullptr,
+	                     0,
+	                     type() == Type::Argon2d ? Argon2_d : Argon2_id,
+	                     version());
+	if (rc != ARGON2_OK)
+	{
+		qWarning("Argon2 error: %s", argon2_error_message(rc));
+		return false;
+	}
 
-    return true;
+	return true;
 }
 
 QSharedPointer<Kdf> Argon2Kdf::clone() const
 {
-    return QSharedPointer<Argon2Kdf>::create(*this);
+	return QSharedPointer<Argon2Kdf>::create(*this);
 }
 
 int Argon2Kdf::benchmark(int msec) const
 {
-    QByteArray key = QByteArray(16, '\x7E');
+	QByteArray key = QByteArray(16, '\x7E');
 
-    QElapsedTimer timer;
-    timer.start();
+	QElapsedTimer timer;
+	timer.start();
 
-    if (transform(key, key)) {
-        return static_cast<int>(rounds() * (static_cast<float>(msec) / timer.elapsed()));
-    }
+	if (transform(key, key))
+	{
+		return static_cast<int>(rounds() * (static_cast<float>(msec) / timer.elapsed()));
+	}
 
-    return 1;
+	return 1;
 }
 
 QString Argon2Kdf::toString() const
 {
-    return QObject::tr("Argon2%1 (%2 rounds, %3 KB)")
-        .arg(type() == Type::Argon2d ? "d" : "id", QString::number(rounds()), QString::number(memory()));
+	return QObject::tr("Argon2%1 (%2 rounds, %3 KB)")
+	    .arg(type() == Type::Argon2d ? "d" : "id", QString::number(rounds()), QString::number(memory()));
 }

@@ -24,264 +24,267 @@
 
 #include <QJsonObject>
 
-BrowserSettings* BrowserSettings::m_instance(nullptr);
+BrowserSettings *BrowserSettings::m_instance(nullptr);
 
-BrowserSettings* BrowserSettings::instance()
+BrowserSettings *BrowserSettings::instance()
 {
-    if (!m_instance) {
-        m_instance = new BrowserSettings();
-    }
+	if (!m_instance)
+	{
+		m_instance = new BrowserSettings();
+	}
 
-    return m_instance;
+	return m_instance;
 }
 
 bool BrowserSettings::isEnabled()
 {
-    return config()->get(Config::Browser_Enabled).toBool();
+	return config()->get(Config::Browser_Enabled).toBool();
 }
 
 void BrowserSettings::setEnabled(bool enabled)
 {
-    config()->set(Config::Browser_Enabled, enabled);
+	config()->set(Config::Browser_Enabled, enabled);
 }
 
 bool BrowserSettings::showNotification()
 {
-    return config()->get(Config::Browser_ShowNotification).toBool();
+	return config()->get(Config::Browser_ShowNotification).toBool();
 }
 
 void BrowserSettings::setShowNotification(bool showNotification)
 {
-    config()->set(Config::Browser_ShowNotification, showNotification);
+	config()->set(Config::Browser_ShowNotification, showNotification);
 }
 
 bool BrowserSettings::bestMatchOnly()
 {
-    return config()->get(Config::Browser_BestMatchOnly).toBool();
+	return config()->get(Config::Browser_BestMatchOnly).toBool();
 }
 
 void BrowserSettings::setBestMatchOnly(bool bestMatchOnly)
 {
-    config()->set(Config::Browser_BestMatchOnly, bestMatchOnly);
+	config()->set(Config::Browser_BestMatchOnly, bestMatchOnly);
 }
 
 bool BrowserSettings::unlockDatabase()
 {
-    return config()->get(Config::Browser_UnlockDatabase).toBool();
+	return config()->get(Config::Browser_UnlockDatabase).toBool();
 }
 
 void BrowserSettings::setUnlockDatabase(bool unlockDatabase)
 {
-    config()->set(Config::Browser_UnlockDatabase, unlockDatabase);
+	config()->set(Config::Browser_UnlockDatabase, unlockDatabase);
 }
 
 bool BrowserSettings::matchUrlScheme()
 {
-    return config()->get(Config::Browser_MatchUrlScheme).toBool();
+	return config()->get(Config::Browser_MatchUrlScheme).toBool();
 }
 
 void BrowserSettings::setMatchUrlScheme(bool matchUrlScheme)
 {
-    config()->set(Config::Browser_MatchUrlScheme, matchUrlScheme);
+	config()->set(Config::Browser_MatchUrlScheme, matchUrlScheme);
 }
 
 bool BrowserSettings::alwaysAllowAccess()
 {
-    return config()->get(Config::Browser_AlwaysAllowAccess).toBool();
+	return config()->get(Config::Browser_AlwaysAllowAccess).toBool();
 }
 
 void BrowserSettings::setAlwaysAllowAccess(bool alwaysAllowAccess)
 {
-    config()->set(Config::Browser_AlwaysAllowAccess, alwaysAllowAccess);
+	config()->set(Config::Browser_AlwaysAllowAccess, alwaysAllowAccess);
 }
 
 bool BrowserSettings::alwaysAllowUpdate()
 {
-    return config()->get(Config::Browser_AlwaysAllowUpdate).toBool();
+	return config()->get(Config::Browser_AlwaysAllowUpdate).toBool();
 }
 
 void BrowserSettings::setAlwaysAllowUpdate(bool alwaysAllowUpdate)
 {
-    config()->set(Config::Browser_AlwaysAllowUpdate, alwaysAllowUpdate);
+	config()->set(Config::Browser_AlwaysAllowUpdate, alwaysAllowUpdate);
 }
 
 bool BrowserSettings::httpAuthPermission()
 {
-    return config()->get(Config::Browser_HttpAuthPermission).toBool();
+	return config()->get(Config::Browser_HttpAuthPermission).toBool();
 }
 
 void BrowserSettings::setHttpAuthPermission(bool httpAuthPermission)
 {
-    config()->set(Config::Browser_HttpAuthPermission, httpAuthPermission);
+	config()->set(Config::Browser_HttpAuthPermission, httpAuthPermission);
 }
 
 bool BrowserSettings::searchInAllDatabases()
 {
-    return config()->get(Config::Browser_SearchInAllDatabases).toBool();
+	return config()->get(Config::Browser_SearchInAllDatabases).toBool();
 }
 
 void BrowserSettings::setSearchInAllDatabases(bool searchInAllDatabases)
 {
-    config()->set(Config::Browser_SearchInAllDatabases, searchInAllDatabases);
+	config()->set(Config::Browser_SearchInAllDatabases, searchInAllDatabases);
 }
 
 bool BrowserSettings::supportKphFields()
 {
-    return config()->get(Config::Browser_SupportKphFields).toBool();
+	return config()->get(Config::Browser_SupportKphFields).toBool();
 }
 
 void BrowserSettings::setSupportKphFields(bool supportKphFields)
 {
-    config()->set(Config::Browser_SupportKphFields, supportKphFields);
+	config()->set(Config::Browser_SupportKphFields, supportKphFields);
 }
 
 bool BrowserSettings::noMigrationPrompt()
 {
-    return config()->get(Config::Browser_NoMigrationPrompt).toBool();
+	return config()->get(Config::Browser_NoMigrationPrompt).toBool();
 }
 
 void BrowserSettings::setNoMigrationPrompt(bool prompt)
 {
-    config()->set(Config::Browser_NoMigrationPrompt, prompt);
+	config()->set(Config::Browser_NoMigrationPrompt, prompt);
 }
 
 bool BrowserSettings::allowLocalhostWithPasskeys()
 {
-    return config()->get(Config::Browser_AllowLocalhostWithPasskeys).toBool();
+	return config()->get(Config::Browser_AllowLocalhostWithPasskeys).toBool();
 }
 
 void BrowserSettings::setAllowLocalhostWithPasskeys(bool enabled)
 {
-    config()->set(Config::Browser_AllowLocalhostWithPasskeys, enabled);
+	config()->set(Config::Browser_AllowLocalhostWithPasskeys, enabled);
 }
 
 bool BrowserSettings::useCustomProxy()
 {
-    return config()->get(Config::Browser_UseCustomProxy).toBool();
+	return config()->get(Config::Browser_UseCustomProxy).toBool();
 }
 
 void BrowserSettings::setUseCustomProxy(bool enabled)
 {
-    config()->set(Config::Browser_UseCustomProxy, enabled);
+	config()->set(Config::Browser_UseCustomProxy, enabled);
 }
 
 QString BrowserSettings::customProxyLocation()
 {
-    return config()->get(Config::Browser_CustomProxyLocation).toString();
+	return config()->get(Config::Browser_CustomProxyLocation).toString();
 }
 
-void BrowserSettings::setCustomProxyLocation(const QString& location)
+void BrowserSettings::setCustomProxyLocation(const QString &location)
 {
-    config()->set(Config::Browser_CustomProxyLocation, location);
+	config()->set(Config::Browser_CustomProxyLocation, location);
 }
 
 bool BrowserSettings::customBrowserSupport()
 {
-    return config()->get(Config::Browser_UseCustomBrowser).toBool();
+	return config()->get(Config::Browser_UseCustomBrowser).toBool();
 }
 
 void BrowserSettings::setCustomBrowserSupport(bool enabled)
 {
-    config()->set(Config::Browser_UseCustomBrowser, enabled);
+	config()->set(Config::Browser_UseCustomBrowser, enabled);
 }
 
 int BrowserSettings::customBrowserType()
 {
-    return config()->get(Config::Browser_CustomBrowserType).toInt();
+	return config()->get(Config::Browser_CustomBrowserType).toInt();
 }
 
 void BrowserSettings::setCustomBrowserType(int type)
 {
-    config()->set(Config::Browser_CustomBrowserType, type);
+	config()->set(Config::Browser_CustomBrowserType, type);
 }
 
 QString BrowserSettings::customBrowserLocation()
 {
-    return config()->get(Config::Browser_CustomBrowserLocation).toString();
+	return config()->get(Config::Browser_CustomBrowserLocation).toString();
 }
 
-void BrowserSettings::setCustomBrowserLocation(const QString& location)
+void BrowserSettings::setCustomBrowserLocation(const QString &location)
 {
-    config()->set(Config::Browser_CustomBrowserLocation, location);
+	config()->set(Config::Browser_CustomBrowserLocation, location);
 }
 
 QString BrowserSettings::proxyLocation()
 {
-    return m_nativeMessageInstaller.getProxyPath();
+	return m_nativeMessageInstaller.getProxyPath();
 }
 
 QString BrowserSettings::proxyLocationAsInstalled() const
 {
-    return m_nativeMessageInstaller.getInstalledProxyPath();
+	return m_nativeMessageInstaller.getInstalledProxyPath();
 }
 
 #ifdef QT_DEBUG
 QString BrowserSettings::customExtensionId()
 {
-    return config()->get(Config::Browser_CustomExtensionId).toString();
+	return config()->get(Config::Browser_CustomExtensionId).toString();
 }
 
-void BrowserSettings::setCustomExtensionId(const QString& id)
+void BrowserSettings::setCustomExtensionId(const QString &id)
 {
-    config()->set(Config::Browser_CustomExtensionId, id);
+	config()->set(Config::Browser_CustomExtensionId, id);
 }
 #endif
 
 bool BrowserSettings::updateBinaryPath()
 {
-    return config()->get(Config::Browser_UpdateBinaryPath).toBool();
+	return config()->get(Config::Browser_UpdateBinaryPath).toBool();
 }
 
 void BrowserSettings::setUpdateBinaryPath(bool enabled)
 {
-    config()->set(Config::Browser_UpdateBinaryPath, enabled);
+	config()->set(Config::Browser_UpdateBinaryPath, enabled);
 }
 
 bool BrowserSettings::allowExpiredCredentials()
 {
-    return config()->get(Config::Browser_AllowExpiredCredentials).toBool();
+	return config()->get(Config::Browser_AllowExpiredCredentials).toBool();
 }
 
 void BrowserSettings::setAllowExpiredCredentials(bool enabled)
 {
-    config()->set(Config::Browser_AllowExpiredCredentials, enabled);
+	config()->set(Config::Browser_AllowExpiredCredentials, enabled);
 }
 
 bool BrowserSettings::browserSupport(BrowserShared::SupportedBrowsers browser)
 {
-    return m_nativeMessageInstaller.isBrowserEnabled(browser);
+	return m_nativeMessageInstaller.isBrowserEnabled(browser);
 }
 
 void BrowserSettings::setBrowserSupport(BrowserShared::SupportedBrowsers browser, bool enabled)
 {
-    m_nativeMessageInstaller.setBrowserEnabled(browser, enabled);
+	m_nativeMessageInstaller.setBrowserEnabled(browser, enabled);
 }
 
 void BrowserSettings::updateBinaryPaths()
 {
-    m_nativeMessageInstaller.updateBinaryPaths();
+	m_nativeMessageInstaller.updateBinaryPaths();
 }
 
 QString BrowserSettings::replaceHomePath(QString location)
 {
 #ifndef Q_OS_WIN
-    auto homePath = QDir::homePath();
-    if (location.startsWith(homePath)) {
-        location.replace(homePath, "~");
-    }
+	auto homePath = QDir::homePath();
+	if (location.startsWith(homePath))
+	{
+		location.replace(homePath, "~");
+	}
 #endif
 
-    return location;
+	return location;
 }
 
 QString BrowserSettings::replaceTildeHomePath(QString location)
 {
 #ifndef Q_OS_WIN
-    auto homePath = QDir::homePath();
-    if (location.startsWith("~")) {
-        location.replace("~", homePath);
-    }
+	auto homePath = QDir::homePath();
+	if (location.startsWith("~"))
+	{
+		location.replace("~", homePath);
+	}
 #endif
 
-    return location;
+	return location;
 }

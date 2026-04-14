@@ -23,179 +23,202 @@
 
 #include <QFont>
 
-EntryHistoryModel::EntryHistoryModel(QObject* parent)
-    : QAbstractTableModel(parent)
-    , m_systemLocale(QLocale::system())
+EntryHistoryModel::EntryHistoryModel(QObject *parent)
+	: QAbstractTableModel(parent)
+	, m_systemLocale(QLocale::system())
 {
 }
 
-Entry* EntryHistoryModel::entryFromIndex(const QModelIndex& index) const
+Entry *EntryHistoryModel::entryFromIndex(const QModelIndex &index) const
 {
-    if (!index.isValid() || index.row() >= m_historyEntries.size()) {
-        return nullptr;
-    }
-    auto entry = m_historyEntries.at(index.row());
-    return entry == m_parentEntry ? nullptr : entry;
+	if (!index.isValid() || index.row() >= m_historyEntries.size())
+	{
+		return nullptr;
+	}
+	auto entry = m_historyEntries.at(index.row());
+	return entry == m_parentEntry ? nullptr : entry;
 }
 
-int EntryHistoryModel::columnCount(const QModelIndex& parent) const
+int EntryHistoryModel::columnCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
-    return 4;
+	Q_UNUSED(parent);
+	return 4;
 }
 
-int EntryHistoryModel::rowCount(const QModelIndex& parent) const
+int EntryHistoryModel::rowCount(const QModelIndex &parent) const
 {
-    if (!parent.isValid()) {
-        return m_historyEntries.count();
-    } else {
-        return 0;
-    }
+	if (!parent.isValid())
+	{
+		return m_historyEntries.count();
+	}
+	else
+	{
+		return 0;
+	}
 }
 
-QVariant EntryHistoryModel::data(const QModelIndex& index, int role) const
+QVariant EntryHistoryModel::data(const QModelIndex &index, int role) const
 {
-    if (index.row() >= m_historyEntries.size()) {
-        return {};
-    }
-    const auto entry = m_historyEntries[index.row()];
+	if (index.row() >= m_historyEntries.size())
+	{
+		return {};
+	}
+	const auto entry = m_historyEntries[index.row()];
 
-    if (role == Qt::DisplayRole || role == Qt::UserRole) {
-        QDateTime lastModified = entry->timeInfo().lastModificationTime().toLocalTime();
-        QDateTime now = Clock::currentDateTime();
+	if (role == Qt::DisplayRole || role == Qt::UserRole)
+	{
+		QDateTime lastModified = entry->timeInfo().lastModificationTime().toLocalTime();
+		QDateTime now = Clock::currentDateTime();
 
-        switch (index.column()) {
-        case 0:
-            if (role == Qt::DisplayRole) {
-                return m_systemLocale.toString(lastModified, QLocale::ShortFormat);
-            } else {
-                return lastModified;
-            }
-        case 1: {
-            const auto seconds = lastModified.secsTo(now);
-            if (role == Qt::DisplayRole) {
-                if (entry == m_parentEntry) {
-                    return tr("Current (%1)").arg(Tools::humanReadableTimeDifference(seconds));
-                }
-                return Tools::humanReadableTimeDifference(seconds);
-            }
-            return seconds;
-        }
-        case 2:
-            if (index.row() < m_historyModifications.size()) {
-                return m_historyModifications[index.row()];
-            }
-            return {};
-        case 3:
-            if (role == Qt::DisplayRole) {
-                return Tools::humanReadableFileSize(entry->size(), 0);
-            }
-            return entry->size();
-        }
-    } else if (role == Qt::FontRole && entry == m_parentEntry) {
-        QFont font;
-        font.setBold(true);
-        return font;
-    }
+		switch (index.column())
+		{
+		case 0:
+			if (role == Qt::DisplayRole)
+			{
+				return m_systemLocale.toString(lastModified, QLocale::ShortFormat);
+			}
+			else
+			{
+				return lastModified;
+			}
+		case 1: {
+			const auto seconds = lastModified.secsTo(now);
+			if (role == Qt::DisplayRole)
+			{
+				if (entry == m_parentEntry)
+				{
+					return tr("Current (%1)").arg(Tools::humanReadableTimeDifference(seconds));
+				}
+				return Tools::humanReadableTimeDifference(seconds);
+			}
+			return seconds;
+		}
+		case 2:
+			if (index.row() < m_historyModifications.size())
+			{
+				return m_historyModifications[index.row()];
+			}
+			return {};
+		case 3:
+			if (role == Qt::DisplayRole)
+			{
+				return Tools::humanReadableFileSize(entry->size(), 0);
+			}
+			return entry->size();
+		}
+	}
+	else if (role == Qt::FontRole && entry == m_parentEntry)
+	{
+		QFont font;
+		font.setBold(true);
+		return font;
+	}
 
-    return {};
+	return {};
 }
 
 QVariant EntryHistoryModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-        switch (section) {
-        case 0:
-            return tr("Last modified");
-        case 1:
-            return tr("Age");
-        case 2:
-            return tr("Difference");
-        case 3:
-            return tr("Size");
-        }
-    }
+	if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+	{
+		switch (section)
+		{
+		case 0:
+			return tr("Last modified");
+		case 1:
+			return tr("Age");
+		case 2:
+			return tr("Difference");
+		case 3:
+			return tr("Size");
+		}
+	}
 
-    return {};
+	return {};
 }
 
-void EntryHistoryModel::setEntries(const QList<Entry*>& entries, Entry* parentEntry)
+void EntryHistoryModel::setEntries(const QList<Entry *> &entries, Entry *parentEntry)
 {
-    beginResetModel();
-    m_parentEntry = parentEntry;
-    m_historyEntries = entries;
-    m_historyEntries << parentEntry;
-    // Sort the entries by last modified (newest -> oldest) so we can calculate the differences
-    std::sort(m_historyEntries.begin(), m_historyEntries.end(), [](const Entry* lhs, const Entry* rhs) {
-        return lhs->timeInfo().lastModificationTime() > rhs->timeInfo().lastModificationTime();
-    });
-    m_deletedHistoryEntries.clear();
-    calculateHistoryModifications();
-    endResetModel();
+	beginResetModel();
+	m_parentEntry = parentEntry;
+	m_historyEntries = entries;
+	m_historyEntries << parentEntry;
+	// Sort the entries by last modified (newest -> oldest) so we can calculate the differences
+	std::sort(m_historyEntries.begin(), m_historyEntries.end(), [](const Entry *lhs, const Entry *rhs) {
+		return lhs->timeInfo().lastModificationTime() > rhs->timeInfo().lastModificationTime();
+	});
+	m_deletedHistoryEntries.clear();
+	calculateHistoryModifications();
+	endResetModel();
 }
 
 void EntryHistoryModel::clear()
 {
-    beginResetModel();
+	beginResetModel();
 
-    m_historyEntries.clear();
-    m_deletedHistoryEntries.clear();
+	m_historyEntries.clear();
+	m_deletedHistoryEntries.clear();
 
-    endResetModel();
+	endResetModel();
 }
 
 void EntryHistoryModel::clearDeletedEntries()
 {
-    m_deletedHistoryEntries.clear();
+	m_deletedHistoryEntries.clear();
 }
 
-QList<Entry*> EntryHistoryModel::deletedEntries()
+QList<Entry *> EntryHistoryModel::deletedEntries()
 {
-    return m_deletedHistoryEntries;
+	return m_deletedHistoryEntries;
 }
 
 void EntryHistoryModel::deleteIndex(QModelIndex index)
 {
-    auto entry = entryFromIndex(index);
-    if (entry) {
-        beginRemoveRows(QModelIndex(), index.row(), index.row());
-        m_historyEntries.removeAt(index.row());
-        m_deletedHistoryEntries << entry;
-        calculateHistoryModifications();
-        endRemoveRows();
-    }
+	auto entry = entryFromIndex(index);
+	if (entry)
+	{
+		beginRemoveRows(QModelIndex(), index.row(), index.row());
+		m_historyEntries.removeAt(index.row());
+		m_deletedHistoryEntries << entry;
+		calculateHistoryModifications();
+		endRemoveRows();
+	}
 }
 
 void EntryHistoryModel::deleteAll()
 {
-    Q_ASSERT(m_historyEntries.count() > 0);
+	Q_ASSERT(m_historyEntries.count() > 0);
 
-    beginRemoveRows(QModelIndex(), 0, m_historyEntries.size() - 1);
+	beginRemoveRows(QModelIndex(), 0, m_historyEntries.size() - 1);
 
-    for (Entry* entry : asConst(m_historyEntries)) {
-        if (entry != m_parentEntry) {
-            m_deletedHistoryEntries << entry;
-        }
-    }
-    m_historyEntries.clear();
-    endRemoveRows();
+	for (Entry *entry: asConst(m_historyEntries))
+	{
+		if (entry != m_parentEntry)
+		{
+			m_deletedHistoryEntries << entry;
+		}
+	}
+	m_historyEntries.clear();
+	endRemoveRows();
 }
 
 void EntryHistoryModel::calculateHistoryModifications()
 {
-    m_historyModifications.clear();
+	m_historyModifications.clear();
 
-    Entry* compare = nullptr;
-    for (const auto curr : m_historyEntries) {
-        if (!compare) {
-            compare = curr;
-            continue;
-        }
+	Entry *compare = nullptr;
+	for (const auto curr: m_historyEntries)
+	{
+		if (!compare)
+		{
+			compare = curr;
+			continue;
+		}
 
-        auto modifiedFields = curr->calculateDifference(compare);
+		auto modifiedFields = curr->calculateDifference(compare);
 
-        m_historyModifications << modifiedFields.join(", ");
+		m_historyModifications << modifiedFields.join(", ");
 
-        compare = curr;
-    }
+		compare = curr;
+	}
 }

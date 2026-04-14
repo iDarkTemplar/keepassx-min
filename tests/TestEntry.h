@@ -21,27 +21,27 @@
 
 class Entry;
 
-class TestEntry : public QObject
+class TestEntry: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testHistoryItemDeletion();
-    void testCopyDataFrom();
-    void testClone();
-    void testResolveUrl();
-    void testResolveUrlPlaceholders();
-    void testResolveRecursivePlaceholders();
-    void testResolveReferencePlaceholders();
-    void testResolveUuidPlaceholder();
-    void testResolveNonIdPlaceholdersToUuid();
-    void testResolveConversionPlaceholders();
-    void testResolveReplacePlaceholders();
-    void testResolveClonedEntry();
-    void testIsRecycled();
-    void testMoveUpDown();
-    void testPreviousParentGroup();
+	void initTestCase();
+	void testHistoryItemDeletion();
+	void testCopyDataFrom();
+	void testClone();
+	void testResolveUrl();
+	void testResolveUrlPlaceholders();
+	void testResolveRecursivePlaceholders();
+	void testResolveReferencePlaceholders();
+	void testResolveUuidPlaceholder();
+	void testResolveNonIdPlaceholdersToUuid();
+	void testResolveConversionPlaceholders();
+	void testResolveReplacePlaceholders();
+	void testResolveClonedEntry();
+	void testIsRecycled();
+	void testMoveUpDown();
+	void testPreviousParentGroup();
 };
 
 #endif // KEEPASSX_TESTENTRY_H

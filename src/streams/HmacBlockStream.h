@@ -21,40 +21,40 @@
 
 #include "streams/LayeredStream.h"
 
-class HmacBlockStream : public LayeredStream
+class HmacBlockStream: public LayeredStream
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit HmacBlockStream(QIODevice* baseDevice, QByteArray key);
-    HmacBlockStream(QIODevice* baseDevice, QByteArray key, qint32 blockSize);
-    ~HmacBlockStream();
+	explicit HmacBlockStream(QIODevice *baseDevice, QByteArray key);
+	HmacBlockStream(QIODevice *baseDevice, QByteArray key, qint32 blockSize);
+	~HmacBlockStream();
 
-    bool reset() override;
-    void close() override;
+	bool reset() override;
+	void close() override;
 
-    static QByteArray getHmacKey(quint64 blockIndex, const QByteArray& key);
+	static QByteArray getHmacKey(quint64 blockIndex, const QByteArray &key);
 
-    bool atEnd() const override;
+	bool atEnd() const override;
 
 protected:
-    qint64 readData(char* data, qint64 maxSize) override;
-    qint64 writeData(const char* data, qint64 maxSize) override;
+	qint64 readData(char *data, qint64 maxSize) override;
+	qint64 writeData(const char *data, qint64 maxSize) override;
 
 private:
-    void init();
-    bool readHashedBlock();
-    bool writeHashedBlock();
-    QByteArray getCurrentHmacKey() const;
+	void init();
+	bool readHashedBlock();
+	bool writeHashedBlock();
+	QByteArray getCurrentHmacKey() const;
 
-    static const QSysInfo::Endian ByteOrder;
-    qint32 m_blockSize;
-    QByteArray m_buffer;
-    QByteArray m_key;
-    int m_bufferPos;
-    quint64 m_blockIndex;
-    bool m_eof;
-    bool m_error;
+	static const QSysInfo::Endian ByteOrder;
+	qint32 m_blockSize;
+	QByteArray m_buffer;
+	QByteArray m_key;
+	int m_bufferPos;
+	quint64 m_blockIndex;
+	bool m_eof;
+	bool m_error;
 };
 
 #endif // KEEPASSX_HMACBLOCKSTREAM_H

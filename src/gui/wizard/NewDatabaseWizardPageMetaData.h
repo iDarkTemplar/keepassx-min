@@ -21,14 +21,14 @@
 
 class Database;
 
-class NewDatabaseWizardPageMetaData : public NewDatabaseWizardPage
+class NewDatabaseWizardPageMetaData: public NewDatabaseWizardPage
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit NewDatabaseWizardPageMetaData(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(NewDatabaseWizardPageMetaData);
-    ~NewDatabaseWizardPageMetaData() override;
+	explicit NewDatabaseWizardPageMetaData(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(NewDatabaseWizardPageMetaData);
+	~NewDatabaseWizardPageMetaData() override;
 };
 
 #endif // KEEPASSXC_NEWDATABASEWIZARDPAGEMETADATA_H

@@ -21,16 +21,16 @@
 #include <QObject>
 #include <QScopedPointer>
 
-class TestTextAttachmentsEditWidget : public QObject
+class TestTextAttachmentsEditWidget: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
+	void initTestCase();
 
-    void testEmitTextChanged();
-    void testEmitPreviewButtonClicked();
+	void testEmitTextChanged();
+	void testEmitPreviewButtonClicked();
 
 private:
-    QScopedPointer<TextAttachmentsEditWidget> m_widget{};
+	QScopedPointer<TextAttachmentsEditWidget> m_widget{};
 };

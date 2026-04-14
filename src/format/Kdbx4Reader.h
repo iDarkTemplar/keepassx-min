@@ -22,25 +22,25 @@
 /**
  * KDBX4 reader implementation.
  */
-class Kdbx4Reader : public KdbxReader
+class Kdbx4Reader: public KdbxReader
 {
-    Q_DECLARE_TR_FUNCTIONS(Kdbx4Reader)
+	Q_DECLARE_TR_FUNCTIONS(Kdbx4Reader)
 
 public:
-    bool readDatabaseImpl(QIODevice* device,
-                          const QByteArray& headerData,
-                          QSharedPointer<const CompositeKey> key,
-                          Database* db) override;
-    QHash<QString, QByteArray> binaryPool() const;
+	bool readDatabaseImpl(QIODevice *device,
+	                      const QByteArray &headerData,
+	                      QSharedPointer<const CompositeKey> key,
+	                      Database *db) override;
+	QHash<QString, QByteArray> binaryPool() const;
 
 protected:
-    bool readHeaderField(StoreDataStream& headerStream, Database* db) override;
+	bool readHeaderField(StoreDataStream &headerStream, Database *db) override;
 
 private:
-    bool readInnerHeaderField(QIODevice* device);
-    QVariantMap readVariantMap(QIODevice* device);
+	bool readInnerHeaderField(QIODevice *device);
+	QVariantMap readVariantMap(QIODevice *device);
 
-    QHash<QString, QByteArray> m_binaryPool;
+	QHash<QString, QByteArray> m_binaryPool;
 };
 
 #endif // KEEPASSX_KDBX4READER_H

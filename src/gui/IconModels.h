@@ -20,33 +20,33 @@
 #include <QAbstractListModel>
 #include <QPixmap>
 
-class DefaultIconModel : public QAbstractListModel
+class DefaultIconModel: public QAbstractListModel
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DefaultIconModel(QObject* parent = nullptr);
+	explicit DefaultIconModel(QObject *parent = nullptr);
 
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 };
 
-class CustomIconModel : public QAbstractListModel
+class CustomIconModel: public QAbstractListModel
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit CustomIconModel(QObject* parent = nullptr);
+	explicit CustomIconModel(QObject *parent = nullptr);
 
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-    void setIcons(const QHash<QUuid, QPixmap>& icons, const QList<QUuid>& iconsOrder);
-    QUuid uuidFromIndex(const QModelIndex& index) const;
-    QModelIndex indexFromUuid(const QUuid& uuid) const;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+	void setIcons(const QHash<QUuid, QPixmap> &icons, const QList<QUuid> &iconsOrder);
+	QUuid uuidFromIndex(const QModelIndex &index) const;
+	QModelIndex indexFromUuid(const QUuid &uuid) const;
 
 private:
-    QHash<QUuid, QPixmap> m_icons;
-    QList<QUuid> m_iconsOrder;
+	QHash<QUuid, QPixmap> m_icons;
+	QList<QUuid> m_iconsOrder;
 };
 
 #endif // KEEPASSX_ICONMODELS_H

@@ -23,29 +23,29 @@
 
 class QAbstractButton;
 
-class KPToolBar : public QToolBar
+class KPToolBar: public QToolBar
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit KPToolBar(const QString& title, QWidget* parent = nullptr);
-    explicit KPToolBar(QWidget* parent = nullptr);
-    ~KPToolBar() override = default;
+	explicit KPToolBar(const QString &title, QWidget *parent = nullptr);
+	explicit KPToolBar(QWidget *parent = nullptr);
+	~KPToolBar() override = default;
 
-    bool isExpanded();
-    bool canExpand();
+	bool isExpanded();
+	bool canExpand();
 
 public slots:
-    void setExpanded(bool state);
+	void setExpanded(bool state);
 
 protected:
-    bool event(QEvent* event) override;
+	bool event(QEvent *event) override;
 
 private:
-    void init();
+	void init();
 
-    QTimer m_expandTimer;
-    QPointer<QAbstractButton> m_expandButton;
+	QTimer m_expandTimer;
+	QPointer<QAbstractButton> m_expandButton;
 };
 
 #endif // KEEPASSXC_KPTOOLBAR_H

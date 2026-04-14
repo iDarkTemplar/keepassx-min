@@ -17,13 +17,13 @@
 #include "NewDatabaseWizardPageDatabaseKey.h"
 #include "gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.h"
 
-NewDatabaseWizardPageDatabaseKey::NewDatabaseWizardPageDatabaseKey(QWidget* parent)
-    : NewDatabaseWizardPage(parent)
+NewDatabaseWizardPageDatabaseKey::NewDatabaseWizardPageDatabaseKey(QWidget *parent)
+	: NewDatabaseWizardPage(parent)
 {
-    setPageWidget(new DatabaseSettingsWidgetDatabaseKey());
+	setPageWidget(new DatabaseSettingsWidgetDatabaseKey());
 
-    setTitle(tr("Database Credentials"));
-    setSubTitle(tr("A set of credentials known only to you that protects your database."));
+	setTitle(tr("Database Credentials"));
+	setSubTitle(tr("A set of credentials known only to you that protects your database."));
 }
 
 NewDatabaseWizardPageDatabaseKey::~NewDatabaseWizardPageDatabaseKey()

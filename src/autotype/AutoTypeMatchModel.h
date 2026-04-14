@@ -25,42 +25,42 @@
 class Entry;
 class Group;
 
-class AutoTypeMatchModel : public QAbstractTableModel
+class AutoTypeMatchModel: public QAbstractTableModel
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    enum ModelColumn
-    {
-        ParentGroup = 0,
-        Title = 1,
-        Username = 2,
-        Sequence = 3
-    };
+	enum ModelColumn
+	{
+		ParentGroup = 0,
+		Title = 1,
+		Username = 2,
+		Sequence = 3
+	};
 
-    explicit AutoTypeMatchModel(QObject* parent = nullptr);
-    AutoTypeMatch matchFromIndex(const QModelIndex& index) const;
-    QModelIndex indexFromMatch(const AutoTypeMatch& match) const;
-    QModelIndex closestIndexFromMatch(const AutoTypeMatch& match) const;
+	explicit AutoTypeMatchModel(QObject *parent = nullptr);
+	AutoTypeMatch matchFromIndex(const QModelIndex &index) const;
+	QModelIndex indexFromMatch(const AutoTypeMatch &match) const;
+	QModelIndex closestIndexFromMatch(const AutoTypeMatch &match) const;
 
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+	int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
-    void setMatchList(const QList<AutoTypeMatch>& matches);
+	void setMatchList(const QList<AutoTypeMatch> &matches);
 
 private slots:
-    void entryAboutToRemove(Entry* entry);
-    void entryRemoved();
-    void entryDataChanged(Entry* entry);
+	void entryAboutToRemove(Entry *entry);
+	void entryRemoved();
+	void entryDataChanged(Entry *entry);
 
 private:
-    void severConnections();
-    void makeConnections(const Group* group);
+	void severConnections();
+	void makeConnections(const Group *group);
 
-    QList<AutoTypeMatch> m_matches;
-    QList<const Group*> m_allGroups;
+	QList<AutoTypeMatch> m_matches;
+	QList<const Group *> m_allGroups;
 };
 
 #endif // KEEPASSX_AUTOTYPEMATCHMODEL_H

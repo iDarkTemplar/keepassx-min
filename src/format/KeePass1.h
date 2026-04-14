@@ -21,19 +21,19 @@
 
 namespace KeePass1
 {
-    const quint32 SIGNATURE_1 = 0x9AA2D903;
-    const quint32 SIGNATURE_2 = 0xB54BFB65;
-    const quint32 PWM_DBVER_DW = 0x00030002;
-    const quint32 FILE_VERSION = 0x00030002;
-    const quint32 FILE_VERSION_CRITICAL_MASK = 0xFFFFFF00;
+	const quint32 SIGNATURE_1 = 0x9AA2D903;
+	const quint32 SIGNATURE_2 = 0xB54BFB65;
+	const quint32 PWM_DBVER_DW = 0x00030002;
+	const quint32 FILE_VERSION = 0x00030002;
+	const quint32 FILE_VERSION_CRITICAL_MASK = 0xFFFFFF00;
 
-    const QSysInfo::Endian BYTEORDER = QSysInfo::LittleEndian;
+	const QSysInfo::Endian BYTEORDER = QSysInfo::LittleEndian;
 
-    enum EncryptionFlags
-    {
-        Rijndael = 2,
-        Twofish = 8
-    };
+	enum EncryptionFlags
+	{
+		Rijndael = 2,
+		Twofish = 8
+	};
 } // namespace KeePass1
 
 #endif // KEEPASSX_KEEPASS1_H

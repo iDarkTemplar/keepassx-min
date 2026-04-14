@@ -18,13 +18,13 @@
 
 Close::Close()
 {
-    name = QString("close");
-    description = QObject::tr("Close the currently opened database.");
+	name = QString("close");
+	description = QObject::tr("Close the currently opened database.");
 }
 
-int Close::execute(const QStringList& arguments)
+int Close::execute(const QStringList &arguments)
 {
-    Q_UNUSED(arguments)
-    currentDatabase.reset(nullptr);
-    return EXIT_SUCCESS;
+	Q_UNUSED(arguments)
+	currentDatabase.reset(nullptr);
+	return EXIT_SUCCESS;
 }

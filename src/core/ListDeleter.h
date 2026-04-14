@@ -22,17 +22,17 @@
 template <typename T> class ListDeleter
 {
 public:
-    inline explicit ListDeleter(QList<T>* list)
-        : m_list(list)
-    {
-    }
-    inline ~ListDeleter()
-    {
-        qDeleteAll(*m_list);
-    }
+	inline explicit ListDeleter(QList<T> *list)
+		: m_list(list)
+	{
+	}
+	inline ~ListDeleter()
+	{
+		qDeleteAll(*m_list);
+	}
 
 private:
-    QList<T>* m_list;
+	QList<T> *m_list;
 };
 
 #endif // KEEPASSX_LISTDELETER_H

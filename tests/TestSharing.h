@@ -21,23 +21,23 @@
 
 namespace Botan
 {
-    class RSA_PrivateKey;
+	class RSA_PrivateKey;
 }
-class TestSharing : public QObject
+class TestSharing: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testNullObjects();
-    void testKeySerialization();
-    void testReferenceSerialization();
-    void testReferenceSerialization_data();
-    void testSettingsSerialization();
-    void testSettingsSerialization_data();
+	void initTestCase();
+	void testNullObjects();
+	void testKeySerialization();
+	void testReferenceSerialization();
+	void testReferenceSerialization_data();
+	void testSettingsSerialization();
+	void testSettingsSerialization_data();
 
 private:
-    const QSharedPointer<Botan::RSA_PrivateKey> stubkey(int index = 0);
+	const QSharedPointer<Botan::RSA_PrivateKey> stubkey(int index = 0);
 };
 
 #endif // KEEPASSXC_TESTSHARING_H

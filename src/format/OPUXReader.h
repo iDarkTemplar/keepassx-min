@@ -27,16 +27,16 @@ class Database;
 class OPUXReader
 {
 public:
-    explicit OPUXReader() = default;
-    ~OPUXReader() = default;
+	explicit OPUXReader() = default;
+	~OPUXReader() = default;
 
-    QSharedPointer<Database> convert(const QString& path);
+	QSharedPointer<Database> convert(const QString &path);
 
-    bool hasError();
-    QString errorString();
+	bool hasError();
+	QString errorString();
 
 private:
-    QString m_error;
+	QString m_error;
 };
 
 #endif // OPUX_READER_H

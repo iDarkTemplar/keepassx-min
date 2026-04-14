@@ -29,73 +29,73 @@ class KeePass2RandomStream;
 class KdbxXmlWriter
 {
 public:
-    /**
-     * Map of entry + attachment key to KDBX 4 inner header binary index.
-     */
-    typedef QHash<QPair<const Entry*, QString>, qint64> BinaryIdxMap;
+	/**
+	 * Map of entry + attachment key to KDBX 4 inner header binary index.
+	 */
+	typedef QHash<QPair<const Entry *, QString>, qint64> BinaryIdxMap;
 
-    explicit KdbxXmlWriter(quint32 version);
-    explicit KdbxXmlWriter(quint32 version, KdbxXmlWriter::BinaryIdxMap binaryIdxMap);
+	explicit KdbxXmlWriter(quint32 version);
+	explicit KdbxXmlWriter(quint32 version, KdbxXmlWriter::BinaryIdxMap binaryIdxMap);
 
-    void writeDatabase(QIODevice* device,
-                       const Database* db,
-                       KeePass2RandomStream* randomStream = nullptr,
-                       const QByteArray& headerHash = QByteArray());
-    void writeDatabase(const QString& filename, Database* db);
-    void disableInnerStreamProtection(bool disable);
-    bool innerStreamProtectionDisabled() const;
-    bool hasError();
-    QString errorString();
+	void writeDatabase(QIODevice *device,
+	                   const Database *db,
+	                   KeePass2RandomStream *randomStream = nullptr,
+	                   const QByteArray &headerHash = QByteArray());
+	void writeDatabase(const QString &filename, Database *db);
+	void disableInnerStreamProtection(bool disable);
+	bool innerStreamProtectionDisabled() const;
+	bool hasError();
+	QString errorString();
 
 private:
-    void fillBinaryIdxMap();
+	void fillBinaryIdxMap();
 
-    void writeMetadata();
-    void writeMemoryProtection();
-    void writeCustomIcons();
-    void writeIcon(const QUuid& uuid, const Metadata::CustomIconData& iconData);
-    void writeBinaries();
-    void writeCustomData(const CustomData* customData, bool writeItemLastModified = false);
-    void
-    writeCustomDataItem(const QString& key, const CustomData::CustomDataItem& item, bool writeLastModified = false);
-    void writeRoot();
-    void writeGroup(const Group* group);
-    void writeTimes(const TimeInfo& ti);
-    void writeDeletedObjects();
-    void writeDeletedObject(const DeletedObject& delObj);
-    void writeEntry(const Entry* entry);
-    void writeAutoType(const Entry* entry);
-    void writeAutoTypeAssoc(const AutoTypeAssociations::Association& assoc);
-    void writeEntryHistory(const Entry* entry);
+	void writeMetadata();
+	void writeMemoryProtection();
+	void writeCustomIcons();
+	void writeIcon(const QUuid &uuid, const Metadata::CustomIconData &iconData);
+	void writeBinaries();
+	void writeCustomData(const CustomData *customData, bool writeItemLastModified = false);
+	void
+		writeCustomDataItem(const QString &key, const CustomData::CustomDataItem &item, bool writeLastModified = false);
+	void writeRoot();
+	void writeGroup(const Group *group);
+	void writeTimes(const TimeInfo &ti);
+	void writeDeletedObjects();
+	void writeDeletedObject(const DeletedObject &delObj);
+	void writeEntry(const Entry *entry);
+	void writeAutoType(const Entry *entry);
+	void writeAutoTypeAssoc(const AutoTypeAssociations::Association &assoc);
+	void writeEntryHistory(const Entry *entry);
 
-    void writeString(const QString& qualifiedName, const QString& string);
-    void writeNumber(const QString& qualifiedName, int number);
-    void writeBool(const QString& qualifiedName, bool b);
-    void writeDateTime(const QString& qualifiedName, const QDateTime& dateTime);
-    void writeUuid(const QString& qualifiedName, const QUuid& uuid);
-    void writeUuid(const QString& qualifiedName, const Group* group);
-    void writeUuid(const QString& qualifiedName, const Entry* entry);
-    void writeBinary(const QString& qualifiedName, const QByteArray& ba);
-    void writeTriState(const QString& qualifiedName, Group::TriState triState);
-    QString colorPartToString(int value);
-    QString stripInvalidXml10Chars(QString str);
+	void writeString(const QString &qualifiedName, const QString &string);
+	void writeNumber(const QString &qualifiedName, int number);
+	void writeBool(const QString &qualifiedName, bool b);
+	void writeDateTime(const QString &qualifiedName, const QDateTime &dateTime);
+	void writeUuid(const QString &qualifiedName, const QUuid &uuid);
+	void writeUuid(const QString &qualifiedName, const Group *group);
+	void writeUuid(const QString &qualifiedName, const Entry *entry);
+	void writeBinary(const QString &qualifiedName, const QByteArray &ba);
+	void writeTriState(const QString &qualifiedName, Group::TriState triState);
+	QString colorPartToString(int value);
+	QString stripInvalidXml10Chars(QString str);
 
-    void raiseError(const QString& errorMessage);
+	void raiseError(const QString &errorMessage);
 
-    const quint32 m_kdbxVersion;
+	const quint32 m_kdbxVersion;
 
-    bool m_innerStreamProtectionDisabled = false;
+	bool m_innerStreamProtectionDisabled = false;
 
-    QXmlStreamWriter m_xml;
-    QPointer<const Database> m_db;
-    QPointer<const Metadata> m_meta;
-    KeePass2RandomStream* m_randomStream = nullptr;
-    BinaryIdxMap m_binaryIdxMap;
-    QByteArray m_headerHash;
+	QXmlStreamWriter m_xml;
+	QPointer<const Database> m_db;
+	QPointer<const Metadata> m_meta;
+	KeePass2RandomStream *m_randomStream = nullptr;
+	BinaryIdxMap m_binaryIdxMap;
+	QByteArray m_headerHash;
 
-    bool m_error = false;
+	bool m_error = false;
 
-    QString m_errorStr = "";
+	QString m_errorStr = "";
 };
 
 #endif // KEEPASSX_KDBXXMLWRITER_H

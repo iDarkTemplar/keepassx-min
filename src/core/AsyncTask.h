@@ -26,53 +26,53 @@
 namespace AsyncTask
 {
 
-    /**
-     * Wait for the given future without blocking the event loop.
-     *
-     * @param future future to wait for
-     * @return async task result
-     */
-    template <typename T> T waitForFuture(QFuture<T> future)
-    {
-        QEventLoop loop;
-        QFutureWatcher<T> watcher;
-        QObject::connect(&watcher, SIGNAL(finished()), &loop, SLOT(quit()));
-        watcher.setFuture(future);
-        loop.exec();
-        return future.result();
-    }
+	/**
+	 * Wait for the given future without blocking the event loop.
+	 *
+	 * @param future future to wait for
+	 * @return async task result
+	 */
+	template <typename T> T waitForFuture(QFuture<T> future)
+	{
+		QEventLoop loop;
+		QFutureWatcher<T> watcher;
+		QObject::connect(&watcher, SIGNAL(finished()), &loop, SLOT(quit()));
+		watcher.setFuture(future);
+		loop.exec();
+		return future.result();
+	}
 
-    /**
-     * Run a given task and wait for it to finish without blocking the event loop.
-     *
-     * @param task std::function object to run
-     * @return async task result
-     */
-    template <typename FunctionObject> decltype(auto) runAndWaitForFuture(FunctionObject task)
-    {
-        return waitForFuture(QtConcurrent::run(task));
-    }
+	/**
+	 * Run a given task and wait for it to finish without blocking the event loop.
+	 *
+	 * @param task std::function object to run
+	 * @return async task result
+	 */
+	template <typename FunctionObject> decltype(auto) runAndWaitForFuture(FunctionObject task)
+	{
+		return waitForFuture(QtConcurrent::run(task));
+	}
 
-    /**
-     * Run a given task then call the defined callback. Prevents event loop blocking and
-     * ensures the validity of the follow-on task through the context. If the context is
-     * deleted, the callback will not be processed preventing use after free errors.
-     *
-     * @param task std::function object to run
-     * @param context QObject responsible for calling this function
-     * @param callback std::function object to run after the task completess
-     */
-    template <typename FunctionObject, typename FunctionObject2>
-    void runThenCallback(FunctionObject task, QObject* context, FunctionObject2 callback)
-    {
-        auto future = QtConcurrent::run(task);
-        auto watcher = new QFutureWatcher<decltype(future.result())>(context);
-        QObject::connect(watcher, &QFutureWatcherBase::finished, context, [=]() {
-            watcher->deleteLater();
-            callback(future.result());
-        });
-        watcher->setFuture(future);
-    }
+	/**
+	 * Run a given task then call the defined callback. Prevents event loop blocking and
+	 * ensures the validity of the follow-on task through the context. If the context is
+	 * deleted, the callback will not be processed preventing use after free errors.
+	 *
+	 * @param task std::function object to run
+	 * @param context QObject responsible for calling this function
+	 * @param callback std::function object to run after the task completess
+	 */
+	template <typename FunctionObject, typename FunctionObject2>
+	void runThenCallback(FunctionObject task, QObject *context, FunctionObject2 callback)
+	{
+		auto future = QtConcurrent::run(task);
+		auto watcher = new QFutureWatcher<decltype(future.result())>(context);
+		QObject::connect(watcher, &QFutureWatcherBase::finished, context, [=]() {
+			watcher->deleteLater();
+			callback(future.result());
+		});
+		watcher->setFuture(future);
+	}
 
 }; // namespace AsyncTask
 

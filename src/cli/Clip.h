@@ -19,16 +19,16 @@
 
 #include "DatabaseCommand.h"
 
-class Clip : public DatabaseCommand
+class Clip: public DatabaseCommand
 {
 public:
-    Clip();
+	Clip();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 
-    static const QCommandLineOption AttributeOption;
-    static const QCommandLineOption TotpOption;
-    static const QCommandLineOption BestMatchOption;
+	static const QCommandLineOption AttributeOption;
+	static const QCommandLineOption TotpOption;
+	static const QCommandLineOption BestMatchOption;
 };
 
 #endif // KEEPASSXC_CLIP_H

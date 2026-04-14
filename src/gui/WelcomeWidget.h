@@ -22,34 +22,34 @@
 
 namespace Ui
 {
-    class WelcomeWidget;
+	class WelcomeWidget;
 }
 
-class WelcomeWidget : public QWidget
+class WelcomeWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit WelcomeWidget(QWidget* parent = nullptr);
-    ~WelcomeWidget();
-    void refreshLastDatabases();
+	explicit WelcomeWidget(QWidget *parent = nullptr);
+	~WelcomeWidget();
+	void refreshLastDatabases();
 
 signals:
-    void newDatabase();
-    void openDatabase();
-    void openDatabaseFile(QString);
-    void importFile();
+	void newDatabase();
+	void openDatabase();
+	void openDatabaseFile(QString);
+	void importFile();
 
 protected:
-    void keyPressEvent(QKeyEvent* event) override;
-    void showEvent(QShowEvent* event) override;
+	void keyPressEvent(QKeyEvent *event) override;
+	void showEvent(QShowEvent *event) override;
 
 private slots:
-    void openDatabaseFromFile(QListWidgetItem* item);
+	void openDatabaseFromFile(QListWidgetItem *item);
 
 private:
-    const QScopedPointer<Ui::WelcomeWidget> m_ui;
-    void removeFromLastDatabases(QListWidgetItem* item);
+	const QScopedPointer<Ui::WelcomeWidget> m_ui;
+	void removeFromLastDatabases(QListWidgetItem *item);
 };
 
 #endif // KEEPASSX_WELCOMEWIDGET_H

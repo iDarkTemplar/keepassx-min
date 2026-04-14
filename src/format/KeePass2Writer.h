@@ -26,28 +26,28 @@ class Database;
 
 class KeePass2Writer
 {
-    Q_DECLARE_TR_FUNCTIONS(KeePass2Writer)
+	Q_DECLARE_TR_FUNCTIONS(KeePass2Writer)
 
 public:
-    bool writeDatabase(const QString& filename, Database* db);
-    bool writeDatabase(QIODevice* device, Database* db);
-    void extractDatabase(Database* db, QByteArray& xmlOutput);
-    static quint32 kdbxVersionRequired(Database const* db, bool ignoreCurrent = false, bool ignoreKdf = false);
+	bool writeDatabase(const QString &filename, Database *db);
+	bool writeDatabase(QIODevice *device, Database *db);
+	void extractDatabase(Database *db, QByteArray &xmlOutput);
+	static quint32 kdbxVersionRequired(Database const *db, bool ignoreCurrent = false, bool ignoreKdf = false);
 
-    QSharedPointer<KdbxWriter> writer() const;
-    quint32 version() const;
+	QSharedPointer<KdbxWriter> writer() const;
+	quint32 version() const;
 
-    bool hasError() const;
-    QString errorString() const;
+	bool hasError() const;
+	QString errorString() const;
 
 private:
-    void raiseError(const QString& errorMessage);
+	void raiseError(const QString &errorMessage);
 
-    bool m_error = false;
-    QString m_errorStr = "";
+	bool m_error = false;
+	QString m_errorStr = "";
 
-    QScopedPointer<KdbxWriter> m_writer;
-    quint32 m_version = 0;
+	QScopedPointer<KdbxWriter> m_writer;
+	quint32 m_version = 0;
 };
 
 #endif // KEEPASSX_KEEPASS2READER_H

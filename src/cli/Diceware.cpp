@@ -23,57 +23,65 @@
 #include <QCommandLineParser>
 
 const QCommandLineOption Diceware::WordCountOption =
-    QCommandLineOption(QStringList() << "W" << "words",
+	QCommandLineOption(QStringList() << "W" << "words",
                        QObject::tr("Word count for the diceware passphrase."),
                        QObject::tr("count", "CLI parameter"));
 
 const QCommandLineOption Diceware::WordListOption =
-    QCommandLineOption(QStringList() << "w" << "word-list",
+	QCommandLineOption(QStringList() << "w" << "word-list",
                        QObject::tr("Wordlist for the diceware generator.\n[Default: EFF English]"),
                        QObject::tr("path"));
 
 Diceware::Diceware()
 {
-    name = QString("diceware");
-    description = QObject::tr("Generate a new random diceware passphrase.");
-    options.append(Diceware::WordCountOption);
-    options.append(Diceware::WordListOption);
+	name = QString("diceware");
+	description = QObject::tr("Generate a new random diceware passphrase.");
+	options.append(Diceware::WordCountOption);
+	options.append(Diceware::WordListOption);
 }
 
-int Diceware::execute(const QStringList& arguments)
+int Diceware::execute(const QStringList &arguments)
 {
-    QSharedPointer<QCommandLineParser> parser = getCommandLineParser(arguments);
-    if (parser.isNull()) {
-        return EXIT_FAILURE;
-    }
+	QSharedPointer<QCommandLineParser> parser = getCommandLineParser(arguments);
+	if (parser.isNull())
+	{
+		return EXIT_FAILURE;
+	}
 
-    auto& out = Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    PassphraseGenerator dicewareGenerator;
+	PassphraseGenerator dicewareGenerator;
 
-    QString wordCount = parser->value(Diceware::WordCountOption);
-    if (wordCount.isEmpty()) {
-        dicewareGenerator.setWordCount(PassphraseGenerator::DefaultWordCount);
-    } else if (wordCount.toInt() <= 0) {
-        err << QObject::tr("Invalid word count %1").arg(wordCount) << Qt::endl;
-        return EXIT_FAILURE;
-    } else {
-        dicewareGenerator.setWordCount(wordCount.toInt());
-    }
+	QString wordCount = parser->value(Diceware::WordCountOption);
+	if (wordCount.isEmpty())
+	{
+		dicewareGenerator.setWordCount(PassphraseGenerator::DefaultWordCount);
+	}
+	else if (wordCount.toInt() <= 0)
+	{
+		err << QObject::tr("Invalid word count %1").arg(wordCount) << Qt::endl;
+		return EXIT_FAILURE;
+	}
+	else
+	{
+		dicewareGenerator.setWordCount(wordCount.toInt());
+	}
 
-    QString wordListFile = parser->value(Diceware::WordListOption);
-    if (!wordListFile.isEmpty()) {
-        dicewareGenerator.setWordList(wordListFile);
-    }
+	QString wordListFile = parser->value(Diceware::WordListOption);
+	if (!wordListFile.isEmpty())
+	{
+		dicewareGenerator.setWordList(wordListFile);
+	}
 
-    // Show a warning if the wordlist is smaller than the recommended size
-    if (!dicewareGenerator.isWordListValid()) {
-        err << QObject::tr("Warning: the chosen wordlist is smaller than the minimum recommended size!") << Qt::endl;
-    }
+	// Show a warning if the wordlist is smaller than the recommended size
+	if (!dicewareGenerator.isWordListValid())
+	{
+		err << QObject::tr("Warning: the chosen wordlist is smaller than the minimum recommended size!") << Qt::endl;
+	}
 
-    QString password = dicewareGenerator.generatePassphrase();
-    out << password << Qt::endl;
+	QString password = dicewareGenerator.generatePassphrase();
+	out << password << Qt::endl;
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

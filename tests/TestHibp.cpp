@@ -27,93 +27,93 @@
 
 QTEST_GUILESS_MAIN(TestHibp)
 
-const char* TEST_HIBP_CONTENTS = "0BEEC7B5EA3F0FDBC95D0DD47F3C5BC275DA8A33:123\n" // SHA-1 of "foo"
-                                 "62cdb7020ff920e5aa642c3d4066950dd1f01f4d:456\n"; // SHA-1 of "bar"
+const char *TEST_HIBP_CONTENTS = "0BEEC7B5EA3F0FDBC95D0DD47F3C5BC275DA8A33:123\n" // SHA-1 of "foo"
+								 "62cdb7020ff920e5aa642c3d4066950dd1f01f4d:456\n"; // SHA-1 of "bar"
 
-const char* TEST_BAD_HIBP_CONTENTS = "barf:nope\n";
+const char *TEST_BAD_HIBP_CONTENTS = "barf:nope\n";
 
 void TestHibp::initTestCase()
 {
-    QVERIFY(Crypto::init());
+	QVERIFY(Crypto::init());
 }
 
 void TestHibp::init()
 {
-    m_db.reset(new Database());
+	m_db.reset(new Database());
 }
 
 void TestHibp::testBadHibpFormat()
 {
-    QByteArray hibpContents(TEST_BAD_HIBP_CONTENTS);
-    QBuffer hibpBuffer(&hibpContents);
-    QVERIFY(hibpBuffer.open(QIODevice::ReadOnly));
+	QByteArray hibpContents(TEST_BAD_HIBP_CONTENTS);
+	QBuffer hibpBuffer(&hibpContents);
+	QVERIFY(hibpBuffer.open(QIODevice::ReadOnly));
 
-    QList<QPair<const Entry*, int>> findings;
-    QString error;
-    QVERIFY(!HibpOffline::report(m_db, hibpBuffer, findings, &error));
-    QVERIFY(!error.isEmpty());
-    QCOMPARE(findings.size(), 0);
+	QList<QPair<const Entry *, int>> findings;
+	QString error;
+	QVERIFY(!HibpOffline::report(m_db, hibpBuffer, findings, &error));
+	QVERIFY(!error.isEmpty());
+	QCOMPARE(findings.size(), 0);
 }
 
 void TestHibp::testEmpty()
 {
-    QByteArray hibpContents(TEST_HIBP_CONTENTS);
-    QBuffer hibpBuffer(&hibpContents);
-    QVERIFY(hibpBuffer.open(QIODevice::ReadOnly));
+	QByteArray hibpContents(TEST_HIBP_CONTENTS);
+	QBuffer hibpBuffer(&hibpContents);
+	QVERIFY(hibpBuffer.open(QIODevice::ReadOnly));
 
-    QList<QPair<const Entry*, int>> findings;
-    QString error;
-    QVERIFY(HibpOffline::report(m_db, hibpBuffer, findings, &error));
-    QCOMPARE(error, QString());
-    QCOMPARE(findings.size(), 0);
+	QList<QPair<const Entry *, int>> findings;
+	QString error;
+	QVERIFY(HibpOffline::report(m_db, hibpBuffer, findings, &error));
+	QCOMPARE(error, QString());
+	QCOMPARE(findings.size(), 0);
 }
 
 void TestHibp::testIoError()
 {
-    QBuffer hibpBuffer;
-    // hibpBuffer has not been opened, so reading will cause I/O error
+	QBuffer hibpBuffer;
+	// hibpBuffer has not been opened, so reading will cause I/O error
 
-    QList<QPair<const Entry*, int>> findings;
-    QString error;
-    QVERIFY(!HibpOffline::report(m_db, hibpBuffer, findings, &error));
-    QVERIFY(!error.isEmpty());
-    QCOMPARE(findings.size(), 0);
+	QList<QPair<const Entry *, int>> findings;
+	QString error;
+	QVERIFY(!HibpOffline::report(m_db, hibpBuffer, findings, &error));
+	QVERIFY(!error.isEmpty());
+	QCOMPARE(findings.size(), 0);
 }
 
 void TestHibp::testPwned()
 {
-    QByteArray hibpContents(TEST_HIBP_CONTENTS);
-    QBuffer hibpBuffer(&hibpContents);
-    QVERIFY(hibpBuffer.open(QIODevice::ReadOnly));
+	QByteArray hibpContents(TEST_HIBP_CONTENTS);
+	QBuffer hibpBuffer(&hibpContents);
+	QVERIFY(hibpBuffer.open(QIODevice::ReadOnly));
 
-    Group* root = m_db->rootGroup();
+	Group *root = m_db->rootGroup();
 
-    Entry* entry1 = new Entry();
-    entry1->setPassword("foo");
-    entry1->setGroup(root);
+	Entry *entry1 = new Entry();
+	entry1->setPassword("foo");
+	entry1->setGroup(root);
 
-    Entry* entry2 = new Entry();
-    entry2->setPassword("xyz");
-    entry2->setGroup(root);
+	Entry *entry2 = new Entry();
+	entry2->setPassword("xyz");
+	entry2->setGroup(root);
 
-    Entry* entry3 = new Entry();
-    entry3->setPassword("foo");
-    m_db->recycleEntry(entry3);
+	Entry *entry3 = new Entry();
+	entry3->setPassword("foo");
+	m_db->recycleEntry(entry3);
 
-    Group* group1 = new Group();
-    group1->setParent(root);
+	Group *group1 = new Group();
+	group1->setParent(root);
 
-    Entry* entry4 = new Entry();
-    entry4->setPassword("bar");
-    entry4->setGroup(group1);
+	Entry *entry4 = new Entry();
+	entry4->setPassword("bar");
+	entry4->setGroup(group1);
 
-    QList<QPair<const Entry*, int>> findings;
-    QString error;
-    QVERIFY(HibpOffline::report(m_db, hibpBuffer, findings, &error));
-    QCOMPARE(error, QString());
-    QCOMPARE(findings.size(), 2);
-    QCOMPARE(findings[0].first, entry1);
-    QCOMPARE(findings[0].second, 123);
-    QCOMPARE(findings[1].first, entry4);
-    QCOMPARE(findings[1].second, 456);
+	QList<QPair<const Entry *, int>> findings;
+	QString error;
+	QVERIFY(HibpOffline::report(m_db, hibpBuffer, findings, &error));
+	QCOMPARE(error, QString());
+	QCOMPARE(findings.size(), 2);
+	QCOMPARE(findings[0].first, entry1);
+	QCOMPARE(findings[0].second, 123);
+	QCOMPARE(findings[1].first, entry4);
+	QCOMPARE(findings[1].second, 456);
 }

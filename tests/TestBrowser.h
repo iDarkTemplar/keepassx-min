@@ -22,40 +22,40 @@
 #include "browser/BrowserAction.h"
 #include "browser/BrowserService.h"
 
-class TestBrowser : public QObject
+class TestBrowser: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void init();
+	void initTestCase();
+	void init();
 
-    void testChangePublicKeys();
-    void testEncryptMessage();
-    void testDecryptMessage();
-    void testGetBase64FromKey();
-    void testIncrementNonce();
-    void testBuildResponse();
-    void testSortPriority();
-    void testSortPriority_data();
-    void testSearchEntries();
-    void testSearchEntriesByPath();
-    void testSearchEntriesByUUID();
-    void testSearchEntriesByReference();
-    void testSearchEntriesWithPort();
-    void testSearchEntriesWithAdditionalURLs();
-    void testSearchEntriesWithWildcardURLs();
-    void testInvalidEntries();
-    void testSubdomainsAndPaths();
-    void testBestMatchingCredentials();
-    void testBestMatchingWithAdditionalURLs();
-    void testRestrictBrowserKey();
+	void testChangePublicKeys();
+	void testEncryptMessage();
+	void testDecryptMessage();
+	void testGetBase64FromKey();
+	void testIncrementNonce();
+	void testBuildResponse();
+	void testSortPriority();
+	void testSortPriority_data();
+	void testSearchEntries();
+	void testSearchEntriesByPath();
+	void testSearchEntriesByUUID();
+	void testSearchEntriesByReference();
+	void testSearchEntriesWithPort();
+	void testSearchEntriesWithAdditionalURLs();
+	void testSearchEntriesWithWildcardURLs();
+	void testInvalidEntries();
+	void testSubdomainsAndPaths();
+	void testBestMatchingCredentials();
+	void testBestMatchingWithAdditionalURLs();
+	void testRestrictBrowserKey();
 
 private:
-    QList<Entry*> createEntries(QStringList& urls, Group* root, bool additionalUrl = false) const;
-    void compareEntriesByPath(QSharedPointer<Database> db, QList<Entry*> entries, QString path);
+	QList<Entry *> createEntries(QStringList &urls, Group *root, bool additionalUrl = false) const;
+	void compareEntriesByPath(QSharedPointer<Database> db, QList<Entry *> entries, QString path);
 
-    QScopedPointer<BrowserAction> m_browserAction;
-    QPointer<BrowserService> m_browserService;
+	QScopedPointer<BrowserAction> m_browserAction;
+	QPointer<BrowserService> m_browserService;
 };
 #endif // KEEPASSXC_TESTBROWSER_H

@@ -22,26 +22,27 @@
 
 namespace
 {
-    QString PixmapToHTML(const QPixmap& pixmap)
-    {
-        if (pixmap.isNull()) {
-            return "";
-        }
+	QString PixmapToHTML(const QPixmap &pixmap)
+	{
+		if (pixmap.isNull())
+		{
+			return "";
+		}
 
-        // Based on https://stackoverflow.com/a/6621278
-        QByteArray a;
-        QBuffer buffer(&a);
-        pixmap.save(&buffer, "PNG");
-        return QString("<img src=\"data:image/png;base64,") + a.toBase64() + "\"/>";
-    }
+		// Based on https://stackoverflow.com/a/6621278
+		QByteArray a;
+		QBuffer buffer(&a);
+		pixmap.save(&buffer, "PNG");
+		return QString("<img src=\"data:image/png;base64,") + a.toBase64() + "\"/>";
+	}
 } // namespace
 
-QString HtmlGuiExporter::groupIconToHtml(const Group* group)
+QString HtmlGuiExporter::groupIconToHtml(const Group *group)
 {
-    return PixmapToHTML(Icons::groupIconPixmap(group, IconSize::Medium));
+	return PixmapToHTML(Icons::groupIconPixmap(group, IconSize::Medium));
 }
 
-QString HtmlGuiExporter::entryIconToHtml(const Entry* entry)
+QString HtmlGuiExporter::entryIconToHtml(const Entry *entry)
 {
-    return PixmapToHTML(Icons::entryIconPixmap(entry, IconSize::Medium));
+	return PixmapToHTML(Icons::entryIconPixmap(entry, IconSize::Medium));
 }

@@ -25,25 +25,25 @@ class CryptoHashPrivate;
 class CryptoHash
 {
 public:
-    enum Algorithm
-    {
-        Sha256,
-        Sha512
-    };
+	enum Algorithm
+	{
+		Sha256,
+		Sha512
+	};
 
-    explicit CryptoHash(Algorithm algo, bool hmac = false);
-    ~CryptoHash();
-    void addData(const QByteArray& data);
-    QByteArray result() const;
-    void setKey(const QByteArray& data);
+	explicit CryptoHash(Algorithm algo, bool hmac = false);
+	~CryptoHash();
+	void addData(const QByteArray &data);
+	QByteArray result() const;
+	void setKey(const QByteArray &data);
 
-    static QByteArray hash(const QByteArray& data, Algorithm algo);
-    static QByteArray hmac(const QByteArray& data, const QByteArray& key, Algorithm algo);
+	static QByteArray hash(const QByteArray &data, Algorithm algo);
+	static QByteArray hmac(const QByteArray &data, const QByteArray &key, Algorithm algo);
 
 private:
-    CryptoHashPrivate* const d_ptr;
+	CryptoHashPrivate *const d_ptr;
 
-    Q_DECLARE_PRIVATE(CryptoHash)
+	Q_DECLARE_PRIVATE(CryptoHash)
 };
 
 #endif // KEEPASSX_CRYPTOHASH_H

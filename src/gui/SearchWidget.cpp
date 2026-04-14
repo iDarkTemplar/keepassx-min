@@ -28,250 +28,281 @@
 #include "gui/Icons.h"
 #include "gui/widgets/PopupHelpWidget.h"
 
-SearchWidget::SearchWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_ui(new Ui::SearchWidget())
-    , m_searchTimer(new QTimer(this))
-    , m_clearSearchTimer(new QTimer(this))
+SearchWidget::SearchWidget(QWidget *parent)
+	: QWidget(parent)
+	, m_ui(new Ui::SearchWidget())
+	, m_searchTimer(new QTimer(this))
+	, m_clearSearchTimer(new QTimer(this))
 {
-    m_ui->setupUi(this);
-    setFocusProxy(m_ui->searchEdit);
+	m_ui->setupUi(this);
+	setFocusProxy(m_ui->searchEdit);
 
-    m_helpWidget = new PopupHelpWidget(m_ui->searchEdit);
-    Ui::SearchHelpWidget helpUi;
-    helpUi.setupUi(m_helpWidget);
+	m_helpWidget = new PopupHelpWidget(m_ui->searchEdit);
+	Ui::SearchHelpWidget helpUi;
+	helpUi.setupUi(m_helpWidget);
 
-    m_searchTimer->setSingleShot(true);
-    m_clearSearchTimer->setSingleShot(true);
+	m_searchTimer->setSingleShot(true);
+	m_clearSearchTimer->setSingleShot(true);
 
-    new QShortcut(Qt::CTRL + Qt::Key_J, this, SLOT(toggleHelp()), nullptr, Qt::WidgetWithChildrenShortcut);
+	new QShortcut(Qt::CTRL + Qt::Key_J, this, SLOT(toggleHelp()), nullptr, Qt::WidgetWithChildrenShortcut);
 
-    connect(m_ui->searchEdit, SIGNAL(textChanged(QString)), SLOT(startSearchTimer()));
-    connect(m_ui->searchEdit, SIGNAL(textChanged(QString)), SLOT(updateSaveButtonVisibility()));
-    connect(m_ui->helpIcon, SIGNAL(triggered()), SLOT(toggleHelp()));
-    connect(m_ui->searchIcon, SIGNAL(triggered()), SLOT(showSearchMenu()));
-    connect(m_ui->saveIcon, &QAction::triggered, this, [this] { emit saveSearch(m_ui->searchEdit->text()); });
-    connect(m_searchTimer, SIGNAL(timeout()), SLOT(startSearch()));
-    connect(m_clearSearchTimer, SIGNAL(timeout()), SLOT(clearSearch()));
-    connect(this, SIGNAL(escapePressed()), SLOT(clearSearch()));
-    connect(m_ui->searchEdit, &QLineEdit::returnPressed, this, &SearchWidget::onReturnPressed);
+	connect(m_ui->searchEdit, SIGNAL(textChanged(QString)), SLOT(startSearchTimer()));
+	connect(m_ui->searchEdit, SIGNAL(textChanged(QString)), SLOT(updateSaveButtonVisibility()));
+	connect(m_ui->helpIcon, SIGNAL(triggered()), SLOT(toggleHelp()));
+	connect(m_ui->searchIcon, SIGNAL(triggered()), SLOT(showSearchMenu()));
+	connect(m_ui->saveIcon, &QAction::triggered, this, [this] { emit saveSearch(m_ui->searchEdit->text()); });
+	connect(m_searchTimer, SIGNAL(timeout()), SLOT(startSearch()));
+	connect(m_clearSearchTimer, SIGNAL(timeout()), SLOT(clearSearch()));
+	connect(this, SIGNAL(escapePressed()), SLOT(clearSearch()));
+	connect(m_ui->searchEdit, &QLineEdit::returnPressed, this, &SearchWidget::onReturnPressed);
 
-    m_ui->searchEdit->setPlaceholderText(tr("Search (%1)…", "Search placeholder text, %1 is the keyboard shortcut")
-                                             .arg(QKeySequence(QKeySequence::Find).toString(QKeySequence::NativeText)));
-    m_ui->searchEdit->installEventFilter(this);
+	m_ui->searchEdit->setPlaceholderText(tr("Search (%1)…", "Search placeholder text, %1 is the keyboard shortcut")
+	                                         .arg(QKeySequence(QKeySequence::Find).toString(QKeySequence::NativeText)));
+	m_ui->searchEdit->installEventFilter(this);
 
-    m_searchMenu = new QMenu(this);
-    m_actionCaseSensitive = m_searchMenu->addAction(tr("Case sensitive"), this, SLOT(updateCaseSensitive()));
-    m_actionCaseSensitive->setObjectName("actionSearchCaseSensitive");
-    m_actionCaseSensitive->setCheckable(true);
+	m_searchMenu = new QMenu(this);
+	m_actionCaseSensitive = m_searchMenu->addAction(tr("Case sensitive"), this, SLOT(updateCaseSensitive()));
+	m_actionCaseSensitive->setObjectName("actionSearchCaseSensitive");
+	m_actionCaseSensitive->setCheckable(true);
 
-    m_actionLimitGroup = m_searchMenu->addAction(tr("Limit search to selected group"), this, SLOT(updateLimitGroup()));
-    m_actionLimitGroup->setObjectName("actionSearchLimitGroup");
-    m_actionLimitGroup->setCheckable(true);
-    m_actionLimitGroup->setChecked(config()->get(Config::SearchLimitGroup).toBool());
+	m_actionLimitGroup = m_searchMenu->addAction(tr("Limit search to selected group"), this, SLOT(updateLimitGroup()));
+	m_actionLimitGroup->setObjectName("actionSearchLimitGroup");
+	m_actionLimitGroup->setCheckable(true);
+	m_actionLimitGroup->setChecked(config()->get(Config::SearchLimitGroup).toBool());
 
-    m_actionWaitForEnter = m_searchMenu->addAction(
-        tr("Press Enter to search"), this, [](bool state) { config()->set(Config::GUI_SearchWaitForEnter, state); });
-    m_actionWaitForEnter->setObjectName("actionSearchWaitForEnter");
-    m_actionWaitForEnter->setCheckable(true);
-    m_actionWaitForEnter->setChecked(config()->get(Config::GUI_SearchWaitForEnter).toBool());
+	m_actionWaitForEnter = m_searchMenu->addAction(
+		tr("Press Enter to search"), this, [](bool state) { config()->set(Config::GUI_SearchWaitForEnter, state); });
+	m_actionWaitForEnter->setObjectName("actionSearchWaitForEnter");
+	m_actionWaitForEnter->setCheckable(true);
+	m_actionWaitForEnter->setChecked(config()->get(Config::GUI_SearchWaitForEnter).toBool());
 
-    m_ui->searchIcon->setIcon(icons()->icon("system-search"));
-    m_ui->searchEdit->addAction(m_ui->searchIcon, QLineEdit::LeadingPosition);
+	m_ui->searchIcon->setIcon(icons()->icon("system-search"));
+	m_ui->searchEdit->addAction(m_ui->searchIcon, QLineEdit::LeadingPosition);
 
-    m_ui->helpIcon->setIcon(icons()->icon("system-help"));
-    m_ui->searchEdit->addAction(m_ui->helpIcon, QLineEdit::TrailingPosition);
+	m_ui->helpIcon->setIcon(icons()->icon("system-help"));
+	m_ui->searchEdit->addAction(m_ui->helpIcon, QLineEdit::TrailingPosition);
 
-    m_ui->saveIcon->setIcon(icons()->icon("document-save"));
-    m_ui->searchEdit->addAction(m_ui->saveIcon, QLineEdit::TrailingPosition);
-    m_ui->saveIcon->setVisible(false);
+	m_ui->saveIcon->setIcon(icons()->icon("document-save"));
+	m_ui->searchEdit->addAction(m_ui->saveIcon, QLineEdit::TrailingPosition);
+	m_ui->saveIcon->setVisible(false);
 
-    // Fix initial visibility of actions (bug in Qt)
-    for (QToolButton* toolButton : m_ui->searchEdit->findChildren<QToolButton*>()) {
-        toolButton->setVisible(toolButton->defaultAction()->isVisible());
-    }
+	// Fix initial visibility of actions (bug in Qt)
+	for (QToolButton *toolButton: m_ui->searchEdit->findChildren<QToolButton *>())
+	{
+		toolButton->setVisible(toolButton->defaultAction()->isVisible());
+	}
 }
 
 SearchWidget::~SearchWidget()
 {
 }
 
-bool SearchWidget::eventFilter(QObject* obj, QEvent* event)
+bool SearchWidget::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type() == QEvent::KeyPress) {
-        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
-        if (keyEvent->key() == Qt::Key_Escape) {
-            emit escapePressed();
-            return true;
-        } else if (keyEvent->matches(QKeySequence::Copy)) {
-            // If the system Copy shortcut (typically Ctrl+C or Cmd+C) is pressed
-            // in the search edit when no text is selected, route the event to the
-            // main window. With the default shorcut configuration, this will copy
-            // the password of the current entry to the clipboard.
-            if (!m_ui->searchEdit->hasSelectedText()) {
-                // Prevent infinite recursion, in case the main window ends up
-                // sending this event back to us. This hasn't actually been observed
-                // in practice and is just a precaution.
-                static bool sendingCopyShortcutEvent = false;
-                if (sendingCopyShortcutEvent) {
-                    return true;
-                }
-                sendingCopyShortcutEvent = true;
-                QCoreApplication::sendEvent(getMainWindow(), event);
-                sendingCopyShortcutEvent = false;
-                return true;
-            }
-        } else if (keyEvent->matches(QKeySequence::MoveToNextLine)) {
-            if (m_ui->searchEdit->cursorPosition() == m_ui->searchEdit->text().length()) {
-                // If down is pressed at EOL, move the focus to the entry view
-                emit downPressed();
-                return true;
-            } else {
-                // Otherwise move the cursor to EOL
-                m_ui->searchEdit->setCursorPosition(m_ui->searchEdit->text().length());
-                return true;
-            }
-        }
-    } else if (event->type() == QEvent::FocusOut) {
-        if (config()->get(Config::Security_ClearSearch).toBool()) {
-            int timeout = config()->get(Config::Security_ClearSearchTimeout).toInt();
-            if (timeout > 0) {
-                // Auto-clear search after set timeout (5 minutes by default)
-                m_clearSearchTimer->start(timeout * 60000); // 60 sec * 1000 ms
-            }
-        }
-        emit lostFocus();
-    } else if (event->type() == QEvent::FocusIn) {
-        // Never clear the search if we are using it
-        m_clearSearchTimer->stop();
-    }
+	if (event->type() == QEvent::KeyPress)
+	{
+		QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+		if (keyEvent->key() == Qt::Key_Escape)
+		{
+			emit escapePressed();
+			return true;
+		}
+		else if (keyEvent->matches(QKeySequence::Copy))
+		{
+			// If the system Copy shortcut (typically Ctrl+C or Cmd+C) is pressed
+			// in the search edit when no text is selected, route the event to the
+			// main window. With the default shorcut configuration, this will copy
+			// the password of the current entry to the clipboard.
+			if (!m_ui->searchEdit->hasSelectedText())
+			{
+				// Prevent infinite recursion, in case the main window ends up
+				// sending this event back to us. This hasn't actually been observed
+				// in practice and is just a precaution.
+				static bool sendingCopyShortcutEvent = false;
+				if (sendingCopyShortcutEvent)
+				{
+					return true;
+				}
+				sendingCopyShortcutEvent = true;
+				QCoreApplication::sendEvent(getMainWindow(), event);
+				sendingCopyShortcutEvent = false;
+				return true;
+			}
+		}
+		else if (keyEvent->matches(QKeySequence::MoveToNextLine))
+		{
+			if (m_ui->searchEdit->cursorPosition() == m_ui->searchEdit->text().length())
+			{
+				// If down is pressed at EOL, move the focus to the entry view
+				emit downPressed();
+				return true;
+			}
+			else
+			{
+				// Otherwise move the cursor to EOL
+				m_ui->searchEdit->setCursorPosition(m_ui->searchEdit->text().length());
+				return true;
+			}
+		}
+	}
+	else if (event->type() == QEvent::FocusOut)
+	{
+		if (config()->get(Config::Security_ClearSearch).toBool())
+		{
+			int timeout = config()->get(Config::Security_ClearSearchTimeout).toInt();
+			if (timeout > 0)
+			{
+				// Auto-clear search after set timeout (5 minutes by default)
+				m_clearSearchTimer->start(timeout * 60000); // 60 sec * 1000 ms
+			}
+		}
+		emit lostFocus();
+	}
+	else if (event->type() == QEvent::FocusIn)
+	{
+		// Never clear the search if we are using it
+		m_clearSearchTimer->stop();
+	}
 
-    return QWidget::eventFilter(obj, event);
+	return QWidget::eventFilter(obj, event);
 }
 
-void SearchWidget::connectSignals(SignalMultiplexer& mx)
+void SearchWidget::connectSignals(SignalMultiplexer &mx)
 {
-    // Connects basically only to the current DatabaseWidget, but allows to switch between instances!
-    mx.connect(this, SIGNAL(search(QString)), SLOT(search(QString)));
-    mx.connect(this, SIGNAL(saveSearch(QString)), SLOT(saveSearch(QString)));
-    mx.connect(this, SIGNAL(caseSensitiveChanged(bool)), SLOT(setSearchCaseSensitive(bool)));
-    mx.connect(this, SIGNAL(limitGroupChanged(bool)), SLOT(setSearchLimitGroup(bool)));
-    mx.connect(this, SIGNAL(downPressed()), SLOT(focusOnEntries()));
-    mx.connect(SIGNAL(requestSearch(QString)), this, SLOT(performRequestedSearch(QString)));
-    mx.connect(SIGNAL(clearSearch()), this, SLOT(clearSearch()));
-    mx.connect(SIGNAL(entrySelectionChanged()), this, SLOT(resetSearchClearTimer()));
-    mx.connect(SIGNAL(currentModeChanged(DatabaseWidget::Mode)), this, SLOT(resetSearchClearTimer()));
-    mx.connect(SIGNAL(databaseUnlocked()), this, SLOT(focusSearch()));
-    mx.connect(this, SIGNAL(enterPressed()), SLOT(switchToEntryEdit()));
+	// Connects basically only to the current DatabaseWidget, but allows to switch between instances!
+	mx.connect(this, SIGNAL(search(QString)), SLOT(search(QString)));
+	mx.connect(this, SIGNAL(saveSearch(QString)), SLOT(saveSearch(QString)));
+	mx.connect(this, SIGNAL(caseSensitiveChanged(bool)), SLOT(setSearchCaseSensitive(bool)));
+	mx.connect(this, SIGNAL(limitGroupChanged(bool)), SLOT(setSearchLimitGroup(bool)));
+	mx.connect(this, SIGNAL(downPressed()), SLOT(focusOnEntries()));
+	mx.connect(SIGNAL(requestSearch(QString)), this, SLOT(performRequestedSearch(QString)));
+	mx.connect(SIGNAL(clearSearch()), this, SLOT(clearSearch()));
+	mx.connect(SIGNAL(entrySelectionChanged()), this, SLOT(resetSearchClearTimer()));
+	mx.connect(SIGNAL(currentModeChanged(DatabaseWidget::Mode)), this, SLOT(resetSearchClearTimer()));
+	mx.connect(SIGNAL(databaseUnlocked()), this, SLOT(focusSearch()));
+	mx.connect(this, SIGNAL(enterPressed()), SLOT(switchToEntryEdit()));
 }
 
-void SearchWidget::databaseChanged(DatabaseWidget* dbWidget)
+void SearchWidget::databaseChanged(DatabaseWidget *dbWidget)
 {
-    if (dbWidget) {
-        // Set current search text from this database
-        m_ui->searchEdit->setText(dbWidget->getCurrentSearch());
-        // Enforce search policy
-        emit caseSensitiveChanged(m_actionCaseSensitive->isChecked());
-        emit limitGroupChanged(m_actionLimitGroup->isChecked());
-    } else {
-        clearSearch();
-    }
+	if (dbWidget)
+	{
+		// Set current search text from this database
+		m_ui->searchEdit->setText(dbWidget->getCurrentSearch());
+		// Enforce search policy
+		emit caseSensitiveChanged(m_actionCaseSensitive->isChecked());
+		emit limitGroupChanged(m_actionLimitGroup->isChecked());
+	}
+	else
+	{
+		clearSearch();
+	}
 }
 
 void SearchWidget::startSearchTimer()
 {
-    if (m_actionWaitForEnter->isChecked()) {
-        m_searchTimer->stop();
-    } else {
-        m_searchTimer->start(500);
-    }
+	if (m_actionWaitForEnter->isChecked())
+	{
+		m_searchTimer->stop();
+	}
+	else
+	{
+		m_searchTimer->start(500);
+	}
 }
 
 void SearchWidget::startSearch()
 {
-    m_ui->saveIcon->setVisible(true);
-    search(m_ui->searchEdit->text());
+	m_ui->saveIcon->setVisible(true);
+	search(m_ui->searchEdit->text());
 }
 
 void SearchWidget::resetSearchClearTimer()
 {
-    // Restart the search clear timer if it is running
-    if (m_clearSearchTimer->isActive()) {
-        m_clearSearchTimer->start();
-    }
+	// Restart the search clear timer if it is running
+	if (m_clearSearchTimer->isActive())
+	{
+		m_clearSearchTimer->start();
+	}
 }
 
 void SearchWidget::updateCaseSensitive()
 {
-    emit caseSensitiveChanged(m_actionCaseSensitive->isChecked());
+	emit caseSensitiveChanged(m_actionCaseSensitive->isChecked());
 }
 
 void SearchWidget::updateLimitGroup()
 {
-    config()->set(Config::SearchLimitGroup, m_actionLimitGroup->isChecked());
-    emit limitGroupChanged(m_actionLimitGroup->isChecked());
+	config()->set(Config::SearchLimitGroup, m_actionLimitGroup->isChecked());
+	emit limitGroupChanged(m_actionLimitGroup->isChecked());
 }
 
 void SearchWidget::setCaseSensitive(bool state)
 {
-    m_actionCaseSensitive->setChecked(state);
-    updateCaseSensitive();
+	m_actionCaseSensitive->setChecked(state);
+	updateCaseSensitive();
 }
 
 void SearchWidget::setLimitGroup(bool state)
 {
-    m_actionLimitGroup->setChecked(state);
-    updateLimitGroup();
+	m_actionLimitGroup->setChecked(state);
+	updateLimitGroup();
 }
 
 void SearchWidget::focusSearch()
 {
-    m_ui->searchEdit->setFocus();
-    m_ui->searchEdit->selectAll();
+	m_ui->searchEdit->setFocus();
+	m_ui->searchEdit->selectAll();
 }
 
 void SearchWidget::clearSearch()
 {
-    m_ui->searchEdit->clear();
-    m_ui->saveIcon->setVisible(false);
-    emit searchCanceled();
+	m_ui->searchEdit->clear();
+	m_ui->saveIcon->setVisible(false);
+	emit searchCanceled();
 }
 
 void SearchWidget::toggleHelp()
 {
-    if (m_helpWidget->isVisible()) {
-        m_helpWidget->hide();
-    } else {
-        m_helpWidget->show();
-    }
+	if (m_helpWidget->isVisible())
+	{
+		m_helpWidget->hide();
+	}
+	else
+	{
+		m_helpWidget->show();
+	}
 }
 
 void SearchWidget::showSearchMenu()
 {
-    m_searchMenu->exec(m_ui->searchEdit->mapToGlobal(m_ui->searchEdit->rect().bottomLeft()));
+	m_searchMenu->exec(m_ui->searchEdit->mapToGlobal(m_ui->searchEdit->rect().bottomLeft()));
 }
 
 void SearchWidget::onReturnPressed()
 {
-    if (m_actionWaitForEnter->isChecked()) {
-        m_ui->saveIcon->setVisible(true);
-        emit search(m_ui->searchEdit->text());
-    } else {
-        emit enterPressed();
-    }
+	if (m_actionWaitForEnter->isChecked())
+	{
+		m_ui->saveIcon->setVisible(true);
+		emit search(m_ui->searchEdit->text());
+	}
+	else
+	{
+		emit enterPressed();
+	}
 }
 
-void SearchWidget::performRequestedSearch(const QString& text)
+void SearchWidget::performRequestedSearch(const QString &text)
 {
-    // This method handles saved searches - it should set the text and immediately trigger search
-    // without any delay, regardless of the "Press Enter to search" setting
-    m_ui->searchEdit->setText(text);
-    m_ui->saveIcon->setVisible(!text.isEmpty());
-    emit search(text);
+	// This method handles saved searches - it should set the text and immediately trigger search
+	// without any delay, regardless of the "Press Enter to search" setting
+	m_ui->searchEdit->setText(text);
+	m_ui->saveIcon->setVisible(!text.isEmpty());
+	emit search(text);
 }
 
 void SearchWidget::updateSaveButtonVisibility()
 {
-    // Show save button whenever there's non-empty text in the search field
-    m_ui->saveIcon->setVisible(!m_ui->searchEdit->text().isEmpty());
+	// Show save button whenever there's non-empty text in the search field
+	m_ui->saveIcon->setVisible(!m_ui->searchEdit->text().isEmpty());
 }

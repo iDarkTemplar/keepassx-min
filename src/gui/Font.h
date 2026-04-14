@@ -22,13 +22,13 @@ class QFont;
 class Font
 {
 public:
-    static QFont defaultFont();
-    static QFont fixedFont();
+	static QFont defaultFont();
+	static QFont fixedFont();
 
 private:
-    Font()
-    {
-    }
+	Font()
+	{
+	}
 };
 
 #endif // KEEPASSX_FONT_H

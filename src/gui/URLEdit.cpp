@@ -22,35 +22,38 @@
 #include "gui/Icons.h"
 #include "gui/styles/StateColorPalette.h"
 
-URLEdit::URLEdit(QWidget* parent)
-    : QLineEdit(parent)
+URLEdit::URLEdit(QWidget *parent)
+	: QLineEdit(parent)
 {
-    const QIcon errorIcon = icons()->icon("dialog-error");
-    m_errorAction = addAction(errorIcon, QLineEdit::TrailingPosition);
-    m_errorAction->setVisible(false);
-    m_errorAction->setToolTip(tr("Invalid URL"));
+	const QIcon errorIcon = icons()->icon("dialog-error");
+	m_errorAction = addAction(errorIcon, QLineEdit::TrailingPosition);
+	m_errorAction->setVisible(false);
+	m_errorAction->setToolTip(tr("Invalid URL"));
 
-    updateStylesheet();
+	updateStylesheet();
 }
 
 void URLEdit::enableVerifyMode()
 {
-    updateStylesheet();
+	updateStylesheet();
 
-    connect(this, SIGNAL(textChanged(QString)), SLOT(updateStylesheet()));
+	connect(this, SIGNAL(textChanged(QString)), SLOT(updateStylesheet()));
 }
 
 void URLEdit::updateStylesheet()
 {
-    const QString stylesheetTemplate("QLineEdit { background: %1; }");
+	const QString stylesheetTemplate("QLineEdit { background: %1; }");
 
-    if (!urlTools()->isUrlValid(text())) {
-        StateColorPalette statePalette;
-        QColor color = statePalette.color(StateColorPalette::ColorRole::Error);
-        setStyleSheet(stylesheetTemplate.arg(color.name()));
-        m_errorAction->setVisible(true);
-    } else {
-        m_errorAction->setVisible(false);
-        setStyleSheet("");
-    }
+	if (!urlTools()->isUrlValid(text()))
+	{
+		StateColorPalette statePalette;
+		QColor color = statePalette.color(StateColorPalette::ColorRole::Error);
+		setStyleSheet(stylesheetTemplate.arg(color.name()));
+		m_errorAction->setVisible(true);
+	}
+	else
+	{
+		m_errorAction->setVisible(false);
+		setStyleSheet("");
+	}
 }

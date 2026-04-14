@@ -22,28 +22,28 @@
 #include "core/Entry.h"
 #include "core/EntrySearcher.h"
 
-class TestEntrySearcher : public QObject
+class TestEntrySearcher: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void init();
-    void cleanup();
+	void init();
+	void cleanup();
 
-    void testAndConcatenationInSearch();
-    void testSearch();
-    void testAllAttributesAreSearched();
-    void testSearchTermParser();
-    void testCustomAttributesAreSearched();
-    void testGroup();
-    void testSkipProtected();
-    void testUUIDSearch();
-    void testTotpSearch();
+	void testAndConcatenationInSearch();
+	void testSearch();
+	void testAllAttributesAreSearched();
+	void testSearchTermParser();
+	void testCustomAttributesAreSearched();
+	void testGroup();
+	void testSkipProtected();
+	void testUUIDSearch();
+	void testTotpSearch();
 
 private:
-    Group* m_rootGroup;
-    EntrySearcher m_entrySearcher;
-    QList<Entry*> m_searchResult;
+	Group *m_rootGroup;
+	EntrySearcher m_entrySearcher;
+	QList<Entry *> m_searchResult;
 };
 
 #endif // KEEPASSX_TESTENTRYSEARCHER_H

@@ -20,35 +20,35 @@
 
 #include "core/Database.h"
 
-class TestGroup : public QObject
+class TestGroup: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void init();
-    void cleanup();
-    void testParenting();
-    void testSignals();
-    void testEntries();
-    void testDeleteSignals();
-    void testCopyCustomIcon();
-    void testClone();
-    void testCopyCustomIcons();
-    void testFindEntry();
-    void testFindGroupByPath();
-    void testPrint();
-    void testAddEntryWithPath();
-    void testIsRecycled();
-    void testCopyDataFrom();
-    void testEquals();
-    void testChildrenSort();
-    void testHierarchy();
-    void testApplyGroupIconRecursively();
-    void testUsernamesRecursive();
-    void testMoveUpDown();
-    void testPreviousParentGroup();
-    void testAutoTypeState();
+	void initTestCase();
+	void init();
+	void cleanup();
+	void testParenting();
+	void testSignals();
+	void testEntries();
+	void testDeleteSignals();
+	void testCopyCustomIcon();
+	void testClone();
+	void testCopyCustomIcons();
+	void testFindEntry();
+	void testFindGroupByPath();
+	void testPrint();
+	void testAddEntryWithPath();
+	void testIsRecycled();
+	void testCopyDataFrom();
+	void testEquals();
+	void testChildrenSort();
+	void testHierarchy();
+	void testApplyGroupIconRecursively();
+	void testUsernamesRecursive();
+	void testMoveUpDown();
+	void testPreviousParentGroup();
+	void testAutoTypeState();
 };
 
 #endif // KEEPASSX_TESTGROUP_H

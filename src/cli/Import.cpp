@@ -37,51 +37,56 @@
 
 Import::Import()
 {
-    name = QString("import");
-    description = QObject::tr("Import the contents of an XML database.");
-    positionalArguments.append({QString("xml"), QObject::tr("Path of the XML database export."), QString("")});
-    positionalArguments.append({QString("database"), QObject::tr("Path of the new database."), QString("")});
-    options.append(DatabaseCreate::SetKeyFileOption);
-    options.append(DatabaseCreate::SetKeyFileShortOption);
-    options.append(DatabaseCreate::SetPasswordOption);
-    options.append(DatabaseCreate::DecryptionTimeOption);
+	name = QString("import");
+	description = QObject::tr("Import the contents of an XML database.");
+	positionalArguments.append({QString("xml"), QObject::tr("Path of the XML database export."), QString("")});
+	positionalArguments.append({QString("database"), QObject::tr("Path of the new database."), QString("")});
+	options.append(DatabaseCreate::SetKeyFileOption);
+	options.append(DatabaseCreate::SetKeyFileShortOption);
+	options.append(DatabaseCreate::SetPasswordOption);
+	options.append(DatabaseCreate::DecryptionTimeOption);
 }
 
-int Import::execute(const QStringList& arguments)
+int Import::execute(const QStringList &arguments)
 {
-    QSharedPointer<QCommandLineParser> parser = getCommandLineParser(arguments);
-    if (parser.isNull()) {
-        return EXIT_FAILURE;
-    }
+	QSharedPointer<QCommandLineParser> parser = getCommandLineParser(arguments);
+	if (parser.isNull())
+	{
+		return EXIT_FAILURE;
+	}
 
-    auto& out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    const QStringList args = parser->positionalArguments();
-    const QString& xmlExportPath = args.at(0);
-    const QString& dbPath = args.at(1);
+	const QStringList args = parser->positionalArguments();
+	const QString &xmlExportPath = args.at(0);
+	const QString &dbPath = args.at(1);
 
-    if (QFileInfo::exists(dbPath)) {
-        err << QObject::tr("File %1 already exists.").arg(dbPath) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	if (QFileInfo::exists(dbPath))
+	{
+		err << QObject::tr("File %1 already exists.").arg(dbPath) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    QSharedPointer<Database> db = DatabaseCreate::initializeDatabaseFromOptions(parser);
-    if (!db) {
-        return EXIT_FAILURE;
-    }
+	QSharedPointer<Database> db = DatabaseCreate::initializeDatabaseFromOptions(parser);
+	if (!db)
+	{
+		return EXIT_FAILURE;
+	}
 
-    QString errorMessage;
-    if (!db->import(xmlExportPath, &errorMessage)) {
-        err << QObject::tr("Unable to import XML database: %1").arg(errorMessage) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	QString errorMessage;
+	if (!db->import(xmlExportPath, &errorMessage))
+	{
+		err << QObject::tr("Unable to import XML database: %1").arg(errorMessage) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    if (!db->saveAs(dbPath, Database::Atomic, {}, &errorMessage)) {
-        err << QObject::tr("Failed to save the database: %1.").arg(errorMessage) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	if (!db->saveAs(dbPath, Database::Atomic, {}, &errorMessage))
+	{
+		err << QObject::tr("Failed to save the database: %1.").arg(errorMessage) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    out << QObject::tr("Successfully imported database.") << Qt::endl;
-    return EXIT_SUCCESS;
+	out << QObject::tr("Successfully imported database.") << Qt::endl;
+	return EXIT_SUCCESS;
 }

@@ -20,79 +20,86 @@
 
 #include "gui/MainWindow.h"
 
-PopupHelpWidget::PopupHelpWidget(QWidget* parent)
-    : QFrame(parent)
-    , m_appWindow(getMainWindow())
-    , m_offset({0, 0})
-    , m_corner(Qt::BottomLeftCorner)
+PopupHelpWidget::PopupHelpWidget(QWidget *parent)
+	: QFrame(parent)
+	, m_appWindow(getMainWindow())
+	, m_offset({0, 0})
+	, m_corner(Qt::BottomLeftCorner)
 {
-    Q_ASSERT(parent);
+	Q_ASSERT(parent);
 
-    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
-    hide();
+	setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
+	hide();
 
-    m_appWindow->installEventFilter(this);
-    parentWidget()->installEventFilter(this);
+	m_appWindow->installEventFilter(this);
+	parentWidget()->installEventFilter(this);
 }
 
 PopupHelpWidget::~PopupHelpWidget()
 {
-    m_appWindow->removeEventFilter(this);
-    parentWidget()->removeEventFilter(this);
+	m_appWindow->removeEventFilter(this);
+	parentWidget()->removeEventFilter(this);
 }
 
-void PopupHelpWidget::setOffset(const QPoint& offset)
+void PopupHelpWidget::setOffset(const QPoint &offset)
 {
-    m_offset = offset;
-    if (isVisible()) {
-        alignWithParent();
-    }
+	m_offset = offset;
+	if (isVisible())
+	{
+		alignWithParent();
+	}
 }
 
 void PopupHelpWidget::setPosition(Qt::Corner corner)
 {
-    m_corner = corner;
-    if (isVisible()) {
-        alignWithParent();
-    }
+	m_corner = corner;
+	if (isVisible())
+	{
+		alignWithParent();
+	}
 }
 
-bool PopupHelpWidget::eventFilter(QObject* obj, QEvent* event)
+bool PopupHelpWidget::eventFilter(QObject *obj, QEvent *event)
 {
-    if (isVisible()) {
-        if (obj == parentWidget() && event->type() == QEvent::FocusOut && qApp->focusWindow() != windowHandle()) {
-            hide();
-        } else if (obj == m_appWindow && (event->type() == QEvent::Move || event->type() == QEvent::Resize)) {
-            alignWithParent();
-        }
-    }
-    return QFrame::eventFilter(obj, event);
+	if (isVisible())
+	{
+		if (obj == parentWidget() && event->type() == QEvent::FocusOut && qApp->focusWindow() != windowHandle())
+		{
+			hide();
+		}
+		else if (obj == m_appWindow && (event->type() == QEvent::Move || event->type() == QEvent::Resize))
+		{
+			alignWithParent();
+		}
+	}
+	return QFrame::eventFilter(obj, event);
 }
 
-void PopupHelpWidget::showEvent(QShowEvent* event)
+void PopupHelpWidget::showEvent(QShowEvent *event)
 {
-    alignWithParent();
-    QFrame::showEvent(event);
+	alignWithParent();
+	QFrame::showEvent(event);
 }
 
 void PopupHelpWidget::alignWithParent()
 {
-    QPoint pos = m_offset;
-    switch (m_corner) {
-    case Qt::TopLeftCorner:
-        pos += QPoint(0, -height());
-        break;
-    case Qt::TopRightCorner:
-        pos += QPoint(parentWidget()->width(), -height());
-        break;
-    case Qt::BottomRightCorner:
-        pos += QPoint(parentWidget()->width(), parentWidget()->height());
-        break;
-    case Qt::BottomLeftCorner:
-    default:
-        pos += QPoint(0, parentWidget()->height());
-        break;
-    }
+	QPoint pos = m_offset;
+	switch (m_corner)
+	{
+	case Qt::TopLeftCorner:
+		pos += QPoint(0, -height());
+		break;
+	case Qt::TopRightCorner:
+		pos += QPoint(parentWidget()->width(), -height());
+		break;
+	case Qt::BottomRightCorner:
+		pos += QPoint(parentWidget()->width(), parentWidget()->height());
+		break;
+	case Qt::BottomLeftCorner:
+	default:
+		pos += QPoint(0, parentWidget()->height());
+		break;
+	}
 
-    move(parentWidget()->mapToGlobal(pos));
+	move(parentWidget()->mapToGlobal(pos));
 }

@@ -20,19 +20,19 @@
 
 Open::Open()
 {
-    name = QString("open");
-    description = QObject::tr("Open a database.");
+	name = QString("open");
+	description = QObject::tr("Open a database.");
 }
 
-int Open::execute(const QStringList& arguments)
+int Open::execute(const QStringList &arguments)
 {
-    currentDatabase.reset(nullptr);
-    return this->DatabaseCommand::execute(arguments);
+	currentDatabase.reset(nullptr);
+	return this->DatabaseCommand::execute(arguments);
 }
 
 int Open::executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser)
 {
-    Q_UNUSED(parser)
-    currentDatabase = db;
-    return EXIT_SUCCESS;
+	Q_UNUSED(parser)
+	currentDatabase = db;
+	return EXIT_SUCCESS;
 }

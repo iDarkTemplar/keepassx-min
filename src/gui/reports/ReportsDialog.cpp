@@ -40,158 +40,168 @@
 class ReportsDialog::ExtraPage
 {
 public:
-    ExtraPage(QSharedPointer<IReportsPage> p, QWidget* w)
-        : page(p)
-        , widget(w)
-    {
-    }
-    void loadSettings(QSharedPointer<Database> db) const
-    {
-        page->loadSettings(widget, db);
-    }
-    void saveSettings() const
-    {
-        page->saveSettings(widget);
-    }
+	ExtraPage(QSharedPointer<IReportsPage> p, QWidget *w)
+		: page(p)
+		, widget(w)
+	{
+	}
+	void loadSettings(QSharedPointer<Database> db) const
+	{
+		page->loadSettings(widget, db);
+	}
+	void saveSettings() const
+	{
+		page->saveSettings(widget);
+	}
 
 private:
-    QSharedPointer<IReportsPage> page;
-    QWidget* widget;
+	QSharedPointer<IReportsPage> page;
+	QWidget *widget;
 };
 
-ReportsDialog::ReportsDialog(QWidget* parent)
-    : DialogyWidget(parent)
-    , m_ui(new Ui::ReportsDialog())
-    , m_healthPage(new ReportsPageHealthcheck())
-    , m_hibpPage(new ReportsPageHibp())
-    , m_statPage(new ReportsPageStatistics())
+ReportsDialog::ReportsDialog(QWidget *parent)
+	: DialogyWidget(parent)
+	, m_ui(new Ui::ReportsDialog())
+	, m_healthPage(new ReportsPageHealthcheck())
+	, m_hibpPage(new ReportsPageHibp())
+	, m_statPage(new ReportsPageStatistics())
 #ifdef WITH_XC_BROWSER
-    , m_browserStatPage(new ReportsPageBrowserStatistics())
+	, m_browserStatPage(new ReportsPageBrowserStatistics())
 #endif
 #ifdef WITH_XC_BROWSER_PASSKEYS
-    , m_passkeysPage(new ReportsPagePasskeys())
+	, m_passkeysPage(new ReportsPagePasskeys())
 #endif
-    , m_editEntryWidget(new EditEntryWidget(this))
+	, m_editEntryWidget(new EditEntryWidget(this))
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(reject()));
-    addPage(m_statPage);
-    addPage(m_healthPage);
+	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(reject()));
+	addPage(m_statPage);
+	addPage(m_healthPage);
 #ifdef WITH_XC_BROWSER_PASSKEYS
-    addPage(m_passkeysPage);
+	addPage(m_passkeysPage);
 #endif
 #ifdef WITH_XC_BROWSER
-    addPage(m_browserStatPage);
+	addPage(m_browserStatPage);
 #endif
-    addPage(m_hibpPage);
+	addPage(m_hibpPage);
 
-    m_ui->stackedWidget->setCurrentIndex(0);
+	m_ui->stackedWidget->setCurrentIndex(0);
 
-    m_editEntryWidget->setObjectName("editEntryWidget");
-    m_editEntryWidget->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-    m_ui->stackedWidget->addWidget(m_editEntryWidget);
-    adjustSize();
+	m_editEntryWidget->setObjectName("editEntryWidget");
+	m_editEntryWidget->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+	m_ui->stackedWidget->addWidget(m_editEntryWidget);
+	adjustSize();
 
-    connect(m_ui->categoryList, SIGNAL(categoryChanged(int)), m_ui->stackedWidget, SLOT(setCurrentIndex(int)));
-    connect(m_healthPage->m_healthWidget, SIGNAL(entryActivated(Entry*)), SLOT(entryActivationSignalReceived(Entry*)));
-    connect(m_hibpPage->m_hibpWidget, SIGNAL(entryActivated(Entry*)), SLOT(entryActivationSignalReceived(Entry*)));
+	connect(m_ui->categoryList, SIGNAL(categoryChanged(int)), m_ui->stackedWidget, SLOT(setCurrentIndex(int)));
+	connect(
+		m_healthPage->m_healthWidget, SIGNAL(entryActivated(Entry *)), SLOT(entryActivationSignalReceived(Entry *)));
+	connect(m_hibpPage->m_hibpWidget, SIGNAL(entryActivated(Entry *)), SLOT(entryActivationSignalReceived(Entry *)));
 #ifdef WITH_XC_BROWSER
-    connect(m_browserStatPage->m_browserWidget,
-            SIGNAL(entryActivated(Entry*)),
-            SLOT(entryActivationSignalReceived(Entry*)));
+	connect(m_browserStatPage->m_browserWidget,
+	        SIGNAL(entryActivated(Entry *)),
+	        SLOT(entryActivationSignalReceived(Entry *)));
 #endif
 #ifdef WITH_XC_BROWSER_PASSKEYS
-    connect(
-        m_passkeysPage->m_passkeysWidget, SIGNAL(entryActivated(Entry*)), SLOT(entryActivationSignalReceived(Entry*)));
+	connect(m_passkeysPage->m_passkeysWidget,
+	        SIGNAL(entryActivated(Entry *)),
+	        SLOT(entryActivationSignalReceived(Entry *)));
 #endif
-    connect(m_editEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
+	connect(m_editEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
 }
 
 ReportsDialog::~ReportsDialog()
 {
 }
 
-void ReportsDialog::load(const QSharedPointer<Database>& db)
+void ReportsDialog::load(const QSharedPointer<Database> &db)
 {
-    m_ui->categoryList->setCurrentCategory(0);
-    for (const ExtraPage& page : asConst(m_extraPages)) {
-        page.loadSettings(db);
-    }
-    m_db = db;
+	m_ui->categoryList->setCurrentCategory(0);
+	for (const ExtraPage &page: asConst(m_extraPages))
+	{
+		page.loadSettings(db);
+	}
+	m_db = db;
 }
 
 void ReportsDialog::addPage(QSharedPointer<IReportsPage> page)
 {
-    const auto category = m_ui->categoryList->currentCategory();
-    const auto widget = page->createWidget();
-    widget->setParent(this);
-    m_extraPages.append(ExtraPage(page, widget));
-    m_ui->stackedWidget->addWidget(widget);
-    m_ui->categoryList->addCategory(page->name(), page->icon());
-    m_ui->categoryList->setCurrentCategory(category);
+	const auto category = m_ui->categoryList->currentCategory();
+	const auto widget = page->createWidget();
+	widget->setParent(this);
+	m_extraPages.append(ExtraPage(page, widget));
+	m_ui->stackedWidget->addWidget(widget);
+	m_ui->categoryList->addCategory(page->name(), page->icon());
+	m_ui->categoryList->setCurrentCategory(category);
 }
 
 void ReportsDialog::activatePasskeysPage()
 {
 #ifdef WITH_XC_BROWSER_PASSKEYS
-    m_ui->stackedWidget->setCurrentWidget(m_passkeysPage->m_passkeysWidget);
-    auto index = m_ui->stackedWidget->currentIndex();
-    m_ui->categoryList->setCurrentCategory(index);
+	m_ui->stackedWidget->setCurrentWidget(m_passkeysPage->m_passkeysWidget);
+	auto index = m_ui->stackedWidget->currentIndex();
+	m_ui->categoryList->setCurrentCategory(index);
 #endif
 }
 
 bool ReportsDialog::onPassKeysPage()
 {
 #ifdef WITH_XC_BROWSER_PASSKEYS
-    return m_ui->stackedWidget->currentWidget() == m_passkeysPage->m_passkeysWidget;
+	return m_ui->stackedWidget->currentWidget() == m_passkeysPage->m_passkeysWidget;
 #else
-    return false;
+	return false;
 #endif
 }
 
 void ReportsDialog::reject()
 {
-    emit editFinished(true);
+	emit editFinished(true);
 }
 
-void ReportsDialog::entryActivationSignalReceived(Entry* entry)
+void ReportsDialog::entryActivationSignalReceived(Entry *entry)
 {
-    m_sender = qobject_cast<QWidget*>(sender());
-    m_editEntryWidget->loadEntry(entry, false, false, entry->group()->hierarchy().join(" > "), m_db);
-    m_ui->stackedWidget->setCurrentWidget(m_editEntryWidget);
+	m_sender = qobject_cast<QWidget *>(sender());
+	m_editEntryWidget->loadEntry(entry, false, false, entry->group()->hierarchy().join(" > "), m_db);
+	m_ui->stackedWidget->setCurrentWidget(m_editEntryWidget);
 }
 
 void ReportsDialog::switchToMainView(bool previousDialogAccepted)
 {
-    // Sanity check
-    if (!m_sender) {
-        return;
-    }
+	// Sanity check
+	if (!m_sender)
+	{
+		return;
+	}
 
-    // Return to the previous widget
-    m_ui->stackedWidget->setCurrentWidget(m_sender);
+	// Return to the previous widget
+	m_ui->stackedWidget->setCurrentWidget(m_sender);
 
-    // If "OK" was clicked, and if we came from the Health Check pane,
-    // re-compute Health Check
-    if (previousDialogAccepted) {
-        if (m_sender == m_healthPage->m_healthWidget) {
-            m_healthPage->m_healthWidget->calculateHealth();
-        } else if (m_sender == m_hibpPage->m_hibpWidget) {
-            m_hibpPage->m_hibpWidget->refreshAfterEdit();
-        }
+	// If "OK" was clicked, and if we came from the Health Check pane,
+	// re-compute Health Check
+	if (previousDialogAccepted)
+	{
+		if (m_sender == m_healthPage->m_healthWidget)
+		{
+			m_healthPage->m_healthWidget->calculateHealth();
+		}
+		else if (m_sender == m_hibpPage->m_hibpWidget)
+		{
+			m_hibpPage->m_hibpWidget->refreshAfterEdit();
+		}
 #ifdef WITH_XC_BROWSER
-        if (m_sender == m_browserStatPage->m_browserWidget) {
-            m_browserStatPage->m_browserWidget->calculateBrowserStatistics();
-        }
+		if (m_sender == m_browserStatPage->m_browserWidget)
+		{
+			m_browserStatPage->m_browserWidget->calculateBrowserStatistics();
+		}
 #endif
 #ifdef WITH_XC_BROWSER_PASSKEYS
-        if (m_sender == m_passkeysPage->m_passkeysWidget) {
-            m_passkeysPage->m_passkeysWidget->updateEntries();
-        }
+		if (m_sender == m_passkeysPage->m_passkeysWidget)
+		{
+			m_passkeysPage->m_passkeysWidget->updateEntries();
+		}
 #endif
-    }
+	}
 
-    // Don't process the same sender twice
-    m_sender = nullptr;
+	// Don't process the same sender twice
+	m_sender = nullptr;
 }

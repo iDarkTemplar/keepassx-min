@@ -22,41 +22,44 @@
 #include <QMimeDatabase>
 #include <QPushButton>
 
-PreviewEntryAttachmentsDialog::PreviewEntryAttachmentsDialog(QWidget* parent)
-    : QDialog(parent)
-    , m_ui(new Ui::PreviewEntryAttachmentsDialog)
+PreviewEntryAttachmentsDialog::PreviewEntryAttachmentsDialog(QWidget *parent)
+	: QDialog(parent)
+	, m_ui(new Ui::PreviewEntryAttachmentsDialog)
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    // Disable the help button in the title bar
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+	// Disable the help button in the title bar
+	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-    // Initialize dialog buttons
-    m_ui->dialogButtons->setStandardButtons(QDialogButtonBox::Close | QDialogButtonBox::Open | QDialogButtonBox::Save);
-    auto closeButton = m_ui->dialogButtons->button(QDialogButtonBox::Close);
-    closeButton->setDefault(true);
+	// Initialize dialog buttons
+	m_ui->dialogButtons->setStandardButtons(QDialogButtonBox::Close | QDialogButtonBox::Open | QDialogButtonBox::Save);
+	auto closeButton = m_ui->dialogButtons->button(QDialogButtonBox::Close);
+	closeButton->setDefault(true);
 
-    auto saveButton = m_ui->dialogButtons->button(QDialogButtonBox::Save);
-    saveButton->setText(tr("Save…"));
+	auto saveButton = m_ui->dialogButtons->button(QDialogButtonBox::Save);
+	saveButton->setText(tr("Save…"));
 
-    connect(m_ui->dialogButtons, &QDialogButtonBox::rejected, this, &PreviewEntryAttachmentsDialog::reject);
-    connect(m_ui->dialogButtons, &QDialogButtonBox::clicked, [this](QAbstractButton* button) {
-        auto pressedButton = m_ui->dialogButtons->standardButton(button);
+	connect(m_ui->dialogButtons, &QDialogButtonBox::rejected, this, &PreviewEntryAttachmentsDialog::reject);
+	connect(m_ui->dialogButtons, &QDialogButtonBox::clicked, [this](QAbstractButton *button) {
+		auto pressedButton = m_ui->dialogButtons->standardButton(button);
 
-        const auto attachment = m_ui->attachmentWidget->getAttachment();
-        if (pressedButton == QDialogButtonBox::Open) {
-            emit openAttachment(attachment.name);
-        } else if (pressedButton == QDialogButtonBox::Save) {
-            emit saveAttachment(attachment.name);
-        }
-    });
+		const auto attachment = m_ui->attachmentWidget->getAttachment();
+		if (pressedButton == QDialogButtonBox::Open)
+		{
+			emit openAttachment(attachment.name);
+		}
+		else if (pressedButton == QDialogButtonBox::Save)
+		{
+			emit saveAttachment(attachment.name);
+		}
+	});
 }
 
 PreviewEntryAttachmentsDialog::~PreviewEntryAttachmentsDialog() = default;
 
 void PreviewEntryAttachmentsDialog::setAttachment(attachments::Attachment attachment)
 {
-    setWindowTitle(tr("Preview: %1").arg(attachment.name));
+	setWindowTitle(tr("Preview: %1").arg(attachment.name));
 
-    m_ui->attachmentWidget->openAttachment(std::move(attachment), attachments::OpenMode::ReadOnly);
+	m_ui->attachmentWidget->openAttachment(std::move(attachment), attachments::OpenMode::ReadOnly);
 }

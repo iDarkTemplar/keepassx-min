@@ -22,102 +22,102 @@
 
 namespace Ui
 {
-    class KeyComponentWidget;
+	class KeyComponentWidget;
 }
 class CompositeKey;
 class QStackedWidget;
 
-class KeyComponentWidget : public QWidget
+class KeyComponentWidget: public QWidget
 {
-    Q_OBJECT
-    // clang-format off
+	Q_OBJECT
+	// clang-format off
     Q_PROPERTY(bool componentAdded READ m_isComponentAdded READ componentAdded
                    WRITE setComponentAdded NOTIFY componentAddChanged)
-    // clang-format on
+	// clang-format on
 
 public:
-    enum Page
-    {
-        AddNew = 0,
-        Edit = 1,
-        LeaveOrRemove = 2
-    };
+	enum Page
+	{
+		AddNew = 0,
+		Edit = 1,
+		LeaveOrRemove = 2
+	};
 
-    explicit KeyComponentWidget(QWidget* parent = nullptr);
-    ~KeyComponentWidget() override;
+	explicit KeyComponentWidget(QWidget *parent = nullptr);
+	~KeyComponentWidget() override;
 
-    /**
-     * Add the new key component to the given \link CompositeKey.
-     * A caller should always check first with \link validate() if
-     * the new key data is actually valid before adding it to a CompositeKey.
-     *
-     * @param key CompositeKey to add new key to
-     * @return true if added successfully
-     */
-    virtual bool addToCompositeKey(QSharedPointer<CompositeKey> key) = 0;
+	/**
+	 * Add the new key component to the given \link CompositeKey.
+	 * A caller should always check first with \link validate() if
+	 * the new key data is actually valid before adding it to a CompositeKey.
+	 *
+	 * @param key CompositeKey to add new key to
+	 * @return true if added successfully
+	 */
+	virtual bool addToCompositeKey(QSharedPointer<CompositeKey> key) = 0;
 
-    /**
-     * Validate key component data to check if key component
-     * may be added to a CompositeKey.
-     *
-     * @param errorMessage error message in case data is not valid
-     * @return true if data is valid
-     */
-    virtual bool validate(QString& errorMessage) const = 0;
+	/**
+	 * Validate key component data to check if key component
+	 * may be added to a CompositeKey.
+	 *
+	 * @param errorMessage error message in case data is not valid
+	 * @return true if data is valid
+	 */
+	virtual bool validate(QString &errorMessage) const = 0;
 
-    void setComponentAdded(bool added);
-    bool componentAdded() const;
-    void changeVisiblePage(Page page);
-    Page visiblePage() const;
+	void setComponentAdded(bool added);
+	bool componentAdded() const;
+	void changeVisiblePage(Page page);
+	Page visiblePage() const;
 
 protected:
-    /**
-     * Construct and return an instance of the key component edit widget
-     * which is to be inserted into the component management UI.
-     * Since previous widgets will be destroyed, every successive call to
-     * this function must return a new widget.
-     *
-     * @return edit widget instance
-     */
-    virtual QWidget* componentEditWidget() = 0;
+	/**
+	 * Construct and return an instance of the key component edit widget
+	 * which is to be inserted into the component management UI.
+	 * Since previous widgets will be destroyed, every successive call to
+	 * this function must return a new widget.
+	 *
+	 * @return edit widget instance
+	 */
+	virtual QWidget *componentEditWidget() = 0;
 
-    /**
-     * Initialize the key component widget created by \link componentEditWidget().
-     * This method is called every time the component edit widget is shown.
-     *
-     * @param widget pointer to the widget
-     */
-    virtual void initComponentEditWidget(QWidget* widget) = 0;
+	/**
+	 * Initialize the key component widget created by \link componentEditWidget().
+	 * This method is called every time the component edit widget is shown.
+	 *
+	 * @param widget pointer to the widget
+	 */
+	virtual void initComponentEditWidget(QWidget *widget) = 0;
 
-    /**
-     * Initialize component-specific labels, buttons, and description
-     */
-    virtual void initComponent() = 0;
+	/**
+	 * Initialize component-specific labels, buttons, and description
+	 */
+	virtual void initComponent() = 0;
 
-    const QScopedPointer<Ui::KeyComponentWidget> m_ui;
+	const QScopedPointer<Ui::KeyComponentWidget> m_ui;
 
 signals:
-    void componentAddChanged(bool added);
-    void componentAddRequested();
-    void componentEditRequested();
-    void editCanceled();
-    void componentRemovalRequested();
+	void componentAddChanged(bool added);
+	void componentAddRequested();
+	void componentEditRequested();
+	void editCanceled();
+	void componentRemovalRequested();
 
 private slots:
-    void updateAddStatus(bool added);
-    void doAdd();
-    void doEdit();
-    void doRemove();
-    void cancelEdit();
-    void resetComponentEditWidget();
-    void updateSize();
+	void updateAddStatus(bool added);
+	void doAdd();
+	void doEdit();
+	void doRemove();
+	void cancelEdit();
+	void resetComponentEditWidget();
+	void updateSize();
 
 private:
-    bool m_isComponentAdded = false;
-    Page m_previousPage = Page::AddNew;
-    QPointer<QWidget> m_componentWidget;
+	bool m_isComponentAdded = false;
+	Page m_previousPage = Page::AddNew;
+	QPointer<QWidget> m_componentWidget;
 
-    Q_DISABLE_COPY(KeyComponentWidget);
+	Q_DISABLE_COPY(KeyComponentWidget);
 };
 
 #endif // KEEPASSXC_KEYCOMPONENTWIDGET_H

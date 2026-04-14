@@ -23,20 +23,20 @@
 #include <QCommandLineParser>
 
 const QCommandLineOption Merge::SameCredentialsOption =
-    QCommandLineOption(QStringList() << "s" << "same-credentials",
+	QCommandLineOption(QStringList() << "s" << "same-credentials",
                        QObject::tr("Use the same credentials for both database files."));
 
 const QCommandLineOption Merge::KeyFileFromOption =
-    QCommandLineOption(QStringList() << "key-file-from",
+	QCommandLineOption(QStringList() << "key-file-from",
                        QObject::tr("Key file of the database to merge from."),
                        QObject::tr("path"));
 
 const QCommandLineOption Merge::NoPasswordFromOption =
-    QCommandLineOption(QStringList() << "no-password-from",
+	QCommandLineOption(QStringList() << "no-password-from",
                        QObject::tr("Deactivate password key for the database to merge from."));
 
 const QCommandLineOption Merge::DryRunOption =
-    QCommandLineOption(QStringList() << "d" << "dry-run",
+	QCommandLineOption(QStringList() << "d" << "dry-run",
                        QObject::tr("Only print the changes detected by the merge operation."));
 
 const QCommandLineOption Merge::YubiKeyFromOption(QStringList() << "yubikey-from",
@@ -44,64 +44,74 @@ const QCommandLineOption Merge::YubiKeyFromOption(QStringList() << "yubikey-from
                                                   QObject::tr("slot"));
 Merge::Merge()
 {
-    name = QString("merge");
-    description = QObject::tr("Merge two databases.");
-    options.append(Merge::SameCredentialsOption);
-    options.append(Merge::KeyFileFromOption);
-    options.append(Merge::NoPasswordFromOption);
-    options.append(Merge::DryRunOption);
+	name = QString("merge");
+	description = QObject::tr("Merge two databases.");
+	options.append(Merge::SameCredentialsOption);
+	options.append(Merge::KeyFileFromOption);
+	options.append(Merge::NoPasswordFromOption);
+	options.append(Merge::DryRunOption);
 #ifdef WITH_XC_YUBIKEY
-    options.append(Merge::YubiKeyFromOption);
+	options.append(Merge::YubiKeyFromOption);
 #endif
-    positionalArguments.append({QString("database2"), QObject::tr("Path of the database to merge from."), QString("")});
+	positionalArguments.append({QString("database2"), QObject::tr("Path of the database to merge from."), QString("")});
 }
 
 int Merge::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser> parser)
 {
-    auto& out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    const QStringList args = parser->positionalArguments();
+	const QStringList args = parser->positionalArguments();
 
-    auto& toDatabasePath = args.at(0);
-    auto& fromDatabasePath = args.at(1);
+	auto &toDatabasePath = args.at(0);
+	auto &fromDatabasePath = args.at(1);
 
-    QSharedPointer<Database> db2;
-    if (!parser->isSet(Merge::SameCredentialsOption)) {
-        db2 = Utils::unlockDatabase(fromDatabasePath,
-                                    !parser->isSet(Merge::NoPasswordFromOption),
-                                    parser->value(Merge::KeyFileFromOption),
-                                    parser->value(Merge::YubiKeyFromOption),
-                                    parser->isSet(Command::QuietOption));
-        if (!db2) {
-            return EXIT_FAILURE;
-        }
-    } else {
-        db2 = QSharedPointer<Database>::create();
-        QString errorMessage;
-        if (!db2->open(fromDatabasePath, database->key(), &errorMessage)) {
-            err << QObject::tr("Error reading merge file:\n%1").arg(errorMessage);
-            return EXIT_FAILURE;
-        }
-    }
+	QSharedPointer<Database> db2;
+	if (!parser->isSet(Merge::SameCredentialsOption))
+	{
+		db2 = Utils::unlockDatabase(fromDatabasePath,
+		                            !parser->isSet(Merge::NoPasswordFromOption),
+		                            parser->value(Merge::KeyFileFromOption),
+		                            parser->value(Merge::YubiKeyFromOption),
+		                            parser->isSet(Command::QuietOption));
+		if (!db2)
+		{
+			return EXIT_FAILURE;
+		}
+	}
+	else
+	{
+		db2 = QSharedPointer<Database>::create();
+		QString errorMessage;
+		if (!db2->open(fromDatabasePath, database->key(), &errorMessage))
+		{
+			err << QObject::tr("Error reading merge file:\n%1").arg(errorMessage);
+			return EXIT_FAILURE;
+		}
+	}
 
-    Merger merger(db2.data(), database.data());
-    auto changeList = merger.merge();
+	Merger merger(db2.data(), database.data());
+	auto changeList = merger.merge();
 
-    for (const auto& mergeChange : changeList) {
-        out << "\t" << mergeChange.toString() << Qt::endl;
-    }
+	for (const auto &mergeChange: changeList)
+	{
+		out << "\t" << mergeChange.toString() << Qt::endl;
+	}
 
-    if (!changeList.isEmpty() && !parser->isSet(Merge::DryRunOption)) {
-        QString errorMessage;
-        if (!database->save(Database::Atomic, {}, &errorMessage)) {
-            err << QObject::tr("Unable to save database to file : %1").arg(errorMessage) << Qt::endl;
-            return EXIT_FAILURE;
-        }
-        out << QObject::tr("Successfully merged %1 into %2.").arg(fromDatabasePath, toDatabasePath) << Qt::endl;
-    } else {
-        out << QObject::tr("Database was not modified by merge operation.") << Qt::endl;
-    }
+	if (!changeList.isEmpty() && !parser->isSet(Merge::DryRunOption))
+	{
+		QString errorMessage;
+		if (!database->save(Database::Atomic, {}, &errorMessage))
+		{
+			err << QObject::tr("Unable to save database to file : %1").arg(errorMessage) << Qt::endl;
+			return EXIT_FAILURE;
+		}
+		out << QObject::tr("Successfully merged %1 into %2.").arg(fromDatabasePath, toDatabasePath) << Qt::endl;
+	}
+	else
+	{
+		out << QObject::tr("Database was not modified by merge operation.") << Qt::endl;
+	}
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

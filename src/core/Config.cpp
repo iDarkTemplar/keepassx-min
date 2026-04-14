@@ -32,15 +32,15 @@
 
 enum ConfigType
 {
-    Local,
-    Roaming
+	Local,
+	Roaming
 };
 
 struct ConfigDirective
 {
-    QString name;
-    ConfigType type;
-    QVariant defaultValue;
+	QString name;
+	ConfigType type;
+	QVariant defaultValue;
 };
 
 // clang-format off
@@ -235,55 +235,63 @@ QPointer<Config> Config::m_instance(nullptr);
 
 QVariant Config::get(ConfigKey key)
 {
-    auto cfg = configStrings[key];
-    auto defaultValue = configStrings[key].defaultValue;
-    if (m_localSettings && cfg.type == Local) {
-        return m_localSettings->value(cfg.name, defaultValue);
-    }
-    return m_settings->value(cfg.name, defaultValue);
+	auto cfg = configStrings[key];
+	auto defaultValue = configStrings[key].defaultValue;
+	if (m_localSettings && cfg.type == Local)
+	{
+		return m_localSettings->value(cfg.name, defaultValue);
+	}
+	return m_settings->value(cfg.name, defaultValue);
 }
 
 QVariant Config::getDefault(Config::ConfigKey key)
 {
-    return configStrings[key].defaultValue;
+	return configStrings[key].defaultValue;
 }
 
 bool Config::hasAccessError()
 {
-    return m_settings->status() & QSettings::AccessError;
+	return m_settings->status() & QSettings::AccessError;
 }
 
 QString Config::getFileName()
 {
-    return m_settings->fileName();
+	return m_settings->fileName();
 }
 
-void Config::set(ConfigKey key, const QVariant& value)
+void Config::set(ConfigKey key, const QVariant &value)
 {
-    if (get(key) == value) {
-        return;
-    }
+	if (get(key) == value)
+	{
+		return;
+	}
 
-    auto cfg = configStrings[key];
-    if (cfg.type == Local && m_localSettings) {
-        m_localSettings->setValue(cfg.name, value);
-    } else {
-        m_settings->setValue(cfg.name, value);
-    }
+	auto cfg = configStrings[key];
+	if (cfg.type == Local && m_localSettings)
+	{
+		m_localSettings->setValue(cfg.name, value);
+	}
+	else
+	{
+		m_settings->setValue(cfg.name, value);
+	}
 
-    emit changed(key);
+	emit changed(key);
 }
 
 void Config::remove(ConfigKey key)
 {
-    auto cfg = configStrings[key];
-    if (cfg.type == Local && m_localSettings) {
-        m_localSettings->remove(cfg.name);
-    } else {
-        m_settings->remove(cfg.name);
-    }
+	auto cfg = configStrings[key];
+	if (cfg.type == Local && m_localSettings)
+	{
+		m_localSettings->remove(cfg.name);
+	}
+	else
+	{
+		m_settings->remove(cfg.name);
+	}
 
-    emit changed(key);
+	emit changed(key);
 }
 
 /**
@@ -295,57 +303,65 @@ void Config::remove(ConfigKey key)
  */
 void Config::sync()
 {
-    m_settings->sync();
-    if (m_localSettings) {
-        m_localSettings->sync();
-    }
+	m_settings->sync();
+	if (m_localSettings)
+	{
+		m_localSettings->sync();
+	}
 }
 
 void Config::resetToDefaults()
 {
-    m_settings->clear();
-    if (m_localSettings) {
-        m_localSettings->clear();
-    }
+	m_settings->clear();
+	if (m_localSettings)
+	{
+		m_localSettings->clear();
+	}
 }
 
-bool Config::importSettings(const QString& fileName)
+bool Config::importSettings(const QString &fileName)
 {
-    // Ensure file is valid ini with values
-    QSettings settings(fileName, QSettings::IniFormat);
-    if (settings.status() != QSettings::NoError || settings.allKeys().isEmpty()) {
-        return false;
-    }
+	// Ensure file is valid ini with values
+	QSettings settings(fileName, QSettings::IniFormat);
+	if (settings.status() != QSettings::NoError || settings.allKeys().isEmpty())
+	{
+		return false;
+	}
 
-    // Only import valid roaming settings
-    auto isValidSetting = [](const QString& key) {
-        for (const auto& value : configStrings.values()) {
-            if (value.type == ConfigType::Roaming && value.name == key) {
-                return true;
-            }
-        }
-        return false;
-    };
+	// Only import valid roaming settings
+	auto isValidSetting = [](const QString &key) {
+		for (const auto &value: configStrings.values())
+		{
+			if (value.type == ConfigType::Roaming && value.name == key)
+			{
+				return true;
+			}
+		}
+		return false;
+	};
 
-    // Clear existing settings and set valid items
-    m_settings->clear();
-    for (const auto& key : settings.allKeys()) {
-        if (isValidSetting(key)) {
-            m_settings->setValue(key, settings.value(key));
-        }
-    }
+	// Clear existing settings and set valid items
+	m_settings->clear();
+	for (const auto &key: settings.allKeys())
+	{
+		if (isValidSetting(key))
+		{
+			m_settings->setValue(key, settings.value(key));
+		}
+	}
 
-    sync();
+	sync();
 
-    return true;
+	return true;
 }
 
-void Config::exportSettings(const QString& fileName) const
+void Config::exportSettings(const QString &fileName) const
 {
-    QSettings settings(fileName, QSettings::IniFormat);
-    for (const auto& key : m_settings->allKeys()) {
-        settings.setValue(key, m_settings->value(key));
-    }
+	QSettings settings(fileName, QSettings::IniFormat);
+	for (const auto &key: m_settings->allKeys())
+	{
+		settings.setValue(key, m_settings->value(key));
+	}
 }
 
 /**
@@ -355,283 +371,307 @@ void Config::exportSettings(const QString& fileName) const
  * Set a value to Deleted to remove the setting.
  */
 static const QHash<QString, Config::ConfigKey> deprecationMap = {
-    // 2.3.4
-    {QS("security/hidepassworddetails"), Config::Security_HidePasswordPreviewPanel},
-    {QS("GUI/HideDetailsView"), Config::GUI_HidePreviewPanel},
-    {QS("GUI/DetailSplitterState"), Config::GUI_PreviewSplitterState},
-    {QS("security/IconDownloadFallbackToGoogle"), Config::Security_IconDownloadFallback},
+	// 2.3.4
+	{QS("security/hidepassworddetails"), Config::Security_HidePasswordPreviewPanel},
+	{QS("GUI/HideDetailsView"), Config::GUI_HidePreviewPanel},
+	{QS("GUI/DetailSplitterState"), Config::GUI_PreviewSplitterState},
+	{QS("security/IconDownloadFallbackToGoogle"), Config::Security_IconDownloadFallback},
 
-    // 2.6.0
-    {QS("security/autotypeask"), Config::Security_AutoTypeAsk},
-    {QS("security/clearclipboard"), Config::Security_ClearClipboard},
-    {QS("security/clearclipboardtimeout"), Config::Security_ClearClipboardTimeout},
-    {QS("security/clearsearch"), Config::Security_ClearSearch},
-    {QS("security/clearsearchtimeout"), Config::Security_ClearSearchTimeout},
-    {QS("security/lockdatabaseidle"), Config::Security_LockDatabaseIdle},
-    {QS("security/lockdatabaseidlesec"), Config::Security_LockDatabaseIdleSeconds},
-    {QS("security/lockdatabaseminimize"), Config::Security_LockDatabaseMinimize},
-    {QS("security/lockdatabasescreenlock"), Config::Security_LockDatabaseScreenLock},
-    {QS("security/relockautotype"), Config::Security_RelockAutoType},
-    {QS("security/IconDownloadFallback"), Config::Security_IconDownloadFallback},
-    {QS("security/passwordscleartext"), Config::Security_PasswordsHidden},
-    {QS("security/passwordemptynodots"), Config::Security_PasswordEmptyPlaceholder},
-    {QS("security/HidePasswordPreviewPanel"), Config::Security_HidePasswordPreviewPanel},
-    {QS("security/passwordsrepeat"), Config::Deleted},
-    {QS("security/hidenotes"), Config::Security_HideNotes},
-    {QS("KeeShare/Settings.own"), Config::KeeShare_Own},
-    {QS("KeeShare/Settings.foreign"), Config::KeeShare_Foreign},
-    {QS("KeeShare/Settings.active"), Config::KeeShare_Active},
-    {QS("SSHAgent"), Config::SSHAgent_Enabled},
-    {QS("SSHAgentOpenSSH"), Config::SSHAgent_UseOpenSSH},
-    {QS("SSHAuthSockOverride"), Config::SSHAgent_AuthSockOverride},
-    {QS("generator/LowerCase"), Config::PasswordGenerator_LowerCase},
-    {QS("generator/UpperCase"), Config::PasswordGenerator_UpperCase},
-    {QS("generator/Numbers"), Config::PasswordGenerator_Numbers},
-    {QS("generator/EASCII"), Config::PasswordGenerator_EASCII},
-    {QS("generator/AdvancedMode"), Config::PasswordGenerator_AdvancedMode},
-    {QS("generator/SpecialChars"), Config::PasswordGenerator_SpecialChars},
-    {QS("generator/AdditionalChars"), Config::PasswordGenerator_AdditionalChars},
-    {QS("generator/Braces"), Config::PasswordGenerator_Braces},
-    {QS("generator/Punctuation"), Config::PasswordGenerator_Punctuation},
-    {QS("generator/Quotes"), Config::PasswordGenerator_Quotes},
-    {QS("generator/Dashes"), Config::PasswordGenerator_Dashes},
-    {QS("generator/Math"), Config::PasswordGenerator_Math},
-    {QS("generator/Logograms"), Config::PasswordGenerator_Logograms},
-    {QS("generator/ExcludedChars"), Config::PasswordGenerator_ExcludedChars},
-    {QS("generator/ExcludeAlike"), Config::PasswordGenerator_ExcludeAlike},
-    {QS("generator/EnsureEvery"), Config::PasswordGenerator_EnsureEvery},
-    {QS("generator/Length"), Config::PasswordGenerator_Length},
-    {QS("generator/WordCount"), Config::PasswordGenerator_WordCount},
-    {QS("generator/WordSeparator"), Config::PasswordGenerator_WordSeparator},
-    {QS("generator/WordList"), Config::PasswordGenerator_WordList},
-    {QS("generator/WordCase"), Config::PasswordGenerator_WordCase},
-    {QS("generator/Type"), Config::PasswordGenerator_Type},
-    {QS("QtErrorMessageShown"), Config::Deleted},
-    {QS("GUI/HidePasswords"), Config::Deleted},
-    {QS("GUI/DarkTrayIcon"), Config::Deleted},
+	// 2.6.0
+	{QS("security/autotypeask"), Config::Security_AutoTypeAsk},
+	{QS("security/clearclipboard"), Config::Security_ClearClipboard},
+	{QS("security/clearclipboardtimeout"), Config::Security_ClearClipboardTimeout},
+	{QS("security/clearsearch"), Config::Security_ClearSearch},
+	{QS("security/clearsearchtimeout"), Config::Security_ClearSearchTimeout},
+	{QS("security/lockdatabaseidle"), Config::Security_LockDatabaseIdle},
+	{QS("security/lockdatabaseidlesec"), Config::Security_LockDatabaseIdleSeconds},
+	{QS("security/lockdatabaseminimize"), Config::Security_LockDatabaseMinimize},
+	{QS("security/lockdatabasescreenlock"), Config::Security_LockDatabaseScreenLock},
+	{QS("security/relockautotype"), Config::Security_RelockAutoType},
+	{QS("security/IconDownloadFallback"), Config::Security_IconDownloadFallback},
+	{QS("security/passwordscleartext"), Config::Security_PasswordsHidden},
+	{QS("security/passwordemptynodots"), Config::Security_PasswordEmptyPlaceholder},
+	{QS("security/HidePasswordPreviewPanel"), Config::Security_HidePasswordPreviewPanel},
+	{QS("security/passwordsrepeat"), Config::Deleted},
+	{QS("security/hidenotes"), Config::Security_HideNotes},
+	{QS("KeeShare/Settings.own"), Config::KeeShare_Own},
+	{QS("KeeShare/Settings.foreign"), Config::KeeShare_Foreign},
+	{QS("KeeShare/Settings.active"), Config::KeeShare_Active},
+	{QS("SSHAgent"), Config::SSHAgent_Enabled},
+	{QS("SSHAgentOpenSSH"), Config::SSHAgent_UseOpenSSH},
+	{QS("SSHAuthSockOverride"), Config::SSHAgent_AuthSockOverride},
+	{QS("generator/LowerCase"), Config::PasswordGenerator_LowerCase},
+	{QS("generator/UpperCase"), Config::PasswordGenerator_UpperCase},
+	{QS("generator/Numbers"), Config::PasswordGenerator_Numbers},
+	{QS("generator/EASCII"), Config::PasswordGenerator_EASCII},
+	{QS("generator/AdvancedMode"), Config::PasswordGenerator_AdvancedMode},
+	{QS("generator/SpecialChars"), Config::PasswordGenerator_SpecialChars},
+	{QS("generator/AdditionalChars"), Config::PasswordGenerator_AdditionalChars},
+	{QS("generator/Braces"), Config::PasswordGenerator_Braces},
+	{QS("generator/Punctuation"), Config::PasswordGenerator_Punctuation},
+	{QS("generator/Quotes"), Config::PasswordGenerator_Quotes},
+	{QS("generator/Dashes"), Config::PasswordGenerator_Dashes},
+	{QS("generator/Math"), Config::PasswordGenerator_Math},
+	{QS("generator/Logograms"), Config::PasswordGenerator_Logograms},
+	{QS("generator/ExcludedChars"), Config::PasswordGenerator_ExcludedChars},
+	{QS("generator/ExcludeAlike"), Config::PasswordGenerator_ExcludeAlike},
+	{QS("generator/EnsureEvery"), Config::PasswordGenerator_EnsureEvery},
+	{QS("generator/Length"), Config::PasswordGenerator_Length},
+	{QS("generator/WordCount"), Config::PasswordGenerator_WordCount},
+	{QS("generator/WordSeparator"), Config::PasswordGenerator_WordSeparator},
+	{QS("generator/WordList"), Config::PasswordGenerator_WordList},
+	{QS("generator/WordCase"), Config::PasswordGenerator_WordCase},
+	{QS("generator/Type"), Config::PasswordGenerator_Type},
+	{QS("QtErrorMessageShown"), Config::Deleted},
+	{QS("GUI/HidePasswords"), Config::Deleted},
+	{QS("GUI/DarkTrayIcon"), Config::Deleted},
 
-    // 2.7.0
-    {QS("GUI/HideGroupsPanel"), Config::Deleted},
-    {QS("LastAttachmentDir"), Config::Deleted},
-    {QS("KeeShare/LastDir"), Config::Deleted},
-    {QS("KeeShare/LastKeyDir"), Config::Deleted},
-    {QS("KeeShare/LastShareDir"), Config::Deleted},
-    {QS("UseTouchID"), Config::Deleted},
-    {QS("Security/ResetTouchId"), Config::Deleted},
-    {QS("Security/ResetTouchIdTimeout"), Config::Deleted},
+	// 2.7.0
+	{QS("GUI/HideGroupsPanel"), Config::Deleted},
+	{QS("LastAttachmentDir"), Config::Deleted},
+	{QS("KeeShare/LastDir"), Config::Deleted},
+	{QS("KeeShare/LastKeyDir"), Config::Deleted},
+	{QS("KeeShare/LastShareDir"), Config::Deleted},
+	{QS("UseTouchID"), Config::Deleted},
+	{QS("Security/ResetTouchId"), Config::Deleted},
+	{QS("Security/ResetTouchIdTimeout"), Config::Deleted},
 
-    // 2.7.8
-    {QS("GUI/AdvancedSettings"), Config::Deleted},
-    {QS("Security/PasswordsRepeatVisible"), Config::Deleted}};
+	// 2.7.8
+	{QS("GUI/AdvancedSettings"), Config::Deleted},
+	{QS("Security/PasswordsRepeatVisible"), Config::Deleted}};
 
 /**
  * Migrate settings from previous versions.
  */
 void Config::migrate()
 {
-    int previousVersion = m_settings->value("ConfigVersion").toInt();
-    if (CONFIG_VERSION <= previousVersion) {
-        return;
-    }
+	int previousVersion = m_settings->value("ConfigVersion").toInt();
+	if (CONFIG_VERSION <= previousVersion)
+	{
+		return;
+	}
 
-    // Update renamed keys and drop obsolete keys
-    for (const auto& setting : deprecationMap.keys()) {
-        QVariant value;
-        if (m_settings->contains(setting)) {
-            if (setting == QS("IgnoreGroupExpansion") || setting == QS("security/passwordsrepeat")
-                || setting == QS("security/passwordscleartext") || setting == QS("security/passwordemptynodots")) {
-                // Keep user's original setting for boolean settings whose meanings were reversed
-                value = !m_settings->value(setting).toBool();
-            } else {
-                value = m_settings->value(setting);
-            }
-            m_settings->remove(setting);
-        } else if (m_localSettings && m_localSettings->contains(setting)) {
-            value = m_localSettings->value(setting);
-            m_localSettings->remove(setting);
-        } else {
-            continue;
-        }
+	// Update renamed keys and drop obsolete keys
+	for (const auto &setting: deprecationMap.keys())
+	{
+		QVariant value;
+		if (m_settings->contains(setting))
+		{
+			if (setting == QS("IgnoreGroupExpansion") || setting == QS("security/passwordsrepeat")
+			    || setting == QS("security/passwordscleartext") || setting == QS("security/passwordemptynodots"))
+			{
+				// Keep user's original setting for boolean settings whose meanings were reversed
+				value = !m_settings->value(setting).toBool();
+			}
+			else
+			{
+				value = m_settings->value(setting);
+			}
+			m_settings->remove(setting);
+		}
+		else if (m_localSettings && m_localSettings->contains(setting))
+		{
+			value = m_localSettings->value(setting);
+			m_localSettings->remove(setting);
+		}
+		else
+		{
+			continue;
+		}
 
-        if (deprecationMap[setting] == Config::Deleted) {
-            continue;
-        }
+		if (deprecationMap[setting] == Config::Deleted)
+		{
+			continue;
+		}
 
-        set(deprecationMap[setting], value);
-    }
+		set(deprecationMap[setting], value);
+	}
 
-    // Move local settings to separate file
-    if (m_localSettings) {
-        for (const auto& setting : asConst(configStrings)) {
-            if (setting.type == Local && m_settings->contains(setting.name)) {
-                m_localSettings->setValue(setting.name, m_settings->value(setting.name));
-                m_settings->remove(setting.name);
-            }
-        }
-    }
+	// Move local settings to separate file
+	if (m_localSettings)
+	{
+		for (const auto &setting: asConst(configStrings))
+		{
+			if (setting.type == Local && m_settings->contains(setting.name))
+			{
+				m_localSettings->setValue(setting.name, m_settings->value(setting.name));
+				m_settings->remove(setting.name);
+			}
+		}
+	}
 
-    // Detailed version migrations
+	// Detailed version migrations
 
-    // pre 2.6.0 (no versioned configs)
-    if (previousVersion < 1) {
+	// pre 2.6.0 (no versioned configs)
+	if (previousVersion < 1)
+	{
 
-        // 2.3.4
-        if (get(AutoSaveAfterEveryChange).toBool()) {
-            set(AutoSaveOnExit, true);
-        }
+		// 2.3.4
+		if (get(AutoSaveAfterEveryChange).toBool())
+		{
+			set(AutoSaveOnExit, true);
+		}
 
-        // Setting defaults for 'hide window on copy' behavior, keeping the user's original setting
-        if (get(HideWindowOnCopy).isNull()) {
-            set(HideWindowOnCopy, get(MinimizeOnCopy).toBool());
-            set(MinimizeOnCopy, true);
-        }
+		// Setting defaults for 'hide window on copy' behavior, keeping the user's original setting
+		if (get(HideWindowOnCopy).isNull())
+		{
+			set(HideWindowOnCopy, get(MinimizeOnCopy).toBool());
+			set(MinimizeOnCopy, true);
+		}
 
-        // Reset database columns if upgrading from pre 2.6.0
-        remove(GUI_ListViewState);
-    }
+		// Reset database columns if upgrading from pre 2.6.0
+		remove(GUI_ListViewState);
+	}
 
-    // Migrate from boolean OpenURLOnDoubleClick to enum URLDoubleClickAction
-    if (m_settings->contains(configStrings[OpenURLOnDoubleClick].name)
-        && !m_settings->contains(configStrings[URLDoubleClickAction].name)) {
-        bool openUrlOnDoubleClick = get(OpenURLOnDoubleClick).toBool();
-        // Convert: true (open browser) -> 0, false (edit entry) -> 2
-        set(URLDoubleClickAction, openUrlOnDoubleClick ? 0 : 2);
-        // Keep the old setting for now for compatibility
-    }
+	// Migrate from boolean OpenURLOnDoubleClick to enum URLDoubleClickAction
+	if (m_settings->contains(configStrings[OpenURLOnDoubleClick].name)
+	    && !m_settings->contains(configStrings[URLDoubleClickAction].name))
+	{
+		bool openUrlOnDoubleClick = get(OpenURLOnDoubleClick).toBool();
+		// Convert: true (open browser) -> 0, false (edit entry) -> 2
+		set(URLDoubleClickAction, openUrlOnDoubleClick ? 0 : 2);
+		// Keep the old setting for now for compatibility
+	}
 
-    m_settings->setValue("ConfigVersion", CONFIG_VERSION);
-    sync();
+	m_settings->setValue("ConfigVersion", CONFIG_VERSION);
+	sync();
 }
 
-Config::Config(const QString& configFileName, const QString& localConfigFileName, QObject* parent)
-    : QObject(parent)
+Config::Config(const QString &configFileName, const QString &localConfigFileName, QObject *parent)
+	: QObject(parent)
 {
-    init(configFileName, localConfigFileName);
+	init(configFileName, localConfigFileName);
 }
 
-Config::Config(QObject* parent)
-    : QObject(parent)
+Config::Config(QObject *parent)
+	: QObject(parent)
 {
-    auto configFiles = defaultConfigFiles();
-    init(configFiles.first, configFiles.second);
+	auto configFiles = defaultConfigFiles();
+	init(configFiles.first, configFiles.second);
 }
 
 Config::~Config()
 {
 }
 
-void Config::init(const QString& configFileName, const QString& localConfigFileName)
+void Config::init(const QString &configFileName, const QString &localConfigFileName)
 {
-    // Upgrade from previous KeePassXC version which stores its config
-    // in AppData/Local on Windows instead of AppData/Roaming.
-    // Move file to correct location before continuing.
-    if (!localConfigFileName.isEmpty() && QFile::exists(localConfigFileName) && !QFile::exists(configFileName)) {
-        QDir().mkpath(QFileInfo(configFileName).absolutePath());
-        QFile::copy(localConfigFileName, configFileName);
-        QFile::remove(localConfigFileName);
-        QDir().rmdir(QFileInfo(localConfigFileName).absolutePath());
-    }
+	// Upgrade from previous KeePassXC version which stores its config
+	// in AppData/Local on Windows instead of AppData/Roaming.
+	// Move file to correct location before continuing.
+	if (!localConfigFileName.isEmpty() && QFile::exists(localConfigFileName) && !QFile::exists(configFileName))
+	{
+		QDir().mkpath(QFileInfo(configFileName).absolutePath());
+		QFile::copy(localConfigFileName, configFileName);
+		QFile::remove(localConfigFileName);
+		QDir().rmdir(QFileInfo(localConfigFileName).absolutePath());
+	}
 
-    m_settings.reset(new QSettings(configFileName, QSettings::IniFormat));
-    if (!localConfigFileName.isEmpty() && configFileName != localConfigFileName) {
-        m_localSettings.reset(new QSettings(localConfigFileName, QSettings::IniFormat));
-    }
+	m_settings.reset(new QSettings(configFileName, QSettings::IniFormat));
+	if (!localConfigFileName.isEmpty() && configFileName != localConfigFileName)
+	{
+		m_localSettings.reset(new QSettings(localConfigFileName, QSettings::IniFormat));
+	}
 
-    migrate();
-    connect(qApp, &QCoreApplication::aboutToQuit, this, &Config::sync);
+	migrate();
+	connect(qApp, &QCoreApplication::aboutToQuit, this, &Config::sync);
 }
 
 QPair<QString, QString> Config::defaultConfigFiles()
 {
-    // Check if we are running in portable mode, if so store the config files local to the app
-    if (isPortable()) {
-        return {portableConfigDir().append("/keepassxc.ini"), portableConfigDir().append("/keepassxc_local.ini")};
-    }
+	// Check if we are running in portable mode, if so store the config files local to the app
+	if (isPortable())
+	{
+		return {portableConfigDir().append("/keepassxc.ini"), portableConfigDir().append("/keepassxc_local.ini")};
+	}
 
-    QString configPath;
-    QString localConfigPath;
+	QString configPath;
+	QString localConfigPath;
 
 #if defined(Q_OS_WIN)
-    configPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    localConfigPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+	configPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 #elif defined(Q_OS_MACOS)
-    configPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    localConfigPath = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+	configPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
 #else
-    // On case-sensitive Operating Systems, force use of lowercase app directories
-    configPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/keepassxc";
-    localConfigPath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/keepassxc";
+	// On case-sensitive Operating Systems, force use of lowercase app directories
+	configPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/keepassxc";
+	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/keepassxc";
 #endif
 
-    QString suffix;
+	QString suffix;
 #ifdef QT_DEBUG
-    suffix = "_debug";
+	suffix = "_debug";
 #endif
 
-    configPath += QString("/keepassxc%1.ini").arg(suffix);
-    localConfigPath += QString("/keepassxc%1.ini").arg(suffix);
+	configPath += QString("/keepassxc%1.ini").arg(suffix);
+	localConfigPath += QString("/keepassxc%1.ini").arg(suffix);
 
-    // Allow overriding the default location with env vars
-    const auto& env = QProcessEnvironment::systemEnvironment();
-    configPath = env.value("KPXC_CONFIG", configPath);
-    localConfigPath = env.value("KPXC_CONFIG_LOCAL", localConfigPath);
+	// Allow overriding the default location with env vars
+	const auto &env = QProcessEnvironment::systemEnvironment();
+	configPath = env.value("KPXC_CONFIG", configPath);
+	localConfigPath = env.value("KPXC_CONFIG_LOCAL", localConfigPath);
 
-    return {QDir::toNativeSeparators(configPath), QDir::toNativeSeparators(localConfigPath)};
+	return {QDir::toNativeSeparators(configPath), QDir::toNativeSeparators(localConfigPath)};
 }
 
-Config* Config::instance()
+Config *Config::instance()
 {
-    if (!m_instance) {
-        m_instance = new Config(qApp);
-    }
+	if (!m_instance)
+	{
+		m_instance = new Config(qApp);
+	}
 
-    return m_instance;
+	return m_instance;
 }
 
-void Config::createConfigFromFile(const QString& configFileName, const QString& localConfigFileName)
+void Config::createConfigFromFile(const QString &configFileName, const QString &localConfigFileName)
 {
-    if (m_instance) {
-        delete m_instance;
-    }
+	if (m_instance)
+	{
+		delete m_instance;
+	}
 
-    auto defaultFiles = defaultConfigFiles();
-    m_instance = new Config(configFileName.isEmpty() ? defaultFiles.first : configFileName,
-                            localConfigFileName.isEmpty() ? defaultFiles.second : localConfigFileName,
-                            qApp);
+	auto defaultFiles = defaultConfigFiles();
+	m_instance = new Config(configFileName.isEmpty() ? defaultFiles.first : configFileName,
+	                        localConfigFileName.isEmpty() ? defaultFiles.second : localConfigFileName,
+	                        qApp);
 }
 
 void Config::createTempFileInstance()
 {
-    if (m_instance) {
-        delete m_instance;
-    }
-    auto* tmpFile = new QTemporaryFile();
-    bool openResult = tmpFile->open();
-    Q_ASSERT(openResult);
-    Q_UNUSED(openResult);
-    m_instance = new Config(tmpFile->fileName(), "", qApp);
-    tmpFile->setParent(m_instance);
+	if (m_instance)
+	{
+		delete m_instance;
+	}
+	auto *tmpFile = new QTemporaryFile();
+	bool openResult = tmpFile->open();
+	Q_ASSERT(openResult);
+	Q_UNUSED(openResult);
+	m_instance = new Config(tmpFile->fileName(), "", qApp);
+	tmpFile->setParent(m_instance);
 }
 
 bool Config::isPortable()
 {
 #ifdef Q_OS_WIN
-    // Enable QFileInfo::isWritable check on Windows
-    extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
-    qt_ntfs_permission_lookup++;
+	// Enable QFileInfo::isWritable check on Windows
+	extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
+	qt_ntfs_permission_lookup++;
 #endif
-    auto portablePath = QCoreApplication::applicationDirPath().append("/%1");
-    auto portableFile = portablePath.arg(".portable");
-    auto isPortable = QFile::exists(portableFile) && QFileInfo(portableFile).isWritable();
+	auto portablePath = QCoreApplication::applicationDirPath().append("/%1");
+	auto portableFile = portablePath.arg(".portable");
+	auto isPortable = QFile::exists(portableFile) && QFileInfo(portableFile).isWritable();
 #ifdef Q_OS_WIN
-    qt_ntfs_permission_lookup--;
+	qt_ntfs_permission_lookup--;
 #endif
-    return isPortable;
+	return isPortable;
 }
 
 QString Config::portableConfigDir()
 {
-    return QCoreApplication::applicationDirPath().append("/config");
+	return QCoreApplication::applicationDirPath().append("/config");
 }
 
 #undef QS

@@ -19,18 +19,18 @@
 
 #include "DatabaseCommand.h"
 
-class Merge : public DatabaseCommand
+class Merge: public DatabaseCommand
 {
 public:
-    Merge();
+	Merge();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 
-    static const QCommandLineOption SameCredentialsOption;
-    static const QCommandLineOption KeyFileFromOption;
-    static const QCommandLineOption NoPasswordFromOption;
-    static const QCommandLineOption YubiKeyFromOption;
-    static const QCommandLineOption DryRunOption;
+	static const QCommandLineOption SameCredentialsOption;
+	static const QCommandLineOption KeyFileFromOption;
+	static const QCommandLineOption NoPasswordFromOption;
+	static const QCommandLineOption YubiKeyFromOption;
+	static const QCommandLineOption DryRunOption;
 };
 
 #endif // KEEPASSXC_MERGE_H

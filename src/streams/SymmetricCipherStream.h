@@ -23,37 +23,39 @@
 #include "crypto/SymmetricCipher.h"
 #include "streams/LayeredStream.h"
 
-class SymmetricCipherStream : public LayeredStream
+class SymmetricCipherStream: public LayeredStream
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    SymmetricCipherStream(QIODevice* baseDevice);
-    ~SymmetricCipherStream();
-    bool
-    init(SymmetricCipher::Mode mode, SymmetricCipher::Direction direction, const QByteArray& key, const QByteArray& iv);
-    bool open(QIODevice::OpenMode mode) override;
-    bool reset() override;
-    void close() override;
+	SymmetricCipherStream(QIODevice *baseDevice);
+	~SymmetricCipherStream();
+	bool init(SymmetricCipher::Mode mode,
+	          SymmetricCipher::Direction direction,
+	          const QByteArray &key,
+	          const QByteArray &iv);
+	bool open(QIODevice::OpenMode mode) override;
+	bool reset() override;
+	void close() override;
 
 protected:
-    qint64 readData(char* data, qint64 maxSize) override;
-    qint64 writeData(const char* data, qint64 maxSize) override;
+	qint64 readData(char *data, qint64 maxSize) override;
+	qint64 writeData(const char *data, qint64 maxSize) override;
 
 private:
-    void resetInternalState();
-    bool readBlock();
-    bool writeBlock(bool lastBlock);
-    int blockSize() const;
+	void resetInternalState();
+	bool readBlock();
+	bool writeBlock(bool lastBlock);
+	int blockSize() const;
 
-    const QScopedPointer<SymmetricCipher> m_cipher;
-    QByteArray m_buffer;
-    int m_bufferPos;
-    bool m_bufferFilling;
-    bool m_error;
-    bool m_isInitialized;
-    bool m_dataWritten;
-    bool m_streamCipher;
+	const QScopedPointer<SymmetricCipher> m_cipher;
+	QByteArray m_buffer;
+	int m_bufferPos;
+	bool m_bufferFilling;
+	bool m_error;
+	bool m_isInitialized;
+	bool m_dataWritten;
+	bool m_streamCipher;
 };
 
 #endif // KEEPASSX_SYMMETRICCIPHERSTREAM_H

@@ -20,21 +20,21 @@
 
 #include <QObject>
 
-class TestKeys : public QObject
+class TestKeys: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testComposite();
-    void testFileKey();
-    void testFileKey_data();
-    void testCreateFileKey();
-    void testCreateAndOpenFileKey();
-    void testFileKeyHash();
-    void testFileKeyError();
-    void testCompositeKeyComponents();
-    void benchmarkTransformKey();
+	void initTestCase();
+	void testComposite();
+	void testFileKey();
+	void testFileKey_data();
+	void testCreateFileKey();
+	void testCreateAndOpenFileKey();
+	void testFileKeyHash();
+	void testFileKeyError();
+	void testCompositeKeyComponents();
+	void benchmarkTransformKey();
 };
 
 #endif // KEEPASSX_TESTKEYS_H

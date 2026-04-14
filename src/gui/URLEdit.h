@@ -22,19 +22,19 @@
 #include <QLineEdit>
 #include <QPointer>
 
-class URLEdit : public QLineEdit
+class URLEdit: public QLineEdit
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit URLEdit(QWidget* parent = nullptr);
-    void enableVerifyMode();
+	explicit URLEdit(QWidget *parent = nullptr);
+	void enableVerifyMode();
 
 private slots:
-    void updateStylesheet();
+	void updateStylesheet();
 
 private:
-    QPointer<QAction> m_errorAction;
+	QPointer<QAction> m_errorAction;
 };
 
 #endif // KEEPASSX_URLEDIT_H

@@ -25,41 +25,41 @@
 
 namespace Ui
 {
-    class YubiKeyEditWidget;
+	class YubiKeyEditWidget;
 }
 
 class ChallengeResponseKey;
 
-class YubiKeyEditWidget : public KeyComponentWidget
+class YubiKeyEditWidget: public KeyComponentWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit YubiKeyEditWidget(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(YubiKeyEditWidget);
-    ~YubiKeyEditWidget() override;
+	explicit YubiKeyEditWidget(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(YubiKeyEditWidget);
+	~YubiKeyEditWidget() override;
 
-    bool addToCompositeKey(QSharedPointer<CompositeKey> key) override;
-    bool validate(QString& errorMessage) const override;
+	bool addToCompositeKey(QSharedPointer<CompositeKey> key) override;
+	bool validate(QString &errorMessage) const override;
 
 protected:
-    QWidget* componentEditWidget() override;
-    void initComponentEditWidget(QWidget* widget) override;
-    void initComponent() override;
-    void showEvent(QShowEvent* event) override;
-    void hideEvent(QHideEvent* event) override;
+	QWidget *componentEditWidget() override;
+	void initComponentEditWidget(QWidget *widget) override;
+	void initComponent() override;
+	void showEvent(QShowEvent *event) override;
+	void hideEvent(QHideEvent *event) override;
 
 private slots:
-    void hardwareKeyResponse(bool found);
-    void pollYubikey();
+	void hardwareKeyResponse(bool found);
+	void pollYubikey();
 
 private:
-    const QScopedPointer<Ui::YubiKeyEditWidget> m_compUi;
-    QPointer<QWidget> m_compEditWidget;
+	const QScopedPointer<Ui::YubiKeyEditWidget> m_compUi;
+	QPointer<QWidget> m_compEditWidget;
 #ifdef WITH_XC_YUBIKEY
-    QPointer<DeviceListener> m_deviceListener;
+	QPointer<DeviceListener> m_deviceListener;
 #endif
-    bool m_isDetected = false;
+	bool m_isDetected = false;
 };
 
 #endif // KEEPASSXC_YUBIKEYEDITWIDGET_H

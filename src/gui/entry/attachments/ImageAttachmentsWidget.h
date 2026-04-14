@@ -24,61 +24,61 @@
 
 namespace Ui
 {
-    class ImageAttachmentsWidget;
+	class ImageAttachmentsWidget;
 }
 
 class QGraphicsView;
 class QGraphicsScene;
 
-class ZoomHelper : public QObject
+class ZoomHelper: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit ZoomHelper(double zoomFactor, double step, double min, double max, QObject* parent = nullptr);
+	explicit ZoomHelper(double zoomFactor, double step, double min, double max, QObject *parent = nullptr);
 
-    void zoomIn();
-    void zoomOut();
+	void zoomIn();
+	void zoomOut();
 
-    void setZoomFactor(double zoomFactor);
-    double getZoomFactor() const;
+	void setZoomFactor(double zoomFactor);
+	double getZoomFactor() const;
 
-    void setMinZoomOutFactor(double zoomFactor);
-    void setMaxZoomInFactor(double zoomFactor);
+	void setMinZoomOutFactor(double zoomFactor);
+	void setMaxZoomInFactor(double zoomFactor);
 
 signals:
-    void zoomChanged(double zoomFactor);
+	void zoomChanged(double zoomFactor);
 
 private:
-    double m_zoomFactor;
-    double m_step;
+	double m_zoomFactor;
+	double m_step;
 
-    double m_minZoomOut;
-    double m_maxZoomIn;
+	double m_minZoomOut;
+	double m_maxZoomIn;
 };
 
-class ImageAttachmentsWidget : public QWidget
+class ImageAttachmentsWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit ImageAttachmentsWidget(QWidget* parent = nullptr);
-    ~ImageAttachmentsWidget() override;
+	explicit ImageAttachmentsWidget(QWidget *parent = nullptr);
+	~ImageAttachmentsWidget() override;
 
-    void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
-    attachments::Attachment getAttachment() const;
+	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
+	attachments::Attachment getAttachment() const;
 
 private slots:
-    void onZoomChanged(const QString& zoomText);
-    void onWheelZoomEvent(QWheelEvent* event);
-    void onZoomFactorChanged(double zoomFactor);
+	void onZoomChanged(const QString &zoomText);
+	void onWheelZoomEvent(QWheelEvent *event);
+	void onZoomFactorChanged(double zoomFactor);
 
 private:
-    void loadImage();
+	void loadImage();
 
-    void initZoomComboBox();
+	void initZoomComboBox();
 
-    QScopedPointer<Ui::ImageAttachmentsWidget> m_ui;
-    attachments::Attachment m_attachment;
+	QScopedPointer<Ui::ImageAttachmentsWidget> m_ui;
+	attachments::Attachment m_attachment;
 
-    QPointer<QGraphicsScene> m_scene;
-    QPointer<ZoomHelper> m_zoomHelper;
+	QPointer<QGraphicsScene> m_scene;
+	QPointer<ZoomHelper> m_zoomHelper;
 };

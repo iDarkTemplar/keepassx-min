@@ -20,33 +20,33 @@
 #include "gui/Icons.h"
 
 ReportsPageBrowserStatistics::ReportsPageBrowserStatistics()
-    : m_browserWidget(new ReportsWidgetBrowserStatistics())
+	: m_browserWidget(new ReportsWidgetBrowserStatistics())
 {
 }
 
 QString ReportsPageBrowserStatistics::name()
 {
-    return QObject::tr("Browser Statistics");
+	return QObject::tr("Browser Statistics");
 }
 
 QIcon ReportsPageBrowserStatistics::icon()
 {
-    return icons()->icon("internet-web-browser");
+	return icons()->icon("internet-web-browser");
 }
 
-QWidget* ReportsPageBrowserStatistics::createWidget()
+QWidget *ReportsPageBrowserStatistics::createWidget()
 {
-    return m_browserWidget;
+	return m_browserWidget;
 }
 
-void ReportsPageBrowserStatistics::loadSettings(QWidget* widget, QSharedPointer<Database> db)
+void ReportsPageBrowserStatistics::loadSettings(QWidget *widget, QSharedPointer<Database> db)
 {
-    const auto settingsWidget = reinterpret_cast<ReportsWidgetBrowserStatistics*>(widget);
-    settingsWidget->loadSettings(db);
+	const auto settingsWidget = reinterpret_cast<ReportsWidgetBrowserStatistics *>(widget);
+	settingsWidget->loadSettings(db);
 }
 
-void ReportsPageBrowserStatistics::saveSettings(QWidget* widget)
+void ReportsPageBrowserStatistics::saveSettings(QWidget *widget)
 {
-    const auto settingsWidget = reinterpret_cast<ReportsWidgetBrowserStatistics*>(widget);
-    settingsWidget->saveSettings();
+	const auto settingsWidget = reinterpret_cast<ReportsWidgetBrowserStatistics *>(widget);
+	settingsWidget->saveSettings();
 }

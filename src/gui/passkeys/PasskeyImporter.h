@@ -27,32 +27,32 @@
 
 class Entry;
 
-class PasskeyImporter : public QObject
+class PasskeyImporter: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit PasskeyImporter(QWidget* parent = nullptr);
+	explicit PasskeyImporter(QWidget *parent = nullptr);
 
-    void importPasskey(QSharedPointer<Database>& database, Entry* entry = nullptr);
-    bool showImportDialog(QSharedPointer<Database>& database,
-                          Entry* entry,
-                          const QString& url,
-                          const QString& relyingParty,
-                          const QString& username,
-                          const QString& credentialId,
-                          const QString& userHandle,
-                          const QString& privateKey,
-                          const QString& titleText = {},
-                          const QString& infoText = {},
-                          const QString& importButtonText = {});
-
-private:
-    void importSelectedFile(QFile& file, QSharedPointer<Database>& database, Entry* entry);
-    Group* getDefaultGroup(QSharedPointer<Database>& database) const;
+	void importPasskey(QSharedPointer<Database> &database, Entry *entry = nullptr);
+	bool showImportDialog(QSharedPointer<Database> &database,
+	                      Entry *entry,
+	                      const QString &url,
+	                      const QString &relyingParty,
+	                      const QString &username,
+	                      const QString &credentialId,
+	                      const QString &userHandle,
+	                      const QString &privateKey,
+	                      const QString &titleText = {},
+	                      const QString &infoText = {},
+	                      const QString &importButtonText = {});
 
 private:
-    QPointer<QWidget> m_parent;
+	void importSelectedFile(QFile &file, QSharedPointer<Database> &database, Entry *entry);
+	Group *getDefaultGroup(QSharedPointer<Database> &database) const;
+
+private:
+	QPointer<QWidget> m_parent;
 };
 
 #endif // KEEPASSXC_PASSKEYIMPORTER_H

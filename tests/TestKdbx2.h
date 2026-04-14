@@ -21,17 +21,17 @@
 
 class Database;
 
-class TestKdbx2 : public QObject
+class TestKdbx2: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testFormat200();
-    void testFormat200Upgrade();
+	void initTestCase();
+	void testFormat200();
+	void testFormat200Upgrade();
 
 private:
-    void verifyKdbx2Db(QSharedPointer<Database> db);
+	void verifyKdbx2Db(QSharedPointer<Database> db);
 };
 
 #endif // KEEPASSXC_TEST_KDBX2_H

@@ -23,36 +23,36 @@
 
 namespace Ui
 {
-    class PasswordEditWidget;
+	class PasswordEditWidget;
 }
 
-class PasswordEditWidget : public KeyComponentWidget
+class PasswordEditWidget: public KeyComponentWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit PasswordEditWidget(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(PasswordEditWidget);
-    ~PasswordEditWidget() override;
+	explicit PasswordEditWidget(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(PasswordEditWidget);
+	~PasswordEditWidget() override;
 
-    bool addToCompositeKey(QSharedPointer<CompositeKey> key) override;
-    void setPasswordVisible(bool visible);
-    bool isPasswordVisible() const;
-    bool isEmpty() const;
-    PasswordHealth::Quality getPasswordQuality() const;
-    bool validate(QString& errorMessage) const override;
+	bool addToCompositeKey(QSharedPointer<CompositeKey> key) override;
+	void setPasswordVisible(bool visible);
+	bool isPasswordVisible() const;
+	bool isEmpty() const;
+	PasswordHealth::Quality getPasswordQuality() const;
+	bool validate(QString &errorMessage) const override;
 
 protected:
-    QWidget* componentEditWidget() override;
-    void initComponentEditWidget(QWidget* widget) override;
-    void initComponent() override;
+	QWidget *componentEditWidget() override;
+	void initComponentEditWidget(QWidget *widget) override;
+	void initComponent() override;
 
 private slots:
-    void setPassword(const QString& password);
+	void setPassword(const QString &password);
 
 private:
-    const QScopedPointer<Ui::PasswordEditWidget> m_compUi;
-    QPointer<QWidget> m_compEditWidget;
+	const QScopedPointer<Ui::PasswordEditWidget> m_compUi;
+	QPointer<QWidget> m_compEditWidget;
 };
 
 #endif // KEEPASSXC_PASSWORDEDITWIDGET_H

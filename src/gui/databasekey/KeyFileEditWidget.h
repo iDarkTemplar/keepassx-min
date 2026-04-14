@@ -21,36 +21,36 @@
 
 namespace Ui
 {
-    class KeyFileEditWidget;
+	class KeyFileEditWidget;
 }
 
 class DatabaseSettingsWidget;
 
-class KeyFileEditWidget : public KeyComponentWidget
+class KeyFileEditWidget: public KeyComponentWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit KeyFileEditWidget(DatabaseSettingsWidget* parent);
-    Q_DISABLE_COPY(KeyFileEditWidget);
-    ~KeyFileEditWidget() override;
+	explicit KeyFileEditWidget(DatabaseSettingsWidget *parent);
+	Q_DISABLE_COPY(KeyFileEditWidget);
+	~KeyFileEditWidget() override;
 
-    bool addToCompositeKey(QSharedPointer<CompositeKey> key) override;
-    bool validate(QString& errorMessage) const override;
+	bool addToCompositeKey(QSharedPointer<CompositeKey> key) override;
+	bool validate(QString &errorMessage) const override;
 
 protected:
-    QWidget* componentEditWidget() override;
-    void initComponentEditWidget(QWidget* widget) override;
-    void initComponent() override;
+	QWidget *componentEditWidget() override;
+	void initComponentEditWidget(QWidget *widget) override;
+	void initComponent() override;
 
 private slots:
-    void createKeyFile();
-    void browseKeyFile();
+	void createKeyFile();
+	void browseKeyFile();
 
 private:
-    const QScopedPointer<Ui::KeyFileEditWidget> m_compUi;
-    QPointer<QWidget> m_compEditWidget;
-    const QPointer<DatabaseSettingsWidget> m_parent;
+	const QScopedPointer<Ui::KeyFileEditWidget> m_compUi;
+	QPointer<QWidget> m_compEditWidget;
+	const QPointer<DatabaseSettingsWidget> m_parent;
 };
 
 #endif // KEEPASSXC_KEYFILEEDITWIDGET_H

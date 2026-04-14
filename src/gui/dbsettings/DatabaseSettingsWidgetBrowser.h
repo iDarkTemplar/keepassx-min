@@ -29,51 +29,51 @@ class Database;
 
 namespace Ui
 {
-    class DatabaseSettingsWidgetBrowser;
+	class DatabaseSettingsWidgetBrowser;
 }
 
-class DatabaseSettingsWidgetBrowser : public DatabaseSettingsWidget
+class DatabaseSettingsWidgetBrowser: public DatabaseSettingsWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DatabaseSettingsWidgetBrowser(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(DatabaseSettingsWidgetBrowser);
-    ~DatabaseSettingsWidgetBrowser() override;
+	explicit DatabaseSettingsWidgetBrowser(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(DatabaseSettingsWidgetBrowser);
+	~DatabaseSettingsWidgetBrowser() override;
 
-    CustomData* customData() const;
+	CustomData *customData() const;
 
 public slots:
-    void initialize() override;
-    void uninitialize() override;
-    bool saveSettings() override;
+	void initialize() override;
+	void uninitialize() override;
+	bool saveSettings() override;
 
 private slots:
-    void removeSelectedKey();
-    void toggleRemoveButton(const QItemSelection& selected);
-    void updateSharedKeyList();
-    void removeSharedEncryptionKeys();
-    void removeStoredPermissions();
-    void convertAttributesToCustomData();
-    void refreshDatabaseID();
-    void editIndex(const QModelIndex& index);
-    void editFinished(QStandardItem* item);
+	void removeSelectedKey();
+	void toggleRemoveButton(const QItemSelection &selected);
+	void updateSharedKeyList();
+	void removeSharedEncryptionKeys();
+	void removeStoredPermissions();
+	void convertAttributesToCustomData();
+	void refreshDatabaseID();
+	void editIndex(const QModelIndex &index);
+	void editFinished(QStandardItem *item);
 
 private:
-    void updateModel();
-    void settingsWarning();
-    void replaceKey(const QString& prefix, const QString& oldName, const QString& newName) const;
-    QString getKeyWithPrefix(const QString& prefix, const QString& key) const;
+	void updateModel();
+	void settingsWarning();
+	void replaceKey(const QString &prefix, const QString &oldName, const QString &newName) const;
+	QString getKeyWithPrefix(const QString &prefix, const QString &key) const;
 
 protected:
-    void showEvent(QShowEvent* event) override;
+	void showEvent(QShowEvent *event) override;
 
-    const QScopedPointer<Ui::DatabaseSettingsWidgetBrowser> m_ui;
+	const QScopedPointer<Ui::DatabaseSettingsWidgetBrowser> m_ui;
 
 private:
-    QPointer<CustomData> m_customData;
-    QPointer<QStandardItemModel> m_customDataModel;
-    QString m_valueInEdit;
+	QPointer<CustomData> m_customData;
+	QPointer<QStandardItemModel> m_customDataModel;
+	QString m_valueInEdit;
 };
 
 #endif // KEEPASSXC_DATABASESETTINGSWIDGETBROWSER_H

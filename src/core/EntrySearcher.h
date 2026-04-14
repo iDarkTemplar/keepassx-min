@@ -26,55 +26,55 @@ class Entry;
 class EntrySearcher
 {
 public:
-    enum class Field
-    {
-        Undefined,
-        Title,
-        Username,
-        Password,
-        Url,
-        Notes,
-        AttributeKV,
-        Attachment,
-        AttributeValue,
-        Group,
-        Tag,
-        Is,
-        Has,
-        Uuid
-    };
+	enum class Field
+	{
+		Undefined,
+		Title,
+		Username,
+		Password,
+		Url,
+		Notes,
+		AttributeKV,
+		Attachment,
+		AttributeValue,
+		Group,
+		Tag,
+		Is,
+		Has,
+		Uuid
+	};
 
-    struct SearchTerm
-    {
-        Field field;
-        // only used when field == Field::AttributeValue
-        QString word;
-        QRegularExpression regex;
-        bool exclude;
-    };
+	struct SearchTerm
+	{
+		Field field;
+		// only used when field == Field::AttributeValue
+		QString word;
+		QRegularExpression regex;
+		bool exclude;
+	};
 
-    explicit EntrySearcher(bool caseSensitive = false, bool skipProtected = false);
+	explicit EntrySearcher(bool caseSensitive = false, bool skipProtected = false);
 
-    QList<Entry*> search(const QList<SearchTerm>& searchTerms, const Group* baseGroup, bool forceSearch = false);
-    QList<Entry*> search(const QString& searchString, const Group* baseGroup, bool forceSearch = false);
-    QList<Entry*> repeat(const Group* baseGroup, bool forceSearch = false);
+	QList<Entry *> search(const QList<SearchTerm> &searchTerms, const Group *baseGroup, bool forceSearch = false);
+	QList<Entry *> search(const QString &searchString, const Group *baseGroup, bool forceSearch = false);
+	QList<Entry *> repeat(const Group *baseGroup, bool forceSearch = false);
 
-    QList<Entry*> searchEntries(const QList<SearchTerm>& searchTerms, const QList<Entry*>& entries);
-    QList<Entry*> searchEntries(const QString& searchString, const QList<Entry*>& entries);
-    QList<Entry*> repeatEntries(const QList<Entry*>& entries);
+	QList<Entry *> searchEntries(const QList<SearchTerm> &searchTerms, const QList<Entry *> &entries);
+	QList<Entry *> searchEntries(const QString &searchString, const QList<Entry *> &entries);
+	QList<Entry *> repeatEntries(const QList<Entry *> &entries);
 
-    void setCaseSensitive(bool state);
-    bool isCaseSensitive() const;
+	void setCaseSensitive(bool state);
+	bool isCaseSensitive() const;
 
 private:
-    bool searchEntryImpl(const Entry* entry);
-    void parseSearchTerms(const QString& searchString);
+	bool searchEntryImpl(const Entry *entry);
+	void parseSearchTerms(const QString &searchString);
 
-    bool m_caseSensitive;
-    bool m_skipProtected;
-    QList<SearchTerm> m_searchTerms;
+	bool m_caseSensitive;
+	bool m_skipProtected;
+	QList<SearchTerm> m_searchTerms;
 
-    friend class TestEntrySearcher;
+	friend class TestEntrySearcher;
 };
 
 #endif // KEEPASSX_ENTRYSEARCHER_H

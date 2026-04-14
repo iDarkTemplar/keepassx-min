@@ -20,17 +20,17 @@
 
 #include "gui/ApplicationSettingsWidget.h"
 
-class AgentSettingsPage : public ISettingsPage
+class AgentSettingsPage: public ISettingsPage
 {
 public:
-    AgentSettingsPage() = default;
-    ~AgentSettingsPage() override = default;
+	AgentSettingsPage() = default;
+	~AgentSettingsPage() override = default;
 
-    QString name() override;
-    QIcon icon() override;
-    QWidget* createWidget() override;
-    void loadSettings(QWidget* widget) override;
-    void saveSettings(QWidget* widget) override;
+	QString name() override;
+	QIcon icon() override;
+	QWidget *createWidget() override;
+	void loadSettings(QWidget *widget) override;
+	void saveSettings(QWidget *widget) override;
 
 private:
 };

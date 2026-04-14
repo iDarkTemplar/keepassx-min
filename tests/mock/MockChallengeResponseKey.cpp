@@ -16,19 +16,19 @@
 
 #include "MockChallengeResponseKey.h"
 
-MockChallengeResponseKey::MockChallengeResponseKey(const QByteArray& secret)
-    : ChallengeResponseKey()
-    , m_secret(secret)
+MockChallengeResponseKey::MockChallengeResponseKey(const QByteArray &secret)
+	: ChallengeResponseKey()
+	, m_secret(secret)
 {
 }
 
 QByteArray MockChallengeResponseKey::rawKey() const
 {
-    return m_challenge + m_secret;
+	return m_challenge + m_secret;
 }
 
-bool MockChallengeResponseKey::challenge(const QByteArray& challenge)
+bool MockChallengeResponseKey::challenge(const QByteArray &challenge)
 {
-    m_challenge = challenge;
-    return true;
+	m_challenge = challenge;
+	return true;
 }

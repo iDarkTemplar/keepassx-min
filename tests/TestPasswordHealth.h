@@ -19,13 +19,13 @@
 
 #include <QObject>
 
-class TestPasswordHealth : public QObject
+class TestPasswordHealth: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testNoDb();
+	void initTestCase();
+	void testNoDb();
 };
 
 #endif // KEEPASSX_TESTPASSWORDHEALTH_H

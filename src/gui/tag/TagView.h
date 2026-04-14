@@ -25,22 +25,22 @@ class Database;
 class QAbstractListModel;
 class TagModel;
 
-class TagView : public QListView
+class TagView: public QListView
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit TagView(QWidget* parent = nullptr);
-    void setDatabase(QSharedPointer<Database> db);
+	explicit TagView(QWidget *parent = nullptr);
+	void setDatabase(QSharedPointer<Database> db);
 
 signals:
 
 private slots:
-    void contextMenuRequested(const QPoint& pos);
+	void contextMenuRequested(const QPoint &pos);
 
 private:
-    QSharedPointer<Database> m_db;
-    QPointer<TagModel> m_model;
+	QSharedPointer<Database> m_db;
+	QPointer<TagModel> m_model;
 };
 
 #endif // KEEPASSX_ENTRYVIEW_H

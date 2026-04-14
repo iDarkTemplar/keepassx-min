@@ -29,40 +29,40 @@ class QStandardItemModel;
 
 namespace Ui
 {
-    class IconDownloaderDialog;
+	class IconDownloaderDialog;
 }
 
-class IconDownloaderDialog : public QDialog
+class IconDownloaderDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit IconDownloaderDialog(QWidget* parent = nullptr);
-    ~IconDownloaderDialog() override;
+	explicit IconDownloaderDialog(QWidget *parent = nullptr);
+	~IconDownloaderDialog() override;
 
-    void downloadFavicons(const QSharedPointer<Database>& database, const QList<Entry*>& entries, bool force = false);
-    void downloadFaviconInBackground(const QSharedPointer<Database>& database, Entry* entry);
+	void downloadFavicons(const QSharedPointer<Database> &database, const QList<Entry *> &entries, bool force = false);
+	void downloadFaviconInBackground(const QSharedPointer<Database> &database, Entry *entry);
 
 private slots:
-    void downloadFinished(const QString& url, const QImage& icon);
-    void abortDownloads();
+	void downloadFinished(const QString &url, const QImage &icon);
+	void abortDownloads();
 
 private:
-    IconDownloader* createDownloader(const QString& url);
+	IconDownloader *createDownloader(const QString &url);
 
-    void showFallbackMessage(bool state);
-    void updateTable(const QString& url, const QString& message);
-    void updateProgressBar();
-    void updateCancelButton();
+	void showFallbackMessage(bool state);
+	void updateTable(const QString &url, const QString &message);
+	void updateProgressBar();
+	void updateCancelButton();
 
-    QScopedPointer<Ui::IconDownloaderDialog> m_ui;
-    QStandardItemModel* m_dataModel;
-    QSharedPointer<Database> m_db;
-    QMultiMap<QString, Entry*> m_urlToEntries;
-    QList<IconDownloader*> m_activeDownloaders;
-    QMutex m_mutex;
+	QScopedPointer<Ui::IconDownloaderDialog> m_ui;
+	QStandardItemModel *m_dataModel;
+	QSharedPointer<Database> m_db;
+	QMultiMap<QString, Entry *> m_urlToEntries;
+	QList<IconDownloader *> m_activeDownloaders;
+	QMutex m_mutex;
 
-    Q_DISABLE_COPY(IconDownloaderDialog)
+	Q_DISABLE_COPY(IconDownloaderDialog)
 };
 
 #endif // KEEPASSX_ICONDOWNLOADERDIALOG_H

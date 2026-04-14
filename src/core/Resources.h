@@ -23,27 +23,27 @@
 class Resources
 {
 public:
-    QString dataPath(const QString& name) const;
-    QString pluginPath(const QString& name) const;
-    QString wordlistPath(const QString& name) const;
-    QString userWordlistPath(const QString& name) const;
+	QString dataPath(const QString &name) const;
+	QString pluginPath(const QString &name) const;
+	QString wordlistPath(const QString &name) const;
+	QString userWordlistPath(const QString &name) const;
 
-    static Resources* instance();
+	static Resources *instance();
 
 private:
-    Resources();
-    bool trySetResourceDir(const QString& path);
+	Resources();
+	bool trySetResourceDir(const QString &path);
 
-    static Resources* m_instance;
+	static Resources *m_instance;
 
-    QString m_dataPath;
+	QString m_dataPath;
 
-    Q_DISABLE_COPY(Resources)
+	Q_DISABLE_COPY(Resources)
 };
 
-inline Resources* resources()
+inline Resources *resources()
 {
-    return Resources::instance();
+	return Resources::instance();
 }
 
 #endif // KEEPASSX_RESOURCES_H

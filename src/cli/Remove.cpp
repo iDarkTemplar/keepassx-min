@@ -25,44 +25,52 @@
 
 Remove::Remove()
 {
-    name = QString("rm");
-    description = QString("Remove an entry from the database.");
-    positionalArguments.append({QString("entry"), QObject::tr("Path of the entry to remove."), QString("")});
+	name = QString("rm");
+	description = QString("Remove an entry from the database.");
+	positionalArguments.append({QString("entry"), QObject::tr("Path of the entry to remove."), QString("")});
 }
 
 int Remove::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser> parser)
 {
-    auto& out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    auto entryPath = parser->positionalArguments().at(1);
-    QPointer<Entry> entry = database->rootGroup()->findEntryByPath(entryPath);
-    if (!entry) {
-        err << QObject::tr("Entry %1 not found.").arg(entryPath) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	auto entryPath = parser->positionalArguments().at(1);
+	QPointer<Entry> entry = database->rootGroup()->findEntryByPath(entryPath);
+	if (!entry)
+	{
+		err << QObject::tr("Entry %1 not found.").arg(entryPath) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    QString entryTitle = entry->title();
-    bool recycled = true;
-    auto* recycleBin = database->metadata()->recycleBin();
-    if (!database->metadata()->recycleBinEnabled() || (recycleBin && recycleBin->findEntryByUuid(entry->uuid()))) {
-        delete entry;
-        recycled = false;
-    } else {
-        database->recycleEntry(entry);
-    }
+	QString entryTitle = entry->title();
+	bool recycled = true;
+	auto *recycleBin = database->metadata()->recycleBin();
+	if (!database->metadata()->recycleBinEnabled() || (recycleBin && recycleBin->findEntryByUuid(entry->uuid())))
+	{
+		delete entry;
+		recycled = false;
+	}
+	else
+	{
+		database->recycleEntry(entry);
+	}
 
-    QString errorMessage;
-    if (!database->save(Database::Atomic, {}, &errorMessage)) {
-        err << QObject::tr("Unable to save database to file: %1").arg(errorMessage) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	QString errorMessage;
+	if (!database->save(Database::Atomic, {}, &errorMessage))
+	{
+		err << QObject::tr("Unable to save database to file: %1").arg(errorMessage) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    if (recycled) {
-        out << QObject::tr("Successfully recycled entry %1.").arg(entryTitle) << Qt::endl;
-    } else {
-        out << QObject::tr("Successfully deleted entry %1.").arg(entryTitle) << Qt::endl;
-    }
+	if (recycled)
+	{
+		out << QObject::tr("Successfully recycled entry %1.").arg(entryTitle) << Qt::endl;
+	}
+	else
+	{
+		out << QObject::tr("Successfully deleted entry %1.").arg(entryTitle) << Qt::endl;
+	}
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

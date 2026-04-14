@@ -26,42 +26,42 @@
  */
 class StateColorPalette
 {
-    Q_GADGET
+	Q_GADGET
 
 public:
-    StateColorPalette();
+	StateColorPalette();
 
-    enum ColorRole
-    {
-        Error,
-        Warning,
-        Info,
-        Incomplete,
-        HealthCritical,
-        HealthBad,
-        HealthPoor,
-        HealthWeak,
-        HealthOk,
-        HealthExcellent,
-        True,
-        False
-    };
+	enum ColorRole
+	{
+		Error,
+		Warning,
+		Info,
+		Incomplete,
+		HealthCritical,
+		HealthBad,
+		HealthPoor,
+		HealthWeak,
+		HealthOk,
+		HealthExcellent,
+		True,
+		False
+	};
 
-    inline void setColor(ColorRole role, const QColor& color)
-    {
-        m_colorMap[role] = color;
-    }
+	inline void setColor(ColorRole role, const QColor &color)
+	{
+		m_colorMap[role] = color;
+	}
 
-    inline QColor color(ColorRole role) const
-    {
-        return m_colorMap.value(role);
-    }
+	inline QColor color(ColorRole role) const
+	{
+		return m_colorMap.value(role);
+	}
 
 private:
-    void initDefaultPaletteLight();
-    void initDefaultPaletteDark();
+	void initDefaultPaletteLight();
+	void initDefaultPaletteDark();
 
-    QHash<ColorRole, QColor> m_colorMap;
+	QHash<ColorRole, QColor> m_colorMap;
 };
 
 #endif // KEEPASSXC_STATECOLORPALETTE_H

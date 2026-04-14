@@ -23,40 +23,45 @@
 #include "gui/Icons.h"
 #include "updatecheck/UpdateChecker.h"
 
-UpdateCheckDialog::UpdateCheckDialog(QWidget* parent)
-    : QDialog(parent)
-    , m_ui(new Ui::UpdateCheckDialog())
+UpdateCheckDialog::UpdateCheckDialog(QWidget *parent)
+	: QDialog(parent)
+	, m_ui(new Ui::UpdateCheckDialog())
 {
-    m_ui->setupUi(this);
-    setWindowFlags(Qt::Window);
-    setAttribute(Qt::WA_DeleteOnClose);
+	m_ui->setupUi(this);
+	setWindowFlags(Qt::Window);
+	setAttribute(Qt::WA_DeleteOnClose);
 
-    m_ui->iconLabel->setPixmap(icons()->applicationIcon().pixmap(48));
+	m_ui->iconLabel->setPixmap(icons()->applicationIcon().pixmap(48));
 
-    connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
-    connect(UpdateChecker::instance(),
-            SIGNAL(updateCheckFinished(bool, QString, bool)),
-            SLOT(showUpdateCheckResponse(bool, QString)));
+	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
+	connect(UpdateChecker::instance(),
+	        SIGNAL(updateCheckFinished(bool, QString, bool)),
+	        SLOT(showUpdateCheckResponse(bool, QString)));
 }
 
-void UpdateCheckDialog::showUpdateCheckResponse(bool hasUpdate, const QString& version)
+void UpdateCheckDialog::showUpdateCheckResponse(bool hasUpdate, const QString &version)
 {
-    m_ui->progressBar->setVisible(false);
-    m_ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Close"));
+	m_ui->progressBar->setVisible(false);
+	m_ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Close"));
 
-    setWindowTitle(tr("Software Update"));
+	setWindowTitle(tr("Software Update"));
 
-    if (version == UpdateChecker::ErrorVersion) {
-        m_ui->statusLabel->setText(
-            tr("An error occurred when trying to retrieve update information, please try again later."));
-    } else if (hasUpdate) {
-        m_ui->statusLabel->setText(
-            tr("<strong>A new version is available.</strong><br/>"
-               "KeePassXC %1 can be <a href=\"https://keepassxc.org/download/\">downloaded here</a>.")
-                .arg(version, KEEPASSXC_VERSION));
-    } else {
-        m_ui->statusLabel->setText(tr("You have the latest version of KeePassXC"));
-    }
+	if (version == UpdateChecker::ErrorVersion)
+	{
+		m_ui->statusLabel->setText(
+			tr("An error occurred when trying to retrieve update information, please try again later."));
+	}
+	else if (hasUpdate)
+	{
+		m_ui->statusLabel->setText(
+			tr("<strong>A new version is available.</strong><br/>"
+		       "KeePassXC %1 can be <a href=\"https://keepassxc.org/download/\">downloaded here</a>.")
+				.arg(version, KEEPASSXC_VERSION));
+	}
+	else
+	{
+		m_ui->statusLabel->setText(tr("You have the latest version of KeePassXC"));
+	}
 }
 
 UpdateCheckDialog::~UpdateCheckDialog()

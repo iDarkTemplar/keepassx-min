@@ -39,41 +39,41 @@ class DatabaseSettingsWidgetFdoSecrets;
 class DatabaseSettingsWidgetMaintenance;
 class QTabWidget;
 
-class DatabaseSettingsDialog : public EditWidget
+class DatabaseSettingsDialog: public EditWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DatabaseSettingsDialog(QWidget* parent = nullptr);
-    ~DatabaseSettingsDialog() override;
-    Q_DISABLE_COPY(DatabaseSettingsDialog);
+	explicit DatabaseSettingsDialog(QWidget *parent = nullptr);
+	~DatabaseSettingsDialog() override;
+	Q_DISABLE_COPY(DatabaseSettingsDialog);
 
-    void load(const QSharedPointer<Database>& db);
-    void showDatabaseKeySettings(int index = 0);
+	void load(const QSharedPointer<Database> &db);
+	void showDatabaseKeySettings(int index = 0);
 
 signals:
-    void editFinished(bool accepted);
+	void editFinished(bool accepted);
 
 private slots:
-    void save();
-    void reject();
+	void save();
+	void reject();
 
 private:
-    QSharedPointer<Database> m_db;
-    QPointer<DatabaseSettingsWidgetGeneral> m_generalWidget;
-    QPointer<QTabWidget> m_securityTabWidget;
-    QPointer<DatabaseSettingsWidgetDatabaseKey> m_databaseKeyWidget;
-    QPointer<DatabaseSettingsWidgetEncryption> m_encryptionWidget;
+	QSharedPointer<Database> m_db;
+	QPointer<DatabaseSettingsWidgetGeneral> m_generalWidget;
+	QPointer<QTabWidget> m_securityTabWidget;
+	QPointer<DatabaseSettingsWidgetDatabaseKey> m_databaseKeyWidget;
+	QPointer<DatabaseSettingsWidgetEncryption> m_encryptionWidget;
 #ifdef WITH_XC_BROWSER
-    QPointer<DatabaseSettingsWidgetBrowser> m_browserWidget;
+	QPointer<DatabaseSettingsWidgetBrowser> m_browserWidget;
 #endif
 #ifdef WITH_XC_KEESHARE
-    QPointer<DatabaseSettingsWidgetKeeShare> m_keeShareWidget;
+	QPointer<DatabaseSettingsWidgetKeeShare> m_keeShareWidget;
 #endif
 #ifdef WITH_XC_FDOSECRETS
-    QPointer<DatabaseSettingsWidgetFdoSecrets> m_fdoSecretsWidget;
+	QPointer<DatabaseSettingsWidgetFdoSecrets> m_fdoSecretsWidget;
 #endif
-    QPointer<DatabaseSettingsWidgetMaintenance> m_maintenanceWidget;
+	QPointer<DatabaseSettingsWidgetMaintenance> m_maintenanceWidget;
 };
 
 #endif // KEEPASSXC_DATABASESETTINGSDIALOG_H

@@ -24,45 +24,47 @@
 
 #include <QStandardItemModel>
 
-DatabaseSettingsWidgetKeeShare::DatabaseSettingsWidgetKeeShare(QWidget* parent)
-    : QWidget(parent)
-    , m_ui(new Ui::DatabaseSettingsWidgetKeeShare())
+DatabaseSettingsWidgetKeeShare::DatabaseSettingsWidgetKeeShare(QWidget *parent)
+	: QWidget(parent)
+	, m_ui(new Ui::DatabaseSettingsWidgetKeeShare())
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 }
 
 DatabaseSettingsWidgetKeeShare::~DatabaseSettingsWidgetKeeShare()
 {
 }
 
-void DatabaseSettingsWidgetKeeShare::loadSettings(const QSharedPointer<Database>& db)
+void DatabaseSettingsWidgetKeeShare::loadSettings(const QSharedPointer<Database> &db)
 {
-    m_db = db;
+	m_db = db;
 
-    m_referencesModel.reset(new QStandardItemModel());
+	m_referencesModel.reset(new QStandardItemModel());
 
-    m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("Breadcrumb") << tr("Type") << tr("Path")
-                                                               << tr("Last Signer") << tr("Certificates"));
-    const QList<Group*> groups = db->rootGroup()->groupsRecursive(true);
-    for (const Group* group : groups) {
-        if (!KeeShare::isShared(group)) {
-            continue;
-        }
-        const KeeShareSettings::Reference reference = KeeShare::referenceOf(group);
+	m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("Breadcrumb") << tr("Type") << tr("Path")
+	                                                           << tr("Last Signer") << tr("Certificates"));
+	const QList<Group *> groups = db->rootGroup()->groupsRecursive(true);
+	for (const Group *group: groups)
+	{
+		if (!KeeShare::isShared(group))
+		{
+			continue;
+		}
+		const KeeShareSettings::Reference reference = KeeShare::referenceOf(group);
 
-        QStringList hierarchy = group->hierarchy();
-        hierarchy.removeFirst();
-        QList<QStandardItem*> row = QList<QStandardItem*>();
-        row << new QStandardItem(hierarchy.join(tr(" > ", "Breadcrumb separator")));
-        row << new QStandardItem(KeeShare::referenceTypeLabel(reference));
-        row << new QStandardItem(reference.path);
-        m_referencesModel->appendRow(row);
-    }
+		QStringList hierarchy = group->hierarchy();
+		hierarchy.removeFirst();
+		QList<QStandardItem *> row = QList<QStandardItem *>();
+		row << new QStandardItem(hierarchy.join(tr(" > ", "Breadcrumb separator")));
+		row << new QStandardItem(KeeShare::referenceTypeLabel(reference));
+		row << new QStandardItem(reference.path);
+		m_referencesModel->appendRow(row);
+	}
 
-    m_ui->sharedGroupsView->setModel(m_referencesModel.data());
+	m_ui->sharedGroupsView->setModel(m_referencesModel.data());
 }
 
 void DatabaseSettingsWidgetKeeShare::saveSettings()
 {
-    // nothing to do - the tab is passive
+	// nothing to do - the tab is passive
 }

@@ -25,44 +25,44 @@
 
 class CsvParser;
 
-class TestCsvParser : public QObject
+class TestCsvParser: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
 private slots:
-    void init();
-    void cleanup();
-    void initTestCase();
+	void init();
+	void cleanup();
+	void initTestCase();
 
-    void testUnicode();
-    void testLF();
-    void testSimple();
-    void testEmptyQuoted();
-    void testEmptyNewline();
-    void testSeparator();
-    void testCR();
-    void testCRLF();
-    void testMalformed();
-    void testQualifier();
-    void testNewline();
-    void testEmptySimple();
-    void testMissingQuote();
-    void testComments();
-    void testBackslashSyntax();
-    void testReparsing();
-    void testEmptyFile();
-    void testQuoted();
-    void testMultiline();
-    void testColumns();
+	void testUnicode();
+	void testLF();
+	void testSimple();
+	void testEmptyQuoted();
+	void testEmptyNewline();
+	void testSeparator();
+	void testCR();
+	void testCRLF();
+	void testMalformed();
+	void testQualifier();
+	void testNewline();
+	void testEmptySimple();
+	void testMissingQuote();
+	void testComments();
+	void testBackslashSyntax();
+	void testReparsing();
+	void testEmptyFile();
+	void testQuoted();
+	void testMultiline();
+	void testColumns();
 
 private:
-    void writeToFile(const QString& contents);
+	void writeToFile(const QString &contents);
 
-    QScopedPointer<QTemporaryFile> file;
-    QScopedPointer<CsvParser> parser;
-    CsvTable t;
-    void dumpRow(CsvTable table, int row);
+	QScopedPointer<QTemporaryFile> file;
+	QScopedPointer<CsvParser> parser;
+	CsvTable t;
+	void dumpRow(CsvTable table, int row);
 };
 
 #endif // KEEPASSX_TESTCSVPARSER_H

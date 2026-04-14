@@ -24,28 +24,28 @@
 class Database;
 class CsvExporter;
 
-class TestCsvExporter : public QObject
+class TestCsvExporter: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    static const QString ExpectedHeaderLine;
+	static const QString ExpectedHeaderLine;
 
 private slots:
-    void init();
-    void initTestCase();
-    void cleanup();
-    void testExport();
-    void testEmptyDatabase();
-    void testNestedGroups();
-    void testRoundTripWithCustomRootName();
-    void testRoundTripWithDefaultRootName();
-    void testSingleLevelGroup();
-    void testAbsolutePaths();
+	void init();
+	void initTestCase();
+	void cleanup();
+	void testExport();
+	void testEmptyDatabase();
+	void testNestedGroups();
+	void testRoundTripWithCustomRootName();
+	void testRoundTripWithDefaultRootName();
+	void testSingleLevelGroup();
+	void testAbsolutePaths();
 
 private:
-    QSharedPointer<Database> m_db;
-    QSharedPointer<CsvExporter> m_csvExporter;
+	QSharedPointer<Database> m_db;
+	QSharedPointer<CsvExporter> m_csvExporter;
 };
 
 #endif // KEEPASSX_TESTCSVEXPORTER_H

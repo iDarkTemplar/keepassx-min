@@ -21,40 +21,40 @@
 
 class QResizeEvent;
 
-class ElidedLabel : public QLabel
+class ElidedLabel: public QLabel
 {
-    Q_OBJECT
-    Q_PROPERTY(Qt::TextElideMode elideMode READ elideMode WRITE setElideMode NOTIFY elideModeChanged)
-    Q_PROPERTY(QString rawText READ rawText WRITE setRawText NOTIFY rawTextChanged)
-    Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY urlChanged)
+	Q_OBJECT
+	Q_PROPERTY(Qt::TextElideMode elideMode READ elideMode WRITE setElideMode NOTIFY elideModeChanged)
+	Q_PROPERTY(QString rawText READ rawText WRITE setRawText NOTIFY rawTextChanged)
+	Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY urlChanged)
 public:
-    explicit ElidedLabel(QWidget* parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
-    explicit ElidedLabel(const QString& text, QWidget* parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
+	explicit ElidedLabel(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
+	explicit ElidedLabel(const QString &text, QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
-    Qt::TextElideMode elideMode() const;
-    QString rawText() const;
-    QString url() const;
+	Qt::TextElideMode elideMode() const;
+	QString rawText() const;
+	QString url() const;
 
 public slots:
-    void setElideMode(Qt::TextElideMode elideMode);
-    void setRawText(const QString& rawText);
-    void setUrl(const QString& url);
-    void clear();
+	void setElideMode(Qt::TextElideMode elideMode);
+	void setRawText(const QString &rawText);
+	void setUrl(const QString &url);
+	void clear();
 
 signals:
-    void elideModeChanged(Qt::TextElideMode elideMode);
-    void rawTextChanged(QString rawText);
-    void urlChanged(QString url);
+	void elideModeChanged(Qt::TextElideMode elideMode);
+	void rawTextChanged(QString rawText);
+	void urlChanged(QString url);
 
 private slots:
-    void updateElidedText();
+	void updateElidedText();
 
 private:
-    void resizeEvent(QResizeEvent* event);
+	void resizeEvent(QResizeEvent *event);
 
-    Qt::TextElideMode m_elideMode;
-    QString m_rawText;
-    QString m_url;
+	Qt::TextElideMode m_elideMode;
+	QString m_rawText;
+	QString m_url;
 };
 
 #endif // KEEPASSX_ELIDEDLABEL_H

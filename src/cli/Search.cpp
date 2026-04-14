@@ -25,27 +25,29 @@
 
 Search::Search()
 {
-    name = QString("search");
-    description = QObject::tr("Find entries quickly.");
-    positionalArguments.append({QString("term"), QObject::tr("Search term."), QString("")});
+	name = QString("search");
+	description = QObject::tr("Find entries quickly.");
+	positionalArguments.append({QString("term"), QObject::tr("Search term."), QString("")});
 }
 
 int Search::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser> parser)
 {
-    auto& out = Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    const QStringList args = parser->positionalArguments();
+	const QStringList args = parser->positionalArguments();
 
-    EntrySearcher searcher;
-    auto results = searcher.search(args.at(1), database->rootGroup(), true);
-    if (results.isEmpty()) {
-        err << "No results for that search term." << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	EntrySearcher searcher;
+	auto results = searcher.search(args.at(1), database->rootGroup(), true);
+	if (results.isEmpty())
+	{
+		err << "No results for that search term." << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    for (const Entry* result : asConst(results)) {
-        out << result->path().prepend('/') << Qt::endl;
-    }
-    return EXIT_SUCCESS;
+	for (const Entry *result: asConst(results))
+	{
+		out << result->path().prepend('/') << Qt::endl;
+	}
+	return EXIT_SUCCESS;
 }

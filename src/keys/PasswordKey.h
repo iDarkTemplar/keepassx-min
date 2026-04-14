@@ -23,28 +23,28 @@
 
 #include "keys/Key.h"
 
-class PasswordKey : public Key
+class PasswordKey: public Key
 {
 public:
-    static QUuid UUID;
+	static QUuid UUID;
 
-    PasswordKey();
-    explicit PasswordKey(const QString& password);
-    ~PasswordKey() override = default;
-    QByteArray rawKey() const override;
-    void setRawKey(const QByteArray& data) override;
-    void setPassword(const QString& password);
+	PasswordKey();
+	explicit PasswordKey(const QString &password);
+	~PasswordKey() override = default;
+	QByteArray rawKey() const override;
+	void setRawKey(const QByteArray &data) override;
+	void setPassword(const QString &password);
 
-    static QSharedPointer<PasswordKey> fromRawKey(const QByteArray& rawKey);
+	static QSharedPointer<PasswordKey> fromRawKey(const QByteArray &rawKey);
 
-    QByteArray serialize() const override;
-    void deserialize(const QByteArray& data) override;
+	QByteArray serialize() const override;
+	void deserialize(const QByteArray &data) override;
 
 private:
-    static constexpr int SHA256_SIZE = 32;
+	static constexpr int SHA256_SIZE = 32;
 
-    Botan::secure_vector<char> m_key;
-    bool m_isInitialized = false;
+	Botan::secure_vector<char> m_key;
+	bool m_isInitialized = false;
 };
 
 #endif // KEEPASSX_PASSWORDKEY_H

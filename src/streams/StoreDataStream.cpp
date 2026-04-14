@@ -16,36 +16,38 @@
 
 #include "StoreDataStream.h"
 
-StoreDataStream::StoreDataStream(QIODevice* baseDevice)
-    : LayeredStream(baseDevice)
+StoreDataStream::StoreDataStream(QIODevice *baseDevice)
+	: LayeredStream(baseDevice)
 {
 }
 
 bool StoreDataStream::open(QIODevice::OpenMode mode)
 {
-    bool result = LayeredStream::open(mode);
+	bool result = LayeredStream::open(mode);
 
-    if (result) {
-        m_storedData.clear();
-    }
+	if (result)
+	{
+		m_storedData.clear();
+	}
 
-    return result;
+	return result;
 }
 
 QByteArray StoreDataStream::storedData() const
 {
-    return m_storedData;
+	return m_storedData;
 }
 
-qint64 StoreDataStream::readData(char* data, qint64 maxSize)
+qint64 StoreDataStream::readData(char *data, qint64 maxSize)
 {
-    qint64 bytesRead = LayeredStream::readData(data, maxSize);
-    if (bytesRead == -1) {
-        setErrorString(m_baseDevice->errorString());
-        return -1;
-    }
+	qint64 bytesRead = LayeredStream::readData(data, maxSize);
+	if (bytesRead == -1)
+	{
+		setErrorString(m_baseDevice->errorString());
+		return -1;
+	}
 
-    m_storedData.append(data, bytesRead);
+	m_storedData.append(data, bytesRead);
 
-    return bytesRead;
+	return bytesRead;
 }

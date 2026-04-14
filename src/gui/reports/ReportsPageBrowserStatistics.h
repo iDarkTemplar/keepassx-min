@@ -21,18 +21,18 @@
 
 class ReportsWidgetBrowserStatistics;
 
-class ReportsPageBrowserStatistics : public IReportsPage
+class ReportsPageBrowserStatistics: public IReportsPage
 {
 public:
-    ReportsWidgetBrowserStatistics* m_browserWidget;
+	ReportsWidgetBrowserStatistics *m_browserWidget;
 
-    ReportsPageBrowserStatistics();
+	ReportsPageBrowserStatistics();
 
-    QString name() override;
-    QIcon icon() override;
-    QWidget* createWidget() override;
-    void loadSettings(QWidget* widget, QSharedPointer<Database> db) override;
-    void saveSettings(QWidget* widget) override;
+	QString name() override;
+	QIcon icon() override;
+	QWidget *createWidget() override;
+	void loadSettings(QWidget *widget, QSharedPointer<Database> db) override;
+	void saveSettings(QWidget *widget) override;
 };
 
 #endif // KEEPASSXC_REPORTSPAGEBROWSERSTATISTICS_H

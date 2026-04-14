@@ -25,10 +25,10 @@
 
 namespace KeeShareSettings
 {
-    struct Own;
-    struct Active;
-    struct Foreign;
-    struct Reference;
+	struct Own;
+	struct Active;
+	struct Foreign;
+	struct Reference;
 } // namespace KeeShareSettings
 
 class Group;
@@ -37,54 +37,54 @@ class ShareObserver;
 class QXmlStreamWriter;
 class QXmlStreamReader;
 
-class KeeShare : public QObject
+class KeeShare: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    static KeeShare* instance();
-    static void init(QObject* parent);
+	static KeeShare *instance();
+	static void init(QObject *parent);
 
-    static QString indicatorSuffix(const Group* group, const QString& text);
-    static QPixmap indicatorBadge(const Group* group, QPixmap pixmap);
+	static QString indicatorSuffix(const Group *group, const QString &text);
+	static QPixmap indicatorBadge(const Group *group, QPixmap pixmap);
 
-    static bool isShared(const Group* group);
-    static bool isEnabled(const Group* group);
+	static bool isShared(const Group *group);
+	static bool isEnabled(const Group *group);
 
-    static const Group* resolveSharedGroup(const Group* group);
-    static QString sharingLabel(const Group* group);
+	static const Group *resolveSharedGroup(const Group *group);
+	static QString sharingLabel(const Group *group);
 
-    static KeeShareSettings::Own own();
-    static void setOwn(const KeeShareSettings::Own& own);
+	static KeeShareSettings::Own own();
+	static void setOwn(const KeeShareSettings::Own &own);
 
-    static KeeShareSettings::Active active();
-    static void setActive(const KeeShareSettings::Active& active);
+	static KeeShareSettings::Active active();
+	static void setActive(const KeeShareSettings::Active &active);
 
-    static KeeShareSettings::Reference referenceOf(const Group* group);
-    static void setReferenceTo(Group* group, const KeeShareSettings::Reference& reference);
-    static QString referenceTypeLabel(const KeeShareSettings::Reference& reference);
+	static KeeShareSettings::Reference referenceOf(const Group *group);
+	static void setReferenceTo(Group *group, const KeeShareSettings::Reference &reference);
+	static QString referenceTypeLabel(const KeeShareSettings::Reference &reference);
 
-    void connectDatabase(QSharedPointer<Database> newDb, QSharedPointer<Database> oldDb);
-    bool setSharingEnabled(QSharedPointer<Database> db, bool enabled);
+	void connectDatabase(QSharedPointer<Database> newDb, QSharedPointer<Database> oldDb);
+	bool setSharingEnabled(QSharedPointer<Database> db, bool enabled);
 
-    static const QString signedContainerFileType();
-    static const QString unsignedContainerFileType();
-    static bool isContainerType(const QFileInfo& fileInfo, const QString type);
+	static const QString signedContainerFileType();
+	static const QString unsignedContainerFileType();
+	static bool isContainerType(const QFileInfo &fileInfo, const QString type);
 
-    static const QString signatureFileName();
-    static const QString containerFileName();
+	static const QString signatureFileName();
+	static const QString containerFileName();
 signals:
-    void activeChanged();
-    void sharingMessage(QString, MessageWidget::MessageType);
+	void activeChanged();
+	void sharingMessage(QString, MessageWidget::MessageType);
 
 private slots:
-    void handleSettingsChanged(Config::ConfigKey key);
+	void handleSettingsChanged(Config::ConfigKey key);
 
 private:
-    static KeeShare* m_instance;
+	static KeeShare *m_instance;
 
-    explicit KeeShare(QObject* parent);
+	explicit KeeShare(QObject *parent);
 
-    QMap<QUuid, QPointer<ShareObserver>> m_observersByDatabase;
+	QMap<QUuid, QPointer<ShareObserver>> m_observersByDatabase;
 };
 
 #endif // KEEPASSXC_KEESHARE_H

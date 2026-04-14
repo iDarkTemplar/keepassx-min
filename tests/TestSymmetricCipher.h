@@ -20,24 +20,24 @@
 
 #include <QObject>
 
-class TestSymmetricCipher : public QObject
+class TestSymmetricCipher: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testCipherUuidToMode();
-    void testEncryptionDecryption_data();
-    void testEncryptionDecryption();
-    void testAesCbcPadding_data();
-    void testAesCbcPadding();
-    void testAesKdf();
-    void testTwofish256CbcEncryption();
-    void testTwofish256CbcDecryption();
-    void testSalsa20();
-    void testChaCha20();
-    void testPadding();
-    void testStreamReset();
+	void initTestCase();
+	void testCipherUuidToMode();
+	void testEncryptionDecryption_data();
+	void testEncryptionDecryption();
+	void testAesCbcPadding_data();
+	void testAesCbcPadding();
+	void testAesKdf();
+	void testTwofish256CbcEncryption();
+	void testTwofish256CbcDecryption();
+	void testSalsa20();
+	void testChaCha20();
+	void testPadding();
+	void testStreamReset();
 };
 
 #endif // KEEPASSX_TESTSYMMETRICCIPHER_H

@@ -20,48 +20,50 @@
 
 #include "autotype/AutoType.h"
 
-WindowSelectComboBox::WindowSelectComboBox(QWidget* parent)
-    : QComboBox(parent)
+WindowSelectComboBox::WindowSelectComboBox(QWidget *parent)
+	: QComboBox(parent)
 {
-    setEditable(true);
-    setInsertPolicy(QComboBox::NoInsert);
-    setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed, QSizePolicy::ComboBox));
+	setEditable(true);
+	setInsertPolicy(QComboBox::NoInsert);
+	setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed, QSizePolicy::ComboBox));
 
-    // first item is always the current content of the line edit
-    insertItem(0, "");
+	// first item is always the current content of the line edit
+	insertItem(0, "");
 }
 
 void WindowSelectComboBox::refreshWindowList()
 {
-    model()->setData(model()->index(0, 0), lineEdit()->text());
+	model()->setData(model()->index(0, 0), lineEdit()->text());
 
-    while (count() > 1) {
-        removeItem(1);
-    }
-    insertItems(1, autoType()->windowTitles());
+	while (count() > 1)
+	{
+		removeItem(1);
+	}
+	insertItems(1, autoType()->windowTitles());
 }
 
 void WindowSelectComboBox::showPopup()
 {
-    if (lineEdit()->isReadOnly()) {
-        return;
-    }
+	if (lineEdit()->isReadOnly())
+	{
+		return;
+	}
 
-    refreshWindowList();
+	refreshWindowList();
 
-    QComboBox::showPopup();
+	QComboBox::showPopup();
 }
 
 QSize WindowSelectComboBox::sizeHint() const
 {
-    QSize size = lineEdit()->sizeHint();
-    size.setHeight(qMax(size.height(), QComboBox::sizeHint().height()));
-    return size;
+	QSize size = lineEdit()->sizeHint();
+	size.setHeight(qMax(size.height(), QComboBox::sizeHint().height()));
+	return size;
 }
 
 QSize WindowSelectComboBox::minimumSizeHint() const
 {
-    QSize size = lineEdit()->minimumSizeHint();
-    size.setHeight(qMax(size.height(), QComboBox::minimumSizeHint().height()));
-    return size;
+	QSize size = lineEdit()->minimumSizeHint();
+	size.setHeight(qMax(size.height(), QComboBox::minimumSizeHint().height()));
+	return size;
 }

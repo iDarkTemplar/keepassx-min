@@ -25,23 +25,23 @@
 
 namespace Ui
 {
-    class PreviewEntryAttachmentsDialog;
+	class PreviewEntryAttachmentsDialog;
 }
 
-class PreviewEntryAttachmentsDialog : public QDialog
+class PreviewEntryAttachmentsDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit PreviewEntryAttachmentsDialog(QWidget* parent = nullptr);
-    ~PreviewEntryAttachmentsDialog() override;
+	explicit PreviewEntryAttachmentsDialog(QWidget *parent = nullptr);
+	~PreviewEntryAttachmentsDialog() override;
 
-    void setAttachment(attachments::Attachment attachment);
+	void setAttachment(attachments::Attachment attachment);
 
 signals:
-    void openAttachment(const QString& name);
-    void saveAttachment(const QString& name);
+	void openAttachment(const QString &name);
+	void saveAttachment(const QString &name);
 
 private:
-    QScopedPointer<Ui::PreviewEntryAttachmentsDialog> m_ui;
+	QScopedPointer<Ui::PreviewEntryAttachmentsDialog> m_ui;
 };

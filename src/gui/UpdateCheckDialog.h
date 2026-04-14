@@ -23,22 +23,22 @@
 
 namespace Ui
 {
-    class UpdateCheckDialog;
+	class UpdateCheckDialog;
 }
 
-class UpdateCheckDialog : public QDialog
+class UpdateCheckDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit UpdateCheckDialog(QWidget* parent = nullptr);
-    ~UpdateCheckDialog() override;
+	explicit UpdateCheckDialog(QWidget *parent = nullptr);
+	~UpdateCheckDialog() override;
 
 public slots:
-    void showUpdateCheckResponse(bool hasUpdate, const QString& version);
+	void showUpdateCheckResponse(bool hasUpdate, const QString &version);
 
 private:
-    QScopedPointer<Ui::UpdateCheckDialog> m_ui;
+	QScopedPointer<Ui::UpdateCheckDialog> m_ui;
 };
 
 #endif // KEEPASSXC_UPDATECHECKDIALOG_H

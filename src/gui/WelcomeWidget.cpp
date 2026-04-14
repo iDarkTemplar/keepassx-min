@@ -23,94 +23,102 @@
 #include "core/Config.h"
 #include "gui/Icons.h"
 
-WelcomeWidget::WelcomeWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_ui(new Ui::WelcomeWidget())
+WelcomeWidget::WelcomeWidget(QWidget *parent)
+	: QWidget(parent)
+	, m_ui(new Ui::WelcomeWidget())
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    m_ui->welcomeLabel->setText(tr("Welcome to KeePassXC %1").arg(KEEPASSXC_VERSION));
-    QFont welcomeLabelFont = m_ui->welcomeLabel->font();
-    welcomeLabelFont.setBold(true);
-    welcomeLabelFont.setPointSize(welcomeLabelFont.pointSize() + 4);
-    m_ui->welcomeLabel->setFont(welcomeLabelFont);
+	m_ui->welcomeLabel->setText(tr("Welcome to KeePassXC %1").arg(KEEPASSXC_VERSION));
+	QFont welcomeLabelFont = m_ui->welcomeLabel->font();
+	welcomeLabelFont.setBold(true);
+	welcomeLabelFont.setPointSize(welcomeLabelFont.pointSize() + 4);
+	m_ui->welcomeLabel->setFont(welcomeLabelFont);
 
-    m_ui->iconLabel->setPixmap(icons()->applicationIcon().pixmap(64));
-    m_ui->buttonNewDatabase->setIcon(icons()->icon("document-new"));
-    m_ui->buttonNewDatabase->setStyleSheet("text-align:center;");
-    m_ui->buttonOpenDatabase->setIcon(icons()->icon("document-open"));
-    m_ui->buttonOpenDatabase->setStyleSheet("text-align:center;");
-    m_ui->buttonImport->setIcon(icons()->icon("document-import"));
-    m_ui->buttonImport->setStyleSheet("text-align:center;");
+	m_ui->iconLabel->setPixmap(icons()->applicationIcon().pixmap(64));
+	m_ui->buttonNewDatabase->setIcon(icons()->icon("document-new"));
+	m_ui->buttonNewDatabase->setStyleSheet("text-align:center;");
+	m_ui->buttonOpenDatabase->setIcon(icons()->icon("document-open"));
+	m_ui->buttonOpenDatabase->setStyleSheet("text-align:center;");
+	m_ui->buttonImport->setIcon(icons()->icon("document-import"));
+	m_ui->buttonImport->setStyleSheet("text-align:center;");
 
-    refreshLastDatabases();
+	refreshLastDatabases();
 
-    connect(m_ui->buttonNewDatabase, SIGNAL(clicked()), SIGNAL(newDatabase()));
-    connect(m_ui->buttonOpenDatabase, SIGNAL(clicked()), SIGNAL(openDatabase()));
-    connect(m_ui->buttonImport, SIGNAL(clicked()), SIGNAL(importFile()));
-    connect(m_ui->recentListWidget,
-            SIGNAL(itemActivated(QListWidgetItem*)),
-            this,
-            SLOT(openDatabaseFromFile(QListWidgetItem*)));
+	connect(m_ui->buttonNewDatabase, SIGNAL(clicked()), SIGNAL(newDatabase()));
+	connect(m_ui->buttonOpenDatabase, SIGNAL(clicked()), SIGNAL(openDatabase()));
+	connect(m_ui->buttonImport, SIGNAL(clicked()), SIGNAL(importFile()));
+	connect(m_ui->recentListWidget,
+	        SIGNAL(itemActivated(QListWidgetItem *)),
+	        this,
+	        SLOT(openDatabaseFromFile(QListWidgetItem *)));
 }
 
 WelcomeWidget::~WelcomeWidget()
 {
 }
 
-void WelcomeWidget::openDatabaseFromFile(QListWidgetItem* item)
+void WelcomeWidget::openDatabaseFromFile(QListWidgetItem *item)
 {
-    if (!item || item->text().isEmpty()) {
-        return;
-    }
-    emit openDatabaseFile(item->text());
+	if (!item || item->text().isEmpty())
+	{
+		return;
+	}
+	emit openDatabaseFile(item->text());
 }
 
-void WelcomeWidget::removeFromLastDatabases(QListWidgetItem* item)
+void WelcomeWidget::removeFromLastDatabases(QListWidgetItem *item)
 {
-    if (!item || item->text().isEmpty()) {
-        return;
-    }
+	if (!item || item->text().isEmpty())
+	{
+		return;
+	}
 
-    if (config()->get(Config::RememberLastDatabases).toBool()) {
-        QStringList lastDatabases = config()->get(Config::LastDatabases).toStringList();
-        lastDatabases.removeOne(item->text());
-        config()->set(Config::LastDatabases, lastDatabases);
-    }
-    refreshLastDatabases();
+	if (config()->get(Config::RememberLastDatabases).toBool())
+	{
+		QStringList lastDatabases = config()->get(Config::LastDatabases).toStringList();
+		lastDatabases.removeOne(item->text());
+		config()->set(Config::LastDatabases, lastDatabases);
+	}
+	refreshLastDatabases();
 }
 
 void WelcomeWidget::refreshLastDatabases()
 {
-    m_ui->recentListWidget->clear();
-    const QStringList lastDatabases = config()->get(Config::LastDatabases).toStringList();
-    for (const QString& database : lastDatabases) {
-        QListWidgetItem* itm = new QListWidgetItem;
-        itm->setText(database);
-        m_ui->recentListWidget->addItem(itm);
-    }
+	m_ui->recentListWidget->clear();
+	const QStringList lastDatabases = config()->get(Config::LastDatabases).toStringList();
+	for (const QString &database: lastDatabases)
+	{
+		QListWidgetItem *itm = new QListWidgetItem;
+		itm->setText(database);
+		m_ui->recentListWidget->addItem(itm);
+	}
 
-    bool recent_visibility = (m_ui->recentListWidget->count() > 0);
-    m_ui->startLabel->setVisible(!recent_visibility);
-    m_ui->recentListWidget->setVisible(recent_visibility);
-    m_ui->recentLabel->setVisible(recent_visibility);
+	bool recent_visibility = (m_ui->recentListWidget->count() > 0);
+	m_ui->startLabel->setVisible(!recent_visibility);
+	m_ui->recentListWidget->setVisible(recent_visibility);
+	m_ui->recentLabel->setVisible(recent_visibility);
 }
 
-void WelcomeWidget::keyPressEvent(QKeyEvent* event)
+void WelcomeWidget::keyPressEvent(QKeyEvent *event)
 {
-    if (m_ui->recentListWidget->hasFocus()) {
-        if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
-            openDatabaseFromFile(m_ui->recentListWidget->currentItem());
-        } else if (event->key() == Qt::Key_Delete || event->key() == Qt::Key_Backspace) {
-            removeFromLastDatabases(m_ui->recentListWidget->currentItem());
-        }
-    }
+	if (m_ui->recentListWidget->hasFocus())
+	{
+		if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
+		{
+			openDatabaseFromFile(m_ui->recentListWidget->currentItem());
+		}
+		else if (event->key() == Qt::Key_Delete || event->key() == Qt::Key_Backspace)
+		{
+			removeFromLastDatabases(m_ui->recentListWidget->currentItem());
+		}
+	}
 
-    QWidget::keyPressEvent(event);
+	QWidget::keyPressEvent(event);
 }
 
-void WelcomeWidget::showEvent(QShowEvent* event)
+void WelcomeWidget::showEvent(QShowEvent *event)
 {
-    refreshLastDatabases();
-    QWidget::showEvent(event);
+	refreshLastDatabases();
+	QWidget::showEvent(event);
 }

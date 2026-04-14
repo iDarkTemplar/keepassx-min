@@ -19,14 +19,14 @@
 
 #include <QObject>
 
-class TestPassphraseGenerator : public QObject
+class TestPassphraseGenerator: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testWordCase();
-    void testUniqueEntriesInWordlist();
+	void initTestCase();
+	void testWordCase();
+	void testUniqueEntriesInWordlist();
 };
 
 #endif // KEEPASSXC_TESTPASSPHRASEGENERATOR_H

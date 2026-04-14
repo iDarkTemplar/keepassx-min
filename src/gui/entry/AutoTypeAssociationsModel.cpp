@@ -18,130 +18,151 @@
 
 #include "core/Entry.h"
 
-AutoTypeAssociationsModel::AutoTypeAssociationsModel(QObject* parent)
-    : QAbstractListModel(parent)
-    , m_autoTypeAssociations(nullptr)
-    , m_entry(nullptr)
+AutoTypeAssociationsModel::AutoTypeAssociationsModel(QObject *parent)
+	: QAbstractListModel(parent)
+	, m_autoTypeAssociations(nullptr)
+	, m_entry(nullptr)
 {
 }
 
-void AutoTypeAssociationsModel::setAutoTypeAssociations(AutoTypeAssociations* autoTypeAssociations)
+void AutoTypeAssociationsModel::setAutoTypeAssociations(AutoTypeAssociations *autoTypeAssociations)
 {
-    beginResetModel();
+	beginResetModel();
 
-    if (m_autoTypeAssociations) {
-        m_autoTypeAssociations->disconnect(this);
-    }
+	if (m_autoTypeAssociations)
+	{
+		m_autoTypeAssociations->disconnect(this);
+	}
 
-    m_autoTypeAssociations = autoTypeAssociations;
+	m_autoTypeAssociations = autoTypeAssociations;
 
-    if (m_autoTypeAssociations) {
-        connect(m_autoTypeAssociations, SIGNAL(dataChanged(int)), SLOT(associationChange(int)));
-        connect(m_autoTypeAssociations, SIGNAL(aboutToAdd(int)), SLOT(associationAboutToAdd(int)));
-        connect(m_autoTypeAssociations, SIGNAL(added(int)), SLOT(associationAdd()));
-        connect(m_autoTypeAssociations, SIGNAL(aboutToRemove(int)), SLOT(associationAboutToRemove(int)));
-        connect(m_autoTypeAssociations, SIGNAL(removed(int)), SLOT(associationRemove()));
-        connect(m_autoTypeAssociations, SIGNAL(aboutToReset()), SLOT(aboutToReset()));
-        connect(m_autoTypeAssociations, SIGNAL(reset()), SLOT(reset()));
-    }
+	if (m_autoTypeAssociations)
+	{
+		connect(m_autoTypeAssociations, SIGNAL(dataChanged(int)), SLOT(associationChange(int)));
+		connect(m_autoTypeAssociations, SIGNAL(aboutToAdd(int)), SLOT(associationAboutToAdd(int)));
+		connect(m_autoTypeAssociations, SIGNAL(added(int)), SLOT(associationAdd()));
+		connect(m_autoTypeAssociations, SIGNAL(aboutToRemove(int)), SLOT(associationAboutToRemove(int)));
+		connect(m_autoTypeAssociations, SIGNAL(removed(int)), SLOT(associationRemove()));
+		connect(m_autoTypeAssociations, SIGNAL(aboutToReset()), SLOT(aboutToReset()));
+		connect(m_autoTypeAssociations, SIGNAL(reset()), SLOT(reset()));
+	}
 
-    endResetModel();
+	endResetModel();
 }
 
-void AutoTypeAssociationsModel::setEntry(Entry* entry)
+void AutoTypeAssociationsModel::setEntry(Entry *entry)
 {
-    m_entry = entry;
+	m_entry = entry;
 }
 
-int AutoTypeAssociationsModel::rowCount(const QModelIndex& parent) const
+int AutoTypeAssociationsModel::rowCount(const QModelIndex &parent) const
 {
-    if (!m_autoTypeAssociations || parent.isValid()) {
-        return 0;
-    } else {
-        return m_autoTypeAssociations->size();
-    }
+	if (!m_autoTypeAssociations || parent.isValid())
+	{
+		return 0;
+	}
+	else
+	{
+		return m_autoTypeAssociations->size();
+	}
 }
 
-int AutoTypeAssociationsModel::columnCount(const QModelIndex& parent) const
+int AutoTypeAssociationsModel::columnCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
+	Q_UNUSED(parent);
 
-    return 2;
+	return 2;
 }
 
 QVariant AutoTypeAssociationsModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if ((orientation == Qt::Horizontal) && (role == Qt::DisplayRole)) {
-        if (section == 0) {
-            return tr("Window");
-        } else {
-            return tr("Sequence");
-        }
-    } else {
-        return QVariant();
-    }
+	if ((orientation == Qt::Horizontal) && (role == Qt::DisplayRole))
+	{
+		if (section == 0)
+		{
+			return tr("Window");
+		}
+		else
+		{
+			return tr("Sequence");
+		}
+	}
+	else
+	{
+		return QVariant();
+	}
 }
 
-QVariant AutoTypeAssociationsModel::data(const QModelIndex& index, int role) const
+QVariant AutoTypeAssociationsModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) {
-        return QVariant();
-    }
+	if (!index.isValid())
+	{
+		return QVariant();
+	}
 
-    if (role == Qt::DisplayRole) {
-        if (index.column() == 0) {
-            QString window = m_autoTypeAssociations->get(index.row()).window;
-            if (window.isEmpty()) {
-                return tr("(empty)");
-            }
-            if (m_entry) {
-                window = m_entry->maskPasswordPlaceholders(window);
-                window = m_entry->resolveMultiplePlaceholders(window);
-            }
-            return window;
-        } else {
-            QString sequence = m_autoTypeAssociations->get(index.row()).sequence;
-            if (sequence.isEmpty()) {
-                sequence = tr("Default sequence");
-            }
-            return sequence;
-        }
-    } else {
-        return QVariant();
-    }
+	if (role == Qt::DisplayRole)
+	{
+		if (index.column() == 0)
+		{
+			QString window = m_autoTypeAssociations->get(index.row()).window;
+			if (window.isEmpty())
+			{
+				return tr("(empty)");
+			}
+			if (m_entry)
+			{
+				window = m_entry->maskPasswordPlaceholders(window);
+				window = m_entry->resolveMultiplePlaceholders(window);
+			}
+			return window;
+		}
+		else
+		{
+			QString sequence = m_autoTypeAssociations->get(index.row()).sequence;
+			if (sequence.isEmpty())
+			{
+				sequence = tr("Default sequence");
+			}
+			return sequence;
+		}
+	}
+	else
+	{
+		return QVariant();
+	}
 }
 
 void AutoTypeAssociationsModel::associationChange(int i)
 {
-    emit dataChanged(index(i, 0), index(i, columnCount() - 1));
+	emit dataChanged(index(i, 0), index(i, columnCount() - 1));
 }
 
 void AutoTypeAssociationsModel::associationAboutToAdd(int i)
 {
-    beginInsertRows(QModelIndex(), i, i);
+	beginInsertRows(QModelIndex(), i, i);
 }
 
 void AutoTypeAssociationsModel::associationAdd()
 {
-    endInsertRows();
+	endInsertRows();
 }
 
 void AutoTypeAssociationsModel::associationAboutToRemove(int i)
 {
-    beginRemoveRows(QModelIndex(), i, i);
+	beginRemoveRows(QModelIndex(), i, i);
 }
 
 void AutoTypeAssociationsModel::associationRemove()
 {
-    endRemoveRows();
+	endRemoveRows();
 }
 
 void AutoTypeAssociationsModel::aboutToReset()
 {
-    beginResetModel();
+	beginResetModel();
 }
 
 void AutoTypeAssociationsModel::reset()
 {
-    endResetModel();
+	endResetModel();
 }

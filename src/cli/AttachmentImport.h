@@ -19,14 +19,14 @@
 
 #include "DatabaseCommand.h"
 
-class AttachmentImport : public DatabaseCommand
+class AttachmentImport: public DatabaseCommand
 {
 public:
-    AttachmentImport();
+	AttachmentImport();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 
-    static const QCommandLineOption ForceOption;
+	static const QCommandLineOption ForceOption;
 };
 
 #endif // KEEPASSXC_ATTACHMENTIMPORT_H

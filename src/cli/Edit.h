@@ -19,13 +19,13 @@
 
 #include "DatabaseCommand.h"
 
-class Edit : public DatabaseCommand
+class Edit: public DatabaseCommand
 {
 public:
-    Edit();
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	Edit();
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 
-    static const QCommandLineOption TitleOption;
+	static const QCommandLineOption TitleOption;
 };
 
 #endif // KEEPASSXC_EDIT_H

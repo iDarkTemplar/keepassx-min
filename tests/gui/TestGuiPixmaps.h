@@ -19,15 +19,15 @@
 
 #include <QImage>
 
-class TestGuiPixmaps : public QObject
+class TestGuiPixmaps: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testDatabaseIcons();
-    void testEntryIcons();
-    void testGroupIcons();
+	void initTestCase();
+	void testDatabaseIcons();
+	void testEntryIcons();
+	void testGroupIcons();
 };
 
 #endif // KEEPASSX_TESTGUIPIXMAPS_H

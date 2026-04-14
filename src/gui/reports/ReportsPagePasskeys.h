@@ -22,18 +22,18 @@
 
 class ReportsWidgetBrowserStatistics;
 
-class ReportsPagePasskeys : public IReportsPage
+class ReportsPagePasskeys: public IReportsPage
 {
 public:
-    ReportsWidgetPasskeys* m_passkeysWidget;
+	ReportsWidgetPasskeys *m_passkeysWidget;
 
-    ReportsPagePasskeys();
+	ReportsPagePasskeys();
 
-    QString name() override;
-    QIcon icon() override;
-    QWidget* createWidget() override;
-    void loadSettings(QWidget* widget, QSharedPointer<Database> db) override;
-    void saveSettings(QWidget* widget) override;
+	QString name() override;
+	QIcon icon() override;
+	QWidget *createWidget() override;
+	void loadSettings(QWidget *widget, QSharedPointer<Database> db) override;
+	void saveSettings(QWidget *widget) override;
 };
 
 #endif // KEEPASSXC_REPORTSPAGEPASSKEYS_H

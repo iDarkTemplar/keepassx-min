@@ -19,19 +19,19 @@
 
 #include "gui/styles/base/BaseStyle.h"
 
-class LightStyle : public BaseStyle
+class LightStyle: public BaseStyle
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    LightStyle();
-    QPalette standardPalette() const override;
+	LightStyle();
+	QPalette standardPalette() const override;
 
-    using BaseStyle::polish;
-    void polish(QWidget* widget) override;
+	using BaseStyle::polish;
+	void polish(QWidget *widget) override;
 
 protected:
-    QString getAppStyleSheet() const override;
+	QString getAppStyleSheet() const override;
 };
 
 #endif // KEEPASSXC_LIGHTSTYLE_H

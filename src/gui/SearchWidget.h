@@ -27,66 +27,66 @@ class SignalMultiplexer;
 
 namespace Ui
 {
-    class SearchWidget;
+	class SearchWidget;
 }
 
 class PopupHelpWidget;
 
-class SearchWidget : public QWidget
+class SearchWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit SearchWidget(QWidget* parent = nullptr);
-    ~SearchWidget() override;
+	explicit SearchWidget(QWidget *parent = nullptr);
+	~SearchWidget() override;
 
-    Q_DISABLE_COPY(SearchWidget)
+	Q_DISABLE_COPY(SearchWidget)
 
-    void connectSignals(SignalMultiplexer& mx);
-    void setCaseSensitive(bool state);
-    void setLimitGroup(bool state);
+	void connectSignals(SignalMultiplexer &mx);
+	void setCaseSensitive(bool state);
+	void setLimitGroup(bool state);
 
 protected:
-    // Filter key presses in the search field
-    bool eventFilter(QObject* obj, QEvent* event) override;
+	// Filter key presses in the search field
+	bool eventFilter(QObject *obj, QEvent *event) override;
 
 signals:
-    void search(const QString& text);
-    void searchCanceled();
-    void caseSensitiveChanged(bool state);
-    void limitGroupChanged(bool state);
-    void escapePressed();
-    void downPressed();
-    void enterPressed();
-    void lostFocus();
-    void saveSearch(const QString& text);
+	void search(const QString &text);
+	void searchCanceled();
+	void caseSensitiveChanged(bool state);
+	void limitGroupChanged(bool state);
+	void escapePressed();
+	void downPressed();
+	void enterPressed();
+	void lostFocus();
+	void saveSearch(const QString &text);
 
 public slots:
-    void databaseChanged(DatabaseWidget* dbWidget = nullptr);
-    void focusSearch();
-    void clearSearch();
+	void databaseChanged(DatabaseWidget *dbWidget = nullptr);
+	void focusSearch();
+	void clearSearch();
 
 private slots:
-    void onReturnPressed();
-    void startSearchTimer();
-    void startSearch();
-    void updateCaseSensitive();
-    void updateLimitGroup();
-    void toggleHelp();
-    void showSearchMenu();
-    void resetSearchClearTimer();
-    void performRequestedSearch(const QString& text);
-    void updateSaveButtonVisibility();
+	void onReturnPressed();
+	void startSearchTimer();
+	void startSearch();
+	void updateCaseSensitive();
+	void updateLimitGroup();
+	void toggleHelp();
+	void showSearchMenu();
+	void resetSearchClearTimer();
+	void performRequestedSearch(const QString &text);
+	void updateSaveButtonVisibility();
 
 private:
-    const QScopedPointer<Ui::SearchWidget> m_ui;
-    PopupHelpWidget* m_helpWidget;
-    QTimer* m_searchTimer;
-    QTimer* m_clearSearchTimer;
-    QAction* m_actionCaseSensitive;
-    QAction* m_actionLimitGroup;
-    QAction* m_actionWaitForEnter;
-    QMenu* m_searchMenu;
+	const QScopedPointer<Ui::SearchWidget> m_ui;
+	PopupHelpWidget *m_helpWidget;
+	QTimer *m_searchTimer;
+	QTimer *m_clearSearchTimer;
+	QAction *m_actionCaseSensitive;
+	QAction *m_actionLimitGroup;
+	QAction *m_actionWaitForEnter;
+	QMenu *m_searchMenu;
 };
 
 #endif // SEARCHWIDGET_H

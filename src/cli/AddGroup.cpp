@@ -24,9 +24,9 @@
 
 AddGroup::AddGroup()
 {
-    name = QString("mkdir");
-    description = QObject::tr("Adds a new group to a database.");
-    positionalArguments.append({QString("group"), QObject::tr("Path of the group to add."), QString("")});
+	name = QString("mkdir");
+	description = QObject::tr("Adds a new group to a database.");
+	positionalArguments.append({QString("group"), QObject::tr("Path of the group to add."), QString("")});
 }
 
 AddGroup::~AddGroup()
@@ -35,41 +35,45 @@ AddGroup::~AddGroup()
 
 int AddGroup::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser> parser)
 {
-    auto& out = Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    const QStringList args = parser->positionalArguments();
-    const QString& groupPath = args.at(1);
+	const QStringList args = parser->positionalArguments();
+	const QString &groupPath = args.at(1);
 
-    QStringList pathParts = groupPath.split("/");
-    QString groupName = pathParts.takeLast();
-    QString parentGroupPath = pathParts.join("/");
+	QStringList pathParts = groupPath.split("/");
+	QString groupName = pathParts.takeLast();
+	QString parentGroupPath = pathParts.join("/");
 
-    Group* group = database->rootGroup()->findGroupByPath(groupPath);
-    if (group) {
-        err << QObject::tr("Group %1 already exists!").arg(groupPath) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	Group *group = database->rootGroup()->findGroupByPath(groupPath);
+	if (group)
+	{
+		err << QObject::tr("Group %1 already exists!").arg(groupPath) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    Group* parentGroup = database->rootGroup()->findGroupByPath(parentGroupPath);
-    if (!parentGroup) {
-        err << QObject::tr("Group %1 not found.").arg(parentGroupPath) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	Group *parentGroup = database->rootGroup()->findGroupByPath(parentGroupPath);
+	if (!parentGroup)
+	{
+		err << QObject::tr("Group %1 not found.").arg(parentGroupPath) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    Group* newGroup = new Group();
-    newGroup->setUuid(QUuid::createUuid());
-    newGroup->setName(groupName);
-    newGroup->setParent(parentGroup);
+	Group *newGroup = new Group();
+	newGroup->setUuid(QUuid::createUuid());
+	newGroup->setName(groupName);
+	newGroup->setParent(parentGroup);
 
-    QString errorMessage;
-    if (!database->save(Database::Atomic, {}, &errorMessage)) {
-        err << QObject::tr("Writing the database failed %1.").arg(errorMessage) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	QString errorMessage;
+	if (!database->save(Database::Atomic, {}, &errorMessage))
+	{
+		err << QObject::tr("Writing the database failed %1.").arg(errorMessage) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    if (!parser->isSet(Command::QuietOption)) {
-        out << QObject::tr("Successfully added group %1.").arg(groupName) << Qt::endl;
-    }
-    return EXIT_SUCCESS;
+	if (!parser->isSet(Command::QuietOption))
+	{
+		out << QObject::tr("Successfully added group %1.").arg(groupName) << Qt::endl;
+	}
+	return EXIT_SUCCESS;
 }

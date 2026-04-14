@@ -20,55 +20,57 @@
 #include <QEvent>
 #include <QLayout>
 
-KPToolBar::KPToolBar(const QString& title, QWidget* parent)
-    : QToolBar(title, parent)
+KPToolBar::KPToolBar(const QString &title, QWidget *parent)
+	: QToolBar(title, parent)
 {
-    init();
+	init();
 }
 
-KPToolBar::KPToolBar(QWidget* parent)
-    : QToolBar(parent)
+KPToolBar::KPToolBar(QWidget *parent)
+	: QToolBar(parent)
 {
-    init();
+	init();
 }
 
 void KPToolBar::init()
 {
-    m_expandButton = findChild<QAbstractButton*>("qt_toolbar_ext_button");
-    m_expandTimer.setSingleShot(true);
-    connect(&m_expandTimer, &QTimer::timeout, this, [this] { setExpanded(false); });
+	m_expandButton = findChild<QAbstractButton *>("qt_toolbar_ext_button");
+	m_expandTimer.setSingleShot(true);
+	connect(&m_expandTimer, &QTimer::timeout, this, [this] { setExpanded(false); });
 }
 
 bool KPToolBar::isExpanded()
 {
-    return !canExpand() || (canExpand() && m_expandButton->isChecked());
+	return !canExpand() || (canExpand() && m_expandButton->isChecked());
 }
 
 bool KPToolBar::canExpand()
 {
-    return m_expandButton && m_expandButton->isVisible();
+	return m_expandButton && m_expandButton->isVisible();
 }
 
 void KPToolBar::setExpanded(bool state)
 {
-    if (canExpand() && !QMetaObject::invokeMethod(layout(), "setExpanded", Q_ARG(bool, state))) {
-        qWarning("Toolbar: Cannot invoke setExpanded!");
-    }
+	if (canExpand() && !QMetaObject::invokeMethod(layout(), "setExpanded", Q_ARG(bool, state)))
+	{
+		qWarning("Toolbar: Cannot invoke setExpanded!");
+	}
 }
 
-bool KPToolBar::event(QEvent* event)
+bool KPToolBar::event(QEvent *event)
 {
-    // Override events handled by the base class for better UX when using an expandable toolbar.
-    switch (event->type()) {
-    case QEvent::Leave:
-        // Hide the toolbar after 2 seconds of mouse exit
-        m_expandTimer.start(2000);
-        return true;
-    case QEvent::Enter:
-        // Mouse came back in, stop hiding timer
-        m_expandTimer.stop();
-        return true;
-    default:
-        return QToolBar::event(event);
-    }
+	// Override events handled by the base class for better UX when using an expandable toolbar.
+	switch (event->type())
+	{
+	case QEvent::Leave:
+		// Hide the toolbar after 2 seconds of mouse exit
+		m_expandTimer.start(2000);
+		return true;
+	case QEvent::Enter:
+		// Mouse came back in, stop hiding timer
+		m_expandTimer.stop();
+		return true;
+	default:
+		return QToolBar::event(event);
+	}
 }

@@ -34,51 +34,51 @@ class QStandardItemModel;
 
 namespace Ui
 {
-    class ReportsWidgetHibp;
+	class ReportsWidgetHibp;
 }
 
-class ReportsWidgetHibp : public QWidget
+class ReportsWidgetHibp: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit ReportsWidgetHibp(QWidget* parent = nullptr);
-    ~ReportsWidgetHibp();
+	explicit ReportsWidgetHibp(QWidget *parent = nullptr);
+	~ReportsWidgetHibp();
 
-    void loadSettings(QSharedPointer<Database> db);
-    void saveSettings();
-    void refreshAfterEdit();
+	void loadSettings(QSharedPointer<Database> db);
+	void saveSettings();
+	void refreshAfterEdit();
 
 signals:
-    void entryActivated(Entry*);
+	void entryActivated(Entry *);
 
 public slots:
-    void emitEntryActivated(const QModelIndex&);
-    void addHibpResult(const QString&, int);
-    void fetchFailed(const QString& error);
-    void makeHibpTable();
-    void customMenuRequested(QPoint);
-    QList<Entry*> getSelectedEntries();
-    void expireSelectedEntries();
-    void deleteSelectedEntries();
+	void emitEntryActivated(const QModelIndex &);
+	void addHibpResult(const QString &, int);
+	void fetchFailed(const QString &error);
+	void makeHibpTable();
+	void customMenuRequested(QPoint);
+	QList<Entry *> getSelectedEntries();
+	void expireSelectedEntries();
+	void deleteSelectedEntries();
 
 private:
-    void startValidation();
-    static QString countToText(int count);
+	void startValidation();
+	static QString countToText(int count);
 
-    QScopedPointer<Ui::ReportsWidgetHibp> m_ui;
-    QScopedPointer<QStandardItemModel> m_referencesModel;
-    QScopedPointer<QSortFilterProxyModel> m_modelProxy;
-    QSharedPointer<Database> m_db;
+	QScopedPointer<Ui::ReportsWidgetHibp> m_ui;
+	QScopedPointer<QStandardItemModel> m_referencesModel;
+	QScopedPointer<QSortFilterProxyModel> m_modelProxy;
+	QSharedPointer<Database> m_db;
 
-    QMap<QString, int> m_pwndPasswords; // Passwords we found to have been pwned (value is pwn count)
-    QString m_error; // Error message if download failed, else empty
-    QList<Entry*> m_rowToEntry; // List index is table row
-    QPointer<Entry> m_editedEntry; // The entry we're currently editing
-    QString m_editedPassword; // The old password of the entry we're editing
-    bool m_editedExcluded; // The old "known bad" flag of the entry we're editing
+	QMap<QString, int> m_pwndPasswords; // Passwords we found to have been pwned (value is pwn count)
+	QString m_error; // Error message if download failed, else empty
+	QList<Entry *> m_rowToEntry; // List index is table row
+	QPointer<Entry> m_editedEntry; // The entry we're currently editing
+	QString m_editedPassword; // The old password of the entry we're editing
+	bool m_editedExcluded; // The old "known bad" flag of the entry we're editing
 
 #ifdef WITH_XC_NETWORKING
-    HibpDownloader m_downloader; // This performs the actual HIBP online query
+	HibpDownloader m_downloader; // This performs the actual HIBP online query
 #endif
 };
 

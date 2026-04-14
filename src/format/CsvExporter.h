@@ -28,17 +28,17 @@ class QIODevice;
 class CsvExporter
 {
 public:
-    bool exportDatabase(const QString& filename, const QSharedPointer<const Database>& db);
-    bool exportDatabase(QIODevice* device, const QSharedPointer<const Database>& db);
-    QString exportDatabase(const QSharedPointer<const Database>& db);
-    QString errorString() const;
+	bool exportDatabase(const QString &filename, const QSharedPointer<const Database> &db);
+	bool exportDatabase(QIODevice *device, const QSharedPointer<const Database> &db);
+	QString exportDatabase(const QSharedPointer<const Database> &db);
+	QString errorString() const;
 
 private:
-    QString exportGroup(const Group* group, QString groupPath = QString());
-    QString exportHeader();
-    void addColumn(QString& str, const QString& column);
+	QString exportGroup(const Group *group, QString groupPath = QString());
+	QString exportHeader();
+	void addColumn(QString &str, const QString &column);
 
-    QString m_error;
+	QString m_error;
 };
 
 #endif // KEEPASSX_CSVEXPORTER_H

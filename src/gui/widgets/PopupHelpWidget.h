@@ -20,26 +20,26 @@
 #include <QFrame>
 #include <QPointer>
 
-class PopupHelpWidget : public QFrame
+class PopupHelpWidget: public QFrame
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit PopupHelpWidget(QWidget* parent);
-    ~PopupHelpWidget() override;
+	explicit PopupHelpWidget(QWidget *parent);
+	~PopupHelpWidget() override;
 
-    void setOffset(const QPoint& offset);
-    void setPosition(Qt::Corner corner);
+	void setOffset(const QPoint &offset);
+	void setPosition(Qt::Corner corner);
 
 protected:
-    bool eventFilter(QObject* obj, QEvent* event) override;
-    void showEvent(QShowEvent* event) override;
+	bool eventFilter(QObject *obj, QEvent *event) override;
+	void showEvent(QShowEvent *event) override;
 
 private:
-    void alignWithParent();
-    QPointer<QWidget> m_appWindow;
+	void alignWithParent();
+	QPointer<QWidget> m_appWindow;
 
-    QPoint m_offset;
-    Qt::Corner m_corner;
+	QPoint m_offset;
+	Qt::Corner m_corner;
 };
 
 #endif // KEEPASSXC_POPUPHELPWIDGET_H

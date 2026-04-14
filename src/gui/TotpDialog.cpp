@@ -26,31 +26,31 @@
 #include <QPushButton>
 #include <QShortcut>
 
-TotpDialog::TotpDialog(QWidget* parent, Entry* entry)
-    : QDialog(parent)
-    , m_ui(new Ui::TotpDialog())
-    , m_entry(entry)
+TotpDialog::TotpDialog(QWidget *parent, Entry *entry)
+	: QDialog(parent)
+	, m_ui(new Ui::TotpDialog())
+	, m_entry(entry)
 {
-    setAttribute(Qt::WA_DeleteOnClose);
+	setAttribute(Qt::WA_DeleteOnClose);
 
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    m_step = m_entry->totpSettings()->step;
-    resetCounter();
-    updateProgressBar();
-    updateSeconds();
+	m_step = m_entry->totpSettings()->step;
+	resetCounter();
+	updateProgressBar();
+	updateSeconds();
 
-    connect(&m_totpUpdateTimer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
-    connect(&m_totpUpdateTimer, SIGNAL(timeout()), this, SLOT(updateSeconds()));
-    m_totpUpdateTimer.start(m_step * 10);
-    updateTotp();
+	connect(&m_totpUpdateTimer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
+	connect(&m_totpUpdateTimer, SIGNAL(timeout()), this, SLOT(updateSeconds()));
+	m_totpUpdateTimer.start(m_step * 10);
+	updateTotp();
 
-    new QShortcut(QKeySequence(QKeySequence::Copy), this, SLOT(copyToClipboard()));
+	new QShortcut(QKeySequence(QKeySequence::Copy), this, SLOT(copyToClipboard()));
 
-    m_ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Copy"));
+	m_ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Copy"));
 
-    connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
-    connect(m_ui->buttonBox, SIGNAL(accepted()), SLOT(copyToClipboard()));
+	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
+	connect(m_ui->buttonBox, SIGNAL(accepted()), SLOT(copyToClipboard()));
 }
 
 TotpDialog::~TotpDialog()
@@ -59,50 +59,58 @@ TotpDialog::~TotpDialog()
 
 void TotpDialog::copyToClipboard()
 {
-    clipboard()->setText(m_entry->totp());
-    if (config()->get(Config::HideWindowOnCopy).toBool()) {
-        if (config()->get(Config::MinimizeOnCopy).toBool()) {
-            getMainWindow()->minimizeOrHide();
-        } else if (config()->get(Config::DropToBackgroundOnCopy).toBool()) {
-            getMainWindow()->lower();
-            window()->lower();
-        }
-    }
+	clipboard()->setText(m_entry->totp());
+	if (config()->get(Config::HideWindowOnCopy).toBool())
+	{
+		if (config()->get(Config::MinimizeOnCopy).toBool())
+		{
+			getMainWindow()->minimizeOrHide();
+		}
+		else if (config()->get(Config::DropToBackgroundOnCopy).toBool())
+		{
+			getMainWindow()->lower();
+			window()->lower();
+		}
+	}
 }
 
 void TotpDialog::updateProgressBar()
 {
-    if (m_counter < 100) {
-        m_ui->progressBar->setValue(100 - m_counter);
-        m_ui->progressBar->update();
-        ++m_counter;
-    } else {
-        updateTotp();
-        resetCounter();
-    }
+	if (m_counter < 100)
+	{
+		m_ui->progressBar->setValue(100 - m_counter);
+		m_ui->progressBar->update();
+		++m_counter;
+	}
+	else
+	{
+		updateTotp();
+		resetCounter();
+	}
 }
 
 void TotpDialog::updateSeconds()
 {
-    uint epoch = Clock::currentSecondsSinceEpoch() - 1;
-    m_ui->timerLabel->setText(tr("Expires in <b>%n</b> second(s)", "", m_step - (epoch % m_step)));
+	uint epoch = Clock::currentSecondsSinceEpoch() - 1;
+	m_ui->timerLabel->setText(tr("Expires in <b>%n</b> second(s)", "", m_step - (epoch % m_step)));
 }
 
 void TotpDialog::updateTotp()
 {
-    bool isValid = false;
-    QString totpCode = m_entry->totp(&isValid);
-    if (isValid) {
-        totpCode.insert(totpCode.size() / 2, " ");
-    }
-    m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(isValid);
-    m_ui->progressBar->setVisible(isValid);
-    m_ui->timerLabel->setVisible(isValid);
-    m_ui->totpLabel->setText(totpCode);
+	bool isValid = false;
+	QString totpCode = m_entry->totp(&isValid);
+	if (isValid)
+	{
+		totpCode.insert(totpCode.size() / 2, " ");
+	}
+	m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(isValid);
+	m_ui->progressBar->setVisible(isValid);
+	m_ui->timerLabel->setVisible(isValid);
+	m_ui->totpLabel->setText(totpCode);
 }
 
 void TotpDialog::resetCounter()
 {
-    uint epoch = Clock::currentSecondsSinceEpoch();
-    m_counter = static_cast<int>(static_cast<double>(epoch % m_step) / m_step * 100);
+	uint epoch = Clock::currentSecondsSinceEpoch();
+	m_counter = static_cast<int>(static_cast<double>(epoch % m_step) / m_step * 100);
 }

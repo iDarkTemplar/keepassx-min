@@ -20,33 +20,33 @@
 #include "gui/Icons.h"
 
 ReportsPageHibp::ReportsPageHibp()
-    : m_hibpWidget(new ReportsWidgetHibp())
+	: m_hibpWidget(new ReportsWidgetHibp())
 {
 }
 
 QString ReportsPageHibp::name()
 {
-    return QObject::tr("HIBP");
+	return QObject::tr("HIBP");
 }
 
 QIcon ReportsPageHibp::icon()
 {
-    return icons()->icon("hibp");
+	return icons()->icon("hibp");
 }
 
-QWidget* ReportsPageHibp::createWidget()
+QWidget *ReportsPageHibp::createWidget()
 {
-    return m_hibpWidget;
+	return m_hibpWidget;
 }
 
-void ReportsPageHibp::loadSettings(QWidget* widget, QSharedPointer<Database> db)
+void ReportsPageHibp::loadSettings(QWidget *widget, QSharedPointer<Database> db)
 {
-    const auto settingsWidget = reinterpret_cast<ReportsWidgetHibp*>(widget);
-    settingsWidget->loadSettings(db);
+	const auto settingsWidget = reinterpret_cast<ReportsWidgetHibp *>(widget);
+	settingsWidget->loadSettings(db);
 }
 
-void ReportsPageHibp::saveSettings(QWidget* widget)
+void ReportsPageHibp::saveSettings(QWidget *widget)
 {
-    const auto settingsWidget = reinterpret_cast<ReportsWidgetHibp*>(widget);
-    settingsWidget->saveSettings();
+	const auto settingsWidget = reinterpret_cast<ReportsWidgetHibp *>(widget);
+	settingsWidget->saveSettings();
 }

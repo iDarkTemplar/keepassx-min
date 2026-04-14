@@ -24,13 +24,13 @@ class Database;
 
 class ShareExport
 {
-    Q_DECLARE_TR_FUNCTIONS(ShareExport)
+	Q_DECLARE_TR_FUNCTIONS(ShareExport)
 public:
-    static ShareObserver::Result
-    intoContainer(const QString& resolvedPath, const KeeShareSettings::Reference& reference, const Group* group);
+	static ShareObserver::Result
+		intoContainer(const QString &resolvedPath, const KeeShareSettings::Reference &reference, const Group *group);
 
 private:
-    ShareExport() = delete;
+	ShareExport() = delete;
 };
 
 #endif // KEEPASSXC_SHAREEXPORT_H

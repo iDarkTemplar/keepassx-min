@@ -27,29 +27,29 @@ class SquareSvgWidget;
 class QLabel;
 class QDialogButtonBox;
 
-class TotpExportSettingsDialog : public QDialog
+class TotpExportSettingsDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit TotpExportSettingsDialog(DatabaseWidget* parent = nullptr, Entry* entry = nullptr);
-    ~TotpExportSettingsDialog();
+	explicit TotpExportSettingsDialog(DatabaseWidget *parent = nullptr, Entry *entry = nullptr);
+	~TotpExportSettingsDialog();
 
 private slots:
-    void copyToClipboard();
-    void autoClose();
+	void copyToClipboard();
+	void autoClose();
 
 private:
-    int m_secTillClose;
-    QString m_totpUri;
-    QTimer* m_timer;
+	int m_secTillClose;
+	QString m_totpUri;
+	QTimer *m_timer;
 
-    QVBoxLayout* m_verticalLayout;
-    QStackedWidget* m_totpSvgContainerWidget;
-    SquareSvgWidget* m_totpSvgWidget;
-    QLabel* m_countDown;
-    QLabel* m_warningLabel;
-    QDialogButtonBox* m_buttonBox;
+	QVBoxLayout *m_verticalLayout;
+	QStackedWidget *m_totpSvgContainerWidget;
+	SquareSvgWidget *m_totpSvgWidget;
+	QLabel *m_countDown;
+	QLabel *m_warningLabel;
+	QDialogButtonBox *m_buttonBox;
 };
 
 #endif // KEEPASSX_TOTPEXPORTSETTINGSDIALOG_H

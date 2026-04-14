@@ -20,27 +20,28 @@
 #include <QListView>
 #include <QScrollBar>
 
-class AttributesListView : public QListView
+class AttributesListView: public QListView
 {
 public:
-    explicit AttributesListView(QWidget* parent = nullptr)
-        : QListView(parent)
-    {
-        setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    }
+	explicit AttributesListView(QWidget *parent = nullptr)
+		: QListView(parent)
+	{
+		setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+	}
 
-    QSize sizeHint() const override
-    {
-        QSize sizeHint = QListView::sizeHint();
+	QSize sizeHint() const override
+	{
+		QSize sizeHint = QListView::sizeHint();
 
-        int width = sizeHintForColumn(0) + frameWidth() * 2;
-        if (verticalScrollBar()->isVisible()) {
-            width += verticalScrollBar()->width();
-        }
-        sizeHint.setWidth(width);
+		int width = sizeHintForColumn(0) + frameWidth() * 2;
+		if (verticalScrollBar()->isVisible())
+		{
+			width += verticalScrollBar()->width();
+		}
+		sizeHint.setWidth(width);
 
-        return sizeHint;
-    }
+		return sizeHint;
+	}
 };
 
 #endif // KEEPASSX_EDITENTRYWIDGET_P_H

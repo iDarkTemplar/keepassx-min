@@ -16,85 +16,94 @@
 
 #include "HashingStream.h"
 
-HashingStream::HashingStream(QIODevice* baseDevice)
-    : LayeredStream(baseDevice)
-    , m_hash(QCryptographicHash::Md5)
-    , m_sizeToHash(0)
+HashingStream::HashingStream(QIODevice *baseDevice)
+	: LayeredStream(baseDevice)
+	, m_hash(QCryptographicHash::Md5)
+	, m_sizeToHash(0)
 {
-    init();
+	init();
 }
 
-HashingStream::HashingStream(QIODevice* baseDevice, QCryptographicHash::Algorithm hashAlgo, qint64 sizeToHash)
-    : LayeredStream(baseDevice)
-    , m_hash(hashAlgo)
-    , m_sizeToHash(sizeToHash)
+HashingStream::HashingStream(QIODevice *baseDevice, QCryptographicHash::Algorithm hashAlgo, qint64 sizeToHash)
+	: LayeredStream(baseDevice)
+	, m_hash(hashAlgo)
+	, m_sizeToHash(sizeToHash)
 {
-    init();
+	init();
 }
 
 HashingStream::~HashingStream()
 {
-    close();
+	close();
 }
 
 void HashingStream::init()
 {
-    m_sizeHashed = 0;
-    m_sizeStreamed = 0;
-    m_hashFinalized = false;
+	m_sizeHashed = 0;
+	m_sizeStreamed = 0;
+	m_hashFinalized = false;
 }
 
 bool HashingStream::reset()
 {
-    init();
-    m_hash.reset();
-    return LayeredStream::reset();
+	init();
+	m_hash.reset();
+	return LayeredStream::reset();
 }
 
 QByteArray HashingStream::hashingResult()
 {
-    if (m_sizeHashed <= 0 || (m_sizeToHash > 0 && m_sizeHashed != m_sizeToHash)) {
-        setErrorString("Not enough data to compute hash");
-        return {};
-    }
-    m_hashFinalized = true;
-    return m_hash.result();
+	if (m_sizeHashed <= 0 || (m_sizeToHash > 0 && m_sizeHashed != m_sizeToHash))
+	{
+		setErrorString("Not enough data to compute hash");
+		return {};
+	}
+	m_hashFinalized = true;
+	return m_hash.result();
 }
 
-qint64 HashingStream::readData(char* data, qint64 maxSize)
+qint64 HashingStream::readData(char *data, qint64 maxSize)
 {
-    auto sizeRead = LayeredStream::readData(data, maxSize);
-    if (sizeRead > 0) {
-        if (!m_hashFinalized) {
-            qint64 sizeToHash = sizeRead;
-            if (m_sizeToHash > 0) {
-                sizeToHash = qMin(m_sizeToHash - m_sizeStreamed, sizeRead);
-            }
-            if (sizeToHash > 0) {
-                m_hash.addData(data, sizeToHash);
-                m_sizeHashed += sizeToHash;
-            }
-        }
-        m_sizeStreamed += sizeRead;
-    }
-    return sizeRead;
+	auto sizeRead = LayeredStream::readData(data, maxSize);
+	if (sizeRead > 0)
+	{
+		if (!m_hashFinalized)
+		{
+			qint64 sizeToHash = sizeRead;
+			if (m_sizeToHash > 0)
+			{
+				sizeToHash = qMin(m_sizeToHash - m_sizeStreamed, sizeRead);
+			}
+			if (sizeToHash > 0)
+			{
+				m_hash.addData(data, sizeToHash);
+				m_sizeHashed += sizeToHash;
+			}
+		}
+		m_sizeStreamed += sizeRead;
+	}
+	return sizeRead;
 }
 
-qint64 HashingStream::writeData(const char* data, qint64 maxSize)
+qint64 HashingStream::writeData(const char *data, qint64 maxSize)
 {
-    auto sizeWritten = LayeredStream::writeData(data, maxSize);
-    if (sizeWritten > 0) {
-        if (!m_hashFinalized) {
-            qint64 sizeToHash = sizeWritten;
-            if (m_sizeToHash > 0) {
-                sizeToHash = qMin(m_sizeToHash - m_sizeStreamed, sizeWritten);
-            }
-            if (sizeToHash > 0) {
-                m_hash.addData(data, sizeToHash);
-                m_sizeHashed += sizeToHash;
-            }
-        }
-        m_sizeStreamed += sizeWritten;
-    }
-    return sizeWritten;
+	auto sizeWritten = LayeredStream::writeData(data, maxSize);
+	if (sizeWritten > 0)
+	{
+		if (!m_hashFinalized)
+		{
+			qint64 sizeToHash = sizeWritten;
+			if (m_sizeToHash > 0)
+			{
+				sizeToHash = qMin(m_sizeToHash - m_sizeStreamed, sizeWritten);
+			}
+			if (sizeToHash > 0)
+			{
+				m_hash.addData(data, sizeToHash);
+				m_sizeHashed += sizeToHash;
+			}
+		}
+		m_sizeStreamed += sizeWritten;
+	}
+	return sizeWritten;
 }

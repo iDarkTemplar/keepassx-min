@@ -24,112 +24,112 @@
 class MessageBox
 {
 public:
-    enum Button : uint64_t
-    {
-        // Reimplementation of Qt StandardButtons
-        NoButton = 0,
-        Ok = 1 << 1,
-        Open = 1 << 2,
-        Save = 1 << 3,
-        Cancel = 1 << 4,
-        Close = 1 << 5,
-        Discard = 1 << 6,
-        Apply = 1 << 7,
-        Reset = 1 << 8,
-        RestoreDefaults = 1 << 9,
-        Help = 1 << 10,
-        SaveAll = 1 << 11,
-        Yes = 1 << 12,
-        YesToAll = 1 << 13,
-        No = 1 << 14,
-        NoToAll = 1 << 15,
-        Abort = 1 << 16,
-        Retry = 1 << 17,
-        Ignore = 1 << 18,
+	enum Button : uint64_t
+	{
+		// Reimplementation of Qt StandardButtons
+		NoButton = 0,
+		Ok = 1 << 1,
+		Open = 1 << 2,
+		Save = 1 << 3,
+		Cancel = 1 << 4,
+		Close = 1 << 5,
+		Discard = 1 << 6,
+		Apply = 1 << 7,
+		Reset = 1 << 8,
+		RestoreDefaults = 1 << 9,
+		Help = 1 << 10,
+		SaveAll = 1 << 11,
+		Yes = 1 << 12,
+		YesToAll = 1 << 13,
+		No = 1 << 14,
+		NoToAll = 1 << 15,
+		Abort = 1 << 16,
+		Retry = 1 << 17,
+		Ignore = 1 << 18,
 
-        // KeePassXC Buttons
-        Overwrite = 1 << 19,
-        Delete = 1 << 20,
-        Move = 1 << 21,
-        Empty = 1 << 22,
-        Remove = 1 << 23,
-        Skip = 1 << 24,
-        Disable = 1 << 25,
-        Merge = 1 << 26,
-        Continue = 1 << 27,
-        ContinueWithWeakPass = 1 << 28,
+		// KeePassXC Buttons
+		Overwrite = 1 << 19,
+		Delete = 1 << 20,
+		Move = 1 << 21,
+		Empty = 1 << 22,
+		Remove = 1 << 23,
+		Skip = 1 << 24,
+		Disable = 1 << 25,
+		Merge = 1 << 26,
+		Continue = 1 << 27,
+		ContinueWithWeakPass = 1 << 28,
 
-        // Internal loop markers. Update Last when new KeePassXC button is added
-        First = Ok,
-        Last = ContinueWithWeakPass,
-    };
+		// Internal loop markers. Update Last when new KeePassXC button is added
+		First = Ok,
+		Last = ContinueWithWeakPass,
+	};
 
-    enum Action
-    {
-        None = 0,
-        Raise = 1,
-    };
+	enum Action
+	{
+		None = 0,
+		Raise = 1,
+	};
 
-    typedef uint64_t Buttons;
+	typedef uint64_t Buttons;
 
-    static void initializeButtonDefs();
-    static void setNextAnswer(Button button);
+	static void initializeButtonDefs();
+	static void setNextAnswer(Button button);
 
-    static Button critical(QWidget* parent,
-                           const QString& title,
-                           const QString& text,
-                           Buttons buttons = MessageBox::Ok,
-                           Button defaultButton = MessageBox::Ok,
-                           Action action = MessageBox::None,
-                           QCheckBox* checkbox = nullptr);
-    static Button warning(QWidget* parent,
-                          const QString& title,
-                          const QString& text,
-                          Buttons buttons = MessageBox::Ok,
-                          Button defaultButton = MessageBox::Ok,
-                          Action action = MessageBox::None,
-                          QCheckBox* checkbox = nullptr);
-    static Button information(QWidget* parent,
-                              const QString& title,
-                              const QString& text,
-                              Buttons buttons = MessageBox::Ok,
-                              Button defaultButton = MessageBox::Ok,
-                              Action action = MessageBox::None,
-                              QCheckBox* checkbox = nullptr);
-    static Button question(QWidget* parent,
-                           const QString& title,
-                           const QString& text,
-                           Buttons buttons = MessageBox::Yes | MessageBox::Cancel,
-                           Button defaultButton = MessageBox::Cancel,
-                           Action action = MessageBox::None,
-                           QCheckBox* checkbox = nullptr);
+	static Button critical(QWidget *parent,
+	                       const QString &title,
+	                       const QString &text,
+	                       Buttons buttons = MessageBox::Ok,
+	                       Button defaultButton = MessageBox::Ok,
+	                       Action action = MessageBox::None,
+	                       QCheckBox *checkbox = nullptr);
+	static Button warning(QWidget *parent,
+	                      const QString &title,
+	                      const QString &text,
+	                      Buttons buttons = MessageBox::Ok,
+	                      Button defaultButton = MessageBox::Ok,
+	                      Action action = MessageBox::None,
+	                      QCheckBox *checkbox = nullptr);
+	static Button information(QWidget *parent,
+	                          const QString &title,
+	                          const QString &text,
+	                          Buttons buttons = MessageBox::Ok,
+	                          Button defaultButton = MessageBox::Ok,
+	                          Action action = MessageBox::None,
+	                          QCheckBox *checkbox = nullptr);
+	static Button question(QWidget *parent,
+	                       const QString &title,
+	                       const QString &text,
+	                       Buttons buttons = MessageBox::Yes | MessageBox::Cancel,
+	                       Button defaultButton = MessageBox::Cancel,
+	                       Action action = MessageBox::None,
+	                       QCheckBox *checkbox = nullptr);
 
-    class OverrideParent
-    {
-    public:
-        explicit OverrideParent(QWindow* newParent);
-        ~OverrideParent();
+	class OverrideParent
+	{
+	public:
+		explicit OverrideParent(QWindow *newParent);
+		~OverrideParent();
 
-    private:
-        QWindow* m_oldParent;
-    };
+	private:
+		QWindow *m_oldParent;
+	};
 
 private:
-    static QWindow* m_overrideParent;
-    static Button m_nextAnswer;
-    static QHash<QAbstractButton*, Button> m_addedButtonLookup;
-    static QMap<Button, std::pair<QString, QMessageBox::ButtonRole>> m_buttonDefs;
+	static QWindow *m_overrideParent;
+	static Button m_nextAnswer;
+	static QHash<QAbstractButton *, Button> m_addedButtonLookup;
+	static QMap<Button, std::pair<QString, QMessageBox::ButtonRole>> m_buttonDefs;
 
-    static Button messageBox(QWidget* parent,
-                             QMessageBox::Icon icon,
-                             const QString& title,
-                             const QString& text,
-                             Buttons buttons = MessageBox::Ok,
-                             Button defaultButton = MessageBox::NoButton,
-                             Action action = MessageBox::None,
-                             QCheckBox* checkbox = nullptr);
+	static Button messageBox(QWidget *parent,
+	                         QMessageBox::Icon icon,
+	                         const QString &title,
+	                         const QString &text,
+	                         Buttons buttons = MessageBox::Ok,
+	                         Button defaultButton = MessageBox::NoButton,
+	                         Action action = MessageBox::None,
+	                         QCheckBox *checkbox = nullptr);
 
-    static QString stdButtonText(QMessageBox::StandardButton button);
+	static QString stdButtonText(QMessageBox::StandardButton button);
 };
 
 #endif // KEEPASSX_MESSAGEBOX_H

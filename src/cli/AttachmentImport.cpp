@@ -24,62 +24,66 @@
 #include <QFile>
 
 const QCommandLineOption AttachmentImport::ForceOption =
-    QCommandLineOption(QStringList() << "f" << "force", QObject::tr("Overwrite existing attachments."));
+	QCommandLineOption(QStringList() << "f" << "force", QObject::tr("Overwrite existing attachments."));
 
 AttachmentImport::AttachmentImport()
 {
-    name = QString("attachment-import");
-    description = QObject::tr("Imports an attachment to an entry.");
-    options.append(AttachmentImport::ForceOption);
-    positionalArguments.append({QString("entry"), QObject::tr("Path of the entry."), QString("")});
-    positionalArguments.append(
-        {QString("attachment-name"), QObject::tr("Name of the attachment to be added."), QString("")});
-    positionalArguments.append(
-        {QString("import-file"), QObject::tr("Path of the attachment to be imported."), QString("")});
+	name = QString("attachment-import");
+	description = QObject::tr("Imports an attachment to an entry.");
+	options.append(AttachmentImport::ForceOption);
+	positionalArguments.append({QString("entry"), QObject::tr("Path of the entry."), QString("")});
+	positionalArguments.append(
+		{QString("attachment-name"), QObject::tr("Name of the attachment to be added."), QString("")});
+	positionalArguments.append(
+		{QString("import-file"), QObject::tr("Path of the attachment to be imported."), QString("")});
 }
 
 int AttachmentImport::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser> parser)
 {
-    auto& out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = parser->isSet(Command::QuietOption) ? Utils::DEVNULL : Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    auto args = parser->positionalArguments();
-    auto entryPath = args.at(1);
+	auto args = parser->positionalArguments();
+	auto entryPath = args.at(1);
 
-    auto entry = database->rootGroup()->findEntryByPath(entryPath);
-    if (!entry) {
-        err << QObject::tr("Could not find entry with path %1.").arg(entryPath) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	auto entry = database->rootGroup()->findEntryByPath(entryPath);
+	if (!entry)
+	{
+		err << QObject::tr("Could not find entry with path %1.").arg(entryPath) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    auto attachmentName = args.at(2);
+	auto attachmentName = args.at(2);
 
-    auto attachments = entry->attachments();
-    if (attachments->hasKey(attachmentName) && !parser->isSet(AttachmentImport::ForceOption)) {
-        err << QObject::tr("Attachment %1 already exists for entry %2.").arg(attachmentName, entryPath) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	auto attachments = entry->attachments();
+	if (attachments->hasKey(attachmentName) && !parser->isSet(AttachmentImport::ForceOption))
+	{
+		err << QObject::tr("Attachment %1 already exists for entry %2.").arg(attachmentName, entryPath) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    auto importFileName = args.at(3);
+	auto importFileName = args.at(3);
 
-    QFile importFile(importFileName);
-    if (!importFile.open(QIODevice::ReadOnly)) {
-        err << QObject::tr("Could not open attachment file %1.").arg(importFileName) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	QFile importFile(importFileName);
+	if (!importFile.open(QIODevice::ReadOnly))
+	{
+		err << QObject::tr("Could not open attachment file %1.").arg(importFileName) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    entry->beginUpdate();
-    attachments->set(attachmentName, importFile.readAll());
-    entry->endUpdate();
+	entry->beginUpdate();
+	attachments->set(attachmentName, importFile.readAll());
+	entry->endUpdate();
 
-    QString errorMessage;
-    if (!database->save(Database::Atomic, {}, &errorMessage)) {
-        err << QObject::tr("Writing the database failed %1.").arg(errorMessage) << Qt::endl;
-        return EXIT_FAILURE;
-    }
+	QString errorMessage;
+	if (!database->save(Database::Atomic, {}, &errorMessage))
+	{
+		err << QObject::tr("Writing the database failed %1.").arg(errorMessage) << Qt::endl;
+		return EXIT_FAILURE;
+	}
 
-    out << QObject::tr("Successfully imported attachment %1 as %2 to entry %3.")
-               .arg(importFileName, attachmentName, entryPath)
-        << Qt::endl;
-    return EXIT_SUCCESS;
+	out << QObject::tr("Successfully imported attachment %1 as %2 to entry %3.")
+			   .arg(importFileName, attachmentName, entryPath)
+		<< Qt::endl;
+	return EXIT_SUCCESS;
 }

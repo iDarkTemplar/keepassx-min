@@ -22,20 +22,20 @@
 #include <QKeyEvent>
 #include <QTableWidget>
 
-class CustomTableWidget : public QTableWidget
+class CustomTableWidget: public QTableWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    CustomTableWidget(QWidget* parent);
+	CustomTableWidget(QWidget *parent);
 
 signals:
-    void acceptSelections();
-    void focusInWithoutSelections();
+	void acceptSelections();
+	void focusInWithoutSelections();
 
 protected:
-    void keyPressEvent(QKeyEvent* event) override;
-    void focusInEvent(QFocusEvent* event) override;
+	void keyPressEvent(QKeyEvent *event) override;
+	void focusInEvent(QFocusEvent *event) override;
 };
 
 #endif // CUSTOMTABLEWIDGET_H

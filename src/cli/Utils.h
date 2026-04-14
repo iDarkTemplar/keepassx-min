@@ -28,42 +28,42 @@ class PasswordKey;
 
 namespace Utils
 {
-    extern QTextStream STDOUT;
-    extern QTextStream STDERR;
-    extern QTextStream STDIN;
-    extern QTextStream DEVNULL;
+	extern QTextStream STDOUT;
+	extern QTextStream STDERR;
+	extern QTextStream STDIN;
+	extern QTextStream DEVNULL;
 
-    static const QString UuidFieldName = "Uuid";
-    static const QString TagsFieldName = "Tags";
-    static const QStringList EntryFieldNames(QStringList() << UuidFieldName << TagsFieldName);
+	static const QString UuidFieldName = "Uuid";
+	static const QString TagsFieldName = "Tags";
+	static const QStringList EntryFieldNames(QStringList() << UuidFieldName << TagsFieldName);
 
-    void setDefaultTextStreams();
-    void resetTextStreams();
+	void setDefaultTextStreams();
+	void resetTextStreams();
 
-    void setStdinEcho(bool enable);
-    bool loadFileKey(const QString& path, QSharedPointer<FileKey>& fileKey);
-    QString getPassword(bool quiet = false);
-    QSharedPointer<PasswordKey> getConfirmedPassword();
-    int clipText(const QString& text);
-    QSharedPointer<Database> unlockDatabase(const QString& databaseFilename,
-                                            bool isPasswordProtected = true,
-                                            const QString& keyFilename = {},
-                                            const QString& yubiKeySlot = {},
-                                            bool quiet = false);
+	void setStdinEcho(bool enable);
+	bool loadFileKey(const QString &path, QSharedPointer<FileKey> &fileKey);
+	QString getPassword(bool quiet = false);
+	QSharedPointer<PasswordKey> getConfirmedPassword();
+	int clipText(const QString &text);
+	QSharedPointer<Database> unlockDatabase(const QString &databaseFilename,
+	                                        bool isPasswordProtected = true,
+	                                        const QString &keyFilename = {},
+	                                        const QString &yubiKeySlot = {},
+	                                        bool quiet = false);
 
-    QStringList splitCommandString(const QString& command);
+	QStringList splitCommandString(const QString &command);
 
-    /**
-     * If `attributes` contains an attribute named `name` (case-sensitive),
-     * returns a list containing only `name`. Otherwise, returns the list of
-     * all attribute names in `attributes` matching the given name
-     * (case-insensitive).
-     */
-    QStringList findAttributes(const EntryAttributes& attributes, const QString& name);
-    /**
-     * Get the value of a top-level Entry field using its name.
-     */
-    QString getTopLevelField(const Entry* entry, const QString& fieldName);
+	/**
+	 * If `attributes` contains an attribute named `name` (case-sensitive),
+	 * returns a list containing only `name`. Otherwise, returns the list of
+	 * all attribute names in `attributes` matching the given name
+	 * (case-insensitive).
+	 */
+	QStringList findAttributes(const EntryAttributes &attributes, const QString &name);
+	/**
+	 * Get the value of a top-level Entry field using its name.
+	 */
+	QString getTopLevelField(const Entry *entry, const QString &fieldName);
 }; // namespace Utils
 
 #endif // KEEPASSXC_UTILS_H

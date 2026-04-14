@@ -24,59 +24,59 @@
 
 namespace Ui
 {
-    class MergeDialog;
+	class MergeDialog;
 }
 
 class Database;
 
-class MergeDialog : public QDialog
+class MergeDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    /**
-     * Merge source into copy of target and display changes.
-     * On user confirmation, merge source into target.
-     */
-    explicit MergeDialog(QSharedPointer<Database> source, QSharedPointer<Database> target, QWidget* parent = nullptr);
-    /**
-     * Display given changes.
-     */
-    explicit MergeDialog(const Merger::ChangeList& changes, QWidget* parent = nullptr);
-    ~MergeDialog() override;
+	/**
+	 * Merge source into copy of target and display changes.
+	 * On user confirmation, merge source into target.
+	 */
+	explicit MergeDialog(QSharedPointer<Database> source, QSharedPointer<Database> target, QWidget *parent = nullptr);
+	/**
+	 * Display given changes.
+	 */
+	explicit MergeDialog(const Merger::ChangeList &changes, QWidget *parent = nullptr);
+	~MergeDialog() override;
 
 signals:
-    // Signal will be emitted when a normal merge operation has been performed.
-    void databaseMerged(bool databaseChanged);
+	// Signal will be emitted when a normal merge operation has been performed.
+	void databaseMerged(bool databaseChanged);
 
 private slots:
-    void performMerge();
-    void cancelMerge();
+	void performMerge();
+	void cancelMerge();
 
 private:
-    enum class MergeDialogColumns
-    {
-        Group,
-        Title,
-        Uuid,
-        Type,
-        Details
-    };
-    static QVector<MergeDialogColumns> columns();
-    static int columnIndex(MergeDialogColumns column);
-    static QString columnName(MergeDialogColumns column);
-    static QString cellValue(const Merger::Change& change, MergeDialogColumns column);
-    static bool isColumnHiddenByDefault(MergeDialogColumns column);
+	enum class MergeDialogColumns
+	{
+		Group,
+		Title,
+		Uuid,
+		Type,
+		Details
+	};
+	static QVector<MergeDialogColumns> columns();
+	static int columnIndex(MergeDialogColumns column);
+	static QString columnName(MergeDialogColumns column);
+	static QString cellValue(const Merger::Change &change, MergeDialogColumns column);
+	static bool isColumnHiddenByDefault(MergeDialogColumns column);
 
-    void setupChangeTable();
-    void updateChangeTable();
+	void setupChangeTable();
+	void updateChangeTable();
 
-    QScopedPointer<Ui::MergeDialog> m_ui;
-    QScopedPointer<QMenu> m_headerContextMenu;
+	QScopedPointer<Ui::MergeDialog> m_ui;
+	QScopedPointer<QMenu> m_headerContextMenu;
 
-    Merger::ChangeList m_changes;
-    QSharedPointer<Database> m_sourceDatabase;
-    QSharedPointer<Database> m_targetDatabase;
+	Merger::ChangeList m_changes;
+	QSharedPointer<Database> m_sourceDatabase;
+	QSharedPointer<Database> m_targetDatabase;
 };
 
 #endif // KEEPASSX_MERGEDIALOG_H

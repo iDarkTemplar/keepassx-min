@@ -19,18 +19,18 @@
 
 #include "DatabaseCommand.h"
 
-class Add : public DatabaseCommand
+class Add: public DatabaseCommand
 {
 public:
-    Add();
+	Add();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 
-    static const QCommandLineOption UsernameOption;
-    static const QCommandLineOption UrlOption;
-    static const QCommandLineOption NotesOption;
-    static const QCommandLineOption PasswordPromptOption;
-    static const QCommandLineOption GenerateOption;
+	static const QCommandLineOption UsernameOption;
+	static const QCommandLineOption UrlOption;
+	static const QCommandLineOption NotesOption;
+	static const QCommandLineOption PasswordPromptOption;
+	static const QCommandLineOption GenerateOption;
 };
 
 #endif // KEEPASSXC_ADD_H

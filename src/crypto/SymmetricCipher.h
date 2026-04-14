@@ -23,62 +23,62 @@
 
 namespace Botan
 {
-    class Cipher_Mode;
+	class Cipher_Mode;
 }
 
 class SymmetricCipher
 {
 public:
-    enum Mode
-    {
-        Aes128_CBC,
-        Aes256_CBC,
-        Aes128_CTR,
-        Aes256_CTR,
-        Twofish_CBC,
-        ChaCha20,
-        Salsa20,
-        Aes256_GCM,
-        InvalidMode = -1,
-    };
+	enum Mode
+	{
+		Aes128_CBC,
+		Aes256_CBC,
+		Aes128_CTR,
+		Aes256_CTR,
+		Twofish_CBC,
+		ChaCha20,
+		Salsa20,
+		Aes256_GCM,
+		InvalidMode = -1,
+	};
 
-    enum Direction
-    {
-        Decrypt,
-        Encrypt
-    };
+	enum Direction
+	{
+		Decrypt,
+		Encrypt
+	};
 
-    explicit SymmetricCipher() = default;
-    ~SymmetricCipher() = default;
+	explicit SymmetricCipher() = default;
+	~SymmetricCipher() = default;
 
-    bool isInitalized() const;
-    Q_REQUIRED_RESULT bool init(Mode mode, Direction direction, const QByteArray& key, const QByteArray& iv);
-    Q_REQUIRED_RESULT bool process(char* data, int len);
-    Q_REQUIRED_RESULT bool process(QByteArray& data);
-    Q_REQUIRED_RESULT bool finish(QByteArray& data);
+	bool isInitalized() const;
+	Q_REQUIRED_RESULT bool init(Mode mode, Direction direction, const QByteArray &key, const QByteArray &iv);
+	Q_REQUIRED_RESULT bool process(char *data, int len);
+	Q_REQUIRED_RESULT bool process(QByteArray &data);
+	Q_REQUIRED_RESULT bool finish(QByteArray &data);
 
-    static bool aesKdf(const QByteArray& key, int rounds, QByteArray& data);
+	static bool aesKdf(const QByteArray &key, int rounds, QByteArray &data);
 
-    void reset();
-    Mode mode();
+	void reset();
+	Mode mode();
 
-    QString errorString() const;
+	QString errorString() const;
 
-    static Mode cipherUuidToMode(const QUuid& uuid);
-    static Mode stringToMode(const QString& cipher);
-    static int defaultIvSize(Mode mode);
-    static int keySize(Mode mode);
-    static int blockSize(Mode mode);
-    static int ivSize(Mode mode);
+	static Mode cipherUuidToMode(const QUuid &uuid);
+	static Mode stringToMode(const QString &cipher);
+	static int defaultIvSize(Mode mode);
+	static int keySize(Mode mode);
+	static int blockSize(Mode mode);
+	static int ivSize(Mode mode);
 
 private:
-    static QString modeToString(const Mode mode);
+	static QString modeToString(const Mode mode);
 
-    QString m_error;
-    Mode m_mode;
-    QSharedPointer<Botan::Cipher_Mode> m_cipher;
+	QString m_error;
+	Mode m_mode;
+	QSharedPointer<Botan::Cipher_Mode> m_cipher;
 
-    Q_DISABLE_COPY(SymmetricCipher)
+	Q_DISABLE_COPY(SymmetricCipher)
 };
 
 #endif // KEEPASSX_SYMMETRICCIPHER_H

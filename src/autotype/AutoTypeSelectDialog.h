@@ -27,50 +27,50 @@ class QMenu;
 
 namespace Ui
 {
-    class AutoTypeSelectDialog;
+	class AutoTypeSelectDialog;
 }
 
-class AutoTypeSelectDialog : public QDialog
+class AutoTypeSelectDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit AutoTypeSelectDialog(QWidget* parent = nullptr);
-    ~AutoTypeSelectDialog() override;
+	explicit AutoTypeSelectDialog(QWidget *parent = nullptr);
+	~AutoTypeSelectDialog() override;
 
-    void setMatches(const QList<AutoTypeMatch>& matchList,
-                    const QList<QSharedPointer<Database>>& dbs,
-                    const AutoTypeMatch& lastMatch);
-    void setSearchString(const QString& search);
+	void setMatches(const QList<AutoTypeMatch> &matchList,
+	                const QList<QSharedPointer<Database>> &dbs,
+	                const AutoTypeMatch &lastMatch);
+	void setSearchString(const QString &search);
 
 signals:
-    void matchActivated(AutoTypeMatch match, bool virtualMode = false);
+	void matchActivated(AutoTypeMatch match, bool virtualMode = false);
 
 protected:
-    bool eventFilter(QObject* obj, QEvent* event) override;
-    void showEvent(QShowEvent* event) override;
-    void hideEvent(QHideEvent* event) override;
+	bool eventFilter(QObject *obj, QEvent *event) override;
+	void showEvent(QShowEvent *event) override;
+	void hideEvent(QHideEvent *event) override;
 
 private slots:
-    void submitAutoTypeMatch(AutoTypeMatch match);
-    void performSearch();
-    void activateCurrentMatch();
-    void updateActionMenu(const AutoTypeMatch& match);
+	void submitAutoTypeMatch(AutoTypeMatch match);
+	void performSearch();
+	void activateCurrentMatch();
+	void updateActionMenu(const AutoTypeMatch &match);
 
 private:
-    void buildActionMenu();
-    void setDelayedSearch(bool state);
+	void buildActionMenu();
+	void setDelayedSearch(bool state);
 
-    QScopedPointer<Ui::AutoTypeSelectDialog> m_ui;
+	QScopedPointer<Ui::AutoTypeSelectDialog> m_ui;
 
-    QList<QSharedPointer<Database>> m_dbs;
-    QList<AutoTypeMatch> m_matches;
-    AutoTypeMatch m_lastMatch;
-    QTimer m_searchTimer;
-    QPointer<QMenu> m_actionMenu;
+	QList<QSharedPointer<Database>> m_dbs;
+	QList<AutoTypeMatch> m_matches;
+	AutoTypeMatch m_lastMatch;
+	QTimer m_searchTimer;
+	QPointer<QMenu> m_actionMenu;
 
-    bool m_virtualMode = false;
-    bool m_accepted = false;
+	bool m_virtualMode = false;
+	bool m_accepted = false;
 };
 
 #endif // KEEPASSX_AUTOTYPESELECTDIALOG_H

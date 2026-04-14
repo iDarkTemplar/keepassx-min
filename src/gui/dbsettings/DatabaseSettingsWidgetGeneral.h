@@ -24,34 +24,34 @@
 class Database;
 namespace Ui
 {
-    class DatabaseSettingsWidgetGeneral;
+	class DatabaseSettingsWidgetGeneral;
 }
 
-class DatabaseSettingsWidgetGeneral : public DatabaseSettingsWidget
+class DatabaseSettingsWidgetGeneral: public DatabaseSettingsWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DatabaseSettingsWidgetGeneral(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(DatabaseSettingsWidgetGeneral);
-    ~DatabaseSettingsWidgetGeneral() override;
+	explicit DatabaseSettingsWidgetGeneral(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(DatabaseSettingsWidgetGeneral);
+	~DatabaseSettingsWidgetGeneral() override;
 
 public slots:
-    void initialize() override;
-    void uninitialize() override;
-    bool saveSettings() override;
+	void initialize() override;
+	void uninitialize() override;
+	bool saveSettings() override;
 
 protected:
-    void showEvent(QShowEvent* event) override;
+	void showEvent(QShowEvent *event) override;
 
 private slots:
-    void pickPublicColor();
-    void setupPublicColorButton(const QColor& color);
-    void pickPublicIcon();
-    void setupPublicIconButton(int iconIndex);
+	void pickPublicColor();
+	void setupPublicColorButton(const QColor &color);
+	void pickPublicIcon();
+	void setupPublicIconButton(int iconIndex);
 
 private:
-    const QScopedPointer<Ui::DatabaseSettingsWidgetGeneral> m_ui;
+	const QScopedPointer<Ui::DatabaseSettingsWidgetGeneral> m_ui;
 };
 
 #endif // KEEPASSXC_DATABASESETTINGSWIDGETGENERAL_H

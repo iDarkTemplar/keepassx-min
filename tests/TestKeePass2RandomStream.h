@@ -19,13 +19,13 @@
 
 #include <QObject>
 
-class TestKeePass2RandomStream : public QObject
+class TestKeePass2RandomStream: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void test();
+	void initTestCase();
+	void test();
 };
 
 #endif // KEEPASSX_TESTKEEPASS2RANDOMSTREAM_H

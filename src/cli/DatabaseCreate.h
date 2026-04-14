@@ -19,18 +19,18 @@
 
 #include "Command.h"
 
-class DatabaseCreate : public Command
+class DatabaseCreate: public Command
 {
 public:
-    DatabaseCreate();
-    int execute(const QStringList& arguments) override;
+	DatabaseCreate();
+	int execute(const QStringList &arguments) override;
 
-    static QSharedPointer<Database> initializeDatabaseFromOptions(const QSharedPointer<QCommandLineParser>& parser);
+	static QSharedPointer<Database> initializeDatabaseFromOptions(const QSharedPointer<QCommandLineParser> &parser);
 
-    static const QCommandLineOption SetKeyFileOption;
-    static const QCommandLineOption SetKeyFileShortOption;
-    static const QCommandLineOption SetPasswordOption;
-    static const QCommandLineOption DecryptionTimeOption;
+	static const QCommandLineOption SetKeyFileOption;
+	static const QCommandLineOption SetKeyFileShortOption;
+	static const QCommandLineOption SetPasswordOption;
+	static const QCommandLineOption DecryptionTimeOption;
 };
 
 #endif // KEEPASSXC_DATABASECREATE_H

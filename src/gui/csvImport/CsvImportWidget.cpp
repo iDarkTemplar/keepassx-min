@@ -32,87 +32,94 @@
 
 namespace
 {
-    // Extract group names from nested path and return the last group created
-    Group* createGroupStructure(Database* db, const QString& groupPath, const QString& rootGroupToSkip)
-    {
-        auto group = db->rootGroup();
-        if (!group || groupPath.isEmpty()) {
-            return group;
-        }
+	// Extract group names from nested path and return the last group created
+	Group *createGroupStructure(Database *db, const QString &groupPath, const QString &rootGroupToSkip)
+	{
+		auto group = db->rootGroup();
+		if (!group || groupPath.isEmpty())
+		{
+			return group;
+		}
 
-        auto nameList = groupPath.split("/", Qt::SkipEmptyParts);
+		auto nameList = groupPath.split("/", Qt::SkipEmptyParts);
 
-        // Skip the identified root group name if present
-        if (!rootGroupToSkip.isEmpty() && !nameList.isEmpty()
-            && nameList.first().compare(rootGroupToSkip, Qt::CaseInsensitive) == 0) {
-            nameList.removeFirst();
-        }
+		// Skip the identified root group name if present
+		if (!rootGroupToSkip.isEmpty() && !nameList.isEmpty()
+		    && nameList.first().compare(rootGroupToSkip, Qt::CaseInsensitive) == 0)
+		{
+			nameList.removeFirst();
+		}
 
-        for (const auto& name : qAsConst(nameList)) {
-            auto child = group->findChildByName(name);
-            if (!child) {
-                auto newGroup = new Group();
-                newGroup->setUuid(QUuid::createUuid());
-                newGroup->setName(name);
-                newGroup->setParent(group);
-                group = newGroup;
-            } else {
-                group = child;
-            }
-        }
-        return group;
-    }
+		for (const auto &name: qAsConst(nameList))
+		{
+			auto child = group->findChildByName(name);
+			if (!child)
+			{
+				auto newGroup = new Group();
+				newGroup->setUuid(QUuid::createUuid());
+				newGroup->setName(name);
+				newGroup->setParent(group);
+				group = newGroup;
+			}
+			else
+			{
+				group = child;
+			}
+		}
+		return group;
+	}
 } // namespace
 
-CsvImportWidget::CsvImportWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_ui(new Ui::CsvImportWidget())
-    , m_parserModel(new CsvParserModel(this))
-    , m_comboModel(new QStringListModel(this))
+CsvImportWidget::CsvImportWidget(QWidget *parent)
+	: QWidget(parent)
+	, m_ui(new Ui::CsvImportWidget())
+	, m_parserModel(new CsvParserModel(this))
+	, m_comboModel(new QStringListModel(this))
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    m_ui->tableViewFields->setSelectionMode(QAbstractItemView::NoSelection);
-    m_ui->tableViewFields->setFocusPolicy(Qt::NoFocus);
+	m_ui->tableViewFields->setSelectionMode(QAbstractItemView::NoSelection);
+	m_ui->tableViewFields->setFocusPolicy(Qt::NoFocus);
 
-    m_columnHeader << QObject::tr("Group") << QObject::tr("Title") << QObject::tr("Username") << QObject::tr("Password")
-                   << QObject::tr("URL") << QObject::tr("Tags") << QObject::tr("Notes") << QObject::tr("TOTP")
-                   << QObject::tr("Icon") << QObject::tr("Last Modified") << QObject::tr("Created");
+	m_columnHeader << QObject::tr("Group") << QObject::tr("Title") << QObject::tr("Username") << QObject::tr("Password")
+				   << QObject::tr("URL") << QObject::tr("Tags") << QObject::tr("Notes") << QObject::tr("TOTP")
+				   << QObject::tr("Icon") << QObject::tr("Last Modified") << QObject::tr("Created");
 
-    m_fieldSeparatorList << "," << ";" << "-" << ":" << "." << "\t";
+	m_fieldSeparatorList << "," << ";" << "-" << ":" << "." << "\t";
 
-    m_combos << m_ui->groupCombo << m_ui->titleCombo << m_ui->usernameCombo << m_ui->passwordCombo << m_ui->urlCombo
-             << m_ui->tagsCombo << m_ui->notesCombo << m_ui->totpCombo << m_ui->iconCombo << m_ui->lastModifiedCombo
-             << m_ui->createdCombo;
+	m_combos << m_ui->groupCombo << m_ui->titleCombo << m_ui->usernameCombo << m_ui->passwordCombo << m_ui->urlCombo
+			 << m_ui->tagsCombo << m_ui->notesCombo << m_ui->totpCombo << m_ui->iconCombo << m_ui->lastModifiedCombo
+			 << m_ui->createdCombo;
 
-    for (auto combo : m_combos) {
-        combo->setModel(m_comboModel);
-        connect(combo, SIGNAL(currentIndexChanged(int)), SLOT(comboChanged(int)));
-    }
+	for (auto combo: m_combos)
+	{
+		combo->setModel(m_comboModel);
+		connect(combo, SIGNAL(currentIndexChanged(int)), SLOT(comboChanged(int)));
+	}
 
-    m_parserModel->setHeaderLabels(m_columnHeader);
-    m_ui->tableViewFields->setModel(m_parserModel);
+	m_parserModel->setHeaderLabels(m_columnHeader);
+	m_ui->tableViewFields->setModel(m_parserModel);
 
-    connect(m_ui->spinBoxSkip, SIGNAL(valueChanged(int)), SLOT(skippedChanged(int)));
-    connect(m_ui->comboBoxCodec, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
-    connect(m_ui->comboBoxTextQualifier, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
-    connect(m_ui->comboBoxComment, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
-    connect(m_ui->comboBoxFieldSeparator, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
-    connect(m_ui->checkBoxBackslash, SIGNAL(toggled(bool)), SLOT(parse()));
-    connect(m_ui->checkBoxFieldNames, SIGNAL(toggled(bool)), SLOT(updatePreview()));
+	connect(m_ui->spinBoxSkip, SIGNAL(valueChanged(int)), SLOT(skippedChanged(int)));
+	connect(m_ui->comboBoxCodec, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
+	connect(m_ui->comboBoxTextQualifier, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
+	connect(m_ui->comboBoxComment, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
+	connect(m_ui->comboBoxFieldSeparator, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
+	connect(m_ui->checkBoxBackslash, SIGNAL(toggled(bool)), SLOT(parse()));
+	connect(m_ui->checkBoxFieldNames, SIGNAL(toggled(bool)), SLOT(updatePreview()));
 }
 
 void CsvImportWidget::comboChanged(int index)
 {
-    // this line is the one that actually updates GUI table
-    m_parserModel->mapColumns(index - 1, m_combos.indexOf(qobject_cast<QComboBox*>(sender())));
-    updateTableview();
+	// this line is the one that actually updates GUI table
+	m_parserModel->mapColumns(index - 1, m_combos.indexOf(qobject_cast<QComboBox *>(sender())));
+	updateTableview();
 }
 
 void CsvImportWidget::skippedChanged(int rows)
 {
-    m_parserModel->setSkippedRows(rows);
-    updateTableview();
+	m_parserModel->setSkippedRows(rows);
+	updateTableview();
 }
 
 CsvImportWidget::~CsvImportWidget()
@@ -121,233 +128,273 @@ CsvImportWidget::~CsvImportWidget()
 
 void CsvImportWidget::configParser()
 {
-    auto parser = m_parserModel->parser();
-    parser->setBackslashSyntax(m_ui->checkBoxBackslash->isChecked());
-    parser->setComment(m_ui->comboBoxComment->currentText().at(0));
-    parser->setTextQualifier(m_ui->comboBoxTextQualifier->currentText().at(0));
-    parser->setCodec(m_ui->comboBoxCodec->currentText());
-    parser->setFieldSeparator(m_fieldSeparatorList.at(m_ui->comboBoxFieldSeparator->currentIndex()).at(0));
+	auto parser = m_parserModel->parser();
+	parser->setBackslashSyntax(m_ui->checkBoxBackslash->isChecked());
+	parser->setComment(m_ui->comboBoxComment->currentText().at(0));
+	parser->setTextQualifier(m_ui->comboBoxTextQualifier->currentText().at(0));
+	parser->setCodec(m_ui->comboBoxCodec->currentText());
+	parser->setFieldSeparator(m_fieldSeparatorList.at(m_ui->comboBoxFieldSeparator->currentIndex()).at(0));
 }
 
 void CsvImportWidget::updateTableview()
 {
-    if (!m_buildingPreview) {
-        m_ui->tableViewFields->resizeRowsToContents();
-        m_ui->tableViewFields->resizeColumnsToContents();
+	if (!m_buildingPreview)
+	{
+		m_ui->tableViewFields->resizeRowsToContents();
+		m_ui->tableViewFields->resizeColumnsToContents();
 
-        for (int c = 0; c < m_ui->tableViewFields->horizontalHeader()->count(); ++c) {
-            m_ui->tableViewFields->horizontalHeader()->setSectionResizeMode(c, QHeaderView::Stretch);
-        }
-    }
+		for (int c = 0; c < m_ui->tableViewFields->horizontalHeader()->count(); ++c)
+		{
+			m_ui->tableViewFields->horizontalHeader()->setSectionResizeMode(c, QHeaderView::Stretch);
+		}
+	}
 }
 
 void CsvImportWidget::updatePreview()
 {
-    m_buildingPreview = true;
+	m_buildingPreview = true;
 
-    int minSkip = m_ui->checkBoxFieldNames->isChecked() ? 1 : 0;
-    m_ui->labelSizeRowsCols->setText(m_parserModel->getFileInfo());
-    m_ui->spinBoxSkip->setRange(minSkip, qMax(minSkip, m_parserModel->rowCount() - 1));
-    m_ui->spinBoxSkip->setValue(minSkip);
+	int minSkip = m_ui->checkBoxFieldNames->isChecked() ? 1 : 0;
+	m_ui->labelSizeRowsCols->setText(m_parserModel->getFileInfo());
+	m_ui->spinBoxSkip->setRange(minSkip, qMax(minSkip, m_parserModel->rowCount() - 1));
+	m_ui->spinBoxSkip->setValue(minSkip);
 
-    // Store the previous column information for comparison later
-    auto prevColumns = m_comboModel->stringList();
-    QList<int> prevComboIndexes;
-    for (auto combo : m_combos) {
-        prevComboIndexes << combo->currentIndex();
-    }
+	// Store the previous column information for comparison later
+	auto prevColumns = m_comboModel->stringList();
+	QList<int> prevComboIndexes;
+	for (auto combo: m_combos)
+	{
+		prevComboIndexes << combo->currentIndex();
+	}
 
-    QStringList csvColumns(tr("Not Present"));
-    auto parser = m_parserModel->parser();
-    for (int i = 0; i < parser->getCsvCols(); ++i) {
-        if (m_ui->checkBoxFieldNames->isChecked()) {
-            auto columnName = parser->getCsvTable().at(0).at(i);
-            if (columnName.isEmpty()) {
-                csvColumns << QString(tr("Column %1").arg(i));
-            } else {
-                csvColumns << columnName;
-            }
-        } else {
-            csvColumns << QString(tr("Column %1").arg(i));
-        }
-    }
-    // Before setting new columns, see if they changed
-    bool newColumns = prevColumns != csvColumns;
-    m_comboModel->setStringList(csvColumns);
+	QStringList csvColumns(tr("Not Present"));
+	auto parser = m_parserModel->parser();
+	for (int i = 0; i < parser->getCsvCols(); ++i)
+	{
+		if (m_ui->checkBoxFieldNames->isChecked())
+		{
+			auto columnName = parser->getCsvTable().at(0).at(i);
+			if (columnName.isEmpty())
+			{
+				csvColumns << QString(tr("Column %1").arg(i));
+			}
+			else
+			{
+				csvColumns << columnName;
+			}
+		}
+		else
+		{
+			csvColumns << QString(tr("Column %1").arg(i));
+		}
+	}
+	// Before setting new columns, see if they changed
+	bool newColumns = prevColumns != csvColumns;
+	m_comboModel->setStringList(csvColumns);
 
-    // Try to match named columns to the combo boxes
-    for (int i = 0; i < m_columnHeader.size(); ++i) {
-        if (i >= m_combos.size()) {
-            // This should not happen, it is a programming error otherwise
-            Q_ASSERT(false);
-            break;
-        }
+	// Try to match named columns to the combo boxes
+	for (int i = 0; i < m_columnHeader.size(); ++i)
+	{
+		if (i >= m_combos.size())
+		{
+			// This should not happen, it is a programming error otherwise
+			Q_ASSERT(false);
+			break;
+		}
 
-        bool found = false;
-        for (int j = 0; j < csvColumns.size(); ++j) {
-            if (m_columnHeader.at(i).compare(csvColumns.at(j), Qt::CaseInsensitive) == 0) {
-                m_combos.at(i)->setCurrentIndex(j);
-                found = true;
-                break;
-            }
-        }
-        // Named column not found, default to "Not Present" or previous index
-        if (!found) {
-            auto idx = newColumns ? 0 : prevComboIndexes.at(i);
-            m_combos.at(i)->setCurrentIndex(idx);
-        }
-    }
+		bool found = false;
+		for (int j = 0; j < csvColumns.size(); ++j)
+		{
+			if (m_columnHeader.at(i).compare(csvColumns.at(j), Qt::CaseInsensitive) == 0)
+			{
+				m_combos.at(i)->setCurrentIndex(j);
+				found = true;
+				break;
+			}
+		}
+		// Named column not found, default to "Not Present" or previous index
+		if (!found)
+		{
+			auto idx = newColumns ? 0 : prevComboIndexes.at(i);
+			m_combos.at(i)->setCurrentIndex(idx);
+		}
+	}
 
-    m_buildingPreview = false;
-    updateTableview();
+	m_buildingPreview = false;
+	updateTableview();
 }
 
-void CsvImportWidget::load(const QString& filename)
+void CsvImportWidget::load(const QString &filename)
 {
-    m_filename = filename;
-    m_parserModel->setFilename(filename);
-    parse();
+	m_filename = filename;
+	m_parserModel->setFilename(filename);
+	parse();
 }
 
 void CsvImportWidget::parse()
 {
-    // Hide any previous messages
-    emit message("");
+	// Hide any previous messages
+	emit message("");
 
-    QApplication::setOverrideCursor(Qt::WaitCursor);
-    QApplication::processEvents();
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+	QApplication::processEvents();
 
-    configParser();
-    if (!m_parserModel->parse()) {
-        emit message(tr("Failed to parse CSV file: %1").arg(formatStatusText()));
-    }
-    updatePreview();
+	configParser();
+	if (!m_parserModel->parse())
+	{
+		emit message(tr("Failed to parse CSV file: %1").arg(formatStatusText()));
+	}
+	updatePreview();
 
-    QApplication::restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 }
 
 QSharedPointer<Database> CsvImportWidget::buildDatabase()
 {
-    // Warn if the title column wasn't specified
-    if (m_combos[1]->currentIndex() == 0) {
-        auto ans = MessageBox::question(
-            this,
-            tr("No Title Selected"),
-            tr("No title column was selected, entries will be hard to tell apart.\nAre you sure you want to import?"),
-            MessageBox::Continue | MessageBox::Cancel);
-        if (ans == MessageBox::Cancel) {
-            return {};
-        }
-    }
+	// Warn if the title column wasn't specified
+	if (m_combos[1]->currentIndex() == 0)
+	{
+		auto ans = MessageBox::question(
+			this,
+			tr("No Title Selected"),
+			tr("No title column was selected, entries will be hard to tell apart.\nAre you sure you want to import?"),
+			MessageBox::Continue | MessageBox::Cancel);
+		if (ans == MessageBox::Cancel)
+		{
+			return {};
+		}
+	}
 
-    auto db = QSharedPointer<Database>::create();
-    db->rootGroup()->setNotes(tr("Imported from CSV file: %1").arg(m_filename));
+	auto db = QSharedPointer<Database>::create();
+	db->rootGroup()->setNotes(tr("Imported from CSV file: %1").arg(m_filename));
 
-    auto rows = m_parserModel->rowCount() - m_parserModel->skippedRows();
+	auto rows = m_parserModel->rowCount() - m_parserModel->skippedRows();
 
-    // Check for common root group
-    QString rootGroupName;
-    for (int r = 0; r < rows; ++r) {
-        auto groupPath = m_parserModel->data(m_parserModel->index(r, 0)).toString();
-        auto groupName = groupPath.mid(0, groupPath.indexOf('/'));
-        if (!rootGroupName.isNull() && rootGroupName != groupName) {
-            rootGroupName.clear();
-            break;
-        }
-        rootGroupName = groupName;
-    }
+	// Check for common root group
+	QString rootGroupName;
+	for (int r = 0; r < rows; ++r)
+	{
+		auto groupPath = m_parserModel->data(m_parserModel->index(r, 0)).toString();
+		auto groupName = groupPath.mid(0, groupPath.indexOf('/'));
+		if (!rootGroupName.isNull() && rootGroupName != groupName)
+		{
+			rootGroupName.clear();
+			break;
+		}
+		rootGroupName = groupName;
+	}
 
-    if (!rootGroupName.isEmpty()) {
-        db->rootGroup()->setName(rootGroupName);
-    }
+	if (!rootGroupName.isEmpty())
+	{
+		db->rootGroup()->setName(rootGroupName);
+	}
 
-    for (int r = 0; r < rows; ++r) {
-        auto group =
-            createGroupStructure(db.data(), m_parserModel->data(m_parserModel->index(r, 0)).toString(), rootGroupName);
-        if (!group) {
-            continue;
-        }
+	for (int r = 0; r < rows; ++r)
+	{
+		auto group =
+			createGroupStructure(db.data(), m_parserModel->data(m_parserModel->index(r, 0)).toString(), rootGroupName);
+		if (!group)
+		{
+			continue;
+		}
 
-        // Standard entry fields
-        auto entry = new Entry();
-        entry->setUuid(QUuid::createUuid());
-        entry->setGroup(group);
-        entry->setTitle(m_parserModel->data(m_parserModel->index(r, 1)).toString());
-        entry->setUsername(m_parserModel->data(m_parserModel->index(r, 2)).toString());
-        entry->setPassword(m_parserModel->data(m_parserModel->index(r, 3)).toString());
-        entry->setUrl(m_parserModel->data(m_parserModel->index(r, 4)).toString());
-        entry->setTags(m_parserModel->data(m_parserModel->index(r, 5)).toString());
-        entry->setNotes(m_parserModel->data(m_parserModel->index(r, 6)).toString());
+		// Standard entry fields
+		auto entry = new Entry();
+		entry->setUuid(QUuid::createUuid());
+		entry->setGroup(group);
+		entry->setTitle(m_parserModel->data(m_parserModel->index(r, 1)).toString());
+		entry->setUsername(m_parserModel->data(m_parserModel->index(r, 2)).toString());
+		entry->setPassword(m_parserModel->data(m_parserModel->index(r, 3)).toString());
+		entry->setUrl(m_parserModel->data(m_parserModel->index(r, 4)).toString());
+		entry->setTags(m_parserModel->data(m_parserModel->index(r, 5)).toString());
+		entry->setNotes(m_parserModel->data(m_parserModel->index(r, 6)).toString());
 
-        // TOTP
-        auto otpString = m_parserModel->data(m_parserModel->index(r, 7));
-        if (otpString.isValid() && !otpString.toString().isEmpty()) {
-            auto totp = Totp::parseSettings(otpString.toString());
-            if (!totp || totp->key.isEmpty()) {
-                // Bare secret, use default TOTP settings
-                totp = Totp::parseSettings({}, otpString.toString());
-            }
-            entry->setTotp(totp);
-        }
+		// TOTP
+		auto otpString = m_parserModel->data(m_parserModel->index(r, 7));
+		if (otpString.isValid() && !otpString.toString().isEmpty())
+		{
+			auto totp = Totp::parseSettings(otpString.toString());
+			if (!totp || totp->key.isEmpty())
+			{
+				// Bare secret, use default TOTP settings
+				totp = Totp::parseSettings({}, otpString.toString());
+			}
+			entry->setTotp(totp);
+		}
 
-        // Icon
-        bool ok;
-        int icon = m_parserModel->data(m_parserModel->index(r, 8)).toInt(&ok);
-        if (ok) {
-            entry->setIcon(icon);
-        }
+		// Icon
+		bool ok;
+		int icon = m_parserModel->data(m_parserModel->index(r, 8)).toInt(&ok);
+		if (ok)
+		{
+			entry->setIcon(icon);
+		}
 
-        // Modified Time
-        TimeInfo timeInfo;
-        if (m_parserModel->data(m_parserModel->index(r, 9)).isValid()) {
-            auto datetime = m_parserModel->data(m_parserModel->index(r, 9)).toString();
-            if (datetime.contains(QRegularExpression("^\\d+$"))) {
-                auto t = datetime.toLongLong();
-                if (t <= INT32_MAX) {
-                    t *= 1000;
-                }
-                auto lastModified = Clock::datetimeUtc(t);
-                timeInfo.setLastModificationTime(lastModified);
-                timeInfo.setLastAccessTime(lastModified);
-            } else {
-                auto lastModified = QDateTime::fromString(datetime, Qt::ISODate);
-                if (lastModified.isValid()) {
-                    timeInfo.setLastModificationTime(lastModified);
-                    timeInfo.setLastAccessTime(lastModified);
-                }
-            }
-        }
-        // Creation Time
-        if (m_parserModel->data(m_parserModel->index(r, 10)).isValid()) {
-            auto datetime = m_parserModel->data(m_parserModel->index(r, 10)).toString();
-            if (datetime.contains(QRegularExpression("^\\d+$"))) {
-                auto t = datetime.toLongLong();
-                if (t <= INT32_MAX) {
-                    t *= 1000;
-                }
-                timeInfo.setCreationTime(Clock::datetimeUtc(t));
-            } else {
-                auto created = QDateTime::fromString(datetime, Qt::ISODate);
-                if (created.isValid()) {
-                    timeInfo.setCreationTime(created);
-                }
-            }
-        }
-        entry->setTimeInfo(timeInfo);
-    }
+		// Modified Time
+		TimeInfo timeInfo;
+		if (m_parserModel->data(m_parserModel->index(r, 9)).isValid())
+		{
+			auto datetime = m_parserModel->data(m_parserModel->index(r, 9)).toString();
+			if (datetime.contains(QRegularExpression("^\\d+$")))
+			{
+				auto t = datetime.toLongLong();
+				if (t <= INT32_MAX)
+				{
+					t *= 1000;
+				}
+				auto lastModified = Clock::datetimeUtc(t);
+				timeInfo.setLastModificationTime(lastModified);
+				timeInfo.setLastAccessTime(lastModified);
+			}
+			else
+			{
+				auto lastModified = QDateTime::fromString(datetime, Qt::ISODate);
+				if (lastModified.isValid())
+				{
+					timeInfo.setLastModificationTime(lastModified);
+					timeInfo.setLastAccessTime(lastModified);
+				}
+			}
+		}
+		// Creation Time
+		if (m_parserModel->data(m_parserModel->index(r, 10)).isValid())
+		{
+			auto datetime = m_parserModel->data(m_parserModel->index(r, 10)).toString();
+			if (datetime.contains(QRegularExpression("^\\d+$")))
+			{
+				auto t = datetime.toLongLong();
+				if (t <= INT32_MAX)
+				{
+					t *= 1000;
+				}
+				timeInfo.setCreationTime(Clock::datetimeUtc(t));
+			}
+			else
+			{
+				auto created = QDateTime::fromString(datetime, Qt::ISODate);
+				if (created.isValid())
+				{
+					timeInfo.setCreationTime(created);
+				}
+			}
+		}
+		entry->setTimeInfo(timeInfo);
+	}
 
-    return db;
+	return db;
 }
 
 QString CsvImportWidget::formatStatusText() const
 {
-    QString text = m_parserModel->parser()->getStatus();
-    int items = text.count('\n');
-    if (items > 2) {
-        return text.section('\n', 0, 1).append("\n").append(tr("[%n more message(s) skipped]", "", items - 2));
-    }
-    if (items == 1) {
-        text.append(QString("\n"));
-    }
-    return text;
+	QString text = m_parserModel->parser()->getStatus();
+	int items = text.count('\n');
+	if (items > 2)
+	{
+		return text.section('\n', 0, 1).append("\n").append(tr("[%n more message(s) skipped]", "", items - 2));
+	}
+	if (items == 1)
+	{
+		text.append(QString("\n"));
+	}
+	return text;
 }

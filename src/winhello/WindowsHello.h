@@ -20,38 +20,38 @@
 #include <QHash>
 #include <QObject>
 
-class WindowsHello : public QObject
+class WindowsHello: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    static WindowsHello* instance();
-    bool isAvailable() const;
-    QString errorString() const;
-    void reset();
+	static WindowsHello *instance();
+	bool isAvailable() const;
+	QString errorString() const;
+	void reset();
 
-    bool storeKey(const QString& dbPath, const QByteArray& key);
-    bool getKey(const QString& dbPath, QByteArray& key);
-    bool hasKey(const QString& dbPath) const;
-    void reset(const QString& dbPath);
+	bool storeKey(const QString &dbPath, const QByteArray &key);
+	bool getKey(const QString &dbPath, QByteArray &key);
+	bool hasKey(const QString &dbPath) const;
+	void reset(const QString &dbPath);
 
 signals:
-    void availableChanged(bool state);
+	void availableChanged(bool state);
 
 private:
-    bool m_available = false;
-    QString m_error;
-    QHash<QString, QByteArray> m_encryptedKeys;
+	bool m_available = false;
+	QString m_error;
+	QHash<QString, QByteArray> m_encryptedKeys;
 
-    static WindowsHello* m_instance;
-    WindowsHello(QObject* parent = nullptr);
-    ~WindowsHello() override = default;
-    Q_DISABLE_COPY(WindowsHello);
+	static WindowsHello *m_instance;
+	WindowsHello(QObject *parent = nullptr);
+	~WindowsHello() override = default;
+	Q_DISABLE_COPY(WindowsHello);
 };
 
-inline WindowsHello* getWindowsHello()
+inline WindowsHello *getWindowsHello()
 {
-    return WindowsHello::instance();
+	return WindowsHello::instance();
 }
 
 #endif // KEEPASSXC_WINDOWSHELLO_H

@@ -31,91 +31,98 @@
 #include <sys/socket.h>
 #endif
 
-BrowserHost::BrowserHost(QObject* parent)
-    : QObject(parent)
+BrowserHost::BrowserHost(QObject *parent)
+	: QObject(parent)
 {
-    m_localServer = new QLocalServer(this);
-    m_localServer->setSocketOptions(QLocalServer::UserAccessOption);
-    connect(m_localServer.data(), SIGNAL(newConnection()), this, SLOT(proxyConnected()));
+	m_localServer = new QLocalServer(this);
+	m_localServer->setSocketOptions(QLocalServer::UserAccessOption);
+	connect(m_localServer.data(), SIGNAL(newConnection()), this, SLOT(proxyConnected()));
 }
 
 BrowserHost::~BrowserHost()
 {
-    stop();
+	stop();
 }
 
 void BrowserHost::start()
 {
-    if (!m_localServer->isListening()) {
-        m_localServer->listen(BrowserShared::localServerPath());
-    }
+	if (!m_localServer->isListening())
+	{
+		m_localServer->listen(BrowserShared::localServerPath());
+	}
 }
 
 void BrowserHost::stop()
 {
-    m_socketList.clear();
-    m_localServer->close();
+	m_socketList.clear();
+	m_localServer->close();
 }
 
 void BrowserHost::proxyConnected()
 {
-    auto socket = m_localServer->nextPendingConnection();
-    if (socket) {
-        m_socketList.append(socket);
-        connect(socket, SIGNAL(readyRead()), this, SLOT(readProxyMessage()));
-        connect(socket, SIGNAL(disconnected()), this, SLOT(proxyDisconnected()));
-    }
+	auto socket = m_localServer->nextPendingConnection();
+	if (socket)
+	{
+		m_socketList.append(socket);
+		connect(socket, SIGNAL(readyRead()), this, SLOT(readProxyMessage()));
+		connect(socket, SIGNAL(disconnected()), this, SLOT(proxyDisconnected()));
+	}
 }
 
 void BrowserHost::readProxyMessage()
 {
-    QLocalSocket* socket = qobject_cast<QLocalSocket*>(QObject::sender());
-    if (!socket || socket->bytesAvailable() <= 0) {
-        return;
-    }
+	QLocalSocket *socket = qobject_cast<QLocalSocket *>(QObject::sender());
+	if (!socket || socket->bytesAvailable() <= 0)
+	{
+		return;
+	}
 
-    socket->setReadBufferSize(BrowserShared::NATIVEMSG_MAX_LENGTH);
-    int socketDesc = socket->socketDescriptor();
-    if (socketDesc) {
-        int max = BrowserShared::NATIVEMSG_MAX_LENGTH;
-        setsockopt(socketDesc, SOL_SOCKET, SO_SNDBUF, reinterpret_cast<char*>(&max), sizeof(max));
-    }
+	socket->setReadBufferSize(BrowserShared::NATIVEMSG_MAX_LENGTH);
+	int socketDesc = socket->socketDescriptor();
+	if (socketDesc)
+	{
+		int max = BrowserShared::NATIVEMSG_MAX_LENGTH;
+		setsockopt(socketDesc, SOL_SOCKET, SO_SNDBUF, reinterpret_cast<char *>(&max), sizeof(max));
+	}
 
-    QJsonParseError error;
-    auto json = QJsonDocument::fromJson(socket->readAll(), &error);
-    if (json.isNull()) {
-        qWarning() << "Failed to read proxy message: " << error.errorString();
-        return;
-    }
+	QJsonParseError error;
+	auto json = QJsonDocument::fromJson(socket->readAll(), &error);
+	if (json.isNull())
+	{
+		qWarning() << "Failed to read proxy message: " << error.errorString();
+		return;
+	}
 
-    emit clientMessageReceived(socket, json.object());
+	emit clientMessageReceived(socket, json.object());
 }
 
-void BrowserHost::broadcastClientMessage(const QJsonObject& json)
+void BrowserHost::broadcastClientMessage(const QJsonObject &json)
 {
-    QString reply(QJsonDocument(json).toJson(QJsonDocument::Compact));
-    for (const auto socket : m_socketList) {
-        sendClientData(socket, reply);
-    }
+	QString reply(QJsonDocument(json).toJson(QJsonDocument::Compact));
+	for (const auto socket: m_socketList)
+	{
+		sendClientData(socket, reply);
+	}
 }
 
-void BrowserHost::sendClientMessage(QLocalSocket* socket, const QJsonObject& json)
+void BrowserHost::sendClientMessage(QLocalSocket *socket, const QJsonObject &json)
 {
-    QString reply(QJsonDocument(json).toJson(QJsonDocument::Compact));
-    sendClientData(socket, reply);
+	QString reply(QJsonDocument(json).toJson(QJsonDocument::Compact));
+	sendClientData(socket, reply);
 }
 
-void BrowserHost::sendClientData(QLocalSocket* socket, const QString& data)
+void BrowserHost::sendClientData(QLocalSocket *socket, const QString &data)
 {
-    if (socket && socket->isValid() && socket->state() == QLocalSocket::ConnectedState) {
-        QByteArray arr = data.toUtf8();
-        socket->write(arr.constData(), arr.length());
-        socket->flush();
-    }
+	if (socket && socket->isValid() && socket->state() == QLocalSocket::ConnectedState)
+	{
+		QByteArray arr = data.toUtf8();
+		socket->write(arr.constData(), arr.length());
+		socket->flush();
+	}
 }
 
 void BrowserHost::proxyDisconnected()
 {
-    auto socket = qobject_cast<QLocalSocket*>(QObject::sender());
-    m_socketList.removeOne(socket);
+	auto socket = qobject_cast<QLocalSocket *>(QObject::sender());
+	m_socketList.removeOne(socket);
 }

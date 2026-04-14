@@ -21,18 +21,18 @@
 
 class ReportsWidgetHealthcheck;
 
-class ReportsPageHealthcheck : public IReportsPage
+class ReportsPageHealthcheck: public IReportsPage
 {
 public:
-    ReportsWidgetHealthcheck* m_healthWidget;
+	ReportsWidgetHealthcheck *m_healthWidget;
 
-    ReportsPageHealthcheck();
+	ReportsPageHealthcheck();
 
-    QString name() override;
-    QIcon icon() override;
-    QWidget* createWidget() override;
-    void loadSettings(QWidget* widget, QSharedPointer<Database> db) override;
-    void saveSettings(QWidget* widget) override;
+	QString name() override;
+	QIcon icon() override;
+	QWidget *createWidget() override;
+	void loadSettings(QWidget *widget, QSharedPointer<Database> db) override;
+	void saveSettings(QWidget *widget) override;
 };
 
 #endif // KEEPASSXC_REPORTSPAGEHEALTHCHECK_H

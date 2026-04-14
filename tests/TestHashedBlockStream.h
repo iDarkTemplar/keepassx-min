@@ -19,15 +19,15 @@
 
 #include <QObject>
 
-class TestHashedBlockStream : public QObject
+class TestHashedBlockStream: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testWriteRead();
-    void testReset();
-    void testWriteFailure();
+	void initTestCase();
+	void testWriteRead();
+	void testReset();
+	void testWriteFailure();
 };
 
 #endif // KEEPASSX_TESTHASHEDBLOCKSTREAM_H

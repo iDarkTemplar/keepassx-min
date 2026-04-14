@@ -23,36 +23,36 @@
 #include <QUrl>
 #include <QVariant>
 
-class UrlTools : public QObject
+class UrlTools: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit UrlTools() = default;
-    static UrlTools* instance();
+	explicit UrlTools() = default;
+	static UrlTools *instance();
 
 #if defined(WITH_XC_NETWORKING) || defined(WITH_XC_BROWSER)
-    QUrl getRedirectTarget(QNetworkReply* reply) const;
-    QString getBaseDomainFromUrl(const QString& url) const;
-    QString getTopLevelDomainFromUrl(const QString& url) const;
-    bool isIpAddress(const QString& host) const;
+	QUrl getRedirectTarget(QNetworkReply *reply) const;
+	QString getBaseDomainFromUrl(const QString &url) const;
+	QString getTopLevelDomainFromUrl(const QString &url) const;
+	bool isIpAddress(const QString &host) const;
 #endif
-    bool isUrlIdentical(const QString& first, const QString& second) const;
-    bool isUrlValid(const QString& urlField, bool looseComparison = false) const;
-    bool domainHasIllegalCharacters(const QString& domain) const;
+	bool isUrlIdentical(const QString &first, const QString &second) const;
+	bool isUrlValid(const QString &urlField, bool looseComparison = false) const;
+	bool domainHasIllegalCharacters(const QString &domain) const;
 
-    static const QString URL_WILDCARD;
-
-private:
-    QUrl convertVariantToUrl(const QVariant& var) const;
+	static const QString URL_WILDCARD;
 
 private:
-    Q_DISABLE_COPY(UrlTools);
+	QUrl convertVariantToUrl(const QVariant &var) const;
+
+private:
+	Q_DISABLE_COPY(UrlTools);
 };
 
-static inline UrlTools* urlTools()
+static inline UrlTools *urlTools()
 {
-    return UrlTools::instance();
+	return UrlTools::instance();
 }
 
 #endif // KEEPASSXC_URLTOOLS_H

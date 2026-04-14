@@ -23,7 +23,7 @@
 
 class QChar;
 
-KeySym qcharToNativeKeyCode(const QChar& ch);
+KeySym qcharToNativeKeyCode(const QChar &ch);
 KeySym qtToNativeKeyCode(Qt::Key key);
 uint qtToNativeModifiers(Qt::KeyboardModifiers modifiers);
 

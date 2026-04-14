@@ -21,18 +21,18 @@
 #include <QObject>
 #include <QScopedPointer>
 
-class TestEditEntryAttachmentsDialog : public QObject
+class TestEditEntryAttachmentsDialog: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
+	void initTestCase();
 
-    void testSetAttachment();
-    void testSetAttachmentTwice();
+	void testSetAttachment();
+	void testSetAttachmentTwice();
 
-    void testBottonsBox();
+	void testBottonsBox();
 
 private:
-    QScopedPointer<EditEntryAttachmentsDialog> m_editDialog{};
+	QScopedPointer<EditEntryAttachmentsDialog> m_editDialog{};
 };

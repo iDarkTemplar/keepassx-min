@@ -16,15 +16,15 @@
 
 #include "Exit.h"
 
-Exit::Exit(const QString& name)
+Exit::Exit(const QString &name)
 {
-    this->name = name;
-    description = QObject::tr("Exit interactive mode.");
+	this->name = name;
+	description = QObject::tr("Exit interactive mode.");
 }
 
-int Exit::execute(const QStringList& arguments)
+int Exit::execute(const QStringList &arguments)
 {
-    Q_UNUSED(arguments)
-    // A placeholder only, behavior is implemented in keepassxc-cli.cpp.
-    return EXIT_SUCCESS;
+	Q_UNUSED(arguments)
+	// A placeholder only, behavior is implemented in keepassxc-cli.cpp.
+	return EXIT_SUCCESS;
 }

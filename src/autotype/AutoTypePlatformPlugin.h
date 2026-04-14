@@ -24,26 +24,26 @@
 class AutoTypePlatformInterface
 {
 public:
-    virtual ~AutoTypePlatformInterface()
-    {
-    }
-    virtual bool isAvailable() = 0;
-    virtual QStringList windowTitles() = 0;
-    virtual WId activeWindow() = 0;
-    virtual QString activeWindowTitle() = 0;
-    virtual bool raiseWindow(WId window) = 0;
-    virtual void unload()
-    {
-    }
+	virtual ~AutoTypePlatformInterface()
+	{
+	}
+	virtual bool isAvailable() = 0;
+	virtual QStringList windowTitles() = 0;
+	virtual WId activeWindow() = 0;
+	virtual QString activeWindowTitle() = 0;
+	virtual bool raiseWindow(WId window) = 0;
+	virtual void unload()
+	{
+	}
 
-    virtual AutoTypeExecutor* createExecutor() = 0;
+	virtual AutoTypeExecutor *createExecutor() = 0;
 
 #if defined(Q_OS_MACOS)
-    virtual bool hideOwnWindow() = 0;
-    virtual bool raiseOwnWindow() = 0;
+	virtual bool hideOwnWindow() = 0;
+	virtual bool raiseOwnWindow() = 0;
 #endif
 
-    // implementations should also provide a globalShortcutTriggered() signal
+	// implementations should also provide a globalShortcutTriggered() signal
 };
 
 Q_DECLARE_INTERFACE(AutoTypePlatformInterface, "org.keepassx.AutoTypePlatformInterface/1")

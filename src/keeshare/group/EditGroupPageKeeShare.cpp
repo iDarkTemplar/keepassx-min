@@ -19,34 +19,34 @@
 #include "gui/Icons.h"
 #include "keeshare/group/EditGroupWidgetKeeShare.h"
 
-EditGroupPageKeeShare::EditGroupPageKeeShare(EditGroupWidget* widget)
+EditGroupPageKeeShare::EditGroupPageKeeShare(EditGroupWidget *widget)
 {
-    Q_UNUSED(widget);
+	Q_UNUSED(widget);
 }
 
 QString EditGroupPageKeeShare::name()
 {
-    return "KeeShare";
+	return "KeeShare";
 }
 
 QIcon EditGroupPageKeeShare::icon()
 {
-    return icons()->icon("preferences-system-network-sharing");
+	return icons()->icon("preferences-system-network-sharing");
 }
 
-QWidget* EditGroupPageKeeShare::createWidget()
+QWidget *EditGroupPageKeeShare::createWidget()
 {
-    return new EditGroupWidgetKeeShare();
+	return new EditGroupWidgetKeeShare();
 }
 
-void EditGroupPageKeeShare::set(QWidget* widget, Group* temporaryGroup, QSharedPointer<Database> database)
+void EditGroupPageKeeShare::set(QWidget *widget, Group *temporaryGroup, QSharedPointer<Database> database)
 {
-    EditGroupWidgetKeeShare* settingsWidget = reinterpret_cast<EditGroupWidgetKeeShare*>(widget);
-    settingsWidget->setGroup(temporaryGroup, database);
+	EditGroupWidgetKeeShare *settingsWidget = reinterpret_cast<EditGroupWidgetKeeShare *>(widget);
+	settingsWidget->setGroup(temporaryGroup, database);
 }
 
-void EditGroupPageKeeShare::assign(QWidget* widget)
+void EditGroupPageKeeShare::assign(QWidget *widget)
 {
-    Q_UNUSED(widget);
-    // everything is saved directly
+	Q_UNUSED(widget);
+	// everything is saved directly
 }

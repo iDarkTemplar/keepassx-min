@@ -22,28 +22,29 @@
 #include <QJsonObject>
 #include <QObject>
 
-class BrowserPasskeysClient : public QObject
+class BrowserPasskeysClient: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit BrowserPasskeysClient() = default;
-    ~BrowserPasskeysClient() = default;
-    static BrowserPasskeysClient* instance();
+	explicit BrowserPasskeysClient() = default;
+	~BrowserPasskeysClient() = default;
+	static BrowserPasskeysClient *instance();
 
-    int
-    getCredentialCreationOptions(const QJsonObject& publicKeyOptions, const QString& origin, QJsonObject* result) const;
-    int getAssertionOptions(const QJsonObject& publicKeyOptions, const QString& origin, QJsonObject* result) const;
+	int getCredentialCreationOptions(const QJsonObject &publicKeyOptions,
+	                                 const QString &origin,
+	                                 QJsonObject *result) const;
+	int getAssertionOptions(const QJsonObject &publicKeyOptions, const QString &origin, QJsonObject *result) const;
 
 private:
-    Q_DISABLE_COPY(BrowserPasskeysClient);
+	Q_DISABLE_COPY(BrowserPasskeysClient);
 
-    friend class TestPasskeys;
+	friend class TestPasskeys;
 };
 
-static inline BrowserPasskeysClient* browserPasskeysClient()
+static inline BrowserPasskeysClient *browserPasskeysClient()
 {
-    return BrowserPasskeysClient::instance();
+	return BrowserPasskeysClient::instance();
 }
 
 #endif // BROWSERPASSKEYSCLIENT_H

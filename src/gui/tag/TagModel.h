@@ -22,35 +22,35 @@
 
 class Database;
 
-class TagModel : public QAbstractListModel
+class TagModel: public QAbstractListModel
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit TagModel(QObject* parent = nullptr);
-    ~TagModel() override;
+	explicit TagModel(QObject *parent = nullptr);
+	~TagModel() override;
 
-    void setDatabase(QSharedPointer<Database> db);
+	void setDatabase(QSharedPointer<Database> db);
 
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    enum TagType
-    {
-        DEFAULT_SEARCH,
-        SAVED_SEARCH,
-        TAG
-    };
-    TagType itemType(const QModelIndex& index);
+	enum TagType
+	{
+		DEFAULT_SEARCH,
+		SAVED_SEARCH,
+		TAG
+	};
+	TagType itemType(const QModelIndex &index);
 
 private slots:
-    void updateTagList();
+	void updateTagList();
 
 private:
-    QSharedPointer<Database> m_db;
-    QList<QPair<QString, QString>> m_defaultSearches;
-    QList<QPair<QString, QString>> m_tagList;
-    int m_tagListStart = 0;
+	QSharedPointer<Database> m_db;
+	QList<QPair<QString, QString>> m_defaultSearches;
+	QList<QPair<QString, QString>> m_tagList;
+	int m_tagListStart = 0;
 };
 
 #endif // KEEPASSX_TAGMODEL_H

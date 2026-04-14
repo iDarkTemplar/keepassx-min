@@ -22,33 +22,33 @@
 class SignalMultiplexer
 {
 public:
-    SignalMultiplexer();
-    ~SignalMultiplexer();
-    QObject* currentObject() const;
-    void setCurrentObject(QObject* object);
+	SignalMultiplexer();
+	~SignalMultiplexer();
+	QObject *currentObject() const;
+	void setCurrentObject(QObject *object);
 
-    void connect(QObject* sender, const char* signal, const char* slot);
-    void disconnect(QObject* sender, const char* signal, const char* slot);
+	void connect(QObject *sender, const char *signal, const char *slot);
+	void disconnect(QObject *sender, const char *signal, const char *slot);
 
-    void connect(const char* signal, QObject* receiver, const char* slot);
-    void disconnect(const char* signal, QObject* receiver, const char* slot);
+	void connect(const char *signal, QObject *receiver, const char *slot);
+	void disconnect(const char *signal, QObject *receiver, const char *slot);
 
 private:
-    struct Connection
-    {
-        QPointer<QObject> sender;
-        QPointer<QObject> receiver;
-        const char* signal;
-        const char* slot;
-    };
+	struct Connection
+	{
+		QPointer<QObject> sender;
+		QPointer<QObject> receiver;
+		const char *signal;
+		const char *slot;
+	};
 
-    void connect(const Connection& con);
-    void disconnect(const Connection& con);
+	void connect(const Connection &con);
+	void disconnect(const Connection &con);
 
-    QPointer<QObject> m_currentObject;
-    QList<Connection> m_connections;
+	QPointer<QObject> m_currentObject;
+	QList<Connection> m_connections;
 
-    Q_DISABLE_COPY(SignalMultiplexer)
+	Q_DISABLE_COPY(SignalMultiplexer)
 };
 
 #endif // KEEPASSX_SIGNALMULTIPLEXER_H

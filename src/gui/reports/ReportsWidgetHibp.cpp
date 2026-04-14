@@ -32,52 +32,53 @@
 
 namespace
 {
-    class ReportSortProxyModel : public QSortFilterProxyModel
-    {
-    public:
-        ReportSortProxyModel(QObject* parent)
-            : QSortFilterProxyModel(parent){};
-        ~ReportSortProxyModel() override = default;
+	class ReportSortProxyModel: public QSortFilterProxyModel
+	{
+	public:
+		ReportSortProxyModel(QObject *parent)
+			: QSortFilterProxyModel(parent) {};
+		~ReportSortProxyModel() override = default;
 
-    protected:
-        bool lessThan(const QModelIndex& left, const QModelIndex& right) const override
-        {
-            // Sort count column by user data
-            if (left.column() == 2) {
-                return sourceModel()->data(left, Qt::UserRole).toInt()
-                       < sourceModel()->data(right, Qt::UserRole).toInt();
-            }
-            // Otherwise use default sorting
-            return QSortFilterProxyModel::lessThan(left, right);
-        }
-    };
+	protected:
+		bool lessThan(const QModelIndex &left, const QModelIndex &right) const override
+		{
+			// Sort count column by user data
+			if (left.column() == 2)
+			{
+				return sourceModel()->data(left, Qt::UserRole).toInt()
+				       < sourceModel()->data(right, Qt::UserRole).toInt();
+			}
+			// Otherwise use default sorting
+			return QSortFilterProxyModel::lessThan(left, right);
+		}
+	};
 } // namespace
 
-ReportsWidgetHibp::ReportsWidgetHibp(QWidget* parent)
-    : QWidget(parent)
-    , m_ui(new Ui::ReportsWidgetHibp())
-    , m_referencesModel(new QStandardItemModel(this))
-    , m_modelProxy(new ReportSortProxyModel(this))
+ReportsWidgetHibp::ReportsWidgetHibp(QWidget *parent)
+	: QWidget(parent)
+	, m_ui(new Ui::ReportsWidgetHibp())
+	, m_referencesModel(new QStandardItemModel(this))
+	, m_modelProxy(new ReportSortProxyModel(this))
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    m_modelProxy->setSourceModel(m_referencesModel.data());
-    m_modelProxy->setSortLocaleAware(true);
-    m_ui->hibpTableView->setModel(m_modelProxy.data());
-    m_ui->hibpTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-    m_ui->hibpTableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+	m_modelProxy->setSourceModel(m_referencesModel.data());
+	m_modelProxy->setSortLocaleAware(true);
+	m_ui->hibpTableView->setModel(m_modelProxy.data());
+	m_ui->hibpTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+	m_ui->hibpTableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-    connect(m_ui->hibpTableView, SIGNAL(doubleClicked(QModelIndex)), SLOT(emitEntryActivated(QModelIndex)));
-    connect(m_ui->hibpTableView, SIGNAL(customContextMenuRequested(QPoint)), SLOT(customMenuRequested(QPoint)));
-    connect(m_ui->showKnownBadCheckBox, SIGNAL(stateChanged(int)), this, SLOT(makeHibpTable()));
+	connect(m_ui->hibpTableView, SIGNAL(doubleClicked(QModelIndex)), SLOT(emitEntryActivated(QModelIndex)));
+	connect(m_ui->hibpTableView, SIGNAL(customContextMenuRequested(QPoint)), SLOT(customMenuRequested(QPoint)));
+	connect(m_ui->showKnownBadCheckBox, SIGNAL(stateChanged(int)), this, SLOT(makeHibpTable()));
 #ifdef WITH_XC_NETWORKING
-    connect(&m_downloader, SIGNAL(hibpResult(QString, int)), SLOT(addHibpResult(QString, int)));
-    connect(&m_downloader, SIGNAL(fetchFailed(QString)), SLOT(fetchFailed(QString)));
+	connect(&m_downloader, SIGNAL(hibpResult(QString, int)), SLOT(addHibpResult(QString, int)));
+	connect(&m_downloader, SIGNAL(fetchFailed(QString)), SLOT(fetchFailed(QString)));
 
-    connect(m_ui->validationButton, &QPushButton::pressed, [this] { startValidation(); });
+	connect(m_ui->validationButton, &QPushButton::pressed, [this] { startValidation(); });
 #endif
 
-    new QShortcut(Qt::Key_Delete, this, SLOT(deleteSelectedEntries()));
+	new QShortcut(Qt::Key_Delete, this, SLOT(deleteSelectedEntries()));
 }
 
 ReportsWidgetHibp::~ReportsWidgetHibp()
@@ -86,20 +87,20 @@ ReportsWidgetHibp::~ReportsWidgetHibp()
 
 void ReportsWidgetHibp::loadSettings(QSharedPointer<Database> db)
 {
-    // Re-initialize
-    m_db = std::move(db);
-    m_referencesModel->clear();
-    m_pwndPasswords.clear();
-    m_error.clear();
-    m_rowToEntry.clear();
-    m_editedEntry = nullptr;
+	// Re-initialize
+	m_db = std::move(db);
+	m_referencesModel->clear();
+	m_pwndPasswords.clear();
+	m_error.clear();
+	m_rowToEntry.clear();
+	m_editedEntry = nullptr;
 #ifdef WITH_XC_NETWORKING
-    m_ui->stackedWidget->setCurrentIndex(0);
-    m_ui->validationButton->setEnabled(true);
-    m_ui->progressBar->hide();
+	m_ui->stackedWidget->setCurrentIndex(0);
+	m_ui->validationButton->setEnabled(true);
+	m_ui->progressBar->hide();
 #else
-    // Compiled without networking, can't do anything
-    m_ui->stackedWidget->setCurrentIndex(2);
+	// Compiled without networking, can't do anything
+	m_ui->stackedWidget->setCurrentIndex(2);
 #endif
 }
 
@@ -109,127 +110,144 @@ void ReportsWidgetHibp::loadSettings(QSharedPointer<Database> db)
  */
 void ReportsWidgetHibp::makeHibpTable()
 {
-    // Reset the table
-    m_referencesModel->clear();
-    m_rowToEntry.clear();
+	// Reset the table
+	m_referencesModel->clear();
+	m_rowToEntry.clear();
 
-    // If there were no findings, display a motivational message
-    if (m_pwndPasswords.isEmpty() && m_error.isEmpty()) {
-        m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("Congratulations, no exposed passwords!"));
-        m_ui->stackedWidget->setCurrentIndex(1);
-        return;
-    }
+	// If there were no findings, display a motivational message
+	if (m_pwndPasswords.isEmpty() && m_error.isEmpty())
+	{
+		m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("Congratulations, no exposed passwords!"));
+		m_ui->stackedWidget->setCurrentIndex(1);
+		return;
+	}
 
-    // Standard header labels for found issues
-    m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("Title") << tr("Path") << tr("Password exposed…"));
+	// Standard header labels for found issues
+	m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("Title") << tr("Path") << tr("Password exposed…"));
 
-    // Search database for passwords that we've found so far
-    QList<QPair<Entry*, int>> items;
-    for (auto entry : m_db->rootGroup()->entriesRecursive()) {
-        if (!entry->isRecycled()) {
-            const auto found = m_pwndPasswords.find(entry->password());
-            if (found != m_pwndPasswords.end()) {
-                items.append({entry, found.value()});
-            }
-        }
-    }
+	// Search database for passwords that we've found so far
+	QList<QPair<Entry *, int>> items;
+	for (auto entry: m_db->rootGroup()->entriesRecursive())
+	{
+		if (!entry->isRecycled())
+		{
+			const auto found = m_pwndPasswords.find(entry->password());
+			if (found != m_pwndPasswords.end())
+			{
+				items.append({entry, found.value()});
+			}
+		}
+	}
 
-    // Sort decending by the number the password has been exposed
-    std::sort(items.begin(), items.end(), [](QPair<Entry*, int>& lhs, QPair<Entry*, int>& rhs) {
-        return lhs.second > rhs.second;
-    });
+	// Sort decending by the number the password has been exposed
+	std::sort(items.begin(), items.end(), [](QPair<Entry *, int> &lhs, QPair<Entry *, int> &rhs) {
+		return lhs.second > rhs.second;
+	});
 
-    // Display entries that are marked as "known bad"?
-    const auto showExcluded = m_ui->showKnownBadCheckBox->isChecked();
+	// Display entries that are marked as "known bad"?
+	const auto showExcluded = m_ui->showKnownBadCheckBox->isChecked();
 
-    // The colors for table cells
-    const auto red = QBrush("red");
+	// The colors for table cells
+	const auto red = QBrush("red");
 
-    // Build the table
-    bool anyExcluded = false;
-    for (const auto& item : items) {
-        const auto entry = item.first;
-        const auto group = entry->group();
-        const auto count = item.second;
-        auto title = entry->title();
+	// Build the table
+	bool anyExcluded = false;
+	for (const auto &item: items)
+	{
+		const auto entry = item.first;
+		const auto group = entry->group();
+		const auto count = item.second;
+		auto title = entry->title();
 
-        // Hide entry if excluded unless explicitly requested
-        if (entry->excludeFromReports()) {
-            anyExcluded = true;
-            if (!showExcluded) {
-                continue;
-            }
+		// Hide entry if excluded unless explicitly requested
+		if (entry->excludeFromReports())
+		{
+			anyExcluded = true;
+			if (!showExcluded)
+			{
+				continue;
+			}
 
-            title.append(tr(" (Excluded)"));
-        }
+			title.append(tr(" (Excluded)"));
+		}
 
-        auto row = QList<QStandardItem*>();
-        row << new QStandardItem(Icons::entryIconPixmap(entry), title)
-            << new QStandardItem(Icons::groupIconPixmap(group), group->hierarchy().join("/"))
-            << new QStandardItem(countToText(count));
+		auto row = QList<QStandardItem *>();
+		row << new QStandardItem(Icons::entryIconPixmap(entry), title)
+			<< new QStandardItem(Icons::groupIconPixmap(group), group->hierarchy().join("/"))
+			<< new QStandardItem(countToText(count));
 
-        if (entry->excludeFromReports()) {
-            row[1]->setToolTip(tr("This entry is being excluded from reports"));
-        }
+		if (entry->excludeFromReports())
+		{
+			row[1]->setToolTip(tr("This entry is being excluded from reports"));
+		}
 
-        row[2]->setForeground(red);
-        row[2]->setData(count, Qt::UserRole);
-        m_referencesModel->appendRow(row);
+		row[2]->setForeground(red);
+		row[2]->setData(count, Qt::UserRole);
+		m_referencesModel->appendRow(row);
 
-        // Store entry pointer per table row (used in double click handler)
-        m_rowToEntry.append(entry);
-    }
+		// Store entry pointer per table row (used in double click handler)
+		m_rowToEntry.append(entry);
+	}
 
-    // If there was an error, append the error message to the table
-    if (!m_error.isEmpty()) {
-        auto row = QList<QStandardItem*>();
-        row << new QStandardItem(m_error);
-        m_referencesModel->appendRow(row);
-        row[0]->setForeground(QBrush(QColor("red")));
-    }
+	// If there was an error, append the error message to the table
+	if (!m_error.isEmpty())
+	{
+		auto row = QList<QStandardItem *>();
+		row << new QStandardItem(m_error);
+		m_referencesModel->appendRow(row);
+		row[0]->setForeground(QBrush(QColor("red")));
+	}
 
-    // If we're done and everything is good, display a motivational message
+	// If we're done and everything is good, display a motivational message
 #ifdef WITH_XC_NETWORKING
-    if (m_downloader.passwordsRemaining() == 0 && m_pwndPasswords.isEmpty() && m_error.isEmpty()) {
-        m_referencesModel->clear();
-        m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("Congratulations, no exposed passwords!"));
-    }
+	if (m_downloader.passwordsRemaining() == 0 && m_pwndPasswords.isEmpty() && m_error.isEmpty())
+	{
+		m_referencesModel->clear();
+		m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("Congratulations, no exposed passwords!"));
+	}
 #endif
 
-    // Show the "show known bad entries" checkbox if there's any known
-    // bad entry in the database.
-    if (anyExcluded) {
-        m_ui->showKnownBadCheckBox->show();
-    } else {
-        m_ui->showKnownBadCheckBox->hide();
-    }
+	// Show the "show known bad entries" checkbox if there's any known
+	// bad entry in the database.
+	if (anyExcluded)
+	{
+		m_ui->showKnownBadCheckBox->show();
+	}
+	else
+	{
+		m_ui->showKnownBadCheckBox->hide();
+	}
 
-    m_ui->hibpTableView->resizeColumnsToContents();
-    m_ui->hibpTableView->sortByColumn(2, Qt::DescendingOrder);
+	m_ui->hibpTableView->resizeColumnsToContents();
+	m_ui->hibpTableView->sortByColumn(2, Qt::DescendingOrder);
 
-    m_ui->stackedWidget->setCurrentIndex(1);
+	m_ui->stackedWidget->setCurrentIndex(1);
 }
 
 /*
  * Invoked when the downloader has finished checking one password.
  */
-void ReportsWidgetHibp::addHibpResult(const QString& password, int count)
+void ReportsWidgetHibp::addHibpResult(const QString &password, int count)
 {
-    // Add the password to the list of our findings if it has been pwned
-    if (count > 0) {
-        m_pwndPasswords[password] = count;
-    }
+	// Add the password to the list of our findings if it has been pwned
+	if (count > 0)
+	{
+		m_pwndPasswords[password] = count;
+	}
 
 #ifdef WITH_XC_NETWORKING
-    // Update the progress bar
-    int remaining = m_downloader.passwordsRemaining();
-    if (remaining > 0) {
-        m_ui->progressBar->setValue(m_ui->progressBar->maximum() - remaining);
-    } else {
-        // Finished, remove the progress bar and build the table
-        m_ui->progressBar->hide();
-        makeHibpTable();
-    }
+	// Update the progress bar
+	int remaining = m_downloader.passwordsRemaining();
+	if (remaining > 0)
+	{
+		m_ui->progressBar->setValue(m_ui->progressBar->maximum() - remaining);
+	}
+	else
+	{
+		// Finished, remove the progress bar and build the table
+		m_ui->progressBar->hide();
+		makeHibpTable();
+	}
 #endif
 }
 
@@ -238,11 +256,11 @@ void ReportsWidgetHibp::addHibpResult(const QString& password, int count)
  *
  * Displays the table with the current findings.
  */
-void ReportsWidgetHibp::fetchFailed(const QString& error)
+void ReportsWidgetHibp::fetchFailed(const QString &error)
 {
-    m_error = error;
-    m_ui->progressBar->hide();
-    makeHibpTable();
+	m_error = error;
+	m_ui->progressBar->hide();
+	makeHibpTable();
 }
 
 /*
@@ -251,27 +269,30 @@ void ReportsWidgetHibp::fetchFailed(const QString& error)
 void ReportsWidgetHibp::startValidation()
 {
 #ifdef WITH_XC_NETWORKING
-    // Collect all passwords in the database (unless recycled, and
-    // unless empty, and unless marked as "known bad") and submit them
-    // to the downloader.
-    for (const auto* entry : m_db->rootGroup()->entriesRecursive()) {
-        if (!entry->isRecycled() && !entry->password().isEmpty()) {
-            m_downloader.add(entry->password());
-        }
-    }
+	// Collect all passwords in the database (unless recycled, and
+	// unless empty, and unless marked as "known bad") and submit them
+	// to the downloader.
+	for (const auto *entry: m_db->rootGroup()->entriesRecursive())
+	{
+		if (!entry->isRecycled() && !entry->password().isEmpty())
+		{
+			m_downloader.add(entry->password());
+		}
+	}
 
-    // Short circuit if we didn't actually add any passwords
-    if (m_downloader.passwordsToValidate() == 0) {
-        makeHibpTable();
-        return;
-    }
+	// Short circuit if we didn't actually add any passwords
+	if (m_downloader.passwordsToValidate() == 0)
+	{
+		makeHibpTable();
+		return;
+	}
 
-    // Store the number of passwords we need to check for the progress bar
-    m_ui->progressBar->show();
-    m_ui->progressBar->setMaximum(m_downloader.passwordsToValidate());
-    m_ui->validationButton->setEnabled(false);
+	// Store the number of passwords we need to check for the progress bar
+	m_ui->progressBar->show();
+	m_ui->progressBar->setMaximum(m_downloader.passwordsToValidate());
+	m_ui->validationButton->setEnabled(false);
 
-    m_downloader.validate();
+	m_downloader.validate();
 #endif
 }
 
@@ -281,44 +302,59 @@ void ReportsWidgetHibp::startValidation()
  */
 QString ReportsWidgetHibp::countToText(int count)
 {
-    if (count == 1) {
-        return tr("once", "Password exposure amount");
-    } else if (count <= 10) {
-        return tr("up to 10 times", "Password exposure amount");
-    } else if (count <= 100) {
-        return tr("up to 100 times", "Password exposure amount");
-    } else if (count <= 1000) {
-        return tr("up to 1000 times", "Password exposure amount");
-    } else if (count <= 10000) {
-        return tr("up to 10,000 times", "Password exposure amount");
-    } else if (count <= 100000) {
-        return tr("up to 100,000 times", "Password exposure amount");
-    } else if (count <= 1000000) {
-        return tr("up to a million times", "Password exposure amount");
-    }
+	if (count == 1)
+	{
+		return tr("once", "Password exposure amount");
+	}
+	else if (count <= 10)
+	{
+		return tr("up to 10 times", "Password exposure amount");
+	}
+	else if (count <= 100)
+	{
+		return tr("up to 100 times", "Password exposure amount");
+	}
+	else if (count <= 1000)
+	{
+		return tr("up to 1000 times", "Password exposure amount");
+	}
+	else if (count <= 10000)
+	{
+		return tr("up to 10,000 times", "Password exposure amount");
+	}
+	else if (count <= 100000)
+	{
+		return tr("up to 100,000 times", "Password exposure amount");
+	}
+	else if (count <= 1000000)
+	{
+		return tr("up to a million times", "Password exposure amount");
+	}
 
-    return tr("millions of times", "Password exposure amount");
+	return tr("millions of times", "Password exposure amount");
 }
 
 /*
  * Double-click handler
  */
-void ReportsWidgetHibp::emitEntryActivated(const QModelIndex& index)
+void ReportsWidgetHibp::emitEntryActivated(const QModelIndex &index)
 {
-    if (!index.isValid()) {
-        return;
-    }
+	if (!index.isValid())
+	{
+		return;
+	}
 
-    // Find which database entry was double-clicked
-    auto mappedIndex = m_modelProxy->mapToSource(index);
-    const auto entry = m_rowToEntry[mappedIndex.row()];
-    if (entry) {
-        // Found it, invoke entry editor
-        m_editedEntry = entry;
-        m_editedPassword = entry->password();
-        m_editedExcluded = entry->excludeFromReports();
-        emit entryActivated(const_cast<Entry*>(entry));
-    }
+	// Find which database entry was double-clicked
+	auto mappedIndex = m_modelProxy->mapToSource(index);
+	const auto entry = m_rowToEntry[mappedIndex.row()];
+	if (entry)
+	{
+		// Found it, invoke entry editor
+		m_editedEntry = entry;
+		m_editedPassword = entry->password();
+		m_editedExcluded = entry->excludeFromReports();
+		emit entryActivated(const_cast<Entry *>(entry));
+	}
 }
 
 /*
@@ -327,130 +363,142 @@ void ReportsWidgetHibp::emitEntryActivated(const QModelIndex& index)
  */
 void ReportsWidgetHibp::refreshAfterEdit()
 {
-    // Sanity check
-    if (!m_editedEntry) {
-        return;
-    }
+	// Sanity check
+	if (!m_editedEntry)
+	{
+		return;
+	}
 
-    // No need to re-validate if there was no change that affects
-    // the HIBP result (i. e., change to the password or to the
-    // "known bad" flag)
-    if (m_editedEntry->password() == m_editedPassword && m_editedEntry->excludeFromReports() == m_editedExcluded) {
-        // Don't go through HIBP but still rebuild the table, the user might
-        // have edited the entry title.
-        makeHibpTable();
-        return;
-    }
+	// No need to re-validate if there was no change that affects
+	// the HIBP result (i. e., change to the password or to the
+	// "known bad" flag)
+	if (m_editedEntry->password() == m_editedPassword && m_editedEntry->excludeFromReports() == m_editedExcluded)
+	{
+		// Don't go through HIBP but still rebuild the table, the user might
+		// have edited the entry title.
+		makeHibpTable();
+		return;
+	}
 
-    // Remove the previous password from the list of findings
-    m_pwndPasswords.remove(m_editedPassword);
+	// Remove the previous password from the list of findings
+	m_pwndPasswords.remove(m_editedPassword);
 
-    // Validate the new password against HIBP
+	// Validate the new password against HIBP
 #ifdef WITH_XC_NETWORKING
-    m_downloader.add(m_editedEntry->password());
-    m_downloader.validate();
+	m_downloader.add(m_editedEntry->password());
+	m_downloader.validate();
 #endif
 
-    m_editedEntry = nullptr;
+	m_editedEntry = nullptr;
 }
 
 void ReportsWidgetHibp::customMenuRequested(QPoint pos)
 {
-    auto selected = m_ui->hibpTableView->selectionModel()->selectedRows();
-    if (selected.isEmpty()) {
-        return;
-    }
+	auto selected = m_ui->hibpTableView->selectionModel()->selectedRows();
+	if (selected.isEmpty())
+	{
+		return;
+	}
 
-    // Create the context menu
-    const auto menu = new QMenu(this);
+	// Create the context menu
+	const auto menu = new QMenu(this);
 
-    // Create the "edit entry" menu item if 1 row is selected
-    if (selected.size() == 1) {
-        const auto edit = new QAction(icons()->icon("entry-edit"), tr("Edit Entry…"), this);
-        menu->addAction(edit);
-        connect(edit, &QAction::triggered, edit, [this, selected] {
-            auto row = m_modelProxy->mapToSource(selected[0]).row();
-            auto entry = m_rowToEntry[row];
-            emit entryActivated(entry);
-        });
-    }
+	// Create the "edit entry" menu item if 1 row is selected
+	if (selected.size() == 1)
+	{
+		const auto edit = new QAction(icons()->icon("entry-edit"), tr("Edit Entry…"), this);
+		menu->addAction(edit);
+		connect(edit, &QAction::triggered, edit, [this, selected] {
+			auto row = m_modelProxy->mapToSource(selected[0]).row();
+			auto entry = m_rowToEntry[row];
+			emit entryActivated(entry);
+		});
+	}
 
-    // Create the "Expire entry" menu item
-    const auto expEntry = new QAction(icons()->icon("entry-expire"), tr("Expire Entry(s)…", "", selected.size()), this);
-    menu->addAction(expEntry);
-    connect(expEntry, &QAction::triggered, this, &ReportsWidgetHibp::expireSelectedEntries);
+	// Create the "Expire entry" menu item
+	const auto expEntry = new QAction(icons()->icon("entry-expire"), tr("Expire Entry(s)…", "", selected.size()), this);
+	menu->addAction(expEntry);
+	connect(expEntry, &QAction::triggered, this, &ReportsWidgetHibp::expireSelectedEntries);
 
-    // Create the "delete entry" menu item
-    const auto delEntry = new QAction(icons()->icon("entry-delete"), tr("Delete Entry(s)…", "", selected.size()), this);
-    menu->addAction(delEntry);
-    connect(delEntry, &QAction::triggered, this, &ReportsWidgetHibp::deleteSelectedEntries);
+	// Create the "delete entry" menu item
+	const auto delEntry = new QAction(icons()->icon("entry-delete"), tr("Delete Entry(s)…", "", selected.size()), this);
+	menu->addAction(delEntry);
+	connect(delEntry, &QAction::triggered, this, &ReportsWidgetHibp::deleteSelectedEntries);
 
-    // Create the "exclude from reports" menu item
-    const auto exclude = new QAction(icons()->icon("reports-exclude"), tr("Exclude from reports"), this);
+	// Create the "exclude from reports" menu item
+	const auto exclude = new QAction(icons()->icon("reports-exclude"), tr("Exclude from reports"), this);
 
-    bool isExcluded = false;
-    for (auto index : selected) {
-        auto row = m_modelProxy->mapToSource(index).row();
-        auto entry = m_rowToEntry[row];
-        if (entry && entry->excludeFromReports()) {
-            // If at least one entry is excluded switch to inclusion
-            isExcluded = true;
-            break;
-        }
-    }
-    exclude->setCheckable(true);
-    exclude->setChecked(isExcluded);
+	bool isExcluded = false;
+	for (auto index: selected)
+	{
+		auto row = m_modelProxy->mapToSource(index).row();
+		auto entry = m_rowToEntry[row];
+		if (entry && entry->excludeFromReports())
+		{
+			// If at least one entry is excluded switch to inclusion
+			isExcluded = true;
+			break;
+		}
+	}
+	exclude->setCheckable(true);
+	exclude->setChecked(isExcluded);
 
-    menu->addAction(exclude);
-    connect(exclude, &QAction::toggled, exclude, [this, selected](bool state) {
-        for (auto index : selected) {
-            auto row = m_modelProxy->mapToSource(index).row();
-            auto entry = m_rowToEntry[row];
-            if (entry) {
-                entry->setExcludeFromReports(state);
-            }
-        }
-        makeHibpTable();
-    });
+	menu->addAction(exclude);
+	connect(exclude, &QAction::toggled, exclude, [this, selected](bool state) {
+		for (auto index: selected)
+		{
+			auto row = m_modelProxy->mapToSource(index).row();
+			auto entry = m_rowToEntry[row];
+			if (entry)
+			{
+				entry->setExcludeFromReports(state);
+			}
+		}
+		makeHibpTable();
+	});
 
-    // Show the context menu
-    menu->popup(m_ui->hibpTableView->viewport()->mapToGlobal(pos));
+	// Show the context menu
+	menu->popup(m_ui->hibpTableView->viewport()->mapToGlobal(pos));
 }
 
-QList<Entry*> ReportsWidgetHibp::getSelectedEntries()
+QList<Entry *> ReportsWidgetHibp::getSelectedEntries()
 {
-    QList<Entry*> selectedEntries;
-    for (auto index : m_ui->hibpTableView->selectionModel()->selectedRows()) {
-        auto row = m_modelProxy->mapToSource(index).row();
-        auto entry = m_rowToEntry[row];
-        if (entry) {
-            selectedEntries << entry;
-        }
-    }
-    return selectedEntries;
+	QList<Entry *> selectedEntries;
+	for (auto index: m_ui->hibpTableView->selectionModel()->selectedRows())
+	{
+		auto row = m_modelProxy->mapToSource(index).row();
+		auto entry = m_rowToEntry[row];
+		if (entry)
+		{
+			selectedEntries << entry;
+		}
+	}
+	return selectedEntries;
 }
 
 void ReportsWidgetHibp::expireSelectedEntries()
 {
-    for (auto entry : getSelectedEntries()) {
-        entry->expireNow();
-    }
+	for (auto entry: getSelectedEntries())
+	{
+		entry->expireNow();
+	}
 
-    makeHibpTable();
+	makeHibpTable();
 }
 
 void ReportsWidgetHibp::deleteSelectedEntries()
 {
-    QList<Entry*> selectedEntries = getSelectedEntries();
-    bool permanent = !m_db->metadata()->recycleBinEnabled();
-    if (GuiTools::confirmDeleteEntries(this, selectedEntries, permanent)) {
-        GuiTools::deleteEntriesResolveReferences(this, selectedEntries, permanent);
-    }
+	QList<Entry *> selectedEntries = getSelectedEntries();
+	bool permanent = !m_db->metadata()->recycleBinEnabled();
+	if (GuiTools::confirmDeleteEntries(this, selectedEntries, permanent))
+	{
+		GuiTools::deleteEntriesResolveReferences(this, selectedEntries, permanent);
+	}
 
-    makeHibpTable();
+	makeHibpTable();
 }
 
 void ReportsWidgetHibp::saveSettings()
 {
-    // nothing to do - the tab is passive
+	// nothing to do - the tab is passive
 }

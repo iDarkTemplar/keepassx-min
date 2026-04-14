@@ -23,21 +23,21 @@
 
 #include "gui/osutils/ScreenLockListenerPrivate.h"
 
-class ScreenLockListenerMac : public ScreenLockListenerPrivate
+class ScreenLockListenerMac: public ScreenLockListenerPrivate
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    static ScreenLockListenerMac* instance();
-    static void notificationCenterCallBack(CFNotificationCenterRef center,
-                                           void* observer,
-                                           CFStringRef name,
-                                           const void* object,
-                                           CFDictionaryRef userInfo);
+	static ScreenLockListenerMac *instance();
+	static void notificationCenterCallBack(CFNotificationCenterRef center,
+	                                       void *observer,
+	                                       CFStringRef name,
+	                                       const void *object,
+	                                       CFDictionaryRef userInfo);
 
 private:
-    ScreenLockListenerMac(QWidget* parent = nullptr);
-    void onSignalReception();
+	ScreenLockListenerMac(QWidget *parent = nullptr);
+	void onSignalReception();
 };
 
 #endif // SCREENLOCKLISTENERMAC_H

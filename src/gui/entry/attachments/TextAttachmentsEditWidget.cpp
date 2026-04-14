@@ -21,38 +21,38 @@
 #include <QScrollBar>
 #include <QTextEdit>
 
-TextAttachmentsEditWidget::TextAttachmentsEditWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_ui(new Ui::TextAttachmentsEditWidget())
+TextAttachmentsEditWidget::TextAttachmentsEditWidget(QWidget *parent)
+	: QWidget(parent)
+	, m_ui(new Ui::TextAttachmentsEditWidget())
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    connect(m_ui->attachmentsTextEdit, &QTextEdit::textChanged, this, &TextAttachmentsEditWidget::textChanged);
-    connect(m_ui->previewPushButton, &QPushButton::clicked, this, &TextAttachmentsEditWidget::previewButtonClicked);
-    connect(m_ui->attachmentsTextEdit->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int value) {
-        // Return a percentage of document scroll
-        auto percent = static_cast<double>(value) / m_ui->attachmentsTextEdit->verticalScrollBar()->maximum();
-        emit scrollChanged(percent);
-    });
+	connect(m_ui->attachmentsTextEdit, &QTextEdit::textChanged, this, &TextAttachmentsEditWidget::textChanged);
+	connect(m_ui->previewPushButton, &QPushButton::clicked, this, &TextAttachmentsEditWidget::previewButtonClicked);
+	connect(m_ui->attachmentsTextEdit->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int value) {
+		// Return a percentage of document scroll
+		auto percent = static_cast<double>(value) / m_ui->attachmentsTextEdit->verticalScrollBar()->maximum();
+		emit scrollChanged(percent);
+	});
 }
 
 TextAttachmentsEditWidget::~TextAttachmentsEditWidget() = default;
 
 void TextAttachmentsEditWidget::openAttachment(attachments::Attachment attachments, attachments::OpenMode mode)
 {
-    m_attachment = std::move(attachments);
-    m_mode = mode;
+	m_attachment = std::move(attachments);
+	m_mode = mode;
 
-    updateUi();
+	updateUi();
 }
 
 attachments::Attachment TextAttachmentsEditWidget::getAttachment() const
 {
-    return {m_attachment.name, m_ui->attachmentsTextEdit->toPlainText().toUtf8()};
+	return {m_attachment.name, m_ui->attachmentsTextEdit->toPlainText().toUtf8()};
 }
 
 void TextAttachmentsEditWidget::updateUi()
 {
-    m_ui->attachmentsTextEdit->setPlainText(m_attachment.data);
-    m_ui->attachmentsTextEdit->setReadOnly(m_mode == attachments::OpenMode::ReadOnly);
+	m_ui->attachmentsTextEdit->setPlainText(m_attachment.data);
+	m_ui->attachmentsTextEdit->setReadOnly(m_mode == attachments::OpenMode::ReadOnly);
 }

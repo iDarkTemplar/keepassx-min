@@ -32,52 +32,52 @@
 
 struct ExtensionResult
 {
-    QByteArray extensionData;
-    QJsonObject extensionObject;
+	QByteArray extensionData;
+	QJsonObject extensionObject;
 };
 
-class PasskeyUtils : public QObject
+class PasskeyUtils: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit PasskeyUtils() = default;
-    ~PasskeyUtils() = default;
-    static PasskeyUtils* instance();
+	explicit PasskeyUtils() = default;
+	~PasskeyUtils() = default;
+	static PasskeyUtils *instance();
 
-    int checkLimits(const QJsonObject& pkOptions) const;
-    bool checkCredentialCreationOptions(const QJsonObject& credentialCreationOptions) const;
-    bool checkCredentialAssertionOptions(const QJsonObject& assertionOptions) const;
-    int getEffectiveDomain(const QString& origin, QString* result) const;
-    int validateRpId(const QJsonValue& rpIdValue, const QString& effectiveDomain, QString* result) const;
-    QString parseAttestation(const QString& attestation) const;
-    QJsonArray parseCredentialTypes(const QJsonArray& credentialTypes) const;
-    bool isAuthenticatorSelectionValid(const QJsonObject& authenticatorSelection) const;
-    bool isUserVerificationValid(const QString& userVerification) const;
-    bool isResidentKeyRequired(const QJsonObject& authenticatorSelection) const;
-    bool isUserVerificationRequired(const QJsonObject& authenticatorSelection) const;
-    bool isOriginAllowedWithLocalhost(bool allowLocalhostWithPasskeys, const QString& origin) const;
-    ExtensionResult buildExtensionData(QJsonObject& extensionObject) const;
-    QString buildClientDataJson(const QJsonObject& publicKey, const QString& origin, bool get) const;
-    QStringList getAllowedCredentialsFromAssertionOptions(const QJsonObject& assertionOptions) const;
-    QString getCredentialIdFromEntry(const Entry* entry) const;
-    QString getUsernameFromEntry(const Entry* entry) const;
-
-private:
-    Q_DISABLE_COPY(PasskeyUtils);
-
-    bool isRegistrableDomainSuffix(const QString& hostSuffixString, const QString& originalHost) const;
-    bool isDomain(const QString& hostName) const;
-
-    friend class TestPasskeys;
+	int checkLimits(const QJsonObject &pkOptions) const;
+	bool checkCredentialCreationOptions(const QJsonObject &credentialCreationOptions) const;
+	bool checkCredentialAssertionOptions(const QJsonObject &assertionOptions) const;
+	int getEffectiveDomain(const QString &origin, QString *result) const;
+	int validateRpId(const QJsonValue &rpIdValue, const QString &effectiveDomain, QString *result) const;
+	QString parseAttestation(const QString &attestation) const;
+	QJsonArray parseCredentialTypes(const QJsonArray &credentialTypes) const;
+	bool isAuthenticatorSelectionValid(const QJsonObject &authenticatorSelection) const;
+	bool isUserVerificationValid(const QString &userVerification) const;
+	bool isResidentKeyRequired(const QJsonObject &authenticatorSelection) const;
+	bool isUserVerificationRequired(const QJsonObject &authenticatorSelection) const;
+	bool isOriginAllowedWithLocalhost(bool allowLocalhostWithPasskeys, const QString &origin) const;
+	ExtensionResult buildExtensionData(QJsonObject &extensionObject) const;
+	QString buildClientDataJson(const QJsonObject &publicKey, const QString &origin, bool get) const;
+	QStringList getAllowedCredentialsFromAssertionOptions(const QJsonObject &assertionOptions) const;
+	QString getCredentialIdFromEntry(const Entry *entry) const;
+	QString getUsernameFromEntry(const Entry *entry) const;
 
 private:
-    BrowserCbor m_browserCbor;
+	Q_DISABLE_COPY(PasskeyUtils);
+
+	bool isRegistrableDomainSuffix(const QString &hostSuffixString, const QString &originalHost) const;
+	bool isDomain(const QString &hostName) const;
+
+	friend class TestPasskeys;
+
+private:
+	BrowserCbor m_browserCbor;
 };
 
-static inline PasskeyUtils* passkeyUtils()
+static inline PasskeyUtils *passkeyUtils()
 {
-    return PasskeyUtils::instance();
+	return PasskeyUtils::instance();
 }
 
 #endif // PASSKEYUTILS_H

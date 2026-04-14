@@ -23,21 +23,21 @@
  * Mock challenge-response key implementation that simply
  * returns the challenge concatenated with a fixed secret.
  */
-class MockChallengeResponseKey : public ChallengeResponseKey
+class MockChallengeResponseKey: public ChallengeResponseKey
 {
 public:
-    explicit MockChallengeResponseKey(const QByteArray& secret);
-    ~MockChallengeResponseKey() override = default;
+	explicit MockChallengeResponseKey(const QByteArray &secret);
+	~MockChallengeResponseKey() override = default;
 
-    QByteArray rawKey() const override;
+	QByteArray rawKey() const override;
 
-    bool challenge(const QByteArray& challenge) override;
+	bool challenge(const QByteArray &challenge) override;
 
 private:
-    QByteArray m_challenge;
-    QByteArray m_secret;
+	QByteArray m_challenge;
+	QByteArray m_secret;
 
-    Q_DISABLE_COPY(MockChallengeResponseKey);
+	Q_DISABLE_COPY(MockChallengeResponseKey);
 };
 
 #endif // KEEPASSXC_MOCKCHALLENGERESPONSEKEY_H

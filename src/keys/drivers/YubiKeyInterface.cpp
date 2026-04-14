@@ -23,10 +23,10 @@ YubiKeyInterface::YubiKeyInterface()
 
 bool YubiKeyInterface::isInitialized() const
 {
-    return m_initialized;
+	return m_initialized;
 }
 
 QString YubiKeyInterface::errorMessage()
 {
-    return m_error;
+	return m_error;
 }

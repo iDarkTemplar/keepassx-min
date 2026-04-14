@@ -16,8 +16,8 @@
 
 #include "ReportsWidget.h"
 
-ReportsWidget::ReportsWidget(QWidget* parent)
-    : SettingsWidget(parent)
+ReportsWidget::ReportsWidget(QWidget *parent)
+	: SettingsWidget(parent)
 {
 }
 
@@ -33,11 +33,11 @@ ReportsWidget::~ReportsWidget()
  */
 void ReportsWidget::load(QSharedPointer<Database> db)
 {
-    m_db = std::move(db);
-    initialize();
+	m_db = std::move(db);
+	initialize();
 }
 
 const QSharedPointer<Database> ReportsWidget::getDatabase() const
 {
-    return m_db;
+	return m_db;
 }

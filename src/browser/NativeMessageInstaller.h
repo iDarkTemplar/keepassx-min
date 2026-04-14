@@ -27,23 +27,23 @@ class QJsonObject;
 class NativeMessageInstaller
 {
 public:
-    NativeMessageInstaller() = default;
+	NativeMessageInstaller() = default;
 
-    void setBrowserEnabled(BrowserShared::SupportedBrowsers browser, bool enabled);
-    bool isBrowserEnabled(BrowserShared::SupportedBrowsers browser);
+	void setBrowserEnabled(BrowserShared::SupportedBrowsers browser, bool enabled);
+	bool isBrowserEnabled(BrowserShared::SupportedBrowsers browser);
 
-    QString getProxyPath() const;
-    QString getInstalledProxyPath() const;
-    void updateBinaryPaths();
+	QString getProxyPath() const;
+	QString getInstalledProxyPath() const;
+	void updateBinaryPaths();
 
 private:
-    QString getTargetPath(BrowserShared::SupportedBrowsers browser) const;
-    QString getBrowserName(BrowserShared::SupportedBrowsers browser) const;
-    QString getNativeMessagePath(BrowserShared::SupportedBrowsers browser) const;
-    QJsonObject constructFile(BrowserShared::SupportedBrowsers browser);
-    bool createNativeMessageFile(BrowserShared::SupportedBrowsers browser);
+	QString getTargetPath(BrowserShared::SupportedBrowsers browser) const;
+	QString getBrowserName(BrowserShared::SupportedBrowsers browser) const;
+	QString getNativeMessagePath(BrowserShared::SupportedBrowsers browser) const;
+	QJsonObject constructFile(BrowserShared::SupportedBrowsers browser);
+	bool createNativeMessageFile(BrowserShared::SupportedBrowsers browser);
 
-    Q_DISABLE_COPY(NativeMessageInstaller);
+	Q_DISABLE_COPY(NativeMessageInstaller);
 };
 
 #endif // NATIVEMESSAGEINSTALLER_H

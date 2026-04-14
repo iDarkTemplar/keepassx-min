@@ -27,57 +27,61 @@
 // (C) Gist: https://gist.github.com/azadkuh/a2ac6869661ebd3f8588
 void ignoreUnixSignals(std::initializer_list<int> ignoreSignals)
 {
-    for (int sig : ignoreSignals) {
-        signal(sig, SIG_IGN);
-    }
+	for (int sig: ignoreSignals)
+	{
+		signal(sig, SIG_IGN);
+	}
 }
 
 void catchUnixSignals(std::initializer_list<int> quitSignals)
 {
-    auto handler = [](int sig) -> void {
-        std::cerr << sig;
-        QCoreApplication::quit();
-    };
+	auto handler = [](int sig) -> void {
+		std::cerr << sig;
+		QCoreApplication::quit();
+	};
 
-    sigset_t blocking_mask;
-    sigemptyset(&blocking_mask);
-    for (auto sig : quitSignals) {
-        sigaddset(&blocking_mask, sig);
-    }
+	sigset_t blocking_mask;
+	sigemptyset(&blocking_mask);
+	for (auto sig: quitSignals)
+	{
+		sigaddset(&blocking_mask, sig);
+	}
 
-    struct sigaction sa;
-    sa.sa_handler = handler;
-    sa.sa_mask = blocking_mask;
-    sa.sa_flags = 0;
+	struct sigaction sa;
+	sa.sa_handler = handler;
+	sa.sa_mask = blocking_mask;
+	sa.sa_flags = 0;
 
-    for (auto sig : quitSignals) {
-        sigaction(sig, &sa, nullptr);
-    }
+	for (auto sig: quitSignals)
+	{
+		sigaction(sig, &sa, nullptr);
+	}
 }
 #else
 #include <windows.h>
 
 BOOL WINAPI ConsoleHandler(DWORD dwType)
 {
-    switch (dwType) {
-    case CTRL_C_EVENT:
-    case CTRL_SHUTDOWN_EVENT:
-    case CTRL_LOGOFF_EVENT:
-        QCoreApplication::quit();
-        break;
-    }
-    return TRUE;
+	switch (dwType)
+	{
+	case CTRL_C_EVENT:
+	case CTRL_SHUTDOWN_EVENT:
+	case CTRL_LOGOFF_EVENT:
+		QCoreApplication::quit();
+		break;
+	}
+	return TRUE;
 }
 #endif
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+	QCoreApplication a(argc, argv);
 #ifndef Q_OS_WIN
-    catchUnixSignals({SIGQUIT, SIGINT, SIGTERM, SIGHUP});
+	catchUnixSignals({SIGQUIT, SIGINT, SIGTERM, SIGHUP});
 #else
-    SetConsoleCtrlHandler(static_cast<PHANDLER_ROUTINE>(ConsoleHandler), TRUE);
+	SetConsoleCtrlHandler(static_cast<PHANDLER_ROUTINE>(ConsoleHandler), TRUE);
 #endif
-    NativeMessagingProxy proxy;
-    return a.exec();
+	NativeMessagingProxy proxy;
+	return a.exec();
 }

@@ -24,27 +24,27 @@ class Database;
 /**
  * Pure-virtual base class for KeePassXC database settings widgets.
  */
-class DatabaseSettingsWidget : public SettingsWidget
+class DatabaseSettingsWidget: public SettingsWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DatabaseSettingsWidget(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(DatabaseSettingsWidget);
-    ~DatabaseSettingsWidget() override;
+	explicit DatabaseSettingsWidget(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(DatabaseSettingsWidget);
+	~DatabaseSettingsWidget() override;
 
-    virtual void loadSettings(QSharedPointer<Database> db);
+	virtual void loadSettings(QSharedPointer<Database> db);
 
-    const QSharedPointer<Database> getDatabase() const;
+	const QSharedPointer<Database> getDatabase() const;
 
 signals:
-    /**
-     * Can be emitted to indicate size changes and allow parents widgets to adjust properly.
-     */
-    void sizeChanged();
+	/**
+	 * Can be emitted to indicate size changes and allow parents widgets to adjust properly.
+	 */
+	void sizeChanged();
 
 protected:
-    QSharedPointer<Database> m_db;
+	QSharedPointer<Database> m_db;
 };
 
 #endif // KEEPASSXC_DATABASESETTINGSWIDGET_H

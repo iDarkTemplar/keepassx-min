@@ -21,27 +21,27 @@
 
 QString ReportsPageStatistics::name()
 {
-    return QObject::tr("Statistics");
+	return QObject::tr("Statistics");
 }
 
 QIcon ReportsPageStatistics::icon()
 {
-    return icons()->icon("statistics");
+	return icons()->icon("statistics");
 }
 
-QWidget* ReportsPageStatistics::createWidget()
+QWidget *ReportsPageStatistics::createWidget()
 {
-    return new ReportsWidgetStatistics();
+	return new ReportsWidgetStatistics();
 }
 
-void ReportsPageStatistics::loadSettings(QWidget* widget, QSharedPointer<Database> db)
+void ReportsPageStatistics::loadSettings(QWidget *widget, QSharedPointer<Database> db)
 {
-    ReportsWidgetStatistics* settingsWidget = reinterpret_cast<ReportsWidgetStatistics*>(widget);
-    settingsWidget->loadSettings(db);
+	ReportsWidgetStatistics *settingsWidget = reinterpret_cast<ReportsWidgetStatistics *>(widget);
+	settingsWidget->loadSettings(db);
 }
 
-void ReportsPageStatistics::saveSettings(QWidget* widget)
+void ReportsPageStatistics::saveSettings(QWidget *widget)
 {
-    ReportsWidgetStatistics* settingsWidget = reinterpret_cast<ReportsWidgetStatistics*>(widget);
-    settingsWidget->saveSettings();
+	ReportsWidgetStatistics *settingsWidget = reinterpret_cast<ReportsWidgetStatistics *>(widget);
+	settingsWidget->saveSettings();
 }

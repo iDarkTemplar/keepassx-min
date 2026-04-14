@@ -17,62 +17,65 @@
 #include "TemporaryFile.h"
 
 TemporaryFile::TemporaryFile()
-    : TemporaryFile(nullptr)
+	: TemporaryFile(nullptr)
 {
 }
 
-TemporaryFile::TemporaryFile(const QString& templateName)
-    : TemporaryFile(templateName, nullptr)
+TemporaryFile::TemporaryFile(const QString &templateName)
+	: TemporaryFile(templateName, nullptr)
 {
 }
 
-TemporaryFile::TemporaryFile(QObject* parent)
-    : QFile(parent)
+TemporaryFile::TemporaryFile(QObject *parent)
+	: QFile(parent)
 {
-    QTemporaryFile tmp;
-    tmp.open();
-    QFile::setFileName(tmp.fileName());
-    tmp.close();
+	QTemporaryFile tmp;
+	tmp.open();
+	QFile::setFileName(tmp.fileName());
+	tmp.close();
 }
 
-TemporaryFile::TemporaryFile(const QString& templateName, QObject* parent)
-    : QFile(parent)
+TemporaryFile::TemporaryFile(const QString &templateName, QObject *parent)
+	: QFile(parent)
 {
-    QTemporaryFile tmp(templateName);
-    tmp.open();
-    QFile::setFileName(tmp.fileName());
-    tmp.close();
+	QTemporaryFile tmp(templateName);
+	tmp.open();
+	QFile::setFileName(tmp.fileName());
+	tmp.close();
 }
 
 TemporaryFile::~TemporaryFile()
 {
-    remove();
+	remove();
 }
 
 bool TemporaryFile::open()
 {
-    return QFile::open(QIODevice::ReadWrite);
+	return QFile::open(QIODevice::ReadWrite);
 }
 
-bool TemporaryFile::copyFromFile(const QString& otherFileName)
+bool TemporaryFile::copyFromFile(const QString &otherFileName)
 {
-    close();
-    if (!open(QFile::WriteOnly | QFile::Truncate)) {
-        return false;
-    }
+	close();
+	if (!open(QFile::WriteOnly | QFile::Truncate))
+	{
+		return false;
+	}
 
-    QFile otherFile(otherFileName);
-    if (!otherFile.open(QFile::ReadOnly)) {
-        close();
-        return false;
-    }
+	QFile otherFile(otherFileName);
+	if (!otherFile.open(QFile::ReadOnly))
+	{
+		close();
+		return false;
+	}
 
-    QByteArray data;
-    while (!(data = otherFile.read(1024)).isEmpty()) {
-        write(data);
-    }
+	QByteArray data;
+	while (!(data = otherFile.read(1024)).isEmpty())
+	{
+		write(data);
+	}
 
-    otherFile.close();
-    close();
-    return true;
+	otherFile.close();
+	close();
+	return true;
 }

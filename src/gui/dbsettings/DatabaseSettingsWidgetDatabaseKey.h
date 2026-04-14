@@ -32,47 +32,47 @@ class KeyFileEditWidget;
 class YubiKeyEditWidget;
 class QPushButton;
 
-class DatabaseSettingsWidgetDatabaseKey : public DatabaseSettingsWidget
+class DatabaseSettingsWidgetDatabaseKey: public DatabaseSettingsWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DatabaseSettingsWidgetDatabaseKey(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(DatabaseSettingsWidgetDatabaseKey);
-    ~DatabaseSettingsWidgetDatabaseKey() override;
+	explicit DatabaseSettingsWidgetDatabaseKey(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(DatabaseSettingsWidgetDatabaseKey);
+	~DatabaseSettingsWidgetDatabaseKey() override;
 
-    void loadSettings(QSharedPointer<Database> db) override;
+	void loadSettings(QSharedPointer<Database> db) override;
 
 public slots:
-    void initialize() override;
-    void uninitialize() override;
-    bool saveSettings() override;
-    void discard() override;
+	void initialize() override;
+	void uninitialize() override;
+	bool saveSettings() override;
+	void discard() override;
 
 private slots:
-    void showAdditionalKeyOptions();
-    void markDirty();
+	void showAdditionalKeyOptions();
+	void markDirty();
 
 private:
-    void setAdditionalKeyOptionsVisible(bool show);
+	void setAdditionalKeyOptionsVisible(bool show);
 
-    // clang-format off
+	// clang-format off
     bool addToCompositeKey(KeyComponentWidget* widget,
                            QSharedPointer<CompositeKey>& newKey,
                            QSharedPointer<Key>& oldKey);
-    // clang-format on
+	// clang-format on
 
-    bool addToCompositeKey(KeyComponentWidget* widget,
-                           QSharedPointer<CompositeKey>& newKey,
-                           QSharedPointer<ChallengeResponseKey>& oldKey);
+	bool addToCompositeKey(KeyComponentWidget *widget,
+	                       QSharedPointer<CompositeKey> &newKey,
+	                       QSharedPointer<ChallengeResponseKey> &oldKey);
 
-    bool m_isDirty = false;
-    const QPointer<QPushButton> m_additionalKeyOptionsToggle;
-    const QPointer<QWidget> m_additionalKeyOptions;
-    const QPointer<PasswordEditWidget> m_passwordEditWidget;
-    const QPointer<KeyFileEditWidget> m_keyFileEditWidget;
+	bool m_isDirty = false;
+	const QPointer<QPushButton> m_additionalKeyOptionsToggle;
+	const QPointer<QWidget> m_additionalKeyOptions;
+	const QPointer<PasswordEditWidget> m_passwordEditWidget;
+	const QPointer<KeyFileEditWidget> m_keyFileEditWidget;
 #ifdef WITH_XC_YUBIKEY
-    const QPointer<YubiKeyEditWidget> m_yubiKeyEditWidget;
+	const QPointer<YubiKeyEditWidget> m_yubiKeyEditWidget;
 #endif
 };
 

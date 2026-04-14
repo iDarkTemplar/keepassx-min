@@ -21,22 +21,22 @@
 #include <QCollator>
 #include <QSortFilterProxyModel>
 
-class SortFilterHideProxyModel : public QSortFilterProxyModel
+class SortFilterHideProxyModel: public QSortFilterProxyModel
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit SortFilterHideProxyModel(QObject* parent = nullptr);
-    Qt::DropActions supportedDragActions() const override;
-    void hideColumn(int column, bool hide);
+	explicit SortFilterHideProxyModel(QObject *parent = nullptr);
+	Qt::DropActions supportedDragActions() const override;
+	void hideColumn(int column, bool hide);
 
 protected:
-    bool filterAcceptsColumn(int sourceColumn, const QModelIndex& sourceParent) const override;
-    bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;
+	bool filterAcceptsColumn(int sourceColumn, const QModelIndex &sourceParent) const override;
+	bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 
 private:
-    QBitArray m_hiddenColumns;
-    QCollator m_collator;
+	QBitArray m_hiddenColumns;
+	QCollator m_collator;
 };
 
 #endif // KEEPASSX_SORTFILTERHIDEPROXYMODEL_H

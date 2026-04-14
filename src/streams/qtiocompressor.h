@@ -50,29 +50,36 @@
 #include <QIODevice>
 
 class QtIOCompressorPrivate;
-class QtIOCompressor : public QIODevice
+class QtIOCompressor: public QIODevice
 {
-Q_OBJECT
+	Q_OBJECT
 public:
-enum StreamFormat { ZlibFormat, GzipFormat, RawZipFormat };
-    QtIOCompressor(QIODevice *device, int compressionLevel = 6, int bufferSize = 65500);
-    ~QtIOCompressor();
-    void setStreamFormat(StreamFormat format);
-    StreamFormat streamFormat() const;
-    static bool isGzipSupported();
-    bool isSequential() const;
-    bool open(OpenMode mode);
-    void close();
-    void flush();
-    qint64 bytesAvailable() const;
+	enum StreamFormat
+	{
+		ZlibFormat,
+		GzipFormat,
+		RawZipFormat
+	};
+	QtIOCompressor(QIODevice *device, int compressionLevel = 6, int bufferSize = 65500);
+	~QtIOCompressor();
+	void setStreamFormat(StreamFormat format);
+	StreamFormat streamFormat() const;
+	static bool isGzipSupported();
+	bool isSequential() const;
+	bool open(OpenMode mode);
+	void close();
+	void flush();
+	qint64 bytesAvailable() const;
+
 protected:
-    qint64 readData(char * data, qint64 maxSize);
-    qint64 writeData(const char * data, qint64 maxSize);
+	qint64 readData(char *data, qint64 maxSize);
+	qint64 writeData(const char *data, qint64 maxSize);
+
 private:
-    static bool checkGzipSupport(const char * const versionString);
-    QtIOCompressorPrivate *d_ptr;
-    Q_DECLARE_PRIVATE(QtIOCompressor)
-    Q_DISABLE_COPY(QtIOCompressor)
+	static bool checkGzipSupport(const char *const versionString);
+	QtIOCompressorPrivate *d_ptr;
+	Q_DECLARE_PRIVATE(QtIOCompressor)
+	Q_DISABLE_COPY(QtIOCompressor)
 };
 
 #endif

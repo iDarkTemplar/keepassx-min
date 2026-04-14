@@ -19,22 +19,22 @@
 
 #include "DatabaseCommand.h"
 
-class DatabaseEdit : public DatabaseCommand
+class DatabaseEdit: public DatabaseCommand
 {
 public:
-    DatabaseEdit();
+	DatabaseEdit();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 
-    static const QCommandLineOption UnsetKeyFileOption;
-    static const QCommandLineOption UnsetPasswordOption;
+	static const QCommandLineOption UnsetKeyFileOption;
+	static const QCommandLineOption UnsetPasswordOption;
 
 private:
-    QSharedPointer<CompositeKey> getNewDatabaseKey(QSharedPointer<Database> database,
-                                                   bool updatePassword,
-                                                   bool removePassword,
-                                                   QString newFileKeyPath,
-                                                   bool removeKeyFile);
+	QSharedPointer<CompositeKey> getNewDatabaseKey(QSharedPointer<Database> database,
+	                                               bool updatePassword,
+	                                               bool removePassword,
+	                                               QString newFileKeyPath,
+	                                               bool removeKeyFile);
 };
 
 #endif // KEEPASSXC_DATABASEEDIT_H

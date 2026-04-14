@@ -16,8 +16,8 @@
 
 #include "OSUtilsBase.h"
 
-OSUtilsBase::OSUtilsBase(QObject* parent)
-    : QObject(parent)
+OSUtilsBase::OSUtilsBase(QObject *parent)
+	: QObject(parent)
 {
 }
 
@@ -25,8 +25,8 @@ OSUtilsBase::~OSUtilsBase()
 {
 }
 
-bool OSUtilsBase::setPreventScreenCapture(QWindow*, bool) const
+bool OSUtilsBase::setPreventScreenCapture(QWindow *, bool) const
 {
-    // Do nothing by default
-    return true;
+	// Do nothing by default
+	return true;
 }

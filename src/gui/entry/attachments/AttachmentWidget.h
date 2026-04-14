@@ -26,41 +26,41 @@
 
 namespace Ui
 {
-    class AttachmentWidget;
+	class AttachmentWidget;
 }
 
 /**
  * @brief The AttachmentWidget class provides a way to manage attachments in a GUI application.
  *
  */
-class AttachmentWidget : public QWidget
+class AttachmentWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit AttachmentWidget(QWidget* parent = nullptr);
-    ~AttachmentWidget() override;
+	explicit AttachmentWidget(QWidget *parent = nullptr);
+	~AttachmentWidget() override;
 
-    /**
-     * @brief Opens an attachment in the specified mode.
-     *
-     * @param attachment - The attachment to be opened.
-     * @param mode - The mode in which to open the attachment (read-only or read-write).
-     */
-    void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
+	/**
+	 * @brief Opens an attachment in the specified mode.
+	 *
+	 * @param attachment - The attachment to be opened.
+	 * @param mode - The mode in which to open the attachment (read-only or read-write).
+	 */
+	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
 
-    /**
-     * @brief Get the current attachment.
-     *
-     * @return Attachment - The current attachment.
-     */
-    attachments::Attachment getAttachment() const;
+	/**
+	 * @brief Get the current attachment.
+	 *
+	 * @return Attachment - The current attachment.
+	 */
+	attachments::Attachment getAttachment() const;
 
 private:
-    void updateUi();
+	void updateUi();
 
-    QPointer<QWidget> m_attachmentWidget;
+	QPointer<QWidget> m_attachmentWidget;
 
-    attachments::Attachment m_attachment;
-    attachments::OpenMode m_mode;
+	attachments::Attachment m_attachment;
+	attachments::OpenMode m_mode;
 };

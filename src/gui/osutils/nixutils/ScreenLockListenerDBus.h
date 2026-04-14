@@ -20,18 +20,18 @@
 #include "gui/osutils/ScreenLockListenerPrivate.h"
 #include <QDBusMessage>
 
-class ScreenLockListenerDBus : public ScreenLockListenerPrivate
+class ScreenLockListenerDBus: public ScreenLockListenerPrivate
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit ScreenLockListenerDBus(QWidget* parent);
+	explicit ScreenLockListenerDBus(QWidget *parent);
 
 private slots:
-    void gnomeSessionStatusChanged(uint status);
-    void logindPrepareForSleep(bool beforeSleep);
-    void unityLocked();
-    void freedesktopScreenSaver(bool status);
-    void login1SessionObjectReceived(QDBusMessage);
+	void gnomeSessionStatusChanged(uint status);
+	void logindPrepareForSleep(bool beforeSleep);
+	void unityLocked();
+	void freedesktopScreenSaver(bool status);
+	void login1SessionObjectReceived(QDBusMessage);
 };
 
 #endif // SCREENLOCKLISTENERDBUS_H

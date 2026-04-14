@@ -27,49 +27,49 @@
 
 class QStringList;
 
-class EntryAttachments : public ModifiableObject
+class EntryAttachments: public ModifiableObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit EntryAttachments(QObject* parent = nullptr);
-    virtual ~EntryAttachments();
-    QList<QString> keys() const;
-    bool hasKey(const QString& key) const;
-    QSet<QByteArray> values() const;
-    QByteArray value(const QString& key) const;
-    void set(const QString& key, const QByteArray& value);
-    void remove(const QString& key);
-    void remove(const QStringList& keys);
-    void rename(const QString& key, const QString& newKey);
-    bool isEmpty() const;
-    void clear();
-    void copyDataFrom(const EntryAttachments* other);
-    bool operator==(const EntryAttachments& other) const;
-    bool operator!=(const EntryAttachments& other) const;
-    int attachmentsSize() const;
-    bool openAttachment(const QString& key, QString* errorMessage = nullptr);
+	explicit EntryAttachments(QObject *parent = nullptr);
+	virtual ~EntryAttachments();
+	QList<QString> keys() const;
+	bool hasKey(const QString &key) const;
+	QSet<QByteArray> values() const;
+	QByteArray value(const QString &key) const;
+	void set(const QString &key, const QByteArray &value);
+	void remove(const QString &key);
+	void remove(const QStringList &keys);
+	void rename(const QString &key, const QString &newKey);
+	bool isEmpty() const;
+	void clear();
+	void copyDataFrom(const EntryAttachments *other);
+	bool operator==(const EntryAttachments &other) const;
+	bool operator!=(const EntryAttachments &other) const;
+	int attachmentsSize() const;
+	bool openAttachment(const QString &key, QString *errorMessage = nullptr);
 
 signals:
-    void keyModified(const QString& key);
-    void valueModifiedExternally(const QString& key, const QString& path);
-    void aboutToBeAdded(const QString& key);
-    void added(const QString& key);
-    void aboutToBeRemoved(const QString& key);
-    void removed(const QString& key);
-    void aboutToBeReset();
-    void reset();
+	void keyModified(const QString &key);
+	void valueModifiedExternally(const QString &key, const QString &path);
+	void aboutToBeAdded(const QString &key);
+	void added(const QString &key);
+	void aboutToBeRemoved(const QString &key);
+	void removed(const QString &key);
+	void aboutToBeReset();
+	void reset();
 
 private slots:
-    void attachmentFileModified(const QString& path);
+	void attachmentFileModified(const QString &path);
 
 private:
-    void disconnectAndEraseExternalFile(const QString& path);
+	void disconnectAndEraseExternalFile(const QString &path);
 
-    QMap<QString, QByteArray> m_attachments;
-    QHash<QString, QString> m_openedAttachments;
-    QHash<QString, QString> m_openedAttachmentsInverse;
-    QHash<QString, QSharedPointer<FileWatcher>> m_attachmentFileWatchers;
+	QMap<QString, QByteArray> m_attachments;
+	QHash<QString, QString> m_openedAttachments;
+	QHash<QString, QString> m_openedAttachmentsInverse;
+	QHash<QString, QSharedPointer<FileWatcher>> m_attachmentFileWatchers;
 };
 
 #endif // KEEPASSX_ENTRYATTACHMENTS_H

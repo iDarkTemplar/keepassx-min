@@ -21,21 +21,21 @@
 #include <QObject>
 #include <QScopedPointer>
 
-class TestTextAttachmentsWidget : public QObject
+class TestTextAttachmentsWidget: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
+	void initTestCase();
 
-    void testInitTextWidget();
-    void testTextReadWriteWidget();
-    void testTextReadWidget();
-    void testOpenPreviewButton();
-    void testPreviewTextChanged();
-    void testTextChanged();
-    void testTextChangedInReadOnlyMode();
+	void testInitTextWidget();
+	void testTextReadWriteWidget();
+	void testTextReadWidget();
+	void testOpenPreviewButton();
+	void testPreviewTextChanged();
+	void testTextChanged();
+	void testTextChangedInReadOnlyMode();
 
 private:
-    QScopedPointer<TextAttachmentsWidget> m_textWidget;
+	QScopedPointer<TextAttachmentsWidget> m_textWidget;
 };

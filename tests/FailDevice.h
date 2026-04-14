@@ -19,22 +19,22 @@
 
 #include <QBuffer>
 
-class FailDevice : public QBuffer
+class FailDevice: public QBuffer
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit FailDevice(int failAfter, QObject* parent = nullptr);
-    bool open(QIODevice::OpenMode openMode) override;
+	explicit FailDevice(int failAfter, QObject *parent = nullptr);
+	bool open(QIODevice::OpenMode openMode) override;
 
 protected:
-    qint64 readData(char* data, qint64 len) override;
-    qint64 writeData(const char* data, qint64 len) override;
+	qint64 readData(char *data, qint64 len) override;
+	qint64 writeData(const char *data, qint64 len) override;
 
 private:
-    int m_failAfter;
-    int m_readCount;
-    int m_writeCount;
+	int m_failAfter;
+	int m_readCount;
+	int m_writeCount;
 };
 
 #endif // KEEPASSX_FAILDEVICE_H

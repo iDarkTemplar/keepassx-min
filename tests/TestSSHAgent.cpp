@@ -27,208 +27,214 @@ QTEST_GUILESS_MAIN(TestSSHAgent)
 
 void TestSSHAgent::initTestCase()
 {
-    QVERIFY(Crypto::init());
-    Config::createTempFileInstance();
+	QVERIFY(Crypto::init());
+	Config::createTempFileInstance();
 
-    m_agentSocketFile.setAutoRemove(true);
-    QVERIFY(m_agentSocketFile.open());
+	m_agentSocketFile.setAutoRemove(true);
+	QVERIFY(m_agentSocketFile.open());
 
-    m_agentSocketFileName = m_agentSocketFile.fileName();
-    QVERIFY(!m_agentSocketFileName.isEmpty());
+	m_agentSocketFileName = m_agentSocketFile.fileName();
+	QVERIFY(!m_agentSocketFileName.isEmpty());
 
-    // let ssh-agent re-create it as a socket
-    QVERIFY(m_agentSocketFile.remove());
+	// let ssh-agent re-create it as a socket
+	QVERIFY(m_agentSocketFile.remove());
 
-    QStringList arguments;
-    arguments << "-D" << "-a" << m_agentSocketFileName;
+	QStringList arguments;
+	arguments << "-D" << "-a" << m_agentSocketFileName;
 
-    QElapsedTimer timer;
-    timer.start();
+	QElapsedTimer timer;
+	timer.start();
 
-    qDebug() << "ssh-agent starting with arguments" << arguments;
-    m_agentProcess.setProcessChannelMode(QProcess::ForwardedChannels);
-    m_agentProcess.start("ssh-agent", arguments);
-    m_agentProcess.closeWriteChannel();
+	qDebug() << "ssh-agent starting with arguments" << arguments;
+	m_agentProcess.setProcessChannelMode(QProcess::ForwardedChannels);
+	m_agentProcess.start("ssh-agent", arguments);
+	m_agentProcess.closeWriteChannel();
 
-    if (!m_agentProcess.waitForStarted()) {
-        QSKIP("ssh-agent could not be started");
-    }
+	if (!m_agentProcess.waitForStarted())
+	{
+		QSKIP("ssh-agent could not be started");
+	}
 
-    qDebug() << "ssh-agent started as pid" << m_agentProcess.processId();
+	qDebug() << "ssh-agent started as pid" << m_agentProcess.processId();
 
-    // we need to wait for the agent to open the socket before going into real tests
-    QFileInfo socketFileInfo(m_agentSocketFileName);
-    while (!timer.hasExpired(2000)) {
-        if (socketFileInfo.exists()) {
-            break;
-        }
-        QTest::qWait(10);
-    }
+	// we need to wait for the agent to open the socket before going into real tests
+	QFileInfo socketFileInfo(m_agentSocketFileName);
+	while (!timer.hasExpired(2000))
+	{
+		if (socketFileInfo.exists())
+		{
+			break;
+		}
+		QTest::qWait(10);
+	}
 
-    QVERIFY(socketFileInfo.exists());
-    qDebug() << "ssh-agent initialized in" << timer.elapsed() << "ms";
+	QVERIFY(socketFileInfo.exists());
+	qDebug() << "ssh-agent initialized in" << timer.elapsed() << "ms";
 
-    // initialize test key
-    const QString keyString = QString("-----BEGIN OPENSSH PRIVATE KEY-----\n"
-                                      "b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW\n"
-                                      "QyNTUxOQAAACDdlO5F2kF2WzedrBAHBi9wBHeISzXZ0IuIqrp0EzeazAAAAKjgCfj94An4\n"
-                                      "/QAAAAtzc2gtZWQyNTUxOQAAACDdlO5F2kF2WzedrBAHBi9wBHeISzXZ0IuIqrp0EzeazA\n"
-                                      "AAAEBe1iilZFho8ZGAliiSj5URvFtGrgvmnEKdiLZow5hOR92U7kXaQXZbN52sEAcGL3AE\n"
-                                      "d4hLNdnQi4iqunQTN5rMAAAAH29wZW5zc2hrZXktdGVzdC1wYXJzZUBrZWVwYXNzeGMBAg\n"
-                                      "MEBQY=\n"
-                                      "-----END OPENSSH PRIVATE KEY-----\n");
+	// initialize test key
+	const QString keyString = QString("-----BEGIN OPENSSH PRIVATE KEY-----\n"
+	                                  "b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW\n"
+	                                  "QyNTUxOQAAACDdlO5F2kF2WzedrBAHBi9wBHeISzXZ0IuIqrp0EzeazAAAAKjgCfj94An4\n"
+	                                  "/QAAAAtzc2gtZWQyNTUxOQAAACDdlO5F2kF2WzedrBAHBi9wBHeISzXZ0IuIqrp0EzeazA\n"
+	                                  "AAAEBe1iilZFho8ZGAliiSj5URvFtGrgvmnEKdiLZow5hOR92U7kXaQXZbN52sEAcGL3AE\n"
+	                                  "d4hLNdnQi4iqunQTN5rMAAAAH29wZW5zc2hrZXktdGVzdC1wYXJzZUBrZWVwYXNzeGMBAg\n"
+	                                  "MEBQY=\n"
+	                                  "-----END OPENSSH PRIVATE KEY-----\n");
 
-    const QByteArray keyData = keyString.toLatin1();
+	const QByteArray keyData = keyString.toLatin1();
 
-    QVERIFY(m_key.parsePKCS1PEM(keyData));
+	QVERIFY(m_key.parsePKCS1PEM(keyData));
 }
 
 void TestSSHAgent::testConfiguration()
 {
-    SSHAgent agent;
+	SSHAgent agent;
 
-    // default config must not enable agent
-    QVERIFY(!agent.isEnabled());
+	// default config must not enable agent
+	QVERIFY(!agent.isEnabled());
 
-    agent.setEnabled(true);
-    QVERIFY(agent.isEnabled());
+	agent.setEnabled(true);
+	QVERIFY(agent.isEnabled());
 
-    // this will either be an empty string or the real ssh-agent socket path, doesn't matter
-    QString defaultSocketPath = agent.socketPath(false);
+	// this will either be an empty string or the real ssh-agent socket path, doesn't matter
+	QString defaultSocketPath = agent.socketPath(false);
 
-    // overridden path must match default before setting an override
-    QCOMPARE(agent.socketPath(true), defaultSocketPath);
+	// overridden path must match default before setting an override
+	QCOMPARE(agent.socketPath(true), defaultSocketPath);
 
-    agent.setAuthSockOverride(m_agentSocketFileName);
+	agent.setAuthSockOverride(m_agentSocketFileName);
 
-    // overridden path must match what we set
-    QCOMPARE(agent.socketPath(true), m_agentSocketFileName);
+	// overridden path must match what we set
+	QCOMPARE(agent.socketPath(true), m_agentSocketFileName);
 
-    // non-overridden path must match the default
-    QCOMPARE(agent.socketPath(false), defaultSocketPath);
+	// non-overridden path must match the default
+	QCOMPARE(agent.socketPath(false), defaultSocketPath);
 }
 
 void TestSSHAgent::testIdentity()
 {
-    SSHAgent agent;
-    agent.setEnabled(true);
-    agent.setAuthSockOverride(m_agentSocketFileName);
+	SSHAgent agent;
+	agent.setEnabled(true);
+	agent.setAuthSockOverride(m_agentSocketFileName);
 
-    QVERIFY(agent.isAgentRunning());
+	QVERIFY(agent.isAgentRunning());
 
-    KeeAgentSettings settings;
-    bool keyInAgent;
+	KeeAgentSettings settings;
+	bool keyInAgent;
 
-    // test adding a key works
-    QVERIFY(agent.addIdentity(m_key, settings, m_uuid));
-    QVERIFY(agent.checkIdentity(m_key, keyInAgent) && keyInAgent);
+	// test adding a key works
+	QVERIFY(agent.addIdentity(m_key, settings, m_uuid));
+	QVERIFY(agent.checkIdentity(m_key, keyInAgent) && keyInAgent);
 
-    // test non-conflicting key ownership doesn't throw an error
-    QVERIFY(agent.addIdentity(m_key, settings, m_uuid));
+	// test non-conflicting key ownership doesn't throw an error
+	QVERIFY(agent.addIdentity(m_key, settings, m_uuid));
 
-    // test conflicting key ownership throws an error
-    QUuid secondUuid("{11111111-1111-1111-1111-111111111111}");
-    QVERIFY(!agent.addIdentity(m_key, settings, secondUuid));
+	// test conflicting key ownership throws an error
+	QUuid secondUuid("{11111111-1111-1111-1111-111111111111}");
+	QVERIFY(!agent.addIdentity(m_key, settings, secondUuid));
 
-    // test removing a key works
-    QVERIFY(agent.removeIdentity(m_key));
-    QVERIFY(agent.checkIdentity(m_key, keyInAgent) && !keyInAgent);
+	// test removing a key works
+	QVERIFY(agent.removeIdentity(m_key));
+	QVERIFY(agent.checkIdentity(m_key, keyInAgent) && !keyInAgent);
 }
 
 void TestSSHAgent::testRemoveOnClose()
 {
-    SSHAgent agent;
-    agent.setEnabled(true);
-    agent.setAuthSockOverride(m_agentSocketFileName);
+	SSHAgent agent;
+	agent.setEnabled(true);
+	agent.setAuthSockOverride(m_agentSocketFileName);
 
-    QVERIFY(agent.isAgentRunning());
+	QVERIFY(agent.isAgentRunning());
 
-    KeeAgentSettings settings;
-    bool keyInAgent;
+	KeeAgentSettings settings;
+	bool keyInAgent;
 
-    settings.setRemoveAtDatabaseClose(true);
-    QVERIFY(agent.addIdentity(m_key, settings, m_uuid));
-    QVERIFY(agent.checkIdentity(m_key, keyInAgent) && keyInAgent);
-    agent.setEnabled(false);
-    QVERIFY(agent.checkIdentity(m_key, keyInAgent) && !keyInAgent);
+	settings.setRemoveAtDatabaseClose(true);
+	QVERIFY(agent.addIdentity(m_key, settings, m_uuid));
+	QVERIFY(agent.checkIdentity(m_key, keyInAgent) && keyInAgent);
+	agent.setEnabled(false);
+	QVERIFY(agent.checkIdentity(m_key, keyInAgent) && !keyInAgent);
 }
 
 void TestSSHAgent::testLifetimeConstraint()
 {
-    SSHAgent agent;
-    agent.setEnabled(true);
-    agent.setAuthSockOverride(m_agentSocketFileName);
+	SSHAgent agent;
+	agent.setEnabled(true);
+	agent.setAuthSockOverride(m_agentSocketFileName);
 
-    QVERIFY(agent.isAgentRunning());
+	QVERIFY(agent.isAgentRunning());
 
-    KeeAgentSettings settings;
-    bool keyInAgent;
+	KeeAgentSettings settings;
+	bool keyInAgent;
 
-    settings.setUseLifetimeConstraintWhenAdding(true);
-    settings.setLifetimeConstraintDuration(2); // two seconds
+	settings.setUseLifetimeConstraintWhenAdding(true);
+	settings.setLifetimeConstraintDuration(2); // two seconds
 
-    // identity should be in agent immediately after adding
-    QVERIFY(agent.addIdentity(m_key, settings, m_uuid));
-    QVERIFY(agent.checkIdentity(m_key, keyInAgent) && keyInAgent);
+	// identity should be in agent immediately after adding
+	QVERIFY(agent.addIdentity(m_key, settings, m_uuid));
+	QVERIFY(agent.checkIdentity(m_key, keyInAgent) && keyInAgent);
 
-    QElapsedTimer timer;
-    timer.start();
+	QElapsedTimer timer;
+	timer.start();
 
-    // wait for the identity to time out
-    while (!timer.hasExpired(5000)) {
-        QVERIFY(agent.checkIdentity(m_key, keyInAgent));
+	// wait for the identity to time out
+	while (!timer.hasExpired(5000))
+	{
+		QVERIFY(agent.checkIdentity(m_key, keyInAgent));
 
-        if (!keyInAgent) {
-            break;
-        }
+		if (!keyInAgent)
+		{
+			break;
+		}
 
-        QTest::qWait(100);
-    }
+		QTest::qWait(100);
+	}
 
-    QVERIFY(!keyInAgent);
+	QVERIFY(!keyInAgent);
 }
 
 void TestSSHAgent::testConfirmConstraint()
 {
-    SSHAgent agent;
-    agent.setEnabled(true);
-    agent.setAuthSockOverride(m_agentSocketFileName);
+	SSHAgent agent;
+	agent.setEnabled(true);
+	agent.setAuthSockOverride(m_agentSocketFileName);
 
-    QVERIFY(agent.isAgentRunning());
+	QVERIFY(agent.isAgentRunning());
 
-    KeeAgentSettings settings;
-    bool keyInAgent;
+	KeeAgentSettings settings;
+	bool keyInAgent;
 
-    settings.setUseConfirmConstraintWhenAdding(true);
+	settings.setUseConfirmConstraintWhenAdding(true);
 
-    QVERIFY(agent.addIdentity(m_key, settings, m_uuid));
+	QVERIFY(agent.addIdentity(m_key, settings, m_uuid));
 
-    // we can't test confirmation itself is working but we can test the agent accepts the key
-    QVERIFY(agent.checkIdentity(m_key, keyInAgent) && keyInAgent);
+	// we can't test confirmation itself is working but we can test the agent accepts the key
+	QVERIFY(agent.checkIdentity(m_key, keyInAgent) && keyInAgent);
 
-    QVERIFY(agent.removeIdentity(m_key));
-    QVERIFY(agent.checkIdentity(m_key, keyInAgent) && !keyInAgent);
+	QVERIFY(agent.removeIdentity(m_key));
+	QVERIFY(agent.checkIdentity(m_key, keyInAgent) && !keyInAgent);
 }
 
 void TestSSHAgent::testToOpenSSHKey()
 {
-    KeeAgentSettings settings;
-    settings.setSelectedType("file");
-    settings.setFileName(QString("%1/id_rsa-encrypted-asn1").arg(QString(KEEPASSX_TEST_DATA_DIR)));
+	KeeAgentSettings settings;
+	settings.setSelectedType("file");
+	settings.setFileName(QString("%1/id_rsa-encrypted-asn1").arg(QString(KEEPASSX_TEST_DATA_DIR)));
 
-    OpenSSHKey key;
-    settings.toOpenSSHKey("username", "correctpassphrase", QString(), nullptr, key, false);
+	OpenSSHKey key;
+	settings.toOpenSSHKey("username", "correctpassphrase", QString(), nullptr, key, false);
 
-    QVERIFY(!key.publicKey().isEmpty());
+	QVERIFY(!key.publicKey().isEmpty());
 }
 
 void TestSSHAgent::cleanupTestCase()
 {
-    if (m_agentProcess.state() != QProcess::NotRunning) {
-        qDebug() << "Killing ssh-agent pid" << m_agentProcess.processId();
-        m_agentProcess.terminate();
-        m_agentProcess.waitForFinished();
-    }
+	if (m_agentProcess.state() != QProcess::NotRunning)
+	{
+		qDebug() << "Killing ssh-agent pid" << m_agentProcess.processId();
+		m_agentProcess.terminate();
+		m_agentProcess.waitForFinished();
+	}
 
-    m_agentSocketFile.remove();
+	m_agentSocketFile.remove();
 }

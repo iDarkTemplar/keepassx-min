@@ -19,12 +19,12 @@
 
 #include "DatabaseCommand.h"
 
-class DatabaseInfo : public DatabaseCommand
+class DatabaseInfo: public DatabaseCommand
 {
 public:
-    DatabaseInfo();
+	DatabaseInfo();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
 };
 
 #endif // KEEPASSXC_DATABASEINFO_H

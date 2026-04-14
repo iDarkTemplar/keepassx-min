@@ -25,34 +25,34 @@
 
 class Entry;
 
-class BrowserEntryConfig : public QObject
+class BrowserEntryConfig: public QObject
 {
-    Q_OBJECT
-    Q_PROPERTY(QStringList Allow READ allowedHosts WRITE setAllowedHosts)
-    Q_PROPERTY(QStringList Deny READ deniedHosts WRITE setDeniedHosts)
-    Q_PROPERTY(QString Realm READ realm WRITE setRealm)
+	Q_OBJECT
+	Q_PROPERTY(QStringList Allow READ allowedHosts WRITE setAllowedHosts)
+	Q_PROPERTY(QStringList Deny READ deniedHosts WRITE setDeniedHosts)
+	Q_PROPERTY(QString Realm READ realm WRITE setRealm)
 
 public:
-    BrowserEntryConfig(QObject* object = nullptr);
+	BrowserEntryConfig(QObject *object = nullptr);
 
-    bool load(const Entry* entry);
-    void save(Entry* entry);
-    bool isAllowed(const QString& host) const;
-    void allow(const QString& host);
-    bool isDenied(const QString& host) const;
-    void deny(const QString& host);
-    QString realm() const;
-    void setRealm(const QString& realm);
+	bool load(const Entry *entry);
+	void save(Entry *entry);
+	bool isAllowed(const QString &host) const;
+	void allow(const QString &host);
+	bool isDenied(const QString &host) const;
+	void deny(const QString &host);
+	QString realm() const;
+	void setRealm(const QString &realm);
 
 private:
-    QStringList allowedHosts() const;
-    void setAllowedHosts(const QStringList& allowedHosts);
-    QStringList deniedHosts() const;
-    void setDeniedHosts(const QStringList& deniedHosts);
+	QStringList allowedHosts() const;
+	void setAllowedHosts(const QStringList &allowedHosts);
+	QStringList deniedHosts() const;
+	void setDeniedHosts(const QStringList &deniedHosts);
 
-    QSet<QString> m_allowedHosts;
-    QSet<QString> m_deniedHosts;
-    QString m_realm;
+	QSet<QString> m_allowedHosts;
+	QSet<QString> m_deniedHosts;
+	QString m_realm;
 };
 
 #endif // KEEPASSXC_BROWSERENTRYCONFIG_H

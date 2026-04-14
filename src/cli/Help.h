@@ -19,12 +19,12 @@
 
 #include "Command.h"
 
-class Help : public Command
+class Help: public Command
 {
 public:
-    Help();
-    ~Help() override = default;
-    int execute(const QStringList& arguments) override;
+	Help();
+	~Help() override = default;
+	int execute(const QStringList &arguments) override;
 };
 
 #endif // KEEPASSXC_HELP_H

@@ -19,13 +19,13 @@
 
 #include "DatabaseCommand.h"
 
-class AddGroup : public DatabaseCommand
+class AddGroup: public DatabaseCommand
 {
 public:
-    AddGroup();
-    ~AddGroup();
+	AddGroup();
+	~AddGroup();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
 };
 
 #endif // KEEPASSXC_ADDGROUP_H

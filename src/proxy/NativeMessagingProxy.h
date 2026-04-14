@@ -23,29 +23,29 @@
 class QWinEventNotifier;
 class QSocketNotifier;
 
-class NativeMessagingProxy : public QObject
+class NativeMessagingProxy: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    NativeMessagingProxy();
-    ~NativeMessagingProxy() override = default;
+	NativeMessagingProxy();
+	~NativeMessagingProxy() override = default;
 
 signals:
-    void stdinMessage(QString msg);
+	void stdinMessage(QString msg);
 
 public slots:
-    void transferSocketMessage();
-    void transferStdinMessage(const QString& msg);
-    void socketDisconnected();
+	void transferSocketMessage();
+	void transferStdinMessage(const QString &msg);
+	void socketDisconnected();
 
 private:
-    void setupStandardInput();
-    void setupLocalSocket();
+	void setupStandardInput();
+	void setupLocalSocket();
 
 private:
-    QScopedPointer<QLocalSocket> m_localSocket;
+	QScopedPointer<QLocalSocket> m_localSocket;
 
-    Q_DISABLE_COPY(NativeMessagingProxy)
+	Q_DISABLE_COPY(NativeMessagingProxy)
 };
 
 #endif // NATIVEMESSAGINGPROXY_H

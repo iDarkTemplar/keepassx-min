@@ -27,34 +27,34 @@
 
 namespace BrowserShared
 {
-    QString localServerPath()
-    {
-        const auto serverName = QStringLiteral("/org.keepassxc.KeePassXC.BrowserServer");
+	QString localServerPath()
+	{
+		const auto serverName = QStringLiteral("/org.keepassxc.KeePassXC.BrowserServer");
 #if defined(KEEPASSXC_DIST_SNAP)
-        return QProcessEnvironment::systemEnvironment().value("SNAP_USER_COMMON") + serverName;
+		return QProcessEnvironment::systemEnvironment().value("SNAP_USER_COMMON") + serverName;
 #elif defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
-        // This returns XDG_RUNTIME_DIR or else a temporary subdirectory.
-        QString path = QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation);
+		// This returns XDG_RUNTIME_DIR or else a temporary subdirectory.
+		QString path = QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation);
 
-        // Put the socket in a dedicated directory.
-        // This directory will be easily mountable by sandbox containers.
-        QString subPath = path + "/app/org.keepassxc.KeePassXC";
-        QDir().mkpath(subPath);
+		// Put the socket in a dedicated directory.
+		// This directory will be easily mountable by sandbox containers.
+		QString subPath = path + "/app/org.keepassxc.KeePassXC";
+		QDir().mkpath(subPath);
 
-        QString socketPath = subPath + serverName;
+		QString socketPath = subPath + serverName;
 #ifndef KEEPASSXC_DIST_FLATPAK
-        // Create a symlink at the legacy location for backwards compatibility.
-        const auto origSocketPath = path + serverName;
-        QFile::remove(origSocketPath);
-        QFile::link(socketPath, origSocketPath);
+		// Create a symlink at the legacy location for backwards compatibility.
+		const auto origSocketPath = path + serverName;
+		QFile::remove(origSocketPath);
+		QFile::link(socketPath, origSocketPath);
 #endif
 
-        return socketPath;
+		return socketPath;
 #elif defined(Q_OS_WIN)
-        // Windows uses named pipes
-        return serverName + "_" + qgetenv("USERNAME");
+		// Windows uses named pipes
+		return serverName + "_" + qgetenv("USERNAME");
 #else // Q_OS_MACOS and others
-        return QStandardPaths::writableLocation(QStandardPaths::TempLocation) + serverName;
+		return QStandardPaths::writableLocation(QStandardPaths::TempLocation) + serverName;
 #endif
-    }
+	}
 } // namespace BrowserShared

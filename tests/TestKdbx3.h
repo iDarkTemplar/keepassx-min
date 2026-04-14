@@ -19,32 +19,32 @@
 
 #include "TestKeePass2Format.h"
 
-class TestKdbx3 : public TestKeePass2Format
+class TestKdbx3: public TestKeePass2Format
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void testNonAscii();
-    void testCompressed();
-    void testProtectedStrings();
-    void testBrokenHeaderHash();
-    void testFormat300();
-    void testAttachmentIndexStability();
+	void testNonAscii();
+	void testCompressed();
+	void testProtectedStrings();
+	void testBrokenHeaderHash();
+	void testFormat300();
+	void testAttachmentIndexStability();
 
 protected:
-    void initTestCaseImpl() override;
+	void initTestCaseImpl() override;
 
-    QSharedPointer<Database> readXml(QBuffer* buf, bool strictMode, bool& hasError, QString& errorString) override;
-    QSharedPointer<Database>
-    readXml(const QString& path, bool strictMode, bool& hasError, QString& errorString) override;
-    void writeXml(QBuffer* buf, Database* db, bool& hasError, QString& errorString) override;
+	QSharedPointer<Database> readXml(QBuffer *buf, bool strictMode, bool &hasError, QString &errorString) override;
+	QSharedPointer<Database>
+		readXml(const QString &path, bool strictMode, bool &hasError, QString &errorString) override;
+	void writeXml(QBuffer *buf, Database *db, bool &hasError, QString &errorString) override;
 
-    void readKdbx(QIODevice* device,
-                  QSharedPointer<const CompositeKey> key,
-                  QSharedPointer<Database> db,
-                  bool& hasError,
-                  QString& errorString) override;
-    void writeKdbx(QIODevice* device, Database* db, bool& hasError, QString& errorString) override;
+	void readKdbx(QIODevice *device,
+	              QSharedPointer<const CompositeKey> key,
+	              QSharedPointer<Database> db,
+	              bool &hasError,
+	              QString &errorString) override;
+	void writeKdbx(QIODevice *device, Database *db, bool &hasError, QString &errorString) override;
 };
 
 #endif // KEEPASSXC_TEST_KDBX3_H

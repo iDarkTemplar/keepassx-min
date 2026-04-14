@@ -29,14 +29,14 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef	__YKSTATUS_H_INCLUDED__
-#define	__YKSTATUS_H_INCLUDED__
+#ifndef __YKSTATUS_H_INCLUDED__
+#define __YKSTATUS_H_INCLUDED__
 
 #include "ykcore.h"
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-# endif
+#endif
 
 /* Allocate and free status structures */
 extern YK_STATUS *ykds_alloc(void);
@@ -53,8 +53,8 @@ extern int ykds_version_build(const YK_STATUS *st);
 extern int ykds_pgm_seq(const YK_STATUS *st);
 extern int ykds_touch_level(const YK_STATUS *st);
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 }
-# endif
+#endif
 
 #endif /* __YKSTATUS_H_INCLUDED__ */

@@ -28,45 +28,45 @@ class QComboBox;
 
 namespace Ui
 {
-    class CsvImportWidget;
+	class CsvImportWidget;
 }
 
-class CsvImportWidget : public QWidget
+class CsvImportWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit CsvImportWidget(QWidget* parent = nullptr);
-    ~CsvImportWidget() override;
+	explicit CsvImportWidget(QWidget *parent = nullptr);
+	~CsvImportWidget() override;
 
-    void load(const QString& filename);
-    QSharedPointer<Database> buildDatabase();
+	void load(const QString &filename);
+	QSharedPointer<Database> buildDatabase();
 
 signals:
-    void message(QString msg);
+	void message(QString msg);
 
 private slots:
-    void parse();
-    void comboChanged(int index);
-    void skippedChanged(int rows);
-    void updatePreview();
+	void parse();
+	void comboChanged(int index);
+	void skippedChanged(int rows);
+	void updatePreview();
 
 private:
-    void configParser();
-    void updateTableview();
-    QString formatStatusText() const;
+	void configParser();
+	void updateTableview();
+	QString formatStatusText() const;
 
-    QScopedPointer<Ui::CsvImportWidget> m_ui;
+	QScopedPointer<Ui::CsvImportWidget> m_ui;
 
-    CsvParserModel* m_parserModel;
-    QStringListModel* m_comboModel;
-    QList<QComboBox*> m_combos;
-    QStringList m_columnHeader;
-    QStringList m_fieldSeparatorList;
-    QString m_filename;
-    bool m_buildingPreview = false;
+	CsvParserModel *m_parserModel;
+	QStringListModel *m_comboModel;
+	QList<QComboBox *> m_combos;
+	QStringList m_columnHeader;
+	QStringList m_fieldSeparatorList;
+	QString m_filename;
+	bool m_buildingPreview = false;
 
-    Q_DISABLE_COPY(CsvImportWidget)
+	Q_DISABLE_COPY(CsvImportWidget)
 };
 
 #endif // KEEPASSX_CSVIMPORTWIDGET_H

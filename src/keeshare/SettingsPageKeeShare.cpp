@@ -21,41 +21,41 @@
 #include "keeshare/SettingsWidgetKeeShare.h"
 #include <QObject>
 
-SettingsPageKeeShare::SettingsPageKeeShare(DatabaseTabWidget* tabWidget)
-    : m_tabWidget(tabWidget)
+SettingsPageKeeShare::SettingsPageKeeShare(DatabaseTabWidget *tabWidget)
+	: m_tabWidget(tabWidget)
 {
 }
 
 QString SettingsPageKeeShare::name()
 {
-    return "KeeShare";
+	return "KeeShare";
 }
 
 QIcon SettingsPageKeeShare::icon()
 {
-    return icons()->icon("preferences-system-network-sharing");
+	return icons()->icon("preferences-system-network-sharing");
 }
 
-QWidget* SettingsPageKeeShare::createWidget()
+QWidget *SettingsPageKeeShare::createWidget()
 {
-    auto* widget = new SettingsWidgetKeeShare();
-    QObject::connect(widget,
-                     SIGNAL(settingsMessage(QString, MessageWidget::MessageType)),
-                     m_tabWidget,
-                     SIGNAL(messageGlobal(QString, MessageWidget::MessageType)));
-    return widget;
+	auto *widget = new SettingsWidgetKeeShare();
+	QObject::connect(widget,
+	                 SIGNAL(settingsMessage(QString, MessageWidget::MessageType)),
+	                 m_tabWidget,
+	                 SIGNAL(messageGlobal(QString, MessageWidget::MessageType)));
+	return widget;
 }
 
-void SettingsPageKeeShare::loadSettings(QWidget* widget)
+void SettingsPageKeeShare::loadSettings(QWidget *widget)
 {
-    Q_UNUSED(widget);
-    SettingsWidgetKeeShare* settingsWidget = reinterpret_cast<SettingsWidgetKeeShare*>(widget);
-    settingsWidget->loadSettings();
+	Q_UNUSED(widget);
+	SettingsWidgetKeeShare *settingsWidget = reinterpret_cast<SettingsWidgetKeeShare *>(widget);
+	settingsWidget->loadSettings();
 }
 
-void SettingsPageKeeShare::saveSettings(QWidget* widget)
+void SettingsPageKeeShare::saveSettings(QWidget *widget)
 {
-    Q_UNUSED(widget);
-    SettingsWidgetKeeShare* settingsWidget = reinterpret_cast<SettingsWidgetKeeShare*>(widget);
-    return settingsWidget->saveSettings();
+	Q_UNUSED(widget);
+	SettingsWidgetKeeShare *settingsWidget = reinterpret_cast<SettingsWidgetKeeShare *>(widget);
+	return settingsWidget->saveSettings();
 }

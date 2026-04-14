@@ -26,32 +26,32 @@ class DatabaseTabWidget;
 class DatabaseWidget;
 class QAbstractItemView;
 
-class TestGuiBrowser : public QObject
+class TestGuiBrowser: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void init();
-    void cleanup();
-    void cleanupTestCase();
+	void initTestCase();
+	void init();
+	void cleanup();
+	void cleanupTestCase();
 
-    void testEntrySettings();
-    void testAdditionalURLs();
-    void testGetDatabaseGroups();
+	void testEntrySettings();
+	void testAdditionalURLs();
+	void testGetDatabaseGroups();
 
 private:
-    void triggerAction(const QString& name);
-    void clickIndex(const QModelIndex& index,
-                    QAbstractItemView* view,
-                    Qt::MouseButton button,
-                    Qt::KeyboardModifiers stateKey = {});
+	void triggerAction(const QString &name);
+	void clickIndex(const QModelIndex &index,
+	                QAbstractItemView *view,
+	                Qt::MouseButton button,
+	                Qt::KeyboardModifiers stateKey = {});
 
-    QScopedPointer<MainWindow> m_mainWindow;
-    QPointer<DatabaseTabWidget> m_tabWidget;
-    QPointer<DatabaseWidget> m_dbWidget;
-    QSharedPointer<Database> m_db;
-    QScopedPointer<TemporaryFile> m_dbFile;
+	QScopedPointer<MainWindow> m_mainWindow;
+	QPointer<DatabaseTabWidget> m_tabWidget;
+	QPointer<DatabaseWidget> m_dbWidget;
+	QSharedPointer<Database> m_db;
+	QScopedPointer<TemporaryFile> m_dbFile;
 };
 
 #endif // KEEPASSXC_TESTGUIBROWSER_H

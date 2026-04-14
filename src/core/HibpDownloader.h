@@ -36,35 +36,35 @@ class QNetworkReply;
  * the `finished` signal to get the result. Process the
  * `failed` signal to handle errors.
  */
-class HibpDownloader : public QObject
+class HibpDownloader: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit HibpDownloader(QObject* parent = nullptr);
-    ~HibpDownloader() override;
+	explicit HibpDownloader(QObject *parent = nullptr);
+	~HibpDownloader() override;
 
-    void add(const QString& password);
-    void validate();
-    int passwordsToValidate() const;
-    int passwordsRemaining() const;
+	void add(const QString &password);
+	void validate();
+	int passwordsToValidate() const;
+	int passwordsRemaining() const;
 
 signals:
-    void hibpResult(const QString& password, int count);
-    void fetchFailed(const QString& error);
+	void hibpResult(const QString &password, int count);
+	void fetchFailed(const QString &error);
 
 public slots:
-    void abort();
+	void abort();
 
 private slots:
-    void fetchFinished();
-    void fetchReadyRead();
+	void fetchFinished();
+	void fetchReadyRead();
 
 private:
-    void fetchPassword(const QString& password);
+	void fetchPassword(const QString &password);
 
-    QStringList m_pwdsToTry; // The list of remaining passwords to validate
-    QHash<QNetworkReply*, QPair<QString, QByteArray>> m_replies;
+	QStringList m_pwdsToTry; // The list of remaining passwords to validate
+	QHash<QNetworkReply *, QPair<QString, QByteArray>> m_replies;
 };
 
 #endif // KEEPASSXC_HIBPDOWNLOADER_H

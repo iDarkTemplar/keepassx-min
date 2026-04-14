@@ -20,22 +20,22 @@
 
 #include <QObject>
 
-class TestDatabase : public QObject
+class TestDatabase: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testOpen();
-    void testSave();
-    void testSaveAs();
-    void testSignals();
-    void testEmptyRecycleBinOnDisabled();
-    void testEmptyRecycleBinOnNotCreated();
-    void testEmptyRecycleBinOnEmpty();
-    void testEmptyRecycleBinWithHierarchicalData();
-    void testCustomIcons();
-    void testExternallyModified();
+	void initTestCase();
+	void testOpen();
+	void testSave();
+	void testSaveAs();
+	void testSignals();
+	void testEmptyRecycleBinOnDisabled();
+	void testEmptyRecycleBinOnNotCreated();
+	void testEmptyRecycleBinOnEmpty();
+	void testEmptyRecycleBinWithHierarchicalData();
+	void testCustomIcons();
+	void testExternallyModified();
 };
 
 #endif // KEEPASSX_TESTDATABASE_H

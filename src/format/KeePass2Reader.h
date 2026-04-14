@@ -23,26 +23,26 @@ class CompositeKey;
 
 class KeePass2Reader
 {
-    Q_DECLARE_TR_FUNCTIONS(KdbxReader)
+	Q_DECLARE_TR_FUNCTIONS(KdbxReader)
 
 public:
-    bool readDatabase(const QString& filename, QSharedPointer<const CompositeKey> key, Database* db);
-    bool readDatabase(QIODevice* device, QSharedPointer<const CompositeKey> key, Database* db);
+	bool readDatabase(const QString &filename, QSharedPointer<const CompositeKey> key, Database *db);
+	bool readDatabase(QIODevice *device, QSharedPointer<const CompositeKey> key, Database *db);
 
-    bool hasError() const;
-    QString errorString() const;
+	bool hasError() const;
+	QString errorString() const;
 
-    QSharedPointer<KdbxReader> reader() const;
-    quint32 version() const;
+	QSharedPointer<KdbxReader> reader() const;
+	quint32 version() const;
 
 private:
-    void raiseError(const QString& errorMessage);
+	void raiseError(const QString &errorMessage);
 
-    bool m_error = false;
-    QString m_errorStr = "";
+	bool m_error = false;
+	QString m_errorStr = "";
 
-    QSharedPointer<KdbxReader> m_reader;
-    quint32 m_version = 0;
+	QSharedPointer<KdbxReader> m_reader;
+	quint32 m_version = 0;
 };
 
 #endif // KEEPASSX_KEEPASS2READER_H

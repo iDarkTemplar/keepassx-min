@@ -26,23 +26,23 @@ class NewDatabaseWizardPage;
 /**
  * Setup wizard for creating a new database.
  */
-class NewDatabaseWizard : public QWizard
+class NewDatabaseWizard: public QWizard
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit NewDatabaseWizard(QWidget* parent = nullptr);
-    ~NewDatabaseWizard() override;
+	explicit NewDatabaseWizard(QWidget *parent = nullptr);
+	~NewDatabaseWizard() override;
 
-    QSharedPointer<Database> takeDatabase();
-    bool validateCurrentPage() override;
+	QSharedPointer<Database> takeDatabase();
+	bool validateCurrentPage() override;
 
 protected:
-    void initializePage(int id) override;
+	void initializePage(int id) override;
 
 private:
-    QSharedPointer<Database> m_db;
-    QList<QPointer<NewDatabaseWizardPage>> m_pages;
+	QSharedPointer<Database> m_db;
+	QList<QPointer<NewDatabaseWizardPage>> m_pages;
 };
 
 #endif // KEEPASSXC_NEWDATABASEWIZARD_H

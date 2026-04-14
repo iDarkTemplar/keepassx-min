@@ -21,25 +21,26 @@ YubiKey::YubiKey()
 {
 }
 
-YubiKey* YubiKey::m_instance(Q_NULLPTR);
+YubiKey *YubiKey::m_instance(Q_NULLPTR);
 
-YubiKey* YubiKey::instance()
+YubiKey *YubiKey::instance()
 {
-    if (!m_instance) {
-        m_instance = new YubiKey();
-    }
+	if (!m_instance)
+	{
+		m_instance = new YubiKey();
+	}
 
-    return m_instance;
+	return m_instance;
 }
 
 bool YubiKey::isInitialized()
 {
-    return false;
+	return false;
 }
 
 bool YubiKey::findValidKeys()
 {
-    return false;
+	return false;
 }
 
 void YubiKey::findValidKeysAsync()
@@ -48,31 +49,31 @@ void YubiKey::findValidKeysAsync()
 
 YubiKey::KeyMap YubiKey::foundKeys()
 {
-    return {};
+	return {};
 }
 
 int YubiKey::connectedKeys()
 {
-    return 0;
+	return 0;
 }
 
 QString YubiKey::errorMessage()
 {
-    return {};
+	return {};
 }
 
-bool YubiKey::testChallenge(YubiKeySlot slot, bool* wouldBlock)
+bool YubiKey::testChallenge(YubiKeySlot slot, bool *wouldBlock)
 {
-    Q_UNUSED(slot);
-    Q_UNUSED(wouldBlock);
-    return false;
+	Q_UNUSED(slot);
+	Q_UNUSED(wouldBlock);
+	return false;
 }
 
-YubiKey::ChallengeResult YubiKey::challenge(YubiKeySlot slot, const QByteArray& chal, Botan::secure_vector<char>& resp)
+YubiKey::ChallengeResult YubiKey::challenge(YubiKeySlot slot, const QByteArray &chal, Botan::secure_vector<char> &resp)
 {
-    Q_UNUSED(slot);
-    Q_UNUSED(chal);
-    Q_UNUSED(resp);
+	Q_UNUSED(slot);
+	Q_UNUSED(chal);
+	Q_UNUSED(resp);
 
-    return YubiKey::ChallengeResult::YCR_ERROR;
+	return YubiKey::ChallengeResult::YCR_ERROR;
 }

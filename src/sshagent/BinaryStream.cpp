@@ -19,19 +19,19 @@
 #include "core/Tools.h"
 #include <QtEndian>
 
-BinaryStream::BinaryStream(QIODevice* device)
-    : QObject(device)
-    , m_device(device)
+BinaryStream::BinaryStream(QIODevice *device)
+	: QObject(device)
+	, m_device(device)
 {
 }
 
-BinaryStream::BinaryStream(QByteArray* ba, QObject* parent)
-    : QObject(parent)
+BinaryStream::BinaryStream(QByteArray *ba, QObject *parent)
+	: QObject(parent)
 {
-    m_buffer.reset(new QBuffer(ba));
-    m_buffer->open(QIODevice::ReadWrite);
+	m_buffer.reset(new QBuffer(ba));
+	m_buffer->open(QIODevice::ReadWrite);
 
-    m_device = m_buffer.data();
+	m_device = m_buffer.data();
 }
 
 BinaryStream::~BinaryStream()
@@ -40,166 +40,180 @@ BinaryStream::~BinaryStream()
 
 const QString BinaryStream::errorString() const
 {
-    return m_error;
+	return m_error;
 }
 
-QIODevice* BinaryStream::device() const
+QIODevice *BinaryStream::device() const
 {
-    return m_device;
+	return m_device;
 }
 
 void BinaryStream::setTimeout(int timeout)
 {
-    m_timeout = timeout;
+	m_timeout = timeout;
 }
 
-bool BinaryStream::read(char* ptr, qint64 size)
+bool BinaryStream::read(char *ptr, qint64 size)
 {
-    qint64 pos = 0;
+	qint64 pos = 0;
 
-    while (pos < size) {
-        if (m_device->bytesAvailable() == 0) {
-            if (!m_device->waitForReadyRead(m_timeout)) {
-                m_error = m_device->errorString();
-                return false;
-            }
-        }
+	while (pos < size)
+	{
+		if (m_device->bytesAvailable() == 0)
+		{
+			if (!m_device->waitForReadyRead(m_timeout))
+			{
+				m_error = m_device->errorString();
+				return false;
+			}
+		}
 
-        qint64 nread = m_device->read(ptr + pos, size - pos);
+		qint64 nread = m_device->read(ptr + pos, size - pos);
 
-        if (nread == -1) {
-            m_error = m_device->errorString();
-            return false;
-        }
+		if (nread == -1)
+		{
+			m_error = m_device->errorString();
+			return false;
+		}
 
-        pos += nread;
-    }
+		pos += nread;
+	}
 
-    return true;
+	return true;
 }
 
-bool BinaryStream::read(QByteArray& ba)
+bool BinaryStream::read(QByteArray &ba)
 {
-    return read(ba.data(), ba.length());
+	return read(ba.data(), ba.length());
 }
 
-bool BinaryStream::read(quint32& i)
+bool BinaryStream::read(quint32 &i)
 {
-    if (read(reinterpret_cast<char*>(&i), sizeof(i))) {
-        i = qFromBigEndian<quint32>(i);
-        return true;
-    }
+	if (read(reinterpret_cast<char *>(&i), sizeof(i)))
+	{
+		i = qFromBigEndian<quint32>(i);
+		return true;
+	}
 
-    return false;
+	return false;
 }
 
-bool BinaryStream::read(quint16& i)
+bool BinaryStream::read(quint16 &i)
 {
-    if (read(reinterpret_cast<char*>(&i), sizeof(i))) {
-        i = qFromBigEndian<quint16>(i);
-        return true;
-    }
+	if (read(reinterpret_cast<char *>(&i), sizeof(i)))
+	{
+		i = qFromBigEndian<quint16>(i);
+		return true;
+	}
 
-    return false;
+	return false;
 }
 
-bool BinaryStream::read(quint8& i)
+bool BinaryStream::read(quint8 &i)
 {
-    return read(reinterpret_cast<char*>(&i), sizeof(i));
+	return read(reinterpret_cast<char *>(&i), sizeof(i));
 }
 
-bool BinaryStream::readString(QByteArray& ba)
+bool BinaryStream::readString(QByteArray &ba)
 {
-    quint32 length;
+	quint32 length;
 
-    if (!read(length)) {
-        return false;
-    }
+	if (!read(length))
+	{
+		return false;
+	}
 
-    // Don't attempt to read strings over 10 MiB
-    if (length > 1024 * 1024 * 10) {
-        m_error = tr("String length exceeds 10 MiB limit (requested %1)").arg(Tools::humanReadableFileSize(length, 0));
-        return false;
-    }
+	// Don't attempt to read strings over 10 MiB
+	if (length > 1024 * 1024 * 10)
+	{
+		m_error = tr("String length exceeds 10 MiB limit (requested %1)").arg(Tools::humanReadableFileSize(length, 0));
+		return false;
+	}
 
-    ba.resize(length);
+	ba.resize(length);
 
-    if (!read(ba.data(), ba.length())) {
-        m_error = tr("Failed to read string data: %1").arg(m_device->errorString());
-        return false;
-    }
+	if (!read(ba.data(), ba.length()))
+	{
+		m_error = tr("Failed to read string data: %1").arg(m_device->errorString());
+		return false;
+	}
 
-    return true;
+	return true;
 }
 
-bool BinaryStream::readString(QString& str)
+bool BinaryStream::readString(QString &str)
 {
-    QByteArray ba;
+	QByteArray ba;
 
-    if (!readString(ba)) {
-        return false;
-    }
+	if (!readString(ba))
+	{
+		return false;
+	}
 
-    str = QString::fromLatin1(ba);
-    return true;
+	str = QString::fromLatin1(ba);
+	return true;
 }
 
-bool BinaryStream::write(const char* ptr, qint64 size)
+bool BinaryStream::write(const char *ptr, qint64 size)
 {
-    if (m_device->write(ptr, size) < 0) {
-        m_error = m_device->errorString();
-        return false;
-    }
+	if (m_device->write(ptr, size) < 0)
+	{
+		m_error = m_device->errorString();
+		return false;
+	}
 
-    return true;
+	return true;
 }
 
 bool BinaryStream::flush()
 {
-    if (!m_device->waitForBytesWritten(m_timeout)) {
-        m_error = m_device->errorString();
-        return false;
-    }
+	if (!m_device->waitForBytesWritten(m_timeout))
+	{
+		m_error = m_device->errorString();
+		return false;
+	}
 
-    return true;
+	return true;
 }
 
-bool BinaryStream::write(const QByteArray& ba)
+bool BinaryStream::write(const QByteArray &ba)
 {
-    return write(ba.data(), ba.length());
+	return write(ba.data(), ba.length());
 }
 
 bool BinaryStream::write(quint32 i)
 {
-    i = qToBigEndian<quint32>(i);
-    return write(reinterpret_cast<char*>(&i), sizeof(i));
+	i = qToBigEndian<quint32>(i);
+	return write(reinterpret_cast<char *>(&i), sizeof(i));
 }
 
 bool BinaryStream::write(quint16 i)
 {
-    i = qToBigEndian<quint16>(i);
-    return write(reinterpret_cast<char*>(&i), sizeof(i));
+	i = qToBigEndian<quint16>(i);
+	return write(reinterpret_cast<char *>(&i), sizeof(i));
 }
 
 bool BinaryStream::write(quint8 i)
 {
-    return write(reinterpret_cast<char*>(&i), sizeof(i));
+	return write(reinterpret_cast<char *>(&i), sizeof(i));
 }
 
-bool BinaryStream::writeString(const QByteArray& ba)
+bool BinaryStream::writeString(const QByteArray &ba)
 {
-    if (!write(static_cast<quint32>(ba.length()))) {
-        return false;
-    }
+	if (!write(static_cast<quint32>(ba.length())))
+	{
+		return false;
+	}
 
-    if (!write(ba)) {
-        return false;
-    }
+	if (!write(ba))
+	{
+		return false;
+	}
 
-    return true;
+	return true;
 }
 
-bool BinaryStream::writeString(const QString& s)
+bool BinaryStream::writeString(const QString &s)
 {
-    return writeString(s.toLatin1());
+	return writeString(s.toLatin1());
 }

@@ -23,42 +23,42 @@
 
 namespace Ui
 {
-    class TextAttachmentsPreviewWidget;
+	class TextAttachmentsPreviewWidget;
 }
 
-class TextAttachmentsPreviewWidget : public QWidget
+class TextAttachmentsPreviewWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit TextAttachmentsPreviewWidget(QWidget* parent = nullptr);
-    ~TextAttachmentsPreviewWidget() override;
+	explicit TextAttachmentsPreviewWidget(QWidget *parent = nullptr);
+	~TextAttachmentsPreviewWidget() override;
 
-    void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
-    attachments::Attachment getAttachment() const;
+	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
+	attachments::Attachment getAttachment() const;
 
-    enum PreviewTextType : int
-    {
-        Html,
-        PlainText,
+	enum PreviewTextType : int
+	{
+		Html,
+		PlainText,
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-        Markdown
+		Markdown
 #endif
-    };
+	};
 
-    Q_ENUM(PreviewTextType)
+	Q_ENUM(PreviewTextType)
 
 public slots:
-    void matchScroll(double percent);
+	void matchScroll(double percent);
 
 private slots:
-    void onTypeChanged(int index);
+	void onTypeChanged(int index);
 
 private:
-    void initTypeCombobox();
-    void updateUi();
+	void initTypeCombobox();
+	void updateUi();
 
-    QScopedPointer<Ui::TextAttachmentsPreviewWidget> m_ui;
+	QScopedPointer<Ui::TextAttachmentsPreviewWidget> m_ui;
 
-    attachments::Attachment m_attachment;
-    bool m_userManuallySelectedType;
+	attachments::Attachment m_attachment;
+	bool m_userManuallySelectedType;
 };

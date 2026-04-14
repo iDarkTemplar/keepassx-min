@@ -23,82 +23,91 @@
 
 #include <dbt.h>
 
-DeviceListenerWin::DeviceListenerWin(QWidget* parent)
-    : QObject(parent)
+DeviceListenerWin::DeviceListenerWin(QWidget *parent)
+	: QObject(parent)
 {
-    // Event listeners need a valid window reference
-    Q_ASSERT(parent);
-    QCoreApplication::instance()->installNativeEventFilter(this);
+	// Event listeners need a valid window reference
+	Q_ASSERT(parent);
+	QCoreApplication::instance()->installNativeEventFilter(this);
 }
 
 DeviceListenerWin::~DeviceListenerWin()
 {
-    deregisterHotplugCallback();
+	deregisterHotplugCallback();
 }
 
 void DeviceListenerWin::registerHotplugCallback(bool arrived,
                                                 bool left,
                                                 int vendorId,
                                                 int productId,
-                                                const QUuid* deviceClass)
+                                                const QUuid *deviceClass)
 {
-    Q_ASSERT(deviceClass);
+	Q_ASSERT(deviceClass);
 
-    if (m_deviceNotifyHandle) {
-        deregisterHotplugCallback();
-    }
+	if (m_deviceNotifyHandle)
+	{
+		deregisterHotplugCallback();
+	}
 
-    QString regex = R"(^\\{2}\?\\[A-Z]+#)";
-    if (vendorId > 0) {
-        regex += QString("VID_%1&").arg(vendorId, 0, 16).toUpper();
-        if (productId > 0) {
-            regex += QString("PID_%1&").arg(productId, 0, 16).toUpper();
-        }
-    }
-    m_deviceIdMatch = QRegularExpression(regex);
+	QString regex = R"(^\\{2}\?\\[A-Z]+#)";
+	if (vendorId > 0)
+	{
+		regex += QString("VID_%1&").arg(vendorId, 0, 16).toUpper();
+		if (productId > 0)
+		{
+			regex += QString("PID_%1&").arg(productId, 0, 16).toUpper();
+		}
+	}
+	m_deviceIdMatch = QRegularExpression(regex);
 
-    DEV_BROADCAST_DEVICEINTERFACE_W notificationFilter{
-        sizeof(DEV_BROADCAST_DEVICEINTERFACE_W), DBT_DEVTYP_DEVICEINTERFACE, 0u, *deviceClass, {0x00}};
-    auto w = reinterpret_cast<HWND>(qobject_cast<QWidget*>(parent())->winId());
-    m_deviceNotifyHandle = RegisterDeviceNotificationW(w, &notificationFilter, DEVICE_NOTIFY_WINDOW_HANDLE);
-    if (!m_deviceNotifyHandle) {
-        qWarning("Failed to register device notification handle.");
-        return;
-    }
-    m_handleArrival = arrived;
-    m_handleRemoval = left;
+	DEV_BROADCAST_DEVICEINTERFACE_W notificationFilter{
+		sizeof(DEV_BROADCAST_DEVICEINTERFACE_W), DBT_DEVTYP_DEVICEINTERFACE, 0u, *deviceClass, {0x00}};
+	auto w = reinterpret_cast<HWND>(qobject_cast<QWidget *>(parent())->winId());
+	m_deviceNotifyHandle = RegisterDeviceNotificationW(w, &notificationFilter, DEVICE_NOTIFY_WINDOW_HANDLE);
+	if (!m_deviceNotifyHandle)
+	{
+		qWarning("Failed to register device notification handle.");
+		return;
+	}
+	m_handleArrival = arrived;
+	m_handleRemoval = left;
 }
 
 void DeviceListenerWin::deregisterHotplugCallback()
 {
-    if (m_deviceNotifyHandle) {
-        UnregisterDeviceNotification(m_deviceNotifyHandle);
-        m_deviceNotifyHandle = nullptr;
-        m_handleArrival = false;
-        m_handleRemoval = false;
-    }
+	if (m_deviceNotifyHandle)
+	{
+		UnregisterDeviceNotification(m_deviceNotifyHandle);
+		m_deviceNotifyHandle = nullptr;
+		m_handleArrival = false;
+		m_handleRemoval = false;
+	}
 }
 
-bool DeviceListenerWin::nativeEventFilter(const QByteArray& eventType, void* message, long*)
+bool DeviceListenerWin::nativeEventFilter(const QByteArray &eventType, void *message, long *)
 {
-    if (eventType != "windows_generic_MSG") {
-        return false;
-    }
+	if (eventType != "windows_generic_MSG")
+	{
+		return false;
+	}
 
-    const auto* m = static_cast<MSG*>(message);
-    if (m->message != WM_DEVICECHANGE) {
-        return false;
-    }
-    if ((m_handleArrival && m->wParam == DBT_DEVICEARRIVAL)
-        || (m_handleRemoval && m->wParam == DBT_DEVICEREMOVECOMPLETE)) {
-        const auto pBrHdr = reinterpret_cast<PDEV_BROADCAST_HDR>(m->lParam);
-        const auto pDevIface = reinterpret_cast<PDEV_BROADCAST_DEVICEINTERFACE_W>(pBrHdr);
-        const auto name = QString::fromWCharArray(pDevIface->dbcc_name);
-        if (m_deviceIdMatch.match(name).hasMatch()) {
-            emit devicePlugged(m->wParam == DBT_DEVICEARRIVAL, nullptr, pDevIface);
-            return true;
-        }
-    }
+	const auto *m = static_cast<MSG *>(message);
+	if (m->message != WM_DEVICECHANGE)
+	{
+		return false;
+	}
+	if ((m_handleArrival && m->wParam == DBT_DEVICEARRIVAL)
+	    || (m_handleRemoval && m->wParam == DBT_DEVICEREMOVECOMPLETE))
+	{
+		const auto pBrHdr = reinterpret_cast<PDEV_BROADCAST_HDR>(m->lParam);
+		const auto pDevIface = reinterpret_cast<PDEV_BROADCAST_DEVICEINTERFACE_W>(pBrHdr);
+		const auto name = QString::fromWCharArray(pDevIface->dbcc_name);
+		if (m_deviceIdMatch.match(name).hasMatch())
+		{
+			emit devicePlugged(m->wParam == DBT_DEVICEARRIVAL, nullptr, pDevIface);
+			return true;
+		}
+	}
 
-    return false;
+	return false;
 }

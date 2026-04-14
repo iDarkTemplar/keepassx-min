@@ -19,14 +19,14 @@
 
 #include "DatabaseCommand.h"
 
-class Analyze : public DatabaseCommand
+class Analyze: public DatabaseCommand
 {
 public:
-    Analyze();
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	Analyze();
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 
-    static const QCommandLineOption HIBPDatabaseOption;
-    static const QCommandLineOption OkonOption;
+	static const QCommandLineOption HIBPDatabaseOption;
+	static const QCommandLineOption OkonOption;
 };
 
 #endif // KEEPASSXC_HIBP_H

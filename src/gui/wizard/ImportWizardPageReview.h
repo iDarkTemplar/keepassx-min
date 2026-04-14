@@ -24,38 +24,38 @@ class CsvImportWidget;
 class Database;
 namespace Ui
 {
-    class ImportWizardPageReview;
+	class ImportWizardPageReview;
 };
 
-class ImportWizardPageReview : public QWizardPage
+class ImportWizardPageReview: public QWizardPage
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit ImportWizardPageReview(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(ImportWizardPageReview)
-    ~ImportWizardPageReview() override;
+	explicit ImportWizardPageReview(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(ImportWizardPageReview)
+	~ImportWizardPageReview() override;
 
-    void initializePage() override;
-    bool validatePage() override;
+	void initializePage() override;
+	bool validatePage() override;
 
-    QSharedPointer<Database> database();
+	QSharedPointer<Database> database();
 
 private:
-    bool isCsvImport() const;
-    void setupCsvImport(const QString& filename);
-    QSharedPointer<Database> importOPUX(const QString& filename);
-    QSharedPointer<Database> importBitwarden(const QString& filename, const QString& password);
-    QSharedPointer<Database> importOPVault(const QString& filename, const QString& password);
-    QSharedPointer<Database> importKeePass1(const QString& filename, const QString& password, const QString& keyfile);
-    QSharedPointer<Database> importProtonPass(const QString& filename);
+	bool isCsvImport() const;
+	void setupCsvImport(const QString &filename);
+	QSharedPointer<Database> importOPUX(const QString &filename);
+	QSharedPointer<Database> importBitwarden(const QString &filename, const QString &password);
+	QSharedPointer<Database> importOPVault(const QString &filename, const QString &password);
+	QSharedPointer<Database> importKeePass1(const QString &filename, const QString &password, const QString &keyfile);
+	QSharedPointer<Database> importProtonPass(const QString &filename);
 
-    void setupDatabasePreview();
+	void setupDatabasePreview();
 
-    QScopedPointer<Ui::ImportWizardPageReview> m_ui;
+	QScopedPointer<Ui::ImportWizardPageReview> m_ui;
 
-    QSharedPointer<Database> m_db;
-    QPointer<CsvImportWidget> m_csvWidget;
+	QSharedPointer<Database> m_db;
+	QPointer<CsvImportWidget> m_csvWidget;
 };
 
 #endif

@@ -22,13 +22,13 @@
 
 class ShareImport
 {
-    Q_DECLARE_TR_FUNCTIONS(ShareImport)
+	Q_DECLARE_TR_FUNCTIONS(ShareImport)
 public:
-    static ShareObserver::Result
-    containerInto(const QString& resolvedPath, const KeeShareSettings::Reference& reference, Group* targetGroup);
+	static ShareObserver::Result
+		containerInto(const QString &resolvedPath, const KeeShareSettings::Reference &reference, Group *targetGroup);
 
 public:
-    ShareImport() = delete;
+	ShareImport() = delete;
 };
 
 #endif // KEEPASSXC_SHAREIMPORT_H

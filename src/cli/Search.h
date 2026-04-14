@@ -19,12 +19,12 @@
 
 #include "DatabaseCommand.h"
 
-class Search : public DatabaseCommand
+class Search: public DatabaseCommand
 {
 public:
-    Search();
+	Search();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 };
 
 #endif // KEEPASSXC_SEARCH_H

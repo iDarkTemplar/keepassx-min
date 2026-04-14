@@ -24,50 +24,50 @@
 class Database;
 namespace Ui
 {
-    class DatabaseSettingsWidgetEncryption;
+	class DatabaseSettingsWidgetEncryption;
 }
 
-class DatabaseSettingsWidgetEncryption : public DatabaseSettingsWidget
+class DatabaseSettingsWidgetEncryption: public DatabaseSettingsWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DatabaseSettingsWidgetEncryption(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(DatabaseSettingsWidgetEncryption);
-    ~DatabaseSettingsWidgetEncryption() override;
+	explicit DatabaseSettingsWidgetEncryption(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(DatabaseSettingsWidgetEncryption);
+	~DatabaseSettingsWidgetEncryption() override;
 
 public slots:
-    void initialize() override;
-    void uninitialize() override;
-    bool saveSettings() override;
+	void initialize() override;
+	void uninitialize() override;
+	bool saveSettings() override;
 
 protected:
-    void showEvent(QShowEvent* event) override;
+	void showEvent(QShowEvent *event) override;
 
 private slots:
-    void benchmarkTransformRounds(int millisecs = Kdf::DEFAULT_ENCRYPTION_TIME);
-    void memoryChanged(int value);
-    void parallelismChanged(int value);
-    void updateDecryptionTime(int value);
-    void loadKdfAlgorithms();
-    void loadKdfParameters();
-    void updateKdfFields();
-    void markDirty();
+	void benchmarkTransformRounds(int millisecs = Kdf::DEFAULT_ENCRYPTION_TIME);
+	void memoryChanged(int value);
+	void parallelismChanged(int value);
+	void updateDecryptionTime(int value);
+	void loadKdfAlgorithms();
+	void loadKdfParameters();
+	void updateKdfFields();
+	void markDirty();
 
 private:
-    bool isAdvancedMode();
-    void showBasicEncryption(int decryptionMillisecs = Kdf::DEFAULT_ENCRYPTION_TIME);
+	bool isAdvancedMode();
+	void showBasicEncryption(int decryptionMillisecs = Kdf::DEFAULT_ENCRYPTION_TIME);
 
-    enum FormatSelection
-    {
-        KDBX4,
-        KDBX3
-    };
-    static const char* CD_DECRYPTION_TIME_PREFERENCE_KEY;
+	enum FormatSelection
+	{
+		KDBX4,
+		KDBX3
+	};
+	static const char *CD_DECRYPTION_TIME_PREFERENCE_KEY;
 
-    bool m_isDirty = false;
-    bool m_initWithAdvanced = false;
-    const QScopedPointer<Ui::DatabaseSettingsWidgetEncryption> m_ui;
+	bool m_isDirty = false;
+	bool m_initWithAdvanced = false;
+	const QScopedPointer<Ui::DatabaseSettingsWidgetEncryption> m_ui;
 };
 
 #endif // KEEPASSXC_DATABASESETTINGSWIDGETENCRYPTION_H

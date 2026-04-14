@@ -24,32 +24,32 @@ class QListWidgetItem;
 
 namespace Ui
 {
-    class ImportWizardPageSelect;
+	class ImportWizardPageSelect;
 }
 
-class ImportWizardPageSelect : public QWizardPage
+class ImportWizardPageSelect: public QWizardPage
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit ImportWizardPageSelect(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(ImportWizardPageSelect)
-    ~ImportWizardPageSelect() override;
+	explicit ImportWizardPageSelect(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(ImportWizardPageSelect)
+	~ImportWizardPageSelect() override;
 
-    void initializePage() override;
-    bool validatePage() override;
+	void initializePage() override;
+	bool validatePage() override;
 
 private slots:
-    void itemSelected(QListWidgetItem* current, QListWidgetItem* previous);
-    void chooseImportFile();
-    void chooseKeyFile();
-    void updateDatabaseChoices() const;
+	void itemSelected(QListWidgetItem *current, QListWidgetItem *previous);
+	void chooseImportFile();
+	void chooseKeyFile();
+	void updateDatabaseChoices() const;
 
 private:
-    QString importFileFilter();
-    void setCredentialState(bool passwordEnabled, bool keyFileEnable = false);
+	QString importFileFilter();
+	void setCredentialState(bool passwordEnabled, bool keyFileEnable = false);
 
-    QScopedPointer<Ui::ImportWizardPageSelect> m_ui;
+	QScopedPointer<Ui::ImportWizardPageSelect> m_ui;
 };
 
 #endif

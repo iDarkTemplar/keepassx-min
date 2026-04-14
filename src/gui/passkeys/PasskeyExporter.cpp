@@ -28,34 +28,38 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-PasskeyExporter::PasskeyExporter(QWidget* parent)
-    : m_parent(parent)
+PasskeyExporter::PasskeyExporter(QWidget *parent)
+	: m_parent(parent)
 {
 }
 
-void PasskeyExporter::showExportDialog(const QList<Entry*>& items)
+void PasskeyExporter::showExportDialog(const QList<Entry *> &items)
 {
-    if (items.isEmpty()) {
-        return;
-    }
+	if (items.isEmpty())
+	{
+		return;
+	}
 
-    PasskeyExportDialog passkeyExportDialog(m_parent);
-    passkeyExportDialog.setEntries(items);
-    auto ret = passkeyExportDialog.exec();
+	PasskeyExportDialog passkeyExportDialog(m_parent);
+	passkeyExportDialog.setEntries(items);
+	auto ret = passkeyExportDialog.exec();
 
-    if (ret == QDialog::Accepted) {
-        // Select folder
-        auto folder = passkeyExportDialog.selectExportFolder();
-        if (folder.isEmpty()) {
-            return;
-        }
+	if (ret == QDialog::Accepted)
+	{
+		// Select folder
+		auto folder = passkeyExportDialog.selectExportFolder();
+		if (folder.isEmpty())
+		{
+			return;
+		}
 
-        const auto selectedItems = passkeyExportDialog.getSelectedItems();
-        for (const auto& item : selectedItems) {
-            auto entry = items[item->row()];
-            exportSelectedEntry(entry, folder);
-        }
-    }
+		const auto selectedItems = passkeyExportDialog.getSelectedItems();
+		for (const auto &item: selectedItems)
+		{
+			auto entry = items[item->row()];
+			exportSelectedEntry(entry, folder);
+		}
+	}
 }
 
 /**
@@ -71,42 +75,46 @@ void PasskeyExporter::showExportDialog(const QList<Entry*>& items)
  *      "username:" <username>
  * }
  */
-void PasskeyExporter::exportSelectedEntry(const Entry* entry, const QString& folder)
+void PasskeyExporter::exportSelectedEntry(const Entry *entry, const QString &folder)
 {
-    const auto fullPath = QString("%1/%2.passkey").arg(folder, Tools::cleanFilename(entry->title()));
-    if (QFile::exists(fullPath)) {
-        auto dialogResult = MessageBox::warning(m_parent,
-                                                tr("Overwrite Existing File?"),
-                                                tr("File \"%1.passkey\" already exists.\n"
-                                                   "Do you want to overwrite it?\n")
-                                                    .arg(entry->title()),
-                                                MessageBox::Yes | MessageBox::No);
+	const auto fullPath = QString("%1/%2.passkey").arg(folder, Tools::cleanFilename(entry->title()));
+	if (QFile::exists(fullPath))
+	{
+		auto dialogResult = MessageBox::warning(m_parent,
+		                                        tr("Overwrite Existing File?"),
+		                                        tr("File \"%1.passkey\" already exists.\n"
+		                                           "Do you want to overwrite it?\n")
+		                                            .arg(entry->title()),
+		                                        MessageBox::Yes | MessageBox::No);
 
-        if (dialogResult != MessageBox::Yes) {
-            return;
-        }
-    }
+		if (dialogResult != MessageBox::Yes)
+		{
+			return;
+		}
+	}
 
-    QFile passkeyFile(fullPath);
-    if (!passkeyFile.open(QIODevice::WriteOnly)) {
-        MessageBox::information(
-            m_parent, tr("Cannot open file"), tr("Cannot open file \"%1\" for writing.").arg(fullPath));
-        return;
-    }
+	QFile passkeyFile(fullPath);
+	if (!passkeyFile.open(QIODevice::WriteOnly))
+	{
+		MessageBox::information(
+			m_parent, tr("Cannot open file"), tr("Cannot open file \"%1\" for writing.").arg(fullPath));
+		return;
+	}
 
-    QJsonObject passkeyObject;
-    passkeyObject["relyingParty"] = entry->attributes()->value(EntryAttributes::KPEX_PASSKEY_RELYING_PARTY);
-    passkeyObject["url"] = entry->url();
-    passkeyObject["username"] = passkeyUtils()->getUsernameFromEntry(entry);
-    passkeyObject["credentialId"] = passkeyUtils()->getCredentialIdFromEntry(entry);
-    passkeyObject["userHandle"] = entry->attributes()->value(EntryAttributes::KPEX_PASSKEY_USER_HANDLE);
-    passkeyObject["privateKey"] = entry->attributes()->value(EntryAttributes::KPEX_PASSKEY_PRIVATE_KEY_PEM);
+	QJsonObject passkeyObject;
+	passkeyObject["relyingParty"] = entry->attributes()->value(EntryAttributes::KPEX_PASSKEY_RELYING_PARTY);
+	passkeyObject["url"] = entry->url();
+	passkeyObject["username"] = passkeyUtils()->getUsernameFromEntry(entry);
+	passkeyObject["credentialId"] = passkeyUtils()->getCredentialIdFromEntry(entry);
+	passkeyObject["userHandle"] = entry->attributes()->value(EntryAttributes::KPEX_PASSKEY_USER_HANDLE);
+	passkeyObject["privateKey"] = entry->attributes()->value(EntryAttributes::KPEX_PASSKEY_PRIVATE_KEY_PEM);
 
-    QJsonDocument document(passkeyObject);
-    if (passkeyFile.write(document.toJson()) < 0) {
-        MessageBox::information(
-            nullptr, tr("Cannot write to file"), tr("Cannot open file \"%1\" for writing.").arg(fullPath));
-    }
+	QJsonDocument document(passkeyObject);
+	if (passkeyFile.write(document.toJson()) < 0)
+	{
+		MessageBox::information(
+			nullptr, tr("Cannot write to file"), tr("Cannot open file \"%1\" for writing.").arg(fullPath));
+	}
 
-    passkeyFile.close();
+	passkeyFile.close();
 }

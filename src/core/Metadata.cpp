@@ -34,505 +34,517 @@ static const Metadata::CustomIconData NULL_ICON{};
 
 namespace customDataKeys
 {
-    static const QString savedSearch = QStringLiteral("KPXC_SavedSearch");
-    static const QString autosaveDelay = QStringLiteral("KPXC_autosaveDelayMin");
+	static const QString savedSearch = QStringLiteral("KPXC_SavedSearch");
+	static const QString autosaveDelay = QStringLiteral("KPXC_autosaveDelayMin");
 }; // namespace customDataKeys
 
-Metadata::Metadata(QObject* parent)
-    : ModifiableObject(parent)
-    , m_customData(new CustomData(this))
-    , m_updateDatetime(true)
+Metadata::Metadata(QObject *parent)
+	: ModifiableObject(parent)
+	, m_customData(new CustomData(this))
+	, m_updateDatetime(true)
 {
-    init();
-    connect(m_customData, &CustomData::modified, this, &Metadata::modified);
+	init();
+	connect(m_customData, &CustomData::modified, this, &Metadata::modified);
 }
 
 void Metadata::init()
 {
-    m_data.generator = QStringLiteral("KeePassXC");
-    m_data.maintenanceHistoryDays = 365;
-    m_data.masterKeyChangeRec = -1;
-    m_data.masterKeyChangeForce = -1;
-    m_data.historyMaxItems = DefaultHistoryMaxItems;
-    m_data.historyMaxSize = DefaultHistoryMaxSize;
-    m_data.recycleBinEnabled = true;
-    m_data.protectTitle = false;
-    m_data.protectUsername = false;
-    m_data.protectPassword = true;
-    m_data.protectUrl = false;
-    m_data.protectNotes = false;
+	m_data.generator = QStringLiteral("KeePassXC");
+	m_data.maintenanceHistoryDays = 365;
+	m_data.masterKeyChangeRec = -1;
+	m_data.masterKeyChangeForce = -1;
+	m_data.historyMaxItems = DefaultHistoryMaxItems;
+	m_data.historyMaxSize = DefaultHistoryMaxSize;
+	m_data.recycleBinEnabled = true;
+	m_data.protectTitle = false;
+	m_data.protectUsername = false;
+	m_data.protectPassword = true;
+	m_data.protectUrl = false;
+	m_data.protectNotes = false;
 
-    QDateTime now = Clock::currentDateTimeUtc();
-    m_data.nameChanged = now;
-    m_data.descriptionChanged = now;
-    m_data.defaultUserNameChanged = now;
-    m_recycleBinChanged = now;
-    m_entryTemplatesGroupChanged = now;
-    m_masterKeyChanged = now;
-    m_settingsChanged = now;
+	QDateTime now = Clock::currentDateTimeUtc();
+	m_data.nameChanged = now;
+	m_data.descriptionChanged = now;
+	m_data.defaultUserNameChanged = now;
+	m_recycleBinChanged = now;
+	m_entryTemplatesGroupChanged = now;
+	m_masterKeyChanged = now;
+	m_settingsChanged = now;
 }
 
 void Metadata::clear()
 {
-    init();
-    m_customIcons.clear();
-    m_customIconsOrder.clear();
-    m_customIconsHashes.clear();
-    m_customData->clear();
+	init();
+	m_customIcons.clear();
+	m_customIconsOrder.clear();
+	m_customIconsHashes.clear();
+	m_customData->clear();
 }
 
-template <class P, class V> bool Metadata::set(P& property, const V& value)
+template <class P, class V> bool Metadata::set(P &property, const V &value)
 {
-    if (property != value) {
-        property = value;
-        emitModified();
-        return true;
-    } else {
-        return false;
-    }
+	if (property != value)
+	{
+		property = value;
+		emitModified();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
-template <class P, class V> bool Metadata::set(P& property, const V& value, QDateTime& dateTime)
+template <class P, class V> bool Metadata::set(P &property, const V &value, QDateTime &dateTime)
 {
-    if (property != value) {
-        property = value;
-        if (m_updateDatetime) {
-            dateTime = Clock::currentDateTimeUtc();
-        }
-        emitModified();
-        return true;
-    } else {
-        return false;
-    }
+	if (property != value)
+	{
+		property = value;
+		if (m_updateDatetime)
+		{
+			dateTime = Clock::currentDateTimeUtc();
+		}
+		emitModified();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void Metadata::setUpdateDatetime(bool value)
 {
-    m_updateDatetime = value;
+	m_updateDatetime = value;
 }
 
-void Metadata::copyAttributesFrom(const Metadata* other)
+void Metadata::copyAttributesFrom(const Metadata *other)
 {
-    m_data = other->m_data;
+	m_data = other->m_data;
 }
 
 QString Metadata::generator() const
 {
-    return m_data.generator;
+	return m_data.generator;
 }
 
 QString Metadata::name() const
 {
-    return m_data.name;
+	return m_data.name;
 }
 
 QDateTime Metadata::nameChanged() const
 {
-    return m_data.nameChanged;
+	return m_data.nameChanged;
 }
 
 QString Metadata::description() const
 {
-    return m_data.description;
+	return m_data.description;
 }
 
 QDateTime Metadata::descriptionChanged() const
 {
-    return m_data.descriptionChanged;
+	return m_data.descriptionChanged;
 }
 
 QString Metadata::defaultUserName() const
 {
-    return m_data.defaultUserName;
+	return m_data.defaultUserName;
 }
 
 QDateTime Metadata::defaultUserNameChanged() const
 {
-    return m_data.defaultUserNameChanged;
+	return m_data.defaultUserNameChanged;
 }
 
 int Metadata::maintenanceHistoryDays() const
 {
-    return m_data.maintenanceHistoryDays;
+	return m_data.maintenanceHistoryDays;
 }
 
 QString Metadata::color() const
 {
-    return m_data.color;
+	return m_data.color;
 }
 
 bool Metadata::protectTitle() const
 {
-    return m_data.protectTitle;
+	return m_data.protectTitle;
 }
 
 bool Metadata::protectUsername() const
 {
-    return m_data.protectUsername;
+	return m_data.protectUsername;
 }
 
 bool Metadata::protectPassword() const
 {
-    return m_data.protectPassword;
+	return m_data.protectPassword;
 }
 
 bool Metadata::protectUrl() const
 {
-    return m_data.protectUrl;
+	return m_data.protectUrl;
 }
 
 bool Metadata::protectNotes() const
 {
-    return m_data.protectNotes;
+	return m_data.protectNotes;
 }
 
-const Metadata::CustomIconData& Metadata::customIcon(const QUuid& uuid) const
+const Metadata::CustomIconData &Metadata::customIcon(const QUuid &uuid) const
 {
-    auto icon = m_customIcons.find(uuid);
-    Q_ASSERT(icon != m_customIcons.end());
-    if (icon == m_customIcons.end()) {
-        return NULL_ICON;
-    }
-    return icon.value();
+	auto icon = m_customIcons.find(uuid);
+	Q_ASSERT(icon != m_customIcons.end());
+	if (icon == m_customIcons.end())
+	{
+		return NULL_ICON;
+	}
+	return icon.value();
 }
 
-bool Metadata::hasCustomIcon(const QUuid& uuid) const
+bool Metadata::hasCustomIcon(const QUuid &uuid) const
 {
-    return m_customIcons.contains(uuid);
+	return m_customIcons.contains(uuid);
 }
 
 QList<QUuid> Metadata::customIconsOrder() const
 {
-    return m_customIconsOrder;
+	return m_customIconsOrder;
 }
 
 bool Metadata::recycleBinEnabled() const
 {
-    return m_data.recycleBinEnabled;
+	return m_data.recycleBinEnabled;
 }
 
-Group* Metadata::recycleBin()
+Group *Metadata::recycleBin()
 {
-    return m_recycleBin;
+	return m_recycleBin;
 }
 
-const Group* Metadata::recycleBin() const
+const Group *Metadata::recycleBin() const
 {
-    return m_recycleBin;
+	return m_recycleBin;
 }
 
 QDateTime Metadata::recycleBinChanged() const
 {
-    return m_recycleBinChanged;
+	return m_recycleBinChanged;
 }
 
-const Group* Metadata::entryTemplatesGroup() const
+const Group *Metadata::entryTemplatesGroup() const
 {
-    return m_entryTemplatesGroup;
+	return m_entryTemplatesGroup;
 }
 
 QDateTime Metadata::entryTemplatesGroupChanged() const
 {
-    return m_entryTemplatesGroupChanged;
+	return m_entryTemplatesGroupChanged;
 }
 
-const Group* Metadata::lastSelectedGroup() const
+const Group *Metadata::lastSelectedGroup() const
 {
-    return m_lastSelectedGroup;
+	return m_lastSelectedGroup;
 }
 
-const Group* Metadata::lastTopVisibleGroup() const
+const Group *Metadata::lastTopVisibleGroup() const
 {
-    return m_lastTopVisibleGroup;
+	return m_lastTopVisibleGroup;
 }
 
 QDateTime Metadata::databaseKeyChanged() const
 {
-    return m_masterKeyChanged;
+	return m_masterKeyChanged;
 }
 
 int Metadata::databaseKeyChangeRec() const
 {
-    return m_data.masterKeyChangeRec;
+	return m_data.masterKeyChangeRec;
 }
 
 int Metadata::databaseKeyChangeForce() const
 {
-    return m_data.masterKeyChangeForce;
+	return m_data.masterKeyChangeForce;
 }
 
 int Metadata::historyMaxItems() const
 {
-    return m_data.historyMaxItems;
+	return m_data.historyMaxItems;
 }
 
 int Metadata::historyMaxSize() const
 {
-    return m_data.historyMaxSize;
+	return m_data.historyMaxSize;
 }
 
 int Metadata::autosaveDelayMin() const
 {
-    QString autosaveDelayMinStr = m_customData->value(customDataKeys::autosaveDelay);
-    if (autosaveDelayMinStr.isNull()) {
-        // data is not set yet, use default
-        return Metadata::DefaultAutosaveDelayMin;
-    }
-    bool ok; // check for QString to int op failuer
-    int autosaveDelayMin = autosaveDelayMinStr.toInt(&ok);
-    Q_ASSERT(ok);
-    return autosaveDelayMin;
+	QString autosaveDelayMinStr = m_customData->value(customDataKeys::autosaveDelay);
+	if (autosaveDelayMinStr.isNull())
+	{
+		// data is not set yet, use default
+		return Metadata::DefaultAutosaveDelayMin;
+	}
+	bool ok; // check for QString to int op failuer
+	int autosaveDelayMin = autosaveDelayMinStr.toInt(&ok);
+	Q_ASSERT(ok);
+	return autosaveDelayMin;
 }
 
-CustomData* Metadata::customData()
+CustomData *Metadata::customData()
 {
-    return m_customData;
+	return m_customData;
 }
 
-const CustomData* Metadata::customData() const
+const CustomData *Metadata::customData() const
 {
-    return m_customData;
+	return m_customData;
 }
 
-void Metadata::setGenerator(const QString& value)
+void Metadata::setGenerator(const QString &value)
 {
-    set(m_data.generator, value);
+	set(m_data.generator, value);
 }
 
-void Metadata::setName(const QString& value)
+void Metadata::setName(const QString &value)
 {
-    set(m_data.name, value, m_data.nameChanged);
+	set(m_data.name, value, m_data.nameChanged);
 }
 
-void Metadata::setNameChanged(const QDateTime& value)
+void Metadata::setNameChanged(const QDateTime &value)
 {
-    Q_ASSERT(value.timeSpec() == Qt::UTC);
-    m_data.nameChanged = value;
+	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	m_data.nameChanged = value;
 }
 
-void Metadata::setDescription(const QString& value)
+void Metadata::setDescription(const QString &value)
 {
-    set(m_data.description, value, m_data.descriptionChanged);
+	set(m_data.description, value, m_data.descriptionChanged);
 }
 
-void Metadata::setDescriptionChanged(const QDateTime& value)
+void Metadata::setDescriptionChanged(const QDateTime &value)
 {
-    Q_ASSERT(value.timeSpec() == Qt::UTC);
-    m_data.descriptionChanged = value;
+	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	m_data.descriptionChanged = value;
 }
 
-void Metadata::setDefaultUserName(const QString& value)
+void Metadata::setDefaultUserName(const QString &value)
 {
-    set(m_data.defaultUserName, value, m_data.defaultUserNameChanged);
+	set(m_data.defaultUserName, value, m_data.defaultUserNameChanged);
 }
 
-void Metadata::setDefaultUserNameChanged(const QDateTime& value)
+void Metadata::setDefaultUserNameChanged(const QDateTime &value)
 {
-    Q_ASSERT(value.timeSpec() == Qt::UTC);
-    m_data.defaultUserNameChanged = value;
+	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	m_data.defaultUserNameChanged = value;
 }
 
 void Metadata::setMaintenanceHistoryDays(int value)
 {
-    set(m_data.maintenanceHistoryDays, value);
+	set(m_data.maintenanceHistoryDays, value);
 }
 
-void Metadata::setColor(const QString& value)
+void Metadata::setColor(const QString &value)
 {
-    set(m_data.color, value);
+	set(m_data.color, value);
 }
 
 void Metadata::setProtectTitle(bool value)
 {
-    set(m_data.protectTitle, value);
+	set(m_data.protectTitle, value);
 }
 
 void Metadata::setProtectUsername(bool value)
 {
-    set(m_data.protectUsername, value);
+	set(m_data.protectUsername, value);
 }
 
 void Metadata::setProtectPassword(bool value)
 {
-    set(m_data.protectPassword, value);
+	set(m_data.protectPassword, value);
 }
 
 void Metadata::setProtectUrl(bool value)
 {
-    set(m_data.protectUrl, value);
+	set(m_data.protectUrl, value);
 }
 
 void Metadata::setProtectNotes(bool value)
 {
-    set(m_data.protectNotes, value);
+	set(m_data.protectNotes, value);
 }
 
-void Metadata::addCustomIcon(const QUuid& uuid, const CustomIconData& iconData)
+void Metadata::addCustomIcon(const QUuid &uuid, const CustomIconData &iconData)
 {
 
-    Q_ASSERT(!uuid.isNull());
-    Q_ASSERT(!m_customIcons.contains(uuid));
+	Q_ASSERT(!uuid.isNull());
+	Q_ASSERT(!m_customIcons.contains(uuid));
 
-    // remove all uuids to prevent duplicates in release mode
-    m_customIcons[uuid] = iconData;
-    m_customIconsOrder.removeAll(uuid);
-    m_customIconsOrder.append(uuid);
+	// remove all uuids to prevent duplicates in release mode
+	m_customIcons[uuid] = iconData;
+	m_customIconsOrder.removeAll(uuid);
+	m_customIconsOrder.append(uuid);
 
-    // Associate image hash to uuid
-    QByteArray hash = hashIcon(iconData.data);
-    m_customIconsHashes[hash] = uuid;
-    Q_ASSERT(m_customIcons.count() == m_customIconsOrder.count());
+	// Associate image hash to uuid
+	QByteArray hash = hashIcon(iconData.data);
+	m_customIconsHashes[hash] = uuid;
+	Q_ASSERT(m_customIcons.count() == m_customIconsOrder.count());
 
-    emitModified();
+	emitModified();
 }
 
-void Metadata::addCustomIcon(const QUuid& uuid,
-                             const QByteArray& iconBytes,
-                             const QString& name,
-                             const QDateTime& lastModified)
+void Metadata::addCustomIcon(const QUuid &uuid,
+                             const QByteArray &iconBytes,
+                             const QString &name,
+                             const QDateTime &lastModified)
 {
-    addCustomIcon(uuid, {iconBytes, name, lastModified});
+	addCustomIcon(uuid, {iconBytes, name, lastModified});
 }
 
-void Metadata::removeCustomIcon(const QUuid& uuid)
+void Metadata::removeCustomIcon(const QUuid &uuid)
 {
-    Q_ASSERT(!uuid.isNull());
-    Q_ASSERT(m_customIcons.contains(uuid));
+	Q_ASSERT(!uuid.isNull());
+	Q_ASSERT(m_customIcons.contains(uuid));
 
-    // Remove hash record only if this is the same uuid
-    QByteArray hash = hashIcon(m_customIcons[uuid].data);
-    if (m_customIconsHashes.contains(hash) && m_customIconsHashes[hash] == uuid) {
-        m_customIconsHashes.remove(hash);
-    }
+	// Remove hash record only if this is the same uuid
+	QByteArray hash = hashIcon(m_customIcons[uuid].data);
+	if (m_customIconsHashes.contains(hash) && m_customIconsHashes[hash] == uuid)
+	{
+		m_customIconsHashes.remove(hash);
+	}
 
-    m_customIcons.remove(uuid);
-    m_customIconsOrder.removeAll(uuid);
-    Q_ASSERT(m_customIcons.count() == m_customIconsOrder.count());
-    dynamic_cast<Database*>(parent())->addDeletedObject(uuid);
-    emitModified();
+	m_customIcons.remove(uuid);
+	m_customIconsOrder.removeAll(uuid);
+	Q_ASSERT(m_customIcons.count() == m_customIconsOrder.count());
+	dynamic_cast<Database *>(parent())->addDeletedObject(uuid);
+	emitModified();
 }
 
-QUuid Metadata::findCustomIcon(const QByteArray& candidate)
+QUuid Metadata::findCustomIcon(const QByteArray &candidate)
 {
-    QByteArray hash = hashIcon(candidate);
-    return m_customIconsHashes.value(hash, QUuid());
+	QByteArray hash = hashIcon(candidate);
+	return m_customIconsHashes.value(hash, QUuid());
 }
 
-void Metadata::copyCustomIcons(const QSet<QUuid>& iconList, const Metadata* otherMetadata)
+void Metadata::copyCustomIcons(const QSet<QUuid> &iconList, const Metadata *otherMetadata)
 {
-    for (const QUuid& uuid : iconList) {
-        Q_ASSERT(otherMetadata->hasCustomIcon(uuid));
+	for (const QUuid &uuid: iconList)
+	{
+		Q_ASSERT(otherMetadata->hasCustomIcon(uuid));
 
-        if (!hasCustomIcon(uuid) && otherMetadata->hasCustomIcon(uuid)) {
-            addCustomIcon(uuid, otherMetadata->customIcon(uuid));
-        }
-    }
+		if (!hasCustomIcon(uuid) && otherMetadata->hasCustomIcon(uuid))
+		{
+			addCustomIcon(uuid, otherMetadata->customIcon(uuid));
+		}
+	}
 }
 
-QByteArray Metadata::hashIcon(const QByteArray& iconData)
+QByteArray Metadata::hashIcon(const QByteArray &iconData)
 {
-    return QCryptographicHash::hash(iconData, QCryptographicHash::Md5);
+	return QCryptographicHash::hash(iconData, QCryptographicHash::Md5);
 }
 
 void Metadata::setRecycleBinEnabled(bool value)
 {
-    set(m_data.recycleBinEnabled, value);
+	set(m_data.recycleBinEnabled, value);
 }
 
-void Metadata::setRecycleBin(Group* group)
+void Metadata::setRecycleBin(Group *group)
 {
-    set(m_recycleBin, group, m_recycleBinChanged);
+	set(m_recycleBin, group, m_recycleBinChanged);
 }
 
-void Metadata::setRecycleBinChanged(const QDateTime& value)
+void Metadata::setRecycleBinChanged(const QDateTime &value)
 {
-    Q_ASSERT(value.timeSpec() == Qt::UTC);
-    m_recycleBinChanged = value;
+	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	m_recycleBinChanged = value;
 }
 
-void Metadata::setEntryTemplatesGroup(Group* group)
+void Metadata::setEntryTemplatesGroup(Group *group)
 {
-    set(m_entryTemplatesGroup, group, m_entryTemplatesGroupChanged);
+	set(m_entryTemplatesGroup, group, m_entryTemplatesGroupChanged);
 }
 
-void Metadata::setEntryTemplatesGroupChanged(const QDateTime& value)
+void Metadata::setEntryTemplatesGroupChanged(const QDateTime &value)
 {
-    Q_ASSERT(value.timeSpec() == Qt::UTC);
-    m_entryTemplatesGroupChanged = value;
+	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	m_entryTemplatesGroupChanged = value;
 }
 
-void Metadata::setLastSelectedGroup(Group* group)
+void Metadata::setLastSelectedGroup(Group *group)
 {
-    set(m_lastSelectedGroup, group);
+	set(m_lastSelectedGroup, group);
 }
 
-void Metadata::setLastTopVisibleGroup(Group* group)
+void Metadata::setLastTopVisibleGroup(Group *group)
 {
-    set(m_lastTopVisibleGroup, group);
+	set(m_lastTopVisibleGroup, group);
 }
 
-void Metadata::setDatabaseKeyChanged(const QDateTime& value)
+void Metadata::setDatabaseKeyChanged(const QDateTime &value)
 {
-    Q_ASSERT(value.timeSpec() == Qt::UTC);
-    m_masterKeyChanged = value;
+	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	m_masterKeyChanged = value;
 }
 
 void Metadata::setMasterKeyChangeRec(int value)
 {
-    set(m_data.masterKeyChangeRec, value);
+	set(m_data.masterKeyChangeRec, value);
 }
 
 void Metadata::setMasterKeyChangeForce(int value)
 {
-    set(m_data.masterKeyChangeForce, value);
+	set(m_data.masterKeyChangeForce, value);
 }
 
 void Metadata::setHistoryMaxItems(int value)
 {
-    set(m_data.historyMaxItems, value);
+	set(m_data.historyMaxItems, value);
 }
 
 void Metadata::setHistoryMaxSize(int value)
 {
-    set(m_data.historyMaxSize, value);
+	set(m_data.historyMaxSize, value);
 }
 
 void Metadata::setAutosaveDelayMin(int value)
 {
-    Q_ASSERT(value >= 0 && value <= 420000000);
-    m_customData->set(customDataKeys::autosaveDelay, QString::number(value));
+	Q_ASSERT(value >= 0 && value <= 420000000);
+	m_customData->set(customDataKeys::autosaveDelay, QString::number(value));
 }
 
 QDateTime Metadata::settingsChanged() const
 {
-    return m_settingsChanged;
+	return m_settingsChanged;
 }
 
-void Metadata::setSettingsChanged(const QDateTime& value)
+void Metadata::setSettingsChanged(const QDateTime &value)
 {
-    Q_ASSERT(value.timeSpec() == Qt::UTC);
-    m_settingsChanged = value;
+	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	m_settingsChanged = value;
 }
 
-void Metadata::addSavedSearch(const QString& name, const QString& searchtext)
+void Metadata::addSavedSearch(const QString &name, const QString &searchtext)
 {
-    auto searches = savedSearches();
-    searches.insert(name, searchtext);
-    auto json = QJsonDocument::fromVariant(searches);
-    m_customData->set(customDataKeys::savedSearch, json.toJson());
+	auto searches = savedSearches();
+	searches.insert(name, searchtext);
+	auto json = QJsonDocument::fromVariant(searches);
+	m_customData->set(customDataKeys::savedSearch, json.toJson());
 }
 
-void Metadata::deleteSavedSearch(const QString& name)
+void Metadata::deleteSavedSearch(const QString &name)
 {
-    auto searches = savedSearches();
-    searches.remove(name);
-    auto json = QJsonDocument::fromVariant(searches);
-    m_customData->set(customDataKeys::savedSearch, json.toJson());
+	auto searches = savedSearches();
+	searches.remove(name);
+	auto json = QJsonDocument::fromVariant(searches);
+	m_customData->set(customDataKeys::savedSearch, json.toJson());
 }
 
 QVariantMap Metadata::savedSearches()
 {
-    auto searches = m_customData->value(customDataKeys::savedSearch);
-    auto json = QJsonDocument::fromJson(searches.toUtf8());
-    return json.toVariant().toMap();
+	auto searches = m_customData->value(customDataKeys::savedSearch);
+	auto json = QJsonDocument::fromJson(searches.toUtf8());
+	return json.toVariant().toMap();
 }

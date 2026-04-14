@@ -21,15 +21,15 @@
 #include <QObject>
 #include <QScopedPointer>
 
-class TestTextAttachmentsPreviewWidget : public QObject
+class TestTextAttachmentsPreviewWidget: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
+	void initTestCase();
 
-    void testDetectMimeByFile();
+	void testDetectMimeByFile();
 
 private:
-    QScopedPointer<TextAttachmentsPreviewWidget> m_widget{};
+	QScopedPointer<TextAttachmentsPreviewWidget> m_widget{};
 };

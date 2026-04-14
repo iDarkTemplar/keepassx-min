@@ -19,32 +19,33 @@
 
 #define DEVICELISTENER_IMPL DeviceListenerMac
 
-#include <QObject>
 #include <IOKit/hid/IOHIDManager.h>
+#include <QObject>
 
 class QUuid;
 
-class DeviceListenerMac : public QObject
+class DeviceListenerMac: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DeviceListenerMac(QObject* parent);
-    DeviceListenerMac(const DeviceListenerMac&) = delete;
-    ~DeviceListenerMac() override;
+	explicit DeviceListenerMac(QObject *parent);
+	DeviceListenerMac(const DeviceListenerMac &) = delete;
+	~DeviceListenerMac() override;
 
-    void registerHotplugCallback(bool arrived,
-                                 bool left,
-                                 int vendorId = -1,
-                                 int productId = -1, const QUuid* = nullptr);
-    void deregisterHotplugCallback();
+	void registerHotplugCallback(bool arrived,
+	                             bool left,
+	                             int vendorId = -1,
+	                             int productId = -1,
+	                             const QUuid * = nullptr);
+	void deregisterHotplugCallback();
 
 signals:
-    void devicePlugged(bool state, void* ctx, void* device);
+	void devicePlugged(bool state, void *ctx, void *device);
 
 private:
-    void onDeviceStateChanged(bool state, void* device);
-    IOHIDManagerRef m_mgr;
+	void onDeviceStateChanged(bool state, void *device);
+	IOHIDManagerRef m_mgr;
 };
 
 #endif // DEVICELISTENER_MAC_H

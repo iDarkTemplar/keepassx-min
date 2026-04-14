@@ -19,40 +19,40 @@
 
 #include <QObject>
 
-class ModifiableObject : public QObject
+class ModifiableObject: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    using QObject::QObject;
+	using QObject::QObject;
 
 public:
-    /**
-     * @brief check if the modified signal is enabled.
-     * Note that this is NOT the same as m_emitModified.
-     * The signal is enabled if neither the current object nor any of its parents disabled the signal.
-     */
-    bool modifiedSignalEnabled() const;
+	/**
+	 * @brief check if the modified signal is enabled.
+	 * Note that this is NOT the same as m_emitModified.
+	 * The signal is enabled if neither the current object nor any of its parents disabled the signal.
+	 */
+	bool modifiedSignalEnabled() const;
 
 public slots:
-    /**
-     * @brief set whether the modified signal should be emitted from this object and all its children.
-     *
-     * This means that even after calling `setEmitModified(true)` on this object,
-     * the signal may still be blocked in one of its parents.
-     *
-     * @param value
-     */
-    void setEmitModified(bool value);
+	/**
+	 * @brief set whether the modified signal should be emitted from this object and all its children.
+	 *
+	 * This means that even after calling `setEmitModified(true)` on this object,
+	 * the signal may still be blocked in one of its parents.
+	 *
+	 * @param value
+	 */
+	void setEmitModified(bool value);
 
 protected:
-    void emitModified();
+	void emitModified();
 
 signals:
-    void modified();
-    void emitModifiedChanged(bool value);
+	void modified();
+	void emitModifiedChanged(bool value);
 
 private:
-    bool m_emitModified{true};
+	bool m_emitModified{true};
 };
 
 #endif // KEEPASSXC_MODIFIABLEOBJECT_H

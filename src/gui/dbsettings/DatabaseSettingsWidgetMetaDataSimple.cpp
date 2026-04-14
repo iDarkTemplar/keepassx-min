@@ -20,11 +20,11 @@
 #include "core/Database.h"
 #include "core/Metadata.h"
 
-DatabaseSettingWidgetMetaData::DatabaseSettingWidgetMetaData(QWidget* parent)
-    : DatabaseSettingsWidget(parent)
-    , m_ui(new Ui::DatabaseSettingsWidgetMetaDataSimple())
+DatabaseSettingWidgetMetaData::DatabaseSettingWidgetMetaData(QWidget *parent)
+	: DatabaseSettingsWidget(parent)
+	, m_ui(new Ui::DatabaseSettingsWidgetMetaDataSimple())
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 }
 
 DatabaseSettingWidgetMetaData::~DatabaseSettingWidgetMetaData()
@@ -33,19 +33,19 @@ DatabaseSettingWidgetMetaData::~DatabaseSettingWidgetMetaData()
 
 void DatabaseSettingWidgetMetaData::initialize()
 {
-    Metadata* meta = m_db->metadata();
-    auto name = meta->name();
-    m_ui->databaseName->setText(name.isEmpty() ? tr("Passwords") : name);
-    m_ui->databaseDescription->setText(meta->description());
+	Metadata *meta = m_db->metadata();
+	auto name = meta->name();
+	m_ui->databaseName->setText(name.isEmpty() ? tr("Passwords") : name);
+	m_ui->databaseDescription->setText(meta->description());
 
-    m_ui->databaseName->setFocus();
-    m_ui->databaseName->selectAll();
+	m_ui->databaseName->setFocus();
+	m_ui->databaseName->selectAll();
 }
 
-void DatabaseSettingWidgetMetaData::showEvent(QShowEvent* event)
+void DatabaseSettingWidgetMetaData::showEvent(QShowEvent *event)
 {
-    QWidget::showEvent(event);
-    m_ui->databaseName->setFocus();
+	QWidget::showEvent(event);
+	m_ui->databaseName->setFocus();
 }
 
 void DatabaseSettingWidgetMetaData::uninitialize()
@@ -54,9 +54,9 @@ void DatabaseSettingWidgetMetaData::uninitialize()
 
 bool DatabaseSettingWidgetMetaData::saveSettings()
 {
-    Metadata* meta = m_db->metadata();
-    meta->setName(m_ui->databaseName->text());
-    meta->setDescription(m_ui->databaseDescription->text());
+	Metadata *meta = m_db->metadata();
+	meta->setName(m_ui->databaseName->text());
+	meta->setDescription(m_ui->databaseDescription->text());
 
-    return true;
+	return true;
 }

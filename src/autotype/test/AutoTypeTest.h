@@ -22,52 +22,52 @@
 #include "autotype/AutoTypePlatformPlugin.h"
 #include "autotype/test/AutoTypeTestInterface.h"
 
-class AutoTypePlatformTest : public QObject, public AutoTypePlatformInterface, public AutoTypeTestInterface
+class AutoTypePlatformTest: public QObject, public AutoTypePlatformInterface, public AutoTypeTestInterface
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.keepassx.AutoTypePlatformInterface")
-    Q_INTERFACES(AutoTypePlatformInterface AutoTypeTestInterface)
+	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "org.keepassx.AutoTypePlatformInterface")
+	Q_INTERFACES(AutoTypePlatformInterface AutoTypeTestInterface)
 
 public:
-    QString keyToString(Qt::Key key) override;
+	QString keyToString(Qt::Key key) override;
 
-    bool isAvailable() override;
-    QStringList windowTitles() override;
-    WId activeWindow() override;
-    QString activeWindowTitle() override;
-    bool raiseWindow(WId window) override;
-    AutoTypeExecutor* createExecutor() override;
+	bool isAvailable() override;
+	QStringList windowTitles() override;
+	WId activeWindow() override;
+	QString activeWindowTitle() override;
+	bool raiseWindow(WId window) override;
+	AutoTypeExecutor *createExecutor() override;
 
 #if defined(Q_OS_MACOS)
-    bool hideOwnWindow() override;
-    bool raiseOwnWindow() override;
+	bool hideOwnWindow() override;
+	bool raiseOwnWindow() override;
 #endif
 
-    void setActiveWindowTitle(const QString& title) override;
+	void setActiveWindowTitle(const QString &title) override;
 
-    QString actionChars() override;
-    int actionCount() override;
-    void clearActions() override;
+	QString actionChars() override;
+	int actionCount() override;
+	void clearActions() override;
 
-    void addAction(const AutoTypeKey* action);
+	void addAction(const AutoTypeKey *action);
 
 private:
-    QString m_activeWindowTitle;
-    int m_actionCount = 0;
-    QString m_actionChars;
+	QString m_activeWindowTitle;
+	int m_actionCount = 0;
+	QString m_actionChars;
 };
 
-class AutoTypeExecutorTest : public AutoTypeExecutor
+class AutoTypeExecutorTest: public AutoTypeExecutor
 {
 public:
-    explicit AutoTypeExecutorTest(AutoTypePlatformTest* platform);
+	explicit AutoTypeExecutorTest(AutoTypePlatformTest *platform);
 
-    AutoTypeAction::Result execBegin(const AutoTypeBegin* action) override;
-    AutoTypeAction::Result execType(const AutoTypeKey* action) override;
-    AutoTypeAction::Result execClearField(const AutoTypeClearField* action) override;
+	AutoTypeAction::Result execBegin(const AutoTypeBegin *action) override;
+	AutoTypeAction::Result execType(const AutoTypeKey *action) override;
+	AutoTypeAction::Result execClearField(const AutoTypeClearField *action) override;
 
 private:
-    AutoTypePlatformTest* const m_platform;
+	AutoTypePlatformTest *const m_platform;
 };
 
 #endif // KEEPASSX_AUTOTYPETEST_H

@@ -31,64 +31,64 @@
 #include <windows.h>
 #undef MessageBox
 
-class WinUtils : public OSUtilsBase, QAbstractNativeEventFilter
+class WinUtils: public OSUtilsBase, QAbstractNativeEventFilter
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    static WinUtils* instance();
+	static WinUtils *instance();
 
-    bool isDarkMode() const override;
-    bool isStatusBarDark() const override;
-    bool isLaunchAtStartupEnabled() const override;
-    void setLaunchAtStartup(bool enable) override;
-    bool isCapslockEnabled() override;
-    void setUserInputProtection(bool enable) override;
-    bool isHighContrastMode() const;
+	bool isDarkMode() const override;
+	bool isStatusBarDark() const override;
+	bool isLaunchAtStartupEnabled() const override;
+	void setLaunchAtStartup(bool enable) override;
+	bool isCapslockEnabled() override;
+	void setUserInputProtection(bool enable) override;
+	bool isHighContrastMode() const;
 
-    void registerNativeEventFilter() override;
+	void registerNativeEventFilter() override;
 
-    bool registerGlobalShortcut(const QString& name,
-                                Qt::Key key,
-                                Qt::KeyboardModifiers modifiers,
-                                QString* error = nullptr) override;
-    bool unregisterGlobalShortcut(const QString& name) override;
+	bool registerGlobalShortcut(const QString &name,
+	                            Qt::Key key,
+	                            Qt::KeyboardModifiers modifiers,
+	                            QString *error = nullptr) override;
+	bool unregisterGlobalShortcut(const QString &name) override;
 
-    WORD qtToNativeKeyCode(Qt::Key key);
-    DWORD qtToNativeModifiers(Qt::KeyboardModifiers modifiers);
+	WORD qtToNativeKeyCode(Qt::Key key);
+	DWORD qtToNativeModifiers(Qt::KeyboardModifiers modifiers);
 
-    bool canPreventScreenCapture() const override;
-    bool setPreventScreenCapture(QWindow* window, bool prevent) const override;
+	bool canPreventScreenCapture() const override;
+	bool setPreventScreenCapture(QWindow *window, bool prevent) const override;
 
 protected:
-    explicit WinUtils(QObject* parent = nullptr);
-    ~WinUtils() override = default;
+	explicit WinUtils(QObject *parent = nullptr);
+	~WinUtils() override = default;
 
-    bool nativeEventFilter(const QByteArray& eventType, void* message, long*) override;
-    void triggerGlobalShortcut(int id);
+	bool nativeEventFilter(const QByteArray &eventType, void *message, long *) override;
+	void triggerGlobalShortcut(int id);
 
 private:
-    static QPointer<WinUtils> m_instance;
+	static QPointer<WinUtils> m_instance;
 
-    struct globalShortcut
-    {
-        int id;
-        DWORD nativeKeyCode;
-        DWORD nativeModifiers;
-    };
+	struct globalShortcut
+	{
+		int id;
+		DWORD nativeKeyCode;
+		DWORD nativeModifiers;
+	};
 
-    int m_nextShortcutId = 1;
-    QHash<QString, QSharedPointer<globalShortcut>> m_globalShortcuts;
+	int m_nextShortcutId = 1;
+	QHash<QString, QSharedPointer<globalShortcut>> m_globalShortcuts;
 
-    bool m_darkAppThemeActive;
-    bool m_darkSystemThemeActive;
+	bool m_darkAppThemeActive;
+	bool m_darkSystemThemeActive;
 
-    Q_DISABLE_COPY(WinUtils)
+	Q_DISABLE_COPY(WinUtils)
 };
 
-inline WinUtils* winUtils()
+inline WinUtils *winUtils()
 {
-    return WinUtils::instance();
+	return WinUtils::instance();
 }
 
 #endif // KEEPASSXC_WINUTILS_H

@@ -29,29 +29,29 @@ class QIODevice;
 class HtmlExporter
 {
 public:
-    bool exportDatabase(const QString& filename,
-                        const QSharedPointer<const Database>& db,
-                        bool sorted = true,
-                        bool ascending = true);
-    bool exportDatabase(QIODevice* device,
-                        const QSharedPointer<const Database>& db,
-                        bool sorted = true,
-                        bool ascending = true);
-    QString exportDatabase(const QSharedPointer<const Database>& db, bool sorted = true, bool ascending = true);
-    QString errorString() const;
+	bool exportDatabase(const QString &filename,
+	                    const QSharedPointer<const Database> &db,
+	                    bool sorted = true,
+	                    bool ascending = true);
+	bool exportDatabase(QIODevice *device,
+	                    const QSharedPointer<const Database> &db,
+	                    bool sorted = true,
+	                    bool ascending = true);
+	QString exportDatabase(const QSharedPointer<const Database> &db, bool sorted = true, bool ascending = true);
+	QString errorString() const;
 
-    virtual ~HtmlExporter() = default;
+	virtual ~HtmlExporter() = default;
 
 protected:
-    virtual QString groupIconToHtml(const Group* group);
-    virtual QString entryIconToHtml(const Entry* entry);
+	virtual QString groupIconToHtml(const Group *group);
+	virtual QString entryIconToHtml(const Entry *entry);
 
 private:
-    QString exportGroup(const Group& group, QString path = QString(), bool sorted = true, bool ascending = true);
-    QString exportHeader(const QSharedPointer<const Database>& db);
-    QString exportFooter();
+	QString exportGroup(const Group &group, QString path = QString(), bool sorted = true, bool ascending = true);
+	QString exportHeader(const QSharedPointer<const Database> &db);
+	QString exportFooter();
 
-    QString m_error;
+	QString m_error;
 };
 
 #endif // KEEPASSX_HTMLEXPORTER_H

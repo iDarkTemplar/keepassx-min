@@ -19,14 +19,14 @@
 
 #include "DatabaseCommand.h"
 
-class AttachmentExport : public DatabaseCommand
+class AttachmentExport: public DatabaseCommand
 {
 public:
-    AttachmentExport();
+	AttachmentExport();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 
-    static const QCommandLineOption StdoutOption;
+	static const QCommandLineOption StdoutOption;
 };
 
 #endif // KEEPASSXC_ATTACHMENTEXPORT_H

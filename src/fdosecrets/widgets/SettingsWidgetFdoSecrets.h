@@ -27,31 +27,31 @@ class FdoSecretsPlugin;
 
 namespace Ui
 {
-    class SettingsWidgetFdoSecrets;
+	class SettingsWidgetFdoSecrets;
 }
-class SettingsWidgetFdoSecrets : public QWidget
+class SettingsWidgetFdoSecrets: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit SettingsWidgetFdoSecrets(FdoSecretsPlugin* plugin, QWidget* parent = nullptr);
-    ~SettingsWidgetFdoSecrets() override;
+	explicit SettingsWidgetFdoSecrets(FdoSecretsPlugin *plugin, QWidget *parent = nullptr);
+	~SettingsWidgetFdoSecrets() override;
 
 public slots:
-    void loadSettings();
-    void saveSettings();
+	void loadSettings();
+	void saveSettings();
 
 private slots:
-    void checkDBusName();
-    void updateServiceState();
+	void checkDBusName();
+	void updateServiceState();
 
 protected:
-    void showEvent(QShowEvent* event) override;
-    void hideEvent(QHideEvent* event) override;
+	void showEvent(QShowEvent *event) override;
+	void hideEvent(QHideEvent *event) override;
 
 private:
-    QScopedPointer<Ui::SettingsWidgetFdoSecrets> m_ui;
-    FdoSecretsPlugin* m_plugin;
-    QTimer m_checkTimer;
+	QScopedPointer<Ui::SettingsWidgetFdoSecrets> m_ui;
+	FdoSecretsPlugin *m_plugin;
+	QTimer m_checkTimer;
 };
 
 #endif // KEEPASSXC_SETTINGSWIDGETFDOSECRETS_H

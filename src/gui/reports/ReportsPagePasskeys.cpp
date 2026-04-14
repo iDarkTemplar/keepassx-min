@@ -19,33 +19,33 @@
 #include "gui/Icons.h"
 
 ReportsPagePasskeys::ReportsPagePasskeys()
-    : m_passkeysWidget(new ReportsWidgetPasskeys())
+	: m_passkeysWidget(new ReportsWidgetPasskeys())
 {
 }
 
 QString ReportsPagePasskeys::name()
 {
-    return QObject::tr("Passkeys");
+	return QObject::tr("Passkeys");
 }
 
 QIcon ReportsPagePasskeys::icon()
 {
-    return icons()->icon("passkey");
+	return icons()->icon("passkey");
 }
 
-QWidget* ReportsPagePasskeys::createWidget()
+QWidget *ReportsPagePasskeys::createWidget()
 {
-    return m_passkeysWidget;
+	return m_passkeysWidget;
 }
 
-void ReportsPagePasskeys::loadSettings(QWidget* widget, QSharedPointer<Database> db)
+void ReportsPagePasskeys::loadSettings(QWidget *widget, QSharedPointer<Database> db)
 {
-    const auto settingsWidget = reinterpret_cast<ReportsWidgetPasskeys*>(widget);
-    settingsWidget->loadSettings(db);
+	const auto settingsWidget = reinterpret_cast<ReportsWidgetPasskeys *>(widget);
+	settingsWidget->loadSettings(db);
 }
 
-void ReportsPagePasskeys::saveSettings(QWidget* widget)
+void ReportsPagePasskeys::saveSettings(QWidget *widget)
 {
-    const auto settingsWidget = reinterpret_cast<ReportsWidgetPasskeys*>(widget);
-    settingsWidget->saveSettings();
+	const auto settingsWidget = reinterpret_cast<ReportsWidgetPasskeys *>(widget);
+	settingsWidget->saveSettings();
 }

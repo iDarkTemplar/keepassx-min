@@ -25,28 +25,28 @@
 
 namespace Ui
 {
-    class TotpSetupDialog;
+	class TotpSetupDialog;
 }
 
-class TotpSetupDialog : public QDialog
+class TotpSetupDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit TotpSetupDialog(QWidget* parent = nullptr, Entry* entry = nullptr);
-    ~TotpSetupDialog() override;
-    void init();
+	explicit TotpSetupDialog(QWidget *parent = nullptr, Entry *entry = nullptr);
+	~TotpSetupDialog() override;
+	void init();
 
 signals:
-    void totpUpdated();
+	void totpUpdated();
 
 private slots:
-    void toggleCustom(bool status);
-    void saveSettings();
+	void toggleCustom(bool status);
+	void saveSettings();
 
 private:
-    QScopedPointer<Ui::TotpSetupDialog> m_ui;
-    Entry* m_entry;
+	QScopedPointer<Ui::TotpSetupDialog> m_ui;
+	Entry *m_entry;
 };
 
 #endif // KEEPASSX_SETUPTOTPDIALOG_H

@@ -25,79 +25,91 @@
 #include <QFile>
 
 const QCommandLineOption Analyze::HIBPDatabaseOption = QCommandLineOption(
-    {"H", "hibp"},
-    QObject::tr("Check if any passwords have been publicly leaked. FILENAME must be the path of a file listing "
+	{"H", "hibp"},
+	QObject::tr("Check if any passwords have been publicly leaked. FILENAME must be the path of a file listing "
                 "SHA-1 hashes of leaked passwords in HIBP format, as available from "
                 "https://haveibeenpwned.com/Passwords."),
-    QObject::tr("FILENAME"));
+	QObject::tr("FILENAME"));
 
 const QCommandLineOption Analyze::OkonOption =
-    QCommandLineOption("okon",
+	QCommandLineOption("okon",
                        QObject::tr("Path to okon-cli to search a formatted HIBP file"),
                        QObject::tr("okon-cli"));
 
 Analyze::Analyze()
 {
-    name = QString("analyze");
-    description = QObject::tr("Analyze passwords for weaknesses and problems.");
-    options.append(Analyze::HIBPDatabaseOption);
-    options.append(Analyze::OkonOption);
+	name = QString("analyze");
+	description = QObject::tr("Analyze passwords for weaknesses and problems.");
+	options.append(Analyze::HIBPDatabaseOption);
+	options.append(Analyze::OkonOption);
 }
 
 int Analyze::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<QCommandLineParser> parser)
 {
-    auto& out = Utils::STDOUT;
-    auto& err = Utils::STDERR;
+	auto &out = Utils::STDOUT;
+	auto &err = Utils::STDERR;
 
-    QList<QPair<const Entry*, int>> findings;
-    QString error;
+	QList<QPair<const Entry *, int>> findings;
+	QString error;
 
-    auto hibpDatabase = parser->value(Analyze::HIBPDatabaseOption);
-    if (!QFile::exists(hibpDatabase) || hibpDatabase.isEmpty()) {
-        err << QObject::tr("Cannot find HIBP file: %1").arg(hibpDatabase);
-        return EXIT_FAILURE;
-    }
+	auto hibpDatabase = parser->value(Analyze::HIBPDatabaseOption);
+	if (!QFile::exists(hibpDatabase) || hibpDatabase.isEmpty())
+	{
+		err << QObject::tr("Cannot find HIBP file: %1").arg(hibpDatabase);
+		return EXIT_FAILURE;
+	}
 
-    auto okon = parser->value(Analyze::OkonOption);
-    if (!okon.isEmpty()) {
-        out << QObject::tr("Evaluating database entries using okon…") << Qt::endl;
+	auto okon = parser->value(Analyze::OkonOption);
+	if (!okon.isEmpty())
+	{
+		out << QObject::tr("Evaluating database entries using okon…") << Qt::endl;
 
-        if (!HibpOffline::okonReport(database, okon, hibpDatabase, findings, &error)) {
-            err << error << Qt::endl;
-            return EXIT_FAILURE;
-        }
-    } else {
-        QFile hibpFile(hibpDatabase);
-        if (!hibpFile.open(QFile::ReadOnly)) {
-            err << QObject::tr("Failed to open HIBP file %1: %2").arg(hibpDatabase).arg(hibpFile.errorString())
-                << Qt::endl;
-            return EXIT_FAILURE;
-        }
+		if (!HibpOffline::okonReport(database, okon, hibpDatabase, findings, &error))
+		{
+			err << error << Qt::endl;
+			return EXIT_FAILURE;
+		}
+	}
+	else
+	{
+		QFile hibpFile(hibpDatabase);
+		if (!hibpFile.open(QFile::ReadOnly))
+		{
+			err << QObject::tr("Failed to open HIBP file %1: %2").arg(hibpDatabase).arg(hibpFile.errorString())
+				<< Qt::endl;
+			return EXIT_FAILURE;
+		}
 
-        out << QObject::tr("Evaluating database entries against HIBP file, this will take a while…") << Qt::endl;
+		out << QObject::tr("Evaluating database entries against HIBP file, this will take a while…") << Qt::endl;
 
-        if (!HibpOffline::report(database, hibpFile, findings, &error)) {
-            err << error << Qt::endl;
-            return EXIT_FAILURE;
-        }
-    }
+		if (!HibpOffline::report(database, hibpFile, findings, &error))
+		{
+			err << error << Qt::endl;
+			return EXIT_FAILURE;
+		}
+	}
 
-    for (const auto& finding : findings) {
-        const auto entry = finding.first;
-        auto count = finding.second;
+	for (const auto &finding: findings)
+	{
+		const auto entry = finding.first;
+		auto count = finding.second;
 
-        QString path = entry->title();
-        for (auto g = entry->group(); g && g != g->database()->rootGroup(); g = g->parentGroup()) {
-            path.prepend("/").prepend(g->name());
-        }
+		QString path = entry->title();
+		for (auto g = entry->group(); g && g != g->database()->rootGroup(); g = g->parentGroup())
+		{
+			path.prepend("/").prepend(g->name());
+		}
 
-        if (count > 0) {
-            out << QObject::tr("Password for '%1' has been leaked %2 time(s)!", "", count).arg(path).arg(count)
-                << Qt::endl;
-        } else {
-            out << QObject::tr("Password for '%1' has been leaked!").arg(path) << Qt::endl;
-        }
-    }
+		if (count > 0)
+		{
+			out << QObject::tr("Password for '%1' has been leaked %2 time(s)!", "", count).arg(path).arg(count)
+				<< Qt::endl;
+		}
+		else
+		{
+			out << QObject::tr("Password for '%1' has been leaked!").arg(path) << Qt::endl;
+		}
+	}
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

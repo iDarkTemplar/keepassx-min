@@ -21,10 +21,10 @@
 
 namespace Bootstrap
 {
-    void bootstrap(const QString& uiLanguage = "system");
-    void disableCoreDumps();
-    bool createWindowsDACL();
-    void setupSearchPaths();
+	void bootstrap(const QString &uiLanguage = "system");
+	void disableCoreDumps();
+	bool createWindowsDACL();
+	void setupSearchPaths();
 }; // namespace Bootstrap
 
 #endif // KEEPASSXC_BOOTSTRAP_H

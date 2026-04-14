@@ -21,114 +21,128 @@
 
 #include "autotype/AutoType.h"
 
-ShortcutWidget::ShortcutWidget(QWidget* parent)
-    : QLineEdit(parent)
-    , m_key(static_cast<Qt::Key>(0))
-    , m_modifiers(nullptr)
-    , m_locked(false)
+ShortcutWidget::ShortcutWidget(QWidget *parent)
+	: QLineEdit(parent)
+	, m_key(static_cast<Qt::Key>(0))
+	, m_modifiers(nullptr)
+	, m_locked(false)
 {
-    setReadOnly(true);
+	setReadOnly(true);
 }
 
 Qt::Key ShortcutWidget::key() const
 {
-    return m_key;
+	return m_key;
 }
 
 Qt::KeyboardModifiers ShortcutWidget::modifiers() const
 {
-    return m_modifiers;
+	return m_modifiers;
 }
 
 void ShortcutWidget::setShortcut(Qt::Key key, Qt::KeyboardModifiers modifiers)
 {
-    m_key = key;
-    m_modifiers = modifiers;
-    m_locked = true;
+	m_key = key;
+	m_modifiers = modifiers;
+	m_locked = true;
 
-    displayShortcut(m_key, m_modifiers);
+	displayShortcut(m_key, m_modifiers);
 
-    QString error;
-    if (autoType()->registerGlobalShortcut(m_key, m_modifiers, &error)) {
-        setStyleSheet("");
-    } else {
-        QToolTip::showText(mapToGlobal(rect().bottomLeft()), error);
-        setStyleSheet("background-color: #FF9696;");
-    }
+	QString error;
+	if (autoType()->registerGlobalShortcut(m_key, m_modifiers, &error))
+	{
+		setStyleSheet("");
+	}
+	else
+	{
+		QToolTip::showText(mapToGlobal(rect().bottomLeft()), error);
+		setStyleSheet("background-color: #FF9696;");
+	}
 }
 
 void ShortcutWidget::resetShortcut()
 {
-    m_key = static_cast<Qt::Key>(0);
-    m_modifiers = nullptr;
-    m_locked = false;
-    autoType()->unregisterGlobalShortcut();
+	m_key = static_cast<Qt::Key>(0);
+	m_modifiers = nullptr;
+	m_locked = false;
+	autoType()->unregisterGlobalShortcut();
 }
 
-void ShortcutWidget::keyPressEvent(QKeyEvent* event)
+void ShortcutWidget::keyPressEvent(QKeyEvent *event)
 {
-    keyEvent(event);
+	keyEvent(event);
 }
 
-void ShortcutWidget::keyReleaseEvent(QKeyEvent* event)
+void ShortcutWidget::keyReleaseEvent(QKeyEvent *event)
 {
-    keyEvent(event);
+	keyEvent(event);
 }
 
-void ShortcutWidget::keyEvent(QKeyEvent* event)
+void ShortcutWidget::keyEvent(QKeyEvent *event)
 {
-    event->accept();
+	event->accept();
 
-    if (event->type() != QEvent::KeyPress && event->type() != QEvent::KeyRelease) {
-        return;
-    }
+	if (event->type() != QEvent::KeyPress && event->type() != QEvent::KeyRelease)
+	{
+		return;
+	}
 
-    bool release = (event->type() == QEvent::KeyRelease);
+	bool release = (event->type() == QEvent::KeyRelease);
 
-    if (m_locked && release) {
-        return;
-    }
+	if (m_locked && release)
+	{
+		return;
+	}
 
-    Qt::Key key = static_cast<Qt::Key>(event->key());
+	Qt::Key key = static_cast<Qt::Key>(event->key());
 
-    if (key <= 0 || key == Qt::Key_unknown) {
-        return;
-    }
+	if (key <= 0 || key == Qt::Key_unknown)
+	{
+		return;
+	}
 
-    Qt::KeyboardModifiers modifiers = event->modifiers() & (Qt::SHIFT | Qt::CTRL | Qt::ALT | Qt::META);
+	Qt::KeyboardModifiers modifiers = event->modifiers() & (Qt::SHIFT | Qt::CTRL | Qt::ALT | Qt::META);
 
-    bool keyIsModifier;
-    switch (key) {
-    case Qt::Key_Shift:
-    case Qt::Key_Control:
-    case Qt::Key_Meta:
-    case Qt::Key_Alt:
-    case Qt::Key_AltGr:
-        keyIsModifier = true;
-        break;
-    default:
-        keyIsModifier = false;
-    }
+	bool keyIsModifier;
+	switch (key)
+	{
+	case Qt::Key_Shift:
+	case Qt::Key_Control:
+	case Qt::Key_Meta:
+	case Qt::Key_Alt:
+	case Qt::Key_AltGr:
+		keyIsModifier = true;
+		break;
+	default:
+		keyIsModifier = false;
+	}
 
-    if (!release && !keyIsModifier) {
-        if (modifiers != 0) {
-            setShortcut(key, modifiers);
-        } else {
-            resetShortcut();
-            setStyleSheet("");
-            displayShortcut(key, modifiers);
-        }
-    } else {
-        if (m_locked) {
-            resetShortcut();
-            setStyleSheet("");
-        }
+	if (!release && !keyIsModifier)
+	{
+		if (modifiers != 0)
+		{
+			setShortcut(key, modifiers);
+		}
+		else
+		{
+			resetShortcut();
+			setStyleSheet("");
+			displayShortcut(key, modifiers);
+		}
+	}
+	else
+	{
+		if (m_locked)
+		{
+			resetShortcut();
+			setStyleSheet("");
+		}
 
-        displayShortcut(static_cast<Qt::Key>(0), modifiers);
-    }
+		displayShortcut(static_cast<Qt::Key>(0), modifiers);
+	}
 }
 
 void ShortcutWidget::displayShortcut(Qt::Key key, Qt::KeyboardModifiers modifiers)
 {
-    setText(QKeySequence(key | modifiers).toString(QKeySequence::NativeText));
+	setText(QKeySequence(key | modifiers).toString(QKeySequence::NativeText));
 }

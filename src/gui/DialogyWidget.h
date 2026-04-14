@@ -19,18 +19,18 @@
 
 #include <QDialogButtonBox>
 
-class DialogyWidget : public QWidget
+class DialogyWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DialogyWidget(QWidget* parent = nullptr);
+	explicit DialogyWidget(QWidget *parent = nullptr);
 
 protected:
-    void keyPressEvent(QKeyEvent* e) override;
+	void keyPressEvent(QKeyEvent *e) override;
 
 private:
-    bool clickButton(QDialogButtonBox::StandardButton standardButton);
+	bool clickButton(QDialogButtonBox::StandardButton standardButton);
 };
 
 #endif // KEEPASSX_DIALOGYWIDGET_H

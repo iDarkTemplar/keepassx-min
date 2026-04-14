@@ -19,12 +19,12 @@
 
 #include "DatabaseCommand.h"
 
-class AttachmentRemove : public DatabaseCommand
+class AttachmentRemove: public DatabaseCommand
 {
 public:
-    AttachmentRemove();
+	AttachmentRemove();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 };
 
 #endif // KEEPASSXC_ATTACHMENTMOVE_H

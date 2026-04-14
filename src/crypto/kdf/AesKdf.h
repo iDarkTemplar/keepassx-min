@@ -19,23 +19,23 @@
 
 #include "Kdf.h"
 
-class AesKdf : public Kdf
+class AesKdf: public Kdf
 {
 public:
-    AesKdf();
-    explicit AesKdf(bool legacyKdbx3);
+	AesKdf();
+	explicit AesKdf(bool legacyKdbx3);
 
-    bool processParameters(const QVariantMap& p) override;
-    QVariantMap writeParameters() override;
-    bool transform(const QByteArray& raw, QByteArray& result) const override;
-    QSharedPointer<Kdf> clone() const override;
-    QString toString() const override;
+	bool processParameters(const QVariantMap &p) override;
+	QVariantMap writeParameters() override;
+	bool transform(const QByteArray &raw, QByteArray &result) const override;
+	QSharedPointer<Kdf> clone() const override;
+	QString toString() const override;
 
-    int benchmark(int msec) const override;
+	int benchmark(int msec) const override;
 
 private:
-    Q_REQUIRED_RESULT static bool
-    transformKeyRaw(const QByteArray& key, const QByteArray& seed, int rounds, QByteArray* result);
+	Q_REQUIRED_RESULT static bool
+		transformKeyRaw(const QByteArray &key, const QByteArray &seed, int rounds, QByteArray *result);
 };
 
 #endif // KEEPASSX_AESKDF_H

@@ -23,18 +23,18 @@
 
 class DatabaseTabWidget;
 
-class SettingsPageKeeShare : public ISettingsPage
+class SettingsPageKeeShare: public ISettingsPage
 {
 public:
-    SettingsPageKeeShare(DatabaseTabWidget* tabWidget);
-    QString name() override;
-    QIcon icon() override;
-    QWidget* createWidget() override;
-    void loadSettings(QWidget* widget) override;
-    void saveSettings(QWidget* widget) override;
+	SettingsPageKeeShare(DatabaseTabWidget *tabWidget);
+	QString name() override;
+	QIcon icon() override;
+	QWidget *createWidget() override;
+	void loadSettings(QWidget *widget) override;
+	void saveSettings(QWidget *widget) override;
 
 private:
-    QPointer<DatabaseTabWidget> m_tabWidget;
+	QPointer<DatabaseTabWidget> m_tabWidget;
 };
 
 #endif // KEEPASSXC_SETTINGSPAGEKEESHARE_H

@@ -17,105 +17,105 @@
 #include "TimeInfo.h"
 
 TimeInfo::TimeInfo()
-    : m_expires(false)
-    , m_usageCount(0)
+	: m_expires(false)
+	, m_usageCount(0)
 {
-    QDateTime now = Clock::currentDateTimeUtc();
-    m_lastModificationTime = now;
-    m_creationTime = now;
-    m_lastAccessTime = now;
-    m_expiryTime = now;
-    m_locationChanged = now;
+	QDateTime now = Clock::currentDateTimeUtc();
+	m_lastModificationTime = now;
+	m_creationTime = now;
+	m_lastAccessTime = now;
+	m_expiryTime = now;
+	m_locationChanged = now;
 }
 
 QDateTime TimeInfo::lastModificationTime() const
 {
-    return m_lastModificationTime;
+	return m_lastModificationTime;
 }
 
 QDateTime TimeInfo::creationTime() const
 {
-    return m_creationTime;
+	return m_creationTime;
 }
 
 QDateTime TimeInfo::lastAccessTime() const
 {
-    return m_lastAccessTime;
+	return m_lastAccessTime;
 }
 
 QDateTime TimeInfo::expiryTime() const
 {
-    return m_expiryTime;
+	return m_expiryTime;
 }
 
 bool TimeInfo::expires() const
 {
-    return m_expires;
+	return m_expires;
 }
 
 int TimeInfo::usageCount() const
 {
-    return m_usageCount;
+	return m_usageCount;
 }
 
 QDateTime TimeInfo::locationChanged() const
 {
-    return m_locationChanged;
+	return m_locationChanged;
 }
 
-void TimeInfo::setLastModificationTime(const QDateTime& dateTime)
+void TimeInfo::setLastModificationTime(const QDateTime &dateTime)
 {
-    Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
-    m_lastModificationTime = dateTime;
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	m_lastModificationTime = dateTime;
 }
 
-void TimeInfo::setCreationTime(const QDateTime& dateTime)
+void TimeInfo::setCreationTime(const QDateTime &dateTime)
 {
-    Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
-    m_creationTime = dateTime;
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	m_creationTime = dateTime;
 }
 
-void TimeInfo::setLastAccessTime(const QDateTime& dateTime)
+void TimeInfo::setLastAccessTime(const QDateTime &dateTime)
 {
-    Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
-    m_lastAccessTime = dateTime;
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	m_lastAccessTime = dateTime;
 }
 
-void TimeInfo::setExpiryTime(const QDateTime& dateTime)
+void TimeInfo::setExpiryTime(const QDateTime &dateTime)
 {
-    Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
-    m_expiryTime = dateTime;
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	m_expiryTime = dateTime;
 }
 
 void TimeInfo::setExpires(bool expires)
 {
-    m_expires = expires;
+	m_expires = expires;
 }
 
 void TimeInfo::setUsageCount(int count)
 {
-    m_usageCount = count;
+	m_usageCount = count;
 }
 
-void TimeInfo::setLocationChanged(const QDateTime& dateTime)
+void TimeInfo::setLocationChanged(const QDateTime &dateTime)
 {
-    Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
-    m_locationChanged = dateTime;
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	m_locationChanged = dateTime;
 }
 
-bool TimeInfo::operator==(const TimeInfo& other) const
+bool TimeInfo::operator==(const TimeInfo &other) const
 {
-    return equals(other, CompareItemDefault);
+	return equals(other, CompareItemDefault);
 }
 
-bool TimeInfo::operator!=(const TimeInfo& other) const
+bool TimeInfo::operator!=(const TimeInfo &other) const
 {
-    return !this->operator==(other);
+	return !this->operator==(other);
 }
 
-bool TimeInfo::equals(const TimeInfo& other, CompareItemOptions options) const
+bool TimeInfo::equals(const TimeInfo &other, CompareItemOptions options) const
 {
-    // clang-format off
+	// clang-format off
     if (::compare(m_lastModificationTime, other.m_lastModificationTime, options) != 0) {
         return false;
     }
@@ -135,5 +135,5 @@ bool TimeInfo::equals(const TimeInfo& other, CompareItemOptions options) const
         return false;
     }
     return true;
-    // clang-format on
+	// clang-format on
 }

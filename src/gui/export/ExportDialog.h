@@ -23,35 +23,35 @@
 
 namespace Ui
 {
-    class ExportDialog;
+	class ExportDialog;
 }
 
-class ExportDialog : public QDialog
+class ExportDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit ExportDialog(QSharedPointer<const Database> db, DatabaseTabWidget* parent = nullptr);
-    ~ExportDialog() override;
+	explicit ExportDialog(QSharedPointer<const Database> db, DatabaseTabWidget *parent = nullptr);
+	~ExportDialog() override;
 
-    enum ExportSortingStrategy
-    {
-        BY_DATABASE_ORDER = 0,
-        BY_NAME_ASC = 1,
-        BY_NAME_DESC = 2
-    };
+	enum ExportSortingStrategy
+	{
+		BY_DATABASE_ORDER = 0,
+		BY_NAME_ASC = 1,
+		BY_NAME_DESC = 2
+	};
 
 signals:
-    void exportFailed(QString reason);
+	void exportFailed(QString reason);
 
 private slots:
-    void exportDatabase();
+	void exportDatabase();
 
 private:
-    QString getStrategyName(ExportSortingStrategy strategy);
+	QString getStrategyName(ExportSortingStrategy strategy);
 
-    QScopedPointer<Ui::ExportDialog> m_ui;
-    QSharedPointer<const Database> m_db;
+	QScopedPointer<Ui::ExportDialog> m_ui;
+	QSharedPointer<const Database> m_db;
 };
 
 #endif // KEEPASSXC_EXPORTDIALOG_H

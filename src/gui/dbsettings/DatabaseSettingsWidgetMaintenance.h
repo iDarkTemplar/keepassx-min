@@ -24,41 +24,41 @@ class CustomIconModel;
 class Database;
 namespace Ui
 {
-    class DatabaseSettingsWidgetMaintenance;
+	class DatabaseSettingsWidgetMaintenance;
 }
 
-class DatabaseSettingsWidgetMaintenance : public DatabaseSettingsWidget
+class DatabaseSettingsWidgetMaintenance: public DatabaseSettingsWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DatabaseSettingsWidgetMaintenance(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(DatabaseSettingsWidgetMaintenance);
-    ~DatabaseSettingsWidgetMaintenance() override;
+	explicit DatabaseSettingsWidgetMaintenance(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(DatabaseSettingsWidgetMaintenance);
+	~DatabaseSettingsWidgetMaintenance() override;
 
 public slots:
-    void initialize() override;
-    void uninitialize() override {};
-    inline bool saveSettings() override
-    {
-        return true;
-    };
+	void initialize() override;
+	void uninitialize() override {};
+	inline bool saveSettings() override
+	{
+		return true;
+	};
 
 private slots:
-    void selectionChanged();
-    void removeCustomIcon();
-    void purgeUnusedCustomIcons();
+	void selectionChanged();
+	void removeCustomIcon();
+	void purgeUnusedCustomIcons();
 
 private:
-    void populateIcons(QSharedPointer<Database> db);
-    void removeSingleCustomIcon(QSharedPointer<Database> database, QModelIndex index);
+	void populateIcons(QSharedPointer<Database> db);
+	void removeSingleCustomIcon(QSharedPointer<Database> database, QModelIndex index);
 
 protected:
-    const QScopedPointer<Ui::DatabaseSettingsWidgetMaintenance> m_ui;
+	const QScopedPointer<Ui::DatabaseSettingsWidgetMaintenance> m_ui;
 
 private:
-    CustomIconModel* const m_customIconModel;
-    uint64_t m_deletionDecision;
+	CustomIconModel *const m_customIconModel;
+	uint64_t m_deletionDecision;
 };
 
 #endif // KEEPASSXC_DATABASESETTINGSWIDGETMAINTENANCE_H

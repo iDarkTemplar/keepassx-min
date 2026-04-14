@@ -19,14 +19,14 @@
 
 #include <QObject>
 
-class TestRandomGenerator : public QObject
+class TestRandomGenerator: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void testArray();
-    void testUInt();
-    void testUIntRange();
+	void testArray();
+	void testUInt();
+	void testUIntRange();
 };
 
 #endif // KEEPASSX_TESTRANDOMGENERATOR_H

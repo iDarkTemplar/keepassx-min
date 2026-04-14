@@ -21,25 +21,25 @@
 #include "core/Totp.h"
 #include "gui/MessageBox.h"
 
-TotpSetupDialog::TotpSetupDialog(QWidget* parent, Entry* entry)
-    : QDialog(parent)
-    , m_ui(new Ui::TotpSetupDialog())
-    , m_entry(entry)
+TotpSetupDialog::TotpSetupDialog(QWidget *parent, Entry *entry)
+	: QDialog(parent)
+	, m_ui(new Ui::TotpSetupDialog())
+	, m_entry(entry)
 {
-    m_ui->setupUi(this);
-    setAttribute(Qt::WA_DeleteOnClose);
+	m_ui->setupUi(this);
+	setAttribute(Qt::WA_DeleteOnClose);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
-    setWindowFlag(Qt::WindowContextHelpButtonHint, false);
+	setWindowFlag(Qt::WindowContextHelpButtonHint, false);
 #else
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 #endif
-    setFixedSize(sizeHint());
+	setFixedSize(sizeHint());
 
-    connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
-    connect(m_ui->buttonBox, SIGNAL(accepted()), SLOT(saveSettings()));
-    connect(m_ui->radioCustom, SIGNAL(toggled(bool)), SLOT(toggleCustom(bool)));
+	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
+	connect(m_ui->buttonBox, SIGNAL(accepted()), SLOT(saveSettings()));
+	connect(m_ui->radioCustom, SIGNAL(toggled(bool)), SLOT(toggleCustom(bool)));
 
-    init();
+	init();
 }
 
 TotpSetupDialog::~TotpSetupDialog()
@@ -48,93 +48,107 @@ TotpSetupDialog::~TotpSetupDialog()
 
 void TotpSetupDialog::saveSettings()
 {
-    // Secret key sanity check
-    // Convert user input to all uppercase and remove '='
-    auto key = m_ui->seedEdit->text().toUpper().remove(" ").remove("=").trimmed().toLatin1();
-    auto sanitizedKey = Base32::sanitizeInput(key);
-    // Use startsWith to ignore added '=' for padding at the end
-    if (!sanitizedKey.startsWith(key)) {
-        MessageBox::information(this,
-                                tr("Invalid TOTP Secret"),
-                                tr("You have entered an invalid secret key. The key must be in Base32 format.\n"
-                                   "Example: JBSWY3DPEHPK3PXP"));
-        return;
-    }
+	// Secret key sanity check
+	// Convert user input to all uppercase and remove '='
+	auto key = m_ui->seedEdit->text().toUpper().remove(" ").remove("=").trimmed().toLatin1();
+	auto sanitizedKey = Base32::sanitizeInput(key);
+	// Use startsWith to ignore added '=' for padding at the end
+	if (!sanitizedKey.startsWith(key))
+	{
+		MessageBox::information(this,
+		                        tr("Invalid TOTP Secret"),
+		                        tr("You have entered an invalid secret key. The key must be in Base32 format.\n"
+		                           "Example: JBSWY3DPEHPK3PXP"));
+		return;
+	}
 
-    QString encShortName;
-    uint digits = Totp::DEFAULT_DIGITS;
-    uint step = Totp::DEFAULT_STEP;
-    Totp::Algorithm algorithm = Totp::DEFAULT_ALGORITHM;
-    Totp::StorageFormat format = Totp::DEFAULT_FORMAT;
+	QString encShortName;
+	uint digits = Totp::DEFAULT_DIGITS;
+	uint step = Totp::DEFAULT_STEP;
+	Totp::Algorithm algorithm = Totp::DEFAULT_ALGORITHM;
+	Totp::StorageFormat format = Totp::DEFAULT_FORMAT;
 
-    if (m_ui->radioSteam->isChecked()) {
-        digits = Totp::STEAM_DIGITS;
-        encShortName = Totp::STEAM_SHORTNAME;
-    } else if (m_ui->radioCustom->isChecked()) {
-        algorithm = static_cast<Totp::Algorithm>(m_ui->algorithmComboBox->currentData().toInt());
-        step = m_ui->stepSpinBox->value();
-        digits = m_ui->digitsSpinBox->value();
-    }
+	if (m_ui->radioSteam->isChecked())
+	{
+		digits = Totp::STEAM_DIGITS;
+		encShortName = Totp::STEAM_SHORTNAME;
+	}
+	else if (m_ui->radioCustom->isChecked())
+	{
+		algorithm = static_cast<Totp::Algorithm>(m_ui->algorithmComboBox->currentData().toInt());
+		step = m_ui->stepSpinBox->value();
+		digits = m_ui->digitsSpinBox->value();
+	}
 
-    auto settings = m_entry->totpSettings();
-    if (settings) {
-        if (key.isEmpty()) {
-            auto answer = MessageBox::question(this,
-                                               tr("Confirm Remove TOTP Settings"),
-                                               tr("Are you sure you want to delete TOTP settings for this entry?"),
-                                               MessageBox::Delete | MessageBox::Cancel);
-            if (answer != MessageBox::Delete) {
-                return;
-            }
-        }
+	auto settings = m_entry->totpSettings();
+	if (settings)
+	{
+		if (key.isEmpty())
+		{
+			auto answer = MessageBox::question(this,
+			                                   tr("Confirm Remove TOTP Settings"),
+			                                   tr("Are you sure you want to delete TOTP settings for this entry?"),
+			                                   MessageBox::Delete | MessageBox::Cancel);
+			if (answer != MessageBox::Delete)
+			{
+				return;
+			}
+		}
 
-        format = settings->format;
-        if (format == Totp::StorageFormat::LEGACY && m_ui->radioCustom->isChecked()) {
-            // Implicitly upgrade to the OTPURL format to allow for custom settings
-            format = Totp::DEFAULT_FORMAT;
-        }
-    }
+		format = settings->format;
+		if (format == Totp::StorageFormat::LEGACY && m_ui->radioCustom->isChecked())
+		{
+			// Implicitly upgrade to the OTPURL format to allow for custom settings
+			format = Totp::DEFAULT_FORMAT;
+		}
+	}
 
-    m_entry->setTotp(Totp::createSettings(key, digits, step, format, encShortName, algorithm));
-    emit totpUpdated();
-    close();
+	m_entry->setTotp(Totp::createSettings(key, digits, step, format, encShortName, algorithm));
+	emit totpUpdated();
+	close();
 }
 
 void TotpSetupDialog::toggleCustom(bool status)
 {
-    m_ui->customSettingsGroup->setEnabled(status);
+	m_ui->customSettingsGroup->setEnabled(status);
 }
 
 void TotpSetupDialog::init()
 {
-    // Add algorithm choices
-    auto algorithms = Totp::supportedAlgorithms();
-    for (const auto& item : algorithms) {
-        m_ui->algorithmComboBox->addItem(item.first, item.second);
-    }
-    m_ui->algorithmComboBox->setCurrentIndex(0);
-    m_ui->invalidKeyLabel->setVisible(false);
+	// Add algorithm choices
+	auto algorithms = Totp::supportedAlgorithms();
+	for (const auto &item: algorithms)
+	{
+		m_ui->algorithmComboBox->addItem(item.first, item.second);
+	}
+	m_ui->algorithmComboBox->setCurrentIndex(0);
+	m_ui->invalidKeyLabel->setVisible(false);
 
-    // Read entry totp settings
-    auto settings = m_entry->totpSettings();
-    if (settings) {
-        auto key = settings->key;
-        m_ui->seedEdit->setText(key.remove("="));
-        m_ui->seedEdit->setCursorPosition(0);
-        m_ui->stepSpinBox->setValue(settings->step);
+	// Read entry totp settings
+	auto settings = m_entry->totpSettings();
+	if (settings)
+	{
+		auto key = settings->key;
+		m_ui->seedEdit->setText(key.remove("="));
+		m_ui->seedEdit->setCursorPosition(0);
+		m_ui->stepSpinBox->setValue(settings->step);
 
-        if (settings->encoder.shortName == Totp::STEAM_SHORTNAME) {
-            m_ui->radioSteam->setChecked(true);
-        } else if (Totp::hasCustomSettings(settings)) {
-            m_ui->radioCustom->setChecked(true);
-            m_ui->digitsSpinBox->setValue(settings->digits);
-            int index = m_ui->algorithmComboBox->findData(settings->algorithm);
-            if (index != -1) {
-                m_ui->algorithmComboBox->setCurrentIndex(index);
-            }
-        }
+		if (settings->encoder.shortName == Totp::STEAM_SHORTNAME)
+		{
+			m_ui->radioSteam->setChecked(true);
+		}
+		else if (Totp::hasCustomSettings(settings))
+		{
+			m_ui->radioCustom->setChecked(true);
+			m_ui->digitsSpinBox->setValue(settings->digits);
+			int index = m_ui->algorithmComboBox->findData(settings->algorithm);
+			if (index != -1)
+			{
+				m_ui->algorithmComboBox->setCurrentIndex(index);
+			}
+		}
 
-        auto error = Totp::checkValidSettings(settings);
-        m_ui->invalidKeyLabel->setVisible(!error.isEmpty());
-    }
+		auto error = Totp::checkValidSettings(settings);
+		m_ui->invalidKeyLabel->setVisible(!error.isEmpty());
+	}
 }

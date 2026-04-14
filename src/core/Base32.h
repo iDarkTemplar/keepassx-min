@@ -29,12 +29,12 @@
 class Base32
 {
 public:
-    Base32() = default;
-    Q_REQUIRED_RESULT static QVariant decode(const QByteArray&);
-    Q_REQUIRED_RESULT static QByteArray encode(const QByteArray&);
-    Q_REQUIRED_RESULT static QByteArray addPadding(const QByteArray&);
-    Q_REQUIRED_RESULT static QByteArray removePadding(const QByteArray&);
-    Q_REQUIRED_RESULT static QByteArray sanitizeInput(const QByteArray&);
+	Base32() = default;
+	Q_REQUIRED_RESULT static QVariant decode(const QByteArray &);
+	Q_REQUIRED_RESULT static QByteArray encode(const QByteArray &);
+	Q_REQUIRED_RESULT static QByteArray addPadding(const QByteArray &);
+	Q_REQUIRED_RESULT static QByteArray removePadding(const QByteArray &);
+	Q_REQUIRED_RESULT static QByteArray sanitizeInput(const QByteArray &);
 };
 
 #endif // BASE32_H

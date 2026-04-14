@@ -24,80 +24,90 @@
 
 namespace
 {
-    QByteArray readZipFile(void* uf)
-    {
-        QByteArray data;
-        int bytes, bytesRead = 0;
-        unzOpenCurrentFile(uf);
-        do {
-            data.resize(data.size() + 8192);
-            bytes = unzReadCurrentFile(uf, data.data() + bytesRead, 8192);
-            if (bytes > 0) {
-                bytesRead += bytes;
-            }
-        } while (bytes > 0);
-        unzCloseCurrentFile(uf);
-        data.truncate(bytesRead);
-        return data;
-    }
+	QByteArray readZipFile(void *uf)
+	{
+		QByteArray data;
+		int bytes, bytesRead = 0;
+		unzOpenCurrentFile(uf);
+		do
+		{
+			data.resize(data.size() + 8192);
+			bytes = unzReadCurrentFile(uf, data.data() + bytesRead, 8192);
+			if (bytes > 0)
+			{
+				bytesRead += bytes;
+			}
+		} while (bytes > 0);
+		unzCloseCurrentFile(uf);
+		data.truncate(bytesRead);
+		return data;
+	}
 } // namespace
 
-ShareObserver::Result ShareImport::containerInto(const QString& resolvedPath,
-                                                 const KeeShareSettings::Reference& reference,
-                                                 Group* targetGroup)
+ShareObserver::Result ShareImport::containerInto(const QString &resolvedPath,
+                                                 const KeeShareSettings::Reference &reference,
+                                                 Group *targetGroup)
 {
-    QByteArray dbData;
+	QByteArray dbData;
 
-    auto uf = unzOpen64(resolvedPath.toLatin1().constData());
-    if (uf) {
-        // Open zip share, extract database portion, ignore signature file
-        char zipFileName[256];
-        auto err = unzGoToFirstFile(uf);
-        while (err == UNZ_OK) {
-            unzGetCurrentFileInfo64(uf, nullptr, zipFileName, sizeof(zipFileName), nullptr, 0, nullptr, 0);
-            if (QString(zipFileName).compare(KeeShare::containerFileName()) == 0) {
-                dbData = readZipFile(uf);
-            }
-            err = unzGoToNextFile(uf);
-        }
-        unzClose(uf);
-    } else {
-        // Open KDBX file directly
-        QFile file(resolvedPath);
-        if (!file.open(QIODevice::ReadOnly)) {
-            qCritical("Unable to open file %s.", qPrintable(reference.path));
-            return {reference.path, ShareObserver::Result::Error, file.errorString()};
-        }
-        dbData = file.readAll();
-        file.close();
-    }
+	auto uf = unzOpen64(resolvedPath.toLatin1().constData());
+	if (uf)
+	{
+		// Open zip share, extract database portion, ignore signature file
+		char zipFileName[256];
+		auto err = unzGoToFirstFile(uf);
+		while (err == UNZ_OK)
+		{
+			unzGetCurrentFileInfo64(uf, nullptr, zipFileName, sizeof(zipFileName), nullptr, 0, nullptr, 0);
+			if (QString(zipFileName).compare(KeeShare::containerFileName()) == 0)
+			{
+				dbData = readZipFile(uf);
+			}
+			err = unzGoToNextFile(uf);
+		}
+		unzClose(uf);
+	}
+	else
+	{
+		// Open KDBX file directly
+		QFile file(resolvedPath);
+		if (!file.open(QIODevice::ReadOnly))
+		{
+			qCritical("Unable to open file %s.", qPrintable(reference.path));
+			return {reference.path, ShareObserver::Result::Error, file.errorString()};
+		}
+		dbData = file.readAll();
+		file.close();
+	}
 
-    QBuffer buffer(&dbData);
-    buffer.open(QIODevice::ReadOnly);
+	QBuffer buffer(&dbData);
+	buffer.open(QIODevice::ReadOnly);
 
-    KeePass2Reader reader;
-    auto key = QSharedPointer<CompositeKey>::create();
-    key->addKey(QSharedPointer<PasswordKey>::create(reference.password));
-    auto sourceDb = QSharedPointer<Database>::create();
-    sourceDb->setEmitModified(false);
-    if (!reader.readDatabase(&buffer, key, sourceDb.data())) {
-        qCritical("Error while parsing the database: %s", qPrintable(reader.errorString()));
-        return {reference.path, ShareObserver::Result::Error, reader.errorString()};
-    }
-    sourceDb->setEmitModified(true);
+	KeePass2Reader reader;
+	auto key = QSharedPointer<CompositeKey>::create();
+	key->addKey(QSharedPointer<PasswordKey>::create(reference.password));
+	auto sourceDb = QSharedPointer<Database>::create();
+	sourceDb->setEmitModified(false);
+	if (!reader.readDatabase(&buffer, key, sourceDb.data()))
+	{
+		qCritical("Error while parsing the database: %s", qPrintable(reader.errorString()));
+		return {reference.path, ShareObserver::Result::Error, reader.errorString()};
+	}
+	sourceDb->setEmitModified(true);
 
-    qDebug("Synchronize %s %s with %s",
-           qPrintable(reference.path),
-           qPrintable(targetGroup->name()),
-           qPrintable(sourceDb->rootGroup()->name()));
+	qDebug("Synchronize %s %s with %s",
+	       qPrintable(reference.path),
+	       qPrintable(targetGroup->name()),
+	       qPrintable(sourceDb->rootGroup()->name()));
 
-    Merger merger(sourceDb->rootGroup(), targetGroup);
-    merger.setForcedMergeMode(Group::Synchronize);
-    merger.setSkipDatabaseCustomData(true);
-    auto changelist = merger.merge();
-    if (!changelist.isEmpty()) {
-        return {reference.path, ShareObserver::Result::Success, ShareImport::tr("Successful import")};
-    }
+	Merger merger(sourceDb->rootGroup(), targetGroup);
+	merger.setForcedMergeMode(Group::Synchronize);
+	merger.setSkipDatabaseCustomData(true);
+	auto changelist = merger.merge();
+	if (!changelist.isEmpty())
+	{
+		return {reference.path, ShareObserver::Result::Success, ShareImport::tr("Successful import")};
+	}
 
-    return {};
+	return {};
 }

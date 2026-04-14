@@ -19,30 +19,30 @@
 
 #include <QObject>
 
-class TestTools : public QObject
+class TestTools: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 private slots:
-    void testHumanReadableFileSize();
-    void testIsHex();
-    void testIsBase64();
-    void testIsAsciiString();
-    void testEnvSubstitute();
-    void testValidUuid();
-    void testBackupFilePatternSubstitution_data();
-    void testBackupFilePatternSubstitution();
-    void testEscapeRegex();
-    void testEscapeRegex_data();
-    void testConvertToRegex();
-    void testConvertToRegex_data();
-    void testArrayContainsValues();
-    void testMimeTypes();
-    void testGetMimeType();
-    void testGetMimeTypeByFileInfo();
-    void testIsTextMimeType();
-    void testCleanUsername();
-    void testCleanUsername_data();
-    void testEscapeAccelerators();
+	void testHumanReadableFileSize();
+	void testIsHex();
+	void testIsBase64();
+	void testIsAsciiString();
+	void testEnvSubstitute();
+	void testValidUuid();
+	void testBackupFilePatternSubstitution_data();
+	void testBackupFilePatternSubstitution();
+	void testEscapeRegex();
+	void testEscapeRegex_data();
+	void testConvertToRegex();
+	void testConvertToRegex_data();
+	void testArrayContainsValues();
+	void testMimeTypes();
+	void testGetMimeType();
+	void testGetMimeTypeByFileInfo();
+	void testIsTextMimeType();
+	void testCleanUsername();
+	void testCleanUsername_data();
+	void testEscapeAccelerators();
 };
 
 #endif // KEEPASSX_TESTTOOLS_H

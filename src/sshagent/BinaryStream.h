@@ -20,44 +20,44 @@
 
 #include <QBuffer>
 
-class BinaryStream : QObject
+class BinaryStream: QObject
 {
-    Q_OBJECT
-    Q_DISABLE_COPY(BinaryStream)
+	Q_OBJECT
+	Q_DISABLE_COPY(BinaryStream)
 public:
-    explicit BinaryStream(QIODevice* device);
-    explicit BinaryStream(QByteArray* ba, QObject* parent = nullptr);
-    ~BinaryStream() override;
+	explicit BinaryStream(QIODevice *device);
+	explicit BinaryStream(QByteArray *ba, QObject *parent = nullptr);
+	~BinaryStream() override;
 
-    const QString errorString() const;
-    QIODevice* device() const;
-    void setTimeout(int timeout);
+	const QString errorString() const;
+	QIODevice *device() const;
+	void setTimeout(int timeout);
 
-    bool read(QByteArray& ba);
-    bool read(quint32& i);
-    bool read(quint16& i);
-    bool read(quint8& i);
-    bool readString(QByteArray& ba);
-    bool readString(QString& s);
+	bool read(QByteArray &ba);
+	bool read(quint32 &i);
+	bool read(quint16 &i);
+	bool read(quint8 &i);
+	bool readString(QByteArray &ba);
+	bool readString(QString &s);
 
-    bool write(const QByteArray& ba);
-    bool write(quint32 i);
-    bool write(quint16 i);
-    bool write(quint8 i);
-    bool writeString(const QByteArray& ba);
-    bool writeString(const QString& s);
+	bool write(const QByteArray &ba);
+	bool write(quint32 i);
+	bool write(quint16 i);
+	bool write(quint8 i);
+	bool writeString(const QByteArray &ba);
+	bool writeString(const QString &s);
 
-    bool flush();
+	bool flush();
 
 protected:
-    bool read(char* ptr, qint64 len);
-    bool write(const char* ptr, qint64 len);
+	bool read(char *ptr, qint64 len);
+	bool write(const char *ptr, qint64 len);
 
 private:
-    int m_timeout = 3000;
-    QString m_error;
-    QIODevice* m_device;
-    QScopedPointer<QBuffer> m_buffer;
+	int m_timeout = 3000;
+	QString m_error;
+	QIODevice *m_device;
+	QScopedPointer<QBuffer> m_buffer;
 };
 
 #endif // KEEPASSXC_BINARYSTREAM_H

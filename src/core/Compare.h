@@ -21,59 +21,63 @@
 
 enum CompareItemOption
 {
-    CompareItemDefault = 0,
-    CompareItemIgnoreMilliseconds = 0x4,
-    CompareItemIgnoreStatistics = 0x8,
-    CompareItemIgnoreDisabled = 0x10,
-    CompareItemIgnoreHistory = 0x20,
-    CompareItemIgnoreLocation = 0x40,
+	CompareItemDefault = 0,
+	CompareItemIgnoreMilliseconds = 0x4,
+	CompareItemIgnoreStatistics = 0x8,
+	CompareItemIgnoreDisabled = 0x10,
+	CompareItemIgnoreHistory = 0x20,
+	CompareItemIgnoreLocation = 0x40,
 };
 Q_DECLARE_FLAGS(CompareItemOptions, CompareItemOption)
 Q_DECLARE_OPERATORS_FOR_FLAGS(CompareItemOptions)
 
-template <typename Type> inline short compareGeneric(const Type& lhs, const Type& rhs, CompareItemOptions)
+template <typename Type> inline short compareGeneric(const Type &lhs, const Type &rhs, CompareItemOptions)
 {
-    if (lhs != rhs) {
-        return lhs < rhs ? -1 : +1;
-    }
-    return 0;
+	if (lhs != rhs)
+	{
+		return lhs < rhs ? -1 : +1;
+	}
+	return 0;
 }
 
 template <typename Type>
-inline short compare(const Type& lhs, const Type& rhs, CompareItemOptions options = CompareItemDefault)
+inline short compare(const Type &lhs, const Type &rhs, CompareItemOptions options = CompareItemDefault)
 {
-    return compareGeneric(lhs, rhs, options);
+	return compareGeneric(lhs, rhs, options);
 }
 
-template <> inline short compare(const QDateTime& lhs, const QDateTime& rhs, CompareItemOptions options)
+template <> inline short compare(const QDateTime &lhs, const QDateTime &rhs, CompareItemOptions options)
 {
-    if (!options.testFlag(CompareItemIgnoreMilliseconds)) {
-        return compareGeneric(lhs, rhs, options);
-    }
-    return compareGeneric(Clock::serialized(lhs), Clock::serialized(rhs), options);
+	if (!options.testFlag(CompareItemIgnoreMilliseconds))
+	{
+		return compareGeneric(lhs, rhs, options);
+	}
+	return compareGeneric(Clock::serialized(lhs), Clock::serialized(rhs), options);
 }
 
 template <typename Type>
-inline short compare(bool enabled, const Type& lhs, const Type& rhs, CompareItemOptions options = CompareItemDefault)
+inline short compare(bool enabled, const Type &lhs, const Type &rhs, CompareItemOptions options = CompareItemDefault)
 {
-    if (!enabled) {
-        return 0;
-    }
-    return compare(lhs, rhs, options);
+	if (!enabled)
+	{
+		return 0;
+	}
+	return compare(lhs, rhs, options);
 }
 
 template <typename Type>
 inline short compare(bool lhsEnabled,
-                     const Type& lhs,
+                     const Type &lhs,
                      bool rhsEnabled,
-                     const Type& rhs,
+                     const Type &rhs,
                      CompareItemOptions options = CompareItemDefault)
 {
-    const short enabled = compareGeneric(lhsEnabled, rhsEnabled, options);
-    if (enabled == 0 && (!options.testFlag(CompareItemIgnoreDisabled) || (lhsEnabled && rhsEnabled))) {
-        return compare(lhs, rhs, options);
-    }
-    return enabled;
+	const short enabled = compareGeneric(lhsEnabled, rhsEnabled, options);
+	if (enabled == 0 && (!options.testFlag(CompareItemIgnoreDisabled) || (lhsEnabled && rhsEnabled)))
+	{
+		return compare(lhs, rhs, options);
+	}
+	return enabled;
 }
 
 #endif // KEEPASSX_COMPARE_H

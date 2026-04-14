@@ -30,22 +30,24 @@
  * @param db Database to read into
  * @return true on success
  */
-bool KeePass2Reader::readDatabase(const QString& filename, QSharedPointer<const CompositeKey> key, Database* db)
+bool KeePass2Reader::readDatabase(const QString &filename, QSharedPointer<const CompositeKey> key, Database *db)
 {
-    QFile file(filename);
-    if (!file.open(QFile::ReadOnly)) {
-        raiseError(file.errorString());
-        return false;
-    }
+	QFile file(filename);
+	if (!file.open(QFile::ReadOnly))
+	{
+		raiseError(file.errorString());
+		return false;
+	}
 
-    bool ok = readDatabase(&file, std::move(key), db);
+	bool ok = readDatabase(&file, std::move(key), db);
 
-    if (file.error() != QFile::NoError) {
-        raiseError(file.errorString());
-        return false;
-    }
+	if (file.error() != QFile::NoError)
+	{
+		raiseError(file.errorString());
+		return false;
+	}
 
-    return ok;
+	return ok;
 }
 
 /**
@@ -56,54 +58,62 @@ bool KeePass2Reader::readDatabase(const QString& filename, QSharedPointer<const 
  * @param db Database to read into
  * @return true on success
  */
-bool KeePass2Reader::readDatabase(QIODevice* device, QSharedPointer<const CompositeKey> key, Database* db)
+bool KeePass2Reader::readDatabase(QIODevice *device, QSharedPointer<const CompositeKey> key, Database *db)
 {
-    m_error = false;
-    m_errorStr.clear();
+	m_error = false;
+	m_errorStr.clear();
 
-    quint32 signature1, signature2;
-    bool ok = KdbxReader::readMagicNumbers(device, signature1, signature2, m_version);
+	quint32 signature1, signature2;
+	bool ok = KdbxReader::readMagicNumbers(device, signature1, signature2, m_version);
 
-    if (!ok) {
-        raiseError(tr("Failed to read database file."));
-        return false;
-    }
+	if (!ok)
+	{
+		raiseError(tr("Failed to read database file."));
+		return false;
+	}
 
-    if (signature1 == KeePass1::SIGNATURE_1 && signature2 == KeePass1::SIGNATURE_2) {
-        raiseError(tr("The selected file is an old KeePass 1 database (.kdb).\n\n"
-                      "You can import it by clicking on Database > 'Import KeePass 1 database…'.\n"
-                      "This is a one-way migration. You won't be able to open the imported "
-                      "database with the old KeePassX 0.4 version."));
-        return false;
-    } else if (!(signature1 == KeePass2::SIGNATURE_1 && signature2 == KeePass2::SIGNATURE_2)) {
-        raiseError(tr("Not a KeePass database."));
-        return false;
-    }
+	if (signature1 == KeePass1::SIGNATURE_1 && signature2 == KeePass1::SIGNATURE_2)
+	{
+		raiseError(tr("The selected file is an old KeePass 1 database (.kdb).\n\n"
+		              "You can import it by clicking on Database > 'Import KeePass 1 database…'.\n"
+		              "This is a one-way migration. You won't be able to open the imported "
+		              "database with the old KeePassX 0.4 version."));
+		return false;
+	}
+	else if (!(signature1 == KeePass2::SIGNATURE_1 && signature2 == KeePass2::SIGNATURE_2))
+	{
+		raiseError(tr("Not a KeePass database."));
+		return false;
+	}
 
-    if (m_version < KeePass2::FILE_VERSION_MIN
-        || (m_version & KeePass2::FILE_VERSION_CRITICAL_MASK) > KeePass2::FILE_VERSION_MAX) {
-        raiseError(tr("Unsupported KeePass 2 database version."));
-        return false;
-    }
+	if (m_version < KeePass2::FILE_VERSION_MIN
+	    || (m_version & KeePass2::FILE_VERSION_CRITICAL_MASK) > KeePass2::FILE_VERSION_MAX)
+	{
+		raiseError(tr("Unsupported KeePass 2 database version."));
+		return false;
+	}
 
-    // determine file format (KDBX 2/3 or 4)
-    if (m_version < KeePass2::FILE_VERSION_4) {
-        m_reader.reset(new Kdbx3Reader());
-    } else {
-        m_reader.reset(new Kdbx4Reader());
-    }
+	// determine file format (KDBX 2/3 or 4)
+	if (m_version < KeePass2::FILE_VERSION_4)
+	{
+		m_reader.reset(new Kdbx3Reader());
+	}
+	else
+	{
+		m_reader.reset(new Kdbx4Reader());
+	}
 
-    return m_reader->readDatabase(device, std::move(key), db);
+	return m_reader->readDatabase(device, std::move(key), db);
 }
 
 bool KeePass2Reader::hasError() const
 {
-    return m_error || (!m_reader.isNull() && m_reader->hasError());
+	return m_error || (!m_reader.isNull() && m_reader->hasError());
 }
 
 QString KeePass2Reader::errorString() const
 {
-    return !m_reader.isNull() ? m_reader->errorString() : m_errorStr;
+	return !m_reader.isNull() ? m_reader->errorString() : m_errorStr;
 }
 
 /**
@@ -111,7 +121,7 @@ QString KeePass2Reader::errorString() const
  */
 quint32 KeePass2Reader::version() const
 {
-    return m_version;
+	return m_version;
 }
 
 /**
@@ -119,7 +129,7 @@ quint32 KeePass2Reader::version() const
  */
 QSharedPointer<KdbxReader> KeePass2Reader::reader() const
 {
-    return m_reader;
+	return m_reader;
 }
 
 /**
@@ -127,8 +137,8 @@ QSharedPointer<KdbxReader> KeePass2Reader::reader() const
  *
  * @param errorMessage error message
  */
-void KeePass2Reader::raiseError(const QString& errorMessage)
+void KeePass2Reader::raiseError(const QString &errorMessage)
 {
-    m_error = true;
-    m_errorStr = errorMessage;
+	m_error = true;
+	m_errorStr = errorMessage;
 }

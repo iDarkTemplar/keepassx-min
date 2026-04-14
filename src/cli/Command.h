@@ -27,40 +27,40 @@ class QCommandLineParser;
 // like there is for the options (QCommandLineOption).
 struct CommandLineArgument
 {
-    QString name;
-    QString description;
-    QString syntax;
+	QString name;
+	QString description;
+	QString syntax;
 };
 
 class Command
 {
 public:
-    Command();
-    virtual ~Command();
-    virtual int execute(const QStringList& arguments) = 0;
-    QString name;
-    QString description;
-    QSharedPointer<Database> currentDatabase;
-    QList<CommandLineArgument> positionalArguments;
-    QList<CommandLineArgument> optionalArguments;
-    QList<QCommandLineOption> options;
+	Command();
+	virtual ~Command();
+	virtual int execute(const QStringList &arguments) = 0;
+	QString name;
+	QString description;
+	QSharedPointer<Database> currentDatabase;
+	QList<CommandLineArgument> positionalArguments;
+	QList<CommandLineArgument> optionalArguments;
+	QList<QCommandLineOption> options;
 
-    QString getDescriptionLine();
-    QSharedPointer<QCommandLineParser> getCommandLineParser(const QStringList& arguments);
-    QString getHelpText();
+	QString getDescriptionLine();
+	QSharedPointer<QCommandLineParser> getCommandLineParser(const QStringList &arguments);
+	QString getHelpText();
 
-    static const QCommandLineOption HelpOption;
-    static const QCommandLineOption QuietOption;
-    static const QCommandLineOption KeyFileOption;
-    static const QCommandLineOption NoPasswordOption;
-    static const QCommandLineOption YubiKeyOption;
+	static const QCommandLineOption HelpOption;
+	static const QCommandLineOption QuietOption;
+	static const QCommandLineOption KeyFileOption;
+	static const QCommandLineOption NoPasswordOption;
+	static const QCommandLineOption YubiKeyOption;
 };
 
 namespace Commands
 {
-    void setupCommands(bool interactive);
-    QList<QSharedPointer<Command>> getCommands();
-    QSharedPointer<Command> getCommand(const QString& commandName);
+	void setupCommands(bool interactive);
+	QList<QSharedPointer<Command>> getCommands();
+	QSharedPointer<Command> getCommand(const QString &commandName);
 } // namespace Commands
 
 #endif // KEEPASSXC_COMMAND_H

@@ -29,28 +29,32 @@
 /**
  * Install all KeePassXC and Qt translators.
  */
-void Translator::installTranslators(const QString& uiLanguage)
+void Translator::installTranslators(const QString &uiLanguage)
 {
-    QStringList languages;
-    if (uiLanguage.isEmpty() || uiLanguage == "system") {
-        // NOTE: this is a workaround for the terrible way Qt loads languages
-        // using the QLocale::uiLanguages() approach. Instead, we search each
-        // language and all country variants in order before moving to the next.
-        QLocale locale;
-        languages = locale.uiLanguages();
-    } else {
-        languages << uiLanguage;
-    }
+	QStringList languages;
+	if (uiLanguage.isEmpty() || uiLanguage == "system")
+	{
+		// NOTE: this is a workaround for the terrible way Qt loads languages
+		// using the QLocale::uiLanguages() approach. Instead, we search each
+		// language and all country variants in order before moving to the next.
+		QLocale locale;
+		languages = locale.uiLanguages();
+	}
+	else
+	{
+		languages << uiLanguage;
+	}
 
-    // Always try to load english last
-    languages << "en_US";
+	// Always try to load english last
+	languages << "en_US";
 
-    const auto path = resources()->dataPath("translations");
-    installQtTranslator(languages, path);
-    if (!installTranslator(languages, path)) {
-        // couldn't load configured language or fallback
-        qWarning("Couldn't load translations.");
-    }
+	const auto path = resources()->dataPath("translations");
+	installQtTranslator(languages, path);
+	if (!installTranslator(languages, path))
+	{
+		// couldn't load configured language or fallback
+		qWarning("Couldn't load translations.");
+	}
 }
 
 /**
@@ -60,19 +64,23 @@ void Translator::installTranslators(const QString& uiLanguage)
  * @param path absolute search path
  * @return true on success
  */
-bool Translator::installTranslator(const QStringList& languages, const QString& path)
+bool Translator::installTranslator(const QStringList &languages, const QString &path)
 {
-    for (const auto& language : languages) {
-        QLocale locale(language);
-        QScopedPointer<QTranslator> translator(new QTranslator(qApp));
-        if (translator->load(locale, "keepassxc_", "", path)) {
-            return QCoreApplication::installTranslator(translator.take());
-        } else if (translator->load(locale, "keepassxc_", "", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
-            return QCoreApplication::installTranslator(translator.take());
-        }
-    }
+	for (const auto &language: languages)
+	{
+		QLocale locale(language);
+		QScopedPointer<QTranslator> translator(new QTranslator(qApp));
+		if (translator->load(locale, "keepassxc_", "", path))
+		{
+			return QCoreApplication::installTranslator(translator.take());
+		}
+		else if (translator->load(locale, "keepassxc_", "", QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+		{
+			return QCoreApplication::installTranslator(translator.take());
+		}
+	}
 
-    return false;
+	return false;
 }
 
 /**
@@ -83,18 +91,22 @@ bool Translator::installTranslator(const QStringList& languages, const QString& 
  * @param path absolute search path
  * @return true on success
  */
-bool Translator::installQtTranslator(const QStringList& languages, const QString& path)
+bool Translator::installQtTranslator(const QStringList &languages, const QString &path)
 {
-    for (const auto& language : languages) {
-        QLocale locale(language);
-        QScopedPointer<QTranslator> qtTranslator(new QTranslator(qApp));
-        if (qtTranslator->load(locale, "qtbase_", "", path)) {
-            return QCoreApplication::installTranslator(qtTranslator.take());
-        } else if (qtTranslator->load(locale, "qtbase_", "", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
-            return QCoreApplication::installTranslator(qtTranslator.take());
-        }
-    }
-    return false;
+	for (const auto &language: languages)
+	{
+		QLocale locale(language);
+		QScopedPointer<QTranslator> qtTranslator(new QTranslator(qApp));
+		if (qtTranslator->load(locale, "qtbase_", "", path))
+		{
+			return QCoreApplication::installTranslator(qtTranslator.take());
+		}
+		else if (qtTranslator->load(locale, "qtbase_", "", QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+		{
+			return QCoreApplication::installTranslator(qtTranslator.take());
+		}
+	}
+	return false;
 }
 
 /**
@@ -102,33 +114,38 @@ bool Translator::installQtTranslator(const QStringList& languages, const QString
  */
 QList<QPair<QString, QString>> Translator::availableLanguages()
 {
-    QList<QPair<QString, QString>> languages;
-    languages.append(QPair<QString, QString>("system", "System default"));
+	QList<QPair<QString, QString>> languages;
+	languages.append(QPair<QString, QString>("system", "System default"));
 
-    QRegularExpression regExp("^keepassxc_([a-zA-Z_]+)\\.qm$", QRegularExpression::CaseInsensitiveOption);
-    const QStringList fileList = QDir(resources()->dataPath("translations")).entryList();
-    for (const QString& filename : fileList) {
-        QRegularExpressionMatch match = regExp.match(filename);
-        if (match.hasMatch()) {
-            QString langcode = match.captured(1);
-            if (langcode == "en") {
-                continue;
-            }
+	QRegularExpression regExp("^keepassxc_([a-zA-Z_]+)\\.qm$", QRegularExpression::CaseInsensitiveOption);
+	const QStringList fileList = QDir(resources()->dataPath("translations")).entryList();
+	for (const QString &filename: fileList)
+	{
+		QRegularExpressionMatch match = regExp.match(filename);
+		if (match.hasMatch())
+		{
+			QString langcode = match.captured(1);
+			if (langcode == "en")
+			{
+				continue;
+			}
 
-            QLocale locale(langcode);
-            QString languageStr = QLocale::languageToString(locale.language());
-            if (langcode == "la") {
-                // langcode "la" (Latin) is translated into "C" by QLocale::languageToString()
-                languageStr = "Latin";
-            }
-            if (langcode.contains("_")) {
-                languageStr += QString(" (%1)").arg(QLocale::countryToString(locale.country()));
-            }
+			QLocale locale(langcode);
+			QString languageStr = QLocale::languageToString(locale.language());
+			if (langcode == "la")
+			{
+				// langcode "la" (Latin) is translated into "C" by QLocale::languageToString()
+				languageStr = "Latin";
+			}
+			if (langcode.contains("_"))
+			{
+				languageStr += QString(" (%1)").arg(QLocale::countryToString(locale.country()));
+			}
 
-            QPair<QString, QString> language(langcode, languageStr);
-            languages.append(language);
-        }
-    }
+			QPair<QString, QString> language(langcode, languageStr);
+			languages.append(language);
+		}
+	}
 
-    return languages;
+	return languages;
 }

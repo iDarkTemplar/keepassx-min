@@ -25,34 +25,34 @@ class QStandardItemModel;
 
 namespace Ui
 {
-    class ReportsWidgetStatistics;
+	class ReportsWidgetStatistics;
 }
 
-class ReportsWidgetStatistics : public QWidget
+class ReportsWidgetStatistics: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit ReportsWidgetStatistics(QWidget* parent = nullptr);
-    ~ReportsWidgetStatistics();
+	explicit ReportsWidgetStatistics(QWidget *parent = nullptr);
+	~ReportsWidgetStatistics();
 
-    void loadSettings(QSharedPointer<Database> db);
-    void saveSettings();
+	void loadSettings(QSharedPointer<Database> db);
+	void saveSettings();
 
 protected:
-    void showEvent(QShowEvent* event) override;
+	void showEvent(QShowEvent *event) override;
 
 private slots:
-    void calculateStats();
+	void calculateStats();
 
 private:
-    QScopedPointer<Ui::ReportsWidgetStatistics> m_ui;
+	QScopedPointer<Ui::ReportsWidgetStatistics> m_ui;
 
-    bool m_statsCalculated = false;
-    QIcon m_errIcon;
-    QScopedPointer<QStandardItemModel> m_referencesModel;
-    QSharedPointer<Database> m_db;
+	bool m_statsCalculated = false;
+	QIcon m_errIcon;
+	QScopedPointer<QStandardItemModel> m_referencesModel;
+	QSharedPointer<Database> m_db;
 
-    void addStatsRow(QString name, QString value, bool bad = false, QString badMsg = "");
+	void addStatsRow(QString name, QString value, bool bad = false, QString badMsg = "");
 };
 
 #endif // KEEPASSXC_REPORTSWIDGETSTATISTICS_H

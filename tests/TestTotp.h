@@ -20,17 +20,17 @@
 
 #include <QObject>
 
-class TestTotp : public QObject
+class TestTotp: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testParseSecret();
-    void testTotpCode();
-    void testSteamTotp();
-    void testEntryHistory();
-    void testKeePass2();
+	void initTestCase();
+	void testParseSecret();
+	void testTotpCode();
+	void testSteamTotp();
+	void testEntryHistory();
+	void testKeePass2();
 };
 
 #endif // KEEPASSX_TESTTOTP_H

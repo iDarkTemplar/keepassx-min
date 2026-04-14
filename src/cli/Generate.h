@@ -21,24 +21,24 @@
 
 class PasswordGenerator;
 
-class Generate : public Command
+class Generate: public Command
 {
 public:
-    Generate();
-    int execute(const QStringList& arguments) override;
+	Generate();
+	int execute(const QStringList &arguments) override;
 
-    static QSharedPointer<PasswordGenerator> createGenerator(QSharedPointer<QCommandLineParser> parser);
+	static QSharedPointer<PasswordGenerator> createGenerator(QSharedPointer<QCommandLineParser> parser);
 
-    static const QCommandLineOption PasswordLengthOption;
-    static const QCommandLineOption LowerCaseOption;
-    static const QCommandLineOption UpperCaseOption;
-    static const QCommandLineOption NumbersOption;
-    static const QCommandLineOption SpecialCharsOption;
-    static const QCommandLineOption ExtendedAsciiOption;
-    static const QCommandLineOption ExcludeCharsOption;
-    static const QCommandLineOption ExcludeSimilarCharsOption;
-    static const QCommandLineOption IncludeEveryGroupOption;
-    static const QCommandLineOption CustomCharacterSetOption;
+	static const QCommandLineOption PasswordLengthOption;
+	static const QCommandLineOption LowerCaseOption;
+	static const QCommandLineOption UpperCaseOption;
+	static const QCommandLineOption NumbersOption;
+	static const QCommandLineOption SpecialCharsOption;
+	static const QCommandLineOption ExtendedAsciiOption;
+	static const QCommandLineOption ExcludeCharsOption;
+	static const QCommandLineOption ExcludeSimilarCharsOption;
+	static const QCommandLineOption IncludeEveryGroupOption;
+	static const QCommandLineOption CustomCharacterSetOption;
 };
 
 #endif // KEEPASSXC_GENERATE_H

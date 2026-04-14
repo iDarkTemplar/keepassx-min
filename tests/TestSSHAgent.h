@@ -22,26 +22,26 @@
 #include <QTemporaryFile>
 #include <QUuid>
 
-class TestSSHAgent : public QObject
+class TestSSHAgent: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void testConfiguration();
-    void testIdentity();
-    void testRemoveOnClose();
-    void testLifetimeConstraint();
-    void testConfirmConstraint();
-    void testToOpenSSHKey();
-    void cleanupTestCase();
+	void initTestCase();
+	void testConfiguration();
+	void testIdentity();
+	void testRemoveOnClose();
+	void testLifetimeConstraint();
+	void testConfirmConstraint();
+	void testToOpenSSHKey();
+	void cleanupTestCase();
 
 private:
-    QTemporaryFile m_agentSocketFile;
-    QString m_agentSocketFileName;
-    QProcess m_agentProcess;
-    OpenSSHKey m_key;
-    QUuid m_uuid;
+	QTemporaryFile m_agentSocketFile;
+	QString m_agentSocketFileName;
+	QProcess m_agentProcess;
+	OpenSSHKey m_key;
+	QUuid m_uuid;
 };
 
 #endif // TESTSSHAGENT_H

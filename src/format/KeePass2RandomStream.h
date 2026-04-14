@@ -22,20 +22,20 @@
 class KeePass2RandomStream
 {
 public:
-    KeePass2RandomStream() = default;
+	KeePass2RandomStream() = default;
 
-    bool init(SymmetricCipher::Mode mode, const QByteArray& key);
-    QByteArray randomBytes(int size, bool* ok);
-    QByteArray process(const QByteArray& data, bool* ok);
-    Q_REQUIRED_RESULT bool processInPlace(QByteArray& data);
-    QString errorString() const;
+	bool init(SymmetricCipher::Mode mode, const QByteArray &key);
+	QByteArray randomBytes(int size, bool *ok);
+	QByteArray process(const QByteArray &data, bool *ok);
+	Q_REQUIRED_RESULT bool processInPlace(QByteArray &data);
+	QString errorString() const;
 
 private:
-    bool loadBlock();
+	bool loadBlock();
 
-    SymmetricCipher m_cipher;
-    QByteArray m_buffer;
-    int m_offset = 0;
+	SymmetricCipher m_cipher;
+	QByteArray m_buffer;
+	int m_offset = 0;
 };
 
 #endif // KEEPASSX_KEEPASS2RANDOMSTREAM_H

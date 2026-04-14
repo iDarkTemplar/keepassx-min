@@ -17,14 +17,14 @@
 #include "NewDatabaseWizardPageEncryption.h"
 #include "gui/dbsettings/DatabaseSettingsWidgetEncryption.h"
 
-NewDatabaseWizardPageEncryption::NewDatabaseWizardPageEncryption(QWidget* parent)
-    : NewDatabaseWizardPage(parent)
+NewDatabaseWizardPageEncryption::NewDatabaseWizardPageEncryption(QWidget *parent)
+	: NewDatabaseWizardPage(parent)
 {
-    setPageWidget(new DatabaseSettingsWidgetEncryption());
+	setPageWidget(new DatabaseSettingsWidgetEncryption());
 
-    setTitle(tr("Encryption Settings"));
-    setSubTitle(tr("Here you can adjust the database encryption settings. "
-                   "Don't worry, you can change them later in the database settings."));
+	setTitle(tr("Encryption Settings"));
+	setSubTitle(tr("Here you can adjust the database encryption settings. "
+	               "Don't worry, you can change them later in the database settings."));
 }
 
 NewDatabaseWizardPageEncryption::~NewDatabaseWizardPageEncryption()

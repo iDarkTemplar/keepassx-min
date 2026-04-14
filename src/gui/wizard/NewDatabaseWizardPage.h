@@ -24,33 +24,33 @@ class Database;
 class DatabaseSettingsWidget;
 namespace Ui
 {
-    class NewDatabaseWizardPage;
+	class NewDatabaseWizardPage;
 }
 
 /**
  * Pure-virtual base class for "New Database" setup wizard pages
  */
-class NewDatabaseWizardPage : public QWizardPage
+class NewDatabaseWizardPage: public QWizardPage
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit NewDatabaseWizardPage(QWidget* parent = nullptr);
-    Q_DISABLE_COPY(NewDatabaseWizardPage)
-    ~NewDatabaseWizardPage() override;
+	explicit NewDatabaseWizardPage(QWidget *parent = nullptr);
+	Q_DISABLE_COPY(NewDatabaseWizardPage)
+	~NewDatabaseWizardPage() override;
 
-    void setPageWidget(DatabaseSettingsWidget* page);
-    DatabaseSettingsWidget* pageWidget();
-    void setDatabase(QSharedPointer<Database> db);
+	void setPageWidget(DatabaseSettingsWidget *page);
+	DatabaseSettingsWidget *pageWidget();
+	void setDatabase(QSharedPointer<Database> db);
 
-    void initializePage() override;
-    bool validatePage() override;
+	void initializePage() override;
+	bool validatePage() override;
 
 protected:
-    QPointer<DatabaseSettingsWidget> m_pageWidget;
-    QSharedPointer<Database> m_db;
+	QPointer<DatabaseSettingsWidget> m_pageWidget;
+	QSharedPointer<Database> m_db;
 
-    const QScopedPointer<Ui::NewDatabaseWizardPage> m_ui;
+	const QScopedPointer<Ui::NewDatabaseWizardPage> m_ui;
 };
 
 #endif // KEEPASSXC_NEWDATABASEWIZARDPAGE_H

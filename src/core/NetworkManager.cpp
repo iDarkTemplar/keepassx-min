@@ -23,12 +23,13 @@
 #include <QCoreApplication>
 #include <QNetworkAccessManager>
 
-QNetworkAccessManager* g_netMgr = nullptr;
-QNetworkAccessManager* getNetMgr()
+QNetworkAccessManager *g_netMgr = nullptr;
+QNetworkAccessManager *getNetMgr()
 {
-    if (!g_netMgr) {
-        g_netMgr = new QNetworkAccessManager(QCoreApplication::instance());
-    }
-    return g_netMgr;
+	if (!g_netMgr)
+	{
+		g_netMgr = new QNetworkAccessManager(QCoreApplication::instance());
+	}
+	return g_netMgr;
 }
 #endif

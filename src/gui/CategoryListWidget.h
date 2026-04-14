@@ -25,67 +25,67 @@ class QListWidget;
 
 namespace Ui
 {
-    class CategoryListWidget;
+	class CategoryListWidget;
 }
 
-class CategoryListWidget : public QWidget
+class CategoryListWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    CategoryListWidget(QWidget* parent = nullptr);
-    ~CategoryListWidget();
+	CategoryListWidget(QWidget *parent = nullptr);
+	~CategoryListWidget();
 
-    int currentCategory();
-    void setCurrentCategory(int index);
-    int addCategory(const QString& labelText, const QIcon& icon);
-    void setCategoryHidden(int index, bool hidden);
-    bool isCategoryHidden(int index);
-    void removeCategory(int index);
+	int currentCategory();
+	void setCurrentCategory(int index);
+	int addCategory(const QString &labelText, const QIcon &icon);
+	void setCategoryHidden(int index, bool hidden);
+	bool isCategoryHidden(int index);
+	void removeCategory(int index);
 
 signals:
-    void categoryChanged(int index);
+	void categoryChanged(int index);
 
 protected:
-    void showEvent(QShowEvent* event) override;
-    void resizeEvent(QResizeEvent* event) override;
-    QSize sizeHint() const override;
-    QSize minimumSizeHint() const override;
+	void showEvent(QShowEvent *event) override;
+	void resizeEvent(QResizeEvent *event) override;
+	QSize sizeHint() const override;
+	QSize minimumSizeHint() const override;
 
 protected slots:
-    void updateCategoryScrollButtons();
-    void scrollCategoriesDown();
-    void scrollCategoriesUp();
-    void emitCategoryChanged(int index);
+	void updateCategoryScrollButtons();
+	void scrollCategoriesDown();
+	void scrollCategoriesUp();
+	void emitCategoryChanged(int index);
 
 private:
-    QPointer<CategoryListWidgetDelegate> m_itemDelegate;
-    const QScopedPointer<Ui::CategoryListWidget> m_ui;
+	QPointer<CategoryListWidgetDelegate> m_itemDelegate;
+	const QScopedPointer<Ui::CategoryListWidget> m_ui;
 
-    Q_DISABLE_COPY(CategoryListWidget)
+	Q_DISABLE_COPY(CategoryListWidget)
 };
 
 /* =============================================================================================== */
 
-class CategoryListWidgetDelegate : public QStyledItemDelegate
+class CategoryListWidgetDelegate: public QStyledItemDelegate
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit CategoryListWidgetDelegate(QListWidget* parent = nullptr);
-    int minWidth() const;
+	explicit CategoryListWidgetDelegate(QListWidget *parent = nullptr);
+	int minWidth() const;
 
 protected:
-    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+	QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
 private:
-    const int ICON_SIZE = 32;
+	const int ICON_SIZE = 32;
 
-    QPointer<QListWidget> m_listWidget;
-    QSize m_size;
+	QPointer<QListWidget> m_listWidget;
+	QSize m_size;
 
-    Q_DISABLE_COPY(CategoryListWidgetDelegate)
+	Q_DISABLE_COPY(CategoryListWidgetDelegate)
 };
 
 #endif

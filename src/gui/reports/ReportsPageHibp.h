@@ -21,18 +21,18 @@
 
 class ReportsWidgetHibp;
 
-class ReportsPageHibp : public IReportsPage
+class ReportsPageHibp: public IReportsPage
 {
 public:
-    ReportsWidgetHibp* m_hibpWidget;
+	ReportsWidgetHibp *m_hibpWidget;
 
-    ReportsPageHibp();
+	ReportsPageHibp();
 
-    QString name() override;
-    QIcon icon() override;
-    QWidget* createWidget() override;
-    void loadSettings(QWidget* widget, QSharedPointer<Database> db) override;
-    void saveSettings(QWidget* widget) override;
+	QString name() override;
+	QIcon icon() override;
+	QWidget *createWidget() override;
+	void loadSettings(QWidget *widget, QSharedPointer<Database> db) override;
+	void saveSettings(QWidget *widget) override;
 };
 
 #endif // KEEPASSXC_REPORTSPAGEHIBP_H

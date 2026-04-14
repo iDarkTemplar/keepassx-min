@@ -31,60 +31,64 @@
 **
 ****************************************************************************/
 
-
 #ifndef MODELTEST_H
 #define MODELTEST_H
 
-#include <QObject>
 #include <QAbstractItemModel>
+#include <QObject>
 #include <QStack>
 
-class ModelTest : public QObject
+class ModelTest: public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  ModelTest( QAbstractItemModel *model, QObject *parent = 0 );
+	ModelTest(QAbstractItemModel *model, QObject *parent = 0);
 
 private slots:
-  void nonDestructiveBasicTest();
-  void rowCount();
-  void columnCount();
-  void hasIndex();
-  void index();
-  void parent();
-  void data();
+	void nonDestructiveBasicTest();
+	void rowCount();
+	void columnCount();
+	void hasIndex();
+	void index();
+	void parent();
+	void data();
 
 protected slots:
-  void runAllTests();
-  void layoutAboutToBeChanged();
-  void layoutChanged();
-  void rowsAboutToBeInserted( const QModelIndex &parent, int start, int end );
-  void rowsInserted( const QModelIndex & parent, int start, int end );
-  void rowsAboutToBeRemoved( const QModelIndex &parent, int start, int end );
-  void rowsRemoved( const QModelIndex & parent, int start, int end );
-  void rowsAboutToBeMoved ( const QModelIndex &srcParent, int start, int end, const QModelIndex &destParent, int destinationRow );
-  void rowsMoved ( const QModelIndex &srcParent, int start, int end, const QModelIndex &destParent, int destinationRow );
-  void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
-  void headerDataChanged(Qt::Orientation orientation, int start, int end);
+	void runAllTests();
+	void layoutAboutToBeChanged();
+	void layoutChanged();
+	void rowsAboutToBeInserted(const QModelIndex &parent, int start, int end);
+	void rowsInserted(const QModelIndex &parent, int start, int end);
+	void rowsAboutToBeRemoved(const QModelIndex &parent, int start, int end);
+	void rowsRemoved(const QModelIndex &parent, int start, int end);
+	void rowsAboutToBeMoved(const QModelIndex &srcParent,
+	                        int start,
+	                        int end,
+	                        const QModelIndex &destParent,
+	                        int destinationRow);
+	void rowsMoved(const QModelIndex &srcParent, int start, int end, const QModelIndex &destParent, int destinationRow);
+	void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
+	void headerDataChanged(Qt::Orientation orientation, int start, int end);
 
 private:
-  void checkChildren( const QModelIndex &parent, int currentDepth = 0 );
+	void checkChildren(const QModelIndex &parent, int currentDepth = 0);
 
-  QAbstractItemModel *model;
+	QAbstractItemModel *model;
 
-  struct Changing {
-    QModelIndex parent;
-    int oldSize;
-    QVariant last;
-    QVariant next;
-  };
-  QStack<Changing> insert;
-  QStack<Changing> remove;
+	struct Changing
+	{
+		QModelIndex parent;
+		int oldSize;
+		QVariant last;
+		QVariant next;
+	};
+	QStack<Changing> insert;
+	QStack<Changing> remove;
 
-  bool fetchingMore;
+	bool fetchingMore;
 
-  QList<QPersistentModelIndex> changing;
+	QList<QPersistentModelIndex> changing;
 };
 
 #endif

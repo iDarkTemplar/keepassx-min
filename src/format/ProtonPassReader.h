@@ -27,16 +27,16 @@ class Database;
 class ProtonPassReader
 {
 public:
-    explicit ProtonPassReader() = default;
-    ~ProtonPassReader() = default;
+	explicit ProtonPassReader() = default;
+	~ProtonPassReader() = default;
 
-    QSharedPointer<Database> convert(const QString& path);
+	QSharedPointer<Database> convert(const QString &path);
 
-    bool hasError();
-    QString errorString();
+	bool hasError();
+	QString errorString();
 
 private:
-    QString m_error;
+	QString m_error;
 };
 
 #endif // PROTONPASS_READER_H

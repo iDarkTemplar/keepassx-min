@@ -19,15 +19,15 @@
 
 #include <QObject>
 
-class TestFdoSecrets : public QObject
+class TestFdoSecrets: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void testDhIetf1024Sha256Aes128CbcPkcs7();
-    void testCrazyAttributeKey();
-    void testSpecialCharsInAttributeValue();
-    void testDBusPathParse();
+	void testDhIetf1024Sha256Aes128CbcPkcs7();
+	void testCrazyAttributeKey();
+	void testSpecialCharsInAttributeValue();
+	void testDBusPathParse();
 };
 
 #endif // KEEPASSXC_TESTFDOSECRETS_H

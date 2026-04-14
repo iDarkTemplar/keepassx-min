@@ -26,73 +26,73 @@ class DatabaseTabWidget;
 class DatabaseWidget;
 class QAbstractItemView;
 
-class TestGui : public QObject
+class TestGui: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void init();
-    void cleanup();
-    void cleanupTestCase();
+	void initTestCase();
+	void init();
+	void cleanup();
+	void cleanupTestCase();
 
-    void testSettingsDefaultTabOrder();
-    void testCreateDatabase();
-    void testMergeDatabase();
-    void testAutoreloadDatabase();
-    void testTabs();
-    void testEditEntry();
-    void testSearchEditEntry();
-    void testAddEntry();
-    void testPasswordEntryEntropy();
-    void testPasswordEntryEntropy_data();
-    void testDicewareEntryEntropy();
-    void testTotp();
-    void testSearch();
-    void testDeleteEntry();
-    void testCloneEntry();
-    void testEntryPlaceholders();
-    void testDragAndDropEntry();
-    void testDragAndDropGroup();
-    void testSaveAs();
-    void testSaveBackup();
-    void testSave();
-    void testSaveBackupPath();
-    void testSaveBackupPath_data();
-    void testDatabaseSettings();
-    void testDatabaseLocking();
-    void testDragAndDropKdbxFiles();
-    void testSortGroups();
-    void testAutoType();
-    void testTrayRestoreHide();
-    void testMenuActionStates();
+	void testSettingsDefaultTabOrder();
+	void testCreateDatabase();
+	void testMergeDatabase();
+	void testAutoreloadDatabase();
+	void testTabs();
+	void testEditEntry();
+	void testSearchEditEntry();
+	void testAddEntry();
+	void testPasswordEntryEntropy();
+	void testPasswordEntryEntropy_data();
+	void testDicewareEntryEntropy();
+	void testTotp();
+	void testSearch();
+	void testDeleteEntry();
+	void testCloneEntry();
+	void testEntryPlaceholders();
+	void testDragAndDropEntry();
+	void testDragAndDropGroup();
+	void testSaveAs();
+	void testSaveBackup();
+	void testSave();
+	void testSaveBackupPath();
+	void testSaveBackupPath_data();
+	void testDatabaseSettings();
+	void testDatabaseLocking();
+	void testDragAndDropKdbxFiles();
+	void testSortGroups();
+	void testAutoType();
+	void testTrayRestoreHide();
+	void testMenuActionStates();
 
 private:
-    void addCannedEntries();
-    void checkDatabase(const QString& filePath, const QString& expectedDbName);
-    void checkDatabase(const QString& filePath = {});
-    void triggerAction(const QString& name);
-    void dragAndDropGroup(const QModelIndex& sourceIndex,
-                          const QModelIndex& targetIndex,
-                          int row,
-                          bool expectedResult,
-                          const QString& expectedParentName,
-                          int expectedPos);
-    void clickIndex(const QModelIndex& index,
-                    QAbstractItemView* view,
-                    Qt::MouseButton button,
-                    Qt::KeyboardModifiers stateKey = {});
-    void checkSaveDatabase();
-    void checkStatusBarText(const QString& textFragment);
+	void addCannedEntries();
+	void checkDatabase(const QString &filePath, const QString &expectedDbName);
+	void checkDatabase(const QString &filePath = {});
+	void triggerAction(const QString &name);
+	void dragAndDropGroup(const QModelIndex &sourceIndex,
+	                      const QModelIndex &targetIndex,
+	                      int row,
+	                      bool expectedResult,
+	                      const QString &expectedParentName,
+	                      int expectedPos);
+	void clickIndex(const QModelIndex &index,
+	                QAbstractItemView *view,
+	                Qt::MouseButton button,
+	                Qt::KeyboardModifiers stateKey = {});
+	void checkSaveDatabase();
+	void checkStatusBarText(const QString &textFragment);
 
-    QScopedPointer<MainWindow> m_mainWindow;
-    QPointer<QLabel> m_statusBarLabel;
-    QPointer<DatabaseTabWidget> m_tabWidget;
-    QPointer<DatabaseWidget> m_dbWidget;
-    QSharedPointer<Database> m_db;
-    TemporaryFile m_dbFile;
-    QString m_dbFileName;
-    QString m_dbFilePath;
+	QScopedPointer<MainWindow> m_mainWindow;
+	QPointer<QLabel> m_statusBarLabel;
+	QPointer<DatabaseTabWidget> m_tabWidget;
+	QPointer<DatabaseWidget> m_dbWidget;
+	QSharedPointer<Database> m_db;
+	TemporaryFile m_dbFile;
+	QString m_dbFileName;
+	QString m_dbFilePath;
 };
 
 #endif // KEEPASSX_TESTGUI_H

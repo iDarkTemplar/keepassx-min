@@ -21,16 +21,16 @@
 
 namespace attachments
 {
-    struct Attachment
-    {
-        QString name;
-        QByteArray data;
-    };
+	struct Attachment
+	{
+		QString name;
+		QByteArray data;
+	};
 
-    enum class OpenMode
-    {
-        ReadOnly,
-        ReadWrite
-    };
+	enum class OpenMode
+	{
+		ReadOnly,
+		ReadWrite
+	};
 
 } // namespace attachments

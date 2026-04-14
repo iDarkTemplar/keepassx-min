@@ -23,22 +23,22 @@
 
 namespace Ui
 {
-    class EditEntryAttachmentsDialog;
+	class EditEntryAttachmentsDialog;
 }
 
 class EntryAttachments;
 
-class EditEntryAttachmentsDialog : public QDialog
+class EditEntryAttachmentsDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit EditEntryAttachmentsDialog(QWidget* parent = nullptr);
-    ~EditEntryAttachmentsDialog() override;
+	explicit EditEntryAttachmentsDialog(QWidget *parent = nullptr);
+	~EditEntryAttachmentsDialog() override;
 
-    void setAttachment(attachments::Attachment attachment);
-    attachments::Attachment getAttachment() const;
+	void setAttachment(attachments::Attachment attachment);
+	attachments::Attachment getAttachment() const;
 
 private:
-    QScopedPointer<Ui::EditEntryAttachmentsDialog> m_ui;
+	QScopedPointer<Ui::EditEntryAttachmentsDialog> m_ui;
 };

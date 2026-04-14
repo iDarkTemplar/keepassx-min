@@ -22,7 +22,7 @@
 
 namespace Botan
 {
-    class Private_Key;
+	class Private_Key;
 }
 
 class CustomData;
@@ -31,113 +31,113 @@ class QXmlStreamReader;
 
 namespace KeeShareSettings
 {
-    struct Certificate
-    {
-        QSharedPointer<Botan::Private_Key> key;
-        QString signer;
+	struct Certificate
+	{
+		QSharedPointer<Botan::Private_Key> key;
+		QString signer;
 
-        bool operator==(const Certificate& other) const;
-        bool operator!=(const Certificate& other) const;
+		bool operator==(const Certificate &other) const;
+		bool operator!=(const Certificate &other) const;
 
-        bool isNull() const;
-        QString fingerprint() const;
+		bool isNull() const;
+		QString fingerprint() const;
 
-        static void serialize(QXmlStreamWriter& writer, const Certificate& certificate);
-        static Certificate deserialize(QXmlStreamReader& reader);
-    };
+		static void serialize(QXmlStreamWriter &writer, const Certificate &certificate);
+		static Certificate deserialize(QXmlStreamReader &reader);
+	};
 
-    struct Key
-    {
-        QSharedPointer<Botan::Private_Key> key;
+	struct Key
+	{
+		QSharedPointer<Botan::Private_Key> key;
 
-        bool operator==(const Key& other) const;
-        bool operator!=(const Key& other) const;
+		bool operator==(const Key &other) const;
+		bool operator!=(const Key &other) const;
 
-        bool isNull() const;
+		bool isNull() const;
 
-        static void serialize(QXmlStreamWriter& writer, const Key& key);
-        static Key deserialize(QXmlStreamReader& reader);
-    };
+		static void serialize(QXmlStreamWriter &writer, const Key &key);
+		static Key deserialize(QXmlStreamReader &reader);
+	};
 
-    struct Active
-    {
-        bool in;
-        bool out;
+	struct Active
+	{
+		bool in;
+		bool out;
 
-        Active()
-            : in(false)
-            , out(false)
-        {
-        }
+		Active()
+			: in(false)
+			, out(false)
+		{
+		}
 
-        bool isNull() const
-        {
-            return !in && !out;
-        }
+		bool isNull() const
+		{
+			return !in && !out;
+		}
 
-        static QString serialize(const Active& active);
-        static Active deserialize(const QString& raw);
-    };
+		static QString serialize(const Active &active);
+		static Active deserialize(const QString &raw);
+	};
 
-    struct Own
-    {
-        Key key;
-        Certificate certificate;
+	struct Own
+	{
+		Key key;
+		Certificate certificate;
 
-        bool operator==(const Own& other) const;
-        bool operator!=(const Own& other) const;
+		bool operator==(const Own &other) const;
+		bool operator!=(const Own &other) const;
 
-        bool isNull() const
-        {
-            return key.isNull() && certificate.isNull();
-        }
+		bool isNull() const
+		{
+			return key.isNull() && certificate.isNull();
+		}
 
-        static QString serialize(const Own& own);
-        static Own deserialize(const QString& raw);
-        static Own generate();
-    };
+		static QString serialize(const Own &own);
+		static Own deserialize(const QString &raw);
+		static Own generate();
+	};
 
-    struct Sign
-    {
-        QString signature;
-        Certificate certificate;
+	struct Sign
+	{
+		QString signature;
+		Certificate certificate;
 
-        bool isNull() const
-        {
-            return signature.isEmpty() && certificate.isNull();
-        }
+		bool isNull() const
+		{
+			return signature.isEmpty() && certificate.isNull();
+		}
 
-        static QString serialize(const Sign& sign);
-    };
+		static QString serialize(const Sign &sign);
+	};
 
-    enum TypeFlag
-    {
-        Inactive = 0,
-        ImportFrom = 1 << 0,
-        ExportTo = 1 << 1,
-        SynchronizeWith = ImportFrom | ExportTo
-    };
-    Q_DECLARE_FLAGS(Type, TypeFlag)
+	enum TypeFlag
+	{
+		Inactive = 0,
+		ImportFrom = 1 << 0,
+		ExportTo = 1 << 1,
+		SynchronizeWith = ImportFrom | ExportTo
+	};
+	Q_DECLARE_FLAGS(Type, TypeFlag)
 
-    struct Reference
-    {
-        Type type = Inactive;
-        QUuid uuid;
-        QString path;
-        QString password;
-        bool keepGroups = true;
+	struct Reference
+	{
+		Type type = Inactive;
+		QUuid uuid;
+		QString path;
+		QString password;
+		bool keepGroups = true;
 
-        Reference();
-        bool isNull() const;
-        bool isValid() const;
-        bool isExporting() const;
-        bool isImporting() const;
-        bool operator<(const Reference& other) const;
-        bool operator==(const Reference& other) const;
+		Reference();
+		bool isNull() const;
+		bool isValid() const;
+		bool isExporting() const;
+		bool isImporting() const;
+		bool operator<(const Reference &other) const;
+		bool operator==(const Reference &other) const;
 
-        static QString serialize(const Reference& reference);
-        static Reference deserialize(const QString& raw);
-    };
+		static QString serialize(const Reference &reference);
+		static Reference deserialize(const QString &raw);
+	};
 }; // namespace KeeShareSettings
 
 #endif // KEEPASSXC_KEESHARESETTINGS_H

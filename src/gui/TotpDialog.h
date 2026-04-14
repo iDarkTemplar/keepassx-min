@@ -25,31 +25,31 @@
 
 namespace Ui
 {
-    class TotpDialog;
+	class TotpDialog;
 }
 
-class TotpDialog : public QDialog
+class TotpDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit TotpDialog(QWidget* parent = nullptr, Entry* entry = nullptr);
-    ~TotpDialog() override;
+	explicit TotpDialog(QWidget *parent = nullptr, Entry *entry = nullptr);
+	~TotpDialog() override;
 
 private Q_SLOTS:
-    void updateTotp();
-    void updateProgressBar();
-    void updateSeconds();
-    void copyToClipboard();
+	void updateTotp();
+	void updateProgressBar();
+	void updateSeconds();
+	void copyToClipboard();
 
 private:
-    QScopedPointer<Ui::TotpDialog> m_ui;
+	QScopedPointer<Ui::TotpDialog> m_ui;
 
-    void resetCounter();
-    Entry* m_entry;
-    int m_counter;
-    uint m_step;
-    QTimer m_totpUpdateTimer;
+	void resetCounter();
+	Entry *m_entry;
+	int m_counter;
+	uint m_step;
+	QTimer m_totpUpdateTimer;
 };
 
 #endif // KEEPASSX_TOTPDIALOG_H

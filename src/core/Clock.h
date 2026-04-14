@@ -23,38 +23,38 @@
 class Clock
 {
 public:
-    static QDateTime currentDateTimeUtc();
-    static QDateTime currentDateTime();
+	static QDateTime currentDateTimeUtc();
+	static QDateTime currentDateTime();
 
-    static uint currentSecondsSinceEpoch();
-    static qint64 currentMilliSecondsSinceEpoch();
+	static uint currentSecondsSinceEpoch();
+	static qint64 currentMilliSecondsSinceEpoch();
 
-    static QDateTime serialized(const QDateTime& dateTime);
+	static QDateTime serialized(const QDateTime &dateTime);
 
-    static QDateTime datetimeUtc(int year, int month, int day, int hour, int min, int second);
-    static QDateTime datetime(int year, int month, int day, int hour, int min, int second);
+	static QDateTime datetimeUtc(int year, int month, int day, int hour, int min, int second);
+	static QDateTime datetime(int year, int month, int day, int hour, int min, int second);
 
-    static QDateTime datetimeUtc(qint64 msecSinceEpoch);
-    static QDateTime datetime(qint64 msecSinceEpoch);
+	static QDateTime datetimeUtc(qint64 msecSinceEpoch);
+	static QDateTime datetime(qint64 msecSinceEpoch);
 
-    static QDateTime parse(const QString& text, Qt::DateFormat format = Qt::TextDate);
-    static QDateTime parse(const QString& text, const QString& format);
+	static QDateTime parse(const QString &text, Qt::DateFormat format = Qt::TextDate);
+	static QDateTime parse(const QString &text, const QString &format);
 
-    static QString toString(const QDateTime& dateTime);
+	static QString toString(const QDateTime &dateTime);
 
-    virtual ~Clock();
+	virtual ~Clock();
 
 protected:
-    Clock();
-    virtual QDateTime currentDateTimeUtcImpl() const;
-    virtual QDateTime currentDateTimeImpl() const;
+	Clock();
+	virtual QDateTime currentDateTimeUtcImpl() const;
+	virtual QDateTime currentDateTimeImpl() const;
 
-    static void resetInstance();
-    static void setInstance(Clock* clock);
-    static const Clock& instance();
+	static void resetInstance();
+	static void setInstance(Clock *clock);
+	static const Clock &instance();
 
 private:
-    static QSharedPointer<Clock> m_instance;
+	static QSharedPointer<Clock> m_instance;
 };
 
 #endif // KEEPASSX_ENTRY_H

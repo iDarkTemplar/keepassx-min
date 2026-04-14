@@ -27,16 +27,16 @@ class Database;
 class BitwardenReader
 {
 public:
-    explicit BitwardenReader() = default;
-    ~BitwardenReader() = default;
+	explicit BitwardenReader() = default;
+	~BitwardenReader() = default;
 
-    QSharedPointer<Database> convert(const QString& path, const QString& password = {});
+	QSharedPointer<Database> convert(const QString &path, const QString &password = {});
 
-    bool hasError();
-    QString errorString();
+	bool hasError();
+	QString errorString();
 
 private:
-    QString m_error;
+	QString m_error;
 };
 
 #endif // BITWARDEN_READER_H

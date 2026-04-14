@@ -21,31 +21,31 @@
 
 #include "streams/LayeredStream.h"
 
-class HashingStream : public LayeredStream
+class HashingStream: public LayeredStream
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit HashingStream(QIODevice* baseDevice);
-    HashingStream(QIODevice* baseDevice, QCryptographicHash::Algorithm hashAlgo, qint64 sizeToHash);
-    ~HashingStream() override;
+	explicit HashingStream(QIODevice *baseDevice);
+	HashingStream(QIODevice *baseDevice, QCryptographicHash::Algorithm hashAlgo, qint64 sizeToHash);
+	~HashingStream() override;
 
-    bool reset() override;
+	bool reset() override;
 
-    QByteArray hashingResult();
-
-protected:
-    void init();
-
-    qint64 readData(char* data, qint64 maxSize) override;
-    qint64 writeData(const char* data, qint64 maxSize) override;
+	QByteArray hashingResult();
 
 protected:
-    QCryptographicHash m_hash;
-    bool m_hashFinalized;
-    qint64 m_sizeToHash;
-    qint64 m_sizeHashed;
-    qint64 m_sizeStreamed;
+	void init();
+
+	qint64 readData(char *data, qint64 maxSize) override;
+	qint64 writeData(const char *data, qint64 maxSize) override;
+
+protected:
+	QCryptographicHash m_hash;
+	bool m_hashFinalized;
+	qint64 m_sizeToHash;
+	qint64 m_sizeHashed;
+	qint64 m_sizeStreamed;
 };
 
 #endif // KEEPASSX_HASHINGSTREAM_H

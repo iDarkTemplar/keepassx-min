@@ -19,46 +19,46 @@
 
 #include "core/ModifiableObject.h"
 
-class AutoTypeAssociations : public ModifiableObject
+class AutoTypeAssociations: public ModifiableObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    struct Association
-    {
-        QString window;
-        QString sequence;
+	struct Association
+	{
+		QString window;
+		QString sequence;
 
-        bool operator==(const AutoTypeAssociations::Association& other) const;
-        bool operator!=(const AutoTypeAssociations::Association& other) const;
-    };
+		bool operator==(const AutoTypeAssociations::Association &other) const;
+		bool operator!=(const AutoTypeAssociations::Association &other) const;
+	};
 
-    explicit AutoTypeAssociations(QObject* parent = nullptr);
-    void copyDataFrom(const AutoTypeAssociations* other);
-    void add(const AutoTypeAssociations::Association& association);
-    void remove(int index);
-    void removeEmpty();
-    void update(int index, const AutoTypeAssociations::Association& association);
-    AutoTypeAssociations::Association get(int index) const;
-    QList<AutoTypeAssociations::Association> getAll() const;
-    int size() const;
-    int associationsSize() const;
-    void clear();
+	explicit AutoTypeAssociations(QObject *parent = nullptr);
+	void copyDataFrom(const AutoTypeAssociations *other);
+	void add(const AutoTypeAssociations::Association &association);
+	void remove(int index);
+	void removeEmpty();
+	void update(int index, const AutoTypeAssociations::Association &association);
+	AutoTypeAssociations::Association get(int index) const;
+	QList<AutoTypeAssociations::Association> getAll() const;
+	int size() const;
+	int associationsSize() const;
+	void clear();
 
-    bool operator==(const AutoTypeAssociations& other) const;
-    bool operator!=(const AutoTypeAssociations& other) const;
+	bool operator==(const AutoTypeAssociations &other) const;
+	bool operator!=(const AutoTypeAssociations &other) const;
 
 private:
-    QList<AutoTypeAssociations::Association> m_associations;
+	QList<AutoTypeAssociations::Association> m_associations;
 
 signals:
-    void dataChanged(int index);
-    void aboutToAdd(int index);
-    void added(int index);
-    void aboutToRemove(int index);
-    void removed(int index);
-    void aboutToReset();
-    void reset();
+	void dataChanged(int index);
+	void aboutToAdd(int index);
+	void added(int index);
+	void aboutToRemove(int index);
+	void removed(int index);
+	void aboutToReset();
+	void reset();
 };
 
 Q_DECLARE_TYPEINFO(AutoTypeAssociations::Association, Q_MOVABLE_TYPE);

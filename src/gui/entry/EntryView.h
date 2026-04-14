@@ -28,65 +28,65 @@ class Group;
 class SortFilterHideProxyModel;
 class QActionGroup;
 
-class EntryView : public QTreeView
+class EntryView: public QTreeView
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit EntryView(QWidget* parent = nullptr);
-    void setModel(QAbstractItemModel* model) override;
-    Entry* currentEntry();
-    void setCurrentEntry(Entry* entry);
-    QList<Entry*> selectedEntries();
-    Entry* entryFromIndex(const QModelIndex& index);
-    QModelIndex indexFromEntry(Entry* entry);
-    int currentEntryIndex();
-    bool inSearchMode();
-    bool isSorted();
-    int numberOfSelectedEntries();
-    void setFirstEntryActive();
-    QByteArray viewState() const;
-    bool setViewState(const QByteArray& state);
+	explicit EntryView(QWidget *parent = nullptr);
+	void setModel(QAbstractItemModel *model) override;
+	Entry *currentEntry();
+	void setCurrentEntry(Entry *entry);
+	QList<Entry *> selectedEntries();
+	Entry *entryFromIndex(const QModelIndex &index);
+	QModelIndex indexFromEntry(Entry *entry);
+	int currentEntryIndex();
+	bool inSearchMode();
+	bool isSorted();
+	int numberOfSelectedEntries();
+	void setFirstEntryActive();
+	QByteArray viewState() const;
+	bool setViewState(const QByteArray &state);
 
-    void displayGroup(Group* group);
-    void displaySearch(const QList<Entry*>& entries);
+	void displayGroup(Group *group);
+	void displaySearch(const QList<Entry *> &entries);
 
 signals:
-    void entryActivated(Entry* entry, EntryModel::ModelColumn column);
-    void entrySelectionChanged(Entry* entry);
-    void viewStateChanged();
+	void entryActivated(Entry *entry, EntryModel::ModelColumn column);
+	void entrySelectionChanged(Entry *entry);
+	void viewStateChanged();
 
 protected:
-    void keyPressEvent(QKeyEvent* event) override;
-    void focusInEvent(QFocusEvent* event) override;
-    void showEvent(QShowEvent* event) override;
-    void startDrag(Qt::DropActions supportedActions) override;
+	void keyPressEvent(QKeyEvent *event) override;
+	void focusInEvent(QFocusEvent *event) override;
+	void showEvent(QShowEvent *event) override;
+	void startDrag(Qt::DropActions supportedActions) override;
 
 private slots:
-    void emitEntryActivated(const QModelIndex& index);
-    void showHeaderMenu(const QPoint& position);
-    void toggleColumnVisibility(QAction* action);
-    void fitColumnsToWindow();
-    void fitColumnsToContents();
-    void resetViewToDefaults();
-    void contextMenuShortcutPressed();
-    void sortIndicatorChanged(int logicalIndex, Qt::SortOrder order);
-    void jumpToGroupShortcut();
+	void emitEntryActivated(const QModelIndex &index);
+	void showHeaderMenu(const QPoint &position);
+	void toggleColumnVisibility(QAction *action);
+	void fitColumnsToWindow();
+	void fitColumnsToContents();
+	void resetViewToDefaults();
+	void contextMenuShortcutPressed();
+	void sortIndicatorChanged(int logicalIndex, Qt::SortOrder order);
+	void jumpToGroupShortcut();
 
 private:
-    void resetFixedColumns();
-    bool isColumnHidden(int logicalIndex);
-    void onHeaderChanged();
+	void resetFixedColumns();
+	bool isColumnHidden(int logicalIndex);
+	void onHeaderChanged();
 
-    EntryModel* const m_model;
-    SortFilterHideProxyModel* const m_sortModel;
-    int m_lastIndex;
-    Qt::SortOrder m_lastOrder;
-    bool m_inSearchMode = false;
-    bool m_columnsNeedRelayout = true;
+	EntryModel *const m_model;
+	SortFilterHideProxyModel *const m_sortModel;
+	int m_lastIndex;
+	Qt::SortOrder m_lastOrder;
+	bool m_inSearchMode = false;
+	bool m_columnsNeedRelayout = true;
 
-    QMenu* m_headerMenu;
-    QActionGroup* m_columnActions;
+	QMenu *m_headerMenu;
+	QActionGroup *m_columnActions;
 };
 
 #endif // KEEPASSX_ENTRYVIEW_H

@@ -32,74 +32,74 @@ Q_DECLARE_METATYPE(YubiKeySlot);
 /**
  * Singleton class to manage the interface to hardware key(s)
  */
-class YubiKey : public QObject
+class YubiKey: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    using KeyMap = QMap<YubiKeySlot, QString>;
+	using KeyMap = QMap<YubiKeySlot, QString>;
 
-    enum class ChallengeResult : int
-    {
-        YCR_ERROR = 0,
-        YCR_SUCCESS = 1,
-        YCR_WOULDBLOCK = 2,
-        YCR_KEYNOTFOUND = 3,
-    };
+	enum class ChallengeResult : int
+	{
+		YCR_ERROR = 0,
+		YCR_SUCCESS = 1,
+		YCR_WOULDBLOCK = 2,
+		YCR_KEYNOTFOUND = 3,
+	};
 
-    static YubiKey* instance();
-    bool isInitialized();
+	static YubiKey *instance();
+	bool isInitialized();
 
-    bool findValidKeys();
-    void findValidKeysAsync();
+	bool findValidKeys();
+	void findValidKeysAsync();
 
-    KeyMap foundKeys();
-    int connectedKeys();
+	KeyMap foundKeys();
+	int connectedKeys();
 
-    ChallengeResult challenge(YubiKeySlot slot, const QByteArray& challenge, Botan::secure_vector<char>& response);
-    bool testChallenge(YubiKeySlot slot, bool* wouldBlock = nullptr);
+	ChallengeResult challenge(YubiKeySlot slot, const QByteArray &challenge, Botan::secure_vector<char> &response);
+	bool testChallenge(YubiKeySlot slot, bool *wouldBlock = nullptr);
 
-    QString errorMessage();
+	QString errorMessage();
 
 signals:
-    /**
-     * Emitted when a detection process completes. Use the `detectedSlots`
-     * accessor function to get information on the available slots.
-     *
-     * @param found - true if a key was found
-     */
-    void detectComplete(bool found);
+	/**
+	 * Emitted when a detection process completes. Use the `detectedSlots`
+	 * accessor function to get information on the available slots.
+	 *
+	 * @param found - true if a key was found
+	 */
+	void detectComplete(bool found);
 
-    /**
-     * Emitted when user needs to interact with the hardware key to continue
-     */
-    void userInteractionRequest();
+	/**
+	 * Emitted when user needs to interact with the hardware key to continue
+	 */
+	void userInteractionRequest();
 
-    /**
-     * Emitted before/after a challenge-response is performed
-     */
-    void challengeStarted();
-    void challengeCompleted();
+	/**
+	 * Emitted before/after a challenge-response is performed
+	 */
+	void challengeStarted();
+	void challengeCompleted();
 
 private:
-    explicit YubiKey();
+	explicit YubiKey();
 
-    static YubiKey* m_instance;
+	static YubiKey *m_instance;
 
-    QTimer m_interactionTimer;
-    bool m_initialized = false;
-    bool m_findingKeys = false;
-    QString m_error;
+	QTimer m_interactionTimer;
+	bool m_initialized = false;
+	bool m_findingKeys = false;
+	QString m_error;
 
-    // Prevents multiple simultaneous operations on hardware keys
-    static QMutex s_interfaceMutex;
+	// Prevents multiple simultaneous operations on hardware keys
+	static QMutex s_interfaceMutex;
 
-    KeyMap m_usbKeys;
-    KeyMap m_pcscKeys;
+	KeyMap m_usbKeys;
+	KeyMap m_pcscKeys;
 
-    int m_connectedKeys = 0;
+	int m_connectedKeys = 0;
 
-    Q_DISABLE_COPY(YubiKey)
+	Q_DISABLE_COPY(YubiKey)
 };
 
 #endif // KEEPASSX_YUBIKEY_H

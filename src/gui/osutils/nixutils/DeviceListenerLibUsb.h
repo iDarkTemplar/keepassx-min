@@ -26,29 +26,32 @@
 
 class QUuid;
 
-class DeviceListenerLibUsb : public QObject
+class DeviceListenerLibUsb: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    typedef qintptr Handle;
-    explicit DeviceListenerLibUsb(QWidget* parent);
-    DeviceListenerLibUsb(const DeviceListenerLibUsb&) = delete;
-    ~DeviceListenerLibUsb() override;
+	typedef qintptr Handle;
+	explicit DeviceListenerLibUsb(QWidget *parent);
+	DeviceListenerLibUsb(const DeviceListenerLibUsb &) = delete;
+	~DeviceListenerLibUsb() override;
 
-    Handle
-    registerHotplugCallback(bool arrived, bool left, int vendorId = -1, int productId = -1, const QUuid* = nullptr);
-    void deregisterHotplugCallback(Handle handle);
-    void deregisterAllHotplugCallbacks();
+	Handle registerHotplugCallback(bool arrived,
+	                               bool left,
+	                               int vendorId = -1,
+	                               int productId = -1,
+	                               const QUuid * = nullptr);
+	void deregisterHotplugCallback(Handle handle);
+	void deregisterAllHotplugCallbacks();
 
 signals:
-    void devicePlugged(bool state, void* ctx, void* device);
+	void devicePlugged(bool state, void *ctx, void *device);
 
 private:
-    void* m_ctx;
-    QSet<Handle> m_callbackHandles;
-    QFuture<void> m_usbEvents;
-    QAtomicInt m_completed;
+	void *m_ctx;
+	QSet<Handle> m_callbackHandles;
+	QFuture<void> m_usbEvents;
+	QAtomicInt m_completed;
 };
 
 #endif // DEVICELISTENER_LIBUSB_H

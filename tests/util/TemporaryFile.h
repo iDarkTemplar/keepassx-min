@@ -19,20 +19,20 @@
 
 #include <QTemporaryFile>
 
-class TemporaryFile : public QFile
+class TemporaryFile: public QFile
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    TemporaryFile();
-    explicit TemporaryFile(const QString& templateName);
-    explicit TemporaryFile(QObject* parent);
-    TemporaryFile(const QString& templateName, QObject* parent);
-    ~TemporaryFile() override;
+	TemporaryFile();
+	explicit TemporaryFile(const QString &templateName);
+	explicit TemporaryFile(QObject *parent);
+	TemporaryFile(const QString &templateName, QObject *parent);
+	~TemporaryFile() override;
 
-    using QFile::open;
-    bool open();
-    bool copyFromFile(const QString& otherFileName);
+	using QFile::open;
+	bool open();
+	bool copyFromFile(const QString &otherFileName);
 };
 
 #endif // KEEPASSXC_TEMPORARYFILE_H

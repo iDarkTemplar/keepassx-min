@@ -24,65 +24,72 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-AttachmentWidget::AttachmentWidget(QWidget* parent)
-    : QWidget(parent)
+AttachmentWidget::AttachmentWidget(QWidget *parent)
+	: QWidget(parent)
 {
-    setWindowTitle(tr("Attachment Viewer"));
+	setWindowTitle(tr("Attachment Viewer"));
 
-    auto verticalLayout = new QVBoxLayout(this);
-    verticalLayout->setSpacing(0);
-    verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-    verticalLayout->setContentsMargins(0, 0, 0, 0);
-    verticalLayout->setAlignment(Qt::AlignCenter);
+	auto verticalLayout = new QVBoxLayout(this);
+	verticalLayout->setSpacing(0);
+	verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+	verticalLayout->setContentsMargins(0, 0, 0, 0);
+	verticalLayout->setAlignment(Qt::AlignCenter);
 }
 
 AttachmentWidget::~AttachmentWidget() = default;
 
 void AttachmentWidget::openAttachment(attachments::Attachment attachment, attachments::OpenMode mode)
 {
-    m_attachment = std::move(attachment);
-    m_mode = mode;
+	m_attachment = std::move(attachment);
+	m_mode = mode;
 
-    updateUi();
+	updateUi();
 }
 
 void AttachmentWidget::updateUi()
 {
-    auto type = Tools::getMimeType(m_attachment.data);
+	auto type = Tools::getMimeType(m_attachment.data);
 
-    if (m_attachmentWidget) {
-        layout()->removeWidget(m_attachmentWidget);
-        m_attachmentWidget->deleteLater();
-    }
+	if (m_attachmentWidget)
+	{
+		layout()->removeWidget(m_attachmentWidget);
+		m_attachmentWidget->deleteLater();
+	}
 
-    if (Tools::isTextMimeType(type)) {
-        auto widget = new TextAttachmentsWidget(this);
-        widget->openAttachment(m_attachment, m_mode);
+	if (Tools::isTextMimeType(type))
+	{
+		auto widget = new TextAttachmentsWidget(this);
+		widget->openAttachment(m_attachment, m_mode);
 
-        m_attachmentWidget = widget;
-    } else if (type == Tools::MimeType::Image) {
-        auto widget = new ImageAttachmentsWidget(this);
-        widget->openAttachment(m_attachment, m_mode);
+		m_attachmentWidget = widget;
+	}
+	else if (type == Tools::MimeType::Image)
+	{
+		auto widget = new ImageAttachmentsWidget(this);
+		widget->openAttachment(m_attachment, m_mode);
 
-        m_attachmentWidget = widget;
-    } else {
-        auto label = new QLabel(tr("Unknown attachment type"), this);
-        label->setAlignment(Qt::AlignCenter);
+		m_attachmentWidget = widget;
+	}
+	else
+	{
+		auto label = new QLabel(tr("Unknown attachment type"), this);
+		label->setAlignment(Qt::AlignCenter);
 
-        m_attachmentWidget = label;
-    }
+		m_attachmentWidget = label;
+	}
 
-    Q_ASSERT(m_attachmentWidget);
-    m_attachmentWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    layout()->addWidget(m_attachmentWidget);
+	Q_ASSERT(m_attachmentWidget);
+	m_attachmentWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+	layout()->addWidget(m_attachmentWidget);
 }
 
 attachments::Attachment AttachmentWidget::getAttachment() const
 {
-    // Text attachments can be edited at this time so pass this call forward
-    if (auto textWidget = qobject_cast<TextAttachmentsWidget*>(m_attachmentWidget)) {
-        return textWidget->getAttachment();
-    }
+	// Text attachments can be edited at this time so pass this call forward
+	if (auto textWidget = qobject_cast<TextAttachmentsWidget *>(m_attachmentWidget))
+	{
+		return textWidget->getAttachment();
+	}
 
-    return m_attachment;
+	return m_attachment;
 }

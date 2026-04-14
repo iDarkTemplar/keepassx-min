@@ -32,13 +32,13 @@ class TemporaryFile;
 class FdoSecretsPlugin;
 namespace FdoSecrets
 {
-    class Service;
-    class Session;
-    class Collection;
-    class Item;
-    class Prompt;
-    class DhIetf1024Sha256Aes128CbcPkcs7;
-    class DBusClient;
+	class Service;
+	class Session;
+	class Collection;
+	class Item;
+	class Prompt;
+	class DhIetf1024Sha256Aes128CbcPkcs7;
+	class DBusClient;
 } // namespace FdoSecrets
 class ServiceProxy;
 class CollectionProxy;
@@ -49,113 +49,114 @@ class PromptProxy;
 class QAbstractItemView;
 class QSignalSpy;
 
-class TestGuiFdoSecrets : public QObject
+class TestGuiFdoSecrets: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    ~TestGuiFdoSecrets() override;
+	~TestGuiFdoSecrets() override;
 
 private slots:
-    void initTestCase();
-    void init();
-    void cleanup();
-    void cleanupTestCase();
+	void initTestCase();
+	void init();
+	void cleanup();
+	void cleanupTestCase();
 
-    void testServiceEnable();
-    void testServiceEnableNoExposedDatabase();
-    void testServiceSearch();
-    void testServiceSearchBlockingUnlock();
-    void testServiceSearchBlockingUnlockMultiple();
-    void testServiceSearchForce();
-    void testServiceUnlock();
-    void testServiceUnlockDatabaseConcurrent();
-    void testServiceUnlockItems();
-    void testServiceUnlockItemsIncludeFutureEntries();
-    void testServiceLock();
-    void testServiceLockConcurrent();
+	void testServiceEnable();
+	void testServiceEnableNoExposedDatabase();
+	void testServiceSearch();
+	void testServiceSearchBlockingUnlock();
+	void testServiceSearchBlockingUnlockMultiple();
+	void testServiceSearchForce();
+	void testServiceUnlock();
+	void testServiceUnlockDatabaseConcurrent();
+	void testServiceUnlockItems();
+	void testServiceUnlockItemsIncludeFutureEntries();
+	void testServiceLock();
+	void testServiceLockConcurrent();
 
-    void testSessionOpen();
-    void testSessionClose();
+	void testSessionOpen();
+	void testSessionClose();
 
-    void testCollectionCreate();
-    void testCollectionDelete();
-    void testCollectionDeleteConcurrent();
-    void testCollectionChange();
+	void testCollectionCreate();
+	void testCollectionDelete();
+	void testCollectionDeleteConcurrent();
+	void testCollectionChange();
 
-    void testItemCreate();
-    void testItemCreateUnlock();
-    void testItemChange();
-    void testItemReplace();
-    void testItemReplaceExistingLocked();
-    void testItemSecret();
-    void testItemDelete();
-    void testItemLockState();
-    void testItemRejectSetReferenceFields();
+	void testItemCreate();
+	void testItemCreateUnlock();
+	void testItemChange();
+	void testItemReplace();
+	void testItemReplaceExistingLocked();
+	void testItemSecret();
+	void testItemDelete();
+	void testItemLockState();
+	void testItemRejectSetReferenceFields();
 
-    void testAlias();
-    void testDefaultAliasAlwaysPresent();
+	void testAlias();
+	void testDefaultAliasAlwaysPresent();
 
-    void testExposeSubgroup();
-    void testModifyingExposedGroup();
-    void testNoExposeRecycleBin();
+	void testExposeSubgroup();
+	void testModifyingExposedGroup();
+	void testNoExposeRecycleBin();
 
-    void testHiddenFilename();
-    void testDuplicateName();
-
-private:
-    bool driveUnlockDialog(DatabaseWidget* target = nullptr);
-    bool driveNewDatabaseWizard();
-    bool driveAccessControlDialog(bool remember = true, bool includeFutureEntries = false);
-    bool waitForSignal(QSignalSpy& spy, int expectedCount);
-
-    void processEvents();
-
-    void lockDatabaseInBackend();
-    void unlockDatabaseInBackend();
-    QSharedPointer<ServiceProxy> enableService();
-    QSharedPointer<SessionProxy> openSession(const QSharedPointer<ServiceProxy>& service, const QString& algo);
-    QSharedPointer<CollectionProxy> getDefaultCollection(const QSharedPointer<ServiceProxy>& service);
-    QSharedPointer<ItemProxy> getFirstItem(const QSharedPointer<CollectionProxy>& coll);
-    QSharedPointer<ItemProxy> createItem(const QSharedPointer<SessionProxy>& sess,
-                                         const QSharedPointer<CollectionProxy>& coll,
-                                         const QString& label,
-                                         const QString& pass,
-                                         const FdoSecrets::wire::StringStringMap& attr,
-                                         bool replace,
-                                         bool expectPrompt = false,
-                                         bool expectUnlockPrompt = false);
-    FdoSecrets::wire::Secret
-    encryptPassword(QByteArray value, QString contentType, const QSharedPointer<SessionProxy>& sess);
-    template <typename Proxy> QSharedPointer<Proxy> getProxy(const QDBusObjectPath& path) const
-    {
-        auto ret = QSharedPointer<Proxy>{
-            new Proxy(QStringLiteral("org.freedesktop.secrets"), path.path(), QDBusConnection::sessionBus())};
-        if (!ret->isValid()) {
-            return {};
-        }
-        return ret;
-    }
-
-    template <typename T> T getSignalVariantArgument(const QVariant& arg)
-    {
-        const auto& in = arg.value<QDBusVariant>().variant();
-        return qdbus_cast<T>(in);
-    }
+	void testHiddenFilename();
+	void testDuplicateName();
 
 private:
-    QScopedPointer<MainWindow> m_mainWindow;
-    QPointer<DatabaseTabWidget> m_tabWidget;
-    QPointer<DatabaseWidget> m_dbWidget;
-    QSharedPointer<Database> m_db;
+	bool driveUnlockDialog(DatabaseWidget *target = nullptr);
+	bool driveNewDatabaseWizard();
+	bool driveAccessControlDialog(bool remember = true, bool includeFutureEntries = false);
+	bool waitForSignal(QSignalSpy &spy, int expectedCount);
 
-    QPointer<FdoSecretsPlugin> m_plugin;
-    QSharedPointer<FdoSecrets::DBusClient> m_client;
+	void processEvents();
 
-    QScopedPointer<FdoSecrets::DhIetf1024Sha256Aes128CbcPkcs7> m_clientCipher;
+	void lockDatabaseInBackend();
+	void unlockDatabaseInBackend();
+	QSharedPointer<ServiceProxy> enableService();
+	QSharedPointer<SessionProxy> openSession(const QSharedPointer<ServiceProxy> &service, const QString &algo);
+	QSharedPointer<CollectionProxy> getDefaultCollection(const QSharedPointer<ServiceProxy> &service);
+	QSharedPointer<ItemProxy> getFirstItem(const QSharedPointer<CollectionProxy> &coll);
+	QSharedPointer<ItemProxy> createItem(const QSharedPointer<SessionProxy> &sess,
+	                                     const QSharedPointer<CollectionProxy> &coll,
+	                                     const QString &label,
+	                                     const QString &pass,
+	                                     const FdoSecrets::wire::StringStringMap &attr,
+	                                     bool replace,
+	                                     bool expectPrompt = false,
+	                                     bool expectUnlockPrompt = false);
+	FdoSecrets::wire::Secret
+		encryptPassword(QByteArray value, QString contentType, const QSharedPointer<SessionProxy> &sess);
+	template <typename Proxy> QSharedPointer<Proxy> getProxy(const QDBusObjectPath &path) const
+	{
+		auto ret = QSharedPointer<Proxy>{
+			new Proxy(QStringLiteral("org.freedesktop.secrets"), path.path(), QDBusConnection::sessionBus())};
+		if (!ret->isValid())
+		{
+			return {};
+		}
+		return ret;
+	}
 
-    QByteArray m_dbData;
-    QScopedPointer<TemporaryFile> m_dbFile;
+	template <typename T> T getSignalVariantArgument(const QVariant &arg)
+	{
+		const auto &in = arg.value<QDBusVariant>().variant();
+		return qdbus_cast<T>(in);
+	}
+
+private:
+	QScopedPointer<MainWindow> m_mainWindow;
+	QPointer<DatabaseTabWidget> m_tabWidget;
+	QPointer<DatabaseWidget> m_dbWidget;
+	QSharedPointer<Database> m_db;
+
+	QPointer<FdoSecretsPlugin> m_plugin;
+	QSharedPointer<FdoSecrets::DBusClient> m_client;
+
+	QScopedPointer<FdoSecrets::DhIetf1024Sha256Aes128CbcPkcs7> m_clientCipher;
+
+	QByteArray m_dbData;
+	QScopedPointer<TemporaryFile> m_dbFile;
 };
 
 #endif // KEEPASSXC_TESTGUIFDOSECRETS_H

@@ -10,67 +10,67 @@
 
 void TestImageAttachmentsView::initTestCase()
 {
-    m_view.reset(new ImageAttachmentsView());
+	m_view.reset(new ImageAttachmentsView());
 
-    // Generate the black rectange.
-    QImage image(1000, 1000, QImage::Format_RGB32);
-    image.fill(Qt::black);
+	// Generate the black rectange.
+	QImage image(1000, 1000, QImage::Format_RGB32);
+	image.fill(Qt::black);
 
-    auto scene = new QGraphicsScene();
-    scene->addPixmap(QPixmap::fromImage(image));
+	auto scene = new QGraphicsScene();
+	scene->addPixmap(QPixmap::fromImage(image));
 
-    m_view->setScene(scene);
-    m_view->show();
+	m_view->setScene(scene);
+	m_view->show();
 
-    QCoreApplication::processEvents();
+	QCoreApplication::processEvents();
 }
 
 void TestImageAttachmentsView::testEmitWheelEvent()
 {
-    QSignalSpy ctrlWheelEvent{m_view.data(), &ImageAttachmentsView::ctrlWheelEvent};
+	QSignalSpy ctrlWheelEvent{m_view.data(), &ImageAttachmentsView::ctrlWheelEvent};
 
-    QPoint center = m_view->rect().center();
+	QPoint center = m_view->rect().center();
 
-    m_view->setFocus();
+	m_view->setFocus();
 
-    QWheelEvent event(center, // local pos
-                      m_view->mapToGlobal(center), // global pos
-                      QPoint(0, 0),
-                      QPoint(0, 120),
-                      Qt::NoButton,
-                      Qt::ControlModifier,
-                      Qt::ScrollBegin,
-                      false);
+	QWheelEvent event(center, // local pos
+	                  m_view->mapToGlobal(center), // global pos
+	                  QPoint(0, 0),
+	                  QPoint(0, 120),
+	                  Qt::NoButton,
+	                  Qt::ControlModifier,
+	                  Qt::ScrollBegin,
+	                  false);
 
-    QCoreApplication::sendEvent(m_view->viewport(), &event);
+	QCoreApplication::sendEvent(m_view->viewport(), &event);
 
-    QCOMPARE(ctrlWheelEvent.count(), 1);
+	QCOMPARE(ctrlWheelEvent.count(), 1);
 }
 
 void TestImageAttachmentsView::testEnableFit()
 {
-    m_view->enableAutoFitInView();
-    QVERIFY(m_view->isAutoFitInViewActivated());
+	m_view->enableAutoFitInView();
+	QVERIFY(m_view->isAutoFitInViewActivated());
 
-    const auto oldTransform = m_view->transform();
+	const auto oldTransform = m_view->transform();
 
-    m_view->resize(m_view->size() + QSize(100, 100));
+	m_view->resize(m_view->size() + QSize(100, 100));
 
-    QCoreApplication::processEvents();
+	QCoreApplication::processEvents();
 
-    QVERIFY(m_view->transform() != oldTransform);
+	QVERIFY(m_view->transform() != oldTransform);
 }
 
 void TestImageAttachmentsView::testDisableFit()
 {
-    m_view->disableAutoFitInView();
-    QVERIFY(!m_view->isAutoFitInViewActivated());
+	m_view->disableAutoFitInView();
+	QVERIFY(!m_view->isAutoFitInViewActivated());
 
-    const auto expectedTransform = m_view->transform();
+	const auto expectedTransform = m_view->transform();
 
-    m_view->resize(m_view->size() + QSize(100, 100));
+	m_view->resize(m_view->size() + QSize(100, 100));
 
-    QCoreApplication::processEvents();
+	QCoreApplication::processEvents();
 
-    QCOMPARE(m_view->transform(), expectedTransform);
+	QCOMPARE(m_view->transform(), expectedTransform);
 }

@@ -26,42 +26,42 @@ class Entry;
 
 namespace Ui
 {
-    class BrowserAccessControlDialog;
+	class BrowserAccessControlDialog;
 }
 
 enum SelectionType
 {
-    Selected,
-    NonSelected,
-    Disabled
+	Selected,
+	NonSelected,
+	Disabled
 };
 
-class BrowserAccessControlDialog : public QDialog
+class BrowserAccessControlDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit BrowserAccessControlDialog(QWidget* parent = nullptr);
-    ~BrowserAccessControlDialog() override;
+	explicit BrowserAccessControlDialog(QWidget *parent = nullptr);
+	~BrowserAccessControlDialog() override;
 
-    void setEntries(const QList<Entry*>& entriesToConfirm, const QString& urlString, bool httpAuth);
-    bool remember() const;
-    QList<QTableWidgetItem*> getEntries(SelectionType selectionType) const;
+	void setEntries(const QList<Entry *> &entriesToConfirm, const QString &urlString, bool httpAuth);
+	bool remember() const;
+	QList<QTableWidgetItem *> getEntries(SelectionType selectionType) const;
 
 signals:
-    void disableAccess(QTableWidgetItem* item);
+	void disableAccess(QTableWidgetItem *item);
 
 private slots:
-    void selectionChanged();
+	void selectionChanged();
 
 private:
-    void addEntryToList(Entry* entry, int row);
-    bool areAllDisabled() const;
-    QList<QTableWidgetItem*> getAllItems() const;
+	void addEntryToList(Entry *entry, int row);
+	bool areAllDisabled() const;
+	QList<QTableWidgetItem *> getAllItems() const;
 
 private:
-    QScopedPointer<Ui::BrowserAccessControlDialog> m_ui;
-    QList<Entry*> m_entriesToConfirm;
+	QScopedPointer<Ui::BrowserAccessControlDialog> m_ui;
+	QList<Entry *> m_entriesToConfirm;
 };
 
 #endif // KEEPASSXC_BROWSERACCESSCONTROLDIALOG_H

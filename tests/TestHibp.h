@@ -22,20 +22,20 @@
 
 class Database;
 
-class TestHibp : public QObject
+class TestHibp: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void init();
-    void testBadHibpFormat();
-    void testEmpty();
-    void testIoError();
-    void testPwned();
+	void initTestCase();
+	void init();
+	void testBadHibpFormat();
+	void testEmpty();
+	void testIoError();
+	void testPwned();
 
 private:
-    QSharedPointer<Database> m_db;
+	QSharedPointer<Database> m_db;
 };
 
 #endif // KEEPASSXC_TESTHIBP_H

@@ -35,69 +35,69 @@ class QFile;
 
 namespace Ui
 {
-    class DatabaseOpenWidget;
+	class DatabaseOpenWidget;
 }
 
-class DatabaseOpenWidget : public DialogyWidget
+class DatabaseOpenWidget: public DialogyWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DatabaseOpenWidget(QWidget* parent = nullptr);
-    ~DatabaseOpenWidget();
-    void load(const QString& filename);
-    QString filename();
-    void clearForms();
-    void enterKey(const QString& pw, const QString& keyFile);
-    QSharedPointer<Database> database();
-    bool unlockingDatabase();
-    void showMessage(const QString& text, MessageWidget::MessageType type, int autoHideTimeout);
+	explicit DatabaseOpenWidget(QWidget *parent = nullptr);
+	~DatabaseOpenWidget();
+	void load(const QString &filename);
+	QString filename();
+	void clearForms();
+	void enterKey(const QString &pw, const QString &keyFile);
+	QSharedPointer<Database> database();
+	bool unlockingDatabase();
+	void showMessage(const QString &text, MessageWidget::MessageType type, int autoHideTimeout);
 
-    // Quick Unlock helper functions
-    bool canPerformQuickUnlock() const;
-    bool isOnQuickUnlockScreen() const;
-    void toggleQuickUnlockScreen();
-    void triggerQuickUnlock();
-    void resetQuickUnlock();
+	// Quick Unlock helper functions
+	bool canPerformQuickUnlock() const;
+	bool isOnQuickUnlockScreen() const;
+	void toggleQuickUnlockScreen();
+	void triggerQuickUnlock();
+	void resetQuickUnlock();
 
 signals:
-    void dialogFinished(bool accepted);
+	void dialogFinished(bool accepted);
 
 protected:
-    bool event(QEvent* event) override;
-    void keyPressEvent(QKeyEvent* event) override;
-    QSharedPointer<CompositeKey> buildDatabaseKey();
-    void setUserInteractionLock(bool state);
+	bool event(QEvent *event) override;
+	void keyPressEvent(QKeyEvent *event) override;
+	QSharedPointer<CompositeKey> buildDatabaseKey();
+	void setUserInteractionLock(bool state);
 
-    const QScopedPointer<Ui::DatabaseOpenWidget> m_ui;
-    QSharedPointer<Database> m_db;
-    QString m_filename;
-    bool m_retryUnlockWithEmptyPassword = false;
+	const QScopedPointer<Ui::DatabaseOpenWidget> m_ui;
+	QSharedPointer<Database> m_db;
+	QString m_filename;
+	bool m_retryUnlockWithEmptyPassword = false;
 
 protected slots:
-    virtual void openDatabase();
-    void reject();
+	virtual void openDatabase();
+	void reject();
 
 private slots:
-    bool browseKeyFile();
-    void toggleHardwareKeyComponent(bool state);
-    void closeDatabase();
-    void pollHardwareKey(bool manualTrigger = false, int delay = 0);
-    void hardwareKeyResponse(bool found);
+	bool browseKeyFile();
+	void toggleHardwareKeyComponent(bool state);
+	void closeDatabase();
+	void pollHardwareKey(bool manualTrigger = false, int delay = 0);
+	void hardwareKeyResponse(bool found);
 
 private:
 #ifdef WITH_XC_YUBIKEY
-    QPointer<DeviceListener> m_deviceListener;
+	QPointer<DeviceListener> m_deviceListener;
 #endif
-    bool m_pollingHardwareKey = false;
-    bool m_manualHardwareKeyRefresh = false;
-    bool m_blockQuickUnlock = false;
-    bool m_unlockingDatabase = false;
-    bool m_triedToQuit = false;
-    QTimer m_hideTimer;
-    QTimer m_hideNoHardwareKeysFoundTimer;
+	bool m_pollingHardwareKey = false;
+	bool m_manualHardwareKeyRefresh = false;
+	bool m_blockQuickUnlock = false;
+	bool m_unlockingDatabase = false;
+	bool m_triedToQuit = false;
+	QTimer m_hideTimer;
+	QTimer m_hideNoHardwareKeysFoundTimer;
 
-    Q_DISABLE_COPY(DatabaseOpenWidget)
+	Q_DISABLE_COPY(DatabaseOpenWidget)
 };
 
 #endif // KEEPASSX_DATABASEOPENWIDGET_H

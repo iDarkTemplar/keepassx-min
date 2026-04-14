@@ -21,13 +21,13 @@
 #include <QList>
 #include <QObject>
 
-class TestIconDownloader : public QObject
+class TestIconDownloader: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void testIconDownloader();
-    void testIconDownloader_data();
+	void testIconDownloader();
+	void testIconDownloader_data();
 };
 
 #endif // KEEPASSXC_TESTICONDOWNLOADER_HPP

@@ -24,30 +24,30 @@
 
 namespace Ui
 {
-    class CloneDialog;
+	class CloneDialog;
 }
 
-class CloneDialog : public QDialog
+class CloneDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit CloneDialog(DatabaseWidget* parent = nullptr, Database* db = nullptr, Entry* entry = nullptr);
-    ~CloneDialog();
+	explicit CloneDialog(DatabaseWidget *parent = nullptr, Database *db = nullptr, Entry *entry = nullptr);
+	~CloneDialog();
 
 signals:
-    void entryCloned(Entry* clone);
+	void entryCloned(Entry *clone);
 
 private:
-    QScopedPointer<Ui::CloneDialog> m_ui;
+	QScopedPointer<Ui::CloneDialog> m_ui;
 
 private slots:
-    void cloneEntry();
+	void cloneEntry();
 
 protected:
-    Database* m_db;
-    Entry* m_entry;
-    DatabaseWidget* m_parent;
+	Database *m_db;
+	Entry *m_entry;
+	DatabaseWidget *m_parent;
 };
 
 #endif // KEEPASSX_CLONEDIALOG_H

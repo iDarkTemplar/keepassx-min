@@ -32,68 +32,68 @@ class StoreDataStream;
  */
 class KdbxReader
 {
-    Q_DECLARE_TR_FUNCTIONS(KdbxReader)
+	Q_DECLARE_TR_FUNCTIONS(KdbxReader)
 
 public:
-    KdbxReader() = default;
-    virtual ~KdbxReader() = default;
+	KdbxReader() = default;
+	virtual ~KdbxReader() = default;
 
-    static bool readMagicNumbers(QIODevice* device, quint32& sig1, quint32& sig2, quint32& version);
-    bool readDatabase(QIODevice* device, QSharedPointer<const CompositeKey> key, Database* db);
+	static bool readMagicNumbers(QIODevice *device, quint32 &sig1, quint32 &sig2, quint32 &version);
+	bool readDatabase(QIODevice *device, QSharedPointer<const CompositeKey> key, Database *db);
 
-    bool hasError() const;
-    QString errorString() const;
+	bool hasError() const;
+	QString errorString() const;
 
-    KeePass2::ProtectedStreamAlgo protectedStreamAlgo() const;
+	KeePass2::ProtectedStreamAlgo protectedStreamAlgo() const;
 
 protected:
-    /**
-     * Concrete reader implementation for reading database from device.
-     *
-     * @param device input device at the payload starting position
-     * @param KDBX header data as bytes
-     * @param key database encryption composite key
-     * @param db database to read into
-     * @return true on success
-     */
-    virtual bool readDatabaseImpl(QIODevice* device,
-                                  const QByteArray& headerData,
-                                  QSharedPointer<const CompositeKey> key,
-                                  Database* db) = 0;
+	/**
+	 * Concrete reader implementation for reading database from device.
+	 *
+	 * @param device input device at the payload starting position
+	 * @param KDBX header data as bytes
+	 * @param key database encryption composite key
+	 * @param db database to read into
+	 * @return true on success
+	 */
+	virtual bool readDatabaseImpl(QIODevice *device,
+	                              const QByteArray &headerData,
+	                              QSharedPointer<const CompositeKey> key,
+	                              Database *db) = 0;
 
-    /**
-     * Read next header field from stream.
-     *
-     * @param headerStream input header stream
-     * @param database to read header field for
-     * @return true if there are more header fields
-     */
-    virtual bool readHeaderField(StoreDataStream& headerStream, Database* db) = 0;
+	/**
+	 * Read next header field from stream.
+	 *
+	 * @param headerStream input header stream
+	 * @param database to read header field for
+	 * @return true if there are more header fields
+	 */
+	virtual bool readHeaderField(StoreDataStream &headerStream, Database *db) = 0;
 
-    virtual void setCipher(const QByteArray& data);
-    virtual void setCompressionFlags(const QByteArray& data);
-    virtual void setMasterSeed(const QByteArray& data);
-    virtual void setTransformSeed(const QByteArray& data);
-    virtual void setTransformRounds(const QByteArray& data);
-    virtual void setEncryptionIV(const QByteArray& data);
-    virtual void setProtectedStreamKey(const QByteArray& data);
-    virtual void setStreamStartBytes(const QByteArray& data);
-    virtual void setInnerRandomStreamID(const QByteArray& data);
+	virtual void setCipher(const QByteArray &data);
+	virtual void setCompressionFlags(const QByteArray &data);
+	virtual void setMasterSeed(const QByteArray &data);
+	virtual void setTransformSeed(const QByteArray &data);
+	virtual void setTransformRounds(const QByteArray &data);
+	virtual void setEncryptionIV(const QByteArray &data);
+	virtual void setProtectedStreamKey(const QByteArray &data);
+	virtual void setStreamStartBytes(const QByteArray &data);
+	virtual void setInnerRandomStreamID(const QByteArray &data);
 
-    void raiseError(const QString& errorMessage);
+	void raiseError(const QString &errorMessage);
 
-    QByteArray m_masterSeed;
-    QByteArray m_encryptionIV;
-    QByteArray m_streamStartBytes;
-    QByteArray m_protectedStreamKey;
-    KeePass2::ProtectedStreamAlgo m_irsAlgo = KeePass2::ProtectedStreamAlgo::InvalidProtectedStreamAlgo;
+	QByteArray m_masterSeed;
+	QByteArray m_encryptionIV;
+	QByteArray m_streamStartBytes;
+	QByteArray m_protectedStreamKey;
+	KeePass2::ProtectedStreamAlgo m_irsAlgo = KeePass2::ProtectedStreamAlgo::InvalidProtectedStreamAlgo;
 
 private:
-    QPair<quint32, quint32> m_kdbxSignature;
-    QPointer<Database> m_db;
+	QPair<quint32, quint32> m_kdbxSignature;
+	QPointer<Database> m_db;
 
-    bool m_error = false;
-    QString m_errorStr = "";
+	bool m_error = false;
+	QString m_errorStr = "";
 };
 
 #endif // KEEPASSXC_KDBXREADER_H

@@ -19,12 +19,12 @@
 
 #include "Command.h"
 
-class DatabaseCommand : public Command
+class DatabaseCommand: public Command
 {
 public:
-    DatabaseCommand();
-    int execute(const QStringList& arguments) override;
-    virtual int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) = 0;
+	DatabaseCommand();
+	int execute(const QStringList &arguments) override;
+	virtual int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) = 0;
 };
 
 #endif // KEEPASSXC_DATABASECOMMAND_H

@@ -34,57 +34,57 @@ class Database;
  */
 class KdbxWriter
 {
-    Q_DECLARE_TR_FUNCTIONS(KdbxWriter)
+	Q_DECLARE_TR_FUNCTIONS(KdbxWriter)
 
 public:
-    KdbxWriter() = default;
-    virtual ~KdbxWriter() = default;
+	KdbxWriter() = default;
+	virtual ~KdbxWriter() = default;
 
-    bool writeMagicNumbers(QIODevice* device, quint32 sig1, quint32 sig2, quint32 version);
+	bool writeMagicNumbers(QIODevice *device, quint32 sig1, quint32 sig2, quint32 version);
 
-    /**
-     * Write a database to a device in KDBX format.
-     *
-     * @param device output device
-     * @param db source database
-     * @return true on success
-     */
-    virtual bool writeDatabase(QIODevice* device, Database* db) = 0;
+	/**
+	 * Write a database to a device in KDBX format.
+	 *
+	 * @param device output device
+	 * @param db source database
+	 * @return true on success
+	 */
+	virtual bool writeDatabase(QIODevice *device, Database *db) = 0;
 
-    void extractDatabase(QByteArray& xmlOutput, Database* db);
+	void extractDatabase(QByteArray &xmlOutput, Database *db);
 
-    bool hasError() const;
-    QString errorString() const;
+	bool hasError() const;
+	QString errorString() const;
 
 protected:
-    /**
-     * Helper method for writing a KDBX header field to a device.
-     *
-     * @tparam SizedQInt field width
-     * @param device output device
-     * @param fieldId field identifier
-     * @param data field contents
-     * @return true on success
-     */
-    template <typename SizedQInt>
-    bool writeHeaderField(QIODevice* device, KeePass2::HeaderFieldID fieldId, const QByteArray& data)
-    {
-        Q_ASSERT(static_cast<unsigned long>(data.size()) < (1ull << (sizeof(SizedQInt) * 8)));
+	/**
+	 * Helper method for writing a KDBX header field to a device.
+	 *
+	 * @tparam SizedQInt field width
+	 * @param device output device
+	 * @param fieldId field identifier
+	 * @param data field contents
+	 * @return true on success
+	 */
+	template <typename SizedQInt>
+	bool writeHeaderField(QIODevice *device, KeePass2::HeaderFieldID fieldId, const QByteArray &data)
+	{
+		Q_ASSERT(static_cast<unsigned long>(data.size()) < (1ull << (sizeof(SizedQInt) * 8)));
 
-        QByteArray fieldIdArr(1, static_cast<char>(fieldId));
-        CHECK_RETURN_FALSE(writeData(device, fieldIdArr));
-        CHECK_RETURN_FALSE(writeData(
-            device, Endian::sizedIntToBytes<SizedQInt>(static_cast<SizedQInt>(data.size()), KeePass2::BYTEORDER)));
-        CHECK_RETURN_FALSE(writeData(device, data));
+		QByteArray fieldIdArr(1, static_cast<char>(fieldId));
+		CHECK_RETURN_FALSE(writeData(device, fieldIdArr));
+		CHECK_RETURN_FALSE(writeData(
+			device, Endian::sizedIntToBytes<SizedQInt>(static_cast<SizedQInt>(data.size()), KeePass2::BYTEORDER)));
+		CHECK_RETURN_FALSE(writeData(device, data));
 
-        return true;
-    }
+		return true;
+	}
 
-    bool writeData(QIODevice* device, const QByteArray& data);
-    void raiseError(const QString& errorMessage);
+	bool writeData(QIODevice *device, const QByteArray &data);
+	void raiseError(const QString &errorMessage);
 
-    bool m_error = false;
-    QString m_errorStr = "";
+	bool m_error = false;
+	QString m_errorStr = "";
 };
 
 #endif // KEEPASSXC_KDBXWRITER_H

@@ -19,15 +19,15 @@
 
 #include "DatabaseCommand.h"
 
-class List : public DatabaseCommand
+class List: public DatabaseCommand
 {
 public:
-    List();
+	List();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser) override;
 
-    static const QCommandLineOption RecursiveOption;
-    static const QCommandLineOption FlattenOption;
+	static const QCommandLineOption RecursiveOption;
+	static const QCommandLineOption FlattenOption;
 };
 
 #endif // KEEPASSXC_LIST_H

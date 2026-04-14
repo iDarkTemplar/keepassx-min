@@ -23,98 +23,108 @@
 
 #include <QUuid>
 
-EditWidgetProperties::EditWidgetProperties(QWidget* parent)
-    : QWidget(parent)
-    , m_ui(new Ui::EditWidgetProperties())
-    , m_customDataModel(new QStandardItemModel(this))
+EditWidgetProperties::EditWidgetProperties(QWidget *parent)
+	: QWidget(parent)
+	, m_ui(new Ui::EditWidgetProperties())
+	, m_customDataModel(new QStandardItemModel(this))
 {
-    m_ui->setupUi(this);
-    m_ui->removeCustomDataButton->setEnabled(false);
-    m_ui->customDataTable->setModel(m_customDataModel);
+	m_ui->setupUi(this);
+	m_ui->removeCustomDataButton->setEnabled(false);
+	m_ui->customDataTable->setModel(m_customDataModel);
 
-    // clang-format off
+	// clang-format off
     connect(m_ui->customDataTable->selectionModel(),
             SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             SLOT(toggleRemoveButton(QItemSelection)));
-    // clang-format on
-    connect(m_ui->removeCustomDataButton, SIGNAL(clicked()), SLOT(removeSelectedPluginData()));
+	// clang-format on
+	connect(m_ui->removeCustomDataButton, SIGNAL(clicked()), SLOT(removeSelectedPluginData()));
 }
 
 EditWidgetProperties::~EditWidgetProperties()
 {
 }
 
-void EditWidgetProperties::setFields(const TimeInfo& timeInfo, const QUuid& uuid)
+void EditWidgetProperties::setFields(const TimeInfo &timeInfo, const QUuid &uuid)
 {
-    static const QString timeFormat("d MMM yyyy HH:mm:ss");
-    m_ui->modifiedEdit->setText(timeInfo.lastModificationTime().toLocalTime().toString(timeFormat));
-    m_ui->createdEdit->setText(timeInfo.creationTime().toLocalTime().toString(timeFormat));
-    m_ui->uuidEdit->setText(uuid.toRfc4122().toHex());
+	static const QString timeFormat("d MMM yyyy HH:mm:ss");
+	m_ui->modifiedEdit->setText(timeInfo.lastModificationTime().toLocalTime().toString(timeFormat));
+	m_ui->createdEdit->setText(timeInfo.creationTime().toLocalTime().toString(timeFormat));
+	m_ui->uuidEdit->setText(uuid.toRfc4122().toHex());
 }
 
-void EditWidgetProperties::setCustomData(CustomData* customData)
+void EditWidgetProperties::setCustomData(CustomData *customData)
 {
-    if (m_customData) {
-        m_customData->disconnect(this);
-    }
+	if (m_customData)
+	{
+		m_customData->disconnect(this);
+	}
 
-    m_customData = customData;
+	m_customData = customData;
 
-    if (m_customData) {
-        connect(m_customData, &CustomData::modified, this, &EditWidgetProperties::update);
-    }
+	if (m_customData)
+	{
+		connect(m_customData, &CustomData::modified, this, &EditWidgetProperties::update);
+	}
 
-    update();
+	update();
 }
 
 void EditWidgetProperties::removeSelectedPluginData()
 {
-    QModelIndexList indexes = m_ui->customDataTable->selectionModel()->selectedRows(0);
-    if (indexes.isEmpty()) {
-        return;
-    }
+	QModelIndexList indexes = m_ui->customDataTable->selectionModel()->selectedRows(0);
+	if (indexes.isEmpty())
+	{
+		return;
+	}
 
-    auto result = MessageBox::question(this,
-                                       tr("Delete plugin data?"),
-                                       tr("Do you really want to delete the selected plugin data?\n"
-                                          "This may cause the affected plugins to malfunction."),
-                                       MessageBox::Delete | MessageBox::Cancel,
-                                       MessageBox::Cancel);
+	auto result = MessageBox::question(this,
+	                                   tr("Delete plugin data?"),
+	                                   tr("Do you really want to delete the selected plugin data?\n"
+	                                      "This may cause the affected plugins to malfunction."),
+	                                   MessageBox::Delete | MessageBox::Cancel,
+	                                   MessageBox::Cancel);
 
-    if (result == MessageBox::Cancel) {
-        return;
-    }
+	if (result == MessageBox::Cancel)
+	{
+		return;
+	}
 
-    QStringList selectedData;
-    for (const auto& index : indexes) {
-        const QString key = index.data().toString();
-        selectedData.append(key);
-    }
+	QStringList selectedData;
+	for (const auto &index: indexes)
+	{
+		const QString key = index.data().toString();
+		selectedData.append(key);
+	}
 
-    std::sort(selectedData.begin(), selectedData.end());
-    for (const auto& key : selectedData) {
-        m_customData->remove(key);
-    }
+	std::sort(selectedData.begin(), selectedData.end());
+	for (const auto &key: selectedData)
+	{
+		m_customData->remove(key);
+	}
 
-    update();
+	update();
 }
 
-void EditWidgetProperties::toggleRemoveButton(const QItemSelection& selected)
+void EditWidgetProperties::toggleRemoveButton(const QItemSelection &selected)
 {
-    m_ui->removeCustomDataButton->setEnabled(!selected.isEmpty());
+	m_ui->removeCustomDataButton->setEnabled(!selected.isEmpty());
 }
 
 void EditWidgetProperties::update()
 {
-    m_customDataModel->clear();
-    m_customDataModel->setHorizontalHeaderLabels({tr("Key"), tr("Value")});
-    if (!m_customData) {
-        m_ui->removeCustomDataButton->setEnabled(false);
-    } else {
-        for (const QString& key : m_customData->keys()) {
-            m_customDataModel->appendRow(QList<QStandardItem*>()
-                                         << new QStandardItem(key) << new QStandardItem(m_customData->value(key)));
-        }
-        m_ui->removeCustomDataButton->setEnabled(!m_customData->isEmpty());
-    }
+	m_customDataModel->clear();
+	m_customDataModel->setHorizontalHeaderLabels({tr("Key"), tr("Value")});
+	if (!m_customData)
+	{
+		m_ui->removeCustomDataButton->setEnabled(false);
+	}
+	else
+	{
+		for (const QString &key: m_customData->keys())
+		{
+			m_customDataModel->appendRow(QList<QStandardItem *>()
+			                             << new QStandardItem(key) << new QStandardItem(m_customData->value(key)));
+		}
+		m_ui->removeCustomDataButton->setEnabled(!m_customData->isEmpty());
+	}
 }

@@ -27,22 +27,22 @@ class Entry;
 
 namespace Ui
 {
-    class BrowserEntrySaveDialog;
+	class BrowserEntrySaveDialog;
 }
 
-class BrowserEntrySaveDialog : public QDialog
+class BrowserEntrySaveDialog: public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit BrowserEntrySaveDialog(QWidget* parent = nullptr);
-    ~BrowserEntrySaveDialog() override;
+	explicit BrowserEntrySaveDialog(QWidget *parent = nullptr);
+	~BrowserEntrySaveDialog() override;
 
-    int setItems(QList<DatabaseWidget*>& databaseWidgets, DatabaseWidget* currentWidget) const;
-    QList<QListWidgetItem*> getSelected() const;
+	int setItems(QList<DatabaseWidget *> &databaseWidgets, DatabaseWidget *currentWidget) const;
+	QList<QListWidgetItem *> getSelected() const;
 
 private:
-    QScopedPointer<Ui::BrowserEntrySaveDialog> m_ui;
+	QScopedPointer<Ui::BrowserEntrySaveDialog> m_ui;
 };
 
 #endif // KEEPASSXC_BROWSERENTRYSAVEDIALOG_H

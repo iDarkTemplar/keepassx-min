@@ -24,28 +24,28 @@
 #include <QMimeDatabase>
 #include <QPushButton>
 
-EditEntryAttachmentsDialog::EditEntryAttachmentsDialog(QWidget* parent)
-    : QDialog(parent)
-    , m_ui(new Ui::EditEntryAttachmentsDialog)
+EditEntryAttachmentsDialog::EditEntryAttachmentsDialog(QWidget *parent)
+	: QDialog(parent)
+	, m_ui(new Ui::EditEntryAttachmentsDialog)
 {
-    m_ui->setupUi(this);
+	m_ui->setupUi(this);
 
-    m_ui->dialogButtons->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+	m_ui->dialogButtons->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
-    connect(m_ui->dialogButtons, &QDialogButtonBox::accepted, this, &EditEntryAttachmentsDialog::accept);
-    connect(m_ui->dialogButtons, &QDialogButtonBox::rejected, this, &EditEntryAttachmentsDialog::reject);
+	connect(m_ui->dialogButtons, &QDialogButtonBox::accepted, this, &EditEntryAttachmentsDialog::accept);
+	connect(m_ui->dialogButtons, &QDialogButtonBox::rejected, this, &EditEntryAttachmentsDialog::reject);
 }
 
 EditEntryAttachmentsDialog::~EditEntryAttachmentsDialog() = default;
 
 void EditEntryAttachmentsDialog::setAttachment(attachments::Attachment attachment)
 {
-    setWindowTitle(tr("Edit: %1").arg(attachment.name));
+	setWindowTitle(tr("Edit: %1").arg(attachment.name));
 
-    m_ui->attachmentWidget->openAttachment(std::move(attachment), attachments::OpenMode::ReadWrite);
+	m_ui->attachmentWidget->openAttachment(std::move(attachment), attachments::OpenMode::ReadWrite);
 }
 
 attachments::Attachment EditEntryAttachmentsDialog::getAttachment() const
 {
-    return m_ui->attachmentWidget->getAttachment();
+	return m_ui->attachmentWidget->getAttachment();
 }

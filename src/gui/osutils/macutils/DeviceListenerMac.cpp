@@ -16,79 +16,97 @@
 
 #include "DeviceListenerMac.h"
 
-#include <QPointer>
 #include <IOKit/IOKitLib.h>
+#include <QPointer>
 
-DeviceListenerMac::DeviceListenerMac(QObject* parent)
-    : QObject(parent)
-    , m_mgr(nullptr)
+DeviceListenerMac::DeviceListenerMac(QObject *parent)
+	: QObject(parent)
+	, m_mgr(nullptr)
 {
 }
 
 DeviceListenerMac::~DeviceListenerMac()
 {
-    if (m_mgr) {
-        IOHIDManagerUnscheduleFromRunLoop(m_mgr, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-        IOHIDManagerClose(m_mgr, kIOHIDOptionsTypeNone);
-        CFRelease(m_mgr);
-    }
+	if (m_mgr)
+	{
+		IOHIDManagerUnscheduleFromRunLoop(m_mgr, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+		IOHIDManagerClose(m_mgr, kIOHIDOptionsTypeNone);
+		CFRelease(m_mgr);
+	}
 }
 
-void DeviceListenerMac::registerHotplugCallback(bool arrived, bool left, int vendorId, int productId, const QUuid*)
+void DeviceListenerMac::registerHotplugCallback(bool arrived, bool left, int vendorId, int productId, const QUuid *)
 {
-    if (!m_mgr) {
-        m_mgr = IOHIDManagerCreate(kCFAllocatorDefault, kIOHIDManagerOptionNone);
-        if (!m_mgr) {
-            qWarning("Failed to create IOHIDManager.");
-            return;
-        }
-        IOHIDManagerScheduleWithRunLoop(m_mgr, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-    }
+	if (!m_mgr)
+	{
+		m_mgr = IOHIDManagerCreate(kCFAllocatorDefault, kIOHIDManagerOptionNone);
+		if (!m_mgr)
+		{
+			qWarning("Failed to create IOHIDManager.");
+			return;
+		}
+		IOHIDManagerScheduleWithRunLoop(m_mgr, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+	}
 
-    if (vendorId > 0 || productId > 0) {
-        CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOHIDDeviceKey);
-        if (vendorId > 0) {
-            auto vid = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &vendorId);
-            CFDictionaryAddValue(matchingDict, CFSTR(kIOHIDVendorIDKey), vid);
-            CFRelease(vid);
-        }
-        if (productId > 0) {
-            auto pid = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &productId);
-            CFDictionaryAddValue(matchingDict, CFSTR(kIOHIDProductIDKey), pid);
-            CFRelease(pid);
-        }
-        IOHIDManagerSetDeviceMatching(m_mgr, matchingDict);
-        CFRelease(matchingDict);
-    } else {
-        IOHIDManagerSetDeviceMatching(m_mgr, nullptr);
-    }
+	if (vendorId > 0 || productId > 0)
+	{
+		CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOHIDDeviceKey);
+		if (vendorId > 0)
+		{
+			auto vid = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &vendorId);
+			CFDictionaryAddValue(matchingDict, CFSTR(kIOHIDVendorIDKey), vid);
+			CFRelease(vid);
+		}
+		if (productId > 0)
+		{
+			auto pid = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &productId);
+			CFDictionaryAddValue(matchingDict, CFSTR(kIOHIDProductIDKey), pid);
+			CFRelease(pid);
+		}
+		IOHIDManagerSetDeviceMatching(m_mgr, matchingDict);
+		CFRelease(matchingDict);
+	}
+	else
+	{
+		IOHIDManagerSetDeviceMatching(m_mgr, nullptr);
+	}
 
-    QPointer that = this;
-    if (arrived) {
-        IOHIDManagerRegisterDeviceMatchingCallback(m_mgr, [](void* ctx, IOReturn, void*, IOHIDDeviceRef device) {
-            static_cast<DeviceListenerMac*>(ctx)->onDeviceStateChanged(true, device);
-        }, that);
-    }
-    if (left) {
-        IOHIDManagerRegisterDeviceRemovalCallback(m_mgr, [](void* ctx, IOReturn, void*, IOHIDDeviceRef device) {
-            static_cast<DeviceListenerMac*>(ctx)->onDeviceStateChanged(true, device);
-        }, that);
-    }
+	QPointer that = this;
+	if (arrived)
+	{
+		IOHIDManagerRegisterDeviceMatchingCallback(
+			m_mgr,
+			[](void *ctx, IOReturn, void *, IOHIDDeviceRef device) {
+				static_cast<DeviceListenerMac *>(ctx)->onDeviceStateChanged(true, device);
+			},
+			that);
+	}
+	if (left)
+	{
+		IOHIDManagerRegisterDeviceRemovalCallback(
+			m_mgr,
+			[](void *ctx, IOReturn, void *, IOHIDDeviceRef device) {
+				static_cast<DeviceListenerMac *>(ctx)->onDeviceStateChanged(true, device);
+			},
+			that);
+	}
 
-    if (IOHIDManagerOpen(m_mgr, kIOHIDOptionsTypeNone) != kIOReturnSuccess) {
-        qWarning("Could not open enumerated devices.");
-    }
+	if (IOHIDManagerOpen(m_mgr, kIOHIDOptionsTypeNone) != kIOReturnSuccess)
+	{
+		qWarning("Could not open enumerated devices.");
+	}
 }
 
 void DeviceListenerMac::deregisterHotplugCallback()
 {
-    if (m_mgr) {
-        IOHIDManagerRegisterDeviceMatchingCallback(m_mgr, nullptr, this);
-        IOHIDManagerRegisterDeviceRemovalCallback(m_mgr, nullptr, this);
-    }
+	if (m_mgr)
+	{
+		IOHIDManagerRegisterDeviceMatchingCallback(m_mgr, nullptr, this);
+		IOHIDManagerRegisterDeviceRemovalCallback(m_mgr, nullptr, this);
+	}
 }
 
-void DeviceListenerMac::onDeviceStateChanged(bool state, void* device)
+void DeviceListenerMac::onDeviceStateChanged(bool state, void *device)
 {
-    emit devicePlugged(state, m_mgr, device);
+	emit devicePlugged(state, m_mgr, device);
 }

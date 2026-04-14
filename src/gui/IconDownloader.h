@@ -23,40 +23,40 @@
 
 class QNetworkReply;
 
-class IconDownloader : public QObject
+class IconDownloader: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit IconDownloader(QObject* parent = nullptr);
-    ~IconDownloader() override;
+	explicit IconDownloader(QObject *parent = nullptr);
+	~IconDownloader() override;
 
-    void setUrl(const QString& entryUrl);
-    void download();
+	void setUrl(const QString &entryUrl);
+	void download();
 
 signals:
-    void finished(const QString& entryUrl, const QImage& image);
+	void finished(const QString &entryUrl, const QImage &image);
 
 public slots:
-    void abortDownload();
+	void abortDownload();
 
 private slots:
-    void fetchFinished();
-    void fetchReadyRead();
+	void fetchFinished();
+	void fetchReadyRead();
 
 private:
-    void fetchFavicon(const QUrl& url);
-    QImage parseImage(QByteArray& imageBytes) const;
+	void fetchFavicon(const QUrl &url);
+	QImage parseImage(QByteArray &imageBytes) const;
 
-    QString m_url;
-    QUrl m_fetchUrl;
-    QList<QUrl> m_urlsToTry;
-    QByteArray m_bytesReceived;
-    QNetworkReply* m_reply;
-    QTimer m_timeout;
-    int m_redirects;
+	QString m_url;
+	QUrl m_fetchUrl;
+	QList<QUrl> m_urlsToTry;
+	QByteArray m_bytesReceived;
+	QNetworkReply *m_reply;
+	QTimer m_timeout;
+	int m_redirects;
 
-    friend class TestIconDownloader;
+	friend class TestIconDownloader;
 };
 
 #endif // KEEPASSXC_ICONDOWNLOADER_H

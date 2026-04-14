@@ -19,13 +19,13 @@
 
 #include "DatabaseCommand.h"
 
-class RemoveGroup : public DatabaseCommand
+class RemoveGroup: public DatabaseCommand
 {
 public:
-    RemoveGroup();
-    ~RemoveGroup();
+	RemoveGroup();
+	~RemoveGroup();
 
-    int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
+	int executeWithDatabase(QSharedPointer<Database> db, QSharedPointer<QCommandLineParser> parser);
 };
 
 #endif // KEEPASSXC_REMOVEGROUP_H

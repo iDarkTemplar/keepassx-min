@@ -17,8 +17,8 @@
 
 #include "AutoTypeMac.h"
 #include "core/Tools.h"
-#include "gui/osutils/macutils/MacUtils.h"
 #include "gui/MessageBox.h"
+#include "gui/osutils/macutils/MacUtils.h"
 
 #include <ApplicationServices/ApplicationServices.h>
 
@@ -26,7 +26,7 @@
 
 AutoTypePlatformMac::AutoTypePlatformMac()
 {
-    MessageBox::initializeButtonDefs();
+	MessageBox::initializeButtonDefs();
 }
 
 /**
@@ -36,8 +36,8 @@ AutoTypePlatformMac::AutoTypePlatformMac()
  */
 bool AutoTypePlatformMac::isAvailable()
 {
-    // Accessibility permissions are requested upon first use, instead of on load
-    return true;
+	// Accessibility permissions are requested upon first use, instead of on load
+	return true;
 }
 
 //
@@ -46,36 +46,42 @@ bool AutoTypePlatformMac::isAvailable()
 //
 QStringList AutoTypePlatformMac::windowTitles()
 {
-    QStringList list;
+	QStringList list;
 
-    CFArrayRef windowList = ::CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly | kCGWindowListExcludeDesktopElements, kCGNullWindowID);
-    if (windowList != nullptr) {
-        CFIndex count = ::CFArrayGetCount(windowList);
+	CFArrayRef windowList = ::CGWindowListCopyWindowInfo(
+		kCGWindowListOptionOnScreenOnly | kCGWindowListExcludeDesktopElements, kCGNullWindowID);
+	if (windowList != nullptr)
+	{
+		CFIndex count = ::CFArrayGetCount(windowList);
 
-        for (CFIndex i = 0; i < count; i++) {
-            CFDictionaryRef window = static_cast<CFDictionaryRef>(::CFArrayGetValueAtIndex(windowList, i));
-            if (windowLayer(window) != 0) {
-                continue;
-            }
+		for (CFIndex i = 0; i < count; i++)
+		{
+			CFDictionaryRef window = static_cast<CFDictionaryRef>(::CFArrayGetValueAtIndex(windowList, i));
+			if (windowLayer(window) != 0)
+			{
+				continue;
+			}
 
-            QString title = windowStringProperty(window, kCGWindowName);
-            QString owner = windowStringProperty(window, kCGWindowOwnerName);
+			QString title = windowStringProperty(window, kCGWindowName);
+			QString owner = windowStringProperty(window, kCGWindowOwnerName);
 
-            // Audio recording injects a "StatusIndicator" window owned by the "Window Server" process
-            // into to list in macOS 12.2 (see: https://github.com/keepassxreboot/keepassxc/issues/7418).
-            if (title == "StatusIndicator" && owner == "Window Server") {
-                continue;
-            }
+			// Audio recording injects a "StatusIndicator" window owned by the "Window Server" process
+			// into to list in macOS 12.2 (see: https://github.com/keepassxreboot/keepassxc/issues/7418).
+			if (title == "StatusIndicator" && owner == "Window Server")
+			{
+				continue;
+			}
 
-            if (!title.isEmpty()) {
-                list.append(title);
-            }
-        }
+			if (!title.isEmpty())
+			{
+				list.append(title);
+			}
+		}
 
-        ::CFRelease(windowList);
-    }
+		::CFRelease(windowList);
+	}
 
-    return list;
+	return list;
 }
 
 //
@@ -83,7 +89,7 @@ QStringList AutoTypePlatformMac::windowTitles()
 //
 WId AutoTypePlatformMac::activeWindow()
 {
-    return macUtils()->activeWindow();
+	return macUtils()->activeWindow();
 }
 
 //
@@ -92,40 +98,46 @@ WId AutoTypePlatformMac::activeWindow()
 //
 QString AutoTypePlatformMac::activeWindowTitle()
 {
-    QString title;
+	QString title;
 
-    CFArrayRef windowList = ::CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly | kCGWindowListExcludeDesktopElements, kCGNullWindowID);
-    if (windowList != nullptr) {
-        CFIndex count = ::CFArrayGetCount(windowList);
+	CFArrayRef windowList = ::CGWindowListCopyWindowInfo(
+		kCGWindowListOptionOnScreenOnly | kCGWindowListExcludeDesktopElements, kCGNullWindowID);
+	if (windowList != nullptr)
+	{
+		CFIndex count = ::CFArrayGetCount(windowList);
 
-        for (CFIndex i = 0; i < count; i++) {
-            CFDictionaryRef window = static_cast<CFDictionaryRef>(::CFArrayGetValueAtIndex(windowList, i));
-            if (windowLayer(window) == 0) {
-                title = windowStringProperty(window, kCGWindowName);
-                QString owner = windowStringProperty(window, kCGWindowOwnerName);
+		for (CFIndex i = 0; i < count; i++)
+		{
+			CFDictionaryRef window = static_cast<CFDictionaryRef>(::CFArrayGetValueAtIndex(windowList, i));
+			if (windowLayer(window) == 0)
+			{
+				title = windowStringProperty(window, kCGWindowName);
+				QString owner = windowStringProperty(window, kCGWindowOwnerName);
 
-                // Audio recording injects a "StatusIndicator" window owned by the "Window Server" process
-                // into to list in macOS 12.2 (see: https://github.com/keepassxreboot/keepassxc/issues/7418).
-                if (title == "StatusIndicator" && owner == "Window Server") {
-                    continue;
-                }
+				// Audio recording injects a "StatusIndicator" window owned by the "Window Server" process
+				// into to list in macOS 12.2 (see: https://github.com/keepassxreboot/keepassxc/issues/7418).
+				if (title == "StatusIndicator" && owner == "Window Server")
+				{
+					continue;
+				}
 
-                // First toplevel window in list (front to back order)
-                if (!title.isEmpty()) {
-                    break;
-                }
-            }
-        }
+				// First toplevel window in list (front to back order)
+				if (!title.isEmpty())
+				{
+					break;
+				}
+			}
+		}
 
-        ::CFRelease(windowList);
-    }
+		::CFRelease(windowList);
+	}
 
-    return title;
+	return title;
 }
 
-AutoTypeExecutor* AutoTypePlatformMac::createExecutor()
+AutoTypeExecutor *AutoTypePlatformMac::createExecutor()
 {
-    return new AutoTypeExecutorMac(this);
+	return new AutoTypeExecutorMac(this);
 }
 
 //
@@ -133,7 +145,7 @@ AutoTypeExecutor* AutoTypePlatformMac::createExecutor()
 //
 bool AutoTypePlatformMac::raiseWindow(WId pid)
 {
-    return macUtils()->raiseWindow(pid);
+	return macUtils()->raiseWindow(pid);
 }
 
 //
@@ -141,7 +153,7 @@ bool AutoTypePlatformMac::raiseWindow(WId pid)
 //
 bool AutoTypePlatformMac::hideOwnWindow()
 {
-    return macUtils()->hideOwnWindow();
+	return macUtils()->hideOwnWindow();
 }
 
 //
@@ -149,22 +161,23 @@ bool AutoTypePlatformMac::hideOwnWindow()
 //
 bool AutoTypePlatformMac::raiseOwnWindow()
 {
-    return macUtils()->raiseOwnWindow();
+	return macUtils()->raiseOwnWindow();
 }
 
 //
 // Send unicode character to active window
 // see: Quartz Event Services
 //
-void AutoTypePlatformMac::sendChar(const QChar& ch, bool isKeyDown)
+void AutoTypePlatformMac::sendChar(const QChar &ch, bool isKeyDown)
 {
-    CGEventRef keyEvent = ::CGEventCreateKeyboardEvent(nullptr, 0, isKeyDown);
-    if (keyEvent != nullptr) {
-        UniChar unicode = ch.unicode();
-        ::CGEventKeyboardSetUnicodeString(keyEvent, 1, &unicode);
-        ::CGEventPost(kCGSessionEventTap, keyEvent);
-        ::CFRelease(keyEvent);
-    }
+	CGEventRef keyEvent = ::CGEventCreateKeyboardEvent(nullptr, 0, isKeyDown);
+	if (keyEvent != nullptr)
+	{
+		UniChar unicode = ch.unicode();
+		::CGEventKeyboardSetUnicodeString(keyEvent, 1, &unicode);
+		::CGEventPost(kCGSessionEventTap, keyEvent);
+		::CFRelease(keyEvent);
+	}
 }
 
 //
@@ -173,18 +186,20 @@ void AutoTypePlatformMac::sendChar(const QChar& ch, bool isKeyDown)
 //
 void AutoTypePlatformMac::sendKey(Qt::Key key, bool isKeyDown, Qt::KeyboardModifiers modifiers)
 {
-    uint16 keyCode = macUtils()->qtToNativeKeyCode(key);
-    if (keyCode == INVALID_KEYCODE) {
-        return;
-    }
+	uint16 keyCode = macUtils()->qtToNativeKeyCode(key);
+	if (keyCode == INVALID_KEYCODE)
+	{
+		return;
+	}
 
-    CGEventRef keyEvent = ::CGEventCreateKeyboardEvent(nullptr, keyCode, isKeyDown);
-    CGEventFlags nativeModifiers = macUtils()->qtToNativeModifiers(modifiers, true);
-    if (keyEvent != nullptr) {
-        ::CGEventSetFlags(keyEvent, nativeModifiers);
-        ::CGEventPost(kCGSessionEventTap, keyEvent);
-        ::CFRelease(keyEvent);
-    }
+	CGEventRef keyEvent = ::CGEventCreateKeyboardEvent(nullptr, keyCode, isKeyDown);
+	CGEventFlags nativeModifiers = macUtils()->qtToNativeModifiers(modifiers, true);
+	if (keyEvent != nullptr)
+	{
+		::CGEventSetFlags(keyEvent, nativeModifiers);
+		::CGEventPost(kCGSessionEventTap, keyEvent);
+		::CFRelease(keyEvent);
+	}
 }
 
 //
@@ -192,15 +207,15 @@ void AutoTypePlatformMac::sendKey(Qt::Key key, bool isKeyDown, Qt::KeyboardModif
 //
 int AutoTypePlatformMac::windowLayer(CFDictionaryRef window)
 {
-    int layer;
+	int layer;
 
-    CFNumberRef layerRef = static_cast<CFNumberRef>(::CFDictionaryGetValue(window, kCGWindowLayer));
-    if (layerRef != nullptr
-            && ::CFNumberGetValue(layerRef, kCFNumberIntType, &layer)) {
-        return layer;
-    }
+	CFNumberRef layerRef = static_cast<CFNumberRef>(::CFDictionaryGetValue(window, kCGWindowLayer));
+	if (layerRef != nullptr && ::CFNumberGetValue(layerRef, kCFNumberIntType, &layer))
+	{
+		return layer;
+	}
 
-    return -1;
+	return -1;
 }
 
 //
@@ -208,62 +223,67 @@ int AutoTypePlatformMac::windowLayer(CFDictionaryRef window)
 //
 QString AutoTypePlatformMac::windowStringProperty(CFDictionaryRef window, CFStringRef propertyRef)
 {
-    char buffer[1024];
-    QString value;
+	char buffer[1024];
+	QString value;
 
-    CFStringRef valueRef = static_cast<CFStringRef>(::CFDictionaryGetValue(window, propertyRef));
-    if (valueRef != nullptr
-            && ::CFStringGetCString(valueRef, buffer, 1024, kCFStringEncodingUTF8)) {
-        value = QString::fromUtf8(buffer);
-    }
+	CFStringRef valueRef = static_cast<CFStringRef>(::CFDictionaryGetValue(window, propertyRef));
+	if (valueRef != nullptr && ::CFStringGetCString(valueRef, buffer, 1024, kCFStringEncodingUTF8))
+	{
+		value = QString::fromUtf8(buffer);
+	}
 
-    return value;
+	return value;
 }
 
 //
 // ------------------------------ AutoTypeExecutorMac ------------------------------
 //
 
-AutoTypeExecutorMac::AutoTypeExecutorMac(AutoTypePlatformMac* platform)
-    : m_platform(platform)
+AutoTypeExecutorMac::AutoTypeExecutorMac(AutoTypePlatformMac *platform)
+	: m_platform(platform)
 {
 }
 
-AutoTypeAction::Result AutoTypeExecutorMac::execBegin(const AutoTypeBegin* action)
+AutoTypeAction::Result AutoTypeExecutorMac::execBegin(const AutoTypeBegin *action)
 {
-    Q_UNUSED(action);
-    return AutoTypeAction::Result::Ok();
+	Q_UNUSED(action);
+	return AutoTypeAction::Result::Ok();
 }
 
-AutoTypeAction::Result AutoTypeExecutorMac::execType(const AutoTypeKey* action)
+AutoTypeAction::Result AutoTypeExecutorMac::execType(const AutoTypeKey *action)
 {
 
+	if (action->key != Qt::Key_unknown)
+	{
+		m_platform->sendKey(action->key, true, action->modifiers);
+		m_platform->sendKey(action->key, false, action->modifiers);
+	}
+	else
+	{
+		if (action->modifiers != Qt::NoModifier)
+		{
+			// If we have modifiers set than we intend to send a key sequence
+			// convert to uppercase to align with Qt Key mappings
+			int ch = action->character.toUpper().toLatin1();
+			m_platform->sendKey(static_cast<Qt::Key>(ch), true, action->modifiers);
+			m_platform->sendKey(static_cast<Qt::Key>(ch), false, action->modifiers);
+		}
+		else
+		{
+			m_platform->sendChar(action->character, true);
+			m_platform->sendChar(action->character, false);
+		}
+	}
 
-    if (action->key != Qt::Key_unknown) {
-        m_platform->sendKey(action->key, true, action->modifiers);
-        m_platform->sendKey(action->key, false, action->modifiers);
-    } else {
-        if (action->modifiers != Qt::NoModifier) {
-            // If we have modifiers set than we intend to send a key sequence
-            // convert to uppercase to align with Qt Key mappings
-            int ch = action->character.toUpper().toLatin1();
-            m_platform->sendKey(static_cast<Qt::Key>(ch), true, action->modifiers);
-            m_platform->sendKey(static_cast<Qt::Key>(ch), false, action->modifiers);
-        } else {
-            m_platform->sendChar(action->character, true);
-            m_platform->sendChar(action->character, false);
-        }
-    }
-
-    Tools::sleep(execDelayMs);
-    return AutoTypeAction::Result::Ok();
+	Tools::sleep(execDelayMs);
+	return AutoTypeAction::Result::Ok();
 }
 
-AutoTypeAction::Result AutoTypeExecutorMac::execClearField(const AutoTypeClearField* action)
+AutoTypeAction::Result AutoTypeExecutorMac::execClearField(const AutoTypeClearField *action)
 {
-    Q_UNUSED(action);
-    execType(new AutoTypeKey(Qt::Key_Left, Qt::ControlModifier));
-    execType(new AutoTypeKey(Qt::Key_Right, Qt::ControlModifier | Qt::ShiftModifier));
-    execType(new AutoTypeKey(Qt::Key_Backspace));
-    return AutoTypeAction::Result::Ok();
+	Q_UNUSED(action);
+	execType(new AutoTypeKey(Qt::Key_Left, Qt::ControlModifier));
+	execType(new AutoTypeKey(Qt::Key_Right, Qt::ControlModifier | Qt::ShiftModifier));
+	execType(new AutoTypeKey(Qt::Key_Backspace));
+	return AutoTypeAction::Result::Ok();
 }

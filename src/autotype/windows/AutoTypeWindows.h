@@ -28,42 +28,42 @@
 #include "autotype/AutoTypeAction.h"
 #include "autotype/AutoTypePlatformPlugin.h"
 
-class AutoTypePlatformWin : public QObject, public AutoTypePlatformInterface
+class AutoTypePlatformWin: public QObject, public AutoTypePlatformInterface
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.keepassx.AutoTypePlatformWindows")
-    Q_INTERFACES(AutoTypePlatformInterface)
+	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "org.keepassx.AutoTypePlatformWindows")
+	Q_INTERFACES(AutoTypePlatformInterface)
 
 public:
-    bool isAvailable() override;
-    QStringList windowTitles() override;
-    WId activeWindow() override;
-    QString activeWindowTitle() override;
-    bool raiseWindow(WId window) override;
-    AutoTypeExecutor* createExecutor() override;
+	bool isAvailable() override;
+	QStringList windowTitles() override;
+	WId activeWindow() override;
+	QString activeWindowTitle() override;
+	bool raiseWindow(WId window) override;
+	AutoTypeExecutor *createExecutor() override;
 
-    void sendCharVirtual(const QChar& ch);
-    void sendChar(const QChar& ch);
-    void setKeyState(Qt::Key key, bool down);
+	void sendCharVirtual(const QChar &ch);
+	void sendChar(const QChar &ch);
+	void setKeyState(Qt::Key key, bool down);
 
 private:
-    static bool isExtendedKey(DWORD nativeKeyCode);
-    static bool isAltTabWindow(HWND hwnd);
-    static BOOL CALLBACK windowTitleEnumProc(_In_ HWND hwnd, _In_ LPARAM lParam);
-    static QString windowTitle(HWND hwnd);
+	static bool isExtendedKey(DWORD nativeKeyCode);
+	static bool isAltTabWindow(HWND hwnd);
+	static BOOL CALLBACK windowTitleEnumProc(_In_ HWND hwnd, _In_ LPARAM lParam);
+	static QString windowTitle(HWND hwnd);
 };
 
-class AutoTypeExecutorWin : public AutoTypeExecutor
+class AutoTypeExecutorWin: public AutoTypeExecutor
 {
 public:
-    explicit AutoTypeExecutorWin(AutoTypePlatformWin* platform);
+	explicit AutoTypeExecutorWin(AutoTypePlatformWin *platform);
 
-    AutoTypeAction::Result execBegin(const AutoTypeBegin* action) override;
-    AutoTypeAction::Result execType(const AutoTypeKey* action) override;
-    AutoTypeAction::Result execClearField(const AutoTypeClearField* action) override;
+	AutoTypeAction::Result execBegin(const AutoTypeBegin *action) override;
+	AutoTypeAction::Result execType(const AutoTypeKey *action) override;
+	AutoTypeAction::Result execClearField(const AutoTypeClearField *action) override;
 
 private:
-    AutoTypePlatformWin* const m_platform;
+	AutoTypePlatformWin *const m_platform;
 };
 
 #endif // KEEPASSX_AUTOTYPEWINDOWS_H

@@ -23,30 +23,30 @@
 
 namespace Ui
 {
-    class BrowserSettingsWidget;
+	class BrowserSettingsWidget;
 }
 
-class BrowserSettingsWidget : public QWidget
+class BrowserSettingsWidget: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit BrowserSettingsWidget(QWidget* parent = nullptr);
-    ~BrowserSettingsWidget() override;
+	explicit BrowserSettingsWidget(QWidget *parent = nullptr);
+	~BrowserSettingsWidget() override;
 
 public slots:
-    void loadSettings();
-    void saveSettings();
+	void loadSettings();
+	void saveSettings();
 
 private slots:
-    void showProxyLocationFileDialog();
-    void validateProxyLocation();
-    void showCustomBrowserLocationFileDialog();
+	void showProxyLocationFileDialog();
+	void validateProxyLocation();
+	void showCustomBrowserLocationFileDialog();
 
 private:
-    QString resolveCustomProxyLocation();
+	QString resolveCustomProxyLocation();
 
-    QScopedPointer<Ui::BrowserSettingsWidget> m_ui;
+	QScopedPointer<Ui::BrowserSettingsWidget> m_ui;
 };
 
 #endif // BROWSERSETTINGSWIDGET_H

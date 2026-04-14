@@ -18,103 +18,106 @@
 
 bool AutoTypePlatformTest::isAvailable()
 {
-    return true;
+	return true;
 }
 
 QString AutoTypePlatformTest::keyToString(Qt::Key key)
 {
-    return QString("[Key0x%1]").arg(key, 0, 16);
+	return QString("[Key0x%1]").arg(key, 0, 16);
 }
 
 QStringList AutoTypePlatformTest::windowTitles()
 {
-    return QStringList();
+	return QStringList();
 }
 
 WId AutoTypePlatformTest::activeWindow()
 {
-    return 0;
+	return 0;
 }
 
 QString AutoTypePlatformTest::activeWindowTitle()
 {
-    return m_activeWindowTitle;
+	return m_activeWindowTitle;
 }
 
-AutoTypeExecutor* AutoTypePlatformTest::createExecutor()
+AutoTypeExecutor *AutoTypePlatformTest::createExecutor()
 {
-    return new AutoTypeExecutorTest(this);
+	return new AutoTypeExecutorTest(this);
 }
 
-void AutoTypePlatformTest::setActiveWindowTitle(const QString& title)
+void AutoTypePlatformTest::setActiveWindowTitle(const QString &title)
 {
-    m_activeWindowTitle = title;
+	m_activeWindowTitle = title;
 }
 
 QString AutoTypePlatformTest::actionChars()
 {
-    return m_actionChars;
+	return m_actionChars;
 }
 
 int AutoTypePlatformTest::actionCount()
 {
-    return m_actionCount;
+	return m_actionCount;
 }
 
 void AutoTypePlatformTest::clearActions()
 {
-    m_actionChars.clear();
-    m_actionCount = 0;
+	m_actionChars.clear();
+	m_actionCount = 0;
 }
 
-void AutoTypePlatformTest::addAction(const AutoTypeKey* action)
+void AutoTypePlatformTest::addAction(const AutoTypeKey *action)
 {
-    ++m_actionCount;
-    if (action->key != Qt::Key_unknown) {
-        m_actionChars += keyToString(action->key);
-    } else {
-        m_actionChars += action->character;
-    }
+	++m_actionCount;
+	if (action->key != Qt::Key_unknown)
+	{
+		m_actionChars += keyToString(action->key);
+	}
+	else
+	{
+		m_actionChars += action->character;
+	}
 }
 
 bool AutoTypePlatformTest::raiseWindow(WId window)
 {
-    Q_UNUSED(window);
+	Q_UNUSED(window);
 
-    return false;
+	return false;
 }
 
 #if defined(Q_OS_MACOS)
 bool AutoTypePlatformTest::hideOwnWindow()
 {
-    return false;
+	return false;
 }
 
 bool AutoTypePlatformTest::raiseOwnWindow()
 {
-    return false;
+	return false;
 }
 #endif
 
-AutoTypeExecutorTest::AutoTypeExecutorTest(AutoTypePlatformTest* platform)
-    : m_platform(platform)
+AutoTypeExecutorTest::AutoTypeExecutorTest(AutoTypePlatformTest *platform)
+	: m_platform(platform)
 {
 }
 
-AutoTypeAction::Result AutoTypeExecutorTest::execBegin(const AutoTypeBegin* action)
+AutoTypeAction::Result AutoTypeExecutorTest::execBegin(const AutoTypeBegin *action)
 {
-    Q_UNUSED(action);
-    return AutoTypeAction::Result::Ok();
+	Q_UNUSED(action);
+	return AutoTypeAction::Result::Ok();
 }
 
-AutoTypeAction::Result AutoTypeExecutorTest::execType(const AutoTypeKey* action)
+AutoTypeAction::Result AutoTypeExecutorTest::execType(const AutoTypeKey *action)
 {
-    m_platform->addAction(action);
-    return AutoTypeAction::Result::Ok();
+	m_platform->addAction(action);
+	return AutoTypeAction::Result::Ok();
 }
 
-AutoTypeAction::Result AutoTypeExecutorTest::execClearField(const AutoTypeClearField* action)
+AutoTypeAction::Result AutoTypeExecutorTest::execClearField(const AutoTypeClearField *action)
 {
-    Q_UNUSED(action);
-    return AutoTypeAction::Result::Ok();
+	Q_UNUSED(action);
+	return AutoTypeAction::Result::Ok();
 }

@@ -20,42 +20,42 @@
 #include <QFileSystemWatcher>
 #include <QTimer>
 
-class FileWatcher : public QObject
+class FileWatcher: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit FileWatcher(QObject* parent = nullptr);
-    ~FileWatcher() override;
+	explicit FileWatcher(QObject *parent = nullptr);
+	~FileWatcher() override;
 
-    void start(const QString& path, int checksumIntervalSeconds = 0, int checksumSizeKibibytes = -1);
-    void stop();
+	void start(const QString &path, int checksumIntervalSeconds = 0, int checksumSizeKibibytes = -1);
+	void stop();
 
-    bool hasSameFileChecksum();
+	bool hasSameFileChecksum();
 
 signals:
-    void fileChanged(const QString& path);
+	void fileChanged(const QString &path);
 
 public slots:
-    void pause();
-    void resume();
+	void pause();
+	void resume();
 
 private slots:
-    void checkFileChanged();
+	void checkFileChanged();
 
 private:
-    QByteArray calculateChecksum();
-    bool shouldIgnoreChanges();
+	QByteArray calculateChecksum();
+	bool shouldIgnoreChanges();
 
-    QString m_filePath;
-    QFileSystemWatcher m_fileWatcher;
-    QByteArray m_fileChecksum;
-    QTimer m_fileChangeDelayTimer;
-    QTimer m_fileIgnoreDelayTimer;
-    QTimer m_fileChecksumTimer;
-    int m_fileChecksumSizeBytes = -1;
-    bool m_ignoreFileChange = false;
-    bool m_paused = false;
+	QString m_filePath;
+	QFileSystemWatcher m_fileWatcher;
+	QByteArray m_fileChecksum;
+	QTimer m_fileChangeDelayTimer;
+	QTimer m_fileIgnoreDelayTimer;
+	QTimer m_fileChecksumTimer;
+	int m_fileChecksumSizeBytes = -1;
+	bool m_ignoreFileChange = false;
+	bool m_paused = false;
 };
 
 #endif // KEEPASSXC_FILEWATCHER_H

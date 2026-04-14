@@ -24,65 +24,65 @@
 /**
  * Abstract base class for version-dependent KDBX file format tests.
  */
-class TestKeePass2Format : public QObject
+class TestKeePass2Format: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
+	void initTestCase();
 
-    /**
-     * XML Reader / writer tests.
-     */
-    void testXmlMetadata();
-    void testXmlCustomIcons();
-    void testXmlGroupRoot();
-    void testXmlGroup1();
-    void testXmlGroup2();
-    void testXmlEntry1();
-    void testXmlEntry2();
-    void testXmlEntryHistory();
-    void testXmlDeletedObjects();
-    void testXmlBroken();
-    void testXmlBroken_data();
-    void testXmlEmptyUuids();
-    void testXmlInvalidXmlChars();
-    void testXmlRepairUuidHistoryItem();
+	/**
+	 * XML Reader / writer tests.
+	 */
+	void testXmlMetadata();
+	void testXmlCustomIcons();
+	void testXmlGroupRoot();
+	void testXmlGroup1();
+	void testXmlGroup2();
+	void testXmlEntry1();
+	void testXmlEntry2();
+	void testXmlEntryHistory();
+	void testXmlDeletedObjects();
+	void testXmlBroken();
+	void testXmlBroken_data();
+	void testXmlEmptyUuids();
+	void testXmlInvalidXmlChars();
+	void testXmlRepairUuidHistoryItem();
 
-    /**
-     * KDBX binary format tests.
-     */
-    void testReadBackTargetDb();
-    void testKdbxBasic();
-    void testKdbxProtectedAttributes();
-    void testKdbxAttachments();
-    void testKdbxNonAsciiPasswords();
-    void testKdbxDeviceFailure();
-    void testKdbxKeyChange();
-    void testKdbxKeyChange_data();
-    void testDuplicateAttachments();
+	/**
+	 * KDBX binary format tests.
+	 */
+	void testReadBackTargetDb();
+	void testKdbxBasic();
+	void testKdbxProtectedAttributes();
+	void testKdbxAttachments();
+	void testKdbxNonAsciiPasswords();
+	void testKdbxDeviceFailure();
+	void testKdbxKeyChange();
+	void testKdbxKeyChange_data();
+	void testDuplicateAttachments();
 
 protected:
-    virtual void initTestCaseImpl() = 0;
+	virtual void initTestCaseImpl() = 0;
 
-    virtual QSharedPointer<Database> readXml(QBuffer* buf, bool strictMode, bool& hasError, QString& errorString) = 0;
-    virtual QSharedPointer<Database>
-    readXml(const QString& path, bool strictMode, bool& hasError, QString& errorString) = 0;
-    virtual void writeXml(QBuffer* buf, Database* db, bool& hasError, QString& errorString) = 0;
+	virtual QSharedPointer<Database> readXml(QBuffer *buf, bool strictMode, bool &hasError, QString &errorString) = 0;
+	virtual QSharedPointer<Database>
+		readXml(const QString &path, bool strictMode, bool &hasError, QString &errorString) = 0;
+	virtual void writeXml(QBuffer *buf, Database *db, bool &hasError, QString &errorString) = 0;
 
-    virtual void readKdbx(QIODevice* device,
-                          QSharedPointer<const CompositeKey> key,
-                          QSharedPointer<Database> db,
-                          bool& hasError,
-                          QString& errorString) = 0;
-    virtual void writeKdbx(QIODevice* device, Database* db, bool& hasError, QString& errorString) = 0;
+	virtual void readKdbx(QIODevice *device,
+	                      QSharedPointer<const CompositeKey> key,
+	                      QSharedPointer<Database> db,
+	                      bool &hasError,
+	                      QString &errorString) = 0;
+	virtual void writeKdbx(QIODevice *device, Database *db, bool &hasError, QString &errorString) = 0;
 
-    QSharedPointer<Database> m_xmlDb;
-    QSharedPointer<Database> m_kdbxSourceDb;
-    QSharedPointer<Database> m_kdbxTargetDb;
+	QSharedPointer<Database> m_xmlDb;
+	QSharedPointer<Database> m_kdbxSourceDb;
+	QSharedPointer<Database> m_kdbxTargetDb;
 
 private:
-    QBuffer m_kdbxTargetBuffer;
+	QBuffer m_kdbxTargetBuffer;
 };
 
 QSharedPointer<Kdf> fastKdf(QSharedPointer<Kdf> kdf);

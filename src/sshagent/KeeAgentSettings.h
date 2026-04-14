@@ -28,71 +28,71 @@ class QXmlStreamReader;
 class KeeAgentSettings
 {
 public:
-    KeeAgentSettings();
-    bool operator==(const KeeAgentSettings& other) const;
-    bool operator!=(const KeeAgentSettings& other) const;
-    bool isDefault() const;
-    void reset();
+	KeeAgentSettings();
+	bool operator==(const KeeAgentSettings &other) const;
+	bool operator!=(const KeeAgentSettings &other) const;
+	bool isDefault() const;
+	void reset();
 
-    bool fromXml(const QByteArray& ba);
-    QByteArray toXml() const;
+	bool fromXml(const QByteArray &ba);
+	QByteArray toXml() const;
 
-    static bool inEntryAttachments(const EntryAttachments* attachments);
-    bool fromEntry(const Entry* entry);
-    void toEntry(Entry* entry) const;
-    bool keyConfigured() const;
-    bool toOpenSSHKey(const Entry* entry, OpenSSHKey& key, bool decrypt);
-    bool toOpenSSHKey(const QString& username,
-                      const QString& password,
-                      const QString& databasePath,
-                      const EntryAttachments* attachments,
-                      OpenSSHKey& key,
-                      bool decrypt);
+	static bool inEntryAttachments(const EntryAttachments *attachments);
+	bool fromEntry(const Entry *entry);
+	void toEntry(Entry *entry) const;
+	bool keyConfigured() const;
+	bool toOpenSSHKey(const Entry *entry, OpenSSHKey &key, bool decrypt);
+	bool toOpenSSHKey(const QString &username,
+	                  const QString &password,
+	                  const QString &databasePath,
+	                  const EntryAttachments *attachments,
+	                  OpenSSHKey &key,
+	                  bool decrypt);
 
-    const QString errorString() const;
+	const QString errorString() const;
 
-    bool allowUseOfSshKey() const;
-    bool addAtDatabaseOpen() const;
-    bool removeAtDatabaseClose() const;
-    bool useConfirmConstraintWhenAdding() const;
-    bool useLifetimeConstraintWhenAdding() const;
-    int lifetimeConstraintDuration() const;
+	bool allowUseOfSshKey() const;
+	bool addAtDatabaseOpen() const;
+	bool removeAtDatabaseClose() const;
+	bool useConfirmConstraintWhenAdding() const;
+	bool useLifetimeConstraintWhenAdding() const;
+	int lifetimeConstraintDuration() const;
 
-    const QString selectedType() const;
-    const QString attachmentName() const;
-    bool saveAttachmentToTempFile() const;
-    const QString fileName() const;
-    const QString fileNameEnvSubst(QProcessEnvironment environment = QProcessEnvironment::systemEnvironment()) const;
+	const QString selectedType() const;
+	const QString attachmentName() const;
+	bool saveAttachmentToTempFile() const;
+	const QString fileName() const;
+	const QString fileNameEnvSubst(QProcessEnvironment environment = QProcessEnvironment::systemEnvironment()) const;
 
-    void setAllowUseOfSshKey(bool allowUseOfSshKey);
-    void setAddAtDatabaseOpen(bool addAtDatabaseOpen);
-    void setRemoveAtDatabaseClose(bool removeAtDatabaseClose);
-    void setUseConfirmConstraintWhenAdding(bool useConfirmConstraintWhenAdding);
-    void setUseLifetimeConstraintWhenAdding(bool useLifetimeConstraintWhenAdding);
-    void setLifetimeConstraintDuration(int lifetimeConstraintDuration);
+	void setAllowUseOfSshKey(bool allowUseOfSshKey);
+	void setAddAtDatabaseOpen(bool addAtDatabaseOpen);
+	void setRemoveAtDatabaseClose(bool removeAtDatabaseClose);
+	void setUseConfirmConstraintWhenAdding(bool useConfirmConstraintWhenAdding);
+	void setUseLifetimeConstraintWhenAdding(bool useLifetimeConstraintWhenAdding);
+	void setLifetimeConstraintDuration(int lifetimeConstraintDuration);
 
-    void setSelectedType(const QString& type);
-    void setAttachmentName(const QString& attachmentName);
-    void setSaveAttachmentToTempFile(bool);
-    void setFileName(const QString& fileName);
+	void setSelectedType(const QString &type);
+	void setAttachmentName(const QString &attachmentName);
+	void setSaveAttachmentToTempFile(bool);
+	void setFileName(const QString &fileName);
 
 private:
-    bool readBool(QXmlStreamReader& reader);
-    int readInt(QXmlStreamReader& reader);
+	bool readBool(QXmlStreamReader &reader);
+	int readInt(QXmlStreamReader &reader);
 
-    bool m_allowUseOfSshKey;
-    bool m_addAtDatabaseOpen;
-    bool m_removeAtDatabaseClose;
-    bool m_useConfirmConstraintWhenAdding;
-    bool m_useLifetimeConstraintWhenAdding;
-    int m_lifetimeConstraintDuration;
+	bool m_allowUseOfSshKey;
+	bool m_addAtDatabaseOpen;
+	bool m_removeAtDatabaseClose;
+	bool m_useConfirmConstraintWhenAdding;
+	bool m_useLifetimeConstraintWhenAdding;
+	int m_lifetimeConstraintDuration;
 
-    // location
-    QString m_selectedType;
-    QString m_attachmentName;
-    bool m_saveAttachmentToTempFile;
-    QString m_fileName;
-    QString m_error;
+	// location
+	QString m_selectedType;
+	QString m_attachmentName;
+	bool m_saveAttachmentToTempFile;
+	QString m_fileName;
+	QString m_error;
 };
 
 #endif // KEEAGENTSETTINGS_H

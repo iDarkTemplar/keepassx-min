@@ -24,25 +24,25 @@
 
 class ImageAttachmentsView;
 
-class TestImageAttachmentsWidget : public QObject
+class TestImageAttachmentsWidget: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
+	void initTestCase();
 
-    void testFitInView();
-    void testZoomCombobox();
-    void testEditZoomCombobox();
-    void testEditWithPercentZoomCombobox();
-    void testInvalidValueZoomCombobox();
-    void testZoomInByMouse();
-    void testZoomOutByMouse();
-    void testZoomLowerBound();
-    void testZoomUpperBound();
+	void testFitInView();
+	void testZoomCombobox();
+	void testEditZoomCombobox();
+	void testEditWithPercentZoomCombobox();
+	void testInvalidValueZoomCombobox();
+	void testZoomInByMouse();
+	void testZoomOutByMouse();
+	void testZoomLowerBound();
+	void testZoomUpperBound();
 
 private:
-    QScopedPointer<ImageAttachmentsWidget> m_widget{};
-    QPointer<QComboBox> m_zoomCombobox{};
-    QPointer<ImageAttachmentsView> m_imageAttachmentsView{};
+	QScopedPointer<ImageAttachmentsWidget> m_widget{};
+	QPointer<QComboBox> m_zoomCombobox{};
+	QPointer<ImageAttachmentsView> m_imageAttachmentsView{};
 };

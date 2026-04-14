@@ -26,33 +26,33 @@ class AutoTypeMatchModel;
 
 class QSortFilterProxyModel;
 
-class AutoTypeMatchView : public QTableView
+class AutoTypeMatchView: public QTableView
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit AutoTypeMatchView(QWidget* parent = nullptr);
-    AutoTypeMatch currentMatch();
-    AutoTypeMatch matchFromIndex(const QModelIndex& index);
-    void setMatchList(const QList<AutoTypeMatch>& matches);
-    void selectFirstMatch();
-    bool selectMatch(const AutoTypeMatch& match);
-    void filterList(const QString& filter);
-    void moveSelection(int offset);
+	explicit AutoTypeMatchView(QWidget *parent = nullptr);
+	AutoTypeMatch currentMatch();
+	AutoTypeMatch matchFromIndex(const QModelIndex &index);
+	void setMatchList(const QList<AutoTypeMatch> &matches);
+	void selectFirstMatch();
+	bool selectMatch(const AutoTypeMatch &match);
+	void filterList(const QString &filter);
+	void moveSelection(int offset);
 
 signals:
-    void currentMatchChanged(AutoTypeMatch match);
-    void matchActivated(AutoTypeMatch match);
+	void currentMatchChanged(AutoTypeMatch match);
+	void matchActivated(AutoTypeMatch match);
 
 protected:
-    void keyPressEvent(QKeyEvent* event) override;
+	void keyPressEvent(QKeyEvent *event) override;
 
 protected slots:
-    void currentChanged(const QModelIndex& current, const QModelIndex& previous) override;
+	void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
 
 private:
-    AutoTypeMatchModel* const m_model;
-    QSortFilterProxyModel* const m_sortModel;
+	AutoTypeMatchModel *const m_model;
+	QSortFilterProxyModel *const m_sortModel;
 };
 
 #endif // KEEPASSX_AUTOTYPEMATCHVIEW_H

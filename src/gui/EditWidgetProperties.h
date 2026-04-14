@@ -28,32 +28,32 @@ class QUuid;
 
 namespace Ui
 {
-    class EditWidgetProperties;
+	class EditWidgetProperties;
 }
 
-class EditWidgetProperties : public QWidget
+class EditWidgetProperties: public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit EditWidgetProperties(QWidget* parent = nullptr);
-    ~EditWidgetProperties();
+	explicit EditWidgetProperties(QWidget *parent = nullptr);
+	~EditWidgetProperties();
 
-    void setFields(const TimeInfo& timeInfo, const QUuid& uuid);
-    void setCustomData(CustomData* customData);
+	void setFields(const TimeInfo &timeInfo, const QUuid &uuid);
+	void setCustomData(CustomData *customData);
 
 private slots:
-    void update();
-    void removeSelectedPluginData();
-    void toggleRemoveButton(const QItemSelection& selected);
+	void update();
+	void removeSelectedPluginData();
+	void toggleRemoveButton(const QItemSelection &selected);
 
 private:
-    const QScopedPointer<Ui::EditWidgetProperties> m_ui;
+	const QScopedPointer<Ui::EditWidgetProperties> m_ui;
 
-    QPointer<CustomData> m_customData;
-    QPointer<QStandardItemModel> m_customDataModel;
+	QPointer<CustomData> m_customData;
+	QPointer<QStandardItemModel> m_customDataModel;
 
-    Q_DISABLE_COPY(EditWidgetProperties)
+	Q_DISABLE_COPY(EditWidgetProperties)
 };
 
 #endif // KEEPASSX_EDITWIDGETPROPERTIES_H

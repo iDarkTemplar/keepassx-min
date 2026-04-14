@@ -19,11 +19,11 @@
 
 #include "format/HtmlExporter.h"
 
-class HtmlGuiExporter : public HtmlExporter
+class HtmlGuiExporter: public HtmlExporter
 {
 protected:
-    QString groupIconToHtml(const Group* group) override;
-    QString entryIconToHtml(const Entry* entry) override;
+	QString groupIconToHtml(const Group *group) override;
+	QString entryIconToHtml(const Entry *entry) override;
 };
 
 #endif // KEEPASSX_HTMLGUIEXPORTER_H

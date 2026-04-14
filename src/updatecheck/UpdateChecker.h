@@ -20,39 +20,39 @@
 
 class QNetworkReply;
 
-class UpdateChecker : public QObject
+class UpdateChecker: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    UpdateChecker(QObject* parent = nullptr);
-    ~UpdateChecker() override;
+	UpdateChecker(QObject *parent = nullptr);
+	~UpdateChecker() override;
 
-    void checkForUpdates(bool manuallyRequested);
-    static bool compareVersions(const QString& localVersion, const QString& remoteVersion);
-    static UpdateChecker* instance();
+	void checkForUpdates(bool manuallyRequested);
+	static bool compareVersions(const QString &localVersion, const QString &remoteVersion);
+	static UpdateChecker *instance();
 
-    static const QString ErrorVersion;
+	static const QString ErrorVersion;
 
 signals:
-    void updateCheckFinished(bool hasNewVersion, QString version, bool isManuallyRequested);
+	void updateCheckFinished(bool hasNewVersion, QString version, bool isManuallyRequested);
 
 private slots:
-    void fetchFinished();
-    void fetchReadyRead();
+	void fetchFinished();
+	void fetchReadyRead();
 
 private:
-    QNetworkReply* m_reply;
-    QByteArray m_bytesReceived;
-    bool m_isManuallyRequested;
+	QNetworkReply *m_reply;
+	QByteArray m_bytesReceived;
+	bool m_isManuallyRequested;
 
-    static UpdateChecker* m_instance;
+	static UpdateChecker *m_instance;
 
-    Q_DISABLE_COPY(UpdateChecker)
+	Q_DISABLE_COPY(UpdateChecker)
 };
 
-inline UpdateChecker* updateCheck()
+inline UpdateChecker *updateCheck()
 {
-    return UpdateChecker::instance();
+	return UpdateChecker::instance();
 }
 
 #endif // KEEPASSXC_UPDATECHECK_H

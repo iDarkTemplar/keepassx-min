@@ -21,17 +21,17 @@
 #include <QObject>
 #include <QScopedPointer>
 
-class TestImageAttachmentsView : public QObject
+class TestImageAttachmentsView: public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private slots:
-    void initTestCase();
+	void initTestCase();
 
-    void testEmitWheelEvent();
-    void testEnableFit();
-    void testDisableFit();
+	void testEmitWheelEvent();
+	void testEnableFit();
+	void testDisableFit();
 
 private:
-    QScopedPointer<ImageAttachmentsView> m_view{};
+	QScopedPointer<ImageAttachmentsView> m_view{};
 };
