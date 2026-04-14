@@ -116,10 +116,7 @@ private slots:
 	void hasUpdateAvailable(bool hasUpdate, const QString &version, bool isManuallyRequested);
 	void openDonateUrl();
 	void openBugReportUrl();
-	void openGettingStartedGuide();
-	void openUserGuide();
 	void openOnlineHelp();
-	void openKeyboardShortcuts();
 	void switchToDatabases();
 	void switchToSettings(bool enabled);
 	void togglePasswordGenerator(bool enabled);

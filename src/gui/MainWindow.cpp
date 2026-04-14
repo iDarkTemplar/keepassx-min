@@ -461,10 +461,7 @@ MainWindow::MainWindow()
 	m_ui->actionAbout->setIcon(icons()->icon("help-about"));
 	m_ui->actionDonate->setIcon(icons()->icon("donate"));
 	m_ui->actionBugReport->setIcon(icons()->icon("bugreport"));
-	m_ui->actionGettingStarted->setIcon(icons()->icon("getting-started"));
-	m_ui->actionUserGuide->setIcon(icons()->icon("user-guide"));
 	m_ui->actionOnlineHelp->setIcon(icons()->icon("system-help"));
-	m_ui->actionKeyboardShortcuts->setIcon(icons()->icon("keyboard-shortcuts"));
 	m_ui->actionCheckForUpdates->setIcon(icons()->icon("system-software-update"));
 
 #ifdef WITH_XC_BROWSER_PASSKEYS
@@ -599,10 +596,7 @@ MainWindow::MainWindow()
 	connect(m_ui->actionAbout, SIGNAL(triggered()), SLOT(showAboutDialog()));
 	connect(m_ui->actionDonate, SIGNAL(triggered()), SLOT(openDonateUrl()));
 	connect(m_ui->actionBugReport, SIGNAL(triggered()), SLOT(openBugReportUrl()));
-	connect(m_ui->actionGettingStarted, SIGNAL(triggered()), SLOT(openGettingStartedGuide()));
-	connect(m_ui->actionUserGuide, SIGNAL(triggered()), SLOT(openUserGuide()));
 	connect(m_ui->actionOnlineHelp, SIGNAL(triggered()), SLOT(openOnlineHelp()));
-	connect(m_ui->actionKeyboardShortcuts, SIGNAL(triggered()), SLOT(openKeyboardShortcuts()));
 	connect(m_ui->actionAllowScreenCapture, &QAction::toggled, this, &MainWindow::setAllowScreenCapture);
 
 	connect(osUtils, &OSUtilsBase::statusbarThemeChanged, this, &MainWindow::updateTrayIcon);
@@ -635,11 +629,6 @@ MainWindow::MainWindow()
 #ifndef WITH_XC_NETWORKING
 	m_ui->actionGroupDownloadFavicons->setVisible(false);
 	m_ui->actionEntryDownloadIcon->setVisible(false);
-#endif
-#ifndef WITH_XC_DOCS
-	m_ui->actionGettingStarted->setVisible(false);
-	m_ui->actionUserGuide->setVisible(false);
-	m_ui->actionKeyboardShortcuts->setVisible(false);
 #endif
 
 	// clang-format off
@@ -1272,24 +1261,9 @@ void MainWindow::openBugReportUrl()
 	customOpenUrl("https://github.com/keepassxreboot/keepassxc/issues");
 }
 
-void MainWindow::openGettingStartedGuide()
-{
-	customOpenUrl(QString("file:///%1").arg(resources()->dataPath("docs/KeePassXC_GettingStarted.html")));
-}
-
-void MainWindow::openUserGuide()
-{
-	customOpenUrl(QString("file:///%1").arg(resources()->dataPath("docs/KeePassXC_UserGuide.html")));
-}
-
 void MainWindow::openOnlineHelp()
 {
 	customOpenUrl("https://keepassxc.org/docs/");
-}
-
-void MainWindow::openKeyboardShortcuts()
-{
-	customOpenUrl(QString("file:///%1").arg(resources()->dataPath("docs/KeePassXC_KeyboardShortcuts.html")));
 }
 
 void MainWindow::switchToDatabases()
