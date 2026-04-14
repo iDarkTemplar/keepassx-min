@@ -31,9 +31,7 @@ endif()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Support Visual Studio Code
-include(CMakeToolsHelpers OPTIONAL)
 include(FeatureSummary)
-include(KPXCMacDeployHelpers)
 
 include(CheckCCompilerFlag)
 include(CheckCXXCompilerFlag)
@@ -61,7 +59,6 @@ if(UNIX AND NOT APPLE)
     option(WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API." OFF)
     set(WITH_XC_X11 ON CACHE BOOL "Enable building with X11 deps")
 endif()
-option(WITH_XC_DOCS "Enable building of documentation" ON)
 if(WIN32 OR APPLE)
     set(WITH_XC_CODESIGN_IDENTITY "" CACHE STRING "Certificate to be used for signing binaries before packaging.")
     if(WIN32)
@@ -509,8 +506,6 @@ if(WITH_COVERAGE)
     endif()
 endif()
 
-include(CLangFormat)
-
 set(QT_COMPONENTS Core Network Concurrent Gui Svg Widgets Test LinguistTools)
 if(UNIX AND NOT APPLE)
     if(WITH_XC_X11)
@@ -638,10 +633,6 @@ add_subdirectory(share)
 if(WITH_TESTS)
     add_subdirectory(tests)
 endif(WITH_TESTS)
-
-if(WITH_XC_DOCS)
-    add_subdirectory(docs)
-endif()
 
 if(PRINT_SUMMARY)
     # This will print ENABLED, REQUIRED and DISABLED
