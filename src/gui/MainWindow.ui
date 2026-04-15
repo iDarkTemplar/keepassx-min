@@ -267,7 +267,6 @@
     <addaction name="separator"/>
     <addaction name="actionOnlineHelp"/>
     <addaction name="separator"/>
-    <addaction name="actionCheckForUpdates"/>
     <addaction name="actionDonate"/>
     <addaction name="actionBugReport"/>
     <addaction name="actionAbout"/>
@@ -446,14 +445,6 @@
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::AboutRole</enum>
-   </property>
-  </action>
-  <action name="actionCheckForUpdates">
-   <property name="text">
-    <string>&amp;Check for Updates</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::MenuRole::ApplicationSpecificRole</enum>
    </property>
   </action>
   <action name="actionDatabaseOpen">

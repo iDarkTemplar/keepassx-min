@@ -17,7 +17,6 @@
 #cmakedefine WITH_XC_YUBIKEY
 #cmakedefine WITH_XC_SSHAGENT
 #cmakedefine WITH_XC_KEESHARE
-#cmakedefine WITH_XC_UPDATECHECK
 #cmakedefine WITH_XC_FDOSECRETS
 #cmakedefine WITH_XC_X11
 #cmakedefine WITH_XC_BOTAN3

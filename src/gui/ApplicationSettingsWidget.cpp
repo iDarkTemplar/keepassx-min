@@ -136,14 +136,6 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
 	m_generalUi->trayIconAppearance->installEventFilter(mouseWheelFilter);
 	m_generalUi->fontSizeComboBox->installEventFilter(mouseWheelFilter);
 
-#ifdef WITH_XC_UPDATECHECK
-	connect(m_generalUi->checkForUpdatesOnStartupCheckBox, SIGNAL(toggled(bool)), SLOT(checkUpdatesToggled(bool)));
-#else
-	m_generalUi->checkForUpdatesOnStartupCheckBox->setVisible(false);
-	m_generalUi->checkForUpdatesIncludeBetasCheckBox->setVisible(false);
-	m_generalUi->checkUpdatesSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
-#endif
-
 #ifndef WITH_XC_NETWORKING
 	m_secUi->privacy->setVisible(false);
 	m_generalUi->faviconTimeoutLabel->setVisible(false);
@@ -265,10 +257,6 @@ void ApplicationSettingsWidget::loadSettings()
 	m_generalUi->systrayMinimizeToTrayCheckBox->setChecked(config()->get(Config::GUI_MinimizeToTray).toBool());
 	m_generalUi->minimizeOnCloseCheckBox->setChecked(config()->get(Config::GUI_MinimizeOnClose).toBool());
 	m_generalUi->systrayMinimizeOnStartup->setChecked(config()->get(Config::GUI_MinimizeOnStartup).toBool());
-	m_generalUi->checkForUpdatesOnStartupCheckBox->setChecked(config()->get(Config::GUI_CheckForUpdates).toBool());
-	checkUpdatesToggled(m_generalUi->checkForUpdatesOnStartupCheckBox->isChecked());
-	m_generalUi->checkForUpdatesIncludeBetasCheckBox->setChecked(
-		config()->get(Config::GUI_CheckForUpdatesIncludeBetas).toBool());
 
 	m_generalUi->showExpiredEntriesOnDatabaseUnlockCheckBox->setChecked(
 		config()->get(Config::GUI_ShowExpiredEntriesOnDatabaseUnlock).toBool());
@@ -428,9 +416,6 @@ void ApplicationSettingsWidget::saveSettings()
 	config()->set(Config::GUI_MinimizeToTray, m_generalUi->systrayMinimizeToTrayCheckBox->isChecked());
 	config()->set(Config::GUI_MinimizeOnClose, m_generalUi->minimizeOnCloseCheckBox->isChecked());
 	config()->set(Config::GUI_MinimizeOnStartup, m_generalUi->systrayMinimizeOnStartup->isChecked());
-	config()->set(Config::GUI_CheckForUpdates, m_generalUi->checkForUpdatesOnStartupCheckBox->isChecked());
-	config()->set(Config::GUI_CheckForUpdatesIncludeBetas,
-	              m_generalUi->checkForUpdatesIncludeBetasCheckBox->isChecked());
 
 	config()->set(Config::GUI_ShowExpiredEntriesOnDatabaseUnlock,
 	              m_generalUi->showExpiredEntriesOnDatabaseUnlockCheckBox->isChecked());
@@ -615,11 +600,6 @@ void ApplicationSettingsWidget::rememberDatabasesToggled(bool checked)
 	m_generalUi->rememberLastDatabasesSpinbox->setEnabled(checked);
 	m_generalUi->rememberLastKeyFilesCheckBox->setEnabled(checked);
 	m_generalUi->openPreviousDatabasesOnStartupCheckBox->setEnabled(checked);
-}
-
-void ApplicationSettingsWidget::checkUpdatesToggled(bool checked)
-{
-	m_generalUi->checkForUpdatesIncludeBetasCheckBox->setEnabled(checked);
 }
 
 void ApplicationSettingsWidget::showExpiredEntriesOnDatabaseUnlockToggled(bool checked)

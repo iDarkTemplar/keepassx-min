@@ -45,11 +45,6 @@
 #include "gui/entry/EntryView.h"
 #include "gui/osutils/OSUtils.h"
 
-#ifdef WITH_XC_UPDATECHECK
-#include "gui/UpdateCheckDialog.h"
-#include "updatecheck/UpdateChecker.h"
-#endif
-
 #ifdef WITH_XC_SSHAGENT
 #include "sshagent/AgentSettingsPage.h"
 #include "sshagent/SSHAgent.h"
@@ -440,7 +435,6 @@ MainWindow::MainWindow()
 	m_ui->actionDonate->setIcon(icons()->icon("donate"));
 	m_ui->actionBugReport->setIcon(icons()->icon("bugreport"));
 	m_ui->actionOnlineHelp->setIcon(icons()->icon("system-help"));
-	m_ui->actionCheckForUpdates->setIcon(icons()->icon("system-software-update"));
 
 	m_actionMultiplexer.connect(SIGNAL(currentModeChanged(DatabaseWidget::Mode)), this, SLOT(updateMenuActionState()));
 	m_actionMultiplexer.connect(SIGNAL(groupChanged()), this, SLOT(updateMenuActionState()));
@@ -575,20 +569,6 @@ MainWindow::MainWindow()
 
 #ifdef Q_OS_MACOS
 	setUnifiedTitleAndToolBarOnMac(true);
-#endif
-
-#ifdef WITH_XC_UPDATECHECK
-	connect(m_ui->actionCheckForUpdates, SIGNAL(triggered()), SLOT(showUpdateCheckDialog()));
-	connect(UpdateChecker::instance(),
-	        SIGNAL(updateCheckFinished(bool, QString, bool)),
-	        SLOT(hasUpdateAvailable(bool, QString, bool)));
-	// Setup an update check every hour (checked only occur every 7 days)
-	connect(&m_updateCheckTimer, &QTimer::timeout, this, &MainWindow::performUpdateCheck);
-	m_updateCheckTimer.start(3.6e6);
-	// Perform the startup update check after 500 ms
-	QTimer::singleShot(500, this, SLOT(performUpdateCheck()));
-#else
-	m_ui->actionCheckForUpdates->setVisible(false);
 #endif
 
 #ifndef WITH_XC_NETWORKING
@@ -1145,56 +1125,6 @@ void MainWindow::showAboutDialog()
 		        &AboutDialog::close);
 	}
 	aboutDialog->open();
-}
-
-void MainWindow::performUpdateCheck()
-{
-#ifdef WITH_XC_UPDATECHECK
-	if (!config()->get(Config::UpdateCheckMessageShown).toBool())
-	{
-		auto result =
-			MessageBox::question(this,
-		                         tr("Check for updates on startup?"),
-		                         tr("Would you like KeePassXC to check for updates on startup?") + "\n\n"
-		                             + tr("You can always check for updates manually from the application menu."),
-		                         MessageBox::Yes | MessageBox::No,
-		                         MessageBox::Yes);
-
-		config()->set(Config::GUI_CheckForUpdates, (result == MessageBox::Yes));
-		config()->set(Config::UpdateCheckMessageShown, true);
-	}
-
-	if (config()->get(Config::GUI_CheckForUpdates).toBool())
-	{
-		updateCheck()->checkForUpdates(false);
-	}
-
-#endif
-}
-
-void MainWindow::hasUpdateAvailable(bool hasUpdate, const QString &version, bool isManuallyRequested)
-{
-#ifdef WITH_XC_UPDATECHECK
-	if (hasUpdate && !isManuallyRequested)
-	{
-		auto *updateCheckDialog = new UpdateCheckDialog(this);
-		updateCheckDialog->showUpdateCheckResponse(hasUpdate, version);
-		updateCheckDialog->show();
-	}
-#else
-	Q_UNUSED(hasUpdate)
-	Q_UNUSED(version)
-	Q_UNUSED(isManuallyRequested)
-#endif
-}
-
-void MainWindow::showUpdateCheckDialog()
-{
-#ifdef WITH_XC_UPDATECHECK
-	updateCheck()->checkForUpdates(true);
-	auto *updateCheckDialog = new UpdateCheckDialog(this);
-	updateCheckDialog->show();
-#endif
 }
 
 void MainWindow::customOpenUrl(QString url)
