@@ -41,10 +41,6 @@
 #include <QUuid>
 #include <cmath>
 
-#ifdef Q_OS_WIN
-#include <windows.h> // for Sleep()
-#endif
-
 namespace Tools
 {
 	QString debugInfo()
@@ -88,9 +84,7 @@ namespace Tools
 		debugInfo.append("\n\n");
 
 		QString extensions;
-#if defined(Q_OS_MACOS) || defined(Q_CC_MSVC)
-		extensions += "\n- " + QObject::tr("Quick Unlock");
-#endif
+
 #ifdef WITH_XC_FDOSECRETS
 		extensions += "\n- " + QObject::tr("Secret Service Integration");
 #endif
@@ -248,14 +242,10 @@ namespace Tools
 			return;
 		}
 
-#ifdef Q_OS_WIN
-		Sleep(uint(ms));
-#else
 		timespec ts;
 		ts.tv_sec = ms / 1000;
 		ts.tv_nsec = (ms % 1000) * 1000 * 1000;
 		nanosleep(&ts, nullptr);
-#endif
 	}
 
 	void wait(int ms)
@@ -419,13 +409,8 @@ namespace Tools
 	{
 		QString subbed = filepath;
 
-#if defined(Q_OS_WIN)
-		QRegularExpression varRe("\\%([A-Za-z][A-Za-z0-9_]*)\\%");
-		QString homeEnv = "USERPROFILE";
-#else
 		QRegularExpression varRe("\\$([A-Za-z][A-Za-z0-9_]*)");
 		QString homeEnv = "HOME";
-#endif
 
 		if (subbed.startsWith("~/") || subbed.startsWith("~\\"))
 			subbed.replace(0, 1, environment.value(homeEnv));
@@ -456,19 +441,12 @@ namespace Tools
 
 	QString cleanUsername()
 	{
-#if defined(Q_OS_WIN)
-		QString userName = qgetenv("USERNAME");
-		if (userName.isEmpty())
-		{
-			userName = qgetenv("USER");
-		}
-#else
 		QString userName = qgetenv("USER");
 		if (userName.isEmpty())
 		{
 			userName = qgetenv("USERNAME");
 		}
-#endif
+
 		// Sanitize username for file safety
 		userName = userName.trimmed();
 		// Replace <>:"/\|?* with _

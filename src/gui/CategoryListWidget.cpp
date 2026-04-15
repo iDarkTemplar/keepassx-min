@@ -193,27 +193,6 @@ public:
 
 		painter->restore();
 	}
-
-#ifdef Q_OS_WIN
-	void drawControl(ControlElement element,
-	                 const QStyleOption *option,
-	                 QPainter *painter,
-	                 const QWidget *widget) const override
-	{
-		// Qt on Windows swallows State_HasFocus somewhere in its intestines,
-		// so we abuse State_On here to indicate the selection focus and
-		// hack into the text colour palette. Forgive me.
-		if (QStyle::CE_ItemViewItem == element && option->state & State_HasFocus)
-		{
-			QStyleOptionViewItem newOpt(*qstyleoption_cast<const QStyleOptionViewItem *>(option));
-			newOpt.state |= State_On;
-			newOpt.palette.setColor(QPalette::All, QPalette::Text, widget->palette().color(QPalette::HighlightedText));
-			QProxyStyle::drawControl(element, &newOpt, painter, widget);
-			return;
-		}
-		QProxyStyle::drawControl(element, option, painter, widget);
-	}
-#endif
 };
 
 void CategoryListWidgetDelegate::paint(QPainter *painter,

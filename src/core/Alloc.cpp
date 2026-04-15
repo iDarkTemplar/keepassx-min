@@ -17,11 +17,7 @@
 #include <QtGlobal>
 #include <botan/mem_ops.h>
 #include <cstdlib>
-#if defined(Q_OS_MACOS)
-#include <malloc/malloc.h>
-#elif defined(Q_OS_FREEBSD)
-#include <malloc_np.h>
-#elif defined(HAVE_MALLOC_H)
+#if defined(HAVE_MALLOC_H)
 #include <malloc.h>
 #else
 #include <stdlib.h>
@@ -62,11 +58,7 @@ void operator delete(void *ptr) noexcept
 		return;
 	}
 
-#if defined(Q_OS_WIN)
-	::operator delete(ptr, _msize(ptr));
-#elif defined(Q_OS_MACOS)
-	::operator delete(ptr, malloc_size(ptr));
-#elif defined(HAVE_MALLOC_USABLE_SIZE)
+#if defined(HAVE_MALLOC_USABLE_SIZE)
 	::operator delete(ptr, malloc_usable_size(ptr));
 #else
 	// whatever OS this is, give up and simply free stuff

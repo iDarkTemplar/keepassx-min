@@ -48,9 +48,6 @@
 #include <QRegularExpression>
 
 const QCommandLineOption Command::HelpOption = QCommandLineOption(QStringList()
-#ifdef Q_OS_WIN
-                                                                      << QStringLiteral("?")
-#endif
                                                                       << QStringLiteral("h") << QStringLiteral("help"),
                                                                   QObject::tr("Display this help."));
 

@@ -57,11 +57,7 @@ PasswordWidget::PasswordWidget(QWidget *parent)
 	m_ui->passwordEdit->setFont(passwordFont);
 
 	// Prevent conflicts with global Mac shortcuts (force Control on all platforms)
-#ifdef Q_OS_MAC
-	constexpr auto modifier = Qt::MetaModifier;
-#else
 	constexpr auto modifier = Qt::ControlModifier;
-#endif
 
 	m_toggleVisibleAction = new QAction(
 		icons()->onOffIcon("password-show", false),

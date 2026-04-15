@@ -588,17 +588,9 @@ QPair<QString, QString> Config::defaultConfigFiles()
 	QString configPath;
 	QString localConfigPath;
 
-#if defined(Q_OS_WIN)
-	configPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-#elif defined(Q_OS_MACOS)
-	configPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-#else
 	// On case-sensitive Operating Systems, force use of lowercase app directories
 	configPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/keepassxc";
 	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/keepassxc";
-#endif
 
 	QString suffix;
 #ifdef QT_DEBUG
@@ -655,17 +647,10 @@ void Config::createTempFileInstance()
 
 bool Config::isPortable()
 {
-#ifdef Q_OS_WIN
-	// Enable QFileInfo::isWritable check on Windows
-	extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
-	qt_ntfs_permission_lookup++;
-#endif
 	auto portablePath = QCoreApplication::applicationDirPath().append("/%1");
 	auto portableFile = portablePath.arg(".portable");
 	auto isPortable = QFile::exists(portableFile) && QFileInfo(portableFile).isWritable();
-#ifdef Q_OS_WIN
-	qt_ntfs_permission_lookup--;
-#endif
+
 	return isPortable;
 }
 

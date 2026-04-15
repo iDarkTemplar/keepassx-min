@@ -38,11 +38,6 @@
 #include <QWizard>
 #include <QtCore>
 
-#ifdef Q_OS_MACOS
-#include <QMainWindow>
-#include <QOperatingSystemVersion>
-#endif
-
 #include "gui/Icons.h"
 
 QT_BEGIN_NAMESPACE
@@ -266,31 +261,6 @@ namespace Phantom
 				           ? highlightedOutlineOf(pal)
 				           : Grad(pal.color(QPalette::WindowText), pal.color(QPalette::Window)).sample(0.5);
 			}
-
-#ifdef Q_OS_MACOS
-			QColor tabBarBase(const QPalette &pal)
-			{
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 10) && QT_VERSION < QT_VERSION_CHECK(5, 13, 0)                               \
-	|| QT_VERSION >= QT_VERSION_CHECK(5, 15, 1)
-				if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::MacOSBigSur)
-				{
-					return hack_isLightPalette(pal) ? QRgb(0xD4D4D4) : QRgb(0x2A2A2A);
-				}
-#endif
-				return hack_isLightPalette(pal) ? QRgb(0xDD1D1D1) : QRgb(0x252525);
-			}
-			QColor tabBarBaseInactive(const QPalette &pal)
-			{
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 10) && QT_VERSION < QT_VERSION_CHECK(5, 13, 0)                               \
-	|| QT_VERSION >= QT_VERSION_CHECK(5, 15, 1)
-				if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::MacOSBigSur)
-				{
-					return hack_isLightPalette(pal) ? QRgb(0xF5F5F5) : QRgb(0x2D2D2D);
-				}
-#endif
-				return hack_isLightPalette(pal) ? QRgb(0xF4F4F4) : QRgb(0x282828);
-			}
-#endif
 		} // namespace DeriveColors
 
 		namespace SwatchColors
@@ -456,14 +426,8 @@ namespace Phantom
 			colors[S_itemView_multiSelection_currentBorder] = Dc::itemViewMultiSelectionCurrentBorderOf(pal);
 			colors[S_itemView_headerOnLine] = Dc::itemViewHeaderOnLineColorOf(pal);
 			colors[S_scrollbarGutter_disabled] = colors[S_window];
-
-#ifdef Q_OS_MACOS
-			colors[S_tabBarBase] = Dc::tabBarBase(pal);
-			colors[S_tabBarBase_inactive] = Dc::tabBarBaseInactive(pal);
-#else
 			colors[S_tabBarBase] = pal.color(QPalette::Active, QPalette::Window);
 			colors[S_tabBarBase_inactive] = pal.color(QPalette::Inactive, QPalette::Window);
-#endif
 
 			brushes[S_none] = Qt::NoBrush;
 			for (int i = S_none + 1; i < Num_SwatchColors; ++i)
@@ -751,13 +715,8 @@ namespace Phantom
 
 		qreal dpiScaled(qreal value)
 		{
-#ifdef Q_OS_MAC
-			// On mac the DPI is always 72 so we should not scale it
-			return value;
-#else
 			const qreal scale = qt_defaultDpiX() / 96.0;
 			return value * scale;
-#endif
 		}
 
 		struct MenuItemMetrics
@@ -1648,11 +1607,6 @@ void BaseStyle::drawPrimitive(PrimitiveElement elem,
 		if (!tbb)
 			break;
 
-#ifdef Q_OS_MACOS
-		painter->fillRect(widget->rect(),
-		                  swatch.color(option->state & QStyle::State_Active ? S_tabBarBase : S_tabBarBase_inactive));
-#endif
-
 		Qt::Edge edge = Qt::TopEdge;
 		switch (tbb->shape)
 		{
@@ -2429,22 +2383,6 @@ void BaseStyle::drawControl(ControlElement element,
 		auto toolBar = qstyleoption_cast<const QStyleOptionToolBar *>(option);
 		if (!toolBar)
 			break;
-
-#ifdef Q_OS_MACOS
-		if (auto *mainWindow = qobject_cast<QMainWindow *>(widget->window()))
-		{
-			// Fill toolbar background with transparent pixels to reveal the
-			// gradient background drawn by the Cocoa platform plugin.
-			// Inspired by qmacstyle_mac.mm.
-			if (m_drawNativeMacOsToolBar && toolBar && toolBar->toolBarArea == Qt::TopToolBarArea
-			    && mainWindow->unifiedTitleAndToolBarOnMac())
-			{
-				painter->setCompositionMode(QPainter::CompositionMode_Source);
-				painter->fillRect(option->rect, Qt::transparent);
-				break;
-			}
-		}
-#endif
 
 		painter->fillRect(option->rect, option->palette.window().color());
 		bool isFloating = false;
@@ -4527,13 +4465,7 @@ QSize BaseStyle::sizeFromContents(ContentsType type,
 		break;
 	}
 	case CT_ToolButton:
-#if defined(Q_OS_MACOS)
-		newSize += QSize(Ph::dpiScaled(6 + Phantom::DefaultFrameWidth), Ph::dpiScaled(6 + Phantom::DefaultFrameWidth));
-#elif defined(Q_OS_WIN)
-		newSize += QSize(Ph::dpiScaled(4 + Phantom::DefaultFrameWidth), Ph::dpiScaled(4 + Phantom::DefaultFrameWidth));
-#else
 		newSize += QSize(Ph::dpiScaled(3 + Phantom::DefaultFrameWidth), Ph::dpiScaled(3 + Phantom::DefaultFrameWidth));
-#endif
 		break;
 	case CT_ComboBox: {
 		newSize += QSize(0, Ph::dpiScaled(4 + Phantom::DefaultFrameWidth));
@@ -4977,14 +4909,8 @@ int BaseStyle::styleHint(StyleHint hint,
 		return 1;
 	case SH_Menu_SupportsSections:
 		return 0;
-#ifndef Q_OS_MAC
 	case SH_MenuBar_AltKeyNavigation:
 		return 1;
-#endif
-#if defined(QT_PLATFORM_UIKIT)
-	case SH_ComboBox_UseNativePopup:
-		return 1;
-#endif
 	case SH_ItemView_ShowDecorationSelected:
 		// QWindowsStyle does this as well -- QCommonStyle seems to have some
 		// internal confusion buried within its private implementation of laying
@@ -5008,11 +4934,7 @@ int BaseStyle::styleHint(StyleHint hint,
 	case SH_ItemView_ScrollMode:
 		return QAbstractItemView::ScrollPerPixel;
 	case SH_ScrollBar_ContextMenu:
-#ifdef Q_OS_MAC
-		return 0;
-#else
 		return 1;
-#endif
 	// Some Linux distros might want to enable this, but it doesn't behave very
 	// consistently with varied QPalettes, depending on how the QPA and icons
 	// deal with both light and dark themes. It might seem weird to just disable
@@ -5074,12 +4996,6 @@ int BaseStyle::styleHint(StyleHint hint,
 		return 1;
 	case SH_Menu_SubMenuResetWhenReenteringParent:
 		return 0;
-#ifdef Q_OS_MAC
-	case SH_Menu_FlashTriggeredItem:
-		return 1;
-	case SH_Menu_FadeOutOnHide:
-		return 0;
-#endif
 	case SH_WindowFrame_Mask:
 		return 0;
 	case SH_UnderlineShortcut: {

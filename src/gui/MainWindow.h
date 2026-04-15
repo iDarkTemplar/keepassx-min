@@ -42,7 +42,7 @@ class MainWindow: public QMainWindow
 {
 	Q_OBJECT
 
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS) && !defined(QT_NO_DBUS)
+#if !defined(QT_NO_DBUS)
 	Q_CLASSINFO("D-Bus Interface", "org.keepassxc.KeePassXC.MainWindow")
 #endif
 
@@ -95,7 +95,6 @@ public slots:
 protected:
 	bool event(QEvent *event) override;
 	void showEvent(QShowEvent *event) override;
-	void hideEvent(QHideEvent *event) override;
 	void closeEvent(QCloseEvent *event) override;
 	void changeEvent(QEvent *event) override;
 	void keyPressEvent(QKeyEvent *event) override;

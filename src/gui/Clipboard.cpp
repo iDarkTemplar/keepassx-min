@@ -26,20 +26,11 @@
 #include "core/Config.h"
 
 Clipboard *Clipboard::m_instance(nullptr);
-#ifdef Q_OS_MACOS
-QPointer<MacPasteboard> Clipboard::m_pasteboard(nullptr);
-#endif
 
 Clipboard::Clipboard(QObject *parent)
 	: QObject(parent)
 	, m_timer(new QTimer(this))
 {
-#ifdef Q_OS_MACOS
-	if (!m_pasteboard)
-	{
-		m_pasteboard = new MacPasteboard();
-	}
-#endif
 	connect(m_timer, SIGNAL(timeout()), SLOT(countdownTick()));
 	connect(qApp, SIGNAL(aboutToQuit()), SLOT(clearCopiedText()));
 }
@@ -55,15 +46,7 @@ void Clipboard::setText(const QString &text, bool clear)
 
 	auto *mime = new QMimeData;
 	mime->setText(text);
-#if defined(Q_OS_MACOS)
-	mime->setData("application/x-nspasteboard-concealed-type", text.toUtf8());
-#elif defined(Q_OS_UNIX)
 	mime->setData("x-kde-passwordManagerHint", QByteArrayLiteral("secret"));
-#elif defined(Q_OS_WIN)
-	mime->setData("ExcludeClipboardContentFromMonitorProcessing", QByteArrayLiteral("1"));
-	mime->setData("CanIncludeInClipboardHistory", {4, '\0'});
-	mime->setData("CanUploadToCloudClipboard ", {4, '\0'});
-#endif
 
 	if (clipboard->supportsSelection())
 	{
@@ -114,13 +97,12 @@ void Clipboard::clearCopiedText()
 	{
 		clipboard->clear(QClipboard::Clipboard);
 		clipboard->clear(QClipboard::Selection);
-#ifdef Q_OS_UNIX
+
 		// Gnome Wayland doesn't let apps modify the clipboard when not in focus, so force clear
 		if (QProcessEnvironment::systemEnvironment().contains("WAYLAND_DISPLAY"))
 		{
 			QProcess::startDetached("wl-copy", {"-c"});
 		}
-#endif
 	}
 
 	m_lastCopied.clear();

@@ -45,13 +45,6 @@ QString FileDialog::getOpenFileName(QWidget *parent,
 		const auto result = QDir::toNativeSeparators(
 			QFileDialog::getOpenFileName(parent, caption, workingDir, filter, selectedFilter, options));
 
-#ifdef Q_OS_MACOS
-		// on Mac OS X the focus is lost after closing the native dialog
-		if (parent)
-		{
-			parent->activateWindow();
-		}
-#endif
 		return result;
 	}
 }
@@ -79,13 +72,6 @@ QStringList FileDialog::getOpenFileNames(QWidget *parent,
 			path = QDir::toNativeSeparators(path);
 		}
 
-#ifdef Q_OS_MACOS
-		// on Mac OS X the focus is lost after closing the native dialog
-		if (parent)
-		{
-			parent->activateWindow();
-		}
-#endif
 		return results;
 	}
 }
@@ -109,13 +95,6 @@ QString FileDialog::getSaveFileName(QWidget *parent,
 		const auto result = QDir::toNativeSeparators(
 			QFileDialog::getSaveFileName(parent, caption, workingDir, filter, selectedFilter, options));
 
-#ifdef Q_OS_MACOS
-		// on Mac OS X the focus is lost after closing the native dialog
-		if (parent)
-		{
-			parent->activateWindow();
-		}
-#endif
 		return result;
 	}
 }
@@ -137,13 +116,6 @@ QString FileDialog::getExistingDirectory(QWidget *parent,
 		const auto result =
 			QDir::toNativeSeparators(QFileDialog::getExistingDirectory(parent, caption, workingDir, options));
 
-#ifdef Q_OS_MACOS
-		// on Mac OS X the focus is lost after closing the native dialog
-		if (parent)
-		{
-			parent->activateWindow();
-		}
-#endif
 		return result;
 	}
 }

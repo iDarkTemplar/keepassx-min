@@ -193,8 +193,6 @@ int main(int argc, char **argv)
 
 	QCoreApplication app(argc, argv);
 	QCoreApplication::setApplicationVersion(KEEPASSXC_VERSION);
-	// Cleanup code pages after cli exits
-	QObject::connect(&app, &QCoreApplication::destroyed, &app, [] { Utils::resetTextStreams(); });
 
 	Bootstrap::bootstrap(config()->get(Config::GUI_Language).toString());
 	Utils::setDefaultTextStreams();

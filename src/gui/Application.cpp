@@ -35,11 +35,9 @@
 #include <QSocketNotifier>
 #include <QStandardPaths>
 
-#if defined(Q_OS_UNIX)
 #include <signal.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#endif
 
 namespace
 {
@@ -50,19 +48,11 @@ namespace
 
 Application::Application(int &argc, char **argv)
 	: QApplication(argc, argv)
-#ifdef Q_OS_UNIX
 	, m_unixSignalNotifier(nullptr)
-#endif
 	, m_alreadyRunning(false)
 	, m_lockFile(nullptr)
-#if defined(Q_OS_WIN) || (defined(Q_OS_UNIX) && !defined(Q_OS_MACOS))
 {
-#else
-{
-#endif
-#if defined(Q_OS_UNIX)
 	registerUnixSignals();
-#endif
 
 	// Build identifier
 	auto identifier = QStringLiteral("keepassxc");
@@ -71,6 +61,7 @@ Application::Application(int &argc, char **argv)
 	{
 		identifier += QChar('-') + username;
 	}
+
 #ifdef QT_DEBUG
 	// In DEBUG mode don’t interfere with Release instances
 	identifier += QStringLiteral("-DEBUG");
@@ -164,11 +155,6 @@ void Application::bootstrap(const QString &uiLanguage)
 
 	osUtils->registerNativeEventFilter();
 	MessageBox::initializeButtonDefs();
-
-#ifdef Q_OS_MACOS
-	// Don't show menu icons on OSX
-	QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
-#endif
 }
 
 void Application::applyTheme()
@@ -177,12 +163,6 @@ void Application::applyTheme()
 	if (appTheme == "auto")
 	{
 		appTheme = osUtils->isDarkMode() ? "dark" : "light";
-#ifdef Q_OS_WIN
-		if (winUtils()->isHighContrastMode())
-		{
-			appTheme = "classic";
-		}
-#endif
 	}
 	QPixmapCache::clear();
 	if (appTheme == "light")
@@ -201,13 +181,8 @@ void Application::applyTheme()
 	}
 	else
 	{
-		// Classic mode, don't check for dark theme on Windows
-		// because Qt 5.x does not support it
-#if defined(Q_OS_WIN)
-		m_darkTheme = false;
-#else
 		m_darkTheme = osUtils->isDarkMode();
-#endif
+
 		QFile stylesheetFile(":/styles/base/classicstyle.qss");
 		if (stylesheetFile.open(QIODevice::ReadOnly | QIODevice::Text))
 		{
@@ -224,12 +199,6 @@ void Application::applyFontSize()
 	// Store the original font size on first call
 	if (g_OriginalFontSize <= 0)
 	{
-#ifdef Q_OS_WIN
-		// Qt on Windows uses "MS Shell Dlg 2" as the default font for many widgets, which resolves
-		// to Tahoma 8pt, whereas the correct font would be "Segoe UI" 9pt.
-		// Apparently, some widgets are already using the correct font. Thanks, MuseScore for this neat fix!
-		font = QApplication::font("QMessageBox");
-#endif
 		g_OriginalFontSize = font.pointSize();
 	}
 
@@ -248,18 +217,10 @@ bool Application::event(QEvent *event)
 		emit openFile(static_cast<QFileOpenEvent *>(event)->file());
 		return true;
 	}
-#ifdef Q_OS_MACOS
-	// restore main window when clicking on the docker icon
-	else if (event->type() == QEvent::ApplicationActivate)
-	{
-		emit applicationActivated();
-	}
-#endif
 
 	return QApplication::event(event);
 }
 
-#if defined(Q_OS_UNIX)
 int Application::unixSignalSocket[2];
 
 void Application::registerUnixSignals()
@@ -311,7 +272,6 @@ void Application::quitBySignal()
 	Q_UNUSED(!::read(unixSignalSocket[1], &buf, sizeof(buf)));
 	emit quitSignalReceived();
 }
-#endif
 
 void Application::processIncomingConnection()
 {

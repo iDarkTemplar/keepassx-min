@@ -22,12 +22,8 @@
 #include "core/Global.h"
 #include "keys/FileKey.h"
 
-#ifdef Q_OS_WIN
-#include <windows.h>
-#else
 #include <termios.h>
 #include <unistd.h>
-#endif
 
 #include <QFileInfo>
 #include <QProcess>
@@ -38,11 +34,6 @@ namespace Utils
 	QTextStream STDERR;
 	QTextStream STDIN;
 	QTextStream DEVNULL;
-
-#ifdef Q_OS_WIN
-	UINT origCodePage;
-	UINT origOutputCodePage;
-#endif
 
 	void setDefaultTextStreams()
 	{
@@ -59,50 +50,13 @@ namespace Utils
 		STDIN.setDevice(fd);
 
 		fd = new QFile();
-#ifdef Q_OS_WIN
-		fd->open(fopen("nul", "w"), QIODevice::WriteOnly);
-#else
 		fd->open(fopen("/dev/null", "w"), QIODevice::WriteOnly);
-#endif
 		DEVNULL.setDevice(fd);
 
-#ifdef Q_OS_WIN
-		origCodePage = GetConsoleCP();
-		origOutputCodePage = GetConsoleOutputCP();
-
-		// On Windows, we ask via keepassxc-cli.exe.manifest to use UTF-8,
-		// but the console code-page isn't automatically changed to match.
-		SetConsoleCP(GetACP());
-		SetConsoleOutputCP(GetACP());
-#endif
-	}
-
-	void resetTextStreams()
-	{
-#ifdef Q_OS_WIN
-		SetConsoleCP(origCodePage);
-		SetConsoleOutputCP(origOutputCodePage);
-#endif
 	}
 
 	void setStdinEcho(bool enable = true)
 	{
-#ifdef Q_OS_WIN
-		HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE);
-		DWORD mode;
-		GetConsoleMode(hIn, &mode);
-
-		if (enable)
-		{
-			mode |= ENABLE_ECHO_INPUT;
-		}
-		else
-		{
-			mode &= ~ENABLE_ECHO_INPUT;
-		}
-
-		SetConsoleMode(hIn, mode);
-#else
 		struct termios t;
 		if (tcgetattr(STDIN_FILENO, &t) < 0)
 		{
@@ -119,7 +73,6 @@ namespace Utils
 		}
 
 		tcsetattr(STDIN_FILENO, TCSANOW, &t);
-#endif
 	}
 
 	QSharedPointer<Database> unlockDatabase(const QString &databaseFilename,
@@ -281,7 +234,6 @@ namespace Utils
 		// List of programs and their arguments
 		QList<QPair<QString, QString>> clipPrograms;
 
-#ifdef Q_OS_UNIX
 		if (QProcessEnvironment::systemEnvironment().contains("WAYLAND_DISPLAY"))
 		{
 			clipPrograms << qMakePair(QStringLiteral("wl-copy"), QStringLiteral("-t text/plain"));
@@ -290,15 +242,6 @@ namespace Utils
 		{
 			clipPrograms << qMakePair(QStringLiteral("xclip"), QStringLiteral("-selection clipboard -i"));
 		}
-#endif
-
-#ifdef Q_OS_MACOS
-		clipPrograms << qMakePair(QStringLiteral("pbcopy"), QStringLiteral(""));
-#endif
-
-#ifdef Q_OS_WIN
-		clipPrograms << qMakePair(QStringLiteral("clip"), QStringLiteral(""));
-#endif
 
 		if (clipPrograms.isEmpty())
 		{
@@ -325,16 +268,9 @@ namespace Utils
 				continue;
 			}
 
-#ifdef Q_OS_WIN
-			// Windows clip command only understands Unicode written as UTF-16
-			auto data = QByteArray::fromRawData(reinterpret_cast<const char *>(text.utf16()), text.size() * 2);
-			if (clipProcess->write(data) == -1)
-			{
-#else
 			// Other platforms understand UTF-8
 			if (clipProcess->write(text.toUtf8()) == -1)
 			{
-#endif
 				qWarning("Unable to write to process : %s", qPrintable(clipProcess->errorString()));
 			}
 			clipProcess->waitForBytesWritten();

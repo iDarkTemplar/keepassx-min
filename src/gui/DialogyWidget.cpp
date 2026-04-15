@@ -27,17 +27,7 @@ DialogyWidget::DialogyWidget(QWidget *parent)
 
 void DialogyWidget::keyPressEvent(QKeyEvent *e)
 {
-#ifdef Q_OS_MACOS
-	if (e->modifiers() == Qt::ControlModifier && e->key() == Qt::Key_Period)
-	{
-		if (!clickButton(QDialogButtonBox::Cancel))
-		{
-			e->ignore();
-		}
-	}
-	else
-#endif
-		if (!e->modifiers() || e->modifiers() == Qt::ControlModifier
+	if (!e->modifiers() || e->modifiers() == Qt::ControlModifier
 	        || (e->modifiers() & Qt::KeypadModifier && e->key() == Qt::Key_Enter))
 	{
 		switch (e->key())

@@ -18,9 +18,7 @@
 
 #include "core/AsyncTask.h"
 
-#ifdef Q_OS_LINUX
 #include <sys/statfs.h>
-#endif
 
 FileWatcher::FileWatcher(QObject *parent)
 	: QObject(parent)
@@ -41,7 +39,6 @@ void FileWatcher::start(const QString &filePath, int checksumIntervalSeconds, in
 {
 	stop();
 
-#if defined(Q_OS_LINUX)
 	struct statfs statfsBuf;
 	bool forcePolling = false;
 	const auto NFS_SUPER_MAGIC = 0x6969;
@@ -57,7 +54,6 @@ void FileWatcher::start(const QString &filePath, int checksumIntervalSeconds, in
 	}
 	auto objectName = forcePolling ? QLatin1String("_qt_autotest_force_engine_poller") : QLatin1String("");
 	m_fileWatcher.setObjectName(objectName);
-#endif
 
 	m_fileWatcher.addPath(filePath);
 	m_filePath = filePath;

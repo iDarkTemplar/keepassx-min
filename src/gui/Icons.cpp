@@ -68,11 +68,7 @@ QString Icons::trayIconAppearance() const
 	auto iconAppearance = config()->get(Config::GUI_TrayIconAppearance).toString();
 	if (iconAppearance.isNull())
 	{
-#ifdef Q_OS_MACOS
-		iconAppearance = osUtils->isDarkMode() ? "monochrome-light" : "monochrome-dark";
-#else
 		iconAppearance = "monochrome-light";
-#endif
 	}
 	return iconAppearance;
 }
@@ -91,21 +87,7 @@ QIcon Icons::trayIcon(bool unlocked)
 		return icon(QString("%1%2").arg(applicationIconName(), suffix), false);
 	}
 
-	QIcon i;
-#if defined(Q_OS_WIN)
-	if (osUtils->isStatusBarDark())
-	{
-		i = icon(QString("keepassxc-monochrome-light%1").arg(suffix), false);
-	}
-	else
-	{
-		i = icon(QString("keepassxc-monochrome-dark%1").arg(suffix), false);
-	}
-#elif defined(Q_OS_MACOS)
-	i = icon(QString("keepassxc-monochrome-light%1").arg(suffix), false);
-#else
-	i = icon(QString("%1-%2%3").arg(applicationIconName(), iconApperance, suffix), false);
-#endif
+	QIcon i = icon(QString("%1-%2%3").arg(applicationIconName(), iconApperance, suffix), false);
 	// Set as mask to allow the operating system to recolour the tray icon. This may look weird
 	// if we failed to detect the status bar background colour correctly, but it is certainly
 	// better than a barely visible icon and even if we did guess correctly, it allows for better
@@ -178,7 +160,6 @@ QIconEngine *AdaptiveIconEngine::clone() const
 
 QIcon Icons::icon(const QString &name, bool recolor, const QColor &overrideColor)
 {
-#ifdef Q_OS_LINUX
 	// Resetting the application theme name before calling QIcon::fromTheme() is required for hacky
 	// QPA platform themes such as qt5ct, which randomly mess with the configured icon theme.
 	// If we do not reset the theme name here, it will become empty at some point, causing
@@ -187,7 +168,6 @@ QIcon Icons::icon(const QString &name, bool recolor, const QColor &overrideColor
 	// See issue #4963: https://github.com/keepassxreboot/keepassxc/issues/4963
 	// and qt5ct issue #80: https://sourceforge.net/p/qt5ct/tickets/80/
 	QIcon::setThemeName("application");
-#endif
 
 	QString cacheName =
 		QString("%1:%2:%3").arg(recolor ? "1" : "0", overrideColor.isValid() ? overrideColor.name() : "#", name);

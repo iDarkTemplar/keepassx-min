@@ -30,9 +30,6 @@
 #include "gui/FileDialog.h"
 #include "gui/MessageBox.h"
 #include "gui/export/ExportDialog.h"
-#ifdef Q_OS_MACOS
-#include "gui/osutils/macutils/MacUtils.h"
-#endif
 #include "gui/wizard/NewDatabaseWizard.h"
 #include "wizard/ImportWizard.h"
 
@@ -57,10 +54,6 @@ DatabaseTabWidget::DatabaseTabWidget(QWidget *parent)
     connect(m_databaseOpenDialog.data(), &DatabaseOpenDialog::dialogFinished,
             this, &DatabaseTabWidget::handleDatabaseUnlockDialogFinished);
 	// clang-format on
-
-#ifdef Q_OS_MACOS
-	connect(macUtils(), SIGNAL(userSwitched()), SLOT(lockDatabasesOnUserSwitch()));
-#endif
 
 	m_lockDelayTimer.setSingleShot(true);
 	connect(&m_lockDelayTimer, &QTimer::timeout, this, [this] { lockDatabases(); });
@@ -756,14 +749,6 @@ void DatabaseTabWidget::lockDatabasesDelayed()
 	}
 }
 
-void DatabaseTabWidget::lockDatabasesOnUserSwitch()
-{
-	if (config()->get(Config::Security_LockDatabaseOnUserSwitch).toBool())
-	{
-		lockDatabases();
-	}
-}
-
 /**
  * Unlock a database with an unlock popup dialog.
  *
@@ -823,15 +808,6 @@ void DatabaseTabWidget::unlockAnyDatabaseInDialog(DatabaseOpenDialog::Intent int
  */
 void DatabaseTabWidget::displayUnlockDialog()
 {
-#ifdef Q_OS_MACOS
-	auto intent = m_databaseOpenDialog->intent();
-	if (intent == DatabaseOpenDialog::Intent::AutoType || intent == DatabaseOpenDialog::Intent::Browser)
-	{
-		macUtils()->raiseOwnWindow();
-		Tools::wait(200);
-	}
-#endif
-
 	m_databaseOpenDialog->show();
 	m_databaseOpenDialog->raise();
 	m_databaseOpenDialog->activateWindow();

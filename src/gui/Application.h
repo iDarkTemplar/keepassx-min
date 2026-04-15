@@ -23,10 +23,7 @@
 #include <QString>
 #include <QtNetwork/qlocalserver.h>
 
-#if defined(Q_OS_WIN) || (defined(Q_OS_UNIX) && !defined(Q_OS_MACOS))
-
 class OSEventFilter;
-#endif
 class QLockFile;
 class QSocketNotifier;
 
@@ -61,14 +58,11 @@ signals:
 	void quitSignalReceived();
 
 private slots:
-#if defined(Q_OS_UNIX)
 	void quitBySignal();
-#endif
 	void processIncomingConnection();
 	void socketReadyRead();
 
 private:
-#if defined(Q_OS_UNIX)
 	/**
 	 * Register Unix signals such as SIGINT and SIGTERM for clean shutdown.
 	 */
@@ -76,7 +70,6 @@ private:
 	QSocketNotifier *m_unixSignalNotifier;
 	static void handleUnixSignal(int sig);
 	static int unixSignalSocket[2];
-#endif
 	bool m_alreadyRunning;
 	bool m_darkTheme = false;
 	QLockFile *m_lockFile;

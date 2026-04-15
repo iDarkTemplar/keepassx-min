@@ -28,9 +28,6 @@
 #include "gui/DatabaseIcons.h"
 #include "gui/Icons.h"
 #include "gui/styles/StateColorPalette.h"
-#ifdef Q_OS_MACOS
-#include "gui/osutils/macutils/MacUtils.h"
-#endif
 
 EntryModel::EntryModel(QObject *parent)
 	: QAbstractTableModel(parent)

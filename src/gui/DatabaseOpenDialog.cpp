@@ -24,10 +24,6 @@
 #include <QLayout>
 #include <QShortcut>
 
-#ifdef Q_OS_WIN
-#include <QtPlatformHeaders/QWindowsWindowFunctions>
-#endif
-
 DatabaseOpenDialog::DatabaseOpenDialog(QWidget *parent)
 	: QDialog(parent)
 	, m_view(new DatabaseOpenWidget(this))
@@ -35,20 +31,13 @@ DatabaseOpenDialog::DatabaseOpenDialog(QWidget *parent)
 {
 	setWindowTitle(tr("Unlock Database - KeePassXC"));
 	setWindowFlags(Qt::Dialog);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
 	setWindowFlag(Qt::WindowContextHelpButtonHint, false);
-#else
-	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-#endif
-#ifdef Q_OS_LINUX
+
 	// Linux requires this to overcome some Desktop Environments (also no Quick Unlock)
 	setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
-#endif
+
 	// block input to the main window/application while the dialog is open
 	setWindowModality(Qt::ApplicationModal);
-#ifdef Q_OS_WIN
-	QWindowsWindowFunctions::setWindowActivationBehavior(QWindowsWindowFunctions::AlwaysActivateWindow);
-#endif
 	connect(m_view, &DatabaseOpenWidget::dialogFinished, this, &DatabaseOpenDialog::complete);
 
 	m_tabBar->setAutoHide(true);
@@ -66,9 +55,6 @@ DatabaseOpenDialog::DatabaseOpenDialog(QWidget *parent)
 	// set up Ctrl+PageUp / Ctrl+PageDown and Ctrl+Tab / Ctrl+Shift+Tab shortcuts to cycle tabs
 	// Ctrl+Tab is broken on Mac, so use Alt (i.e. the Option key) - https://bugreports.qt.io/browse/QTBUG-8596
 	auto dbTabModifier = Qt::CTRL;
-#ifdef Q_OS_MACOS
-	dbTabModifier = Qt::ALT;
-#endif
 	auto *shortcut = new QShortcut(Qt::CTRL + Qt::Key_PageUp, this);
 	shortcut->setContext(Qt::WidgetWithChildrenShortcut);
 	connect(shortcut, &QShortcut::activated, this, [this]() { selectTabOffset(-1); });

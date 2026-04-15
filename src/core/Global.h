@@ -22,42 +22,11 @@
 #include <QString>
 #include <QTextStream>
 
-#if defined(Q_OS_WIN)
-#if defined(KEEPASSX_BUILDING_CORE)
-#define KEEPASSXC_EXPORT Q_DECL_IMPORT
-#else
-#define KEEPASSXC_EXPORT Q_DECL_EXPORT
-#endif
-#else
-#define KEEPASSXC_EXPORT Q_DECL_EXPORT
-#endif
-
 #ifndef QUINT32_MAX
 #define QUINT32_MAX 4294967295U
 #endif
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
-#define FILE_CASE_SENSITIVE Qt::CaseInsensitive
-#else
 #define FILE_CASE_SENSITIVE Qt::CaseSensitive
-#endif
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-// "Backport" a few things to the 'Qt' namespace as required for older Qt
-// versions.
-namespace Qt
-{
-	const QString::SplitBehavior SkipEmptyParts = QString::SkipEmptyParts;
-	inline QTextStream &endl(QTextStream &s)
-	{
-		return ::endl(s);
-	}
-	inline QTextStream &flush(QTextStream &s)
-	{
-		return ::flush(s);
-	}
-} // namespace Qt
-#endif
 
 static const auto TRUE_STR = QStringLiteral("true");
 static const auto FALSE_STR = QStringLiteral("false");

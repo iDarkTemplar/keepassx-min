@@ -34,29 +34,13 @@
 #include <sanitizer/lsan_interface.h>
 #endif
 
-#ifdef QT_STATIC
-#include <QtPlugin>
-
-#if defined(Q_OS_WIN)
-Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
-#elif defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
-Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)
-#endif
-#endif
-
-#ifdef Q_OS_WIN
-#include <windows.h>
-#endif
-
 int main(int argc, char **argv)
 {
 	QT_REQUIRE_VERSION(argc, argv, QT_VERSION_STR)
 
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0) && defined(Q_OS_WIN)
-	QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
-#endif
+
 	Application app(argc, argv);
 	// don't set organizationName as that changes the return value of
 	// QStandardPaths::writableLocation(QDesktopServices::DataLocation)
@@ -123,22 +107,6 @@ int main(int argc, char **argv)
 
 	// Extract file names provided on the command line for opening
 	QStringList fileNames;
-#ifdef Q_OS_WIN
-	// Get correct case for Windows filenames (fixes #7139)
-	for (const auto &file: parser.positionalArguments())
-	{
-		const auto fileInfo = QFileInfo(file);
-		WIN32_FIND_DATAW findFileData;
-		HANDLE hFind;
-		const wchar_t *absolutePathWchar = reinterpret_cast<const wchar_t *>(fileInfo.absoluteFilePath().utf16());
-		hFind = FindFirstFileW(absolutePathWchar, &findFileData);
-		if (hFind != INVALID_HANDLE_VALUE)
-		{
-			fileNames << QString("%1/%2").arg(fileInfo.absolutePath(), QString::fromWCharArray(findFileData.cFileName));
-			FindClose(hFind);
-		}
-	}
-#else
 	for (const auto &file: parser.positionalArguments())
 	{
 		if (QFile::exists(file))
@@ -146,7 +114,6 @@ int main(int argc, char **argv)
 			fileNames << QDir::toNativeSeparators(file);
 		}
 	}
-#endif
 
 	// Process single instance and early exit if already running
 	if (app.isAlreadyRunning())
@@ -203,10 +170,6 @@ int main(int argc, char **argv)
 	Application::bootstrap(config()->get(Config::GUI_Language).toString());
 
 	MainWindow mainWindow;
-#ifdef Q_OS_WIN
-	// Qt Hack - Prevent white flicker when showing window
-	mainWindow.setProperty("windowOpacity", 0.0);
-#endif
 
 	// Disable screen capture if not explicitly allowed
 	// This ensures any top-level windows (Main Window, Modal Dialogs, etc.) are excluded from screenshots
@@ -251,8 +214,6 @@ int main(int argc, char **argv)
 	__lsan_do_leak_check();
 	__lsan_disable();
 #endif
-
-	Utils::resetTextStreams();
 
 	return exitCode;
 }

@@ -23,16 +23,9 @@
 #include <QStatusBar>
 #include <QToolBar>
 
-#ifdef Q_OS_MACOS
-#include "gui/osutils/OSUtils.h"
-#endif
-
 DarkStyle::DarkStyle()
 	: BaseStyle()
 {
-#ifdef Q_OS_MACOS
-	m_drawNativeMacOsToolBar = osUtils->isDarkMode();
-#endif
 }
 
 QPalette DarkStyle::standardPalette() const
@@ -116,20 +109,10 @@ void DarkStyle::polish(QWidget *widget)
 	    || qobject_cast<QToolBar *>(widget))
 	{
 		auto palette = widget->palette();
-#if defined(Q_OS_MACOS)
-		if (!osUtils->isDarkMode())
-		{
-			palette.setColor(QPalette::Active, QPalette::Window, QRgb(0x2A2A2A));
-			palette.setColor(QPalette::Inactive, QPalette::Window, QRgb(0x2D2D2D));
-			palette.setColor(QPalette::Disabled, QPalette::Window, QRgb(0x2D2D2D));
-		}
-#elif defined(Q_OS_WIN)
-		palette.setColor(QPalette::All, QPalette::Window, QRgb(0x2F2F30));
-#else
+
 		palette.setColor(QPalette::Active, QPalette::Window, QRgb(0x2F2F30));
 		palette.setColor(QPalette::Inactive, QPalette::Window, QRgb(0x313133));
 		palette.setColor(QPalette::Disabled, QPalette::Window, QRgb(0x3A3A3B));
-#endif
 
 		widget->setPalette(palette);
 	}

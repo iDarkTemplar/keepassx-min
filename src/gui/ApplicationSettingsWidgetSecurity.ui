@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>399</width>
-    <height>523</height>
+    <height>494</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -180,13 +180,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="lockDatabasesOnUserSwitchCheckBox">
-        <property name="text">
-         <string>Lock databases when switching user</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QCheckBox" name="lockDatabaseMinimizeCheckBox">
         <property name="text">
          <string>Lock databases after minimizing the window</string>
@@ -251,7 +244,6 @@
   <tabstop>clearSearchSpinBox</tabstop>
   <tabstop>quickUnlockCheckBox</tabstop>
   <tabstop>lockDatabaseOnScreenLockCheckBox</tabstop>
-  <tabstop>lockDatabasesOnUserSwitchCheckBox</tabstop>
   <tabstop>lockDatabaseMinimizeCheckBox</tabstop>
   <tabstop>passwordShowDotsCheckBox</tabstop>
   <tabstop>passwordsHiddenCheckBox</tabstop>

@@ -24,13 +24,6 @@
 #include "gui/MessageBox.h"
 #include "keys/FileKey.h"
 
-#ifdef Q_OS_MACOS
-#include "touchid/TouchID.h"
-#endif
-#ifdef Q_CC_MSVC
-#include "winhello/WindowsHello.h"
-#endif
-
 #include <QCheckBox>
 #include <QCloseEvent>
 #include <QDesktopServices>
@@ -42,14 +35,6 @@ namespace
 
 	bool isQuickUnlockAvailable()
 	{
-		if (config()->get(Config::Security_QuickUnlock).toBool())
-		{
-#if defined(Q_CC_MSVC)
-			return getWindowsHello()->isAvailable();
-#elif defined(Q_OS_MACOS)
-			return TouchID::getInstance().isAvailable();
-#endif
-		}
 		return false;
 	}
 } // namespace
@@ -331,18 +316,6 @@ void DatabaseOpenWidget::openDatabase()
 		if (!blockQuickUnlock && isQuickUnlockAvailable())
 		{
 			auto keyData = databaseKey->serialize();
-#if defined(Q_CC_MSVC)
-			// Store the password using Windows Hello
-			if (!getWindowsHello()->storeKey(m_filename, keyData))
-			{
-				getMainWindow()->displayTabMessage(
-					tr("Windows Hello setup was canceled or failed. Quick unlock has not been enabled."),
-					MessageWidget::MessageType::Warning);
-			}
-#elif defined(Q_OS_MACOS)
-			// Store the password using TouchID
-			TouchID::getInstance().storeKey(m_filename, keyData);
-#endif
 			m_ui->messageWidget->hideMessage();
 		}
 
@@ -396,27 +369,6 @@ QSharedPointer<CompositeKey> DatabaseOpenWidget::buildDatabaseKey()
 	{
 		// try to retrieve the stored password using Windows Hello
 		QByteArray keyData;
-#ifdef Q_CC_MSVC
-		if (!getWindowsHello()->getKey(m_filename, keyData))
-		{
-			// Failed to retrieve Quick Unlock data
-			auto error = getWindowsHello()->errorString();
-			if (!error.isEmpty())
-			{
-				m_ui->messageWidget->showMessage(tr("Failed to authenticate with Windows Hello: %1").arg(error),
-				                                 MessageWidget::Error);
-				resetQuickUnlock();
-			}
-			return {};
-		}
-#elif defined(Q_OS_MACOS)
-		if (!TouchID::getInstance().getKey(m_filename, keyData))
-		{
-			// Failed to retrieve Quick Unlock data
-			m_ui->messageWidget->showMessage(tr("Failed to authenticate with Touch ID"), MessageWidget::Error);
-			return {};
-		}
-#endif
 		databaseKey->setRawKey(keyData);
 		return databaseKey;
 	}
@@ -542,11 +494,6 @@ bool DatabaseOpenWidget::canPerformQuickUnlock() const
 {
 	if (!m_db.isNull() && isQuickUnlockAvailable())
 	{
-#if defined(Q_CC_MSVC)
-		return getWindowsHello()->hasKey(m_filename);
-#elif defined(Q_OS_MACOS)
-		return TouchID::getInstance().containsKey(m_filename);
-#endif
 	}
 	return false;
 }
@@ -593,10 +540,5 @@ void DatabaseOpenWidget::triggerQuickUnlock()
  */
 void DatabaseOpenWidget::resetQuickUnlock()
 {
-#if defined(Q_CC_MSVC)
-	getWindowsHello()->reset(m_filename);
-#elif defined(Q_OS_MACOS)
-	TouchID::getInstance().reset(m_filename);
-#endif
 	load(m_filename);
 }

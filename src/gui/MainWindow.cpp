@@ -48,7 +48,7 @@
 #include "fdosecrets/FdoSecretsPlugin.h"
 #endif
 
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS) && !defined(QT_NO_DBUS)
+#if !defined(QT_NO_DBUS)
 #include "mainwindowadaptor.h"
 #endif
 
@@ -67,11 +67,7 @@ MainWindow::MainWindow()
 
 	m_ui->setupUi(this);
 
-#ifdef Q_OS_MACOS
-	macUtils()->configureWindowAndHelpMenus(this, m_ui->menuHelp);
-#endif
-
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS) && !defined(QT_NO_DBUS)
+#if !defined(QT_NO_DBUS)
 	new MainWindowAdaptor(this);
 	QDBusConnection dbus = QDBusConnection::sessionBus();
 	dbus.registerObject("/keepassxc", this);
@@ -249,9 +245,6 @@ MainWindow::MainWindow()
 	// Control database tabs
 	// Ctrl+Tab is broken on Mac, so use Alt (i.e. the Option key) - https://bugreports.qt.io/browse/QTBUG-8596
 	auto dbTabModifier2 = Qt::CTRL;
-#ifdef Q_OS_MACOS
-	dbTabModifier2 = Qt::ALT;
-#endif
 	new QShortcut(dbTabModifier2 + Qt::Key_Tab, this, SLOT(selectNextDatabaseTab()));
 	new QShortcut(Qt::CTRL + Qt::Key_PageDown, this, SLOT(selectNextDatabaseTab()));
 	new QShortcut(dbTabModifier2 + Qt::SHIFT + Qt::Key_Tab, this, SLOT(selectPreviousDatabaseTab()));
@@ -259,10 +252,7 @@ MainWindow::MainWindow()
 
 	// Tab selection by number, Windows uses Ctrl, macOS uses Command,
 	// and Linux uses Alt to emulate a browser-like experience
-	auto dbTabModifier = Qt::CTRL;
-#ifdef Q_OS_LINUX
-	dbTabModifier = Qt::ALT;
-#endif
+	auto dbTabModifier = Qt::ALT;
 	auto shortcut = new QShortcut(dbTabModifier + Qt::Key_1, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(0); });
 	shortcut = new QShortcut(dbTabModifier + Qt::Key_2, this);
@@ -446,10 +436,6 @@ MainWindow::MainWindow()
 	m_ui->tabWidget->tabBar()->installEventFilter(eventFilter);
 	installEventFilter(eventFilter);
 
-#ifdef Q_OS_MACOS
-	setUnifiedTitleAndToolBarOnMac(true);
-#endif
-
 	// clang-format off
     connect(m_ui->tabWidget, SIGNAL(messageGlobal(QString,MessageWidget::MessageType)),
         SLOT(displayGlobalMessage(QString,MessageWidget::MessageType)));
@@ -457,10 +443,8 @@ MainWindow::MainWindow()
 
 	connect(m_ui->tabWidget, SIGNAL(messageDismissGlobal()), this, SLOT(hideGlobalMessage()));
 
-#ifndef Q_OS_HAIKU
 	m_screenLockListener = new ScreenLockListener(this);
 	connect(m_screenLockListener, SIGNAL(screenLocked()), SLOT(handleScreenLock()));
-#endif
 
 	// Tray Icon setup
 	connect(Application::instance(), SIGNAL(focusWindowChanged(QWindow *)), SLOT(focusWindowChanged(QWindow *)));
@@ -1119,10 +1103,6 @@ bool MainWindow::event(QEvent *event)
 void MainWindow::showEvent(QShowEvent *event)
 {
 	Q_UNUSED(event)
-#ifdef Q_OS_WIN
-	// Qt Hack - Prevent white flicker when showing window
-	QTimer::singleShot(50, this, [=] { setProperty("windowOpacity", 1.0); });
-#endif
 
 	// Restore geometry and window state only on the first showEvent to prevent issues with minimized tray startup
 	if (!m_windowInformationRestored)
@@ -1130,15 +1110,6 @@ void MainWindow::showEvent(QShowEvent *event)
 		restoreWindowInformation();
 		m_windowInformationRestored = true;
 	}
-}
-
-void MainWindow::hideEvent(QHideEvent *event)
-{
-	Q_UNUSED(event)
-#ifdef Q_OS_WIN
-	// Qt Hack - Prevent white flicker when showing window
-	setProperty("windowOpacity", 0.0);
-#endif
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -1357,14 +1328,8 @@ void MainWindow::updateTrayIcon()
 			actionToggle->setIcon(icons()->icon("keepassxc-monochrome-dark"));
 
 			menu->addAction(m_ui->actionLockAllDatabases);
-
-#ifdef Q_OS_MACOS
-			auto actionQuit = new QAction(tr("Quit KeePassXC"), menu);
-			connect(actionQuit, SIGNAL(triggered()), SLOT(appExit()));
-			menu->addAction(actionQuit);
-#else
 			menu->addAction(m_ui->actionQuit);
-#endif
+
 			m_trayIcon->setContextMenu(menu);
 
 			connect(m_trayIcon,
@@ -1565,16 +1530,6 @@ void MainWindow::trayIconTriggered(QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::processTrayIconTrigger()
 {
-#ifdef Q_OS_MACOS
-	// Do not toggle the window on macOS and just show the context menu instead.
-	// Right click detection doesn't seem to be working anyway
-	// and anything else will only trigger the context menu AND
-	// toggle the window at the same time, which is confusing at best.
-	// Showing only a context menu for tray icons seems to be best
-	// practice on macOS anyway, so this is probably fine.
-	return;
-#endif
-
 	if (m_trayIconTriggerReason == QSystemTrayIcon::DoubleClick)
 	{
 		// Always toggle window on double click
@@ -1584,16 +1539,9 @@ void MainWindow::processTrayIconTrigger()
 	         || m_trayIconTriggerReason == QSystemTrayIcon::MiddleClick)
 	{
 		// Toggle window if is not in front.
-#ifdef Q_OS_WIN
-		// If on Windows, check if focus switched within the 500 milliseconds since
-		// clicking the tray icon removes focus from main window.
-		if (isHidden() || (Clock::currentMilliSecondsSinceEpoch() - m_lastFocusOutTime) <= 500)
-		{
-#else
 		// If on Linux, check if the window has focus.
 		if (hasFocus() || isHidden() || windowHandle()->isActive())
 		{
-#endif
 			toggleWindow();
 		}
 		else
@@ -1605,30 +1553,20 @@ void MainWindow::processTrayIconTrigger()
 
 void MainWindow::show()
 {
-#ifndef Q_OS_WIN
 	m_lastShowTime = Clock::currentMilliSecondsSinceEpoch();
-#endif
-#ifdef Q_OS_MACOS
-	// Unset minimize state to avoid weird fly-in effects
-	setWindowState(windowState() & ~Qt::WindowMinimized);
-	macUtils()->toggleForegroundApp(true);
-#endif
+
 	QMainWindow::show();
 }
 
 void MainWindow::hide()
 {
-#ifndef Q_OS_WIN
 	qint64 current_time = Clock::currentMilliSecondsSinceEpoch();
 	if (current_time - m_lastShowTime < 250)
 	{
 		return;
 	}
-#endif
+
 	QMainWindow::hide();
-#ifdef Q_OS_MACOS
-	macUtils()->toggleForegroundApp(false);
-#endif
 }
 
 void MainWindow::hideWindow()
@@ -1866,15 +1804,11 @@ void MainWindow::initViewMenu()
 		}
 	});
 
-#ifdef Q_OS_MACOS
-	m_ui->actionShowMenubar->setVisible(false);
-#else
 	m_ui->actionShowMenubar->setChecked(!config()->get(Config::GUI_HideMenubar).toBool());
 	connect(m_ui->actionShowMenubar, &QAction::toggled, this, [this](bool checked) {
 		config()->set(Config::GUI_HideMenubar, !checked);
 		applySettingsChanges();
 	});
-#endif
 
 	m_ui->actionShowToolbar->setChecked(!config()->get(Config::GUI_HideToolbar).toBool());
 	connect(m_ui->actionShowToolbar, &QAction::toggled, this, [this](bool checked) {
@@ -1993,16 +1927,7 @@ bool MainWindowEventFilter::eventFilter(QObject *watched, QEvent *event)
 	else if (eventType == QEvent::KeyRelease && watched == mainWindow)
 	{
 		auto keyEvent = dynamic_cast<QKeyEvent *>(event);
-#ifdef Q_OS_WIN
-		// Windows translates AltGr into CTRL + ALT, this breaks using AltGr when the menubar is hidden
-		// Prevent this by activating the ALT cooldown to ignore the next key event which will be an ALT key
-		if (keyEvent->key() == Qt::Key_Control && keyEvent->modifiers() == Qt::AltModifier
-		    && config()->get(Config::GUI_HideMenubar).toBool())
-		{
-			m_altCoolDown.start();
-			return false;
-		}
-#endif
+
 		if (keyEvent->key() == Qt::Key_Alt && !keyEvent->modifiers() && config()->get(Config::GUI_HideMenubar).toBool()
 		    && !m_altCoolDown.isActive())
 		{

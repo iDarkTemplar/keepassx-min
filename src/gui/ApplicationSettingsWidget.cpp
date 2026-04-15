@@ -31,12 +31,6 @@
 
 #include "FileDialog.h"
 #include "MessageBox.h"
-#ifdef Q_OS_MACOS
-#include "touchid/TouchID.h"
-#endif
-#ifdef Q_CC_MSVC
-#include "winhello/WindowsHello.h"
-#endif
 
 class ApplicationSettingsWidget::ExtraPage
 {
@@ -246,12 +240,8 @@ void ApplicationSettingsWidget::loadSettings()
 	showExpiredEntriesOnDatabaseUnlockToggled(m_generalUi->showExpiredEntriesOnDatabaseUnlockCheckBox->isChecked());
 
 	m_generalUi->trayIconAppearance->clear();
-#if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
-	m_generalUi->trayIconAppearance->addItem(tr("Monochrome"), "monochrome");
-#else
 	m_generalUi->trayIconAppearance->addItem(tr("Monochrome (light)"), "monochrome-light");
 	m_generalUi->trayIconAppearance->addItem(tr("Monochrome (dark)"), "monochrome-dark");
-#endif
 	m_generalUi->trayIconAppearance->addItem(tr("Colorful"), "colorful");
 	int trayIconIndex = m_generalUi->trayIconAppearance->findData(icons()->trayIconAppearance());
 	if (trayIconIndex > 0)
@@ -271,13 +261,6 @@ void ApplicationSettingsWidget::loadSettings()
 	                                                  && config()->get(Config::Security_LockDatabaseMinimize).toBool());
 	m_secUi->lockDatabaseOnScreenLockCheckBox->setChecked(
 		config()->get(Config::Security_LockDatabaseScreenLock).toBool());
-#if defined(Q_OS_MACOS)
-	m_secUi->lockDatabasesOnUserSwitchCheckBox->setVisible(true);
-#else
-	m_secUi->lockDatabasesOnUserSwitchCheckBox->setVisible(false);
-#endif
-	m_secUi->lockDatabasesOnUserSwitchCheckBox->setChecked(
-		config()->get(Config::Security_LockDatabaseOnUserSwitch).toBool());
 
 	m_secUi->passwordsHiddenCheckBox->setChecked(config()->get(Config::Security_PasswordsHidden).toBool());
 	m_secUi->passwordShowDotsCheckBox->setChecked(config()->get(Config::Security_PasswordEmptyPlaceholder).toBool());
@@ -287,12 +270,7 @@ void ApplicationSettingsWidget::loadSettings()
 	m_secUi->hideNotesCheckBox->setChecked(config()->get(Config::Security_HideNotes).toBool());
 
 	bool quickUnlockAvailable = false;
-#if defined(Q_OS_MACOS)
-	quickUnlockAvailable = TouchID::getInstance().isAvailable();
-#elif defined(Q_CC_MSVC)
-	quickUnlockAvailable = getWindowsHello()->isAvailable();
-	connect(getWindowsHello(), &WindowsHello::availableChanged, m_secUi->quickUnlockCheckBox, &QCheckBox::setEnabled);
-#endif
+
 	m_secUi->quickUnlockCheckBox->setEnabled(quickUnlockAvailable);
 	m_secUi->quickUnlockCheckBox->setChecked(config()->get(Config::Security_QuickUnlock).toBool());
 
@@ -387,7 +365,6 @@ void ApplicationSettingsWidget::saveSettings()
 	config()->set(Config::Security_LockDatabaseIdleSeconds, m_secUi->lockDatabaseIdleSpinBox->value());
 	config()->set(Config::Security_LockDatabaseMinimize, m_secUi->lockDatabaseMinimizeCheckBox->isChecked());
 	config()->set(Config::Security_LockDatabaseScreenLock, m_secUi->lockDatabaseOnScreenLockCheckBox->isChecked());
-	config()->set(Config::Security_LockDatabaseOnUserSwitch, m_secUi->lockDatabasesOnUserSwitchCheckBox->isChecked());
 
 	config()->set(Config::Security_PasswordsHidden, m_secUi->passwordsHiddenCheckBox->isChecked());
 	config()->set(Config::Security_PasswordEmptyPlaceholder, m_secUi->passwordShowDotsCheckBox->isChecked());

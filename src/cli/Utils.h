@@ -38,7 +38,6 @@ namespace Utils
 	static const QStringList EntryFieldNames(QStringList() << UuidFieldName << TagsFieldName);
 
 	void setDefaultTextStreams();
-	void resetTextStreams();
 
 	void setStdinEcho(bool enable);
 	bool loadFileKey(const QString &path, QSharedPointer<FileKey> &fileKey);

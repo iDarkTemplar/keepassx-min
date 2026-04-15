@@ -23,9 +23,6 @@
 
 #include "core/Global.h"
 #include "core/Group.h"
-#ifdef Q_OS_MACOS
-#include "touchid/TouchID.h"
-#endif
 
 class ReportsDialog::ExtraPage
 {

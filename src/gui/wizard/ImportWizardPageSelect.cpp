@@ -193,7 +193,6 @@ void ImportWizardPageSelect::updateDatabaseChoices() const
 void ImportWizardPageSelect::chooseImportFile()
 {
 	QString file;
-#ifndef Q_OS_MACOS
 	// OPVault is a folder except on macOS
 	if (field("ImportType").toInt() == ImportWizard::IMPORT_OPVAULT)
 	{
@@ -201,11 +200,8 @@ void ImportWizardPageSelect::chooseImportFile()
 	}
 	else
 	{
-#endif
 		file = fileDialog()->getOpenFileName(this, tr("Select import file"), QDir::homePath(), importFileFilter());
-#ifndef Q_OS_MACOS
 	}
-#endif
 
 	if (!file.isEmpty())
 	{

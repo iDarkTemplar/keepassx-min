@@ -186,10 +186,6 @@ void EntryView::keyPressEvent(QKeyEvent *event)
 	if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) && currentIndex().isValid())
 	{
 		emitEntryActivated(currentIndex());
-#ifdef Q_OS_MACOS
-		// Pressing return does not emit the QTreeView::activated signal on mac os
-		emit activated(currentIndex());
-#endif
 	}
 
 	int last = m_model->rowCount() - 1;
