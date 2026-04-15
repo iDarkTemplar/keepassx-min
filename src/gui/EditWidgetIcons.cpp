@@ -27,9 +27,6 @@
 #include "gui/IconModels.h"
 #include "gui/Icons.h"
 #include "gui/MessageBox.h"
-#ifdef WITH_XC_NETWORKING
-#include "gui/IconDownloader.h"
-#endif
 
 #include <QKeyEvent>
 
@@ -47,9 +44,6 @@ EditWidgetIcons::EditWidgetIcons(QWidget *parent)
 	, m_applyIconTo(ApplyIconToOptions::THIS_ONLY)
 	, m_defaultIconModel(new DefaultIconModel(this))
 	, m_customIconModel(new CustomIconModel(this))
-#ifdef WITH_XC_NETWORKING
-	, m_downloader(new IconDownloader())
-#endif
 {
 	m_ui->setupUi(this);
 
@@ -64,7 +58,6 @@ EditWidgetIcons::EditWidgetIcons(QWidget *parent)
     connect(m_ui->defaultIconsRadio, SIGNAL(toggled(bool)), this, SLOT(updateWidgetsDefaultIcons(bool)));
     connect(m_ui->customIconsRadio, SIGNAL(toggled(bool)), this, SLOT(updateWidgetsCustomIcons(bool)));
     connect(m_ui->addButton, SIGNAL(clicked()), SLOT(addCustomIconFromFile()));
-    connect(m_ui->faviconButton, SIGNAL(clicked()), SLOT(downloadFavicon()));
     connect(m_ui->applyIconToPushButton->menu(), SIGNAL(triggered(QAction*)), SLOT(confirmApplyIconTo(QAction*)));
 
     connect(m_ui->defaultIconsRadio, SIGNAL(toggled(bool)), this, SIGNAL(widgetUpdated()));
@@ -72,17 +65,7 @@ EditWidgetIcons::EditWidgetIcons(QWidget *parent)
             this, SIGNAL(widgetUpdated()));
     connect(m_ui->customIconsView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             this, SIGNAL(widgetUpdated()));
-#ifdef WITH_XC_NETWORKING
-    connect(m_downloader.data(),
-            SIGNAL(finished(const QString&, const QImage&)),
-            SLOT(iconReceived(const QString&, const QImage&)));
-#endif
 	// clang-format on
-
-#ifndef WITH_XC_NETWORKING
-	m_ui->faviconButton->setVisible(false);
-	m_ui->faviconURL->setVisible(false);
-#endif
 }
 
 EditWidgetIcons::~EditWidgetIcons()
@@ -139,9 +122,10 @@ void EditWidgetIcons::load(const QUuid &currentUuid,
 	Q_ASSERT(database);
 	Q_ASSERT(!currentUuid.isNull());
 
+	Q_UNUSED(url); // TODO: remove
+
 	m_db = database;
 	m_currentUuid = currentUuid;
-	setUrl(url);
 
 	m_customIconModel->setIcons(Icons::customIconsPixmaps(database.data(), IconSize::Default),
 	                            database->metadata()->customIconsOrder());
@@ -191,84 +175,6 @@ QMenu *EditWidgetIcons::createApplyIconToMenu()
 	applyIconToMenu->addAction(tr("Also apply to all children"))
 		->setData(QVariant::fromValue(ApplyIconToOptions::ALL_CHILDREN));
 	return applyIconToMenu;
-}
-
-void EditWidgetIcons::keyPressEvent(QKeyEvent *event)
-{
-	if (m_ui->faviconURL->hasFocus() && (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
-	{
-		m_ui->faviconButton->animateClick();
-	}
-	else
-	{
-		QWidget::keyPressEvent(event);
-	}
-}
-
-void EditWidgetIcons::setUrl(const QString &url)
-{
-#ifdef WITH_XC_NETWORKING
-	QUrl urlCheck(url);
-	if (urlCheck.scheme().startsWith("http"))
-	{
-		m_ui->faviconURL->setText(urlCheck.url(QUrl::RemovePath | QUrl::RemoveQuery | QUrl::RemoveFragment));
-		m_ui->faviconURL->setCursorPosition(0);
-	}
-	else
-	{
-		m_ui->faviconURL->setText("");
-	}
-#else
-	Q_UNUSED(url);
-#endif
-}
-
-void EditWidgetIcons::downloadFavicon()
-{
-#ifdef WITH_XC_NETWORKING
-	auto url = m_ui->faviconURL->text();
-	if (!url.isEmpty())
-	{
-		m_downloader->setUrl(url);
-		m_downloader->download();
-	}
-#endif
-}
-
-void EditWidgetIcons::iconReceived(const QString &url, const QImage &icon)
-{
-#ifdef WITH_XC_NETWORKING
-	Q_UNUSED(url);
-	if (icon.isNull())
-	{
-		QString message(tr("Unable to fetch favicon."));
-		if (!config()->get(Config::Security_IconDownloadFallback).toBool())
-		{
-			message.append("\n").append(
-				tr("You can enable the DuckDuckGo website icon service under Application Settings -> Security"));
-		}
-		emit messageEditEntry(message, MessageWidget::Error);
-		return;
-	}
-
-	if (!addCustomIcon(icon))
-	{
-		emit messageEditEntry(tr("Existing icon selected."), MessageWidget::Information);
-	}
-#else
-	Q_UNUSED(url);
-	Q_UNUSED(icon);
-#endif
-}
-
-void EditWidgetIcons::abortRequests()
-{
-#ifdef WITH_XC_NETWORKING
-	if (m_downloader)
-	{
-		m_downloader->abortDownload();
-	}
-#endif
 }
 
 void EditWidgetIcons::addCustomIconFromFile()

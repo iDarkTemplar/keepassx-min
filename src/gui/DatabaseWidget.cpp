@@ -55,10 +55,6 @@
 #include "gui/tag/TagView.h"
 #include "gui/widgets/ElidedLabel.h"
 
-#ifdef WITH_XC_NETWORKING
-#include "gui/IconDownloaderDialog.h"
-#endif
-
 DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	: QStackedWidget(parent)
 	, m_db(std::move(db))
@@ -952,61 +948,6 @@ void DatabaseWidget::openUrl()
 	{
 		openUrlForEntry(currentEntry);
 	}
-}
-
-void DatabaseWidget::downloadSelectedFavicons()
-{
-#ifdef WITH_XC_NETWORKING
-	QList<Entry *> selectedEntries;
-	for (const auto &index: m_entryView->selectionModel()->selectedRows())
-	{
-		selectedEntries.append(m_entryView->entryFromIndex(index));
-	}
-
-	// Force download even if icon already exists
-	performIconDownloads(selectedEntries, true);
-#endif
-}
-
-void DatabaseWidget::downloadAllFavicons()
-{
-#ifdef WITH_XC_NETWORKING
-	auto currentGroup = m_groupView->currentGroup();
-	if (currentGroup)
-	{
-		performIconDownloads(currentGroup->entries());
-	}
-#endif
-}
-
-void DatabaseWidget::downloadFaviconInBackground(Entry *entry)
-{
-#ifdef WITH_XC_NETWORKING
-	performIconDownloads({entry}, true, true);
-#else
-	Q_UNUSED(entry);
-#endif
-}
-
-void DatabaseWidget::performIconDownloads(const QList<Entry *> &entries, bool force, bool downloadInBackground)
-{
-#ifdef WITH_XC_NETWORKING
-	auto *iconDownloaderDialog = new IconDownloaderDialog(this);
-	connect(this, SIGNAL(databaseLockRequested()), iconDownloaderDialog, SLOT(close()));
-
-	if (downloadInBackground && entries.count() > 0)
-	{
-		iconDownloaderDialog->downloadFaviconInBackground(m_db, entries.first());
-	}
-	else
-	{
-		iconDownloaderDialog->downloadFavicons(m_db, entries, force);
-	}
-#else
-	Q_UNUSED(entries);
-	Q_UNUSED(force);
-	Q_UNUSED(downloadInBackground);
-#endif
 }
 
 void DatabaseWidget::openUrlForEntry(Entry *entry)

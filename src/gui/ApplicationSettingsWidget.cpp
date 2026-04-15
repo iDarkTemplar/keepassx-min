@@ -130,17 +130,10 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
 	// Disable mouse wheel grab when scrolling
 	// This prevents combo box and spinner values from changing without explicit focus
 	auto mouseWheelFilter = new MouseWheelEventFilter(this);
-	m_generalUi->faviconTimeoutSpinBox->installEventFilter(mouseWheelFilter);
 	m_generalUi->toolButtonStyleComboBox->installEventFilter(mouseWheelFilter);
 	m_generalUi->languageComboBox->installEventFilter(mouseWheelFilter);
 	m_generalUi->trayIconAppearance->installEventFilter(mouseWheelFilter);
 	m_generalUi->fontSizeComboBox->installEventFilter(mouseWheelFilter);
-
-#ifndef WITH_XC_NETWORKING
-	m_secUi->privacy->setVisible(false);
-	m_generalUi->faviconTimeoutLabel->setVisible(false);
-	m_generalUi->faviconTimeoutSpinBox->setVisible(false);
-#endif
 }
 
 ApplicationSettingsWidget::~ApplicationSettingsWidget()
@@ -195,7 +188,6 @@ void ApplicationSettingsWidget::loadSettings()
 	m_generalUi->autoTypeEntryTitleMatchCheckBox->setChecked(config()->get(Config::AutoTypeEntryTitleMatch).toBool());
 	m_generalUi->autoTypeEntryURLMatchCheckBox->setChecked(config()->get(Config::AutoTypeEntryURLMatch).toBool());
 	m_generalUi->autoTypeHideExpiredEntryCheckBox->setChecked(config()->get(Config::AutoTypeHideExpiredEntry).toBool());
-	m_generalUi->faviconTimeoutSpinBox->setValue(config()->get(Config::FaviconDownloadTimeout).toInt());
 	m_generalUi->ConfirmMoveEntryToRecycleBinCheckBox->setChecked(
 		!config()->get(Config::Security_NoConfirmMoveEntryToRecycleBin).toBool());
 	m_generalUi->EnableCopyOnDoubleClickCheckBox->setChecked(
@@ -318,7 +310,6 @@ void ApplicationSettingsWidget::loadSettings()
 #endif
 	m_secUi->lockDatabasesOnUserSwitchCheckBox->setChecked(
 		config()->get(Config::Security_LockDatabaseOnUserSwitch).toBool());
-	m_secUi->fallbackToSearch->setChecked(config()->get(Config::Security_IconDownloadFallback).toBool());
 
 	m_secUi->passwordsHiddenCheckBox->setChecked(config()->get(Config::Security_PasswordsHidden).toBool());
 	m_secUi->passwordShowDotsCheckBox->setChecked(config()->get(Config::Security_PasswordEmptyPlaceholder).toBool());
@@ -385,7 +376,6 @@ void ApplicationSettingsWidget::saveSettings()
 	config()->set(Config::AutoTypeEntryTitleMatch, m_generalUi->autoTypeEntryTitleMatchCheckBox->isChecked());
 	config()->set(Config::AutoTypeEntryURLMatch, m_generalUi->autoTypeEntryURLMatchCheckBox->isChecked());
 	config()->set(Config::AutoTypeHideExpiredEntry, m_generalUi->autoTypeHideExpiredEntryCheckBox->isChecked());
-	config()->set(Config::FaviconDownloadTimeout, m_generalUi->faviconTimeoutSpinBox->value());
 	config()->set(Config::Security_NoConfirmMoveEntryToRecycleBin,
 	              !m_generalUi->ConfirmMoveEntryToRecycleBinCheckBox->isChecked());
 	config()->set(Config::Security_EnableCopyOnDoubleClick, m_generalUi->EnableCopyOnDoubleClickCheckBox->isChecked());
@@ -447,7 +437,6 @@ void ApplicationSettingsWidget::saveSettings()
 	config()->set(Config::Security_LockDatabaseMinimize, m_secUi->lockDatabaseMinimizeCheckBox->isChecked());
 	config()->set(Config::Security_LockDatabaseScreenLock, m_secUi->lockDatabaseOnScreenLockCheckBox->isChecked());
 	config()->set(Config::Security_LockDatabaseOnUserSwitch, m_secUi->lockDatabasesOnUserSwitchCheckBox->isChecked());
-	config()->set(Config::Security_IconDownloadFallback, m_secUi->fallbackToSearch->isChecked());
 
 	config()->set(Config::Security_PasswordsHidden, m_secUi->passwordsHiddenCheckBox->isChecked());
 	config()->set(Config::Security_PasswordEmptyPlaceholder, m_secUi->passwordShowDotsCheckBox->isChecked());

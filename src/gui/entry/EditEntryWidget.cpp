@@ -162,18 +162,6 @@ void EditEntryWidget::setupMain()
 	m_usernameCompleter->setModel(m_usernameCompleterModel);
 	m_mainUi->usernameComboBox->setCompleter(m_usernameCompleter);
 
-#ifdef WITH_XC_NETWORKING
-	m_mainUi->fetchFaviconButton->setIcon(icons()->icon("favicon-download"));
-	m_mainUi->fetchFaviconButton->setDisabled(true);
-#else
-	m_mainUi->fetchFaviconButton->setVisible(false);
-#endif
-
-#ifdef WITH_XC_NETWORKING
-	connect(m_mainUi->fetchFaviconButton, SIGNAL(clicked()), m_iconsWidget, SLOT(downloadFavicon()));
-	connect(m_mainUi->urlEdit, SIGNAL(textChanged(QString)), m_iconsWidget, SLOT(setUrl(QString)));
-	m_mainUi->urlEdit->enableVerifyMode();
-#endif
 	connect(m_mainUi->expireCheck, &QCheckBox::toggled, [&](bool enabled) {
 		m_mainUi->expireDatePicker->setEnabled(enabled);
 		if (enabled)
@@ -306,9 +294,6 @@ void EditEntryWidget::setupEntryUpdate()
 	connect(m_mainUi->usernameComboBox->lineEdit(), SIGNAL(textChanged(QString)), this, SLOT(setModified()));
 	connect(m_mainUi->passwordEdit, SIGNAL(textChanged(QString)), this, SLOT(setModified()));
 	connect(m_mainUi->urlEdit, SIGNAL(textChanged(QString)), this, SLOT(setModified()));
-#ifdef WITH_XC_NETWORKING
-	connect(m_mainUi->urlEdit, SIGNAL(textChanged(QString)), this, SLOT(updateFaviconButtonEnable(QString)));
-#endif
 	connect(m_mainUi->tagsList, SIGNAL(tagsEdited()), this, SLOT(setModified()));
 	connect(m_mainUi->expireCheck, SIGNAL(stateChanged(int)), this, SLOT(setModified()));
 	connect(m_mainUi->expireDatePicker, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(setModified()));
@@ -836,13 +821,6 @@ void EditEntryWidget::clear()
 	m_iconsWidget->reset();
 	hideMessage();
 }
-
-#ifdef WITH_XC_NETWORKING
-void EditEntryWidget::updateFaviconButtonEnable(const QString &url)
-{
-	m_mainUi->fetchFaviconButton->setDisabled(url.isEmpty());
-}
-#endif
 
 void EditEntryWidget::insertAttribute()
 {

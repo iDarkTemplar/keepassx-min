@@ -27,9 +27,6 @@
 class Database;
 class DefaultIconModel;
 class CustomIconModel;
-#ifdef WITH_XC_NETWORKING
-class IconDownloader;
-#endif
 
 namespace Ui
 {
@@ -71,21 +68,12 @@ public:
 	          const QString &url = "");
 	void setShowApplyIconToButton(bool state);
 
-protected:
-	void keyPressEvent(QKeyEvent *event) override;
-
-public slots:
-	void setUrl(const QString &url);
-	void abortRequests();
-
 signals:
 	void messageEditEntry(QString, MessageWidget::MessageType);
 	void messageEditEntryDismiss();
 	void widgetUpdated();
 
 private slots:
-	void downloadFavicon();
-	void iconReceived(const QString &url, const QImage &icon);
 	void addCustomIconFromFile();
 	bool addCustomIcon(const QImage &icon, const QString &name = {});
 	void updateWidgetsDefaultIcons(bool checked);
@@ -103,9 +91,6 @@ private:
 	ApplyIconToOptions m_applyIconTo;
 	DefaultIconModel *const m_defaultIconModel;
 	CustomIconModel *const m_customIconModel;
-#ifdef WITH_XC_NETWORKING
-	QSharedPointer<IconDownloader> m_downloader;
-#endif
 
 	Q_DISABLE_COPY(EditWidgetIcons)
 };

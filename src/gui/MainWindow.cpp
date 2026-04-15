@@ -132,7 +132,6 @@ MainWindow::MainWindow()
 	m_entryContextMenu->addAction(m_ui->actionEntryMoveDown);
 	m_entryContextMenu->addSeparator();
 	m_entryContextMenu->addAction(m_ui->actionEntryOpenUrl);
-	m_entryContextMenu->addAction(m_ui->actionEntryDownloadIcon);
 
 	m_entryNewContextMenu = new QMenu(this);
 	m_entryNewContextMenu->addAction(m_ui->actionEntryNew);
@@ -244,7 +243,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryDelete->setShortcut(Qt::Key_Delete);
 	m_ui->actionEntryClone->setShortcut(Qt::CTRL + Qt::Key_K);
 	m_ui->actionEntryTotp->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_T);
-	m_ui->actionEntryDownloadIcon->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_D);
 	m_ui->actionEntryCopyTotp->setShortcut(Qt::CTRL + Qt::Key_T);
 	m_ui->actionEntryCopyPasswordTotp->setShortcut(Qt::CTRL + Qt::Key_Y);
 	m_ui->actionEntryMoveUp->setShortcut(Qt::CTRL + Qt::ALT + Qt::Key_Up);
@@ -266,7 +264,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryRestore->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryClone->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryTotp->setShortcutVisibleInContextMenu(true);
-	m_ui->actionEntryDownloadIcon->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyTotp->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyPasswordTotp->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryMoveUp->setShortcutVisibleInContextMenu(true);
@@ -371,7 +368,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryTotpQRCode->setIcon(icons()->icon("qrcode"));
 	m_ui->actionEntrySetupTotp->setIcon(icons()->icon("totp-edit"));
 	m_ui->menuTags->setIcon(icons()->icon("tag-multiple"));
-	m_ui->actionEntryDownloadIcon->setIcon(icons()->icon("favicon-download"));
 	m_ui->actionGroupSortAsc->setIcon(icons()->icon("sort-alphabetical-ascending"));
 	m_ui->actionGroupSortDesc->setIcon(icons()->icon("sort-alphabetical-descending"));
 
@@ -381,7 +377,6 @@ MainWindow::MainWindow()
 	m_ui->actionGroupDelete->setIcon(icons()->icon("group-delete"));
 	m_ui->actionGroupEmptyRecycleBin->setIcon(icons()->icon("group-empty-trash"));
 	m_ui->actionEntryOpenUrl->setIcon(icons()->icon("web"));
-	m_ui->actionGroupDownloadFavicons->setIcon(icons()->icon("favicon-download"));
 
 	m_ui->actionSettings->setIcon(icons()->icon("configure"));
 	m_ui->actionPasswordGenerator->setIcon(icons()->icon("password-generator"));
@@ -480,7 +475,6 @@ MainWindow::MainWindow()
 	m_actionMultiplexer.connect(
 		m_ui->actionEntryAutoTypeURLEnter, SIGNAL(triggered()), SLOT(performAutoTypeURLEnter()));
 	m_actionMultiplexer.connect(m_ui->actionEntryOpenUrl, SIGNAL(triggered()), SLOT(openUrl()));
-	m_actionMultiplexer.connect(m_ui->actionEntryDownloadIcon, SIGNAL(triggered()), SLOT(downloadSelectedFavicons()));
 	m_actionMultiplexer.connect(m_ui->actionGroupNew, SIGNAL(triggered()), SLOT(createGroup()));
 	m_actionMultiplexer.connect(m_ui->actionGroupEdit, SIGNAL(triggered()), SLOT(switchToGroupEdit()));
 	m_actionMultiplexer.connect(m_ui->actionGroupClone, SIGNAL(triggered()), SLOT(cloneGroup()));
@@ -488,7 +482,6 @@ MainWindow::MainWindow()
 	m_actionMultiplexer.connect(m_ui->actionGroupEmptyRecycleBin, SIGNAL(triggered()), SLOT(emptyRecycleBin()));
 	m_actionMultiplexer.connect(m_ui->actionGroupSortAsc, SIGNAL(triggered()), SLOT(sortGroupsAsc()));
 	m_actionMultiplexer.connect(m_ui->actionGroupSortDesc, SIGNAL(triggered()), SLOT(sortGroupsDesc()));
-	m_actionMultiplexer.connect(m_ui->actionGroupDownloadFavicons, SIGNAL(triggered()), SLOT(downloadAllFavicons()));
 
 	connect(m_ui->actionSettings, SIGNAL(toggled(bool)), SLOT(switchToSettings(bool)));
 	connect(m_ui->actionPasswordGenerator, SIGNAL(toggled(bool)), SLOT(togglePasswordGenerator(bool)));
@@ -519,11 +512,6 @@ MainWindow::MainWindow()
 
 #ifdef Q_OS_MACOS
 	setUnifiedTitleAndToolBarOnMac(true);
-#endif
-
-#ifndef WITH_XC_NETWORKING
-	m_ui->actionGroupDownloadFavicons->setVisible(false);
-	m_ui->actionEntryDownloadIcon->setVisible(false);
 #endif
 
 	// clang-format off
@@ -869,7 +857,6 @@ void MainWindow::updateMenuActionState()
 	// Group State
 	bool groupSelected = (inDatabase && dbWidget->isGroupSelected());
 	bool groupHasChildren = (groupSelected && dbWidget->currentGroup()->hasChildren());
-	bool groupHasEntries = (groupSelected && !dbWidget->currentGroup()->entries().isEmpty());
 	bool inRecycleBin = (inDatabase && dbWidget->isRecycleBinSelected());
 
 	bool entryViewSorted = (inDatabase && dbWidget->isSorted());
@@ -953,8 +940,6 @@ void MainWindow::updateMenuActionState()
 	m_ui->actionEntryCopyPasswordTotp->setEnabled(singleEntrySelected && dbWidget->currentEntryHasTotp());
 	m_ui->actionEntrySetupTotp->setEnabled(singleEntrySelected);
 	m_ui->actionEntryTotpQRCode->setEnabled(singleEntrySelected && dbWidget->currentEntryHasTotp());
-	m_ui->actionEntryDownloadIcon->setEnabled((multiEntrySelected && !singleEntrySelected)
-	                                          || (singleEntrySelected && dbWidget->currentEntryHasUrl()));
 	m_ui->actionGroupNew->setEnabled(groupSelected && !inRecycleBin);
 	m_ui->actionGroupEdit->setEnabled(groupSelected);
 	m_ui->actionGroupClone->setEnabled(groupSelected && dbWidget->canCloneCurrentGroup());
@@ -965,10 +950,6 @@ void MainWindow::updateMenuActionState()
 	m_ui->actionGroupSortDesc->setEnabled(groupHasChildren);
 	m_ui->actionGroupEmptyRecycleBin->setVisible(inRecycleBin);
 	m_ui->actionGroupEmptyRecycleBin->setEnabled(inRecycleBin);
-#ifdef WITH_XC_NETWORKING
-	m_ui->actionGroupDownloadFavicons->setVisible(!inRecycleBin);
-#endif
-	m_ui->actionGroupDownloadFavicons->setEnabled(groupSelected && groupHasEntries && !inRecycleBin);
 
 	// Database Menu
 	m_ui->actionDatabaseSave->setEnabled(databaseUnlocked && m_ui->tabWidget->canSave());

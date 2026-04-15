@@ -26,7 +26,6 @@ class Entry;
 class Group;
 class QTabWidget;
 class ReportsPageHealthcheck;
-class ReportsPageHibp;
 class ReportsPageStatistics;
 
 namespace Ui
@@ -71,7 +70,6 @@ private:
 	QSharedPointer<Database> m_db;
 	const QScopedPointer<Ui::ReportsDialog> m_ui;
 	const QSharedPointer<ReportsPageHealthcheck> m_healthPage;
-	const QSharedPointer<ReportsPageHibp> m_hibpPage;
 	const QSharedPointer<ReportsPageStatistics> m_statPage;
 	QPointer<EditEntryWidget> m_editEntryWidget;
 	QWidget *m_sender = nullptr;

@@ -201,9 +201,6 @@ public slots:
 	void performAutoTypeURLEnter();
 	void setClipboardTextAndMinimize(const QString &text);
 	void openUrl();
-	void downloadSelectedFavicons();
-	void downloadAllFavicons();
-	void downloadFaviconInBackground(Entry *entry);
 	void openUrlForEntry(Entry *entry);
 	void createGroup();
 	void cloneGroup();
@@ -271,7 +268,6 @@ private:
 	int addChildWidget(QWidget *w);
 	void processAutoOpen();
 	void openDatabaseFromEntry(const Entry *entry, bool inBackground = true);
-	void performIconDownloads(const QList<Entry *> &entries, bool force = false, bool downloadInBackground = false);
 	bool performSave(QString &errorMessage, const QString &fileName = {});
 
 	QSharedPointer<Database> m_db;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>316</height>
+    <width>446</width>
+    <height>272</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -33,35 +33,35 @@
    <item>
     <widget class="QListView" name="defaultIconsView">
      <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
+      <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
      </property>
      <property name="movement">
-      <enum>QListView::Static</enum>
+      <enum>QListView::Movement::Static</enum>
      </property>
      <property name="flow">
-      <enum>QListView::LeftToRight</enum>
+      <enum>QListView::Flow::LeftToRight</enum>
      </property>
      <property name="isWrapping" stdset="0">
       <bool>true</bool>
      </property>
      <property name="resizeMode">
-      <enum>QListView::Adjust</enum>
+      <enum>QListView::ResizeMode::Adjust</enum>
      </property>
      <property name="spacing">
       <number>4</number>
      </property>
      <property name="viewMode">
-      <enum>QListView::ListMode</enum>
+      <enum>QListView::ViewMode::ListMode</enum>
      </property>
     </widget>
    </item>
    <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
+      <enum>QSizePolicy::Policy::Fixed</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -81,30 +81,30 @@
    <item>
     <widget class="QListView" name="customIconsView">
      <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
+      <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
      </property>
      <property name="movement">
-      <enum>QListView::Static</enum>
+      <enum>QListView::Movement::Static</enum>
      </property>
      <property name="flow">
-      <enum>QListView::LeftToRight</enum>
+      <enum>QListView::Flow::LeftToRight</enum>
      </property>
      <property name="isWrapping" stdset="0">
       <bool>true</bool>
      </property>
      <property name="resizeMode">
-      <enum>QListView::Adjust</enum>
+      <enum>QListView::ResizeMode::Adjust</enum>
      </property>
      <property name="spacing">
       <number>4</number>
      </property>
      <property name="viewMode">
-      <enum>QListView::ListMode</enum>
+      <enum>QListView::ViewMode::ListMode</enum>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="customIconButtonsHorizontalLayout" stretch="0,0,0,0">
+    <layout class="QHBoxLayout" name="applyToChildrenHorizontalLayout" stretch="0,0,0">
      <item>
       <widget class="QPushButton" name="addButton">
        <property name="text">
@@ -113,55 +113,9 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="faviconURL">
-       <property name="minimumSize">
-        <size>
-         <width>200</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>Set the URL to use to search for a favicon</string>
-       </property>
-       <property name="placeholderText">
-        <string>Favicon URL</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="faviconButton">
-       <property name="toolTip">
-        <string>Download favicon for URL</string>
-       </property>
-       <property name="accessibleName">
-        <string>Download favicon for URL</string>
-       </property>
-       <property name="text">
-        <string>Download favicon</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="applyToChildrenHorizontalLayout" stretch="0,0">
-     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -202,9 +156,6 @@
   <tabstop>defaultIconsView</tabstop>
   <tabstop>customIconsRadio</tabstop>
   <tabstop>customIconsView</tabstop>
-  <tabstop>addButton</tabstop>
-  <tabstop>faviconURL</tabstop>
-  <tabstop>faviconButton</tabstop>
   <tabstop>applyIconToPushButton</tabstop>
  </tabstops>
  <resources/>

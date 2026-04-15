@@ -91,9 +91,6 @@ private slots:
 	void acceptEntry();
 	bool commitEntry();
 	void cancel();
-#ifdef WITH_XC_NETWORKING
-	void updateFaviconButtonEnable(const QString &url);
-#endif
 	void insertAttribute();
 	void editCurrentAttribute();
 	void removeCurrentAttribute();

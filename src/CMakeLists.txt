@@ -316,10 +316,6 @@ set(keepassx_SOURCES
         gui/reports/ReportsWidgetHealthcheck.h
         gui/reports/ReportsPageHealthcheck.cpp
         gui/reports/ReportsPageHealthcheck.h
-        gui/reports/ReportsWidgetHibp.cpp
-        gui/reports/ReportsWidgetHibp.h
-        gui/reports/ReportsPageHibp.cpp
-        gui/reports/ReportsPageHibp.h
         gui/reports/ReportsWidgetStatistics.cpp
         gui/reports/ReportsWidgetStatistics.h
         gui/reports/ReportsPageStatistics.cpp
@@ -445,7 +441,6 @@ set(keepassx_UI
 	gui/reports/ReportsDialog.ui
 	gui/reports/ReportsWidgetBrowserStatistics.ui
 	gui/reports/ReportsWidgetHealthcheck.ui
-	gui/reports/ReportsWidgetHibp.ui
 	gui/reports/ReportsWidgetPasskeys.ui
 	gui/reports/ReportsWidgetStatistics.ui
 	gui/wizard/ImportWizardPageReview.ui
@@ -509,16 +504,6 @@ else()
     list(APPEND keepassx_SOURCES
         keys/drivers/YubiKey.h
         keys/drivers/YubiKeyStub.cpp)
-endif()
-
-if(WITH_XC_NETWORKING)
-    list(APPEND keepassx_SOURCES
-            core/HibpDownloader.cpp
-            core/NetworkManager.cpp
-            gui/UpdateCheckDialog.cpp
-            gui/IconDownloader.cpp
-            gui/IconDownloaderDialog.cpp
-            updatecheck/UpdateChecker.cpp)
 endif()
 
 configure_file(config-keepassx.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-keepassx.h)

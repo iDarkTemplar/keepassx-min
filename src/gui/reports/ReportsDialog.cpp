@@ -18,10 +18,8 @@
 #include "ui_ReportsDialog.h"
 
 #include "ReportsPageHealthcheck.h"
-#include "ReportsPageHibp.h"
 #include "ReportsPageStatistics.h"
 #include "ReportsWidgetHealthcheck.h"
-#include "ReportsWidgetHibp.h"
 
 #include "core/Global.h"
 #include "core/Group.h"
@@ -55,7 +53,6 @@ ReportsDialog::ReportsDialog(QWidget *parent)
 	: DialogyWidget(parent)
 	, m_ui(new Ui::ReportsDialog())
 	, m_healthPage(new ReportsPageHealthcheck())
-	, m_hibpPage(new ReportsPageHibp())
 	, m_statPage(new ReportsPageStatistics())
 	, m_editEntryWidget(new EditEntryWidget(this))
 {
@@ -64,7 +61,6 @@ ReportsDialog::ReportsDialog(QWidget *parent)
 	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(reject()));
 	addPage(m_statPage);
 	addPage(m_healthPage);
-	addPage(m_hibpPage);
 
 	m_ui->stackedWidget->setCurrentIndex(0);
 
@@ -76,7 +72,6 @@ ReportsDialog::ReportsDialog(QWidget *parent)
 	connect(m_ui->categoryList, SIGNAL(categoryChanged(int)), m_ui->stackedWidget, SLOT(setCurrentIndex(int)));
 	connect(
 		m_healthPage->m_healthWidget, SIGNAL(entryActivated(Entry *)), SLOT(entryActivationSignalReceived(Entry *)));
-	connect(m_hibpPage->m_hibpWidget, SIGNAL(entryActivated(Entry *)), SLOT(entryActivationSignalReceived(Entry *)));
 	connect(m_editEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
 }
 
@@ -135,10 +130,6 @@ void ReportsDialog::switchToMainView(bool previousDialogAccepted)
 		if (m_sender == m_healthPage->m_healthWidget)
 		{
 			m_healthPage->m_healthWidget->calculateHealth();
-		}
-		else if (m_sender == m_hibpPage->m_hibpWidget)
-		{
-			m_hibpPage->m_hibpWidget->refreshAfterEdit();
 		}
 	}
 
