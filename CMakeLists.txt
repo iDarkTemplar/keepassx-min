@@ -363,8 +363,6 @@ endif()
 
 # Process moc automatically
 set(CMAKE_AUTOMOC ON)
-# Process .ui files automatically
-set(CMAKE_AUTOUIC ON)
 # Process .qrc files automatically
 set(CMAKE_AUTORCC ON)
 

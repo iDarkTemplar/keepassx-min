@@ -1,6 +1,14 @@
 if(WITH_XC_FDOSECRETS)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
+	set(fdo_UI
+		widgets/AccessControlDialog.ui
+		widgets/DatabaseSettingsWidgetFdoSecrets.ui
+		widgets/SettingsWidgetFdoSecrets.ui
+		)
+
+	qt_wrap_ui(fdo_UI_CPP ${fdo_UI})
+
     add_library(fdosecrets STATIC
         # app settings page
         FdoSecretsPlugin.cpp
@@ -46,6 +54,7 @@ if(WITH_XC_FDOSECRETS)
         objects/Prompt.h
         dbus/DBusTypes.cpp
         dbus/DBusTypes.h
+		${fdo_UI_CPP}
     )
     target_link_libraries(fdosecrets Qt5::Core Qt5::Widgets Qt5::DBus ${BOTAN_LIBRARIES})
 endif()

@@ -393,6 +393,66 @@ qt5_add_dbus_adaptor(keepassx_SOURCES
         gui/MainWindow.h
         MainWindow)
 
+set(keepassx_UI
+	gui/AboutDialog.ui
+	gui/ApplicationSettingsWidgetGeneral.ui
+	gui/ApplicationSettingsWidgetSecurity.ui
+	gui/CategoryListWidget.ui
+	gui/CloneDialog.ui
+	gui/DatabaseOpenWidget.ui
+	gui/EditWidget.ui
+	gui/EditWidgetIcons.ui
+	gui/EditWidgetProperties.ui
+	gui/EntryPreviewWidget.ui
+	gui/IconDownloaderDialog.ui
+	gui/MainWindow.ui
+	gui/MergeDialog.ui
+	gui/PasswordGeneratorWidget.ui
+	gui/PasswordWidget.ui
+	gui/SearchHelpWidget.ui
+	gui/SearchWidget.ui
+	gui/TotpDialog.ui
+	gui/TotpSetupDialog.ui
+	gui/UpdateCheckDialog.ui
+	gui/WelcomeWidget.ui
+	gui/csvImport/CsvImportWidget.ui
+	gui/databasekey/KeyComponentWidget.ui
+	gui/databasekey/KeyFileEditWidget.ui
+	gui/databasekey/PasswordEditWidget.ui
+	gui/databasekey/YubiKeyEditWidget.ui
+	gui/dbsettings/DatabaseSettingsWidgetBrowser.ui
+	gui/dbsettings/DatabaseSettingsWidgetEncryption.ui
+	gui/dbsettings/DatabaseSettingsWidgetGeneral.ui
+	gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui
+	gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.ui
+	gui/entry/EditEntryAttachmentsDialog.ui
+	gui/entry/EditEntryWidgetAdvanced.ui
+	gui/entry/EditEntryWidgetAutoType.ui
+	gui/entry/EditEntryWidgetBrowser.ui
+	gui/entry/EditEntryWidgetHistory.ui
+	gui/entry/EditEntryWidgetMain.ui
+	gui/entry/EditEntryWidgetSSHAgent.ui
+	gui/entry/EntryAttachmentsWidget.ui
+	gui/entry/PreviewEntryAttachmentsDialog.ui
+	gui/entry/attachments/ImageAttachmentsWidget.ui
+	gui/entry/attachments/TextAttachmentsEditWidget.ui
+	gui/entry/attachments/TextAttachmentsPreviewWidget.ui
+	gui/export/ExportDialog.ui
+	gui/group/EditGroupWidgetBrowser.ui
+	gui/group/EditGroupWidgetMain.ui
+	gui/passkeys/PasskeyExportDialog.ui
+	gui/passkeys/PasskeyImportDialog.ui
+	gui/reports/ReportsDialog.ui
+	gui/reports/ReportsWidgetBrowserStatistics.ui
+	gui/reports/ReportsWidgetHealthcheck.ui
+	gui/reports/ReportsWidgetHibp.ui
+	gui/reports/ReportsWidgetPasskeys.ui
+	gui/reports/ReportsWidgetStatistics.ui
+	gui/wizard/ImportWizardPageReview.ui
+	gui/wizard/ImportWizardPageSelect.ui
+	gui/wizard/NewDatabaseWizardPage.ui
+	)
+
 if(WITH_XC_YUBIKEY)
     set(keepassx_SOURCES ${keepassx_SOURCES} gui/osutils/DeviceListener.cpp)
     if(APPLE)
@@ -443,6 +503,11 @@ if(WITH_XC_FDOSECRETS)
     set(fdosecrets_LIB fdosecrets)
 endif()
 
+set(autotype_UI
+	autotype/AutoTypeSelectDialog.ui
+	autotype/PickcharsDialog.ui
+	)
+
 set(autotype_SOURCES
         core/Tools.cpp
         autotype/AutoType.cpp
@@ -480,10 +545,13 @@ endif()
 configure_file(config-keepassx.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-keepassx.h)
 configure_file(git-info.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/git-info.h)
 
-add_library(autotype STATIC ${autotype_SOURCES})
+qt_wrap_ui(keepassx_UI_CPP ${keepassx_UI})
+qt_wrap_ui(autotype_UI_CPP ${autotype_UI})
+
+add_library(autotype STATIC ${autotype_SOURCES} ${autotype_UI_CPP})
 target_link_libraries(autotype Qt5::Core Qt5::Widgets)
 
-add_library(keepassx_core STATIC ${keepassx_SOURCES})
+add_library(keepassx_core STATIC ${keepassx_SOURCES} ${keepassx_UI_CPP})
 
 target_include_directories(keepassx_core SYSTEM PRIVATE ${ZXCVBN_INCLUDE_DIR})
 set_target_properties(keepassx_core PROPERTIES COMPILE_DEFINITIONS KEEPASSX_BUILDING_CORE)
