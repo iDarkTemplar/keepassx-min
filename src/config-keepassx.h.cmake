@@ -12,7 +12,6 @@
 #define KEEPASSX_PLUGIN_DIR "@PLUGIN_INSTALL_DIR@"
 #define KEEPASSX_DATA_DIR "@DATA_INSTALL_DIR@"
 
-#cmakedefine WITH_XC_AUTOTYPE
 #cmakedefine WITH_XC_FDOSECRETS
 #cmakedefine WITH_XC_X11
 #cmakedefine WITH_XC_BOTAN3

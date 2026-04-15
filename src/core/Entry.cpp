@@ -36,29 +36,23 @@ const int Entry::DefaultIconNumber = 0;
 namespace
 {
 	const int ResolveMaximumDepth = 10;
-	const QString AutoTypeSequenceUsername = "{USERNAME}{ENTER}";
-	const QString AutoTypeSequencePassword = "{PASSWORD}{ENTER}";
 	const QRegularExpression TagDelimiterRegex(R"([,;\t])");
 } // namespace
 
 Entry::Entry()
 	: m_attributes(new EntryAttributes(this))
 	, m_attachments(new EntryAttachments(this))
-	, m_autoTypeAssociations(new AutoTypeAssociations(this))
 	, m_customData(new CustomData(this))
 	, m_modifiedSinceBegin(false)
 	, m_updateTimeinfo(true)
 {
 	m_data.iconNumber = DefaultIconNumber;
-	m_data.autoTypeEnabled = true;
-	m_data.autoTypeObfuscation = 0;
 	m_data.excludeFromReports = false;
 
 	connect(m_attributes, &EntryAttributes::modified, this, &Entry::updateTotp);
 	connect(m_attributes, &EntryAttributes::modified, this, &Entry::modified);
 	connect(m_attributes, &EntryAttributes::defaultKeyModified, this, &Entry::emitDataChanged);
 	connect(m_attachments, &EntryAttachments::modified, this, &Entry::modified);
-	connect(m_autoTypeAssociations, &AutoTypeAssociations::modified, this, &Entry::modified);
 	connect(m_customData, &CustomData::modified, this, &Entry::modified);
 
 	connect(this, &Entry::modified, this, &Entry::updateTimeinfo);
@@ -233,26 +227,6 @@ const TimeInfo &Entry::timeInfo() const
 	return m_data.timeInfo;
 }
 
-bool Entry::autoTypeEnabled() const
-{
-	return m_data.autoTypeEnabled;
-}
-
-bool Entry::groupAutoTypeEnabled() const
-{
-	return group() && group()->resolveAutoTypeEnabled();
-}
-
-int Entry::autoTypeObfuscation() const
-{
-	return m_data.autoTypeObfuscation;
-}
-
-QString Entry::defaultAutoTypeSequence() const
-{
-	return m_data.defaultAutoTypeSequence;
-}
-
 const QSharedPointer<PasswordHealth> Entry::passwordHealth()
 {
 	if (!m_data.passwordHealth)
@@ -281,152 +255,6 @@ bool Entry::excludeFromReports() const
 void Entry::setExcludeFromReports(bool state)
 {
 	set(m_data.excludeFromReports, state);
-}
-
-/**
- * Determine the effective sequence that will be injected
- * This function return an empty string if a parent group has autotype disabled or if the entry has no parent
- */
-QString Entry::effectiveAutoTypeSequence() const
-{
-	if (!autoTypeEnabled())
-	{
-		return {};
-	}
-
-	const Group *parent = group();
-	if (!parent)
-	{
-		return {};
-	}
-
-	QString sequence = parent->effectiveAutoTypeSequence();
-	if (sequence.isEmpty())
-	{
-		return {};
-	}
-
-	if (!m_data.defaultAutoTypeSequence.isEmpty())
-	{
-		return m_data.defaultAutoTypeSequence;
-	}
-
-	if (sequence == Group::RootAutoTypeSequence && (!username().isEmpty() || !password().isEmpty()))
-	{
-		if (username().isEmpty())
-		{
-			return AutoTypeSequencePassword;
-		}
-		else if (password().isEmpty())
-		{
-			return AutoTypeSequenceUsername;
-		}
-		return Group::RootAutoTypeSequence;
-	}
-
-	return sequence;
-}
-
-/**
- * Retrieve the Auto-Type sequences matches for a given windowTitle
- * This returns a list with priority ordering. If you don't want duplicates, convert it to a QSet<QString>.
- */
-QList<QString> Entry::autoTypeSequences(const QString &windowTitle) const
-{
-	// If no window just return the effective sequence
-	if (windowTitle.isEmpty())
-	{
-		return {effectiveAutoTypeSequence()};
-	}
-
-	// Define helper functions to match window titles
-	auto windowMatches = [&](const QString &pattern) {
-		// Regex searching
-		if (pattern.startsWith("//") && pattern.endsWith("//") && pattern.size() >= 4)
-		{
-			QRegularExpression regExp(pattern.mid(2, pattern.size() - 4), QRegularExpression::CaseInsensitiveOption);
-			return regExp.match(windowTitle).hasMatch();
-		}
-
-		// Wildcard searching
-		const auto regExp = Tools::convertToRegex(
-			pattern, Tools::RegexConvertOpts::EXACT_MATCH | Tools::RegexConvertOpts::WILDCARD_UNLIMITED_MATCH);
-		return regExp.match(windowTitle).hasMatch();
-	};
-
-	auto windowMatchesTitle = [&](const QString &entryTitle) {
-		return !entryTitle.isEmpty() && windowTitle.contains(entryTitle, Qt::CaseInsensitive);
-	};
-
-	auto windowMatchesUrl = [&](const QString &entryUrl) {
-		if (!entryUrl.isEmpty() && windowTitle.contains(entryUrl, Qt::CaseInsensitive))
-		{
-			return true;
-		}
-
-		QUrl url(entryUrl);
-		if (url.isValid() && !url.host().isEmpty())
-		{
-			return windowTitle.contains(url.host(), Qt::CaseInsensitive);
-		}
-
-		return false;
-	};
-
-	QList<QString> sequenceList;
-	QList<QString> emptyWindowSequences;
-
-	// Add window association matches
-	const auto assocList = autoTypeAssociations()->getAll();
-	for (const auto &assoc: assocList)
-	{
-		auto window = resolveMultiplePlaceholders(assoc.window);
-		if (assoc.window.isEmpty())
-		{
-			emptyWindowSequences << assoc.sequence;
-		}
-		else if (windowMatches(window))
-		{
-			if (!assoc.sequence.isEmpty())
-			{
-				sequenceList << assoc.sequence;
-			}
-			else
-			{
-				sequenceList << effectiveAutoTypeSequence();
-			}
-		}
-	}
-
-	// Try to match window title
-	if (config()->get(Config::AutoTypeEntryTitleMatch).toBool() && windowMatchesTitle(resolvePlaceholder(title())))
-	{
-		sequenceList << effectiveAutoTypeSequence();
-	}
-
-	// Try to match url in window title
-	if (config()->get(Config::AutoTypeEntryURLMatch).toBool() && windowMatchesUrl(resolvePlaceholder(url())))
-	{
-		sequenceList << effectiveAutoTypeSequence();
-	}
-
-	// If any associations were made, include the empty window associations
-	if (!sequenceList.isEmpty())
-	{
-		sequenceList.append(emptyWindowSequences);
-	}
-
-	return sequenceList;
-}
-
-AutoTypeAssociations *Entry::autoTypeAssociations()
-{
-	return m_autoTypeAssociations;
-}
-
-const AutoTypeAssociations *Entry::autoTypeAssociations() const
-{
-	return m_autoTypeAssociations;
 }
 
 QString Entry::title() const
@@ -519,7 +347,6 @@ int Entry::size() const
 {
 	int size = 0;
 	size += attributes()->attributesSize();
-	size += autoTypeAssociations()->associationsSize();
 	size += attachments()->attachmentsSize();
 	size += customData()->dataSize();
 	for (const QString &tag: tags().split(TagDelimiterRegex, Qt::SkipEmptyParts))
@@ -842,21 +669,6 @@ void Entry::setTimeInfo(const TimeInfo &timeInfo)
 	m_data.timeInfo = timeInfo;
 }
 
-void Entry::setAutoTypeEnabled(bool enable)
-{
-	set(m_data.autoTypeEnabled, enable);
-}
-
-void Entry::setAutoTypeObfuscation(int obfuscation)
-{
-	set(m_data.autoTypeObfuscation, obfuscation);
-}
-
-void Entry::setDefaultAutoTypeSequence(const QString &sequence)
-{
-	set(m_data.defaultAutoTypeSequence, sequence);
-}
-
 void Entry::setTitle(const QString &title)
 {
 	m_attributes->set(EntryAttributes::TitleKey, title, m_attributes->isProtected(EntryAttributes::TitleKey));
@@ -1048,10 +860,6 @@ bool Entry::equals(const Entry *other, CompareItemOptions options) const
 	{
 		return false;
 	}
-	if (*m_autoTypeAssociations != *other->m_autoTypeAssociations)
-	{
-		return false;
-	}
 	if (!options.testFlag(CompareItemIgnoreHistory))
 	{
 		if (m_history.count() != other->m_history.count())
@@ -1133,11 +941,6 @@ QStringList Entry::calculateDifference(const Entry *other)
 	{
 		modifiedFields << tr("Attachments");
 	}
-	if (*autoTypeAssociations() != *other->autoTypeAssociations() || autoTypeEnabled() != other->autoTypeEnabled()
-	    || defaultAutoTypeSequence() != other->defaultAutoTypeSequence())
-	{
-		modifiedFields << tr("Auto-Type");
-	}
 	if (tags() != other->tags())
 	{
 		modifiedFields << tr("Tags");
@@ -1177,7 +980,6 @@ Entry *Entry::clone(CloneFlags flags) const
 		                         m_attributes->isProtected(EntryAttributes::PasswordKey));
 	}
 
-	entry->m_autoTypeAssociations->copyDataFrom(m_autoTypeAssociations);
 	if (flags & CloneIncludeHistory)
 	{
 		for (Entry *historyItem: m_history)
@@ -1217,7 +1019,6 @@ void Entry::copyDataFrom(const Entry *other)
 	m_customData->copyDataFrom(other->m_customData);
 	m_attributes->copyDataFrom(other->m_attributes);
 	m_attachments->copyDataFrom(other->m_attachments);
-	m_autoTypeAssociations->copyDataFrom(other->m_autoTypeAssociations);
 	setUpdateTimeinfo(true);
 }
 
@@ -1231,7 +1032,6 @@ void Entry::beginUpdate()
 	m_tmpHistoryItem->m_data = m_data;
 	m_tmpHistoryItem->m_attributes->copyDataFrom(m_attributes);
 	m_tmpHistoryItem->m_attachments->copyDataFrom(m_attachments);
-	m_tmpHistoryItem->m_autoTypeAssociations->copyDataFrom(m_autoTypeAssociations);
 
 	m_modifiedSinceBegin = false;
 }
@@ -1919,18 +1719,6 @@ bool EntryData::equals(const EntryData &other, CompareItemOptions options) const
 		return false;
 	}
 	if (::compare(tags, other.tags, options) != 0)
-	{
-		return false;
-	}
-	if (::compare(autoTypeEnabled, other.autoTypeEnabled, options) != 0)
-	{
-		return false;
-	}
-	if (::compare(autoTypeObfuscation, other.autoTypeObfuscation, options) != 0)
-	{
-		return false;
-	}
-	if (::compare(defaultAutoTypeSequence, other.defaultAutoTypeSequence, options) != 0)
 	{
 		return false;
 	}

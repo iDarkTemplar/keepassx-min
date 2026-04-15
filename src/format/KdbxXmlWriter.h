@@ -64,10 +64,7 @@ private:
 	void writeDeletedObjects();
 	void writeDeletedObject(const DeletedObject &delObj);
 	void writeEntry(const Entry *entry);
-	void writeAutoType(const Entry *entry);
-	void writeAutoTypeAssoc(const AutoTypeAssociations::Association &assoc);
 	void writeEntryHistory(const Entry *entry);
-
 	void writeString(const QString &qualifiedName, const QString &string);
 	void writeNumber(const QString &qualifiedName, int number);
 	void writeBool(const QString &qualifiedName, bool b);

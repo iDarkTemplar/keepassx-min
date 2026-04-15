@@ -964,11 +964,6 @@ Entry *KdbxXmlReader::parseEntry(bool history)
 			}
 			continue;
 		}
-		if (m_xml.name() == "AutoType")
-		{
-			parseAutoType(entry);
-			continue;
-		}
 		if (m_xml.name() == "History")
 		{
 			if (history)
@@ -1158,69 +1153,6 @@ QPair<QString, QString> KdbxXmlReader::parseEntryBinary(Entry *entry)
 	}
 
 	return poolRef;
-}
-
-void KdbxXmlReader::parseAutoType(Entry *entry)
-{
-	Q_ASSERT(m_xml.isStartElement() && m_xml.name() == "AutoType");
-
-	while (!m_xml.hasError() && m_xml.readNextStartElement())
-	{
-		if (m_xml.name() == "Enabled")
-		{
-			entry->setAutoTypeEnabled(readBool());
-		}
-		else if (m_xml.name() == "DataTransferObfuscation")
-		{
-			entry->setAutoTypeObfuscation(readNumber());
-		}
-		else if (m_xml.name() == "DefaultSequence")
-		{
-			entry->setDefaultAutoTypeSequence(readString());
-		}
-		else if (m_xml.name() == "Association")
-		{
-			parseAutoTypeAssoc(entry);
-		}
-		else
-		{
-			skipCurrentElement();
-		}
-	}
-}
-
-void KdbxXmlReader::parseAutoTypeAssoc(Entry *entry)
-{
-	Q_ASSERT(m_xml.isStartElement() && m_xml.name() == "Association");
-
-	AutoTypeAssociations::Association assoc;
-	bool windowSet = false;
-	bool sequenceSet = false;
-
-	while (!m_xml.hasError() && m_xml.readNextStartElement())
-	{
-		if (m_xml.name() == "Window")
-		{
-			assoc.window = readString();
-			windowSet = true;
-		}
-		else if (m_xml.name() == "KeystrokeSequence")
-		{
-			assoc.sequence = readString();
-			sequenceSet = true;
-		}
-		else
-		{
-			skipCurrentElement();
-		}
-	}
-
-	if (windowSet && sequenceSet)
-	{
-		entry->autoTypeAssociations()->add(assoc);
-		return;
-	}
-	raiseError(tr("Auto-type association window or sequence missing"));
 }
 
 QList<Entry *> KdbxXmlReader::parseEntryHistory()

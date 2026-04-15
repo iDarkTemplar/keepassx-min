@@ -204,7 +204,6 @@ void EntryPreviewWidget::refresh()
 		updateEntryTotp();
 		updateEntryGeneralTab();
 		updateEntryAdvancedTab();
-		updateEntryAutotypeTab();
 
 		setVisible(!config()->get(Config::GUI_HidePreviewPanel).toBool());
 
@@ -530,28 +529,6 @@ void EntryPreviewWidget::updateEntryAdvancedTab()
 	m_ui->entryAttributesTable->resizeColumnsToContents();
 	m_ui->entryAttributesTable->resizeRowsToContents();
 	m_ui->entryAttachmentsWidget->linkAttachments(m_currentEntry->attachments());
-}
-
-void EntryPreviewWidget::updateEntryAutotypeTab()
-{
-	Q_ASSERT(m_currentEntry);
-
-	m_ui->entrySequenceLabel->setText(m_currentEntry->effectiveAutoTypeSequence());
-	m_ui->entryAutotypeTree->clear();
-	QList<QTreeWidgetItem *> items;
-	const AutoTypeAssociations *autotypeAssociations = m_currentEntry->autoTypeAssociations();
-	const auto associations = autotypeAssociations->getAll();
-	for (const auto &assoc: associations)
-	{
-		const QString sequence =
-			assoc.sequence.isEmpty() ? m_currentEntry->effectiveAutoTypeSequence() : assoc.sequence;
-		items.append(new QTreeWidgetItem(m_ui->entryAutotypeTree, {assoc.window, sequence}));
-	}
-
-	m_ui->entryAutotypeTree->addTopLevelItems(items);
-	setTabEnabled(m_ui->entryTabWidget,
-	              m_ui->entryAutotypeTab,
-	              m_currentEntry->autoTypeEnabled() && m_currentEntry->groupAutoTypeEnabled());
 }
 
 void EntryPreviewWidget::updateGroupHeaderLine()

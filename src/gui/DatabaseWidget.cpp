@@ -30,7 +30,6 @@
 #include <QTextDocumentFragment>
 #include <QTextEdit>
 
-#include "autotype/AutoType.h"
 #include "core/EntrySearcher.h"
 #include "core/Merger.h"
 #include "core/Tools.h"
@@ -872,73 +871,6 @@ void DatabaseWidget::setClipboardTextAndMinimize(const QString &text)
 			window()->lower();
 		}
 	}
-}
-
-void DatabaseWidget::performAutoType(const QString &sequence)
-{
-	auto currentEntry = currentSelectedEntry();
-	if (currentEntry)
-	{
-		// Check if we need to ask for confirmation
-		bool shouldAsk = config()->get(Config::Security_AutoTypeAsk).toBool();
-		bool skipMainWindowConfirmation = config()->get(Config::Security_AutoTypeSkipMainWindowConfirmation).toBool();
-
-		// Show confirmation if Security_AutoTypeAsk is true AND Security_AutoTypeSkipMainWindowConfirmation is false
-		if (shouldAsk && !skipMainWindowConfirmation)
-		{
-			// TODO: Include name of previously active window in confirmation question
-			if (MessageBox::question(
-					this, tr("Confirm Auto-Type"), tr("Perform Auto-Type into the previously active window?"))
-			    != MessageBox::Yes)
-			{
-				return;
-			}
-		}
-
-		if (sequence.isEmpty())
-		{
-			autoType()->performAutoType(currentEntry);
-		}
-		else
-		{
-			autoType()->performAutoTypeWithSequence(currentEntry, sequence);
-		}
-	}
-}
-
-void DatabaseWidget::performAutoTypeUsername()
-{
-	performAutoType(QStringLiteral("{USERNAME}"));
-}
-
-void DatabaseWidget::performAutoTypeUsernameEnter()
-{
-	performAutoType(QStringLiteral("{USERNAME}{ENTER}"));
-}
-
-void DatabaseWidget::performAutoTypePassword()
-{
-	performAutoType(QStringLiteral("{PASSWORD}"));
-}
-
-void DatabaseWidget::performAutoTypePasswordEnter()
-{
-	performAutoType(QStringLiteral("{PASSWORD}{ENTER}"));
-}
-
-void DatabaseWidget::performAutoTypeTOTP()
-{
-	performAutoType(QStringLiteral("{TOTP}"));
-}
-
-void DatabaseWidget::performAutoTypeURL()
-{
-	performAutoType(QStringLiteral("{URL}"));
-}
-
-void DatabaseWidget::performAutoTypeURLEnter()
-{
-	performAutoType(QStringLiteral("{URL}{ENTER}"));
 }
 
 void DatabaseWidget::openUrl()
@@ -2342,17 +2274,6 @@ bool DatabaseWidget::currentEntryHasNotes()
 		return false;
 	}
 	return !currentEntry->resolveMultiplePlaceholders(currentEntry->notes()).isEmpty();
-}
-
-bool DatabaseWidget::currentEntryHasAutoTypeEnabled()
-{
-	auto currentEntry = currentSelectedEntry();
-	if (!currentEntry)
-	{
-		return false;
-	}
-
-	return currentEntry->autoTypeEnabled() && currentEntry->groupAutoTypeEnabled();
 }
 
 GroupView *DatabaseWidget::groupView()

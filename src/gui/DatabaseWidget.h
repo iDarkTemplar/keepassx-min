@@ -114,7 +114,6 @@ public:
 	bool currentEntryHasUrl();
 	bool currentEntryHasNotes();
 	bool currentEntryHasTotp();
-	bool currentEntryHasAutoTypeEnabled();
 
 	QByteArray entryViewState() const;
 	bool setEntryViewState(const QByteArray &state) const;
@@ -191,14 +190,6 @@ public slots:
 	void copyTotp();
 	void copyPasswordTotp();
 	void setupTotp();
-	void performAutoType(const QString &sequence = {});
-	void performAutoTypeUsername();
-	void performAutoTypeUsernameEnter();
-	void performAutoTypePassword();
-	void performAutoTypePasswordEnter();
-	void performAutoTypeTOTP();
-	void performAutoTypeURL();
-	void performAutoTypeURLEnter();
 	void setClipboardTextAndMinimize(const QString &text);
 	void openUrl();
 	void openUrlForEntry(Entry *entry);

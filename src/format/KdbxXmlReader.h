@@ -72,8 +72,6 @@ protected:
 	virtual Entry *parseEntry(bool history);
 	virtual void parseEntryString(Entry *entry);
 	virtual QPair<QString, QString> parseEntryBinary(Entry *entry);
-	virtual void parseAutoType(Entry *entry);
-	virtual void parseAutoTypeAssoc(Entry *entry);
 	virtual QList<Entry *> parseEntryHistory();
 	virtual TimeInfo parseTimes();
 

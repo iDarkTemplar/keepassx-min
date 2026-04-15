@@ -88,9 +88,6 @@ namespace Tools
 		debugInfo.append("\n\n");
 
 		QString extensions;
-#ifdef WITH_XC_AUTOTYPE
-		extensions += "\n- " + QObject::tr("Auto-Type");
-#endif
 #if defined(Q_OS_MACOS) || defined(Q_CC_MSVC)
 		extensions += "\n- " + QObject::tr("Quick Unlock");
 #endif

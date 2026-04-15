@@ -78,13 +78,10 @@ public slots:
 	void unlockDatabaseInDialog(DatabaseWidget *dbWidget, DatabaseOpenDialog::Intent intent);
 	void unlockDatabaseInDialog(DatabaseWidget *dbWidget, DatabaseOpenDialog::Intent intent, const QString &filePath);
 	void unlockAnyDatabaseInDialog(DatabaseOpenDialog::Intent intent);
-	void relockPendingDatabase();
 
 	void showDatabaseReports(bool state);
 	void showDatabaseSettings(bool state);
 	void showDatabaseSecurity();
-
-	void performGlobalAutoType(const QString &search);
 
 signals:
 	void databaseOpened(DatabaseWidget *dbWidget);

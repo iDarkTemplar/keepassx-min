@@ -77,7 +77,6 @@ public:
 		Main,
 		Advanced,
 		Icon,
-		AutoType,
 		Properties,
 		History
 	};
@@ -97,13 +96,6 @@ private slots:
 	void updateCurrentAttribute();
 	void protectCurrentAttribute(bool state);
 	void toggleCurrentAttributeVisibility();
-	void updateAutoTypeEnabled();
-	void openAutotypeHelp();
-	void insertAutoTypeAssoc();
-	void removeAutoTypeAssoc();
-	void loadCurrentAssoc(const QModelIndex &current);
-	void clearCurrentAssoc();
-	void applyCurrentAssoc();
 	void showHistoryEntry();
 	void restoreHistoryEntry();
 	void deleteHistoryEntry();
@@ -119,7 +111,6 @@ private:
 	void setupMain();
 	void setupAdvanced();
 	void setupIcon();
-	void setupAutoType();
 	void setupProperties();
 	void setupHistory();
 	void setupEntryUpdate();
@@ -142,17 +133,13 @@ private:
 
 	const QScopedPointer<Ui::EditEntryWidgetMain> m_mainUi;
 	const QScopedPointer<Ui::EditEntryWidgetAdvanced> m_advancedUi;
-	const QScopedPointer<Ui::EditEntryWidgetAutoType> m_autoTypeUi;
-	const QScopedPointer<Ui::EditEntryWidgetSSHAgent> m_sshAgentUi;
 	const QScopedPointer<Ui::EditEntryWidgetHistory> m_historyUi;
-	const QScopedPointer<Ui::EditEntryWidgetBrowser> m_browserUi;
 	const QScopedPointer<EntryAttachments> m_attachments;
 	const QScopedPointer<CustomData> m_customData;
 
 	QScrollArea *const m_mainWidget;
 	QWidget *const m_advancedWidget;
 	EditWidgetIcons *const m_iconsWidget;
-	QWidget *const m_autoTypeWidget;
 	EditWidgetProperties *const m_editWidgetProperties;
 	QWidget *const m_historyWidget;
 	EntryAttributes *const m_entryAttributes;
@@ -160,10 +147,6 @@ private:
 	EntryHistoryModel *const m_historyModel;
 	QSortFilterProxyModel *const m_sortModel;
 	QPersistentModelIndex m_currentAttribute;
-	AutoTypeAssociations *const m_autoTypeAssoc;
-	AutoTypeAssociationsModel *const m_autoTypeAssocModel;
-	QButtonGroup *const m_autoTypeDefaultSequenceGroup;
-	QButtonGroup *const m_autoTypeWindowSequenceGroup;
 	QCompleter *const m_usernameCompleter;
 	QStringListModel *const m_usernameCompleterModel;
 	QTimer m_entryModifiedTimer;

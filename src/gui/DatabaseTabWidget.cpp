@@ -19,7 +19,6 @@
 #include <QFileInfo>
 #include <QTabBar>
 
-#include "autotype/AutoType.h"
 #include "core/Merger.h"
 #include "core/Tools.h"
 #include "format/CsvExporter.h"
@@ -55,9 +54,6 @@ DatabaseTabWidget::DatabaseTabWidget(QWidget *parent)
     connect(this, SIGNAL(currentChanged(int)), SLOT(emitActiveDatabaseChanged()));
     connect(this, SIGNAL(activeDatabaseChanged(DatabaseWidget*)),
             m_dbWidgetStateSync, SLOT(setActive(DatabaseWidget*)));
-    connect(autoType(), SIGNAL(globalAutoTypeTriggered(const QString&)), SLOT(performGlobalAutoType(const QString&)));
-    connect(autoType(), SIGNAL(autotypeRetypeTimeout()), SLOT(relockPendingDatabase()));
-    connect(autoType(), SIGNAL(autotypeFinished()), SLOT(relockPendingDatabase()));
     connect(m_databaseOpenDialog.data(), &DatabaseOpenDialog::dialogFinished,
             this, &DatabaseTabWidget::handleDatabaseUnlockDialogFinished);
 	// clang-format on
@@ -870,27 +866,6 @@ void DatabaseTabWidget::handleDatabaseUnlockDialogFinished(bool accepted, Databa
 	emit databaseUnlockDialogFinished(accepted, dbWidget);
 }
 
-/**
- * This function relock the pending database when autotype has been performed successfully
- * A database is marked as pending when it's unlocked after a global Auto-Type invocation
- */
-void DatabaseTabWidget::relockPendingDatabase()
-{
-	if (!m_dbWidgetPendingLock || !config()->get(Config::Security_RelockAutoType).toBool())
-	{
-		return;
-	}
-
-	if (m_dbWidgetPendingLock->isLocked() || !m_dbWidgetPendingLock->database()->isInitialized())
-	{
-		m_dbWidgetPendingLock = nullptr;
-		return;
-	}
-
-	m_dbWidgetPendingLock->lock();
-	m_dbWidgetPendingLock = nullptr;
-}
-
 void DatabaseTabWidget::updateLastDatabases(const QString &filename)
 {
 	if (!config()->get(Config::RememberLastDatabases).toBool())
@@ -947,39 +922,5 @@ void DatabaseTabWidget::emitDatabaseLockChanged()
 	{
 		emit databaseUnlocked(dbWidget);
 		m_databaseOpenInProgress = false;
-	}
-}
-
-void DatabaseTabWidget::performGlobalAutoType(const QString &search)
-{
-	auto currentDbWidget = currentDatabaseWidget();
-	if (!currentDbWidget)
-	{
-		// No open databases, nothing to do
-		return;
-	}
-	else if (currentDbWidget->isLocked())
-	{
-		// Current database tab is locked, match behavior of browser unlock - prompt with
-		// the unlock dialog even if there are additional unlocked open database tabs.
-		currentDbWidget->setSearchStringForAutoType(search);
-		unlockAnyDatabaseInDialog(DatabaseOpenDialog::Intent::AutoType);
-	}
-	else
-	{
-		// Current database is unlocked, use it for AutoType along with any other unlocked databases
-		QList<QSharedPointer<Database>> unlockedDatabases;
-		for (int i = 0, c = count(); i < c; ++i)
-		{
-			auto *dbWidget = databaseWidgetFromIndex(i);
-			if (!dbWidget->isLocked())
-			{
-				dbWidget->setSearchStringForAutoType(search);
-				unlockedDatabases.append(dbWidget->database());
-			}
-		}
-
-		Q_ASSERT(!unlockedDatabases.isEmpty());
-		autoType()->performGlobalAutoType(unlockedDatabases, search);
 	}
 }

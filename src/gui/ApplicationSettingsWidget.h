@@ -57,13 +57,11 @@ private slots:
 	void resetSettings();
 	void importSettings();
 	void exportSettings();
-	void reject();
 	void autoSaveToggled(bool checked);
 	void hideWindowOnCopyCheckBoxToggled(bool checked);
 	void systrayToggled(bool checked);
 	void rememberDatabasesToggled(bool checked);
 	void showExpiredEntriesOnDatabaseUnlockToggled(bool checked);
-	void autoTypeAskToggled(bool checked);
 	void selectBackupDirectory();
 
 private:

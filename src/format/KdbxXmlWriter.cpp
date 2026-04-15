@@ -500,8 +500,6 @@ void KdbxXmlWriter::writeEntry(const Entry *entry)
 		m_xml.writeEndElement();
 	}
 
-	writeAutoType(entry);
-
 	if (m_kdbxVersion >= KeePass2::FILE_VERSION_4)
 	{
 		writeCustomData(entry->customData());
@@ -512,33 +510,6 @@ void KdbxXmlWriter::writeEntry(const Entry *entry)
 	{
 		writeEntryHistory(entry);
 	}
-
-	m_xml.writeEndElement();
-}
-
-void KdbxXmlWriter::writeAutoType(const Entry *entry)
-{
-	m_xml.writeStartElement("AutoType");
-
-	writeBool("Enabled", entry->autoTypeEnabled());
-	writeNumber("DataTransferObfuscation", entry->autoTypeObfuscation());
-	writeString("DefaultSequence", entry->defaultAutoTypeSequence());
-
-	const QList<AutoTypeAssociations::Association> autoTypeAssociations = entry->autoTypeAssociations()->getAll();
-	for (const AutoTypeAssociations::Association &assoc: autoTypeAssociations)
-	{
-		writeAutoTypeAssoc(assoc);
-	}
-
-	m_xml.writeEndElement();
-}
-
-void KdbxXmlWriter::writeAutoTypeAssoc(const AutoTypeAssociations::Association &assoc)
-{
-	m_xml.writeStartElement("Association");
-
-	writeString("Window", assoc.window);
-	writeString("KeystrokeSequence", assoc.sequence);
 
 	m_xml.writeEndElement();
 }

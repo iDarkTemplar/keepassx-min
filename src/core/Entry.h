@@ -22,7 +22,6 @@
 #include <QPointer>
 #include <QUuid>
 
-#include "core/AutoTypeAssociations.h"
 #include "core/CustomData.h"
 #include "core/EntryAttachments.h"
 #include "core/EntryAttributes.h"
@@ -58,9 +57,6 @@ struct EntryData
 	QString backgroundColor;
 	QString overrideUrl;
 	QStringList tags;
-	bool autoTypeEnabled;
-	int autoTypeObfuscation;
-	QString defaultAutoTypeSequence;
 	TimeInfo timeInfo;
 	QSharedPointer<Totp::Settings> totpSettings;
 	QSharedPointer<PasswordHealth> passwordHealth;
@@ -89,14 +85,6 @@ public:
 	QString tags() const;
 	QStringList tagList() const;
 	const TimeInfo &timeInfo() const;
-	bool autoTypeEnabled() const;
-	bool groupAutoTypeEnabled() const;
-	int autoTypeObfuscation() const;
-	QString defaultAutoTypeSequence() const;
-	QString effectiveAutoTypeSequence() const;
-	QList<QString> autoTypeSequences(const QString &pattern = {}) const;
-	AutoTypeAssociations *autoTypeAssociations();
-	const AutoTypeAssociations *autoTypeAssociations() const;
 	QString title() const;
 	QString url() const;
 	QString resolveUrl() const;
@@ -150,9 +138,6 @@ public:
 	void setOverrideUrl(const QString &url);
 	void setTags(const QString &tags);
 	void setTimeInfo(const TimeInfo &timeInfo);
-	void setAutoTypeEnabled(bool enable);
-	void setAutoTypeObfuscation(int obfuscation);
-	void setDefaultAutoTypeSequence(const QString &sequence);
 	void setTitle(const QString &title);
 	void setUrl(const QString &url);
 	void setUsername(const QString &username);
@@ -306,7 +291,6 @@ private:
 	EntryData m_data;
 	QPointer<EntryAttributes> m_attributes;
 	QPointer<EntryAttachments> m_attachments;
-	QPointer<AutoTypeAssociations> m_autoTypeAssociations;
 	QPointer<CustomData> m_customData;
 	QList<Entry *> m_history; // Items sorted from oldest to newest
 

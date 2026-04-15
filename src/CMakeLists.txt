@@ -18,8 +18,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 set(keepassx_SOURCES
         core/Alloc.cpp
         core/AsyncTask.h
-        core/AutoTypeAssociations.cpp
-        core/AutoTypeAssociations.h
         core/Base32.cpp
         core/Base32.h
         core/Bootstrap.cpp
@@ -240,8 +238,6 @@ set(keepassx_SOURCES
         gui/csvImport/CsvImportWidget.h
         gui/csvImport/CsvParserModel.cpp
         gui/csvImport/CsvParserModel.h
-        gui/entry/AutoTypeAssociationsModel.cpp
-        gui/entry/AutoTypeAssociationsModel.h
         gui/entry/EditEntryWidget.cpp
         gui/entry/EditEntryWidget.h
         gui/entry/EntryAttachmentsModel.cpp
@@ -418,25 +414,18 @@ set(keepassx_UI
 	gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.ui
 	gui/entry/EditEntryAttachmentsDialog.ui
 	gui/entry/EditEntryWidgetAdvanced.ui
-	gui/entry/EditEntryWidgetAutoType.ui
-	gui/entry/EditEntryWidgetBrowser.ui
 	gui/entry/EditEntryWidgetHistory.ui
 	gui/entry/EditEntryWidgetMain.ui
-	gui/entry/EditEntryWidgetSSHAgent.ui
 	gui/entry/EntryAttachmentsWidget.ui
 	gui/entry/PreviewEntryAttachmentsDialog.ui
 	gui/entry/attachments/ImageAttachmentsWidget.ui
 	gui/entry/attachments/TextAttachmentsEditWidget.ui
 	gui/entry/attachments/TextAttachmentsPreviewWidget.ui
 	gui/export/ExportDialog.ui
-	gui/group/EditGroupWidgetBrowser.ui
 	gui/group/EditGroupWidgetMain.ui
-	gui/passkeys/PasskeyExportDialog.ui
-	gui/passkeys/PasskeyImportDialog.ui
 	gui/reports/ReportsDialog.ui
 	gui/reports/ReportsWidgetBrowserStatistics.ui
 	gui/reports/ReportsWidgetHealthcheck.ui
-	gui/reports/ReportsWidgetPasskeys.ui
 	gui/reports/ReportsWidgetStatistics.ui
 	gui/wizard/ImportWizardPageReview.ui
 	gui/wizard/ImportWizardPageSelect.ui
@@ -451,7 +440,6 @@ set(keepassx_SOURCES_MAINEXE main.cpp)
 
 add_feature_info(FdoSecrets WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API.")
 
-add_subdirectory(autotype)
 add_subdirectory(cli)
 add_subdirectory(qrcode)
 set(qrcode_LIB qrcode)
@@ -461,37 +449,16 @@ if(WITH_XC_FDOSECRETS)
     set(fdosecrets_LIB fdosecrets)
 endif()
 
-set(autotype_UI
-	autotype/AutoTypeSelectDialog.ui
-	autotype/PickcharsDialog.ui
-	)
-
-set(autotype_SOURCES
-        core/Tools.cpp
-        autotype/AutoType.cpp
-        autotype/AutoTypeAction.cpp
-        autotype/AutoTypeMatchModel.cpp
-        autotype/AutoTypeMatchView.cpp
-        autotype/AutoTypeSelectDialog.cpp
-        autotype/PickcharsDialog.cpp
-        autotype/ShortcutWidget.cpp
-        autotype/WindowSelectComboBox.cpp)
-
 configure_file(config-keepassx.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-keepassx.h)
 configure_file(git-info.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/git-info.h)
 
 qt_wrap_ui(keepassx_UI_CPP ${keepassx_UI})
-qt_wrap_ui(autotype_UI_CPP ${autotype_UI})
-
-add_library(autotype STATIC ${autotype_SOURCES} ${autotype_UI_CPP})
-target_link_libraries(autotype Qt5::Core Qt5::Widgets)
 
 add_library(keepassx_core STATIC ${keepassx_SOURCES} ${keepassx_UI_CPP})
 
 target_include_directories(keepassx_core SYSTEM PRIVATE ${ZXCVBN_INCLUDE_DIR})
 set_target_properties(keepassx_core PROPERTIES COMPILE_DEFINITIONS KEEPASSX_BUILDING_CORE)
 target_link_libraries(keepassx_core
-        autotype
         ${qrcode_LIB}
         ${fdosecrets_LIB}
         Qt5::Core

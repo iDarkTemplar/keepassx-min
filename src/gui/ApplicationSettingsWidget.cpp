@@ -23,7 +23,6 @@
 
 #include "config-keepassx.h"
 
-#include "autotype/AutoType.h"
 #include "core/Translator.h"
 #include "gui/GuiTools.h"
 #include "gui/Icons.h"
@@ -80,11 +79,6 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
 	addPage(tr("General"), icons()->icon("preferences-other"), m_generalWidget);
 	addPage(tr("Security"), icons()->icon("security-high"), m_secWidget);
 
-	if (!autoType()->isAvailable())
-	{
-		m_generalUi->generalSettingsTabWidget->removeTab(1);
-	}
-
 	connect(this, SIGNAL(accepted()), SLOT(saveSettings()));
 	connect(this, SIGNAL(rejected()), SLOT(reject()));
 
@@ -106,8 +100,6 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
     connect(m_generalUi->backupFilePathPicker, SIGNAL(pressed()), SLOT(selectBackupDirectory()));
     connect(m_generalUi->showExpiredEntriesOnDatabaseUnlockCheckBox, SIGNAL(toggled(bool)),
             SLOT(showExpiredEntriesOnDatabaseUnlockToggled(bool)));
-    connect(m_generalUi->autoTypeAskCheckBox, SIGNAL(toggled(bool)),
-            SLOT(autoTypeAskToggled(bool)));
 
     connect(m_secUi->clearClipboardCheckBox, SIGNAL(toggled(bool)),
             m_secUi->clearClipboardSpinBox, SLOT(setEnabled(bool)));
@@ -185,9 +177,6 @@ void ApplicationSettingsWidget::loadSettings()
 	m_generalUi->dropToBackgroundOnCopyRadioButton->setChecked(config()->get(Config::DropToBackgroundOnCopy).toBool());
 	m_generalUi->useGroupIconOnEntryCreationCheckBox->setChecked(
 		config()->get(Config::UseGroupIconOnEntryCreation).toBool());
-	m_generalUi->autoTypeEntryTitleMatchCheckBox->setChecked(config()->get(Config::AutoTypeEntryTitleMatch).toBool());
-	m_generalUi->autoTypeEntryURLMatchCheckBox->setChecked(config()->get(Config::AutoTypeEntryURLMatch).toBool());
-	m_generalUi->autoTypeHideExpiredEntryCheckBox->setChecked(config()->get(Config::AutoTypeHideExpiredEntry).toBool());
 	m_generalUi->ConfirmMoveEntryToRecycleBinCheckBox->setChecked(
 		!config()->get(Config::Security_NoConfirmMoveEntryToRecycleBin).toBool());
 	m_generalUi->EnableCopyOnDoubleClickCheckBox->setChecked(
@@ -255,27 +244,6 @@ void ApplicationSettingsWidget::loadSettings()
 	m_generalUi->showExpiredEntriesOnDatabaseUnlockOffsetSpinBox->setValue(
 		config()->get(Config::GUI_ShowExpiredEntriesOnDatabaseUnlockOffsetDays).toInt());
 	showExpiredEntriesOnDatabaseUnlockToggled(m_generalUi->showExpiredEntriesOnDatabaseUnlockCheckBox->isChecked());
-
-	m_generalUi->autoTypeAskCheckBox->setChecked(config()->get(Config::Security_AutoTypeAsk).toBool());
-	m_generalUi->autoTypeSkipMainWindowConfirmationCheckBox->setChecked(
-		config()->get(Config::Security_AutoTypeSkipMainWindowConfirmation).toBool());
-	autoTypeAskToggled(m_generalUi->autoTypeAskCheckBox->isChecked());
-	m_generalUi->autoTypeRelockDatabaseCheckBox->setChecked(config()->get(Config::Security_RelockAutoType).toBool());
-
-	if (autoType()->isAvailable())
-	{
-		m_globalAutoTypeKey = static_cast<Qt::Key>(config()->get(Config::GlobalAutoTypeKey).toInt());
-		m_globalAutoTypeModifiers =
-			static_cast<Qt::KeyboardModifiers>(config()->get(Config::GlobalAutoTypeModifiers).toInt());
-		if (m_globalAutoTypeKey > 0 && m_globalAutoTypeModifiers > 0)
-		{
-			m_generalUi->autoTypeShortcutWidget->setShortcut(m_globalAutoTypeKey, m_globalAutoTypeModifiers);
-		}
-		m_generalUi->autoTypeRetypeTimeSpinBox->setValue(config()->get(Config::GlobalAutoTypeRetypeTime).toInt());
-		m_generalUi->autoTypeShortcutWidget->setAttribute(Qt::WA_MacShowFocusRect, true);
-		m_generalUi->autoTypeDelaySpinBox->setValue(config()->get(Config::AutoTypeDelay).toInt());
-		m_generalUi->autoTypeStartDelaySpinBox->setValue(config()->get(Config::AutoTypeStartDelay).toInt());
-	}
 
 	m_generalUi->trayIconAppearance->clear();
 #if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
@@ -373,9 +341,6 @@ void ApplicationSettingsWidget::saveSettings()
 	config()->set(Config::MinimizeOnCopy, m_generalUi->minimizeOnCopyRadioButton->isChecked());
 	config()->set(Config::DropToBackgroundOnCopy, m_generalUi->dropToBackgroundOnCopyRadioButton->isChecked());
 	config()->set(Config::UseGroupIconOnEntryCreation, m_generalUi->useGroupIconOnEntryCreationCheckBox->isChecked());
-	config()->set(Config::AutoTypeEntryTitleMatch, m_generalUi->autoTypeEntryTitleMatchCheckBox->isChecked());
-	config()->set(Config::AutoTypeEntryURLMatch, m_generalUi->autoTypeEntryURLMatchCheckBox->isChecked());
-	config()->set(Config::AutoTypeHideExpiredEntry, m_generalUi->autoTypeHideExpiredEntryCheckBox->isChecked());
 	config()->set(Config::Security_NoConfirmMoveEntryToRecycleBin,
 	              !m_generalUi->ConfirmMoveEntryToRecycleBinCheckBox->isChecked());
 	config()->set(Config::Security_EnableCopyOnDoubleClick, m_generalUi->EnableCopyOnDoubleClickCheckBox->isChecked());
@@ -412,20 +377,6 @@ void ApplicationSettingsWidget::saveSettings()
 	config()->set(Config::GUI_ShowExpiredEntriesOnDatabaseUnlockOffsetDays,
 	              m_generalUi->showExpiredEntriesOnDatabaseUnlockOffsetSpinBox->value());
 
-	config()->set(Config::Security_AutoTypeAsk, m_generalUi->autoTypeAskCheckBox->isChecked());
-	config()->set(Config::Security_AutoTypeSkipMainWindowConfirmation,
-	              m_generalUi->autoTypeSkipMainWindowConfirmationCheckBox->isChecked());
-	config()->set(Config::Security_RelockAutoType, m_generalUi->autoTypeRelockDatabaseCheckBox->isChecked());
-
-	if (autoType()->isAvailable())
-	{
-		config()->set(Config::GlobalAutoTypeKey, m_generalUi->autoTypeShortcutWidget->key());
-		config()->set(Config::GlobalAutoTypeModifiers,
-		              static_cast<int>(m_generalUi->autoTypeShortcutWidget->modifiers()));
-		config()->set(Config::GlobalAutoTypeRetypeTime, m_generalUi->autoTypeRetypeTimeSpinBox->value());
-		config()->set(Config::AutoTypeDelay, m_generalUi->autoTypeDelaySpinBox->value());
-		config()->set(Config::AutoTypeStartDelay, m_generalUi->autoTypeStartDelaySpinBox->value());
-	}
 	config()->set(Config::Security_ClearClipboard, m_secUi->clearClipboardCheckBox->isChecked());
 	config()->set(Config::Security_ClearClipboardTimeout, m_secUi->clearClipboardSpinBox->value());
 
@@ -544,15 +495,6 @@ void ApplicationSettingsWidget::exportSettings()
 	config()->exportSettings(file);
 }
 
-void ApplicationSettingsWidget::reject()
-{
-	// register the old key again as it might have changed
-	if (m_globalAutoTypeKey > 0 && m_globalAutoTypeModifiers > 0)
-	{
-		autoType()->registerGlobalShortcut(m_globalAutoTypeKey, m_globalAutoTypeModifiers);
-	}
-}
-
 void ApplicationSettingsWidget::autoSaveToggled(bool checked)
 {
 	// Explicitly enable other auto-save options
@@ -594,11 +536,6 @@ void ApplicationSettingsWidget::rememberDatabasesToggled(bool checked)
 void ApplicationSettingsWidget::showExpiredEntriesOnDatabaseUnlockToggled(bool checked)
 {
 	m_generalUi->showExpiredEntriesOnDatabaseUnlockOffsetSpinBox->setEnabled(checked);
-}
-
-void ApplicationSettingsWidget::autoTypeAskToggled(bool checked)
-{
-	m_generalUi->autoTypeSkipMainWindowConfirmationCheckBox->setEnabled(checked);
 }
 
 void ApplicationSettingsWidget::selectBackupDirectory()

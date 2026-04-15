@@ -34,7 +34,6 @@
 
 #include "Application.h"
 #include "Clipboard.h"
-#include "autotype/AutoType.h"
 #include "core/InactivityTimer.h"
 #include "core/Resources.h"
 #include "core/Tools.h"
@@ -116,8 +115,6 @@ MainWindow::MainWindow()
 	m_entryContextMenu->addAction(m_ui->menuEntryTotp->menuAction());
 	m_entryContextMenu->addAction(m_ui->menuTags->menuAction());
 	m_entryContextMenu->addSeparator();
-	m_entryContextMenu->addAction(m_ui->actionEntryAutoType);
-	m_entryContextMenu->addSeparator();
 	m_entryContextMenu->addAction(m_ui->actionEntryEdit);
 	m_entryContextMenu->addAction(m_ui->actionEntryExpire);
 	m_entryContextMenu->addAction(m_ui->actionEntryClone);
@@ -131,24 +128,6 @@ MainWindow::MainWindow()
 
 	m_entryNewContextMenu = new QMenu(this);
 	m_entryNewContextMenu->addAction(m_ui->actionEntryNew);
-
-	// Build Entry Level Auto-Type menu
-	auto autotypeMenu = new QMenu({}, this);
-	autotypeMenu->addAction(m_ui->actionEntryAutoTypeSequence);
-	autotypeMenu->addSeparator();
-	autotypeMenu->addAction(m_ui->actionEntryAutoTypeUsername);
-	autotypeMenu->addAction(m_ui->actionEntryAutoTypeUsernameEnter);
-	autotypeMenu->addAction(m_ui->actionEntryAutoTypePassword);
-	autotypeMenu->addAction(m_ui->actionEntryAutoTypePasswordEnter);
-	autotypeMenu->addAction(m_ui->actionEntryAutoTypeTOTP);
-	autotypeMenu->addAction(m_ui->actionEntryAutoTypeURL);
-	autotypeMenu->addAction(m_ui->actionEntryAutoTypeURLEnter);
-	m_ui->actionEntryAutoType->setMenu(autotypeMenu);
-	auto autoTypeButton = qobject_cast<QToolButton *>(m_ui->toolBar->widgetForAction(m_ui->actionEntryAutoType));
-	if (autoTypeButton)
-	{
-		autoTypeButton->setPopupMode(QToolButton::MenuButtonPopup);
-	}
 
 	auto databaseLockMenu = new QMenu({}, this);
 	databaseLockMenu->addAction(m_ui->actionLockAllDatabases);
@@ -199,18 +178,9 @@ MainWindow::MainWindow()
 	m_actionMultiplexer.connect(m_setTagsMenuActions, SIGNAL(triggered(QAction *)), SLOT(setTag(QAction *)));
 	connect(m_ui->menuTags, &QMenu::aboutToShow, this, &MainWindow::updateSetTagsMenu);
 
-	Qt::Key globalAutoTypeKey = static_cast<Qt::Key>(config()->get(Config::GlobalAutoTypeKey).toInt());
-	Qt::KeyboardModifiers globalAutoTypeModifiers =
-		static_cast<Qt::KeyboardModifiers>(config()->get(Config::GlobalAutoTypeModifiers).toInt());
-	if (globalAutoTypeKey > 0 && globalAutoTypeModifiers > 0)
-	{
-		autoType()->registerGlobalShortcut(globalAutoTypeKey, globalAutoTypeModifiers);
-	}
-
 	m_ui->toolbarSeparator->setVisible(false);
 	m_showToolbarSeparator = config()->get(Config::GUI_ApplicationTheme).toString() != "classic";
 
-	m_ui->actionEntryAutoType->setVisible(autoType()->isAvailable());
 	m_ui->actionAllowScreenCapture->setVisible(osUtils->canPreventScreenCapture());
 
 	m_inactivityTimer = new InactivityTimer(this);
@@ -241,7 +211,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryCopyUsername->setShortcut(Qt::CTRL + Qt::Key_B);
 	m_ui->actionEntryCopyPassword->setShortcut(Qt::CTRL + Qt::Key_C);
 	m_ui->actionEntryCopyTitle->setShortcut(Qt::CTRL + Qt::Key_I);
-	m_ui->actionEntryAutoTypeSequence->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_V);
 	m_ui->actionEntryOpenUrl->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_U);
 	m_ui->actionEntryCopyURL->setShortcut(Qt::CTRL + Qt::Key_U);
 	m_ui->actionEntryRestore->setShortcut(Qt::CTRL + Qt::Key_R);
@@ -261,7 +230,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryMoveDown->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyUsername->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyPassword->setShortcutVisibleInContextMenu(true);
-	m_ui->actionEntryAutoTypeSequence->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryOpenUrl->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyURL->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyTitle->setShortcutVisibleInContextMenu(true);
@@ -337,15 +305,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryExpire->setIcon(icons()->icon("entry-expire"));
 	m_ui->actionEntryDelete->setIcon(icons()->icon("entry-delete"));
 	m_ui->actionEntryRestore->setIcon(icons()->icon("entry-restore"));
-	m_ui->actionEntryAutoType->setIcon(icons()->icon("auto-type"));
-	m_ui->actionEntryAutoTypeSequence->setIcon(icons()->icon("auto-type"));
-	m_ui->actionEntryAutoTypeUsername->setIcon(icons()->icon("auto-type"));
-	m_ui->actionEntryAutoTypeUsernameEnter->setIcon(icons()->icon("auto-type"));
-	m_ui->actionEntryAutoTypePassword->setIcon(icons()->icon("auto-type"));
-	m_ui->actionEntryAutoTypePasswordEnter->setIcon(icons()->icon("auto-type"));
-	m_ui->actionEntryAutoTypeTOTP->setIcon(icons()->icon("auto-type"));
-	m_ui->actionEntryAutoTypeURL->setIcon(icons()->icon("auto-type"));
-	m_ui->actionEntryAutoTypeURLEnter->setIcon(icons()->icon("auto-type"));
 	m_ui->actionEntryMoveUp->setIcon(icons()->icon("move-up"));
 	m_ui->actionEntryMoveDown->setIcon(icons()->icon("move-down"));
 	m_ui->actionEntryCopyUsername->setIcon(icons()->icon("username-copy"));
@@ -451,20 +410,6 @@ MainWindow::MainWindow()
 	m_actionMultiplexer.connect(m_ui->actionEntryCopyPassword, SIGNAL(triggered()), SLOT(copyPassword()));
 	m_actionMultiplexer.connect(m_ui->actionEntryCopyURL, SIGNAL(triggered()), SLOT(copyURL()));
 	m_actionMultiplexer.connect(m_ui->actionEntryCopyNotes, SIGNAL(triggered()), SLOT(copyNotes()));
-	m_actionMultiplexer.connect(m_ui->actionEntryAutoType, SIGNAL(triggered()), SLOT(performAutoType()));
-	m_actionMultiplexer.connect(m_ui->actionEntryAutoTypeSequence, SIGNAL(triggered()), SLOT(performAutoType()));
-	m_actionMultiplexer.connect(
-		m_ui->actionEntryAutoTypeUsername, SIGNAL(triggered()), SLOT(performAutoTypeUsername()));
-	m_actionMultiplexer.connect(
-		m_ui->actionEntryAutoTypeUsernameEnter, SIGNAL(triggered()), SLOT(performAutoTypeUsernameEnter()));
-	m_actionMultiplexer.connect(
-		m_ui->actionEntryAutoTypePassword, SIGNAL(triggered()), SLOT(performAutoTypePassword()));
-	m_actionMultiplexer.connect(
-		m_ui->actionEntryAutoTypePasswordEnter, SIGNAL(triggered()), SLOT(performAutoTypePasswordEnter()));
-	m_actionMultiplexer.connect(m_ui->actionEntryAutoTypeTOTP, SIGNAL(triggered()), SLOT(performAutoTypeTOTP()));
-	m_actionMultiplexer.connect(m_ui->actionEntryAutoTypeURL, SIGNAL(triggered()), SLOT(performAutoTypeURL()));
-	m_actionMultiplexer.connect(
-		m_ui->actionEntryAutoTypeURLEnter, SIGNAL(triggered()), SLOT(performAutoTypeURLEnter()));
 	m_actionMultiplexer.connect(m_ui->actionEntryOpenUrl, SIGNAL(triggered()), SLOT(openUrl()));
 	m_actionMultiplexer.connect(m_ui->actionGroupNew, SIGNAL(triggered()), SLOT(createGroup()));
 	m_actionMultiplexer.connect(m_ui->actionGroupEdit, SIGNAL(triggered()), SLOT(switchToGroupEdit()));
@@ -874,20 +819,6 @@ void MainWindow::updateMenuActionState()
 			updateSetTagsMenu();
 		}
 	}
-	m_ui->actionEntryAutoType->setEnabled(singleEntrySelected && dbWidget->currentEntryHasAutoTypeEnabled());
-	m_ui->actionEntryAutoType->menu()->setEnabled(singleEntrySelected && dbWidget->currentEntryHasAutoTypeEnabled());
-	m_ui->actionEntryAutoTypeSequence->setText(singleEntrySelected
-	                                               ? dbWidget->currentSelectedEntry()->effectiveAutoTypeSequence()
-	                                               : Group::RootAutoTypeSequence);
-	m_ui->actionEntryAutoTypeSequence->setEnabled(singleEntrySelected);
-	m_ui->actionEntryAutoTypeUsername->setEnabled(singleEntrySelected && dbWidget->currentEntryHasUsername());
-	m_ui->actionEntryAutoTypeUsernameEnter->setEnabled(singleEntrySelected && dbWidget->currentEntryHasUsername());
-	m_ui->actionEntryAutoTypePassword->setEnabled(singleEntrySelected && dbWidget->currentEntryHasPassword());
-	m_ui->actionEntryAutoTypePasswordEnter->setEnabled(singleEntrySelected && dbWidget->currentEntryHasPassword());
-	m_ui->actionEntryAutoTypeTOTP->setEnabled(singleEntrySelected && dbWidget->currentEntryHasTotp());
-	m_ui->actionEntryAutoTypeURL->setEnabled(singleEntrySelected && dbWidget->currentEntryHasUrl());
-	m_ui->actionEntryAutoTypeURLEnter->setEnabled(singleEntrySelected && dbWidget->currentEntryHasUrl());
-	m_ui->actionEntryAutoTypeTOTP->setVisible(singleEntrySelected && dbWidget->currentEntryHasTotp());
 	m_ui->actionEntryOpenUrl->setEnabled(singleEntryOrEditing && dbWidget->currentEntryHasUrl());
 	m_ui->actionEntryTotp->setEnabled(singleEntrySelected && dbWidget->currentEntryHasTotp());
 	m_ui->actionEntryCopyTotp->setEnabled(singleEntrySelected);
