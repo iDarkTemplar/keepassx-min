@@ -38,8 +38,7 @@ public:
 	{
 		None,
 		AutoType,
-		Merge,
-		Browser
+		Merge
 	};
 
 	explicit DatabaseOpenDialog(QWidget *parent = nullptr);

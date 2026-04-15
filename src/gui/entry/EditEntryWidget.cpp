@@ -43,10 +43,6 @@
 #include "sshagent/OpenSSHKey.h"
 #include "sshagent/SSHAgent.h"
 #endif
-#ifdef WITH_XC_BROWSER
-#include "EntryURLModel.h"
-#include "browser/BrowserService.h"
-#endif
 #include "gui/Clipboard.h"
 #include "gui/EditWidgetIcons.h"
 #include "gui/EditWidgetProperties.h"
@@ -77,11 +73,6 @@ EditEntryWidget::EditEntryWidget(QWidget *parent)
 #ifdef WITH_XC_SSHAGENT
 	, m_sshAgentWidget(new QWidget(this))
 #endif
-#ifdef WITH_XC_BROWSER
-	, m_browserSettingsChanged(false)
-	, m_browserWidget(new QWidget(this))
-	, m_additionalURLsDataModel(new EntryURLModel(this))
-#endif
 	, m_editWidgetProperties(new EditWidgetProperties(this))
 	, m_historyWidget(new QWidget(this))
 	, m_entryAttributes(new EntryAttributes(this))
@@ -102,10 +93,6 @@ EditEntryWidget::EditEntryWidget(QWidget *parent)
 
 #ifdef WITH_XC_SSHAGENT
 	setupSSHAgent();
-#endif
-
-#ifdef WITH_XC_BROWSER
-	setupBrowser();
 #endif
 
 	setupProperties();
@@ -165,12 +152,6 @@ QWidget *EditEntryWidget::widgetForPage(Page page) const
 		return m_iconsWidget;
 	case Page::AutoType:
 		return m_autoTypeWidget;
-	case Page::Browser:
-#ifdef WITH_XC_BROWSER
-		return m_browserWidget;
-#else
-		return nullptr;
-#endif
 	case Page::SSHAgent:
 #ifdef WITH_XC_SSHAGENT
 		return m_sshAgentWidget;
@@ -210,9 +191,6 @@ void EditEntryWidget::setupMain()
 	connect(m_mainUi->fetchFaviconButton, SIGNAL(clicked()), m_iconsWidget, SLOT(downloadFavicon()));
 	connect(m_mainUi->urlEdit, SIGNAL(textChanged(QString)), m_iconsWidget, SLOT(setUrl(QString)));
 	m_mainUi->urlEdit->enableVerifyMode();
-#endif
-#ifdef WITH_XC_BROWSER
-	connect(m_mainUi->urlEdit, SIGNAL(textChanged(QString)), this, SLOT(entryURLEdited(const QString &)));
 #endif
 	connect(m_mainUi->expireCheck, &QCheckBox::toggled, [&](bool enabled) {
 		m_mainUi->expireDatePicker->setEnabled(enabled);
@@ -307,173 +285,6 @@ void EditEntryWidget::setupAutoType()
 	// clang-format on
 }
 
-#ifdef WITH_XC_BROWSER
-void EditEntryWidget::setupBrowser()
-{
-	if (config()->get(Config::Browser_Enabled).toBool())
-	{
-		m_browserUi->setupUi(m_browserWidget);
-		addPage(tr("Browser Integration"), icons()->icon("internet-web-browser"), m_browserWidget);
-		m_additionalURLsDataModel->setEntryAttributes(m_entryAttributes);
-		m_browserUi->additionalURLsView->setModel(m_additionalURLsDataModel);
-
-		m_browserUi->messageWidget->setCloseButtonVisible(false);
-		m_browserUi->messageWidget->setAutoHideTimeout(-1);
-		m_browserUi->messageWidget->setAnimate(false);
-		m_browserUi->messageWidget->setVisible(false);
-
-		// Use a custom item delegate to align the icon to the right side
-		auto iconDelegate = new URLModelIconDelegate(m_browserUi->additionalURLsView);
-		m_browserUi->additionalURLsView->setItemDelegate(iconDelegate);
-
-		// clang-format off
-        connect(m_browserUi->skipAutoSubmitCheckbox, SIGNAL(toggled(bool)), SLOT(updateBrowserModified()));
-        connect(m_browserUi->hideEntryCheckbox, SIGNAL(toggled(bool)), SLOT(updateBrowserModified()));
-        connect(m_browserUi->onlyHttpAuthCheckbox, SIGNAL(toggled(bool)), SLOT(updateBrowserModified()));
-        connect(m_browserUi->notHttpAuthCheckbox, SIGNAL(toggled(bool)), SLOT(updateBrowserModified()));
-        connect(m_browserUi->addURLButton, SIGNAL(clicked()), SLOT(insertURL()));
-        connect(m_browserUi->removeURLButton, SIGNAL(clicked()), SLOT(removeCurrentURL()));
-        connect(m_browserUi->editURLButton, SIGNAL(clicked()), SLOT(editCurrentURL()));
-        connect(m_browserUi->additionalURLsView->selectionModel(),
-            SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-            SLOT(updateCurrentURL()));
-        connect(m_additionalURLsDataModel,
-            SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)),
-            SLOT(updateCurrentAttribute()));
-		// clang-format on
-	}
-}
-
-void EditEntryWidget::updateBrowserModified()
-{
-	m_browserSettingsChanged = true;
-}
-
-void EditEntryWidget::updateBrowser()
-{
-	if (!m_browserSettingsChanged)
-	{
-		return;
-	}
-
-	// Only update the custom data if no group level settings are used (checkbox is enabled)
-	if (m_browserUi->hideEntryCheckbox->isEnabled())
-	{
-		auto hide = m_browserUi->hideEntryCheckbox->isChecked();
-		m_customData->set(BrowserService::OPTION_HIDE_ENTRY, (hide ? TRUE_STR : FALSE_STR));
-	}
-
-	if (m_browserUi->skipAutoSubmitCheckbox->isEnabled())
-	{
-		auto skip = m_browserUi->skipAutoSubmitCheckbox->isChecked();
-		m_customData->set(BrowserService::OPTION_SKIP_AUTO_SUBMIT, (skip ? TRUE_STR : FALSE_STR));
-	}
-
-	if (m_browserUi->onlyHttpAuthCheckbox->isEnabled())
-	{
-		auto onlyHttpAuth = m_browserUi->onlyHttpAuthCheckbox->isChecked();
-		m_customData->set(BrowserService::OPTION_ONLY_HTTP_AUTH, (onlyHttpAuth ? TRUE_STR : FALSE_STR));
-	}
-
-	if (m_browserUi->notHttpAuthCheckbox->isEnabled())
-	{
-		auto notHttpAuth = m_browserUi->notHttpAuthCheckbox->isChecked();
-		m_customData->set(BrowserService::OPTION_NOT_HTTP_AUTH, (notHttpAuth ? TRUE_STR : FALSE_STR));
-	}
-}
-
-void EditEntryWidget::insertURL()
-{
-	Q_ASSERT(!m_history);
-
-	QString name(EntryAttributes::AdditionalUrlAttribute);
-	int i = 1;
-
-	while (m_entryAttributes->keys().contains(name))
-	{
-		name = QString("%1_%2").arg(EntryAttributes::AdditionalUrlAttribute, QString::number(i));
-		i++;
-	}
-
-	m_entryAttributes->set(name, tr("<empty URL>"));
-	QModelIndex index = m_additionalURLsDataModel->indexByKey(name);
-
-	m_additionalURLsDataModel->setEntryUrl(m_entry->url());
-	m_browserUi->additionalURLsView->setCurrentIndex(index);
-	m_browserUi->additionalURLsView->edit(index);
-
-	setModified(true);
-}
-
-void EditEntryWidget::removeCurrentURL()
-{
-	Q_ASSERT(!m_history);
-
-	QModelIndex index = m_browserUi->additionalURLsView->currentIndex();
-
-	if (index.isValid())
-	{
-		auto name = m_additionalURLsDataModel->keyByIndex(index);
-		auto url = m_entryAttributes->value(name);
-		if (url != tr("<empty URL>"))
-		{
-			auto result = MessageBox::question(this,
-			                                   tr("Confirm Removal"),
-			                                   tr("Are you sure you want to remove this URL?"),
-			                                   MessageBox::Remove | MessageBox::Cancel,
-			                                   MessageBox::Cancel);
-
-			if (result != MessageBox::Remove)
-			{
-				return;
-			}
-		}
-		m_entryAttributes->remove(m_additionalURLsDataModel->keyByIndex(index));
-		if (m_additionalURLsDataModel->rowCount() == 0)
-		{
-			m_browserUi->editURLButton->setEnabled(false);
-			m_browserUi->removeURLButton->setEnabled(false);
-		}
-		setModified(true);
-	}
-}
-
-void EditEntryWidget::editCurrentURL()
-{
-	Q_ASSERT(!m_history);
-
-	QModelIndex index = m_browserUi->additionalURLsView->currentIndex();
-
-	if (index.isValid())
-	{
-		m_browserUi->additionalURLsView->edit(index);
-		setModified(true);
-	}
-}
-
-void EditEntryWidget::updateCurrentURL()
-{
-	QModelIndex index = m_browserUi->additionalURLsView->currentIndex();
-
-	if (index.isValid())
-	{
-		// Don't allow editing in history view
-		m_browserUi->editURLButton->setEnabled(!m_history);
-		m_browserUi->removeURLButton->setEnabled(!m_history);
-	}
-	else
-	{
-		m_browserUi->editURLButton->setEnabled(false);
-		m_browserUi->removeURLButton->setEnabled(false);
-	}
-}
-
-void EditEntryWidget::entryURLEdited(const QString &url)
-{
-	m_additionalURLsDataModel->setEntryUrl(url);
-}
-#endif
-
 void EditEntryWidget::setupProperties()
 {
 	addPage(tr("Properties"), icons()->icon("document-properties"), m_editWidgetProperties);
@@ -558,19 +369,6 @@ void EditEntryWidget::setupEntryUpdate()
 		connect(m_sshAgentUi->requireUserConfirmationCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setModified()));
 		connect(m_sshAgentUi->lifetimeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setModified()));
 		connect(m_sshAgentUi->lifetimeSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setModified()));
-	}
-#endif
-
-#ifdef WITH_XC_BROWSER
-	if (config()->get(Config::Browser_Enabled).toBool())
-	{
-		connect(m_browserUi->skipAutoSubmitCheckbox, SIGNAL(toggled(bool)), SLOT(setModified()));
-		connect(m_browserUi->hideEntryCheckbox, SIGNAL(toggled(bool)), SLOT(setModified()));
-		connect(m_browserUi->onlyHttpAuthCheckbox, SIGNAL(toggled(bool)), SLOT(setModified()));
-		connect(m_browserUi->notHttpAuthCheckbox, SIGNAL(toggled(bool)), SLOT(setModified()));
-		connect(m_browserUi->addURLButton, SIGNAL(toggled(bool)), SLOT(setModified()));
-		connect(m_browserUi->removeURLButton, SIGNAL(toggled(bool)), SLOT(setModified()));
-		connect(m_browserUi->editURLButton, SIGNAL(toggled(bool)), SLOT(setModified()));
 	}
 #endif
 }
@@ -1105,80 +903,6 @@ void EditEntryWidget::setForms(Entry *entry, bool restore)
 	}
 #endif
 
-#ifdef WITH_XC_BROWSER
-	if (config()->get(Config::Browser_Enabled).toBool())
-	{
-		if (!hasPage(m_browserWidget))
-		{
-			setupBrowser();
-		}
-
-		auto hideEntriesCheckBoxEnabled = true;
-		auto skipAutoSubmitCheckBoxEnabled = true;
-		auto onlyHttpAuthCheckBoxEnabled = true;
-		auto notHttpAuthCheckBoxEnabled = true;
-		auto hideEntries = false;
-		auto skipAutoSubmit = false;
-		auto onlyHttpAuth = false;
-		auto notHttpAuth = false;
-
-		const auto group = m_entry->group();
-		if (group)
-		{
-			hideEntries = group->resolveCustomDataTriState(BrowserService::OPTION_HIDE_ENTRY) == Group::Enable;
-			skipAutoSubmit = group->resolveCustomDataTriState(BrowserService::OPTION_SKIP_AUTO_SUBMIT) == Group::Enable;
-			onlyHttpAuth = group->resolveCustomDataTriState(BrowserService::OPTION_ONLY_HTTP_AUTH) == Group::Enable;
-			notHttpAuth = group->resolveCustomDataTriState(BrowserService::OPTION_NOT_HTTP_AUTH) == Group::Enable;
-
-			hideEntriesCheckBoxEnabled =
-				group->resolveCustomDataTriState(BrowserService::OPTION_HIDE_ENTRY) == Group::Inherit;
-			skipAutoSubmitCheckBoxEnabled =
-				group->resolveCustomDataTriState(BrowserService::OPTION_SKIP_AUTO_SUBMIT) == Group::Inherit;
-			onlyHttpAuthCheckBoxEnabled =
-				group->resolveCustomDataTriState(BrowserService::OPTION_ONLY_HTTP_AUTH) == Group::Inherit;
-			notHttpAuthCheckBoxEnabled =
-				group->resolveCustomDataTriState(BrowserService::OPTION_NOT_HTTP_AUTH) == Group::Inherit;
-		}
-
-		// Show information about group level settings
-		if (!hideEntriesCheckBoxEnabled || !skipAutoSubmitCheckBoxEnabled || !onlyHttpAuthCheckBoxEnabled
-		    || !notHttpAuthCheckBoxEnabled)
-		{
-			m_browserUi->messageWidget->showMessage(
-				tr("Some Browser Integration settings are overridden by group settings."), MessageWidget::Information);
-			m_browserUi->messageWidget->setVisible(true);
-		}
-
-		// Disable checkboxes based on group level settings
-		updateBrowserIntegrationCheckbox(
-			m_browserUi->hideEntryCheckbox, hideEntriesCheckBoxEnabled, hideEntries, BrowserService::OPTION_HIDE_ENTRY);
-		updateBrowserIntegrationCheckbox(m_browserUi->skipAutoSubmitCheckbox,
-		                                 skipAutoSubmitCheckBoxEnabled,
-		                                 skipAutoSubmit,
-		                                 BrowserService::OPTION_SKIP_AUTO_SUBMIT);
-		updateBrowserIntegrationCheckbox(m_browserUi->onlyHttpAuthCheckbox,
-		                                 onlyHttpAuthCheckBoxEnabled,
-		                                 onlyHttpAuth,
-		                                 BrowserService::OPTION_ONLY_HTTP_AUTH);
-		updateBrowserIntegrationCheckbox(m_browserUi->notHttpAuthCheckbox,
-		                                 notHttpAuthCheckBoxEnabled,
-		                                 notHttpAuth,
-		                                 BrowserService::OPTION_NOT_HTTP_AUTH);
-
-		m_browserUi->addURLButton->setEnabled(!m_history);
-		m_browserUi->removeURLButton->setEnabled(false);
-		m_browserUi->editURLButton->setEnabled(false);
-		m_browserUi->additionalURLsView->setEditTriggers(editTriggers);
-
-		if (m_additionalURLsDataModel->rowCount() != 0)
-		{
-			m_browserUi->additionalURLsView->setCurrentIndex(m_additionalURLsDataModel->index(0, 0));
-		}
-	}
-
-	setPageHidden(m_browserWidget, !config()->get(Config::Browser_Enabled).toBool());
-#endif
-
 	m_editWidgetProperties->setFields(entry->timeInfo(), entry->uuid());
 
 	if (!m_history && !restore)
@@ -1288,13 +1012,6 @@ bool EditEntryWidget::commitEntry()
 		m_entry->beginUpdate();
 	}
 
-#ifdef WITH_XC_BROWSER
-	if (config()->get(Config::Browser_Enabled).toBool())
-	{
-		updateBrowser();
-	}
-#endif
-
 	updateEntryData(m_entry);
 
 	if (!m_create)
@@ -1400,34 +1117,6 @@ void EditEntryWidget::updateEntryData(Entry *entry) const
 		m_sshAgentSettings.toEntry(entry);
 	}
 #endif
-}
-
-void EditEntryWidget::updateBrowserIntegrationCheckbox(QCheckBox *checkBox,
-                                                       bool enabled,
-                                                       bool value,
-                                                       const QString &option)
-{
-	auto block = checkBox->signalsBlocked();
-	checkBox->blockSignals(true);
-
-	if (enabled)
-	{
-		if (m_customData->contains(option))
-		{
-			checkBox->setChecked(m_customData->value(option) == TRUE_STR);
-		}
-		else
-		{
-			checkBox->setChecked(false);
-		}
-	}
-	else
-	{
-		checkBox->setChecked(value);
-	}
-	checkBox->setEnabled(enabled);
-
-	checkBox->blockSignals(block);
 }
 
 void EditEntryWidget::cancel()

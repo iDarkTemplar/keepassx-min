@@ -67,10 +67,6 @@
 #include "keys/drivers/YubiKey.h"
 #endif
 
-#ifdef WITH_XC_BROWSER
-#include "browser/BrowserService.h"
-#endif
-
 #if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS) && !defined(QT_NO_DBUS)
 #include "mainwindowadaptor.h"
 #endif
@@ -140,11 +136,6 @@ MainWindow::MainWindow()
 	m_entryContextMenu->addSeparator();
 	m_entryContextMenu->addAction(m_ui->actionEntryAutoType);
 	m_entryContextMenu->addSeparator();
-#ifdef WITH_XC_BROWSER_PASSKEYS
-	m_entryContextMenu->addAction(m_ui->actionEntryImportPasskey);
-	m_entryContextMenu->addAction(m_ui->actionEntryRemovePasskey);
-	m_entryContextMenu->addSeparator();
-#endif
 	m_entryContextMenu->addAction(m_ui->actionEntryEdit);
 	m_entryContextMenu->addAction(m_ui->actionEntryExpire);
 	m_entryContextMenu->addAction(m_ui->actionEntryClone);
@@ -198,11 +189,6 @@ MainWindow::MainWindow()
 	        &DatabaseTabWidget::databaseUnlockDialogFinished,
 	        this,
 	        &MainWindow::databaseUnlockDialogFinished);
-
-#ifdef WITH_XC_BROWSER
-	connect(
-		browserService(), &BrowserService::requestUnlock, m_ui->tabWidget, &DatabaseTabWidget::performBrowserUnlock);
-#endif
 
 #ifdef WITH_XC_SSHAGENT
 	connect(sshAgent(), SIGNAL(error(QString)), this, SLOT(showErrorMessage(QString)));
@@ -395,7 +381,6 @@ MainWindow::MainWindow()
 	m_ui->actionReports->setIcon(icons()->icon("reports"));
 	m_ui->actionDatabaseSettings->setIcon(icons()->icon("database-settings"));
 	m_ui->actionDatabaseSecurity->setIcon(icons()->icon("database-change-key"));
-	m_ui->actionPasskeys->setIcon(icons()->icon("passkey"));
 	m_ui->actionImportPasskey->setIcon(icons()->icon("document-import"));
 	m_ui->actionLockDatabase->setIcon(icons()->icon("database-lock"));
 	m_ui->actionLockDatabaseToolbar->setIcon(icons()->icon("database-lock"));
@@ -404,13 +389,6 @@ MainWindow::MainWindow()
 	m_ui->actionDatabaseMerge->setIcon(icons()->icon("database-merge"));
 	m_ui->actionImport->setIcon(icons()->icon("document-import"));
 	m_ui->menuExport->setIcon(icons()->icon("document-export"));
-
-#ifndef WITH_XC_BROWSER_PASSKEYS
-	m_ui->actionPasskeys->setVisible(false);
-	m_ui->actionImportPasskey->setVisible(false);
-	m_ui->actionEntryImportPasskey->setVisible(false);
-#endif
-
 	m_ui->actionEntryNew->setIcon(icons()->icon("entry-new"));
 	m_ui->actionEntryClone->setIcon(icons()->icon("entry-clone"));
 	m_ui->actionEntryEdit->setIcon(icons()->icon("entry-edit"));
@@ -464,13 +442,6 @@ MainWindow::MainWindow()
 	m_ui->actionOnlineHelp->setIcon(icons()->icon("system-help"));
 	m_ui->actionCheckForUpdates->setIcon(icons()->icon("system-software-update"));
 
-#ifdef WITH_XC_BROWSER_PASSKEYS
-	m_ui->actionPasskeys->setIcon(icons()->icon("passkey"));
-	m_ui->actionImportPasskey->setIcon(icons()->icon("document-import"));
-	m_ui->actionEntryImportPasskey->setIcon(icons()->icon("document-import"));
-	m_ui->actionEntryRemovePasskey->setIcon(icons()->icon("document-close"));
-#endif
-
 	m_actionMultiplexer.connect(SIGNAL(currentModeChanged(DatabaseWidget::Mode)), this, SLOT(updateMenuActionState()));
 	m_actionMultiplexer.connect(SIGNAL(groupChanged()), this, SLOT(updateMenuActionState()));
 	m_actionMultiplexer.connect(SIGNAL(entrySelectionChanged()), this, SLOT(updateMenuActionState()));
@@ -515,12 +486,6 @@ MainWindow::MainWindow()
 	connect(m_ui->actionDatabaseSettings, SIGNAL(toggled(bool)), m_ui->tabWidget, SLOT(showDatabaseSettings(bool)));
 	connect(m_ui->actionDatabaseSecurity, SIGNAL(triggered()), m_ui->tabWidget, SLOT(showDatabaseSecurity()));
 	connect(m_ui->actionReports, SIGNAL(toggled(bool)), m_ui->tabWidget, SLOT(showDatabaseReports(bool)));
-#ifdef WITH_XC_BROWSER_PASSKEYS
-	connect(m_ui->actionPasskeys, SIGNAL(triggered()), m_ui->tabWidget, SLOT(showPasskeys()));
-	connect(m_ui->actionImportPasskey, SIGNAL(triggered()), m_ui->tabWidget, SLOT(importPasskey()));
-	connect(m_ui->actionEntryImportPasskey, SIGNAL(triggered()), m_ui->tabWidget, SLOT(importPasskeyToEntry()));
-	connect(m_ui->actionEntryRemovePasskey, SIGNAL(triggered()), m_ui->tabWidget, SLOT(removePasskeyFromEntry()));
-#endif
 	connect(m_ui->actionImport, SIGNAL(triggered()), m_ui->tabWidget, SLOT(importFile()));
 	connect(m_ui->actionExportCsv, SIGNAL(triggered()), m_ui->tabWidget, SLOT(exportToCsv()));
 	connect(m_ui->actionExportHtml, SIGNAL(triggered()), m_ui->tabWidget, SLOT(exportToHtml()));
@@ -1063,12 +1028,6 @@ void MainWindow::updateMenuActionState()
 	m_ui->actionEntryTotpQRCode->setEnabled(singleEntrySelected && dbWidget->currentEntryHasTotp());
 	m_ui->actionEntryDownloadIcon->setEnabled((multiEntrySelected && !singleEntrySelected)
 	                                          || (singleEntrySelected && dbWidget->currentEntryHasUrl()));
-#ifdef WITH_XC_BROWSER_PASSKEYS
-	m_ui->actionEntryImportPasskey->setVisible(singleEntrySelected);
-	m_ui->actionEntryImportPasskey->setEnabled(singleEntrySelected);
-	m_ui->actionEntryRemovePasskey->setVisible(singleEntrySelected && dbWidget->currentEntryHasPasskey());
-	m_ui->actionEntryRemovePasskey->setEnabled(singleEntrySelected && dbWidget->currentEntryHasPasskey());
-#endif
 #ifdef WITH_XC_SSHAGENT
 	bool hasSSHKey = singleEntrySelected && sshAgent()->isEnabled() && dbWidget->currentEntryHasSshKey();
 	m_ui->actionEntryAddToAgent->setVisible(hasSSHKey);
@@ -1107,10 +1066,6 @@ void MainWindow::updateMenuActionState()
 	m_ui->actionReports->setEnabled(inDatabase || inReports);
 	m_ui->menuExport->setEnabled(inDatabase);
 	m_ui->actionDatabaseMerge->setEnabled(inDatabase);
-#ifdef WITH_XC_BROWSER_PASSKEYS
-	m_ui->actionPasskeys->setEnabled(inDatabase || inReports);
-	m_ui->actionImportPasskey->setEnabled(inDatabase);
-#endif
 
 	m_searchWidgetAction->setEnabled(inDatabase);
 }

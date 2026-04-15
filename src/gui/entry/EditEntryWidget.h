@@ -47,9 +47,6 @@ class QStringListModel;
 #include "sshagent/KeeAgentSettings.h"
 class OpenSSHKey;
 #endif
-#ifdef WITH_XC_BROWSER
-class EntryURLModel;
-#endif
 
 namespace Ui
 {
@@ -85,7 +82,6 @@ public:
 		Advanced,
 		Icon,
 		AutoType,
-		Browser,
 		SSHAgent,
 		Properties,
 		History
@@ -141,24 +137,12 @@ private slots:
 	void decryptPrivateKey();
 	void copyPublicKey();
 #endif
-#ifdef WITH_XC_BROWSER
-	void updateBrowserModified();
-	void updateBrowser();
-	void insertURL();
-	void removeCurrentURL();
-	void editCurrentURL();
-	void updateCurrentURL();
-	void entryURLEdited(const QString &url);
-#endif
 
 private:
 	void setupMain();
 	void setupAdvanced();
 	void setupIcon();
 	void setupAutoType();
-#ifdef WITH_XC_BROWSER
-	void setupBrowser();
-#endif
 #ifdef WITH_XC_SSHAGENT
 	void setupSSHAgent();
 #endif
@@ -171,7 +155,6 @@ private:
 	void setForms(Entry *entry, bool restore = false);
 	QMenu *createPresetsMenu();
 	void updateEntryData(Entry *entry) const;
-	void updateBrowserIntegrationCheckbox(QCheckBox *checkBox, bool enabled, bool value, const QString &option);
 #ifdef WITH_XC_SSHAGENT
 	bool getOpenSSHKey(OpenSSHKey &key, bool decrypt = false);
 #endif
@@ -203,11 +186,6 @@ private:
 	QWidget *const m_autoTypeWidget;
 #ifdef WITH_XC_SSHAGENT
 	QWidget *const m_sshAgentWidget;
-#endif
-#ifdef WITH_XC_BROWSER
-	bool m_browserSettingsChanged;
-	QWidget *const m_browserWidget;
-	EntryURLModel *const m_additionalURLsDataModel;
 #endif
 	EditWidgetProperties *const m_editWidgetProperties;
 	QWidget *const m_historyWidget;

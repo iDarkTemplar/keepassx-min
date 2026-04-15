@@ -17,10 +17,6 @@
 
 #include "EditGroupWidget.h"
 #include "ui_EditGroupWidgetMain.h"
-#if defined(WITH_XC_BROWSER)
-#include "browser/BrowserService.h"
-#include "ui_EditGroupWidgetBrowser.h"
-#endif
 
 #include "core/Config.h"
 #include "core/Metadata.h"
@@ -69,23 +65,12 @@ EditGroupWidget::EditGroupWidget(QWidget *parent)
 	, m_editGroupWidgetMain(new QScrollArea())
 	, m_editGroupWidgetIcons(new EditWidgetIcons())
 	, m_editWidgetProperties(new EditWidgetProperties())
-#if defined(WITH_XC_BROWSER)
-	, m_browserSettingsChanged(false)
-	, m_browserUi(new Ui::EditGroupWidgetBrowser())
-	, m_browserWidget(new QWidget(this))
-#endif
 	, m_group(nullptr)
 {
 	m_mainUi->setupUi(m_editGroupWidgetMain);
 
 	addPage(tr("Group"), icons()->icon("document-edit"), m_editGroupWidgetMain);
 	addPage(tr("Icon"), icons()->icon("preferences-desktop-icons"), m_editGroupWidgetIcons);
-#if defined(WITH_XC_BROWSER)
-	if (config()->get(Config::Browser_Enabled).toBool())
-	{
-		initializeBrowserPage();
-	}
-#endif
 #if defined(WITH_XC_KEESHARE)
 	addEditPage(new EditGroupPageKeeShare(this));
 #endif
@@ -131,13 +116,6 @@ void EditGroupWidget::setupModifiedTracking()
 
 	// Icon tab
 	connect(m_editGroupWidgetIcons, SIGNAL(widgetUpdated()), SLOT(setModified()));
-
-#if defined(WITH_XC_BROWSER)
-	if (config()->get(Config::Browser_Enabled).toBool())
-	{
-		setupBrowserModifiedTracking();
-	}
-#endif
 }
 
 void EditGroupWidget::loadGroup(Group *group, bool create, const QSharedPointer<Database> &database)
@@ -205,61 +183,6 @@ void EditGroupWidget::loadGroup(Group *group, bool create, const QSharedPointer<
 		page.set(m_temporaryGroup.data(), m_db);
 	}
 
-#ifdef WITH_XC_BROWSER
-	if (config()->get(Config::Browser_Enabled).toBool())
-	{
-		auto inheritHideEntries = false;
-		auto inheritSkipSubmit = false;
-		auto inheritOnlyHttp = false;
-		auto inheritNoHttp = false;
-		auto inheritOmitWww = false;
-		auto inheritRestrictKey = QString();
-
-		auto parent = group->parentGroup();
-		if (parent)
-		{
-			inheritHideEntries = parent->resolveBrowserOptionEnabled(BrowserService::OPTION_HIDE_ENTRY);
-			inheritSkipSubmit = parent->resolveBrowserOptionEnabled(BrowserService::OPTION_SKIP_AUTO_SUBMIT);
-			inheritOnlyHttp = parent->resolveBrowserOptionEnabled(BrowserService::OPTION_ONLY_HTTP_AUTH);
-			inheritNoHttp = parent->resolveBrowserOptionEnabled(BrowserService::OPTION_NOT_HTTP_AUTH);
-			inheritOmitWww = parent->resolveBrowserOptionEnabled(BrowserService::OPTION_OMIT_WWW);
-			inheritRestrictKey = parent->resolveCustomDataString(BrowserService::OPTION_RESTRICT_KEY);
-		}
-
-		// If the page has not been created at all, some of the elements are null
-		if (m_browserUi->browserIntegrationHideEntriesComboBox == nullptr
-		    && config()->get(Config::Browser_Enabled).toBool())
-		{
-			initializeBrowserPage();
-			setupBrowserModifiedTracking();
-		}
-
-		setPageHidden(m_browserWidget, false);
-		addTriStateItems(m_browserUi->browserIntegrationHideEntriesComboBox, inheritHideEntries);
-		addTriStateItems(m_browserUi->browserIntegrationSkipAutoSubmitComboBox, inheritSkipSubmit);
-		addTriStateItems(m_browserUi->browserIntegrationOnlyHttpAuthComboBox, inheritOnlyHttp);
-		addTriStateItems(m_browserUi->browserIntegrationNotHttpAuthComboBox, inheritNoHttp);
-		addTriStateItems(m_browserUi->browserIntegrationOmitWwwCombobox, inheritOmitWww);
-		addRestrictKeyComboBoxItems(m_db->metadata()->customData()->keys(), inheritRestrictKey);
-
-		m_browserUi->browserIntegrationHideEntriesComboBox->setCurrentIndex(
-			indexFromTriState(group->resolveCustomDataTriState(BrowserService::OPTION_HIDE_ENTRY, false)));
-		m_browserUi->browserIntegrationSkipAutoSubmitComboBox->setCurrentIndex(
-			indexFromTriState(group->resolveCustomDataTriState(BrowserService::OPTION_SKIP_AUTO_SUBMIT, false)));
-		m_browserUi->browserIntegrationOnlyHttpAuthComboBox->setCurrentIndex(
-			indexFromTriState(group->resolveCustomDataTriState(BrowserService::OPTION_ONLY_HTTP_AUTH, false)));
-		m_browserUi->browserIntegrationNotHttpAuthComboBox->setCurrentIndex(
-			indexFromTriState(group->resolveCustomDataTriState(BrowserService::OPTION_NOT_HTTP_AUTH, false)));
-		m_browserUi->browserIntegrationOmitWwwCombobox->setCurrentIndex(
-			indexFromTriState(group->resolveCustomDataTriState(BrowserService::OPTION_OMIT_WWW, false)));
-		setRestrictKeyComboBoxIndex(group);
-	}
-	else if (hasPage(m_browserWidget))
-	{
-		setPageHidden(m_browserWidget, true);
-	}
-#endif
-
 	setCurrentPage(0);
 
 	m_mainUi->editName->setFocus();
@@ -316,33 +239,6 @@ void EditGroupWidget::apply()
 		page.assign();
 	}
 
-#ifdef WITH_XC_BROWSER
-	if (config()->get(Config::Browser_Enabled).toBool())
-	{
-		if (!m_browserSettingsChanged)
-		{
-			return;
-		}
-
-		m_temporaryGroup->setCustomDataTriState(
-			BrowserService::OPTION_HIDE_ENTRY,
-			triStateFromIndex(m_browserUi->browserIntegrationHideEntriesComboBox->currentIndex()));
-		m_temporaryGroup->setCustomDataTriState(
-			BrowserService::OPTION_SKIP_AUTO_SUBMIT,
-			triStateFromIndex(m_browserUi->browserIntegrationSkipAutoSubmitComboBox->currentIndex()));
-		m_temporaryGroup->setCustomDataTriState(
-			BrowserService::OPTION_ONLY_HTTP_AUTH,
-			triStateFromIndex(m_browserUi->browserIntegrationOnlyHttpAuthComboBox->currentIndex()));
-		m_temporaryGroup->setCustomDataTriState(
-			BrowserService::OPTION_NOT_HTTP_AUTH,
-			triStateFromIndex(m_browserUi->browserIntegrationNotHttpAuthComboBox->currentIndex()));
-		m_temporaryGroup->setCustomDataTriState(
-			BrowserService::OPTION_OMIT_WWW,
-			triStateFromIndex(m_browserUi->browserIntegrationOmitWwwCombobox->currentIndex()));
-		setRestrictKeyCustomData(m_temporaryGroup->customData());
-	}
-#endif
-
 	// Icons add/remove are applied globally outside the transaction!
 	m_group->copyDataFrom(m_temporaryGroup.data());
 
@@ -390,41 +286,6 @@ void EditGroupWidget::cancel()
 	clear();
 	emit editFinished(false);
 }
-
-#ifdef WITH_XC_BROWSER
-void EditGroupWidget::initializeBrowserPage()
-{
-	addPage(tr("Browser Integration"), icons()->icon("internet-web-browser"), m_browserWidget);
-	m_browserUi->setupUi(m_browserWidget);
-}
-
-void EditGroupWidget::setupBrowserModifiedTracking()
-{
-	// Browser integration tab
-	connect(m_browserUi->browserIntegrationHideEntriesComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setModified()));
-	connect(
-		m_browserUi->browserIntegrationSkipAutoSubmitComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setModified()));
-	connect(m_browserUi->browserIntegrationOnlyHttpAuthComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setModified()));
-	connect(m_browserUi->browserIntegrationNotHttpAuthComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setModified()));
-	connect(m_browserUi->browserIntegrationHideEntriesComboBox,
-	        SIGNAL(currentIndexChanged(int)),
-	        SLOT(updateBrowserModified()));
-	connect(m_browserUi->browserIntegrationSkipAutoSubmitComboBox,
-	        SIGNAL(currentIndexChanged(int)),
-	        SLOT(updateBrowserModified()));
-	connect(m_browserUi->browserIntegrationOnlyHttpAuthComboBox,
-	        SIGNAL(currentIndexChanged(int)),
-	        SLOT(updateBrowserModified()));
-	connect(m_browserUi->browserIntegrationNotHttpAuthComboBox,
-	        SIGNAL(currentIndexChanged(int)),
-	        SLOT(updateBrowserModified()));
-}
-
-void EditGroupWidget::updateBrowserModified()
-{
-	m_browserSettingsChanged = true;
-}
-#endif
 
 void EditGroupWidget::clear()
 {
@@ -492,69 +353,3 @@ Group::TriState EditGroupWidget::triStateFromIndex(int index)
 		return Group::Inherit;
 	}
 }
-
-#ifdef WITH_XC_BROWSER
-void EditGroupWidget::addRestrictKeyComboBoxItems(QStringList const &keyList, QString inheritValue)
-{
-	auto comboBox = m_browserUi->browserIntegrationRestrictKeyCombobox;
-
-	comboBox->clear();
-	comboBox->addItem(
-		tr("Inherit from parent group (%1)").arg(BrowserService::decodeCustomDataRestrictKey(inheritValue)));
-	comboBox->addItem(tr("Disable"));
-
-	comboBox->insertSeparator(2);
-
-	// Add all the browser keys to the combobox
-	for (const QString &key: keyList)
-	{
-		if (key.startsWith(CustomData::BrowserKeyPrefix))
-		{
-			auto strippedKey = key;
-			strippedKey.remove(CustomData::BrowserKeyPrefix);
-			comboBox->addItem(strippedKey);
-		}
-	}
-}
-
-void EditGroupWidget::setRestrictKeyComboBoxIndex(const Group *group)
-{
-	auto comboBox = m_browserUi->browserIntegrationRestrictKeyCombobox;
-
-	if (!group || !group->customData()->contains(BrowserService::OPTION_RESTRICT_KEY))
-	{
-		comboBox->setCurrentIndex(0);
-		return;
-	}
-
-	auto key = group->customData()->value(BrowserService::OPTION_RESTRICT_KEY);
-	if (key.isEmpty())
-	{
-		comboBox->setCurrentIndex(1);
-	}
-	else
-	{
-		comboBox->setCurrentText(key);
-	}
-}
-
-// Set the customData regarding OPTION_RESTRICT_KEY
-void EditGroupWidget::setRestrictKeyCustomData(CustomData *customData)
-{
-	auto comboBox = m_browserUi->browserIntegrationRestrictKeyCombobox;
-	auto key = BrowserService::OPTION_RESTRICT_KEY;
-	auto idx = comboBox->currentIndex();
-	if (idx == 0)
-	{
-		customData->remove(key);
-	}
-	else if (idx == 1)
-	{
-		customData->set(key, QString());
-	}
-	else
-	{
-		customData->set(key, comboBox->currentText());
-	}
-}
-#endif

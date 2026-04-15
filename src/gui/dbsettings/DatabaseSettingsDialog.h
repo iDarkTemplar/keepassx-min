@@ -27,9 +27,6 @@ class Database;
 class DatabaseSettingsWidgetGeneral;
 class DatabaseSettingsWidgetEncryption;
 class DatabaseSettingsWidgetDatabaseKey;
-#ifdef WITH_XC_BROWSER
-class DatabaseSettingsWidgetBrowser;
-#endif
 #ifdef WITH_XC_KEESHARE
 class DatabaseSettingsWidgetKeeShare;
 #endif
@@ -64,9 +61,6 @@ private:
 	QPointer<QTabWidget> m_securityTabWidget;
 	QPointer<DatabaseSettingsWidgetDatabaseKey> m_databaseKeyWidget;
 	QPointer<DatabaseSettingsWidgetEncryption> m_encryptionWidget;
-#ifdef WITH_XC_BROWSER
-	QPointer<DatabaseSettingsWidgetBrowser> m_browserWidget;
-#endif
 #ifdef WITH_XC_KEESHARE
 	QPointer<DatabaseSettingsWidgetKeeShare> m_keeShareWidget;
 #endif

@@ -472,27 +472,6 @@ set(keepassx_SOURCES_MAINEXE main.cpp)
 
 add_feature_info(FdoSecrets WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API.")
 
-add_subdirectory(browser)
-add_subdirectory(proxy)
-if(WITH_XC_BROWSER)
-    set(keepassxcbrowser_LIB keepassxcbrowser)
-    set(keepassx_SOURCES ${keepassx_SOURCES}
-            gui/dbsettings/DatabaseSettingsWidgetBrowser.cpp
-            gui/entry/EntryURLModel.cpp
-            gui/reports/ReportsWidgetBrowserStatistics.cpp
-            gui/reports/ReportsPageBrowserStatistics.cpp)
-endif()
-
-if(WITH_XC_BROWSER_PASSKEYS)
-    set(keepassx_SOURCES ${keepassx_SOURCES}
-            gui/reports/ReportsWidgetPasskeys.cpp
-            gui/reports/ReportsPagePasskeys.cpp
-            gui/passkeys/PasskeyExporter.cpp
-            gui/passkeys/PasskeyExportDialog.cpp
-            gui/passkeys/PasskeyImporter.cpp
-            gui/passkeys/PasskeyImportDialog.cpp)
-endif()
-
 add_subdirectory(autotype)
 add_subdirectory(cli)
 add_subdirectory(qrcode)

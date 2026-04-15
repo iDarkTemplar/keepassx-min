@@ -31,12 +31,6 @@ public:
 	explicit UrlTools() = default;
 	static UrlTools *instance();
 
-#if defined(WITH_XC_NETWORKING) || defined(WITH_XC_BROWSER)
-	QUrl getRedirectTarget(QNetworkReply *reply) const;
-	QString getBaseDomainFromUrl(const QString &url) const;
-	QString getTopLevelDomainFromUrl(const QString &url) const;
-	bool isIpAddress(const QString &host) const;
-#endif
 	bool isUrlIdentical(const QString &first, const QString &second) const;
 	bool isUrlValid(const QString &urlField, bool looseComparison = false) const;
 	bool domainHasIllegalCharacters(const QString &domain) const;

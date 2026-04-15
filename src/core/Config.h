@@ -136,28 +136,28 @@ public:
 		Security_QuickUnlock,
 		Security_DatabasePasswordMinimumQuality,
 
-		Browser_Enabled,
-		Browser_ShowNotification,
-		Browser_BestMatchOnly,
-		Browser_UnlockDatabase,
-		Browser_MatchUrlScheme,
-		Browser_SupportBrowserProxy,
-		Browser_UseCustomProxy,
-		Browser_CustomProxyLocation,
-		Browser_UpdateBinaryPath,
-		Browser_AllowExpiredCredentials,
-		Browser_AlwaysAllowAccess,
-		Browser_AlwaysAllowUpdate,
-		Browser_HttpAuthPermission,
-		Browser_SearchInAllDatabases,
-		Browser_SupportKphFields,
-		Browser_NoMigrationPrompt,
-		Browser_UseCustomBrowser,
-		Browser_CustomBrowserType,
-		Browser_CustomBrowserLocation,
-		Browser_AllowLocalhostWithPasskeys,
+		Browser_Enabled,	// remove
+		Browser_ShowNotification,	// remove
+		Browser_BestMatchOnly,	// remove
+		Browser_UnlockDatabase,	// remove
+		Browser_MatchUrlScheme,	// remove
+		Browser_SupportBrowserProxy,	// remove
+		Browser_UseCustomProxy,	// remove
+		Browser_CustomProxyLocation,	// remove
+		Browser_UpdateBinaryPath,	// remove
+		Browser_AllowExpiredCredentials,	// remove
+		Browser_AlwaysAllowAccess,	// remove
+		Browser_AlwaysAllowUpdate,	// remove
+		Browser_HttpAuthPermission,	// remove
+		Browser_SearchInAllDatabases,	// remove
+		Browser_SupportKphFields,	// remove
+		Browser_NoMigrationPrompt,	// remove
+		Browser_UseCustomBrowser,	// remove
+		Browser_CustomBrowserType,	// remove
+		Browser_CustomBrowserLocation,	// remove
+		Browser_AllowLocalhostWithPasskeys,	// remove
 #ifdef QT_DEBUG
-		Browser_CustomExtensionId,
+		Browser_CustomExtensionId,	// remove
 #endif
 
 		SSHAgent_Enabled,

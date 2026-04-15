@@ -70,11 +70,6 @@ private slots:
 	void apply();
 	void save();
 	void cancel();
-#ifdef WITH_XC_BROWSER
-	void initializeBrowserPage();
-	void setupBrowserModifiedTracking();
-	void updateBrowserModified();
-#endif
 
 private:
 	void addTriStateItems(QComboBox *comboBox, bool inheritValue);
@@ -82,20 +77,11 @@ private:
 	Group::TriState triStateFromIndex(int index);
 	void setupModifiedTracking();
 
-	void addRestrictKeyComboBoxItems(QStringList const &keyList, QString inheritValue);
-	void setRestrictKeyComboBoxIndex(const Group *group);
-	void setRestrictKeyCustomData(CustomData *customData);
-
 	const QScopedPointer<Ui::EditGroupWidgetMain> m_mainUi;
 
 	QPointer<QScrollArea> m_editGroupWidgetMain;
 	QPointer<EditWidgetIcons> m_editGroupWidgetIcons;
 	QPointer<EditWidgetProperties> m_editWidgetProperties;
-#ifdef WITH_XC_BROWSER
-	bool m_browserSettingsChanged;
-	const QScopedPointer<Ui::EditGroupWidgetBrowser> m_browserUi;
-	QWidget *const m_browserWidget;
-#endif
 
 	QScopedPointer<Group> m_temporaryGroup;
 	QPointer<Group> m_group;

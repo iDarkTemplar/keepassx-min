@@ -19,9 +19,6 @@
 #include "DatabaseSettingsWidgetDatabaseKey.h"
 #include "DatabaseSettingsWidgetEncryption.h"
 #include "DatabaseSettingsWidgetGeneral.h"
-#ifdef WITH_XC_BROWSER
-#include "DatabaseSettingsWidgetBrowser.h"
-#endif
 #include "DatabaseSettingsWidgetMaintenance.h"
 #ifdef WITH_XC_KEESHARE
 #include "keeshare/DatabaseSettingsWidgetKeeShare.h"
@@ -42,9 +39,6 @@ DatabaseSettingsDialog::DatabaseSettingsDialog(QWidget *parent)
 	, m_securityTabWidget(new QTabWidget(this))
 	, m_databaseKeyWidget(new DatabaseSettingsWidgetDatabaseKey(this))
 	, m_encryptionWidget(new DatabaseSettingsWidgetEncryption(this))
-#ifdef WITH_XC_BROWSER
-	, m_browserWidget(new DatabaseSettingsWidgetBrowser(this))
-#endif
 #ifdef WITH_XC_KEESHARE
 	, m_keeShareWidget(new DatabaseSettingsWidgetKeeShare(this))
 #endif
@@ -73,10 +67,6 @@ DatabaseSettingsDialog::DatabaseSettingsDialog(QWidget *parent)
 
 	m_securityTabWidget->setCurrentIndex(0);
 
-#ifdef WITH_XC_BROWSER
-	addPage(tr("Browser Integration"), icons()->icon("internet-web-browser"), m_browserWidget);
-#endif
-
 #ifdef WITH_XC_KEESHARE
 	addPage(tr("KeeShare"), icons()->icon("preferences-system-network-sharing"), m_keeShareWidget);
 #endif
@@ -103,9 +93,6 @@ void DatabaseSettingsDialog::load(const QSharedPointer<Database> &db)
 	m_generalWidget->loadSettings(db);
 	m_databaseKeyWidget->loadSettings(db);
 	m_encryptionWidget->loadSettings(db);
-#ifdef WITH_XC_BROWSER
-	m_browserWidget->loadSettings(db);
-#endif
 #ifdef WITH_XC_KEESHARE
 	m_keeShareWidget->loadSettings(db);
 #endif
@@ -165,9 +152,6 @@ void DatabaseSettingsDialog::reject()
 	m_generalWidget->discard();
 	m_databaseKeyWidget->discard();
 	m_encryptionWidget->discard();
-#ifdef WITH_XC_BROWSER
-	m_browserWidget->discard();
-#endif
 
 	emit editFinished(false);
 }

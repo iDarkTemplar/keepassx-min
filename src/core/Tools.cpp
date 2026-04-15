@@ -91,12 +91,6 @@ namespace Tools
 #ifdef WITH_XC_AUTOTYPE
 		extensions += "\n- " + QObject::tr("Auto-Type");
 #endif
-#ifdef WITH_XC_BROWSER
-		extensions += "\n- " + QObject::tr("Browser Integration");
-#endif
-#ifdef WITH_XC_BROWSER_PASSKEYS
-		extensions += "\n- " + QObject::tr("Passkeys");
-#endif
 #ifdef WITH_XC_SSHAGENT
 		extensions += "\n- " + QObject::tr("SSH Agent");
 #endif

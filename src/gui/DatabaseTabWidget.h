@@ -83,14 +83,8 @@ public slots:
 	void showDatabaseReports(bool state);
 	void showDatabaseSettings(bool state);
 	void showDatabaseSecurity();
-#ifdef WITH_XC_BROWSER_PASSKEYS
-	void showPasskeys();
-	void importPasskey();
-	void importPasskeyToEntry();
-	void removePasskeyFromEntry();
-#endif
+
 	void performGlobalAutoType(const QString &search);
-	void performBrowserUnlock();
 
 signals:
 	void databaseOpened(DatabaseWidget *dbWidget);

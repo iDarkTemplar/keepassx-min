@@ -617,28 +617,6 @@ void DatabaseTabWidget::showDatabaseSecurity()
 	currentDatabaseWidget()->switchToDatabaseSecurity();
 }
 
-#ifdef WITH_XC_BROWSER_PASSKEYS
-void DatabaseTabWidget::showPasskeys()
-{
-	currentDatabaseWidget()->switchToPasskeys();
-}
-
-void DatabaseTabWidget::importPasskey()
-{
-	currentDatabaseWidget()->showImportPasskeyDialog();
-}
-
-void DatabaseTabWidget::importPasskeyToEntry()
-{
-	currentDatabaseWidget()->showImportPasskeyDialog(true);
-}
-
-void DatabaseTabWidget::removePasskeyFromEntry()
-{
-	currentDatabaseWidget()->removePasskeyFromEntry();
-}
-#endif
-
 bool DatabaseTabWidget::isModified(int index) const
 {
 	if (count() == 0)
@@ -1003,20 +981,5 @@ void DatabaseTabWidget::performGlobalAutoType(const QString &search)
 
 		Q_ASSERT(!unlockedDatabases.isEmpty());
 		autoType()->performGlobalAutoType(unlockedDatabases, search);
-	}
-}
-
-void DatabaseTabWidget::performBrowserUnlock()
-{
-	if (m_databaseOpenInProgress)
-	{
-		return;
-	}
-
-	m_databaseOpenInProgress = true;
-	auto dbWidget = currentDatabaseWidget();
-	if (dbWidget && dbWidget->isLocked())
-	{
-		unlockAnyDatabaseInDialog(DatabaseOpenDialog::Intent::Browser);
 	}
 }

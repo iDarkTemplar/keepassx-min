@@ -254,9 +254,6 @@
     <addaction name="actionDatabaseSecurity"/>
     <addaction name="actionReports"/>
     <addaction name="separator"/>
-    <addaction name="actionPasskeys"/>
-    <addaction name="actionImportPasskey"/>
-    <addaction name="separator"/>
     <addaction name="actionDatabaseMerge"/>
     <addaction name="actionImport"/>
     <addaction name="menuExport"/>
@@ -329,9 +326,6 @@
     <addaction name="menuTags"/>
     <addaction name="separator"/>
     <addaction name="actionEntryAutoType"/>
-    <addaction name="separator"/>
-    <addaction name="actionEntryImportPasskey"/>
-    <addaction name="actionEntryRemovePasskey"/>
     <addaction name="separator"/>
     <addaction name="actionEntryOpenUrl"/>
     <addaction name="actionEntryDownloadIcon"/>

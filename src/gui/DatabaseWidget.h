@@ -223,12 +223,6 @@ public slots:
 	void switchToDatabaseSecurity();
 	void switchToDatabaseReports();
 	void switchToDatabaseSettings();
-#ifdef WITH_XC_BROWSER_PASSKEYS
-	void switchToPasskeys();
-	void showImportPasskeyDialog(bool isEntry = false);
-	void removePasskeyFromEntry();
-	bool currentEntryHasPasskey();
-#endif
 	void switchToOpenDatabase();
 	void switchToOpenDatabase(const QString &filePath);
 	void switchToOpenDatabase(const QString &filePath, const QString &password, const QString &keyFile);

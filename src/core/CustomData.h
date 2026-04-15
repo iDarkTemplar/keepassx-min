@@ -66,7 +66,6 @@ public:
 	// Pre-defined keys
 	static const QString LastModified;
 	static const QString Created;
-	static const QString BrowserKeyPrefix;
 	static const QString BrowserLegacyKeyPrefix;
 	static const QString FdoSecretsExposedGroup;
 	static const QString RandomSlug;

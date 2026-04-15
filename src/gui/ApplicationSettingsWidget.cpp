@@ -38,9 +38,6 @@
 #ifdef Q_CC_MSVC
 #include "winhello/WindowsHello.h"
 #endif
-#ifdef WITH_XC_BROWSER
-#include "browser/BrowserSettingsPage.h"
-#endif
 
 class ApplicationSettingsWidget::ExtraPage
 {
@@ -82,9 +79,6 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
 	m_generalUi->setupUi(m_generalWidget);
 	addPage(tr("General"), icons()->icon("preferences-other"), m_generalWidget);
 	addPage(tr("Security"), icons()->icon("security-high"), m_secWidget);
-#ifdef WITH_XC_BROWSER
-	addSettingsPage(new BrowserSettingsPage());
-#endif
 
 	if (!autoType()->isAvailable())
 	{

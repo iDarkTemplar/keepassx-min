@@ -64,10 +64,6 @@
 #include "sshagent/SSHAgent.h"
 #endif
 
-#ifdef WITH_XC_BROWSER_PASSKEYS
-#include "gui/passkeys/PasskeyImporter.h"
-#endif
-
 DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	: QStackedWidget(parent)
 	, m_db(std::move(db))
@@ -1715,52 +1711,6 @@ void DatabaseWidget::switchToDatabaseSecurity()
 	m_databaseSettingDialog->showDatabaseKeySettings();
 }
 
-#ifdef WITH_XC_BROWSER_PASSKEYS
-void DatabaseWidget::switchToPasskeys()
-{
-	switchToDatabaseReports();
-	m_reportsDialog->activatePasskeysPage();
-}
-
-void DatabaseWidget::showImportPasskeyDialog(bool isEntry)
-{
-	PasskeyImporter passkeyImporter(this);
-
-	if (isEntry)
-	{
-		auto currentEntry = currentSelectedEntry();
-		if (!currentEntry)
-		{
-			return;
-		}
-
-		passkeyImporter.importPasskey(m_db, currentEntry);
-	}
-	else
-	{
-		passkeyImporter.importPasskey(m_db);
-	}
-}
-
-void DatabaseWidget::removePasskeyFromEntry()
-{
-	auto currentEntry = currentSelectedEntry();
-	if (!currentEntry)
-	{
-		return;
-	}
-
-	auto result = MessageBox::question(this,
-	                                   tr("Remove passkey from entry"),
-	                                   tr("Do you want to remove the passkey from this entry?"),
-	                                   MessageBox::Remove | MessageBox::Cancel);
-	if (result == MessageBox::Remove)
-	{
-		currentEntry->removePasskey();
-	}
-}
-#endif
-
 void DatabaseWidget::performUnlockDatabase(const QString &password, const QString &keyfile)
 {
 	if (password.isEmpty() && keyfile.isEmpty())
@@ -2578,14 +2528,6 @@ bool DatabaseWidget::currentEntryHasSshKey()
 	}
 
 	return KeeAgentSettings::inEntryAttachments(currentEntry->attachments());
-}
-#endif
-
-#ifdef WITH_XC_BROWSER_PASSKEYS
-bool DatabaseWidget::currentEntryHasPasskey()
-{
-	auto currentEntry = m_entryView->currentEntry();
-	return currentEntry && currentEntry->hasPasskey();
 }
 #endif
 

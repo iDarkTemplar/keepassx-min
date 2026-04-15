@@ -15,11 +15,6 @@
  */
 
 #include "UrlTools.h"
-#if defined(WITH_XC_NETWORKING) || defined(WITH_XC_BROWSER)
-#include <QHostAddress>
-#include <QNetworkCookie>
-#include <QNetworkCookieJar>
-#endif
 #include <QRegularExpression>
 #include <QUrl>
 
@@ -41,90 +36,6 @@ QUrl UrlTools::convertVariantToUrl(const QVariant &var) const
 	}
 	return url;
 }
-
-#if defined(WITH_XC_NETWORKING) || defined(WITH_XC_BROWSER)
-QUrl UrlTools::getRedirectTarget(QNetworkReply *reply) const
-{
-	QVariant var = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-	QUrl url = convertVariantToUrl(var);
-	return url;
-}
-
-/**
- * Gets the base domain of URL or hostname.
- *
- * Returns the base domain, e.g. https://another.example.co.uk -> example.co.uk
- * Up-to-date list can be found: https://publicsuffix.org/list/public_suffix_list.dat
- */
-QString UrlTools::getBaseDomainFromUrl(const QString &url) const
-{
-	auto qUrl = QUrl::fromUserInput(url);
-
-	auto host = qUrl.host();
-	if (isIpAddress(host))
-	{
-		return host;
-	}
-
-	const auto tld = getTopLevelDomainFromUrl(qUrl.toString());
-	if (tld.isEmpty() || tld.length() + 1 >= host.length())
-	{
-		return host;
-	}
-
-	// Remove the top level domain part from the hostname, e.g. https://another.example.co.uk -> https://another.example
-	host.chop(tld.length() + 1);
-	// Split the URL and select the last part, e.g. https://another.example -> example
-	QString baseDomain = host.split('.').last();
-	// Append the top level domain back to the URL, e.g. example -> example.co.uk
-	baseDomain.append(QString(".%1").arg(tld));
-
-	return baseDomain;
-}
-
-/**
- * Gets the top level domain from URL.
- *
- * Returns the TLD e.g. https://another.example.co.uk -> co.uk
- */
-QString UrlTools::getTopLevelDomainFromUrl(const QString &url) const
-{
-	auto host = QUrl::fromUserInput(url).host();
-	if (isIpAddress(host))
-	{
-		return host;
-	}
-
-	const auto numberOfDomainParts = host.split('.').length();
-	static const auto dummy = QByteArrayLiteral("");
-
-	// Only loop the amount of different parts found
-	for (auto i = 0; i < numberOfDomainParts; ++i)
-	{
-		// Cut the first part from host
-		host = host.mid(host.indexOf('.') + 1);
-
-		QNetworkCookie cookie(dummy, dummy);
-		cookie.setDomain(host);
-
-		// Check if dummy cookie's domain/TLD matches with public suffix list
-		if (!QNetworkCookieJar{}.setCookiesFromUrl(QList{cookie}, QUrl::fromUserInput(url)))
-		{
-			return host;
-		}
-	}
-
-	return host;
-}
-
-bool UrlTools::isIpAddress(const QString &host) const
-{
-	// Handle IPv6 host with brackets, e.g [::1]
-	const auto hostAddress = host.startsWith('[') && host.endsWith(']') ? host.mid(1, host.length() - 2) : host;
-	QHostAddress address(hostAddress);
-	return address.protocol() == QAbstractSocket::IPv4Protocol || address.protocol() == QAbstractSocket::IPv6Protocol;
-}
-#endif
 
 // Returns true if URLs are identical. Paths with "/" are removed during comparison.
 // URLs without scheme reverts to https.
@@ -209,18 +120,6 @@ bool UrlTools::isUrlValid(const QString &urlField, bool looseComparison) const
 	{
 		return false;
 	}
-
-#if defined(WITH_XC_NETWORKING) || defined(WITH_XC_BROWSER)
-	// Prevent TLD wildcards
-	if (looseComparison && url.contains(UrlTools::URL_WILDCARD))
-	{
-		const auto tld = getTopLevelDomainFromUrl(url);
-		if (tld.contains(UrlTools::URL_WILDCARD) || qUrl.host() == QString("%1.%2").arg(UrlTools::URL_WILDCARD, tld))
-		{
-			return false;
-		}
-	}
-#endif
 
 	// Check for illegal characters. Adds also the wildcard * to the list
 	QRegularExpression re("[<>\\^`{|}\\*]");
