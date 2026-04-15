@@ -329,9 +329,6 @@
     <addaction name="actionEntryOpenUrl"/>
     <addaction name="actionEntryDownloadIcon"/>
     <addaction name="separator"/>
-    <addaction name="actionEntryAddToAgent"/>
-    <addaction name="actionEntryRemoveFromAgent"/>
-    <addaction name="separator"/>
     <addaction name="actionEntryRestore"/>
    </widget>
    <widget class="QMenu" name="menuGroups">
@@ -355,7 +352,6 @@
      <string>&amp;Tools</string>
     </property>
     <addaction name="actionPasswordGenerator"/>
-    <addaction name="actionClearSSHAgent"/>
     <addaction name="actionSettings"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -596,28 +592,6 @@
     <enum>QAction::MenuRole::NoRole</enum>
    </property>
   </action>
-  <action name="actionPasskeys">
-   <property name="text">
-    <string>Passkeys…</string>
-   </property>
-   <property name="toolTip">
-    <string>Passkeys</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::MenuRole::NoRole</enum>
-   </property>
-  </action>
-  <action name="actionImportPasskey">
-   <property name="text">
-    <string>Import Passkey</string>
-   </property>
-   <property name="toolTip">
-    <string>Import Passkey</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::MenuRole::NoRole</enum>
-   </property>
-  </action>
   <action name="actionEntryClone">
    <property name="text">
     <string>&amp;Clone Entry…</string>
@@ -677,16 +651,6 @@
   <action name="actionEntryAutoType">
    <property name="text">
     <string>Perform &amp;Auto-Type</string>
-   </property>
-  </action>
-  <action name="actionEntryImportPasskey">
-   <property name="text">
-    <string>Import Passkey</string>
-   </property>
-  </action>
-  <action name="actionEntryRemovePasskey">
-   <property name="text">
-    <string>Remove Passkey From Entry</string>
    </property>
   </action>
   <action name="actionEntryAutoTypeUsername">
@@ -924,35 +888,9 @@
     <string>Go to online documentation</string>
    </property>
   </action>
-  <action name="actionUserGuide">
-   <property name="text">
-    <string>&amp;User Guide</string>
-   </property>
-   <property name="toolTip">
-    <string>Open User Guide</string>
-   </property>
-  </action>
-  <action name="actionKeyboardShortcuts">
-   <property name="text">
-    <string>&amp;Keyboard Shortcuts</string>
-   </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+/</string>
-   </property>
-  </action>
   <action name="actionDatabaseSaveBackup">
    <property name="text">
     <string>Save Database Backup…</string>
-   </property>
-  </action>
-  <action name="actionEntryAddToAgent">
-   <property name="text">
-    <string>Add key to SSH Agent</string>
-   </property>
-  </action>
-  <action name="actionEntryRemoveFromAgent">
-   <property name="text">
-    <string>Remove key from SSH Agent</string>
    </property>
   </action>
   <action name="actionCompactMode">
@@ -1143,17 +1081,6 @@
    </property>
    <property name="toolTip">
     <string>Toggle Show Group Panel</string>
-   </property>
-  </action>
-  <action name="actionClearSSHAgent">
-   <property name="text">
-    <string>Clear SSH Agent</string>
-   </property>
-   <property name="toolTip">
-    <string>Clear all identities in ssh-agent</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::MenuRole::TextHeuristicRole</enum>
    </property>
   </action>
  </widget>

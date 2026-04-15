@@ -91,9 +91,6 @@ namespace Tools
 #ifdef WITH_XC_AUTOTYPE
 		extensions += "\n- " + QObject::tr("Auto-Type");
 #endif
-#ifdef WITH_XC_SSHAGENT
-		extensions += "\n- " + QObject::tr("SSH Agent");
-#endif
 #ifdef WITH_XC_YUBIKEY
 		extensions += "\n- " + QObject::tr("YubiKey");
 #endif

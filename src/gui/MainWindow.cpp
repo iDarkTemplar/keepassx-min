@@ -45,11 +45,6 @@
 #include "gui/entry/EntryView.h"
 #include "gui/osutils/OSUtils.h"
 
-#ifdef WITH_XC_SSHAGENT
-#include "sshagent/AgentSettingsPage.h"
-#include "sshagent/SSHAgent.h"
-#endif
-
 #ifdef WITH_XC_FDOSECRETS
 #include "fdosecrets/FdoSecretsPlugin.h"
 #endif
@@ -138,9 +133,6 @@ MainWindow::MainWindow()
 	m_entryContextMenu->addSeparator();
 	m_entryContextMenu->addAction(m_ui->actionEntryOpenUrl);
 	m_entryContextMenu->addAction(m_ui->actionEntryDownloadIcon);
-	m_entryContextMenu->addSeparator();
-	m_entryContextMenu->addAction(m_ui->actionEntryAddToAgent);
-	m_entryContextMenu->addAction(m_ui->actionEntryRemoveFromAgent);
 
 	m_entryNewContextMenu = new QMenu(this);
 	m_entryNewContextMenu->addAction(m_ui->actionEntryNew);
@@ -180,15 +172,6 @@ MainWindow::MainWindow()
 	        &DatabaseTabWidget::databaseUnlockDialogFinished,
 	        this,
 	        &MainWindow::databaseUnlockDialogFinished);
-
-#ifdef WITH_XC_SSHAGENT
-	connect(sshAgent(), SIGNAL(error(QString)), this, SLOT(showErrorMessage(QString)));
-	connect(sshAgent(), SIGNAL(enabledChanged(bool)), this, SLOT(agentEnabled(bool)));
-	connect(m_ui->actionClearSSHAgent, SIGNAL(triggered()), SLOT(clearSSHAgent()));
-	m_ui->settingsWidget->addSettingsPage(new AgentSettingsPage());
-#else
-	agentEnabled(false);
-#endif
 
 	initViewMenu();
 
@@ -274,15 +257,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryCopyURL->setShortcut(Qt::CTRL + Qt::Key_U);
 	m_ui->actionEntryRestore->setShortcut(Qt::CTRL + Qt::Key_R);
 
-	// Prevent conflicts with global Mac shortcuts (force Control on all platforms)
-#ifdef Q_OS_MAC
-	auto modifier = Qt::META;
-#else
-	auto modifier = Qt::CTRL;
-#endif
-	m_ui->actionEntryAddToAgent->setShortcut(modifier + Qt::Key_H);
-	m_ui->actionEntryRemoveFromAgent->setShortcut(modifier + Qt::SHIFT + Qt::Key_H);
-
 	// Qt 5.10 introduced a new "feature" to hide shortcuts in context menus
 	// Unfortunately, Qt::AA_DontShowShortcutsInContextMenus is broken, have to manually enable them
 	m_ui->actionEntryNew->setShortcutVisibleInContextMenu(true);
@@ -303,8 +277,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryOpenUrl->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyURL->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyTitle->setShortcutVisibleInContextMenu(true);
-	m_ui->actionEntryAddToAgent->setShortcutVisibleInContextMenu(true);
-	m_ui->actionEntryRemoveFromAgent->setShortcutVisibleInContextMenu(true);
 
 	connect(m_ui->menuEntries, SIGNAL(aboutToShow()), SLOT(obtainContextFocusLock()));
 	connect(m_ui->menuEntries, SIGNAL(aboutToHide()), SLOT(releaseContextFocusLock()));
@@ -364,7 +336,6 @@ MainWindow::MainWindow()
 	m_ui->actionReports->setIcon(icons()->icon("reports"));
 	m_ui->actionDatabaseSettings->setIcon(icons()->icon("database-settings"));
 	m_ui->actionDatabaseSecurity->setIcon(icons()->icon("database-change-key"));
-	m_ui->actionImportPasskey->setIcon(icons()->icon("document-import"));
 	m_ui->actionLockDatabase->setIcon(icons()->icon("database-lock"));
 	m_ui->actionLockDatabaseToolbar->setIcon(icons()->icon("database-lock"));
 	m_ui->actionLockAllDatabases->setIcon(icons()->icon("database-lock-all"));
@@ -399,9 +370,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryCopyPasswordTotp->setIcon(icons()->icon("totp-copy-password"));
 	m_ui->actionEntryTotpQRCode->setIcon(icons()->icon("qrcode"));
 	m_ui->actionEntrySetupTotp->setIcon(icons()->icon("totp-edit"));
-	m_ui->actionEntryImportPasskey->setIcon(icons()->icon("document-import"));
-	m_ui->actionEntryAddToAgent->setIcon(icons()->icon("utilities-terminal"));
-	m_ui->actionEntryRemoveFromAgent->setIcon(icons()->icon("utilities-terminal"));
 	m_ui->menuTags->setIcon(icons()->icon("tag-multiple"));
 	m_ui->actionEntryDownloadIcon->setIcon(icons()->icon("favicon-download"));
 	m_ui->actionGroupSortAsc->setIcon(icons()->icon("sort-alphabetical-ascending"));
@@ -417,7 +385,6 @@ MainWindow::MainWindow()
 
 	m_ui->actionSettings->setIcon(icons()->icon("configure"));
 	m_ui->actionPasswordGenerator->setIcon(icons()->icon("password-generator"));
-	m_ui->actionClearSSHAgent->setIcon(icons()->icon("utilities-terminal"));
 
 	m_ui->actionAbout->setIcon(icons()->icon("help-about"));
 	m_ui->actionDonate->setIcon(icons()->icon("donate"));
@@ -514,11 +481,6 @@ MainWindow::MainWindow()
 		m_ui->actionEntryAutoTypeURLEnter, SIGNAL(triggered()), SLOT(performAutoTypeURLEnter()));
 	m_actionMultiplexer.connect(m_ui->actionEntryOpenUrl, SIGNAL(triggered()), SLOT(openUrl()));
 	m_actionMultiplexer.connect(m_ui->actionEntryDownloadIcon, SIGNAL(triggered()), SLOT(downloadSelectedFavicons()));
-#ifdef WITH_XC_SSHAGENT
-	m_actionMultiplexer.connect(m_ui->actionEntryAddToAgent, SIGNAL(triggered()), SLOT(addToAgent()));
-	m_actionMultiplexer.connect(m_ui->actionEntryRemoveFromAgent, SIGNAL(triggered()), SLOT(removeFromAgent()));
-#endif
-
 	m_actionMultiplexer.connect(m_ui->actionGroupNew, SIGNAL(triggered()), SLOT(createGroup()));
 	m_actionMultiplexer.connect(m_ui->actionGroupEdit, SIGNAL(triggered()), SLOT(switchToGroupEdit()));
 	m_actionMultiplexer.connect(m_ui->actionGroupClone, SIGNAL(triggered()), SLOT(cloneGroup()));
@@ -656,9 +618,6 @@ MainWindow::MainWindow()
 
 MainWindow::~MainWindow()
 {
-#ifdef WITH_XC_SSHAGENT
-	sshAgent()->removeAllIdentities();
-#endif
 }
 
 /**
@@ -996,16 +955,6 @@ void MainWindow::updateMenuActionState()
 	m_ui->actionEntryTotpQRCode->setEnabled(singleEntrySelected && dbWidget->currentEntryHasTotp());
 	m_ui->actionEntryDownloadIcon->setEnabled((multiEntrySelected && !singleEntrySelected)
 	                                          || (singleEntrySelected && dbWidget->currentEntryHasUrl()));
-#ifdef WITH_XC_SSHAGENT
-	bool hasSSHKey = singleEntrySelected && sshAgent()->isEnabled() && dbWidget->currentEntryHasSshKey();
-	m_ui->actionEntryAddToAgent->setVisible(hasSSHKey);
-	m_ui->actionEntryAddToAgent->setEnabled(hasSSHKey);
-	m_ui->actionEntryRemoveFromAgent->setVisible(hasSSHKey);
-	m_ui->actionEntryRemoveFromAgent->setEnabled(hasSSHKey);
-	m_ui->actionClearSSHAgent->setVisible(sshAgent()->isEnabled());
-	m_ui->actionClearSSHAgent->setEnabled(sshAgent()->isEnabled());
-#endif
-
 	m_ui->actionGroupNew->setEnabled(groupSelected && !inRecycleBin);
 	m_ui->actionGroupEdit->setEnabled(groupSelected);
 	m_ui->actionGroupClone->setEnabled(groupSelected && dbWidget->canCloneCurrentGroup());
@@ -1481,15 +1430,6 @@ void MainWindow::focusSearchWidget()
 	}
 }
 
-void MainWindow::clearSSHAgent()
-{
-#ifdef WITH_XC_SSHAGENT
-	auto agent = SSHAgent::instance();
-	auto ret = agent->clearAllAgentIdentities();
-	displayGlobalMessage(agent->errorString(), ret ? MessageWidget::Positive : KMessageWidget::Error, false);
-#endif
-}
-
 void MainWindow::saveWindowInformation()
 {
 	if (isVisible())
@@ -1634,14 +1574,6 @@ void MainWindow::obtainContextFocusLock()
 void MainWindow::releaseContextFocusLock()
 {
 	m_contextMenuFocusLock = false;
-}
-
-void MainWindow::agentEnabled(bool enabled)
-{
-	m_ui->actionEntryAddToAgent->setVisible(enabled);
-	m_ui->actionEntryRemoveFromAgent->setVisible(enabled);
-	m_ui->actionClearSSHAgent->setEnabled(enabled);
-	m_ui->actionClearSSHAgent->setVisible(enabled);
 }
 
 void MainWindow::showEntryContextMenu(const QPoint &globalPos)

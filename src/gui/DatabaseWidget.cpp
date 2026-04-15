@@ -59,10 +59,6 @@
 #include "gui/IconDownloaderDialog.h"
 #endif
 
-#ifdef WITH_XC_SSHAGENT
-#include "sshagent/SSHAgent.h"
-#endif
-
 DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	: QStackedWidget(parent)
 	, m_db(std::move(db))
@@ -882,68 +878,6 @@ void DatabaseWidget::setClipboardTextAndMinimize(const QString &text)
 	}
 }
 
-#ifdef WITH_XC_SSHAGENT
-void DatabaseWidget::addToAgent()
-{
-	Entry *currentEntry = m_entryView->currentEntry();
-	Q_ASSERT(currentEntry);
-	if (!currentEntry)
-	{
-		return;
-	}
-
-	KeeAgentSettings settings;
-	if (!settings.fromEntry(currentEntry))
-	{
-		return;
-	}
-
-	SSHAgent *agent = SSHAgent::instance();
-	OpenSSHKey key;
-	if (settings.toOpenSSHKey(currentEntry, key, true))
-	{
-		if (!agent->addIdentity(key, settings, database()->uuid()))
-		{
-			m_messageWidget->showMessage(agent->errorString(), MessageWidget::Error);
-		}
-	}
-	else
-	{
-		m_messageWidget->showMessage(settings.errorString(), MessageWidget::Error);
-	}
-}
-
-void DatabaseWidget::removeFromAgent()
-{
-	Entry *currentEntry = m_entryView->currentEntry();
-	Q_ASSERT(currentEntry);
-	if (!currentEntry)
-	{
-		return;
-	}
-
-	KeeAgentSettings settings;
-	if (!settings.fromEntry(currentEntry))
-	{
-		return;
-	}
-
-	SSHAgent *agent = SSHAgent::instance();
-	OpenSSHKey key;
-	if (settings.toOpenSSHKey(currentEntry, key, false))
-	{
-		if (!agent->removeIdentity(key))
-		{
-			m_messageWidget->showMessage(agent->errorString(), MessageWidget::Error);
-		}
-	}
-	else
-	{
-		m_messageWidget->showMessage(settings.errorString(), MessageWidget::Error);
-	}
-}
-#endif
-
 void DatabaseWidget::performAutoType(const QString &sequence)
 {
 	auto currentEntry = currentSelectedEntry();
@@ -1398,9 +1332,7 @@ void DatabaseWidget::loadDatabase(bool accepted)
 		m_entryBeforeLock = QUuid();
 		m_saveAttempts = 0;
 		emit databaseUnlocked();
-#ifdef WITH_XC_SSHAGENT
-		sshAgent()->databaseUnlocked(m_db);
-#endif
+
 		if (config()->get(Config::MinimizeAfterUnlock).toBool())
 		{
 			getMainWindow()->minimizeOrHide();
@@ -1506,10 +1438,6 @@ void DatabaseWidget::unlockDatabase(bool accepted)
 	switchToMainView();
 	processAutoOpen();
 	emit databaseUnlocked();
-
-#ifdef WITH_XC_SSHAGENT
-	sshAgent()->databaseUnlocked(m_db);
-#endif
 
 	if (config()->get(Config::MinimizeAfterUnlock).toBool())
 	{
@@ -2144,10 +2072,6 @@ bool DatabaseWidget::lock()
 		m_entryBeforeLock = currentEntry->uuid();
 	}
 
-#ifdef WITH_XC_SSHAGENT
-	sshAgent()->databaseLocked(m_db);
-#endif
-
 	endSearch();
 	clearAllWidgets();
 	switchToOpenDatabase(m_db->filePath());
@@ -2467,20 +2391,6 @@ bool DatabaseWidget::currentEntryHasTotp()
 	}
 	return currentEntry->hasValidTotp();
 }
-
-#ifdef WITH_XC_SSHAGENT
-bool DatabaseWidget::currentEntryHasSshKey()
-{
-	Entry *currentEntry = m_entryView->currentEntry();
-	Q_ASSERT(currentEntry);
-	if (!currentEntry)
-	{
-		return false;
-	}
-
-	return KeeAgentSettings::inEntryAttachments(currentEntry->attachments());
-}
-#endif
 
 bool DatabaseWidget::currentEntryHasNotes()
 {

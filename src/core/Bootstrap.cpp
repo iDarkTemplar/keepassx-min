@@ -221,18 +221,6 @@ namespace Bootstrap
 			goto Cleanup;
 		}
 
-#ifdef WITH_XC_SSHAGENT
-		// OpenSSH for Windows ssh-agent service is running as LocalSystem
-		if (!AddAccessAllowedAce(pACL,
-		                         ACL_REVISION,
-		                         PROCESS_QUERY_INFORMATION | PROCESS_DUP_HANDLE, // just enough for ssh-agent
-		                         pLocalSystemSid // known LocalSystem sid
-		                         ))
-		{
-			goto Cleanup;
-		}
-#endif
-
 		// Set discretionary access control list
 		bSuccess = ERROR_SUCCESS
 		           == SetSecurityInfo(GetCurrentProcess(), // object handle

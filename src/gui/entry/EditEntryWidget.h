@@ -43,10 +43,6 @@ class QMenu;
 class QScrollArea;
 class QSortFilterProxyModel;
 class QStringListModel;
-#ifdef WITH_XC_SSHAGENT
-#include "sshagent/KeeAgentSettings.h"
-class OpenSSHKey;
-#endif
 
 namespace Ui
 {
@@ -82,7 +78,6 @@ public:
 		Advanced,
 		Icon,
 		AutoType,
-		SSHAgent,
 		Properties,
 		History
 	};
@@ -122,30 +117,12 @@ private slots:
 	void useExpiryPreset(QAction *action);
 	void toggleHideNotes(bool visible);
 	void pickColor();
-#ifdef WITH_XC_SSHAGENT
-	void toKeeAgentSettings(KeeAgentSettings &settings) const;
-	void setSSHAgentSettings();
-	void updateSSHAgent();
-	void updateSSHAgentAttachment();
-	void updateSSHAgentAttachments();
-	void updateSSHAgentKeyInfo();
-	void updateTotp();
-	void browsePrivateKey();
-	void addKeyToAgent();
-	void removeKeyFromAgent();
-	void clearAgent();
-	void decryptPrivateKey();
-	void copyPublicKey();
-#endif
 
 private:
 	void setupMain();
 	void setupAdvanced();
 	void setupIcon();
 	void setupAutoType();
-#ifdef WITH_XC_SSHAGENT
-	void setupSSHAgent();
-#endif
 	void setupProperties();
 	void setupHistory();
 	void setupEntryUpdate();
@@ -155,9 +132,6 @@ private:
 	void setForms(Entry *entry, bool restore = false);
 	QMenu *createPresetsMenu();
 	void updateEntryData(Entry *entry) const;
-#ifdef WITH_XC_SSHAGENT
-	bool getOpenSSHKey(OpenSSHKey &key, bool decrypt = false);
-#endif
 
 	void displayAttribute(QModelIndex index, bool showProtected);
 
@@ -168,9 +142,7 @@ private:
 
 	bool m_create;
 	bool m_history;
-#ifdef WITH_XC_SSHAGENT
-	KeeAgentSettings m_sshAgentSettings;
-#endif
+
 	const QScopedPointer<Ui::EditEntryWidgetMain> m_mainUi;
 	const QScopedPointer<Ui::EditEntryWidgetAdvanced> m_advancedUi;
 	const QScopedPointer<Ui::EditEntryWidgetAutoType> m_autoTypeUi;
@@ -184,9 +156,6 @@ private:
 	QWidget *const m_advancedWidget;
 	EditWidgetIcons *const m_iconsWidget;
 	QWidget *const m_autoTypeWidget;
-#ifdef WITH_XC_SSHAGENT
-	QWidget *const m_sshAgentWidget;
-#endif
 	EditWidgetProperties *const m_editWidgetProperties;
 	QWidget *const m_historyWidget;
 	EntryAttributes *const m_entryAttributes;

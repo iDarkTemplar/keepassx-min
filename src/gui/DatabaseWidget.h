@@ -114,9 +114,6 @@ public:
 	bool currentEntryHasUrl();
 	bool currentEntryHasNotes();
 	bool currentEntryHasTotp();
-#ifdef WITH_XC_SSHAGENT
-	bool currentEntryHasSshKey();
-#endif
 	bool currentEntryHasAutoTypeEnabled();
 
 	QByteArray entryViewState() const;
@@ -194,10 +191,6 @@ public slots:
 	void copyTotp();
 	void copyPasswordTotp();
 	void setupTotp();
-#ifdef WITH_XC_SSHAGENT
-	void addToAgent();
-	void removeFromAgent();
-#endif
 	void performAutoType(const QString &sequence = {});
 	void performAutoTypeUsername();
 	void performAutoTypeUsernameEnter();
