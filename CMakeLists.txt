@@ -51,7 +51,6 @@ option(WITH_XC_AUTOTYPE "Include Auto-Type." OFF)
 option(WITH_XC_NETWORKING "Include networking code (e.g. for downloading website icons)." OFF)
 option(WITH_XC_YUBIKEY "Include YubiKey support." OFF)
 option(WITH_XC_SSHAGENT "Include SSH agent support." OFF)
-option(WITH_XC_KEESHARE "Sharing integration with KeeShare" OFF)
 option(WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API." OFF)
 set(WITH_XC_X11 ON CACHE BOOL "Enable building with X11 deps")
 

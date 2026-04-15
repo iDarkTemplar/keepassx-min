@@ -23,8 +23,6 @@
 #include "core/Endian.h"
 #include "crypto/CryptoHash.h"
 #include "format/KeePass2RandomStream.h"
-#include "keeshare/KeeShare.h"
-#include "keeshare/KeeShareSettings.h"
 #include "streams/qtiocompressor.h"
 
 /**
@@ -114,18 +112,6 @@ void KdbxXmlWriter::fillBinaryIdxMap()
 		{
 			QByteArray data = entry->attachments()->value(key);
 			CryptoHash hash(CryptoHash::Sha256);
-#ifdef WITH_XC_KEESHARE
-			// Namespace KeeShare attachments so they don't get deduplicated together with attachments
-			// from other databases. Prevents potential filesize side channels.
-			if (auto shared = KeeShare::resolveSharedGroup(entry->group()))
-			{
-				hash.addData(KeeShare::referenceOf(shared).uuid.toByteArray());
-			}
-			else
-			{
-				hash.addData(m_db->uuid().toByteArray());
-			}
-#endif
 			hash.addData(data);
 
 			const auto hashResult = hash.result();

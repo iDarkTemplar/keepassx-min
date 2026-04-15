@@ -26,10 +26,6 @@
 #include "gui/Icons.h"
 #include "gui/MessageBox.h"
 
-#if defined(WITH_XC_KEESHARE)
-#include "keeshare/group/EditGroupPageKeeShare.h"
-#endif
-
 class EditGroupWidget::ExtraPage
 {
 public:
@@ -71,9 +67,6 @@ EditGroupWidget::EditGroupWidget(QWidget *parent)
 
 	addPage(tr("Group"), icons()->icon("document-edit"), m_editGroupWidgetMain);
 	addPage(tr("Icon"), icons()->icon("preferences-desktop-icons"), m_editGroupWidgetIcons);
-#if defined(WITH_XC_KEESHARE)
-	addEditPage(new EditGroupPageKeeShare(this));
-#endif
 	addPage(tr("Properties"), icons()->icon("document-properties"), m_editWidgetProperties);
 
 	connect(m_mainUi->expireCheck, SIGNAL(toggled(bool)), m_mainUi->expireDatePicker, SLOT(setEnabled(bool)));

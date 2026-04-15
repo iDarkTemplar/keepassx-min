@@ -27,9 +27,6 @@ class Database;
 class DatabaseSettingsWidgetGeneral;
 class DatabaseSettingsWidgetEncryption;
 class DatabaseSettingsWidgetDatabaseKey;
-#ifdef WITH_XC_KEESHARE
-class DatabaseSettingsWidgetKeeShare;
-#endif
 #ifdef WITH_XC_FDOSECRETS
 class DatabaseSettingsWidgetFdoSecrets;
 #endif
@@ -61,9 +58,6 @@ private:
 	QPointer<QTabWidget> m_securityTabWidget;
 	QPointer<DatabaseSettingsWidgetDatabaseKey> m_databaseKeyWidget;
 	QPointer<DatabaseSettingsWidgetEncryption> m_encryptionWidget;
-#ifdef WITH_XC_KEESHARE
-	QPointer<DatabaseSettingsWidgetKeeShare> m_keeShareWidget;
-#endif
 #ifdef WITH_XC_FDOSECRETS
 	QPointer<DatabaseSettingsWidgetFdoSecrets> m_fdoSecretsWidget;
 #endif

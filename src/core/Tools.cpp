@@ -94,9 +94,6 @@ namespace Tools
 #ifdef WITH_XC_SSHAGENT
 		extensions += "\n- " + QObject::tr("SSH Agent");
 #endif
-#ifdef WITH_XC_KEESHARE
-		extensions += "\n- " + QObject::tr("KeeShare");
-#endif
 #ifdef WITH_XC_YUBIKEY
 		extensions += "\n- " + QObject::tr("YubiKey");
 #endif

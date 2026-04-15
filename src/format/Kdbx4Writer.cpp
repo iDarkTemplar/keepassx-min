@@ -22,10 +22,6 @@
 #include "crypto/CryptoHash.h"
 #include "crypto/Random.h"
 #include "format/KeePass2RandomStream.h"
-#ifdef WITH_XC_KEESHARE
-#include "keeshare/KeeShare.h"
-#include "keeshare/KeeShareSettings.h"
-#endif
 #include "streams/HmacBlockStream.h"
 #include "streams/SymmetricCipherStream.h"
 #include "streams/qtiocompressor.h"
@@ -247,18 +243,6 @@ KdbxXmlWriter::BinaryIdxMap Kdbx4Writer::writeAttachments(QIODevice *device, Dat
 			data.append(entry->attachments()->value(key));
 
 			CryptoHash hash(CryptoHash::Sha256);
-#ifdef WITH_XC_KEESHARE
-			// Namespace KeeShare attachments so they don't get deduplicated together with attachments
-			// from other databases. Prevents potential filesize side channels.
-			if (auto shared = KeeShare::resolveSharedGroup(entry->group()))
-			{
-				hash.addData(KeeShare::referenceOf(shared).uuid.toByteArray());
-			}
-			else
-			{
-				hash.addData(db->uuid().toByteArray());
-			}
-#endif
 			hash.addData(data);
 
 			// Deduplicate attachments with the same hash

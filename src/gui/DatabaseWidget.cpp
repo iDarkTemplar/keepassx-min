@@ -54,7 +54,6 @@
 #include "gui/reports/ReportsDialog.h"
 #include "gui/tag/TagView.h"
 #include "gui/widgets/ElidedLabel.h"
-#include "keeshare/KeeShare.h"
 
 #ifdef WITH_XC_NETWORKING
 #include "gui/IconDownloaderDialog.h"
@@ -74,7 +73,6 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	, m_previewView(new EntryPreviewWidget(this))
 	, m_previewSplitter(new QSplitter(m_mainWidget))
 	, m_searchingLabel(new QLabel(this))
-	, m_shareLabel(new ElidedLabel(this))
 	, m_editEntryWidget(new EditEntryWidget(this))
 	, m_editGroupWidget(new EditGroupWidget(this))
 	, m_historyEditEntryWidget(new EditEntryWidget(this))
@@ -133,9 +131,6 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	auto rightHandSideVBox = new QVBoxLayout();
 	rightHandSideVBox->setMargin(0);
 	rightHandSideVBox->addWidget(m_searchingLabel);
-#ifdef WITH_XC_KEESHARE
-	rightHandSideVBox->addWidget(m_shareLabel);
-#endif
 	rightHandSideVBox->addWidget(m_previewSplitter);
 	rightHandSideWidget->setLayout(rightHandSideVBox);
 	m_entryView = new EntryView(rightHandSideWidget);
@@ -164,13 +159,6 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	m_searchingLabel->setText(tr("Searching…"));
 	m_searchingLabel->setAlignment(Qt::AlignCenter);
 	m_searchingLabel->setVisible(false);
-
-#ifdef WITH_XC_KEESHARE
-	m_shareLabel->setObjectName("KeeShareBanner");
-	m_shareLabel->setRawText(tr("Shared group…"));
-	m_shareLabel->setAlignment(Qt::AlignCenter);
-	m_shareLabel->setVisible(false);
-#endif
 
 	m_previewView->setObjectName("previewWidget");
 	m_previewView->hide();
@@ -230,12 +218,6 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	connect(m_autosaveTimer, SIGNAL(timeout()), this, SLOT(onAutosaveDelayTimeout()));
 
 	m_searchLimitGroup = config()->get(Config::SearchLimitGroup).toBool();
-
-#ifdef WITH_XC_KEESHARE
-	// We need to reregister the database to allow exports
-	// from a newly created database
-	KeeShare::instance()->connectDatabase(m_db, {});
-#endif
 
 	if (m_db->isInitialized())
 	{
@@ -537,13 +519,6 @@ void DatabaseWidget::replaceDatabase(QSharedPointer<Database> db)
 	}
 
 	emit databaseReplaced(oldDb, m_db);
-
-#if defined(WITH_XC_KEESHARE)
-	KeeShare::instance()->connectDatabase(m_db, oldDb);
-#else
-	// Keep the instance active till the end of this function
-	Q_UNUSED(oldDb);
-#endif
 
 	oldDb->releaseData();
 }
@@ -1466,11 +1441,6 @@ void DatabaseWidget::mergeDatabase(bool accepted)
 			return;
 		}
 
-#ifdef WITH_XC_KEESHARE
-		// Disable KeeShare while merging to avoid conflicts with incoming changes
-		KeeShare::instance()->setSharingEnabled(m_db, false);
-#endif
-
 		auto *mergeDialog = new MergeDialog(srcDb, m_db, this);
 		connect(mergeDialog, &MergeDialog::databaseMerged, [this](bool changed) {
 			if (changed)
@@ -1488,9 +1458,6 @@ void DatabaseWidget::mergeDatabase(bool accepted)
 			{
 				showMessage(tr("Merge canceled, no changes were made."), MessageWidget::Information);
 			}
-#ifdef WITH_XC_KEESHARE
-			KeeShare::instance()->setSharingEnabled(m_db, true);
-#endif
 		});
 		mergeDialog->open();
 	}
@@ -1779,9 +1746,6 @@ void DatabaseWidget::search(const QString &searchtext)
 	m_lastSearchText = searchtext;
 
 	m_searchingLabel->setVisible(true);
-#ifdef WITH_XC_KEESHARE
-	m_shareLabel->setVisible(false);
-#endif
 
 	emit searchModeActivated();
 }
@@ -1851,19 +1815,6 @@ void DatabaseWidget::onGroupChanged()
 	}
 
 	m_previewView->setGroup(group);
-
-#ifdef WITH_XC_KEESHARE
-	auto shareLabel = KeeShare::sharingLabel(group);
-	if (!shareLabel.isEmpty())
-	{
-		m_shareLabel->setRawText(shareLabel);
-		m_shareLabel->setVisible(true);
-	}
-	else
-	{
-		m_shareLabel->setVisible(false);
-	}
-#endif
 
 	emit groupChanged();
 }

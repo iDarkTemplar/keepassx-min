@@ -24,10 +24,6 @@
 #include "core/Totp.h"
 #include "gui/Font.h"
 #include "gui/Icons.h"
-#if defined(WITH_XC_KEESHARE)
-#include "keeshare/KeeShare.h"
-#include "keeshare/KeeShareSettings.h"
-#endif
 
 #include <QScrollBar>
 #include <QTabWidget>
@@ -109,10 +105,6 @@ EntryPreviewWidget::EntryPreviewWidget(QWidget *parent)
 	connect(m_ui->groupTabWidget, SIGNAL(tabBarClicked(int)), SLOT(updateTabIndexes()), Qt::QueuedConnection);
 
 	setFocusProxy(m_ui->entryTabWidget);
-
-#if !defined(WITH_XC_KEESHARE)
-	removeTab(m_ui->groupTabWidget, m_ui->groupShareTab);
-#endif
 }
 
 EntryPreviewWidget::~EntryPreviewWidget()
@@ -226,10 +218,6 @@ void EntryPreviewWidget::refresh()
 	{
 		updateGroupHeaderLine();
 		updateGroupGeneralTab();
-
-#if defined(WITH_XC_KEESHARE)
-		updateGroupSharingTab();
-#endif
 
 		setVisible(!config()->get(Config::GUI_HidePreviewPanel).toBool());
 
@@ -607,17 +595,6 @@ void EntryPreviewWidget::updateGroupGeneralTab()
 		m_ui->groupNotesTextEdit->setFont(Font::defaultFont());
 	}
 }
-
-#if defined(WITH_XC_KEESHARE)
-void EntryPreviewWidget::updateGroupSharingTab()
-{
-	Q_ASSERT(m_currentGroup);
-	setTabEnabled(m_ui->groupTabWidget, m_ui->groupShareTab, KeeShare::isShared(m_currentGroup));
-	auto reference = KeeShare::referenceOf(m_currentGroup);
-	m_ui->groupShareTypeLabel->setText(KeeShare::referenceTypeLabel(reference));
-	m_ui->groupSharePathLabel->setText(reference.path);
-}
-#endif
 
 void EntryPreviewWidget::updateTotpLabel()
 {

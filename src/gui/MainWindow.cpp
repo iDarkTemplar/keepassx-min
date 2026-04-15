@@ -49,10 +49,6 @@
 #include "sshagent/AgentSettingsPage.h"
 #include "sshagent/SSHAgent.h"
 #endif
-#ifdef WITH_XC_KEESHARE
-#include "keeshare/KeeShare.h"
-#include "keeshare/SettingsPageKeeShare.h"
-#endif
 
 #ifdef WITH_XC_FDOSECRETS
 #include "fdosecrets/FdoSecretsPlugin.h"
@@ -195,14 +191,6 @@ MainWindow::MainWindow()
 #endif
 
 	initViewMenu();
-
-#if defined(WITH_XC_KEESHARE)
-	KeeShare::init(this);
-	m_ui->settingsWidget->addSettingsPage(new SettingsPageKeeShare(m_ui->tabWidget));
-	connect(KeeShare::instance(),
-	        SIGNAL(sharingMessage(QString, MessageWidget::MessageType)),
-	        SLOT(displayGlobalMessage(QString, MessageWidget::MessageType)));
-#endif
 
 #ifdef WITH_XC_FDOSECRETS
 	auto fdoSS = new FdoSecretsPlugin(m_ui->tabWidget);

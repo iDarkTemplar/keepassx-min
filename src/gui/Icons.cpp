@@ -30,10 +30,6 @@
 #include "gui/MainWindow.h"
 #include "gui/osutils/OSUtils.h"
 
-#ifdef WITH_XC_KEESHARE
-#include "keeshare/KeeShare.h"
-#endif
-
 class AdaptiveIconEngine: public QIconEngine
 {
 public:
@@ -298,12 +294,6 @@ QPixmap Icons::groupIconPixmap(const Group *group, IconSize size)
 	{
 		icon = databaseIcons()->applyBadge(icon, DatabaseIcons::Badges::Expired);
 	}
-#ifdef WITH_XC_KEESHARE
-	else if (KeeShare::isShared(group))
-	{
-		icon = KeeShare::indicatorBadge(group, icon);
-	}
-#endif
 
 	return icon;
 }

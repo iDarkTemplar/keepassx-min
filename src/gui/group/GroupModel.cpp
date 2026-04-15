@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -17,6 +18,7 @@
 #include "GroupModel.h"
 
 #include <QMimeData>
+#include <QtGui/QFont>
 
 #include "core/Database.h"
 #include "core/Group.h"
@@ -24,7 +26,6 @@
 #include "core/Tools.h"
 #include "gui/DatabaseIcons.h"
 #include "gui/Icons.h"
-#include "keeshare/KeeShare.h"
 
 GroupModel::GroupModel(Database *db, QObject *parent)
 	: QAbstractItemModel(parent)
@@ -139,11 +140,7 @@ QVariant GroupModel::data(const QModelIndex &index, int role) const
 
 	if (role == Qt::DisplayRole)
 	{
-		QString nameTemplate = "%1";
-#if defined(WITH_XC_KEESHARE)
-		nameTemplate = KeeShare::indicatorSuffix(group, nameTemplate);
-#endif
-		return nameTemplate.arg(group->name());
+		return group->name();
 	}
 	else if (role == Qt::DecorationRole)
 	{
