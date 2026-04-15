@@ -19,7 +19,6 @@
 #include "Utils.h"
 #include "cli/DatabaseCreate.h"
 #include "core/Global.h"
-#include "keys/ChallengeResponseKey.h"
 #include "keys/FileKey.h"
 #include "keys/PasswordKey.h"
 
@@ -116,7 +115,6 @@ QSharedPointer<CompositeKey> DatabaseEdit::getNewDatabaseKey(QSharedPointer<Data
 
 	auto currentPasswordKey = database->key()->getKey(PasswordKey::UUID);
 	auto currentFileKey = database->key()->getKey(FileKey::UUID);
-	auto currentChallengeResponseKey = database->key()->getChallengeResponseKey(ChallengeResponseKey::UUID);
 
 	if (removePassword && currentPasswordKey.isNull())
 	{
@@ -172,21 +170,8 @@ QSharedPointer<CompositeKey> DatabaseEdit::getNewDatabaseKey(QSharedPointer<Data
 			return {};
 		}
 	}
-	for (const QSharedPointer<ChallengeResponseKey> &key: database->key()->challengeResponseKeys())
-	{
-		if (key->uuid() != ChallengeResponseKey::UUID)
-		{
-			err << QObject::tr("Found unexpected Key type %1").arg(key->uuid().toString()) << Qt::endl;
-			return {};
-		}
-	}
 
-	if (!currentChallengeResponseKey.isNull())
-	{
-		newDatabaseKey->addChallengeResponseKey(currentChallengeResponseKey);
-	}
-
-	if (newDatabaseKey->keys().isEmpty() && newDatabaseKey->challengeResponseKeys().isEmpty())
+	if (newDatabaseKey->keys().isEmpty())
 	{
 		err << QObject::tr("Cannot remove all the keys from a database.") << Qt::endl;
 		return {};

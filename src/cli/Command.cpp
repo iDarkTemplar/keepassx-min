@@ -65,11 +65,6 @@ const QCommandLineOption Command::KeyFileOption = QCommandLineOption(QStringList
 const QCommandLineOption Command::NoPasswordOption =
 	QCommandLineOption(QStringList() << "no-password", QObject::tr("Deactivate password key for the database."));
 
-const QCommandLineOption Command::YubiKeyOption =
-	QCommandLineOption(QStringList() << "y" << "yubikey",
-                       QObject::tr("Yubikey slot and optional serial used to access the database (e.g., 1:7370001)."),
-                       QObject::tr("slot[:serial]"));
-
 namespace
 {
 

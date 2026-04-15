@@ -49,10 +49,6 @@
 #include "fdosecrets/FdoSecretsPlugin.h"
 #endif
 
-#ifdef WITH_XC_YUBIKEY
-#include "keys/drivers/YubiKey.h"
-#endif
-
 #if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS) && !defined(QT_NO_DBUS)
 #include "mainwindowadaptor.h"
 #endif
@@ -181,11 +177,6 @@ MainWindow::MainWindow()
 	connect(fdoSS, &FdoSecretsPlugin::requestShowNotification, this, &MainWindow::displayDesktopNotification);
 	fdoSS->updateServiceState();
 	m_ui->settingsWidget->addSettingsPage(fdoSS);
-#endif
-
-#ifdef WITH_XC_YUBIKEY
-	connect(YubiKey::instance(), SIGNAL(userInteractionRequest()), SLOT(showYubiKeyPopup()), Qt::QueuedConnection);
-	connect(YubiKey::instance(), SIGNAL(challengeCompleted()), SLOT(hideYubiKeyPopup()), Qt::QueuedConnection);
 #endif
 
 	setWindowIcon(icons()->applicationIcon());
@@ -650,43 +641,6 @@ void MainWindow::appExit()
 {
 	m_appExitCalled = true;
 	close();
-}
-
-/**
- * Returns if application was built with hardware key support.
- * Intented to be used by 3rd-party applications using DBus.
- *
- * @return True if built with hardware key support, false otherwise
- */
-bool MainWindow::isHardwareKeySupported()
-{
-#ifdef WITH_XC_YUBIKEY
-	return true;
-#else
-	return false;
-#endif
-}
-
-/**
- * Refreshes list of hardware keys known.
- * Triggers the DatabaseOpenWidget to automatically select the key last used for a database if found.
- * Intented to be used by 3rd-party applications using DBus.
- *
- * @return True if any key was found, false otherwise or if application lacks hardware key support
- */
-bool MainWindow::refreshHardwareKeys()
-{
-#ifdef WITH_XC_YUBIKEY
-	auto yk = YubiKey::instance();
-	// find keys sync to allow returning if any key was found
-	bool found = yk->findValidKeys();
-	// emit signal so DatabaseOpenWidget can select last used key
-	// emit here manually because sync findValidKeys() cannot do that properly
-	emit yk->detectComplete(found);
-	return found;
-#else
-	return false;
-#endif
 }
 
 void MainWindow::updateLastDatabasesMenu()
@@ -1829,21 +1783,6 @@ void MainWindow::displayTabMessage(const QString &text,
 void MainWindow::hideGlobalMessage()
 {
 	m_ui->globalMessageWidget->hideMessage();
-}
-
-void MainWindow::showYubiKeyPopup()
-{
-	displayGlobalMessage(tr("Please present or touch your YubiKey to continue…"),
-	                     MessageWidget::Information,
-	                     false,
-	                     MessageWidget::DisableAutoHide);
-	setEnabled(false);
-}
-
-void MainWindow::hideYubiKeyPopup()
-{
-	hideGlobalMessage();
-	setEnabled(true);
 }
 
 void MainWindow::bringToFront()

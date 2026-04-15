@@ -951,41 +951,6 @@ QByteArray Database::transformedDatabaseKey() const
 	return m_data.transformedDatabaseKey->rawKey();
 }
 
-QByteArray Database::challengeResponseKey() const
-{
-	Q_ASSERT(m_data.challengeResponseKey);
-	if (!m_data.challengeResponseKey)
-	{
-		return {};
-	}
-	return m_data.challengeResponseKey->rawKey();
-}
-
-bool Database::challengeMasterSeed(const QByteArray &masterSeed)
-{
-	Q_ASSERT(m_data.key);
-	Q_ASSERT(m_data.masterSeed);
-
-	m_keyError.clear();
-	if (m_data.key && m_data.masterSeed)
-	{
-		m_data.masterSeed->setRawKey(masterSeed);
-		QByteArray response;
-		bool ok = m_data.key->challenge(masterSeed, response, &m_keyError);
-		if (ok && !response.isEmpty())
-		{
-			m_data.challengeResponseKey->setRawKey(response);
-		}
-		else if (ok && response.isEmpty())
-		{
-			// no CR key present, make sure buffer is empty
-			m_data.challengeResponseKey.reset(new PasswordKey);
-		}
-		return ok;
-	}
-	return false;
-}
-
 void Database::setCipher(const QUuid &cipher)
 {
 	Q_ASSERT(!cipher.isNull());

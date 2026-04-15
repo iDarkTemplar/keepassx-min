@@ -290,8 +290,6 @@ set(keepassx_SOURCES
         gui/databasekey/KeyComponentWidget.h
         gui/databasekey/PasswordEditWidget.cpp
         gui/databasekey/PasswordEditWidget.h
-        gui/databasekey/YubiKeyEditWidget.cpp
-        gui/databasekey/YubiKeyEditWidget.h
         gui/databasekey/KeyFileEditWidget.cpp
         gui/databasekey/KeyFileEditWidget.h
         gui/dbsettings/DatabaseSettingsWidget.cpp
@@ -353,8 +351,6 @@ set(keepassx_SOURCES
         keys/FileKey.h
         keys/PasswordKey.cpp
         keys/PasswordKey.h
-        keys/ChallengeResponseKey.cpp
-        keys/ChallengeResponseKey.h
         streams/HashedBlockStream.cpp
         streams/HashedBlockStream.h
         streams/HashingStream.cpp
@@ -415,7 +411,6 @@ set(keepassx_UI
 	gui/databasekey/KeyComponentWidget.ui
 	gui/databasekey/KeyFileEditWidget.ui
 	gui/databasekey/PasswordEditWidget.ui
-	gui/databasekey/YubiKeyEditWidget.ui
 	gui/dbsettings/DatabaseSettingsWidgetBrowser.ui
 	gui/dbsettings/DatabaseSettingsWidgetEncryption.ui
 	gui/dbsettings/DatabaseSettingsWidgetGeneral.ui
@@ -447,17 +442,6 @@ set(keepassx_UI
 	gui/wizard/ImportWizardPageSelect.ui
 	gui/wizard/NewDatabaseWizardPage.ui
 	)
-
-if(WITH_XC_YUBIKEY)
-    set(keepassx_SOURCES ${keepassx_SOURCES} gui/osutils/DeviceListener.cpp)
-    if(APPLE)
-        set(keepassx_SOURCES ${keepassx_SOURCES} gui/osutils/macutils/DeviceListenerMac.cpp)
-    elseif(UNIX)
-        set(keepassx_SOURCES ${keepassx_SOURCES} gui/osutils/nixutils/DeviceListenerLibUsb.cpp)
-    elseif(WIN32)
-        set(keepassx_SOURCES ${keepassx_SOURCES} gui/osutils/winutils/DeviceListenerWin.cpp)
-    endif()
-endif()
 
 set(keepassx_SOURCES ${keepassx_SOURCES}
         ../share/icons/icons.qrc
@@ -492,19 +476,6 @@ set(autotype_SOURCES
         autotype/PickcharsDialog.cpp
         autotype/ShortcutWidget.cpp
         autotype/WindowSelectComboBox.cpp)
-
-if(WITH_XC_YUBIKEY)
-    list(APPEND keepassx_SOURCES
-        keys/drivers/YubiKey.h
-        keys/drivers/YubiKey.cpp
-        keys/drivers/YubiKeyInterface.cpp
-        keys/drivers/YubiKeyInterfaceUSB.cpp
-        keys/drivers/YubiKeyInterfacePCSC.cpp)
-else()
-    list(APPEND keepassx_SOURCES
-        keys/drivers/YubiKey.h
-        keys/drivers/YubiKeyStub.cpp)
-endif()
 
 configure_file(config-keepassx.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-keepassx.h)
 configure_file(git-info.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/git-info.h)

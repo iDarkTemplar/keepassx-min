@@ -21,9 +21,6 @@
 #include "core/EntryAttributes.h"
 #include "core/Global.h"
 #include "keys/FileKey.h"
-#ifdef WITH_XC_YUBIKEY
-#include "keys/ChallengeResponseKey.h"
-#endif
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -131,6 +128,8 @@ namespace Utils
 	                                        const QString &yubiKeySlot,
 	                                        bool quiet)
 	{
+		Q_UNUSED(yubiKeySlot); // TODO: remove
+
 		auto &err = quiet ? DEVNULL : STDERR;
 		auto compositeKey = QSharedPointer<CompositeKey>::create();
 
@@ -184,45 +183,6 @@ namespace Utils
 
 			compositeKey->addKey(fileKey);
 		}
-
-#ifdef WITH_XC_YUBIKEY
-		if (!yubiKeySlot.isEmpty())
-		{
-			unsigned int serial = 0;
-			int slot;
-
-			bool ok = false;
-			auto parts = yubiKeySlot.split(":");
-			slot = parts[0].toInt(&ok);
-
-			if (!ok || (slot != 1 && slot != 2))
-			{
-				err << QObject::tr("Invalid YubiKey slot %1").arg(parts[0]) << Qt::endl;
-				return {};
-			}
-
-			if (parts.size() > 1)
-			{
-				serial = parts[1].toUInt(&ok, 10);
-				if (!ok)
-				{
-					err << QObject::tr("Invalid YubiKey serial %1").arg(parts[1]) << Qt::endl;
-					return {};
-				}
-			}
-
-			QObject::connect(YubiKey::instance(), &YubiKey::userInteractionRequest, [&] {
-				err << QObject::tr("Please present or touch your YubiKey to continue.") << "\n\n" << Qt::flush;
-			});
-
-			auto key = QSharedPointer<ChallengeResponseKey>(new ChallengeResponseKey({serial, slot}));
-			compositeKey->addChallengeResponseKey(key);
-
-			YubiKey::instance()->findValidKeys();
-		}
-#else
-		Q_UNUSED(yubiKeySlot);
-#endif // WITH_XC_YUBIKEY
 
 		auto db = QSharedPointer<Database>::create();
 		QString error;

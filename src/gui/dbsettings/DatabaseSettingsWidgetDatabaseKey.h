@@ -62,18 +62,11 @@ private:
                            QSharedPointer<Key>& oldKey);
 	// clang-format on
 
-	bool addToCompositeKey(KeyComponentWidget *widget,
-	                       QSharedPointer<CompositeKey> &newKey,
-	                       QSharedPointer<ChallengeResponseKey> &oldKey);
-
 	bool m_isDirty = false;
 	const QPointer<QPushButton> m_additionalKeyOptionsToggle;
 	const QPointer<QWidget> m_additionalKeyOptions;
 	const QPointer<PasswordEditWidget> m_passwordEditWidget;
 	const QPointer<KeyFileEditWidget> m_keyFileEditWidget;
-#ifdef WITH_XC_YUBIKEY
-	const QPointer<YubiKeyEditWidget> m_yubiKeyEditWidget;
-#endif
 };
 
 #endif // KEEPASSXC_DATABASESETTINGSWIDGETDATABASEKEY_H

@@ -25,9 +25,6 @@
 #include "config-keepassx.h"
 #include "gui/DialogyWidget.h"
 #include "gui/MessageWidget.h"
-#ifdef WITH_XC_YUBIKEY
-#include "osutils/DeviceListener.h"
-#endif
 
 class CompositeKey;
 class Database;
@@ -80,22 +77,13 @@ protected slots:
 
 private slots:
 	bool browseKeyFile();
-	void toggleHardwareKeyComponent(bool state);
 	void closeDatabase();
-	void pollHardwareKey(bool manualTrigger = false, int delay = 0);
-	void hardwareKeyResponse(bool found);
 
 private:
-#ifdef WITH_XC_YUBIKEY
-	QPointer<DeviceListener> m_deviceListener;
-#endif
-	bool m_pollingHardwareKey = false;
-	bool m_manualHardwareKeyRefresh = false;
 	bool m_blockQuickUnlock = false;
 	bool m_unlockingDatabase = false;
 	bool m_triedToQuit = false;
 	QTimer m_hideTimer;
-	QTimer m_hideNoHardwareKeysFoundTimer;
 
 	Q_DISABLE_COPY(DatabaseOpenWidget)
 };

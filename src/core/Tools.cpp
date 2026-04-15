@@ -91,9 +91,6 @@ namespace Tools
 #ifdef WITH_XC_AUTOTYPE
 		extensions += "\n- " + QObject::tr("Auto-Type");
 #endif
-#ifdef WITH_XC_YUBIKEY
-		extensions += "\n- " + QObject::tr("YubiKey");
-#endif
 #if defined(Q_OS_MACOS) || defined(Q_CC_MSVC)
 		extensions += "\n- " + QObject::tr("Quick Unlock");
 #endif

@@ -150,8 +150,6 @@ public:
 	            bool updateTransformSalt = false,
 	            bool transformKey = true);
 	QString keyError();
-	QByteArray challengeResponseKey() const;
-	bool challengeMasterSeed(const QByteArray &masterSeed);
 	const QUuid &cipher() const;
 	void setCipher(const QUuid &cipher);
 	Database::CompressionAlgorithm compressionAlgorithm() const;
