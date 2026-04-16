@@ -269,11 +269,6 @@ void ApplicationSettingsWidget::loadSettings()
 	m_secUi->hideTotpCheckBox->setChecked(config()->get(Config::Security_HideTotpPreviewPanel).toBool());
 	m_secUi->hideNotesCheckBox->setChecked(config()->get(Config::Security_HideNotes).toBool());
 
-	bool quickUnlockAvailable = false;
-
-	m_secUi->quickUnlockCheckBox->setEnabled(quickUnlockAvailable);
-	m_secUi->quickUnlockCheckBox->setChecked(config()->get(Config::Security_QuickUnlock).toBool());
-
 	for (const ExtraPage &page: asConst(m_extraPages))
 	{
 		page.loadSettings();
@@ -372,11 +367,6 @@ void ApplicationSettingsWidget::saveSettings()
 	config()->set(Config::Security_HidePasswordPreviewPanel, m_secUi->passwordPreviewCleartextCheckBox->isChecked());
 	config()->set(Config::Security_HideTotpPreviewPanel, m_secUi->hideTotpCheckBox->isChecked());
 	config()->set(Config::Security_HideNotes, m_secUi->hideNotesCheckBox->isChecked());
-
-	if (m_secUi->quickUnlockCheckBox->isEnabled())
-	{
-		config()->set(Config::Security_QuickUnlock, m_secUi->quickUnlockCheckBox->isChecked());
-	}
 
 	// Security: clear storage if related settings are disabled
 	if (!config()->get(Config::RememberLastDatabases).toBool())

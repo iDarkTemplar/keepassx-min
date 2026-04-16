@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>399</width>
-    <height>494</height>
+    <height>465</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -166,13 +166,6 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
-       <widget class="QCheckBox" name="quickUnlockCheckBox">
-        <property name="text">
-         <string>Enable database quick unlock (Touch ID / Windows Hello)</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QCheckBox" name="lockDatabaseOnScreenLockCheckBox">
         <property name="text">
          <string>Lock databases when session is locked or lid is closed</string>
@@ -242,7 +235,6 @@
   <tabstop>lockDatabaseIdleSpinBox</tabstop>
   <tabstop>clearSearchCheckBox</tabstop>
   <tabstop>clearSearchSpinBox</tabstop>
-  <tabstop>quickUnlockCheckBox</tabstop>
   <tabstop>lockDatabaseOnScreenLockCheckBox</tabstop>
   <tabstop>lockDatabaseMinimizeCheckBox</tabstop>
   <tabstop>passwordShowDotsCheckBox</tabstop>

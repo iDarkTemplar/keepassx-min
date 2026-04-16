@@ -32,11 +32,6 @@
 namespace
 {
 	constexpr int clearFormsDelay = 30000;
-
-	bool isQuickUnlockAvailable()
-	{
-		return false;
-	}
 } // namespace
 
 DatabaseOpenWidget::DatabaseOpenWidget(QWidget *parent)
@@ -61,11 +56,6 @@ DatabaseOpenWidget::DatabaseOpenWidget(QWidget *parent)
 	font.setBold(true);
 	m_ui->labelHeadline->setFont(font);
 
-	m_ui->quickUnlockButton->setFont(font);
-	m_ui->quickUnlockButton->setIcon(
-		icons()->icon("fingerprint", true, palette().color(QPalette::Active, QPalette::HighlightedText)));
-	m_ui->quickUnlockButton->setIconSize({32, 32});
-
 	connect(m_ui->buttonBrowseFile, SIGNAL(clicked()), SLOT(browseKeyFile()));
 
 	auto okBtn = m_ui->buttonBox->button(QDialogButtonBox::Ok);
@@ -82,11 +72,6 @@ DatabaseOpenWidget::DatabaseOpenWidget(QWidget *parent)
 	});
 
 	m_ui->selectKeyFileComponent->setVisible(false);
-
-	// QuickUnlock actions
-	connect(m_ui->quickUnlockButton, &QPushButton::pressed, this, [this] { openDatabase(); });
-	connect(m_ui->resetQuickUnlockButton, &QPushButton::pressed, this, [this] { resetQuickUnlock(); });
-	m_ui->resetQuickUnlockButton->setShortcut(Qt::Key_Escape);
 }
 
 DatabaseOpenWidget::~DatabaseOpenWidget()
@@ -128,12 +113,6 @@ bool DatabaseOpenWidget::event(QEvent *event)
 
 	if (type == QEvent::Show || type == QEvent::WindowActivate)
 	{
-		if (isOnQuickUnlockScreen() && (m_db.isNull() || !canPerformQuickUnlock()))
-		{
-			resetQuickUnlock();
-		}
-		toggleQuickUnlockScreen();
-
 		if (isVisible())
 		{
 			m_hideTimer.stop();
@@ -218,8 +197,6 @@ void DatabaseOpenWidget::load(const QString &filename)
 			m_ui->keyFileLineEdit->setText(lastKeyFiles[m_filename].toString());
 		}
 	}
-
-	toggleQuickUnlockScreen();
 }
 
 void DatabaseOpenWidget::clearForms()
@@ -230,7 +207,6 @@ void DatabaseOpenWidget::clearForms()
 	m_ui->keyFileLineEdit->clear();
 	m_ui->keyFileLineEdit->setShowPassword(false);
 	m_ui->keyFileLineEdit->setClearButtonEnabled(true);
-	toggleQuickUnlockScreen();
 
 	QString error;
 	m_db.reset(new Database());
@@ -257,16 +233,11 @@ void DatabaseOpenWidget::enterKey(const QString &pw, const QString &keyFile)
 
 	m_ui->editPassword->setText(pw);
 	m_ui->keyFileLineEdit->setText(keyFile);
-	m_blockQuickUnlock = true;
 	openDatabase();
 }
 
 void DatabaseOpenWidget::openDatabase()
 {
-	// Cache this variable for future use then reset
-	bool blockQuickUnlock = m_blockQuickUnlock || isOnQuickUnlockScreen();
-	m_blockQuickUnlock = false;
-
 	setUserInteractionLock(true);
 	m_ui->editPassword->setShowPassword(false);
 	m_ui->messageWidget->hide();
@@ -312,19 +283,12 @@ void DatabaseOpenWidget::openDatabase()
 			}
 		}
 
-		// Save Quick Unlock credentials if available
-		if (!blockQuickUnlock && isQuickUnlockAvailable())
-		{
-			auto keyData = databaseKey->serialize();
-			m_ui->messageWidget->hideMessage();
-		}
-
 		emit dialogFinished(true);
 		clearForms();
 	}
 	else
 	{
-		if (!isOnQuickUnlockScreen() && m_ui->editPassword->text().isEmpty() && !m_retryUnlockWithEmptyPassword)
+		if (m_ui->editPassword->text().isEmpty() && !m_retryUnlockWithEmptyPassword)
 		{
 			QScopedPointer<QMessageBox> msgBox(new QMessageBox(this));
 			msgBox->setIcon(QMessageBox::Critical);
@@ -352,26 +316,15 @@ void DatabaseOpenWidget::openDatabase()
 		m_retryUnlockWithEmptyPassword = false;
 		m_ui->messageWidget->showMessage(error, MessageWidget::MessageType::Error);
 
-		if (!isOnQuickUnlockScreen())
-		{
-			// Focus on the password field and select the input for easy retry
-			m_ui->editPassword->selectAll();
-			m_ui->editPassword->setFocus();
-		}
+		// Focus on the password field and select the input for easy retry
+		m_ui->editPassword->selectAll();
+		m_ui->editPassword->setFocus();
 	}
 }
 
 QSharedPointer<CompositeKey> DatabaseOpenWidget::buildDatabaseKey()
 {
 	auto databaseKey = QSharedPointer<CompositeKey>::create();
-
-	if (!m_db.isNull() && canPerformQuickUnlock())
-	{
-		// try to retrieve the stored password using Windows Hello
-		QByteArray keyData;
-		databaseKey->setRawKey(keyData);
-		return databaseKey;
-	}
 
 	if (!m_ui->editPassword->text().isEmpty() || m_retryUnlockWithEmptyPassword)
 	{
@@ -488,57 +441,4 @@ void DatabaseOpenWidget::setUserInteractionLock(bool state)
 		m_ui->centralStack->setEnabled(true);
 	}
 	m_unlockingDatabase = state;
-}
-
-bool DatabaseOpenWidget::canPerformQuickUnlock() const
-{
-	if (!m_db.isNull() && isQuickUnlockAvailable())
-	{
-	}
-	return false;
-}
-
-bool DatabaseOpenWidget::isOnQuickUnlockScreen() const
-{
-	return m_ui->centralStack->currentIndex() == 1;
-}
-
-void DatabaseOpenWidget::toggleQuickUnlockScreen()
-{
-	if (canPerformQuickUnlock())
-	{
-		m_ui->centralStack->setCurrentIndex(1);
-		// Work around qt issue where focus is stolen even if not visible
-		if (m_ui->quickUnlockButton->isVisible())
-		{
-			m_ui->quickUnlockButton->setFocus();
-		}
-	}
-	else
-	{
-		m_ui->centralStack->setCurrentIndex(0);
-		// Work around qt issue where focus is stolen even if not visible
-		if (m_ui->editPassword->isVisible())
-		{
-			m_ui->editPassword->setFocus();
-		}
-	}
-}
-
-void DatabaseOpenWidget::triggerQuickUnlock()
-{
-	if (isOnQuickUnlockScreen())
-	{
-		m_ui->quickUnlockButton->click();
-	}
-}
-
-/**
- * Reset installed quick unlock secrets.
- *
- * It's safe to call this method even if quick unlock is unavailable.
- */
-void DatabaseOpenWidget::resetQuickUnlock()
-{
-	load(m_filename);
 }

@@ -50,13 +50,6 @@ public:
 	bool unlockingDatabase();
 	void showMessage(const QString &text, MessageWidget::MessageType type, int autoHideTimeout);
 
-	// Quick Unlock helper functions
-	bool canPerformQuickUnlock() const;
-	bool isOnQuickUnlockScreen() const;
-	void toggleQuickUnlockScreen();
-	void triggerQuickUnlock();
-	void resetQuickUnlock();
-
 signals:
 	void dialogFinished(bool accepted);
 
@@ -80,7 +73,6 @@ private slots:
 	void closeDatabase();
 
 private:
-	bool m_blockQuickUnlock = false;
 	bool m_unlockingDatabase = false;
 	bool m_triedToQuit = false;
 	QTimer m_hideTimer;
