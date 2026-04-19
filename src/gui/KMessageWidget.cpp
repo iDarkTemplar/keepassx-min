@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
  *
+ * Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  * Copyright (c) 2011 Aurélien Gâteau <agateau@kde.org>
  * Copyright (c) 2014 Dominik Haumann <dhaumann@kde.org>
  *
@@ -19,6 +20,7 @@
  * 02110-1301  USA
  */
 #include "KMessageWidget.h"
+#include "KMessageWidget_p.h"
 
 #include "core/Global.h"
 #include "gui/Icons.h"
@@ -31,37 +33,6 @@
 #include <QStyle>
 #include <QTimeLine>
 #include <QToolButton>
-
-//---------------------------------------------------------------------
-// KMessageWidgetPrivate
-//---------------------------------------------------------------------
-class KMessageWidgetPrivate
-{
-public:
-	void init(KMessageWidget *);
-
-	KMessageWidget *q;
-	QFrame *content;
-	QLabel *iconLabel;
-	QLabel *textLabel;
-	QToolButton *closeButton;
-	QTimeLine *timeLine;
-	QIcon icon;
-	QPixmap closeButtonPixmap;
-
-	KMessageWidget::MessageType messageType;
-	bool wordWrap;
-	QList<QToolButton *> buttons;
-	QPixmap contentSnapShot;
-
-	void createLayout();
-	void updateSnapShot();
-	void updateLayout();
-	void slotTimeLineChanged(qreal);
-	void slotTimeLineFinished();
-
-	int bestContentHeight() const;
-};
 
 void KMessageWidgetPrivate::init(KMessageWidget *q_ptr)
 {
@@ -504,5 +475,3 @@ void KMessageWidget::setIcon(const QIcon &icon)
 		d->iconLabel->show();
 	}
 }
-
-#include "moc_KMessageWidget.cpp"

@@ -17,6 +17,8 @@
 #include "DatabaseSettingsWidgetFdoSecrets.h"
 #include "ui_DatabaseSettingsWidgetFdoSecrets.h"
 
+#include "DatabaseSettingsWidgetFdoSecrets_p.h"
+
 #include "fdosecrets/FdoSecretsSettings.h"
 
 #include "core/Group.h"
@@ -34,60 +36,51 @@ namespace
 	};
 } // namespace
 
-class DatabaseSettingsWidgetFdoSecrets::GroupModelNoRecycle: public QSortFilterProxyModel
+DatabaseSettingsWidgetFdoSecrets::GroupModelNoRecycle::GroupModelNoRecycle(Database *db)
+	: m_db(db)
 {
-	Q_OBJECT
+	Q_ASSERT(db);
+	setSourceModel(new GroupModel(m_db, this));
+}
 
-	Database *m_db;
+Group* DatabaseSettingsWidgetFdoSecrets::GroupModelNoRecycle::groupFromIndex(const QModelIndex &index) const
+{
+	return groupFromSourceIndex(mapToSource(index));
+}
 
-public:
-	explicit GroupModelNoRecycle(Database *db)
-		: m_db(db)
+Group* DatabaseSettingsWidgetFdoSecrets::GroupModelNoRecycle::groupFromSourceIndex(const QModelIndex &index) const
+{
+	auto groupModel = qobject_cast<GroupModel *>(sourceModel());
+	Q_ASSERT(groupModel);
+	return groupModel->groupFromIndex(index);
+}
+
+QModelIndex DatabaseSettingsWidgetFdoSecrets::GroupModelNoRecycle::indexFromGroup(Group *group) const
+{
+	auto groupModel = qobject_cast<GroupModel *>(sourceModel());
+	Q_ASSERT(groupModel);
+	return mapFromSource(groupModel->index(group));
+}
+
+bool DatabaseSettingsWidgetFdoSecrets::GroupModelNoRecycle::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
+{
+	auto source_idx = sourceModel()->index(source_row, 0, source_parent);
+	if (!source_idx.isValid())
 	{
-		Q_ASSERT(db);
-		setSourceModel(new GroupModel(m_db, this));
+		return false;
 	}
 
-	Group *groupFromIndex(const QModelIndex &index) const
+	auto recycleBin = m_db->metadata()->recycleBin();
+	if (!recycleBin)
 	{
-		return groupFromSourceIndex(mapToSource(index));
+		return true;
 	}
 
-	Group *groupFromSourceIndex(const QModelIndex &index) const
-	{
-		auto groupModel = qobject_cast<GroupModel *>(sourceModel());
-		Q_ASSERT(groupModel);
-		return groupModel->groupFromIndex(index);
-	}
+	// can not call mapFromSource, which internally calls filterAcceptsRow
+	auto group = groupFromSourceIndex(source_idx);
 
-	QModelIndex indexFromGroup(Group *group) const
-	{
-		auto groupModel = qobject_cast<GroupModel *>(sourceModel());
-		Q_ASSERT(groupModel);
-		return mapFromSource(groupModel->index(group));
-	}
-
-protected:
-	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override
-	{
-		auto source_idx = sourceModel()->index(source_row, 0, source_parent);
-		if (!source_idx.isValid())
-		{
-			return false;
-		}
-
-		auto recycleBin = m_db->metadata()->recycleBin();
-		if (!recycleBin)
-		{
-			return true;
-		}
-
-		// can not call mapFromSource, which internally calls filterAcceptsRow
-		auto group = groupFromSourceIndex(source_idx);
-
-		return group && !group->isRecycled() && group->uuid() != recycleBin->uuid();
-	}
-};
+	return group && !group->isRecycled() && group->uuid() != recycleBin->uuid();
+}
 
 DatabaseSettingsWidgetFdoSecrets::DatabaseSettingsWidgetFdoSecrets(QWidget *parent)
 	: QWidget(parent)
@@ -184,5 +177,3 @@ void DatabaseSettingsWidgetFdoSecrets::settingsWarning()
 		m_ui->warningWidget->setAutoHideTimeout(-1);
 	}
 }
-
-#include "DatabaseSettingsWidgetFdoSecrets.moc"

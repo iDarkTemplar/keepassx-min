@@ -22,6 +22,7 @@
 #define KMESSAGEWIDGET_H
 
 #include <QFrame>
+#include <QIcon>
 
 class KMessageWidgetPrivate;
 
@@ -103,6 +104,8 @@ class KMessageWidget: public QFrame
 	Q_PROPERTY(bool closeButtonVisible READ isCloseButtonVisible WRITE setCloseButtonVisible)
 	Q_PROPERTY(MessageType messageType READ messageType WRITE setMessageType)
 	Q_PROPERTY(QIcon icon READ icon WRITE setIcon)
+
+	Q_DECLARE_PRIVATE(KMessageWidget)
 public:
 	/**
 	 * Available message types.
@@ -334,9 +337,6 @@ protected:
 private:
 	KMessageWidgetPrivate *const d;
 	friend class KMessageWidgetPrivate;
-
-	Q_PRIVATE_SLOT(d, void slotTimeLineChanged(qreal))
-	Q_PRIVATE_SLOT(d, void slotTimeLineFinished())
 };
 
 #endif /* KMESSAGEWIDGET_H */

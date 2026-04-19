@@ -272,6 +272,8 @@ include_directories(SYSTEM ${ZLIB_INCLUDE_DIR})
 
 find_package(ZXCVBN REQUIRED)
 
+find_package(QREncode REQUIRED)
+
 set(QT_COMPONENTS Core DBus Network Concurrent Gui Svg Widgets LinguistTools)
 if (WITH_XC_X11)
 	list(APPEND QT_COMPONENTS X11Extras)
@@ -280,11 +282,6 @@ if (WITH_TESTS)
 	list(APPEND QT_COMPONENTS Test)
 endif()
 find_package(Qt5 5.12.0 COMPONENTS ${QT_COMPONENTS} REQUIRED)
-
-# Process moc automatically
-set(CMAKE_AUTOMOC ON)
-# Process .qrc files automatically
-set(CMAKE_AUTORCC ON)
 
 include(GNUInstallDirs)
 

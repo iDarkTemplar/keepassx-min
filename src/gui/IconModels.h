@@ -19,6 +19,7 @@
 
 #include <QAbstractListModel>
 #include <QPixmap>
+#include <QUuid>
 
 class DefaultIconModel: public QAbstractListModel
 {

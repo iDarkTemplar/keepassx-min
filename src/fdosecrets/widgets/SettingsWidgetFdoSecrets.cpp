@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2018 Aetf <aetf@unlimitedcodeworks.xyz>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -15,6 +16,7 @@
  */
 
 #include "SettingsWidgetFdoSecrets.h"
+#include "SettingsWidgetFdoSecrets_p.h"
 #include "ui_SettingsWidgetFdoSecrets.h"
 
 #include "fdosecrets/FdoSecretsPlugin.h"
@@ -32,200 +34,171 @@ using FdoSecrets::DBusClientPtr;
 using FdoSecrets::SettingsClientModel;
 using FdoSecrets::SettingsDatabaseModel;
 
-namespace
+FdoSecretsManageDatabase::FdoSecretsManageDatabase(FdoSecretsPlugin *plugin, QWidget *parent)
+	: QWidget(parent)
+	, m_plugin(plugin)
 {
-	class ManageDatabase: public QWidget
+	// db settings
+	m_dbSettingsAct = new QAction(tr("Database settings"), this);
+	m_dbSettingsAct->setIcon(icons()->icon(QStringLiteral("document-edit")));
+	m_dbSettingsAct->setToolTip(tr("Edit database settings"));
+	m_dbSettingsAct->setEnabled(false);
+	connect(m_dbSettingsAct, &QAction::triggered, this, [this]() {
+		if (!m_dbWidget)
+		{
+			return;
+		}
+		m_plugin->serviceInstance()->doSwitchToDatabaseSettings(m_dbWidget);
+	});
+
+	// unlock/lock
+	m_lockAct = new QAction(tr("Unlock database"), this);
+	m_lockAct->setIcon(icons()->icon(QStringLiteral("object-unlocked")));
+	m_lockAct->setToolTip(tr("Unlock database to show more information"));
+	connect(m_lockAct, &QAction::triggered, this, [this]() {
+		if (!m_dbWidget)
+		{
+			return;
+		}
+		if (m_dbWidget->isLocked())
+		{
+			m_plugin->serviceInstance()->doUnlockDatabaseInDialog(m_dbWidget);
+		}
+		else
+		{
+			m_dbWidget->lock();
+		}
+	});
+
+	// layout
+	auto dbSettingsBtn = new QToolButton(this);
+	dbSettingsBtn->setAutoRaise(true);
+	dbSettingsBtn->setDefaultAction(m_dbSettingsAct);
+
+	auto lockBtn = new QToolButton(this);
+	lockBtn->setAutoRaise(true);
+	lockBtn->setDefaultAction(m_lockAct);
+
+	auto layout = new QHBoxLayout(this);
+	layout->setContentsMargins(1, 1, 1, 1);
+	layout->setSpacing(1);
+
+	layout->addStretch();
+	layout->addWidget(dbSettingsBtn);
+	layout->addWidget(lockBtn);
+	layout->addStretch();
+}
+
+DatabaseWidget* FdoSecretsManageDatabase::dbWidget() const
+{
+	return m_dbWidget;
+}
+
+void FdoSecretsManageDatabase::setDbWidget(DatabaseWidget *dbWidget)
+{
+	if (m_dbWidget == dbWidget)
 	{
-		Q_OBJECT
+		return;
+	}
 
-		Q_PROPERTY(DatabaseWidget *dbWidget READ dbWidget WRITE setDbWidget USER true)
-
-	public:
-		explicit ManageDatabase(FdoSecretsPlugin *plugin, QWidget *parent = nullptr)
-			: QWidget(parent)
-			, m_plugin(plugin)
-		{
-			// db settings
-			m_dbSettingsAct = new QAction(tr("Database settings"), this);
-			m_dbSettingsAct->setIcon(icons()->icon(QStringLiteral("document-edit")));
-			m_dbSettingsAct->setToolTip(tr("Edit database settings"));
-			m_dbSettingsAct->setEnabled(false);
-			connect(m_dbSettingsAct, &QAction::triggered, this, [this]() {
-				if (!m_dbWidget)
-				{
-					return;
-				}
-				m_plugin->serviceInstance()->doSwitchToDatabaseSettings(m_dbWidget);
-			});
-
-			// unlock/lock
-			m_lockAct = new QAction(tr("Unlock database"), this);
-			m_lockAct->setIcon(icons()->icon(QStringLiteral("object-unlocked")));
-			m_lockAct->setToolTip(tr("Unlock database to show more information"));
-			connect(m_lockAct, &QAction::triggered, this, [this]() {
-				if (!m_dbWidget)
-				{
-					return;
-				}
-				if (m_dbWidget->isLocked())
-				{
-					m_plugin->serviceInstance()->doUnlockDatabaseInDialog(m_dbWidget);
-				}
-				else
-				{
-					m_dbWidget->lock();
-				}
-			});
-
-			// layout
-			auto dbSettingsBtn = new QToolButton(this);
-			dbSettingsBtn->setAutoRaise(true);
-			dbSettingsBtn->setDefaultAction(m_dbSettingsAct);
-
-			auto lockBtn = new QToolButton(this);
-			lockBtn->setAutoRaise(true);
-			lockBtn->setDefaultAction(m_lockAct);
-
-			auto layout = new QHBoxLayout(this);
-			layout->setContentsMargins(1, 1, 1, 1);
-			layout->setSpacing(1);
-
-			layout->addStretch();
-			layout->addWidget(dbSettingsBtn);
-			layout->addWidget(lockBtn);
-			layout->addStretch();
-		}
-
-		DatabaseWidget *dbWidget() const
-		{
-			return m_dbWidget;
-		}
-
-		void setDbWidget(DatabaseWidget *dbWidget)
-		{
-			if (m_dbWidget == dbWidget)
-			{
-				return;
-			}
-
-			if (m_dbWidget)
-			{
-				disconnect();
-			}
-
-			m_dbWidget = dbWidget;
-
-			reconnect();
-		}
-
-	private:
-		void disconnect()
-		{
-			if (!m_dbWidget)
-			{
-				return;
-			}
-			m_dbWidget->disconnect(this);
-		}
-
-		void reconnect()
-		{
-			if (!m_dbWidget)
-			{
-				return;
-			}
-			connect(m_dbWidget, &DatabaseWidget::databaseLocked, this, [this]() {
-				if (!m_lockAct || !m_dbSettingsAct)
-				{
-					return;
-				}
-				m_lockAct->setText(tr("Unlock database"));
-				m_lockAct->setIcon(icons()->icon(QStringLiteral("object-unlocked")));
-				m_lockAct->setToolTip(tr("Unlock database to show more information"));
-				m_dbSettingsAct->setEnabled(false);
-			});
-			connect(m_dbWidget, &DatabaseWidget::databaseUnlocked, this, [this]() {
-				if (!m_lockAct || !m_dbSettingsAct)
-				{
-					return;
-				}
-				m_lockAct->setText(tr("Lock database"));
-				m_lockAct->setIcon(icons()->icon(QStringLiteral("object-locked")));
-				m_lockAct->setToolTip(tr("Lock database"));
-				m_dbSettingsAct->setEnabled(true);
-			});
-		}
-
-	private:
-		FdoSecretsPlugin *m_plugin = nullptr;
-		QPointer<DatabaseWidget> m_dbWidget = nullptr;
-		QAction *m_dbSettingsAct = nullptr;
-		QAction *m_lockAct = nullptr;
-	};
-
-	class ManageSession: public QWidget
+	if (m_dbWidget)
 	{
-		Q_OBJECT
+		disconnect();
+	}
 
-		Q_PROPERTY(const DBusClientPtr &client READ client WRITE setClient USER true)
+	m_dbWidget = dbWidget;
 
-	public:
-		explicit ManageSession(QWidget *parent = nullptr)
-			: QWidget(parent)
+	reconnect();
+}
+
+void FdoSecretsManageDatabase::disconnect()
+{
+	if (!m_dbWidget)
+	{
+		return;
+	}
+	m_dbWidget->disconnect(this);
+}
+
+void FdoSecretsManageDatabase::reconnect()
+{
+	if (!m_dbWidget)
+	{
+		return;
+	}
+	connect(m_dbWidget, &DatabaseWidget::databaseLocked, this, [this]() {
+		if (!m_lockAct || !m_dbSettingsAct)
 		{
-			auto disconnectAct = new QAction(tr("Disconnect"), this);
-			disconnectAct->setIcon(icons()->icon(QStringLiteral("dialog-close")));
-			disconnectAct->setToolTip(tr("Disconnect this application"));
-			connect(disconnectAct, &QAction::triggered, this, [this]() {
-				if (m_client)
-				{
-					m_client->disconnectDBus();
-				}
-			});
-
-			auto resetAct = new QAction(tr("Reset"), this);
-			resetAct->setIcon(icons()->icon(QStringLiteral("refresh")));
-			resetAct->setToolTip(tr("Reset any remembered decisions for this application"));
-			connect(resetAct, &QAction::triggered, this, [this]() {
-				if (m_client)
-				{
-					m_client->clearAuthorization();
-				}
-			});
-
-			// layout
-			auto disconnectBtn = new QToolButton(this);
-			disconnectBtn->setAutoRaise(true);
-			disconnectBtn->setDefaultAction(disconnectAct);
-
-			auto resetBtn = new QToolButton(this);
-			resetBtn->setAutoRaise(true);
-			resetBtn->setDefaultAction(resetAct);
-
-			auto layout = new QHBoxLayout(this);
-			layout->setContentsMargins(1, 1, 1, 1);
-			layout->setSpacing(1);
-
-			layout->addStretch();
-			layout->addWidget(resetBtn);
-			layout->addWidget(disconnectBtn);
-			layout->addStretch();
+			return;
 		}
-
-		const DBusClientPtr &client() const
+		m_lockAct->setText(tr("Unlock database"));
+		m_lockAct->setIcon(icons()->icon(QStringLiteral("object-unlocked")));
+		m_lockAct->setToolTip(tr("Unlock database to show more information"));
+		m_dbSettingsAct->setEnabled(false);
+	});
+	connect(m_dbWidget, &DatabaseWidget::databaseUnlocked, this, [this]() {
+		if (!m_lockAct || !m_dbSettingsAct)
 		{
-			return m_client;
+			return;
 		}
+		m_lockAct->setText(tr("Lock database"));
+		m_lockAct->setIcon(icons()->icon(QStringLiteral("object-locked")));
+		m_lockAct->setToolTip(tr("Lock database"));
+		m_dbSettingsAct->setEnabled(true);
+	});
+}
 
-		void setClient(DBusClientPtr client)
+FdoSecretsManageSession::FdoSecretsManageSession(QWidget *parent)
+	: QWidget(parent)
+{
+	auto disconnectAct = new QAction(tr("Disconnect"), this);
+	disconnectAct->setIcon(icons()->icon(QStringLiteral("dialog-close")));
+	disconnectAct->setToolTip(tr("Disconnect this application"));
+	connect(disconnectAct, &QAction::triggered, this, [this]() {
+		if (m_client)
 		{
-			m_client = std::move(client);
+			m_client->disconnectDBus();
 		}
+	});
 
-	private:
-		DBusClientPtr m_client{};
-	};
-} // namespace
+	auto resetAct = new QAction(tr("Reset"), this);
+	resetAct->setIcon(icons()->icon(QStringLiteral("refresh")));
+	resetAct->setToolTip(tr("Reset any remembered decisions for this application"));
+	connect(resetAct, &QAction::triggered, this, [this]() {
+		if (m_client)
+		{
+			m_client->clearAuthorization();
+		}
+	});
+
+	// layout
+	auto disconnectBtn = new QToolButton(this);
+	disconnectBtn->setAutoRaise(true);
+	disconnectBtn->setDefaultAction(disconnectAct);
+
+	auto resetBtn = new QToolButton(this);
+	resetBtn->setAutoRaise(true);
+	resetBtn->setDefaultAction(resetAct);
+
+	auto layout = new QHBoxLayout(this);
+	layout->setContentsMargins(1, 1, 1, 1);
+	layout->setSpacing(1);
+
+	layout->addStretch();
+	layout->addWidget(resetBtn);
+	layout->addWidget(disconnectBtn);
+	layout->addStretch();
+}
+
+const DBusClientPtr& FdoSecretsManageSession::client() const
+{
+	return m_client;
+}
+
+void FdoSecretsManageSession::setClient(DBusClientPtr client)
+{
+	m_client = std::move(client);
+}
 
 SettingsWidgetFdoSecrets::SettingsWidgetFdoSecrets(FdoSecretsPlugin *plugin, QWidget *parent)
 	: QWidget(parent)
@@ -238,9 +211,9 @@ SettingsWidgetFdoSecrets::SettingsWidgetFdoSecrets(FdoSecretsPlugin *plugin, QWi
 
 	auto clientModel = new SettingsClientModel(*plugin->dbus(), this);
 	m_ui->tableClients->setModel(clientModel);
-	installWidgetItemDelegate<ManageSession>(m_ui->tableClients,
+	installWidgetItemDelegate<FdoSecretsManageSession>(m_ui->tableClients,
 	                                         SettingsClientModel::ColumnManage,
-	                                         [](QWidget *p, const QModelIndex &) { return new ManageSession(p); });
+	                                         [](QWidget *p, const QModelIndex &) { return new FdoSecretsManageSession(p); });
 
 	// config header after setting model, otherwise the header doesn't have enough sections
 	auto clientViewHeader = m_ui->tableClients->horizontalHeader();
@@ -251,9 +224,9 @@ SettingsWidgetFdoSecrets::SettingsWidgetFdoSecrets(FdoSecretsPlugin *plugin, QWi
 
 	auto dbModel = new SettingsDatabaseModel(plugin->dbTabs(), this);
 	m_ui->tableDatabases->setModel(dbModel);
-	installWidgetItemDelegate<ManageDatabase>(
+	installWidgetItemDelegate<FdoSecretsManageDatabase>(
 		m_ui->tableDatabases, SettingsDatabaseModel::ColumnManage, [plugin](QWidget *p, const QModelIndex &) {
-			return new ManageDatabase(plugin, p);
+			return new FdoSecretsManageDatabase(plugin, p);
 		});
 
 	// config header after setting model, otherwise the header doesn't have enough sections
@@ -342,5 +315,3 @@ void SettingsWidgetFdoSecrets::updateServiceState()
 		m_ui->tabWidget->setToolTip("");
 	}
 }
-
-#include "SettingsWidgetFdoSecrets.moc"
