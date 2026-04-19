@@ -366,7 +366,6 @@
     <addaction name="menuTheme"/>
     <addaction name="actionCompactMode"/>
     <addaction name="actionAlwaysOnTop"/>
-    <addaction name="actionAllowScreenCapture"/>
     <addaction name="separator"/>
     <addaction name="actionShowPreviewPanel"/>
     <addaction name="actionShowGroupPanel"/>
@@ -917,14 +916,6 @@
    </property>
    <property name="toolTip">
     <string>XML File…</string>
-   </property>
-  </action>
-  <action name="actionAllowScreenCapture">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Allow Screen Capture</string>
    </property>
   </action>
   <action name="actionImport1PUX">

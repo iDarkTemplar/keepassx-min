@@ -27,7 +27,6 @@
 #include "gui/Application.h"
 #include "gui/MainWindow.h"
 #include "gui/MessageBox.h"
-#include "gui/osutils/OSUtils.h"
 
 #if defined(WITH_ASAN) && defined(WITH_LSAN)
 #include <sanitizer/lsan_interface.h>
@@ -64,8 +63,6 @@ int main(int argc, char **argv)
 		"localconfig", QObject::tr("path to a custom local config file"), "localconfig");
 	QCommandLineOption lockOption("lock", QObject::tr("lock all open databases"));
 	QCommandLineOption keyfileOption("keyfile", QObject::tr("key file of the database"), "keyfile");
-	QCommandLineOption allowScreenCaptureOption("allow-screencapture",
-	                                            QObject::tr("allow screenshots and app recording (Windows/macOS)"));
 	QCommandLineOption startMinimized("minimized", QObject::tr("start minimized to the system tray"));
 
 	QCommandLineOption helpOption = parser.addHelpOption();
@@ -76,7 +73,6 @@ int main(int argc, char **argv)
 	parser.addOption(lockOption);
 	parser.addOption(keyfileOption);
 	parser.addOption(debugInfoOption);
-	parser.addOption(allowScreenCaptureOption);
 	parser.addOption(startMinimized);
 
 	parser.process(app);
@@ -165,10 +161,6 @@ int main(int argc, char **argv)
 	Application::bootstrap(config()->get(Config::GUI_Language).toString());
 
 	MainWindow mainWindow;
-
-	// Disable screen capture if not explicitly allowed
-	// This ensures any top-level windows (Main Window, Modal Dialogs, etc.) are excluded from screenshots
-	mainWindow.setAllowScreenCapture(parser.isSet(allowScreenCaptureOption));
 
 	// start minimized if configured
 	if (parser.isSet(startMinimized) || config()->get(Config::GUI_MinimizeOnStartup).toBool())

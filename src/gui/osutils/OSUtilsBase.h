@@ -68,9 +68,6 @@ public:
 	                                    QString *error = nullptr) = 0;
 	virtual bool unregisterGlobalShortcut(const QString &name) = 0;
 
-	virtual bool canPreventScreenCapture() const = 0;
-	virtual bool setPreventScreenCapture(QWindow *window, bool allow) const;
-
 signals:
 	void globalShortcutTriggered(const QString &name, const QString &search = {});
 

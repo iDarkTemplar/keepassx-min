@@ -44,11 +44,6 @@ public:
 	                            QString *error = nullptr) override;
 	bool unregisterGlobalShortcut(const QString &name) override;
 
-	bool canPreventScreenCapture() const override
-	{
-		return false;
-	}
-
 private slots:
 	void handleColorSchemeRead(QDBusVariant value);
 	void handleColorSchemeChanged(QString ns, QString key, QDBusVariant value);

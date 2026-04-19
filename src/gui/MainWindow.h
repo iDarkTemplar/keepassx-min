@@ -52,7 +52,6 @@ public:
 
 	QList<DatabaseWidget *> getOpenDatabases();
 	void restoreConfigState();
-	void setAllowScreenCapture(bool state);
 
 	enum StackedWidgetIndex
 	{

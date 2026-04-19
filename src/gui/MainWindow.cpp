@@ -166,8 +166,6 @@ MainWindow::MainWindow()
 	m_ui->toolbarSeparator->setVisible(false);
 	m_showToolbarSeparator = config()->get(Config::GUI_ApplicationTheme).toString() != "classic";
 
-	m_ui->actionAllowScreenCapture->setVisible(osUtils->canPreventScreenCapture());
-
 	m_inactivityTimer = new InactivityTimer(this);
 	connect(m_inactivityTimer, SIGNAL(inactivityDetected()), this, SLOT(lockAllDatabases()));
 	applySettingsChanges();
@@ -414,7 +412,6 @@ MainWindow::MainWindow()
 	connect(m_ui->actionDonate, SIGNAL(triggered()), SLOT(openDonateUrl()));
 	connect(m_ui->actionBugReport, SIGNAL(triggered()), SLOT(openBugReportUrl()));
 	connect(m_ui->actionOnlineHelp, SIGNAL(triggered()), SLOT(openOnlineHelp()));
-	connect(m_ui->actionAllowScreenCapture, &QAction::toggled, this, &MainWindow::setAllowScreenCapture);
 
 	connect(osUtils, &OSUtilsBase::statusbarThemeChanged, this, &MainWindow::updateTrayIcon);
 
@@ -1476,32 +1473,11 @@ void MainWindow::applySettingsChanges()
 	kpxcApp->applyFontSize();
 }
 
-void MainWindow::setAllowScreenCapture(bool state)
-{
-	m_allowScreenCapture = state;
-	for (auto window: qApp->topLevelWindows())
-	{
-		if (window->isVisible())
-		{
-			osUtils->setPreventScreenCapture(window, !m_allowScreenCapture);
-		}
-	}
-	m_ui->actionAllowScreenCapture->blockSignals(true);
-	m_ui->actionAllowScreenCapture->setChecked(m_allowScreenCapture);
-	m_ui->actionAllowScreenCapture->blockSignals(false);
-}
-
 void MainWindow::focusWindowChanged(QWindow *window)
 {
 	if (window != windowHandle())
 	{
 		m_lastFocusOutTime = Clock::currentMilliSecondsSinceEpoch();
-	}
-
-	if (!osUtils->setPreventScreenCapture(window, !m_allowScreenCapture) && !m_allowScreenCapture)
-	{
-		displayGlobalMessage(QObject::tr("Warning: Failed to block screenshot capture on a top-level window."),
-		                     MessageWidget::Error);
 	}
 }
 
