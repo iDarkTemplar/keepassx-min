@@ -59,7 +59,7 @@
             <x>0</x>
             <y>0</y>
             <width>615</width>
-            <height>1431</height>
+            <height>1402</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -88,13 +88,6 @@
                 </property>
                 <property name="checked">
                  <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="launchAtStartup">
-                <property name="text">
-                 <string>Automatically launch KeePassXC at system startup</string>
                 </property>
                </widget>
               </item>
@@ -1084,7 +1077,6 @@
   <tabstop>generalSettingsTabWidget</tabstop>
   <tabstop>scrollArea</tabstop>
   <tabstop>singleInstanceCheckBox</tabstop>
-  <tabstop>launchAtStartup</tabstop>
   <tabstop>systrayMinimizeOnStartup</tabstop>
   <tabstop>minimizeAfterUnlockCheckBox</tabstop>
   <tabstop>rememberLastDatabasesCheckBox</tabstop>

@@ -36,21 +36,6 @@ public:
 	virtual bool isDarkMode() const = 0;
 
 	/**
-	 * @return OS task / menu bar is dark.
-	 */
-	virtual bool isStatusBarDark() const = 0;
-
-	/**
-	 * @return KeePassXC set to launch at system startup (autostart).
-	 */
-	virtual bool isLaunchAtStartupEnabled() const = 0;
-
-	/**
-	 * @param enable Add or remove KeePassXC from system autostart.
-	 */
-	virtual void setLaunchAtStartup(bool enable) = 0;
-
-	/**
 	 * @return OS caps lock enabled.
 	 */
 	virtual bool isCapslockEnabled() = 0;

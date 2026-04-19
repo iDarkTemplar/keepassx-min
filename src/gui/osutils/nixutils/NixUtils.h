@@ -30,9 +30,6 @@ public:
 	static NixUtils *instance();
 
 	bool isDarkMode() const override;
-	bool isStatusBarDark() const override;
-	bool isLaunchAtStartupEnabled() const override;
-	void setLaunchAtStartup(bool enable) override;
 	bool isCapslockEnabled() override;
 	void setUserInputProtection(bool enable) override;
 
@@ -47,14 +44,12 @@ public:
 private slots:
 	void handleColorSchemeRead(QDBusVariant value);
 	void handleColorSchemeChanged(QString ns, QString key, QDBusVariant value);
-	void launchAtStartupRequested(uint response, const QVariantMap &results);
 
 private:
 	explicit NixUtils(QObject *parent = nullptr);
 	~NixUtils() override;
 
 	bool nativeEventFilter(const QByteArray &eventType, void *message, long *) override;
-	QString getAutostartDesktopFilename(bool createDirs = false) const;
 
 	bool triggerGlobalShortcut(uint keycode, uint modifiers);
 

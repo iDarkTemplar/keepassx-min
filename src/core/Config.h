@@ -84,7 +84,7 @@ public:
 		GUI_HidePreviewPanel,
 		GUI_AlwaysOnTop,
 		GUI_ToolButtonStyle,
-		GUI_LaunchAtStartup,
+		GUI_LaunchAtStartup, // TODO: remove
 		GUI_ShowTrayIcon,
 		GUI_TrayIconAppearance,
 		GUI_MinimizeToTray,
