@@ -57,10 +57,6 @@ namespace Tools
 			debugInfo.append(QObject::tr("Revision: %1").arg(commitHash.left(7)).append("\n"));
 		}
 
-#ifdef KEEPASSXC_DIST
-		debugInfo.append(QObject::tr("Distribution: %1").arg(KEEPASSXC_DIST_TYPE).append("\n"));
-#endif
-
 		// Qt related debugging information.
 		debugInfo.append("\n");
 		debugInfo.append("Qt ").append(QString::fromLocal8Bit(qVersion())).append("\n");
