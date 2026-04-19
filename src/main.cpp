@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 	// don't set organizationName as that changes the return value of
 	// QStandardPaths::writableLocation(QDesktopServices::DataLocation)
 	Application::setApplicationName("KeePassXC");
-	Application::setApplicationVersion(KEEPASSXC_VERSION);
+	Application::setApplicationVersion(KEEPASSXM_VERSION);
 	app.setProperty("KPXC_QUALIFIED_APPNAME", "org.keepassxc.KeePassXC");
 
 	// HACK: Prevent long-running threads from deadlocking the program with only 1 CPU

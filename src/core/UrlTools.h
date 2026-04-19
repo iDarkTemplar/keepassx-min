@@ -18,7 +18,6 @@
 #define KEEPASSXC_URLTOOLS_H
 
 #include "config-keepassx.h"
-#include <QNetworkReply>
 #include <QObject>
 #include <QUrl>
 #include <QVariant>

@@ -462,11 +462,11 @@ MainWindow::MainWindow()
 		});
 	connect(hidePreRelWarn, &QAction::triggered, [this] {
 		m_ui->globalMessageWidget->animatedHide();
-		config()->set(Config::Messages_HidePreReleaseWarning, KEEPASSXC_VERSION);
+		config()->set(Config::Messages_HidePreReleaseWarning, KEEPASSXM_VERSION);
 	});
 #endif
 #if defined(KEEPASSXC_BUILD_TYPE_SNAPSHOT)
-	if (config()->get(Config::Messages_HidePreReleaseWarning) != KEEPASSXC_VERSION)
+	if (config()->get(Config::Messages_HidePreReleaseWarning) != KEEPASSXM_VERSION)
 	{
 		m_ui->globalMessageWidget->showMessage(
 			tr("WARNING: You are using an unstable build of KeePassXC.\n"
@@ -476,7 +476,7 @@ MainWindow::MainWindow()
 			-1);
 	}
 #elif defined(KEEPASSXC_BUILD_TYPE_PRE_RELEASE)
-	if (config()->get(Config::Messages_HidePreReleaseWarning) != KEEPASSXC_VERSION)
+	if (config()->get(Config::Messages_HidePreReleaseWarning) != KEEPASSXM_VERSION)
 	{
 		m_ui->globalMessageWidget->showMessage(
 			tr("NOTE: You are using a pre-release version of KeePassXC.\n"

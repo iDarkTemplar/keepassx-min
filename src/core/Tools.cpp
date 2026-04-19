@@ -23,7 +23,6 @@
 #include "Tools.h"
 
 #include "config-keepassx.h"
-#include "git-info.h"
 
 #include "core/Clock.h"
 
@@ -46,15 +45,12 @@ namespace Tools
 	QString debugInfo()
 	{
 		QString debugInfo = "KeePassXC - ";
-		debugInfo.append(QObject::tr("Version %1").arg(KEEPASSXC_VERSION).append("\n"));
-#ifndef KEEPASSXC_BUILD_TYPE_RELEASE
-		debugInfo.append(QObject::tr("Build Type: %1").arg(KEEPASSXC_BUILD_TYPE).append("\n"));
-#endif
+		debugInfo.append(QObject::tr("Version %1").arg(KEEPASSXM_VERSION).append("\n"));
 
 		QString commitHash;
-		if (!QString(GIT_HEAD).isEmpty())
+		if (!QString(GIT_HASH).isEmpty())
 		{
-			commitHash = GIT_HEAD;
+			commitHash = GIT_HASH;
 		}
 		if (!commitHash.isEmpty())
 		{

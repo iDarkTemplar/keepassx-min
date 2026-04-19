@@ -266,13 +266,9 @@ namespace Crypto
 {
 	bool init()
 	{
-#ifdef WITH_XC_BOTAN3
 		unsigned int version_major = 3, min_version_minor = 0;
 		QString versionString = "3.x";
-#else
-		unsigned int version_major = 2, min_version_minor = 11;
-		QString versionString = "2.11.x";
-#endif
+
 		if (Botan::version_major() != version_major || Botan::version_minor() < min_version_minor)
 		{
 			g_cryptoError = QObject::tr("Botan library must be at least %1, found %2.%3.%4")

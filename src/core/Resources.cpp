@@ -36,60 +36,6 @@ QString Resources::dataPath(const QString &name) const
 	return m_dataPath + "/" + name;
 }
 
-QString Resources::pluginPath(const QString &name) const
-{
-	QStringList pluginPaths;
-
-	QDir buildDir(QCoreApplication::applicationDirPath() + "/autotype");
-	const QStringList buildDirEntryList = buildDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-	for (const QString &dir: buildDirEntryList)
-	{
-		pluginPaths << QCoreApplication::applicationDirPath() + "/autotype/" + dir;
-	}
-
-	// for TestAutoType
-	pluginPaths << QCoreApplication::applicationDirPath() + "/../src/autotype/test";
-	pluginPaths << QCoreApplication::applicationDirPath();
-
-	QString configuredPluginDir = KEEPASSX_PLUGIN_DIR;
-	if (configuredPluginDir != ".")
-	{
-		if (QDir(configuredPluginDir).isAbsolute())
-		{
-			pluginPaths << configuredPluginDir;
-		}
-		else
-		{
-			QString relativePluginDir =
-				QStringLiteral("%1/../%2").arg(QCoreApplication::applicationDirPath(), configuredPluginDir);
-			pluginPaths << QDir(relativePluginDir).canonicalPath();
-
-			QString absolutePluginDir = QStringLiteral("%1/%2").arg(KEEPASSX_PREFIX_DIR, configuredPluginDir);
-			pluginPaths << QDir(absolutePluginDir).canonicalPath();
-		}
-	}
-
-	QStringList dirFilter;
-	dirFilter << QStringLiteral("*%1*").arg(name);
-
-	for (const QString &path: asConst(pluginPaths))
-	{
-		const QStringList fileCandidates = QDir(path).entryList(dirFilter, QDir::Files);
-
-		for (const QString &file: fileCandidates)
-		{
-			QString filePath = path + "/" + file;
-
-			if (QLibrary::isLibrary(filePath))
-			{
-				return filePath;
-			}
-		}
-	}
-
-	return {};
-}
-
 QString Resources::wordlistPath(const QString &name) const
 {
 	return dataPath(QStringLiteral("wordlists/%1").arg(name));
