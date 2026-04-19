@@ -428,13 +428,80 @@ set(keepassx_SOURCES ${keepassx_SOURCES}
 
 set(keepassx_SOURCES_MAINEXE main.cpp)
 
-add_feature_info(FdoSecrets WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API.")
+set(qrcode_SOURCES
+    qrcode/QrCode.cpp
+    qrcode/QrCode.h
+    qrcode/QrCode_p.h
+)
 
-add_subdirectory(qrcode)
+find_package(QREncode REQUIRED)
+
+add_library(qrcode STATIC ${qrcode_SOURCES})
+target_include_directories(qrcode PRIVATE ${QRENCODE_INCLUDE_DIR})
+target_link_libraries(qrcode PUBLIC Qt5::Core Qt5::Svg ${QRENCODE_LIBRARY})
+
 set(qrcode_LIB qrcode)
 
-add_subdirectory(fdosecrets)
+add_feature_info(FdoSecrets WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API.")
+
 if(WITH_XC_FDOSECRETS)
+	set(fdo_UI
+		fdosecrets/widgets/AccessControlDialog.ui
+		fdosecrets/widgets/DatabaseSettingsWidgetFdoSecrets.ui
+		fdosecrets/widgets/SettingsWidgetFdoSecrets.ui
+		)
+
+	qt_wrap_ui(fdo_UI_CPP ${fdo_UI})
+
+    add_library(fdosecrets STATIC
+        # app settings page
+        fdosecrets/FdoSecretsPlugin.cpp
+        fdosecrets/FdoSecretsPlugin.h
+        fdosecrets/widgets/SettingsModels.cpp
+        fdosecrets/widgets/SettingsModels.h
+        fdosecrets/widgets/SettingsWidgetFdoSecrets.cpp
+        fdosecrets/widgets/SettingsWidgetFdoSecrets.h
+        fdosecrets/widgets/RowButtonHelper.cpp
+        fdosecrets/widgets/RowButtonHelper.h
+
+        # per database settings page
+        fdosecrets/widgets/DatabaseSettingsWidgetFdoSecrets.cpp
+        fdosecrets/widgets/DatabaseSettingsWidgetFdoSecrets.h
+
+        # prompt dialog
+        fdosecrets/widgets/AccessControlDialog.cpp
+        fdosecrets/widgets/AccessControlDialog.h
+
+        # setting storage
+        fdosecrets/FdoSecretsSettings.cpp
+        fdosecrets/FdoSecretsSettings.h
+
+        # dbus objects
+        fdosecrets/dbus/DBusClient.cpp
+        fdosecrets/dbus/DBusClient.h
+        fdosecrets/dbus/DBusMgr.cpp
+        fdosecrets/dbus/DBusMgr.h
+        fdosecrets/dbus/DBusDispatch.cpp
+        fdosecrets/dbus/DBusObject.cpp
+        fdosecrets/dbus/DBusObject.h
+        fdosecrets/objects/Service.cpp
+        fdosecrets/objects/Service.h
+        fdosecrets/objects/Session.cpp
+        fdosecrets/objects/Session.h
+        fdosecrets/objects/SessionCipher.cpp
+        fdosecrets/objects/SessionCipher.h
+        fdosecrets/objects/Collection.cpp
+        fdosecrets/objects/Collection.h
+        fdosecrets/objects/Item.cpp
+        fdosecrets/objects/Item.h
+        fdosecrets/objects/Prompt.cpp
+        fdosecrets/objects/Prompt.h
+        fdosecrets/dbus/DBusTypes.cpp
+        fdosecrets/dbus/DBusTypes.h
+		${fdo_UI_CPP}
+    )
+    target_link_libraries(fdosecrets Qt5::Core Qt5::Widgets Qt5::DBus ${BOTAN_LIBRARIES})
+
     set(fdosecrets_LIB fdosecrets)
 endif()
 

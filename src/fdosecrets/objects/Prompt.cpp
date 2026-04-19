@@ -22,7 +22,7 @@
 #include "fdosecrets/objects/Session.h"
 #include "fdosecrets/widgets/AccessControlDialog.h"
 
-#include "FdoSecretsSettings.h"
+#include "fdosecrets/FdoSecretsSettings.h"
 #include "core/Entry.h"
 #include "gui/MessageBox.h"
 

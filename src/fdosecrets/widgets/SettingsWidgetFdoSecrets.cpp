@@ -21,7 +21,7 @@
 #include "fdosecrets/FdoSecretsSettings.h"
 #include "fdosecrets/widgets/RowButtonHelper.h"
 #include "fdosecrets/widgets/SettingsModels.h"
-#include "objects/Service.h"
+#include "fdosecrets/objects/Service.h"
 
 #include "gui/DatabaseWidget.h"
 
