@@ -77,11 +77,9 @@ EntryAttachmentsWidget::EntryAttachmentsWidget(QWidget *parent)
 	connect(this, SIGNAL(readOnlyChanged(bool)), SLOT(updateButtonsEnabled()));
 	connect(m_attachmentsModel, SIGNAL(modelReset()), SLOT(updateButtonsEnabled()));
 
-	// clang-format off
     connect(m_ui->attachmentsView->selectionModel(),
             SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             SLOT(updateButtonsEnabled()));
-	// clang-format on
 	connect(this, SIGNAL(readOnlyChanged(bool)), m_attachmentsModel, SLOT(setReadOnly(bool)));
 
 	connect(m_ui->attachmentsView, &QAbstractItemView::doubleClicked, [this](const QModelIndex &) {

@@ -174,7 +174,6 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	addChildWidget(m_historyEditEntryWidget);
 	addChildWidget(m_databaseOpenWidget);
 
-	// clang-format off
     connect(m_mainSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
     connect(m_groupSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
     connect(m_previewSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
@@ -197,7 +196,6 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
     connect(this, SIGNAL(currentChanged(int)), SLOT(emitCurrentModeChanged()));
     connect(this, SIGNAL(requestGlobalAutoType(const QString&)), parent, SLOT(performGlobalAutoType(const QString&)));
     connect(config(), &Config::changed, this, &DatabaseWidget::onConfigChanged);
-	// clang-format on
 
 	connectDatabaseSignals();
 

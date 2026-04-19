@@ -46,14 +46,12 @@ DatabaseTabWidget::DatabaseTabWidget(QWidget *parent)
 	setTabBar(tabBar);
 	setDocumentMode(true);
 
-	// clang-format off
     connect(this, SIGNAL(tabCloseRequested(int)), SLOT(closeDatabaseTab(int)));
     connect(this, SIGNAL(currentChanged(int)), SLOT(emitActiveDatabaseChanged()));
     connect(this, SIGNAL(activeDatabaseChanged(DatabaseWidget*)),
             m_dbWidgetStateSync, SLOT(setActive(DatabaseWidget*)));
     connect(m_databaseOpenDialog.data(), &DatabaseOpenDialog::dialogFinished,
             this, &DatabaseTabWidget::handleDatabaseUnlockDialogFinished);
-	// clang-format on
 
 	m_lockDelayTimer.setSingleShot(true);
 	connect(&m_lockDelayTimer, &QTimer::timeout, this, [this] { lockDatabases(); });

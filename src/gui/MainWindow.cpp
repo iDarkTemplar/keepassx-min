@@ -422,10 +422,8 @@ MainWindow::MainWindow()
 	m_ui->tabWidget->tabBar()->installEventFilter(eventFilter);
 	installEventFilter(eventFilter);
 
-	// clang-format off
     connect(m_ui->tabWidget, SIGNAL(messageGlobal(QString,MessageWidget::MessageType)),
         SLOT(displayGlobalMessage(QString,MessageWidget::MessageType)));
-	// clang-format on
 
 	connect(m_ui->tabWidget, SIGNAL(messageDismissGlobal()), this, SLOT(hideGlobalMessage()));
 

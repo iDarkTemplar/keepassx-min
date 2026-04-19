@@ -2856,10 +2856,8 @@ void BaseStyle::drawControl(ControlElement element,
 				{
 					painter->setRenderHint(QPainter::Antialiasing);
 					painter->setPen(Qt::NoPen);
-					// clang-format off
                     QPalette::ColorRole textRole =
                         !isEnabled ? QPalette::Text : isSelected ? QPalette::HighlightedText : QPalette::ButtonText;
-					// clang-format on
 					painter->setBrush(option->palette.brush(option->palette.currentColorGroup(), textRole));
 					qreal rx, ry, rw, rh;
 					QRectF(checkRect).getRect(&rx, &ry, &rw, &rh);

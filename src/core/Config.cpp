@@ -43,8 +43,6 @@ struct ConfigDirective
 	QVariant defaultValue;
 };
 
-// clang-format off
-
 /**
  * Map of legal config values, their type and default value.
  */
@@ -228,8 +226,6 @@ static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
     // Messages
     {Config::Messages_NoLegacyKeyFileWarning, {QS("Messages/NoLegacyKeyFileWarning"), Roaming, false}},
     {Config::Messages_HidePreReleaseWarning, {QS("Messages/HidePreReleaseWarning"), Local, {}}}};
-
-// clang-format on
 
 QPointer<Config> Config::m_instance(nullptr);
 

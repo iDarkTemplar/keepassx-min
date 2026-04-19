@@ -76,7 +76,6 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
 	connect(this, SIGNAL(accepted()), SLOT(saveSettings()));
 	connect(this, SIGNAL(rejected()), SLOT(reject()));
 
-	// clang-format off
     connect(m_generalUi->autoSaveAfterEveryChangeCheckBox, SIGNAL(toggled(bool)), SLOT(autoSaveToggled(bool)));
     connect(m_generalUi->hideWindowOnCopyCheckBox, SIGNAL(toggled(bool)), SLOT(hideWindowOnCopyCheckBoxToggled(bool)));
     connect(m_generalUi->systrayShowCheckBox, SIGNAL(toggled(bool)), SLOT(systrayToggled(bool)));
@@ -101,7 +100,6 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
             m_secUi->clearSearchSpinBox, SLOT(setEnabled(bool)));
     connect(m_secUi->lockDatabaseIdleCheckBox, SIGNAL(toggled(bool)),
             m_secUi->lockDatabaseIdleSpinBox, SLOT(setEnabled(bool)));
-	// clang-format on
 
 	connect(m_generalUi->minimizeAfterUnlockCheckBox, &QCheckBox::toggled, this, [this](bool state) {
 		if (state)

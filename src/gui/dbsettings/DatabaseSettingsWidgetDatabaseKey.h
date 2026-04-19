@@ -56,11 +56,9 @@ private slots:
 private:
 	void setAdditionalKeyOptionsVisible(bool show);
 
-	// clang-format off
     bool addToCompositeKey(KeyComponentWidget* widget,
                            QSharedPointer<CompositeKey>& newKey,
                            QSharedPointer<Key>& oldKey);
-	// clang-format on
 
 	bool m_isDirty = false;
 	const QPointer<QPushButton> m_additionalKeyOptionsToggle;

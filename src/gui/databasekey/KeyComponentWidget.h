@@ -30,10 +30,8 @@ class QStackedWidget;
 class KeyComponentWidget: public QWidget
 {
 	Q_OBJECT
-	// clang-format off
     Q_PROPERTY(bool componentAdded READ m_isComponentAdded READ componentAdded
                    WRITE setComponentAdded NOTIFY componentAddChanged)
-	// clang-format on
 
 public:
 	enum Page

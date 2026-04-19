@@ -32,11 +32,9 @@ EditWidgetProperties::EditWidgetProperties(QWidget *parent)
 	m_ui->removeCustomDataButton->setEnabled(false);
 	m_ui->customDataTable->setModel(m_customDataModel);
 
-	// clang-format off
     connect(m_ui->customDataTable->selectionModel(),
             SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             SLOT(toggleRemoveButton(QItemSelection)));
-	// clang-format on
 	connect(m_ui->removeCustomDataButton, SIGNAL(clicked()), SLOT(removeSelectedPluginData()));
 }
 

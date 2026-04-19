@@ -31,7 +31,6 @@ public:
 
 	bool isDarkMode() const override;
 	bool isCapslockEnabled() override;
-	void setUserInputProtection(bool enable) override;
 
 	void registerNativeEventFilter() override;
 

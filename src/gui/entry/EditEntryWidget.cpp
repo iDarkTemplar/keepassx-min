@@ -85,11 +85,9 @@ EditEntryWidget::EditEntryWidget(QWidget *parent)
 	connect(this, SIGNAL(accepted()), SLOT(acceptEntry()));
 	connect(this, SIGNAL(rejected()), SLOT(cancel()));
 	connect(this, SIGNAL(apply()), SLOT(commitEntry()));
-	// clang-format off
     connect(m_iconsWidget,
             SIGNAL(messageEditEntry(QString,MessageWidget::MessageType)),
             SLOT(showMessage(QString,MessageWidget::MessageType)));
-	// clang-format on
 
 	connect(m_iconsWidget, SIGNAL(messageEditEntryDismiss()), SLOT(hideMessage()));
 
@@ -175,7 +173,6 @@ void EditEntryWidget::setupAdvanced()
 	m_attributesModel->setEntryAttributes(m_entryAttributes);
 	m_advancedUi->attributesView->setModel(m_attributesModel);
 
-	// clang-format off
     connect(m_advancedUi->addAttributeButton, SIGNAL(clicked()), SLOT(insertAttribute()));
     connect(m_advancedUi->editAttributeButton, SIGNAL(clicked()), SLOT(editCurrentAttribute()));
     connect(m_advancedUi->removeAttributeButton, SIGNAL(clicked()), SLOT(removeCurrentAttribute()));
@@ -186,7 +183,6 @@ void EditEntryWidget::setupAdvanced()
             SLOT(updateCurrentAttribute()));
     connect(m_advancedUi->fgColorButton, SIGNAL(clicked()), SLOT(pickColor()));
     connect(m_advancedUi->bgColorButton, SIGNAL(clicked()), SLOT(pickColor()));
-	// clang-format on
 }
 
 void EditEntryWidget::setupIcon()
@@ -216,7 +212,6 @@ void EditEntryWidget::setupHistory()
 	m_historyUi->historyView->setModel(m_sortModel);
 	m_historyUi->historyView->setRootIsDecorated(false);
 
-	// clang-format off
     connect(m_historyUi->historyView, SIGNAL(activated(QModelIndex)), SLOT(histEntryActivated(QModelIndex)));
     connect(m_historyUi->historyView->selectionModel(),
             SIGNAL(currentChanged(QModelIndex,QModelIndex)),
@@ -226,7 +221,6 @@ void EditEntryWidget::setupHistory()
     connect(m_historyUi->restoreButton, SIGNAL(clicked()), SLOT(restoreHistoryEntry()));
     connect(m_historyUi->deleteButton, SIGNAL(clicked()), SLOT(deleteHistoryEntry()));
     connect(m_historyUi->deleteAllButton, SIGNAL(clicked()), SLOT(deleteAllHistoryEntries()));
-	// clang-format on
 }
 
 void EditEntryWidget::setupEntryUpdate()

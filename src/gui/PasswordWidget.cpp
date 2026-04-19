@@ -236,11 +236,8 @@ bool PasswordWidget::eventFilter(QObject *watched, QEvent *event)
 		{
 			checkCapslockState();
 		}
-		if (type == QEvent::FocusIn || type == QEvent::FocusOut || type == QEvent::Hide)
-		{
-			osUtils->setUserInputProtection(type == QEvent::FocusIn);
-		}
 	}
+
 	// Continue with normal operations
 	return false;
 }

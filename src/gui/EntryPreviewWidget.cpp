@@ -315,7 +315,6 @@ void EntryPreviewWidget::setPasswordVisible(bool state)
 		if (config()->get(Config::GUI_ColorPasswords).toBool())
 		{
 			// Show the password in color
-			// clang-format off
             QString html;
             const auto dark = kpxcApp->isDarkTheme();
             for (const auto c : password) {
@@ -325,7 +324,6 @@ void EntryPreviewWidget::setPasswordVisible(bool state)
                                                  : (dark ? "white" : "black");
                 html += "<span style=\"color: " + QString(color) + ";\">" + QString(c).toHtmlEscaped() + "</span>";
             }
-			// clang-format on
 			m_ui->entryPasswordLabel->setTextFormat(Qt::RichText);
 			m_ui->entryPasswordLabel->setText(html);
 		}

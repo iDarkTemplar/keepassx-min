@@ -760,12 +760,10 @@ Entry *Group::findEntryByPathRecursive(const QString &entryPath, const QString &
 	// slash, return the first entry title that matches
 	for (Entry *entry: entries())
 	{
-		// clang-format off
         if (entryPath == (basePath + entry->title())
             || (!entryPath.startsWith("/") && entry->title() == entryPath)) {
             return entry;
         }
-		// clang-format on
 	}
 
 	for (Group *group: children())
@@ -791,11 +789,9 @@ Group *Group::findGroupByPath(const QString &groupPath)
 	}
 	else
 	{
-		// clang-format off
         normalizedGroupPath = (groupPath.startsWith("/") ? "" : "/")
             + groupPath
             + (groupPath.endsWith("/") ? "" : "/");
-		// clang-format on
 	}
 	return findGroupByPathRecursive(normalizedGroupPath, "/");
 }
@@ -1168,7 +1164,6 @@ void Group::connectDatabaseSignalsRecursive(Database *db)
 
 	if (db)
 	{
-		// clang-format off
         connect(this, &Group::groupDataChanged, db, &Database::groupDataChanged);
         connect(this, &Group::groupAboutToRemove, db, &Database::groupAboutToRemove);
         connect(this, &Group::groupRemoved, db, &Database::groupRemoved);
@@ -1178,7 +1173,6 @@ void Group::connectDatabaseSignalsRecursive(Database *db)
         connect(this, &Group::groupMoved, db, &Database::groupMoved);
         connect(this, &Group::groupNonDataChange, db, &Database::markNonDataChange);
         connect(this, &Group::modified, db, &Database::markAsModified);
-		// clang-format on
 	}
 
 	m_db = db;

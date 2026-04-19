@@ -52,7 +52,6 @@ EditWidgetIcons::EditWidgetIcons(QWidget *parent)
 
 	m_ui->applyIconToPushButton->setMenu(createApplyIconToMenu());
 
-	// clang-format off
     connect(m_ui->defaultIconsView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateRadioButtonDefaultIcons()));
     connect(m_ui->customIconsView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateRadioButtonCustomIcons()));
     connect(m_ui->defaultIconsRadio, SIGNAL(toggled(bool)), this, SLOT(updateWidgetsDefaultIcons(bool)));
@@ -65,7 +64,6 @@ EditWidgetIcons::EditWidgetIcons(QWidget *parent)
             this, SIGNAL(widgetUpdated()));
     connect(m_ui->customIconsView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             this, SIGNAL(widgetUpdated()));
-	// clang-format on
 }
 
 EditWidgetIcons::~EditWidgetIcons()

@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2020 KeePassXC Team <team@keepassxc.org>
  *
@@ -42,9 +43,8 @@ int main(int argc, char **argv)
 	Application app(argc, argv);
 	// don't set organizationName as that changes the return value of
 	// QStandardPaths::writableLocation(QDesktopServices::DataLocation)
-	Application::setApplicationName("KeePassXC");
+	Application::setApplicationName("KeePassX-min");
 	Application::setApplicationVersion(KEEPASSXM_VERSION);
-	app.setProperty("KPXC_QUALIFIED_APPNAME", "org.keepassxc.KeePassXC");
 
 	// HACK: Prevent long-running threads from deadlocking the program with only 1 CPU
 	// See https://github.com/keepassxreboot/keepassxc/issues/10391
@@ -54,23 +54,20 @@ int main(int argc, char **argv)
 	}
 
 	QCommandLineParser parser;
-	parser.setApplicationDescription(QObject::tr("KeePassXC - cross-platform password manager"));
-	parser.addPositionalArgument(
-		"filename(s)", QObject::tr("filenames of the password databases to open (*.kdbx)"), "[filename(s)]");
+	parser.setApplicationDescription(QObject::tr("KeePassX-min - password manager"));
+	parser.addPositionalArgument("filename(s)", QObject::tr("filenames of the password databases to open (*.kdbx)"), "[filename(s)]");
 
 	QCommandLineOption configOption("config", QObject::tr("path to a custom config file"), "config");
-	QCommandLineOption localConfigOption(
-		"localconfig", QObject::tr("path to a custom local config file"), "localconfig");
-	QCommandLineOption lockOption("lock", QObject::tr("lock all open databases"));
+	QCommandLineOption localConfigOption("localconfig", QObject::tr("path to a custom local config file"), "localconfig");
 	QCommandLineOption keyfileOption("keyfile", QObject::tr("key file of the database"), "keyfile");
 	QCommandLineOption startMinimized("minimized", QObject::tr("start minimized to the system tray"));
 
 	QCommandLineOption helpOption = parser.addHelpOption();
 	QCommandLineOption versionOption = parser.addVersionOption();
 	QCommandLineOption debugInfoOption(QStringList() << "debug-info", QObject::tr("Displays debugging information."));
+
 	parser.addOption(configOption);
 	parser.addOption(localConfigOption);
-	parser.addOption(lockOption);
 	parser.addOption(keyfileOption);
 	parser.addOption(debugInfoOption);
 	parser.addOption(startMinimized);
@@ -111,36 +108,7 @@ int main(int argc, char **argv)
 	// Process single instance and early exit if already running
 	if (app.isAlreadyRunning())
 	{
-		if (parser.isSet(lockOption))
-		{
-			if (app.sendLockToInstance())
-			{
-				qInfo() << QObject::tr("Databases have been locked.").toUtf8().constData();
-			}
-			else
-			{
-				qWarning() << QObject::tr("Database failed to lock.").toUtf8().constData();
-				return EXIT_FAILURE;
-			}
-		}
-		else
-		{
-			if (!fileNames.isEmpty())
-			{
-				app.sendFileNamesToRunningInstance(fileNames);
-			}
-
-			qWarning() << QObject::tr("Another instance of KeePassXC is already running.").toUtf8().constData();
-		}
-		return EXIT_SUCCESS;
-	}
-
-	if (parser.isSet(lockOption))
-	{
-		qWarning() << QObject::tr("KeePassXC is not running. No open database to lock").toUtf8().constData();
-
-		// still return with EXIT_SUCCESS because when used within a script for ensuring that there is no unlocked
-		// keepass database (e.g. screen locking) we can consider it as successful
+		qWarning() << QObject::tr("Another instance of KeePassXC is already running.").toUtf8().constData();
 		return EXIT_SUCCESS;
 	}
 
@@ -156,7 +124,7 @@ int main(int argc, char **argv)
 	// Apply the configured theme before creating any GUI elements
 	app.applyTheme();
 
-	QGuiApplication::setDesktopFileName(app.property("KPXC_QUALIFIED_APPNAME").toString() + QStringLiteral(".desktop"));
+	QGuiApplication::setDesktopFileName(QStringLiteral("keepassx-min.desktop"));
 
 	Application::bootstrap(config()->get(Config::GUI_Language).toString());
 

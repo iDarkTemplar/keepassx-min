@@ -76,7 +76,6 @@ bool Kdbx4Reader::readDatabaseImpl(QIODevice *device,
 		return false;
 	}
 
-	// clang-format off
     QByteArray hmacKey = KeePass2::hmacKey(m_masterSeed, db->transformedDatabaseKey());
     if (headerHmac != CryptoHash::hmac(headerData, HmacBlockStream::getHmacKey(UINT64_MAX, hmacKey), CryptoHash::Sha256)) {
         raiseError(tr("Invalid credentials were provided, please try again.\n"
@@ -103,7 +102,6 @@ bool Kdbx4Reader::readDatabaseImpl(QIODevice *device,
         raiseError(cipherStream.errorString());
         return false;
     }
-	// clang-format on
 
 	QIODevice *xmlDevice = nullptr;
 	QScopedPointer<QtIOCompressor> ioCompressor;

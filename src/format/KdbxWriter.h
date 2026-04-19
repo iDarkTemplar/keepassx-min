@@ -22,9 +22,7 @@
 
 #include <QCoreApplication>
 
-// clang-format off
 #define CHECK_RETURN_FALSE(x) if (!(x)) return false;
-// clang-format on
 
 class QIODevice;
 class Database;

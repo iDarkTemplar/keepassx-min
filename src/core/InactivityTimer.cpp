@@ -55,8 +55,7 @@ void InactivityTimer::deactivate()
 bool InactivityTimer::eventFilter(QObject *watched, QEvent *event)
 {
 	const auto type = event->type();
-	// clang-format off
-    if (!m_resetBlocked && 
+    if (!m_resetBlocked &&
         ((type >= QEvent::MouseButtonPress && type <= QEvent::KeyRelease) ||
          (type >= QEvent::HoverEnter && type <= QEvent::HoverMove) ||
           type == QEvent::Wheel)) {
@@ -64,7 +63,6 @@ bool InactivityTimer::eventFilter(QObject *watched, QEvent *event)
         m_resetBlocked = true;
         QTimer::singleShot(500, this, [this]() { m_resetBlocked = false; });
     }
-	// clang-format on
 
 	return QObject::eventFilter(watched, event);
 }

@@ -33,11 +33,9 @@ NewDatabaseWizard::NewDatabaseWizard(QWidget *parent)
 	setOption(QWizard::WizardOption::HaveHelpButton, false);
 	setOption(QWizard::WizardOption::NoDefaultButton, false); // Needed for macOS
 
-	// clang-format off
     m_pages << new NewDatabaseWizardPageMetaData()
             << new NewDatabaseWizardPageEncryption()
             << new NewDatabaseWizardPageDatabaseKey();
-	// clang-format on
 
 	for (const auto &page: asConst(m_pages))
 	{
