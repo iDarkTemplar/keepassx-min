@@ -48,10 +48,6 @@
 #include "fdosecrets/FdoSecretsPlugin.h"
 #endif
 
-#if !defined(QT_NO_DBUS)
-#include "mainwindowadaptor.h"
-#endif
-
 const QString MainWindow::BaseWindowTitle = "KeePassXC";
 
 MainWindow *g_MainWindow = nullptr;
@@ -66,13 +62,6 @@ MainWindow::MainWindow()
 	g_MainWindow = this;
 
 	m_ui->setupUi(this);
-
-#if !defined(QT_NO_DBUS)
-	new MainWindowAdaptor(this);
-	QDBusConnection dbus = QDBusConnection::sessionBus();
-	dbus.registerObject("/keepassxc", this);
-	dbus.registerService("org.keepassxc.KeePassXC.MainWindow");
-#endif
 
 	setAcceptDrops(true);
 

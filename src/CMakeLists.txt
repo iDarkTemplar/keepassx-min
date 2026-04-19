@@ -370,10 +370,6 @@ set(keepassx_SOURCES
             gui/osutils/nixutils/X11Funcs.h
             )
     endif()
-qt5_add_dbus_adaptor(keepassx_SOURCES
-        gui/org.keepassxc.KeePassXC.MainWindow.xml
-        gui/MainWindow.h
-        MainWindow)
 
 set(keepassx_UI
 	gui/AboutDialog.ui
