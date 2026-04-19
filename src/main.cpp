@@ -21,7 +21,6 @@
 #include <QThreadPool>
 #include <QWindow>
 
-#include "cli/Utils.h"
 #include "config-keepassx.h"
 #include "core/Tools.h"
 #include "crypto/Crypto.h"
@@ -65,7 +64,6 @@ int main(int argc, char **argv)
 		"localconfig", QObject::tr("path to a custom local config file"), "localconfig");
 	QCommandLineOption lockOption("lock", QObject::tr("lock all open databases"));
 	QCommandLineOption keyfileOption("keyfile", QObject::tr("key file of the database"), "keyfile");
-	QCommandLineOption pwstdinOption("pw-stdin", QObject::tr("read password of the database from stdin"));
 	QCommandLineOption allowScreenCaptureOption("allow-screencapture",
 	                                            QObject::tr("allow screenshots and app recording (Windows/macOS)"));
 	QCommandLineOption startMinimized("minimized", QObject::tr("start minimized to the system tray"));
@@ -77,7 +75,6 @@ int main(int argc, char **argv)
 	parser.addOption(localConfigOption);
 	parser.addOption(lockOption);
 	parser.addOption(keyfileOption);
-	parser.addOption(pwstdinOption);
 	parser.addOption(debugInfoOption);
 	parser.addOption(allowScreenCaptureOption);
 	parser.addOption(startMinimized);
@@ -160,8 +157,6 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
-	Utils::setDefaultTextStreams();
-
 	// Apply the configured theme before creating any GUI elements
 	app.applyTheme();
 
@@ -174,21 +169,6 @@ int main(int argc, char **argv)
 	// Disable screen capture if not explicitly allowed
 	// This ensures any top-level windows (Main Window, Modal Dialogs, etc.) are excluded from screenshots
 	mainWindow.setAllowScreenCapture(parser.isSet(allowScreenCaptureOption));
-
-	const bool pwstdin = parser.isSet(pwstdinOption);
-	for (const QString &filename: fileNames)
-	{
-		QString password;
-		if (pwstdin)
-		{
-			// we always need consume a line of STDIN if --pw-stdin is set to clear out the
-			// buffer for native messaging, even if the specified file does not exist
-			QTextStream out(stdout, QIODevice::WriteOnly);
-			out << QObject::tr("Database password: ") << Qt::flush;
-			password = Utils::getPassword();
-		}
-		mainWindow.openDatabase(filename, password, parser.value(keyfileOption));
-	}
 
 	// start minimized if configured
 	if (parser.isSet(startMinimized) || config()->get(Config::GUI_MinimizeOnStartup).toBool())

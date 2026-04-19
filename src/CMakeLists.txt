@@ -81,10 +81,6 @@ set(keepassx_SOURCES
         core/Translator.h
         core/UrlTools.cpp
         core/UrlTools.h
-        cli/Utils.cpp
-        cli/Utils.h
-        cli/TextStream.cpp
-        cli/TextStream.h
         crypto/Crypto.cpp
         crypto/Crypto.h
         crypto/CryptoHash.cpp
@@ -440,7 +436,6 @@ set(keepassx_SOURCES_MAINEXE main.cpp)
 
 add_feature_info(FdoSecrets WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API.")
 
-add_subdirectory(cli)
 add_subdirectory(qrcode)
 set(qrcode_LIB qrcode)
 
