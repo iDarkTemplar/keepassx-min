@@ -48,8 +48,6 @@ set(keepassx_SOURCES
         core/Global.h
         core/Group.cpp
         core/Group.h
-        core/HibpOffline.cpp
-        core/HibpOffline.h
         core/InactivityTimer.cpp
         core/InactivityTimer.h
         core/ListDeleter.h
