@@ -44,15 +44,16 @@ class QScrollArea;
 class QSortFilterProxyModel;
 class QStringListModel;
 
-namespace Ui
-{
-	class EditEntryWidgetAdvanced;
-	class EditEntryWidgetAutoType;
-	class EditEntryWidgetBrowser;
-	class EditEntryWidgetSSHAgent;
-	class EditEntryWidgetMain;
-	class EditEntryWidgetHistory;
-	class EditWidget;
+namespace Ui {
+
+class EditEntryWidgetAdvanced;
+class EditEntryWidgetAutoType;
+class EditEntryWidgetBrowser;
+class EditEntryWidgetSSHAgent;
+class EditEntryWidgetMain;
+class EditEntryWidgetHistory;
+class EditWidget;
+
 } // namespace Ui
 
 class EditEntryWidget: public EditWidget
@@ -61,15 +62,16 @@ class EditEntryWidget: public EditWidget
 
 public:
 	explicit EditEntryWidget(QWidget *parent = nullptr);
-	~EditEntryWidget() override;
+	~EditEntryWidget();
 
-	void loadEntry(Entry *entry,
-	               bool create,
-	               bool history,
-	               const QString &parentName,
-	               QSharedPointer<Database> database);
+	void loadEntry(
+		Entry *entry,
+		bool create,
+		bool history,
+		const QString &parentName,
+		QSharedPointer<Database> database);
 
-	Entry *currentEntry() const;
+	Entry* currentEntry() const;
 	void clear();
 
 	enum class Page
@@ -80,6 +82,7 @@ public:
 		Properties,
 		History
 	};
+
 	bool switchToPage(Page page);
 
 signals:
@@ -118,12 +121,12 @@ private:
 
 	bool passwordsEqual();
 	void setForms(Entry *entry, bool restore = false);
-	QMenu *createPresetsMenu();
+	QMenu* createPresetsMenu();
 	void updateEntryData(Entry *entry) const;
 
 	void displayAttribute(QModelIndex index, bool showProtected);
 
-	QWidget *widgetForPage(Page page) const;
+	QWidget* widgetForPage(Page page) const;
 
 	QPointer<Entry> m_entry;
 	QSharedPointer<Database> m_db;

@@ -24,18 +24,19 @@
 
 class DatabaseTabWidget;
 
-namespace FdoSecrets
-{
-	class Service;
-	class DBusMgr;
+namespace FdoSecrets {
+
+class Service;
+class DBusMgr;
+
 } // namespace FdoSecrets
 
 class FdoSecretsPlugin: public QObject, public ISettingsPage
 {
 	Q_OBJECT
+
 public:
 	explicit FdoSecretsPlugin(DatabaseTabWidget *tabWidget);
-	~FdoSecretsPlugin() override = default;
 
 	QString name() override
 	{
@@ -47,7 +48,7 @@ public:
 		return icons()->icon("freedesktop");
 	}
 
-	QWidget *createWidget() override;
+	QWidget* createWidget() override;
 	void loadSettings(QWidget *widget) override;
 	void saveSettings(QWidget *widget) override;
 

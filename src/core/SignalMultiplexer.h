@@ -24,7 +24,7 @@ class SignalMultiplexer
 public:
 	SignalMultiplexer();
 	~SignalMultiplexer();
-	QObject *currentObject() const;
+	QObject* currentObject() const;
 	void setCurrentObject(QObject *object);
 
 	void connect(QObject *sender, const char *signal, const char *slot);

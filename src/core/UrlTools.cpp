@@ -20,11 +20,16 @@
 
 const QString UrlTools::URL_WILDCARD = "1kpxcwc1";
 
-Q_GLOBAL_STATIC(UrlTools, s_urlTools)
+static std::unique_ptr<UrlTools> s_urlTools;
 
-UrlTools *UrlTools::instance()
+UrlTools* UrlTools::instance()
 {
-	return s_urlTools;
+	if (!s_urlTools)
+	{
+		s_urlTools.reset(new UrlTools);
+	}
+
+	return s_urlTools.get();
 }
 
 QUrl UrlTools::convertVariantToUrl(const QVariant &var) const
@@ -70,8 +75,10 @@ bool UrlTools::isUrlIdentical(const QString &first, const QString &second) const
 
 bool UrlTools::isUrlValid(const QString &urlField, bool looseComparison) const
 {
-	if (urlField.isEmpty() || urlField.startsWith("cmd://", Qt::CaseInsensitive)
-	    || urlField.startsWith("kdbx://", Qt::CaseInsensitive) || urlField.startsWith("{REF:A", Qt::CaseInsensitive))
+	if (urlField.isEmpty()
+		|| urlField.startsWith("cmd://", Qt::CaseInsensitive)
+		|| urlField.startsWith("kdbx://", Qt::CaseInsensitive)
+		|| urlField.startsWith("{REF:A", Qt::CaseInsensitive))
 	{
 		return true;
 	}

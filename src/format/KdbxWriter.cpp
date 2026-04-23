@@ -63,6 +63,7 @@ bool KdbxWriter::writeData(QIODevice *device, const QByteArray &data)
 		raiseError(device->errorString());
 		return false;
 	}
+
 	return true;
 }
 

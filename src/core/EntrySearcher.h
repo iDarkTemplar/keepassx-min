@@ -55,13 +55,13 @@ public:
 
 	explicit EntrySearcher(bool caseSensitive = false, bool skipProtected = false);
 
-	QList<Entry *> search(const QList<SearchTerm> &searchTerms, const Group *baseGroup, bool forceSearch = false);
-	QList<Entry *> search(const QString &searchString, const Group *baseGroup, bool forceSearch = false);
-	QList<Entry *> repeat(const Group *baseGroup, bool forceSearch = false);
+	QList<Entry*> search(const QList<SearchTerm> &searchTerms, const Group *baseGroup, bool forceSearch = false);
+	QList<Entry*> search(const QString &searchString, const Group *baseGroup, bool forceSearch = false);
+	QList<Entry*> repeat(const Group *baseGroup, bool forceSearch = false);
 
-	QList<Entry *> searchEntries(const QList<SearchTerm> &searchTerms, const QList<Entry *> &entries);
-	QList<Entry *> searchEntries(const QString &searchString, const QList<Entry *> &entries);
-	QList<Entry *> repeatEntries(const QList<Entry *> &entries);
+	QList<Entry*> searchEntries(const QList<SearchTerm> &searchTerms, const QList<Entry *> &entries);
+	QList<Entry*> searchEntries(const QString &searchString, const QList<Entry *> &entries);
+	QList<Entry*> repeatEntries(const QList<Entry *> &entries);
 
 	void setCaseSensitive(bool state);
 	bool isCaseSensitive() const;

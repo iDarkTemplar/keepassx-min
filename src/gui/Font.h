@@ -17,18 +17,13 @@
 #ifndef KEEPASSX_FONT_H
 #define KEEPASSX_FONT_H
 
-class QFont;
+#include <QFont>
 
-class Font
-{
-public:
-	static QFont defaultFont();
-	static QFont fixedFont();
+namespace Font {
 
-private:
-	Font()
-	{
-	}
-};
+QFont defaultFont();
+QFont fixedFont();
+
+} // namespace Font
 
 #endif // KEEPASSX_FONT_H

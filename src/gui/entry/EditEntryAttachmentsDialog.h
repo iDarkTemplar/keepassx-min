@@ -21,10 +21,11 @@
 #include <QDialog>
 #include <QPointer>
 
-namespace Ui
-{
-	class EditEntryAttachmentsDialog;
-}
+namespace Ui {
+
+class EditEntryAttachmentsDialog;
+
+} // namespace Ui
 
 class EntryAttachments;
 
@@ -34,7 +35,7 @@ class EditEntryAttachmentsDialog: public QDialog
 
 public:
 	explicit EditEntryAttachmentsDialog(QWidget *parent = nullptr);
-	~EditEntryAttachmentsDialog() override;
+	~EditEntryAttachmentsDialog();
 
 	void setAttachment(attachments::Attachment attachment);
 	attachments::Attachment getAttachment() const;

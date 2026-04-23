@@ -18,6 +18,7 @@
 #ifndef KEEPASSX_DATABASE_H
 #define KEEPASSX_DATABASE_H
 
+
 #include <QDateTime>
 #include <QHash>
 #include <QMutex>
@@ -42,9 +43,10 @@ struct DeletedObject
 {
 	QUuid uuid;
 	QDateTime deletionTime;
+
 	bool operator==(const DeletedObject &other) const
 	{
-		return uuid == other.uuid && deletionTime == other.deletionTime;
+		return (uuid == other.uuid) && (deletionTime == other.deletionTime);
 	}
 };
 
@@ -60,6 +62,7 @@ public:
 		CompressionNone = 0,
 		CompressionGZip = 1
 	};
+
 	static const quint32 CompressionAlgorithmMax = CompressionGZip;
 
 	enum SaveAction
@@ -86,10 +89,11 @@ public:
 	bool open(QSharedPointer<const CompositeKey> key, QString *error = nullptr);
 	bool open(const QString &filePath, QSharedPointer<const CompositeKey> key, QString *error = nullptr);
 	bool save(SaveAction action = Atomic, const QString &backupFilePath = QString(), QString *error = nullptr);
-	bool saveAs(const QString &filePath,
-	            SaveAction action = Atomic,
-	            const QString &backupFilePath = QString(),
-	            QString *error = nullptr);
+	bool saveAs(
+		const QString &filePath,
+		SaveAction action = Atomic,
+		const QString &backupFilePath = QString(),
+		QString *error = nullptr);
 	bool extract(QByteArray &, QString *error = nullptr);
 	bool import(const QString &xmlExportPath, QString *error = nullptr);
 
@@ -120,37 +124,38 @@ public:
 	int publicIcon();
 	void setPublicIcon(int iconIndex);
 
-	Metadata *metadata();
-	const Metadata *metadata() const;
-	Group *rootGroup();
-	const Group *rootGroup() const;
-	Q_REQUIRED_RESULT Group *setRootGroup(Group *group);
-	QVariantMap &publicCustomData();
-	const QVariantMap &publicCustomData() const;
+	Metadata* metadata();
+	const Metadata* metadata() const;
+	Group* rootGroup();
+	const Group* rootGroup() const;
+	Q_REQUIRED_RESULT Group* setRootGroup(Group *group);
+	QVariantMap& publicCustomData();
+	const QVariantMap& publicCustomData() const;
 	void setPublicCustomData(const QVariantMap &customData);
 
 	void recycleGroup(Group *group);
 	void recycleEntry(Entry *entry);
 	void emptyRecycleBin();
 	QList<DeletedObject> deletedObjects();
-	const QList<DeletedObject> &deletedObjects() const;
+	const QList<DeletedObject>& deletedObjects() const;
 	void addDeletedObject(const DeletedObject &delObj);
 	void addDeletedObject(const QUuid &uuid);
 	bool containsDeletedObject(const QUuid &uuid) const;
 	bool containsDeletedObject(const DeletedObject &uuid) const;
 	void setDeletedObjects(const QList<DeletedObject> &delObjs);
 
-	const QStringList &commonUsernames() const;
-	const QStringList &tagList() const;
+	const QStringList& commonUsernames() const;
+	const QStringList& tagList() const;
 	void removeTag(const QString &tag);
 
 	QSharedPointer<const CompositeKey> key() const;
-	bool setKey(const QSharedPointer<const CompositeKey> &key,
-	            bool updateChangedTime = true,
-	            bool updateTransformSalt = false,
-	            bool transformKey = true);
+	bool setKey(
+		const QSharedPointer<const CompositeKey> &key,
+		bool updateChangedTime = true,
+		bool updateTransformSalt = false,
+		bool transformKey = true);
 	QString keyError();
-	const QUuid &cipher() const;
+	const QUuid& cipher() const;
 	void setCipher(const QUuid &cipher);
 	Database::CompressionAlgorithm compressionAlgorithm() const;
 	void setCompressionAlgorithm(Database::CompressionAlgorithm algo);
@@ -160,7 +165,7 @@ public:
 	bool changeKdf(const QSharedPointer<Kdf> &kdf);
 	QByteArray transformedDatabaseKey() const;
 
-	static Database *databaseByUuid(const QUuid &uuid);
+	static Database* databaseByUuid(const QUuid &uuid);
 
 public slots:
 	void markAsModified();

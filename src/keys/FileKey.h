@@ -41,7 +41,7 @@ public:
 	};
 
 	FileKey();
-	~FileKey() override = default;
+
 	bool load(QIODevice *device, QString *errorMsg = nullptr);
 	bool load(const QString &fileName, QString *errorMsg = nullptr);
 	QByteArray rawKey() const override;

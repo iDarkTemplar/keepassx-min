@@ -72,7 +72,6 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	, m_databaseOpenWidget(new DatabaseOpenWidget(this))
 	, m_groupView(new GroupView(m_db.data(), this))
 	, m_tagView(new TagView(this))
-	, m_saveAttempts(0)
 	, m_entrySearcher(new EntrySearcher(false))
 {
 	Q_ASSERT(m_db);
@@ -174,28 +173,27 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	addChildWidget(m_historyEditEntryWidget);
 	addChildWidget(m_databaseOpenWidget);
 
-    connect(m_mainSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
-    connect(m_groupSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
-    connect(m_previewSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
-    connect(this, SIGNAL(currentModeChanged(DatabaseWidget::Mode)), m_previewView, SLOT(setDatabaseMode(DatabaseWidget::Mode)));
-    connect(m_previewView, SIGNAL(entryUrlActivated(Entry*)), SLOT(openUrlForEntry(Entry*)));
-    connect(m_previewView, SIGNAL(copyTextRequested(const QString&)), SLOT(setClipboardTextAndMinimize(const QString&)));
-    connect(m_entryView, SIGNAL(viewStateChanged()), SIGNAL(entryViewStateChanged()));
-    connect(m_groupView, SIGNAL(groupSelectionChanged()), SLOT(onGroupChanged()));
-    connect(m_groupView, &GroupView::groupFocused, this, [this] { m_previewView->setGroup(currentGroup()); });
-    connect(m_entryView, SIGNAL(entryActivated(Entry*,EntryModel::ModelColumn)),
-        SLOT(entryActivationSignalReceived(Entry*,EntryModel::ModelColumn)));
-    connect(m_entryView, SIGNAL(entrySelectionChanged(Entry*)), SLOT(onEntryChanged(Entry*)));
-    connect(m_editEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
-    connect(m_editEntryWidget, SIGNAL(historyEntryActivated(Entry*)), SLOT(switchToHistoryView(Entry*)));
-    connect(m_historyEditEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchBackToEntryEdit()));
-    connect(m_editGroupWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
-    connect(m_reportsDialog, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
-    connect(m_databaseSettingDialog, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
-    connect(m_databaseOpenWidget, SIGNAL(dialogFinished(bool)), SLOT(loadDatabase(bool)));
-    connect(this, SIGNAL(currentChanged(int)), SLOT(emitCurrentModeChanged()));
-    connect(this, SIGNAL(requestGlobalAutoType(const QString&)), parent, SLOT(performGlobalAutoType(const QString&)));
-    connect(config(), &Config::changed, this, &DatabaseWidget::onConfigChanged);
+	connect(m_mainSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
+	connect(m_groupSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
+	connect(m_previewSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
+	connect(this, SIGNAL(currentModeChanged(DatabaseWidget::Mode)), m_previewView, SLOT(setDatabaseMode(DatabaseWidget::Mode)));
+	connect(m_previewView, SIGNAL(entryUrlActivated(Entry*)), SLOT(openUrlForEntry(Entry*)));
+	connect(m_previewView, SIGNAL(copyTextRequested(const QString&)), SLOT(setClipboardTextAndMinimize(const QString&)));
+	connect(m_entryView, SIGNAL(viewStateChanged()), SIGNAL(entryViewStateChanged()));
+	connect(m_groupView, SIGNAL(groupSelectionChanged()), SLOT(onGroupChanged()));
+	connect(m_groupView, &GroupView::groupFocused, this, [this] { m_previewView->setGroup(currentGroup()); });
+	connect(m_entryView, SIGNAL(entryActivated(Entry*,EntryModel::ModelColumn)),
+		SLOT(entryActivationSignalReceived(Entry*,EntryModel::ModelColumn)));
+	connect(m_entryView, SIGNAL(entrySelectionChanged(Entry*)), SLOT(onEntryChanged(Entry*)));
+	connect(m_editEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
+	connect(m_editEntryWidget, SIGNAL(historyEntryActivated(Entry*)), SLOT(switchToHistoryView(Entry*)));
+	connect(m_historyEditEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchBackToEntryEdit()));
+	connect(m_editGroupWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
+	connect(m_reportsDialog, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
+	connect(m_databaseSettingDialog, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
+	connect(m_databaseOpenWidget, SIGNAL(dialogFinished(bool)), SLOT(loadDatabase(bool)));
+	connect(this, SIGNAL(currentChanged(int)), SLOT(emitCurrentModeChanged()));
+	connect(config(), &Config::changed, this, &DatabaseWidget::onConfigChanged);
 
 	connectDatabaseSignals();
 
@@ -321,6 +319,7 @@ bool DatabaseWidget::isEditWidgetModified() const
 	{
 		return m_editGroupWidget->isModified();
 	}
+
 	return false;
 }
 
@@ -361,6 +360,7 @@ QString DatabaseWidget::displayFileName() const
 		QFileInfo fileinfo(m_db->filePath());
 		return fileinfo.fileName();
 	}
+
 	return {};
 }
 
@@ -370,14 +370,15 @@ QString DatabaseWidget::displayFilePath() const
 	{
 		return m_db->canonicalFilePath();
 	}
+
 	return {};
 }
 
 QHash<Config::ConfigKey, QList<int>> DatabaseWidget::splitterSizes() const
 {
 	return {{Config::GUI_SplitterState, m_mainSplitter->sizes()},
-	        {Config::GUI_PreviewSplitterState, m_previewSplitter->sizes()},
-	        {Config::GUI_GroupSplitterState, m_groupSplitter->sizes()}};
+		{Config::GUI_PreviewSplitterState, m_previewSplitter->sizes()},
+		{Config::GUI_GroupSplitterState, m_groupSplitter->sizes()}};
 }
 
 void DatabaseWidget::setSplitterSizes(const QHash<Config::ConfigKey, QList<int>> &sizes)
@@ -579,6 +580,7 @@ void DatabaseWidget::setupTotp()
 		// Entry is being edited, tell it when we are finished updating TOTP
 		connect(setupTotpDialog, SIGNAL(totpUpdated()), m_editEntryWidget, SLOT(updateTotp()));
 	}
+
 	connect(this, &DatabaseWidget::databaseLockRequested, setupTotpDialog, &TotpSetupDialog::close);
 	setupTotpDialog->open();
 }
@@ -605,7 +607,7 @@ void DatabaseWidget::deleteSelectedEntries()
 	}
 
 	// Resolve entries from the selection model
-	QList<Entry *> selectedEntries;
+	QList<Entry*> selectedEntries;
 	for (const QModelIndex &index: selected)
 	{
 		selectedEntries.append(m_entryView->entryFromIndex(index));
@@ -623,7 +625,7 @@ void DatabaseWidget::restoreSelectedEntries()
 	}
 
 	// Resolve entries from the selection model
-	QList<Entry *> selectedEntries;
+	QList<Entry*> selectedEntries;
 	for (auto &index: selected)
 	{
 		selectedEntries.append(m_entryView->entryFromIndex(index));
@@ -652,7 +654,7 @@ void DatabaseWidget::deleteEntries(QList<Entry *> selectedEntries, bool confirm)
 	// Confirm entry removal before moving forward
 	auto recycleBin = m_db->metadata()->recycleBin();
 	bool permanent = (recycleBin && recycleBin->findEntryByUuid(selectedEntries.first()->uuid()))
-	                 || !m_db->metadata()->recycleBinEnabled();
+		|| !m_db->metadata()->recycleBinEnabled();
 
 	if (confirm && !GuiTools::confirmDeleteEntries(this, selectedEntries, permanent))
 	{
@@ -806,14 +808,14 @@ bool DatabaseWidget::copyFocusedTextSelection()
 		return true;
 	}
 
-	const auto label = qobject_cast<QLabel *>(focusWidget());
+	const auto label = qobject_cast<QLabel*>(focusWidget());
 	if (label && label->hasSelectedText())
 	{
 		clipboard()->setText(label->selectedText(), clearClipboard);
 		return true;
 	}
 
-	const auto textEdit = qobject_cast<QTextEdit *>(focusWidget());
+	const auto textEdit = qobject_cast<QTextEdit*>(focusWidget());
 	if (textEdit && textEdit->textCursor().hasSelection())
 	{
 		clipboard()->setText(textEdit->textCursor().selection().toPlainText(), clearClipboard);
@@ -904,11 +906,11 @@ void DatabaseWidget::openUrlForEntry(Entry *entry)
 				cmdTruncated = cmdTruncated.left(400) + " […]";
 			}
 			QMessageBox msgbox(QMessageBox::Icon::Question,
-			                   tr("Execute command?"),
-			                   tr("Do you really want to execute the following command?<br><br>%1<br>")
-			                       .arg(cmdTruncated.toHtmlEscaped()),
-			                   QMessageBox::Yes | QMessageBox::No,
-			                   this);
+				tr("Execute command?"),
+				tr("Do you really want to execute the following command?<br><br>%1<br>")
+					.arg(cmdTruncated.toHtmlEscaped()),
+				QMessageBox::Yes | QMessageBox::No,
+				this);
 			msgbox.setDefaultButton(QMessageBox::No);
 
 			QCheckBox *checkbox = new QCheckBox(tr("Remember my choice"), &msgbox);
@@ -933,20 +935,11 @@ void DatabaseWidget::openUrlForEntry(Entry *entry)
 		if (launch)
 		{
 			const QString cmd = cmdString.mid(6);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 			QStringList cmdList = QProcess::splitCommand(cmd);
 			if (!cmdList.isEmpty())
 			{
 				const QString program = cmdList.takeFirst();
 				QProcess::startDetached(program, cmdList);
-			}
-#else
-			QProcess::startDetached(cmd);
-#endif
-
-			if (config()->get(Config::MinimizeOnOpenUrl).toBool())
-			{
-				getMainWindow()->minimizeOrHide();
 			}
 		}
 	}
@@ -960,16 +953,11 @@ void DatabaseWidget::openUrlForEntry(Entry *entry)
 		if (!url.isEmpty())
 		{
 			QDesktopServices::openUrl(url);
-
-			if (config()->get(Config::MinimizeOnOpenUrl).toBool())
-			{
-				getMainWindow()->minimizeOrHide();
-			}
 		}
 	}
 }
 
-Entry *DatabaseWidget::currentSelectedEntry() const
+Entry* DatabaseWidget::currentSelectedEntry() const
 {
 	if (currentWidget() == m_editEntryWidget)
 	{
@@ -1037,12 +1025,13 @@ void DatabaseWidget::deleteGroup()
 	else
 	{
 		auto result = MessageBox::question(this,
-		                                   tr("Confirm Recycle Group"),
-		                                   tr("Do you really want to move the group "
-		                                      "\"%1\" to the recycle bin?")
-		                                       .arg(currentGroup->name().toHtmlEscaped()),
-		                                   MessageBox::Move | MessageBox::Cancel,
-		                                   MessageBox::Cancel);
+			tr("Confirm Recycle Group"),
+			tr("Do you really want to move the group "
+				"\"%1\" to the recycle bin?")
+				.arg(currentGroup->name().toHtmlEscaped()),
+			MessageBox::Move | MessageBox::Cancel,
+			MessageBox::Cancel);
+
 		if (result == MessageBox::Move)
 		{
 			m_db->recycleGroup(currentGroup);
@@ -1149,10 +1138,7 @@ void DatabaseWidget::switchToGroupEdit(Group *group, bool create)
 void DatabaseWidget::connectDatabaseSignals()
 {
 	// relayed Database events
-	connect(m_db.data(),
-	        SIGNAL(filePathChanged(QString, QString)),
-
-	        SIGNAL(databaseFilePathChanged(QString, QString)));
+	connect(m_db.data(), &Database::filePathChanged, this, &DatabaseWidget::databaseFilePathChanged);
 	connect(m_db.data(), &Database::modified, this, &DatabaseWidget::databaseModified);
 	connect(m_db.data(), &Database::modified, this, &DatabaseWidget::onDatabaseModified);
 	connect(m_db.data(), &Database::databaseSaved, this, &DatabaseWidget::databaseSaved);
@@ -1163,7 +1149,7 @@ void DatabaseWidget::connectDatabaseSignals()
 
 void DatabaseWidget::loadDatabase(bool accepted)
 {
-	auto *openWidget = qobject_cast<DatabaseOpenWidget *>(sender());
+	auto *openWidget = qobject_cast<DatabaseOpenWidget*>(sender());
 	Q_ASSERT(openWidget);
 	if (!openWidget)
 	{
@@ -1192,12 +1178,12 @@ void DatabaseWidget::loadDatabase(bool accepted)
 				m_nextSearchLabelText =
 					tr("Entries expiring within %1 day(s)", "", expirationOffset).arg(expirationOffset);
 			}
+
 			requestSearch(QString("is:expired-%1").arg(expirationOffset));
 		}
 
 		m_groupBeforeLock = QUuid();
 		m_entryBeforeLock = QUuid();
-		m_saveAttempts = 0;
 		emit databaseUnlocked();
 
 		if (config()->get(Config::MinimizeAfterUnlock).toBool())
@@ -1211,6 +1197,7 @@ void DatabaseWidget::loadDatabase(bool accepted)
 		{
 			m_databaseOpenWidget->database().reset();
 		}
+
 		emit closeRequest();
 	}
 }
@@ -1226,14 +1213,13 @@ void DatabaseWidget::mergeDatabase(bool accepted)
 		}
 
 		auto *senderDialog = qobject_cast<DatabaseOpenDialog *>(sender());
-
 		Q_ASSERT(senderDialog);
 		if (!senderDialog)
 		{
 			return;
 		}
-		auto srcDb = senderDialog->database();
 
+		auto srcDb = senderDialog->database();
 		if (!srcDb)
 		{
 			showMessage(tr("No source database, nothing to do."), MessageWidget::Error);
@@ -1296,6 +1282,7 @@ void DatabaseWidget::unlockDatabase(bool accepted)
 	{
 		db = m_databaseOpenWidget->database();
 	}
+
 	replaceDatabase(db);
 
 	restoreGroupEntryFocus(m_groupBeforeLock, m_entryBeforeLock);
@@ -1309,14 +1296,6 @@ void DatabaseWidget::unlockDatabase(bool accepted)
 	if (config()->get(Config::MinimizeAfterUnlock).toBool())
 	{
 		getMainWindow()->minimizeOrHide();
-	}
-
-	if (senderDialog && senderDialog->intent() == DatabaseOpenDialog::Intent::AutoType)
-	{
-		// Rather than starting AutoType directly for this database, signal the parent DatabaseTabWidget to
-		// restart AutoType now that this database is unlocked, so that other open+unlocked databases
-		// can be included in the search.
-		emit requestGlobalAutoType(m_searchStringForAutoType);
 	}
 }
 
@@ -1379,15 +1358,12 @@ void DatabaseWidget::entryActivationSignalReceived(Entry *entry, EntryModel::Mod
 		{
 			switch (config()->get(Config::URLDoubleClickAction).toInt())
 			{
-			case 2: // Edit entry
+			case 1: // Edit entry
 				switchToEntryEdit(entry);
 				break;
-			case 1: // Copy entry URL to clipboard
-				setClipboardTextAndMinimize(entry->resolveMultiplePlaceholders(entry->url()));
-				break;
-			case 0: // Open entry URL in browser (default)
+			case 0: // Copy entry URL to clipboard
 			default:
-				openUrlForEntry(entry);
+				setClipboardTextAndMinimize(entry->resolveMultiplePlaceholders(entry->url()));
 				break;
 			}
 		}
@@ -1555,7 +1531,7 @@ void DatabaseWidget::saveSearch(const QString &searchtext)
 	// Pull the existing searches and prepend an empty string to allow
 	// the user to input a new search name without seeing the first one
 	QStringList searches(m_db->metadata()->savedSearches().keys());
-	searches.prepend("");
+	searches.prepend(QString());
 
 	QInputDialog dialog(this);
 	connect(this, &DatabaseWidget::databaseLockRequested, &dialog, &QInputDialog::reject);
@@ -1645,6 +1621,7 @@ void DatabaseWidget::onAutosaveDelayTimeout()
 		// User might disable the delay/autosave while the timer is running
 		return;
 	}
+
 	if (!m_blockAutoSave)
 	{
 		save();
@@ -1736,7 +1713,7 @@ bool DatabaseWidget::canDeleteCurrentGroup() const
 	return currentGroup() != m_db->rootGroup();
 }
 
-Group *DatabaseWidget::currentGroup() const
+Group* DatabaseWidget::currentGroup() const
 {
 	return m_groupView->currentGroup();
 }
@@ -1765,7 +1742,7 @@ void DatabaseWidget::showEvent(QShowEvent *event)
 bool DatabaseWidget::focusNextPrevChild(bool next)
 {
 	// [parent] <-> GroupView <-> TagView <-> EntryView <-> EntryPreview <-> [parent]
-	QList<QWidget *> sequence = {m_groupView, m_tagView, m_entryView, m_previewView};
+	QList<QWidget*> sequence = {m_groupView, m_tagView, m_entryView, m_previewView};
 	auto widget = qApp->focusWidget();
 	if (!widget)
 	{
@@ -1774,6 +1751,7 @@ bool DatabaseWidget::focusNextPrevChild(bool next)
 
 	// Find the nearest parent widget in the sequence list
 	int idx;
+
 	do
 	{
 		idx = sequence.indexOf(widget);
@@ -1799,6 +1777,7 @@ bool DatabaseWidget::focusNextPrevChild(bool next)
 			widget->setFocus();
 			return widget;
 		}
+
 		idx = next ? idx + 1 : idx - 1;
 	}
 
@@ -1842,6 +1821,7 @@ bool DatabaseWidget::lock()
 				modalWidget->close();
 				break;
 			}
+
 			parent = parent->parentWidget();
 		}
 	}
@@ -1851,10 +1831,11 @@ bool DatabaseWidget::lock()
 	if (isEditWidgetModified())
 	{
 		auto result = MessageBox::question(this,
-		                                   tr("Lock Database?"),
-		                                   tr("You are editing an entry. Discard changes and lock anyway?"),
-		                                   MessageBox::Discard | MessageBox::Cancel,
-		                                   MessageBox::Cancel);
+			tr("Lock Database?"),
+			tr("You are editing an entry. Discard changes and lock anyway?"),
+			MessageBox::Discard | MessageBox::Cancel,
+			MessageBox::Cancel);
+
 		if (result == MessageBox::Cancel)
 		{
 			m_attemptingLock = false;
@@ -1874,8 +1855,7 @@ bool DatabaseWidget::lock()
 			{
 				// detect if a reload was triggered
 				bool reloadTriggered = false;
-				auto connection =
-					connect(this, &DatabaseWidget::reloadBegin, [&reloadTriggered] { reloadTriggered = true; });
+				auto connection = connect(this, &DatabaseWidget::reloadBegin, [&reloadTriggered] { reloadTriggered = true; });
 				QApplication::processEvents();
 				disconnect(connection);
 				if (reloadTriggered)
@@ -1896,11 +1876,13 @@ bool DatabaseWidget::lock()
 			{
 				msg = tr("Database was modified.\nSave changes?");
 			}
+
 			auto result = MessageBox::question(this,
-			                                   tr("Save changes?"),
-			                                   msg,
-			                                   MessageBox::Save | MessageBox::Discard | MessageBox::Cancel,
-			                                   MessageBox::Save);
+				tr("Save changes?"),
+				msg,
+				MessageBox::Save | MessageBox::Discard | MessageBox::Cancel,
+				MessageBox::Save);
+
 			if (result == MessageBox::Save)
 			{
 				if (!save())
@@ -1954,11 +1936,6 @@ bool DatabaseWidget::lock()
 
 void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 {
-	if (triggeredBySave)
-	{
-		// not a failed save attempt due to file locking
-		m_saveAttempts = 0;
-	}
 	// Ignore reload if we are locked, saving, reloading, or currently editing an entry or group
 	if (!m_db || isLocked() || isEntryEditActive() || isGroupEditActive() || isSaving() || m_reloading)
 	{
@@ -1977,7 +1954,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 			this,
 			tr("File has changed"),
 			QString("%1.\n%2").arg(tr("The database file \"%1\" was modified externally").arg(displayFileName()),
-		                           tr("Do you want to load the changes?")),
+				tr("Do you want to load the changes?")),
 			MessageBox::Yes | MessageBox::No);
 
 		if (result == MessageBox::No)
@@ -2014,6 +1991,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 
 		emit reloadEnd();
 	};
+
 	auto reloadCanceled = [this, reloadFinish] {
 		// Mark db as modified since existing data may differ from file or file was deleted
 		m_db->markAsModified();
@@ -2021,6 +1999,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 		emit updateSyncProgress(100, tr("Reload canceled"));
 		reloadFinish(false);
 	};
+
 	auto reloadContinue = [this, triggeredBySave, reloadFinish](QSharedPointer<Database> db, bool merge) {
 		if (merge)
 		{
@@ -2080,21 +2059,23 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 
 		// Ask how to proceed
 		auto message = tr("The database file \"%1\" was modified externally.<br>"
-		                  "How would you like to proceed?<br><br>"
-		                  "Merge all changes<br>"
-		                  "Ignore the changes on disk until save<br>"
-		                  "Discard unsaved changes")
-		                   .arg(displayFileName());
+			"How would you like to proceed?<br><br>"
+			"Merge all changes<br>"
+			"Ignore the changes on disk until save<br>"
+			"Discard unsaved changes")
+			.arg(displayFileName());
+
 		auto buttons = MessageBox::Merge | MessageBox::Discard | MessageBox::Ignore | MessageBox::Cancel;
 		// Different message if we are attempting to save
 		if (triggeredBySave)
 		{
 			message = tr("The database file \"%1\" was modified externally.<br>"
-			             "How would you like to proceed?<br><br>"
-			             "Merge all changes then save<br>"
-			             "Overwrite the changes on disk<br>"
-			             "Discard unsaved changes")
-			              .arg(displayFileName());
+				"How would you like to proceed?<br><br>"
+				"Merge all changes then save<br>"
+				"Overwrite the changes on disk<br>"
+				"Discard unsaved changes")
+				.arg(displayFileName());
+
 			buttons = MessageBox::Merge | MessageBox::Discard | MessageBox::Overwrite | MessageBox::Cancel;
 		}
 
@@ -2118,6 +2099,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 			return;
 		case MessageBox::Merge:
 			merge = true;
+			break;
 		default:
 			break;
 		}
@@ -2144,13 +2126,14 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 			reloadCanceled();
 		}
 	});
+
 	openDialog->setAttribute(Qt::WA_DeleteOnClose);
 	openDialog->addDatabaseTab(dbWidget);
 	openDialog->setActiveDatabaseTab(dbWidget);
 	openDialog->showMessage(tr("Database file on disk cannot be unlocked with current credentials.<br>"
-	                           "Enter new credentials and/or present hardware key to continue."),
-	                        MessageWidget::Error,
-	                        MessageWidget::DisableAutoHide);
+		"Enter new credentials and/or present hardware key to continue."),
+		MessageWidget::Error,
+		MessageWidget::DisableAutoHide);
 
 	// ensure the main window is visible for this
 	getMainWindow()->bringToFront();
@@ -2211,6 +2194,7 @@ bool DatabaseWidget::currentEntryHasTitle()
 	{
 		return false;
 	}
+
 	return !currentEntry->title().isEmpty();
 }
 
@@ -2222,6 +2206,7 @@ bool DatabaseWidget::currentEntryHasUsername()
 	{
 		return false;
 	}
+
 	return !currentEntry->resolveMultiplePlaceholders(currentEntry->username()).isEmpty();
 }
 
@@ -2233,6 +2218,7 @@ bool DatabaseWidget::currentEntryHasPassword()
 	{
 		return false;
 	}
+
 	return !currentEntry->resolveMultiplePlaceholders(currentEntry->password()).isEmpty();
 }
 
@@ -2244,6 +2230,7 @@ bool DatabaseWidget::currentEntryHasUrl()
 	{
 		return false;
 	}
+
 	return !currentEntry->resolveMultiplePlaceholders(currentEntry->url()).isEmpty();
 }
 
@@ -2255,6 +2242,7 @@ bool DatabaseWidget::currentEntryHasTotp()
 	{
 		return false;
 	}
+
 	return currentEntry->hasValidTotp();
 }
 
@@ -2266,15 +2254,16 @@ bool DatabaseWidget::currentEntryHasNotes()
 	{
 		return false;
 	}
+
 	return !currentEntry->resolveMultiplePlaceholders(currentEntry->notes()).isEmpty();
 }
 
-GroupView *DatabaseWidget::groupView()
+GroupView* DatabaseWidget::groupView()
 {
 	return m_groupView;
 }
 
-EntryView *DatabaseWidget::entryView()
+EntryView* DatabaseWidget::entryView()
 {
 	return m_entryView;
 }
@@ -2313,39 +2302,20 @@ bool DatabaseWidget::save()
 
 	// Prevent recursions and infinite save loops
 	m_blockAutoSave = true;
-	++m_saveAttempts;
 
 	QString errorMessage;
 	if (performSave(errorMessage))
 	{
-		m_saveAttempts = 0;
 		m_blockAutoSave = false;
 		m_autosaveTimer->stop(); // stop autosave delay to avoid triggering another save
 		hideMessage();
 		return true;
 	}
 
-	if (m_saveAttempts > 2 && config()->get(Config::UseAtomicSaves).toBool())
-	{
-		// Saving failed 3 times, issue a warning and attempt to resolve
-		auto result = MessageBox::question(this,
-		                                   tr("Disable safe saves?"),
-		                                   tr("KeePassXC has failed to save the database multiple times. "
-		                                      "This is likely caused by file sync services holding a lock on "
-		                                      "the save file.\nDisable safe saves and try again?"),
-		                                   MessageBox::Disable | MessageBox::Cancel,
-		                                   MessageBox::Disable);
-		if (result == MessageBox::Disable)
-		{
-			config()->set(Config::UseAtomicSaves, false);
-			return save();
-		}
-	}
-
 	showMessage(tr("Writing the database failed: %1").arg(errorMessage),
-	            MessageWidget::Error,
-	            true,
-	            MessageWidget::LongAutoHideTimeout);
+		MessageWidget::Error,
+		true,
+		MessageWidget::LongAutoHideTimeout);
 
 	return false;
 }
@@ -2376,10 +2346,10 @@ bool DatabaseWidget::saveAs()
 	if (!QFileInfo::exists(oldFilePath))
 	{
 		QString defaultFileName = config()->get(Config::DefaultDatabaseFileName).toString();
-		oldFilePath =
-			QDir::toNativeSeparators(FileDialog::getLastDir("db") + "/"
-		                             + (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbx") : defaultFileName));
+		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir("db") + "/"
+			+ (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbx") : defaultFileName));
 	}
+
 	const QString newFilePath = fileDialog()->getSaveFileName(
 		this, tr("Save database as"), oldFilePath, tr("KeePass 2 Database").append(" (*.kdbx)"));
 
@@ -2390,9 +2360,9 @@ bool DatabaseWidget::saveAs()
 		if (!performSave(errorMessage, newFilePath))
 		{
 			showMessage(tr("Writing the database failed: %1").arg(errorMessage),
-			            MessageWidget::Error,
-			            true,
-			            MessageWidget::LongAutoHideTimeout);
+				MessageWidget::Error,
+				true,
+				MessageWidget::LongAutoHideTimeout);
 		}
 	}
 
@@ -2409,20 +2379,10 @@ bool DatabaseWidget::performSave(QString &errorMessage, const QString &fileName)
 	{
 		mainWindow->setDisabled(true);
 	}
+
 	QApplication::processEvents();
 
 	Database::SaveAction saveAction = Database::Atomic;
-	if (!config()->get(Config::UseAtomicSaves).toBool())
-	{
-		if (config()->get(Config::UseDirectWriteSaves).toBool())
-		{
-			saveAction = Database::DirectWrite;
-		}
-		else
-		{
-			saveAction = Database::TempFile;
-		}
-	}
 
 	QString backupFilePath;
 	if (config()->get(Config::BackupBeforeSave).toBool())
@@ -2483,15 +2443,14 @@ bool DatabaseWidget::saveBackup()
 	if (!QFileInfo::exists(oldFilePath))
 	{
 		QString defaultFileName = config()->get(Config::DefaultDatabaseFileName).toString();
-		oldFilePath =
-			QDir::toNativeSeparators(FileDialog::getLastDir("db") + "/"
-		                             + (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbx") : defaultFileName));
+		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir("db") + "/"
+			+ (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbx") : defaultFileName));
 	}
 
 	const QString newFilePath = fileDialog()->getSaveFileName(this,
-	                                                          tr("Save Database Backup"),
-	                                                          FileDialog::getLastDir("backup", oldFilePath),
-	                                                          tr("KeePass 2 Database").append(" (*.kdbx)"));
+		tr("Save Database Backup"),
+		FileDialog::getLastDir("backup", oldFilePath),
+		tr("KeePass 2 Database").append(" (*.kdbx)"));
 
 	// Early out if we canceled the file selection
 	if (newFilePath.isEmpty())
@@ -2524,10 +2483,11 @@ bool DatabaseWidget::saveBackup()
 	return true;
 }
 
-void DatabaseWidget::showMessage(const QString &text,
-                                 MessageWidget::MessageType type,
-                                 bool showClosebutton,
-                                 int autoHideTimeout)
+void DatabaseWidget::showMessage(
+	const QString &text,
+	MessageWidget::MessageType type,
+	bool showClosebutton,
+	int autoHideTimeout)
 {
 	m_messageWidget->setCloseButtonVisible(showClosebutton);
 	m_messageWidget->showMessage(text, type, autoHideTimeout);
@@ -2579,12 +2539,11 @@ void DatabaseWidget::emptyRecycleBin()
 		return;
 	}
 
-	auto result =
-		MessageBox::question(this,
-	                         tr("Empty recycle bin?"),
-	                         tr("Are you sure you want to permanently delete everything from your recycle bin?"),
-	                         MessageBox::Empty | MessageBox::Cancel,
-	                         MessageBox::Cancel);
+	auto result = MessageBox::question(this,
+		tr("Empty recycle bin?"),
+		tr("Are you sure you want to permanently delete everything from your recycle bin?"),
+		MessageBox::Empty | MessageBox::Cancel,
+		MessageBox::Cancel);
 
 	if (result == MessageBox::Empty)
 	{
@@ -2640,6 +2599,7 @@ void DatabaseWidget::processAutoOpen()
 					loadDb = true;
 				}
 			}
+
 			if (!loadDb)
 			{
 				continue;
@@ -2655,6 +2615,7 @@ void DatabaseWidget::openDatabaseFromEntry(const Entry *entry, bool inBackground
 	auto keyFile = entry->resolveMultiplePlaceholders(entry->username());
 	auto password = entry->resolveMultiplePlaceholders(entry->password());
 	auto databaseUrl = entry->resolveMultiplePlaceholders(entry->url());
+
 	if (databaseUrl.startsWith("kdbx://"))
 	{
 		databaseUrl = databaseUrl.mid(7);

@@ -22,10 +22,11 @@
 
 class QListWidgetItem;
 
-namespace Ui
-{
-	class ImportWizardPageSelect;
-}
+namespace Ui {
+
+class ImportWizardPageSelect;
+
+} // namespace Ui
 
 class ImportWizardPageSelect: public QWizardPage
 {
@@ -34,7 +35,7 @@ class ImportWizardPageSelect: public QWizardPage
 public:
 	explicit ImportWizardPageSelect(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(ImportWizardPageSelect)
-	~ImportWizardPageSelect() override;
+	~ImportWizardPageSelect();
 
 	void initializePage() override;
 	bool validatePage() override;

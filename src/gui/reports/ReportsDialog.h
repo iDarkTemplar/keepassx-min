@@ -28,20 +28,19 @@ class QTabWidget;
 class ReportsPageHealthcheck;
 class ReportsPageStatistics;
 
-namespace Ui
-{
-	class ReportsDialog;
-}
+namespace Ui {
+
+class ReportsDialog;
+
+} // namespace Ui
 
 class IReportsPage
 {
 public:
-	virtual ~IReportsPage()
-	{
-	}
+	virtual ~IReportsPage() = default;
 	virtual QString name() = 0;
 	virtual QIcon icon() = 0;
-	virtual QWidget *createWidget() = 0;
+	virtual QWidget* createWidget() = 0;
 	virtual void loadSettings(QWidget *widget, QSharedPointer<Database> db) = 0;
 	virtual void saveSettings(QWidget *widget) = 0;
 };
@@ -52,8 +51,8 @@ class ReportsDialog: public DialogyWidget
 
 public:
 	explicit ReportsDialog(QWidget *parent = nullptr);
-	~ReportsDialog() override;
 	Q_DISABLE_COPY(ReportsDialog);
+	~ReportsDialog();
 
 	void load(const QSharedPointer<Database> &db);
 	void addPage(QSharedPointer<IReportsPage> page);

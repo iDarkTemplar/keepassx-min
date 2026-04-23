@@ -19,26 +19,27 @@
 
 #include <functional>
 
-namespace
+namespace {
+
+class WidgetItemDelegate: public QStyledItemDelegate
 {
-	class WidgetItemDelegate: public QStyledItemDelegate
+	std::function<QWidget *(QWidget *, const QModelIndex &)> m_create;
+
+public:
+	explicit WidgetItemDelegate(QObject *parent, std::function<QWidget *(QWidget *, const QModelIndex &)> &&create)
+		: QStyledItemDelegate(parent)
+		, m_create(std::move(create))
 	{
-		std::function<QWidget *(QWidget *, const QModelIndex &)> m_create;
+	}
 
-	public:
-		explicit WidgetItemDelegate(QObject *parent, std::function<QWidget *(QWidget *, const QModelIndex &)> &&create)
-			: QStyledItemDelegate(parent)
-			, m_create(std::move(create))
-		{
-		}
+	QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &, const QModelIndex &index) const override
+	{
+		if (!index.isValid())
+			return nullptr;
+		return m_create(parent, index);
+	}
+};
 
-		QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &, const QModelIndex &index) const override
-		{
-			if (!index.isValid())
-				return nullptr;
-			return m_create(parent, index);
-		}
-	};
 } // namespace
 
 void installWidgetItemDelegate(QAbstractItemView *view,

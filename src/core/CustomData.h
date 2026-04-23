@@ -41,6 +41,7 @@ public:
 	};
 
 	explicit CustomData(QObject *parent = nullptr);
+
 	QList<QString> keys() const;
 	bool hasKey(const QString &key) const;
 	QString value(const QString &key) const;

@@ -23,17 +23,18 @@
 class CategoryListWidgetDelegate;
 class QListWidget;
 
-namespace Ui
-{
-	class CategoryListWidget;
-}
+namespace Ui {
+
+class CategoryListWidget;
+
+} // namespace Ui
 
 class CategoryListWidget: public QWidget
 {
 	Q_OBJECT
 
 public:
-	CategoryListWidget(QWidget *parent = nullptr);
+	explicit CategoryListWidget(QWidget *parent = nullptr);
 	~CategoryListWidget();
 
 	int currentCategory();

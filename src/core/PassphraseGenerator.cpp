@@ -42,6 +42,7 @@ double PassphraseGenerator::estimateEntropy(int wordCount)
 	{
 		return 0.0;
 	}
+
 	if (wordCount < 1)
 	{
 		wordCount = m_wordCount;
@@ -84,6 +85,7 @@ void PassphraseGenerator::setWordList(const QString &path)
 			line = in.readLine();
 		}
 	}
+
 	QRegExp rx("^[0-9]+(-[0-9]+)*\\s+([^\\s]+)$");
 	while (!line.isNull())
 	{
@@ -91,17 +93,20 @@ void PassphraseGenerator::setWordList(const QString &path)
 		{
 			break;
 		}
+
 		// Handle dash-escaped lines (if the wordlist is signed)
 		if (isSigned && line.startsWith("- "))
 		{
 			line.remove(0, 2);
 		}
+
 		line = line.trimmed();
 		line.replace(rx, "\\2");
 		if (!line.isEmpty())
 		{
 			wordset.insert(line);
 		}
+
 		line = in.readLine();
 	}
 
@@ -154,6 +159,7 @@ QString PassphraseGenerator::generatePassphrase() const
 			tmpWord = tmpWord.toLower();
 			break;
 		}
+
 		words.append(tmpWord);
 	}
 

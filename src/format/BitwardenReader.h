@@ -27,8 +27,7 @@ class Database;
 class BitwardenReader
 {
 public:
-	explicit BitwardenReader() = default;
-	~BitwardenReader() = default;
+	BitwardenReader() = default;
 
 	QSharedPointer<Database> convert(const QString &path, const QString &password = {});
 

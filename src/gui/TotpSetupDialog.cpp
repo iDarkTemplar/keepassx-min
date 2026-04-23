@@ -28,11 +28,7 @@ TotpSetupDialog::TotpSetupDialog(QWidget *parent, Entry *entry)
 {
 	m_ui->setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
 	setWindowFlag(Qt::WindowContextHelpButtonHint, false);
-#else
-	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-#endif
 	setFixedSize(sizeHint());
 
 	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
@@ -56,9 +52,10 @@ void TotpSetupDialog::saveSettings()
 	if (!sanitizedKey.startsWith(key))
 	{
 		MessageBox::information(this,
-		                        tr("Invalid TOTP Secret"),
-		                        tr("You have entered an invalid secret key. The key must be in Base32 format.\n"
-		                           "Example: JBSWY3DPEHPK3PXP"));
+			tr("Invalid TOTP Secret"),
+			tr("You have entered an invalid secret key. The key must be in Base32 format.\n"
+				"Example: JBSWY3DPEHPK3PXP"));
+
 		return;
 	}
 
@@ -86,9 +83,10 @@ void TotpSetupDialog::saveSettings()
 		if (key.isEmpty())
 		{
 			auto answer = MessageBox::question(this,
-			                                   tr("Confirm Remove TOTP Settings"),
-			                                   tr("Are you sure you want to delete TOTP settings for this entry?"),
-			                                   MessageBox::Delete | MessageBox::Cancel);
+				tr("Confirm Remove TOTP Settings"),
+				tr("Are you sure you want to delete TOTP settings for this entry?"),
+				MessageBox::Delete | MessageBox::Cancel);
+
 			if (answer != MessageBox::Delete)
 			{
 				return;
@@ -121,6 +119,7 @@ void TotpSetupDialog::init()
 	{
 		m_ui->algorithmComboBox->addItem(item.first, item.second);
 	}
+
 	m_ui->algorithmComboBox->setCurrentIndex(0);
 	m_ui->invalidKeyLabel->setVisible(false);
 

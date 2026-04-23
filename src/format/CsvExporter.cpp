@@ -29,6 +29,7 @@ bool CsvExporter::exportDatabase(const QString &filename, const QSharedPointer<c
 		m_error = file.errorString();
 		return false;
 	}
+
 	return exportDatabase(&file, db);
 }
 
@@ -82,9 +83,10 @@ QString CsvExporter::exportGroup(const Group *group, QString groupPath)
 	{
 		groupPath.append("/");
 	}
+
 	groupPath.append(group->name());
 
-	const QList<Entry *> &entryList = group->entries();
+	const QList<Entry*> &entryList = group->entries();
 	for (const Entry *entry: entryList)
 	{
 		QString line;
@@ -104,7 +106,7 @@ QString CsvExporter::exportGroup(const Group *group, QString groupPath)
 		response.append(line);
 	}
 
-	const QList<Group *> &children = group->children();
+	const QList<Group*> &children = group->children();
 	for (const Group *child: children)
 	{
 		response.append(exportGroup(child, groupPath));

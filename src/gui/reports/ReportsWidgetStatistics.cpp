@@ -45,9 +45,9 @@ ReportsWidgetStatistics::~ReportsWidgetStatistics()
 {
 }
 
-void ReportsWidgetStatistics::addStatsRow(QString name, QString value, bool bad, QString badMsg)
+void ReportsWidgetStatistics::addStatsRow(const QString &name, const QString &value, bool bad, const QString &badMsg)
 {
-	auto row = QList<QStandardItem *>();
+	QList<QStandardItem*> row;
 	row << new QStandardItem(name);
 	row << new QStandardItem(value);
 	m_referencesModel->appendRow(row);
@@ -67,7 +67,7 @@ void ReportsWidgetStatistics::loadSettings(QSharedPointer<Database> db)
 	m_db = std::move(db);
 	m_statsCalculated = false;
 	m_referencesModel->clear();
-	addStatsRow(tr("Please wait, database statistics are being calculated…"), "");
+	addStatsRow(tr("Please wait, database statistics are being calculated…"), QString());
 }
 
 void ReportsWidgetStatistics::showEvent(QShowEvent *event)
@@ -94,41 +94,41 @@ void ReportsWidgetStatistics::calculateStats()
 	addStatsRow(tr("Database created"), Clock::toString(m_db->rootGroup()->timeInfo().creationTime()));
 	addStatsRow(tr("Last saved"), Clock::toString(stats->modified));
 	addStatsRow(tr("Unsaved changes"),
-	            m_db->isModified() ? tr("yes") : tr("no"),
-	            m_db->isModified(),
-	            tr("The database was modified, but the changes have not yet been saved to disk."));
+		m_db->isModified() ? tr("yes") : tr("no"),
+		m_db->isModified(),
+		tr("The database was modified, but the changes have not yet been saved to disk."));
 	addStatsRow(tr("Number of groups"), QString::number(stats->groupCount));
 	addStatsRow(tr("Number of entries"), QString::number(stats->entryCount));
 	addStatsRow(tr("Number of expired entries"),
-	            QString::number(stats->expiredEntries),
-	            stats->isAnyExpired(),
-	            tr("The database contains entries that have expired."));
+		QString::number(stats->expiredEntries),
+		stats->isAnyExpired(),
+		tr("The database contains entries that have expired."));
 	addStatsRow(tr("Unique passwords"), QString::number(stats->uniquePasswords));
 	addStatsRow(tr("Non-unique passwords"),
-	            QString::number(stats->reusedPasswords),
-	            stats->areTooManyPwdsReused(),
-	            tr("More than 10% of passwords are reused. Use unique passwords when possible."));
+		QString::number(stats->reusedPasswords),
+		stats->areTooManyPwdsReused(),
+		tr("More than 10% of passwords are reused. Use unique passwords when possible."));
 	addStatsRow(tr("Maximum password reuse"),
-	            QString::number(stats->maxPwdReuse()),
-	            stats->arePwdsReusedTooOften(),
-	            tr("Some passwords are used more than three times. Use unique passwords when possible."));
+		QString::number(stats->maxPwdReuse()),
+		stats->arePwdsReusedTooOften(),
+		tr("Some passwords are used more than three times. Use unique passwords when possible."));
 	addStatsRow(tr("Number of short passwords"),
-	            QString::number(stats->shortPasswords),
-	            stats->shortPasswords > 0,
-	            tr("Recommended minimum password length is at least 8 characters."));
+		QString::number(stats->shortPasswords),
+		stats->shortPasswords > 0,
+		tr("Recommended minimum password length is at least 8 characters."));
 	addStatsRow(tr("Number of weak passwords"),
-	            QString::number(stats->weakPasswords),
-	            stats->weakPasswords > 0,
-	            tr("Recommend using long, randomized passwords with a rating of 'good' or 'excellent'."));
+		QString::number(stats->weakPasswords),
+		stats->weakPasswords > 0,
+		tr("Recommend using long, randomized passwords with a rating of 'good' or 'excellent'."));
 	addStatsRow(tr("Entries excluded from reports"),
-	            QString::number(stats->excludedEntries),
-	            stats->excludedEntries > 0,
-	            tr("Excluding entries from reports, e. g. because they are known to have a poor password, isn't "
-	               "necessarily a problem but you should keep an eye on them."));
+		QString::number(stats->excludedEntries),
+		stats->excludedEntries > 0,
+		tr("Excluding entries from reports, e. g. because they are known to have a poor password, isn't "
+			"necessarily a problem but you should keep an eye on them."));
 	addStatsRow(tr("Average password length"),
-	            tr("%1 character(s)", "", stats->averagePwdLength()).arg(stats->averagePwdLength()),
-	            stats->isAvgPwdTooShort(),
-	            tr("Average password length is less than ten characters. Longer passwords provide more security."));
+		tr("%1 character(s)", "", stats->averagePwdLength()).arg(stats->averagePwdLength()),
+		stats->isAvgPwdTooShort(),
+		tr("Average password length is less than ten characters. Longer passwords provide more security."));
 }
 
 void ReportsWidgetStatistics::saveSettings()

@@ -106,7 +106,8 @@ QVariant Base32::decode(const QByteArray &encodedData)
 		for (int n = 0; n < 8; ++n)
 		{
 			auto ch = static_cast<quint8>(encodedData[i++]);
-			if ((ASCII_A <= ch && ch <= ASCII_Z) || (ASCII_a <= ch && ch <= ASCII_z))
+
+			if (((ASCII_A <= ch) && (ch <= ASCII_Z)) || ((ASCII_a <= ch) && (ch <= ASCII_z)))
 			{
 				ch -= ASCII_A;
 				if (ch >= ALPH_POS_2)
@@ -193,7 +194,7 @@ QByteArray Base32::encode(const QByteArray &data)
 		for (n = 35; n >= 0; n -= 5)
 		{
 			index = (quantum & mask) >> n;
-			Q_ASSERT(0 <= index && index <= 31);
+			Q_ASSERT((0 <= index) && (index <= 31));
 			encodedData[o++] = alphabet[index];
 			mask >>= 5;
 		}
@@ -202,8 +203,9 @@ QByteArray Base32::encode(const QByteArray &data)
 	// < 40-bits of input at final input group
 	if (i < data.size())
 	{
-		Q_ASSERT(8 <= rBits && rBits <= 32);
+		Q_ASSERT((8 <= rBits) && (rBits <= 32));
 		quantum = 0;
+
 		for (n = rBits - 8; n >= 0; n -= 8)
 		{
 			quantum |= static_cast<quint64>(data[i++]) << n;
@@ -236,7 +238,7 @@ QByteArray Base32::encode(const QByteArray &data)
 		while (n >= 0)
 		{
 			int index = (quantum & mask) >> n;
-			Q_ASSERT(0 <= index && index <= 31);
+			Q_ASSERT((0 <= index) && (index <= 31));
 			encodedData[o++] = alphabet[index];
 			mask >>= 5;
 			n -= 5;
@@ -256,19 +258,20 @@ QByteArray Base32::encode(const QByteArray &data)
 
 QByteArray Base32::addPadding(const QByteArray &encodedData)
 {
-	if (encodedData.size() <= 0 || encodedData.size() % 8 == 0)
+	if ((encodedData.size() <= 0) || (encodedData.size() % 8 == 0))
 	{
 		return encodedData;
 	}
 
 	const int rBytes = encodedData.size() % 8;
 	// rBytes must be a member of {2, 4, 5, 7}
-	if (1 == rBytes || 3 == rBytes || 6 == rBytes)
+	if ((1 == rBytes) || (3 == rBytes) || (6 == rBytes))
 	{
 		return encodedData;
 	}
 
 	QByteArray newEncodedData(encodedData);
+
 	for (int nPads = 8 - rBytes; nPads > 0; --nPads)
 	{
 		newEncodedData.append('=');
@@ -279,7 +282,7 @@ QByteArray Base32::addPadding(const QByteArray &encodedData)
 
 QByteArray Base32::removePadding(const QByteArray &encodedData)
 {
-	if (encodedData.size() <= 0 || encodedData.size() % 8 != 0)
+	if ((encodedData.size() <= 0) || (encodedData.size() % 8 != 0))
 	{
 		return encodedData; // return same bad input
 	}
@@ -309,6 +312,7 @@ QByteArray Base32::sanitizeInput(const QByteArray &encodedData)
 
 	QByteArray newEncodedData(encodedData.size(), Qt::Uninitialized);
 	int i = 0;
+
 	for (auto ch: encodedData)
 	{
 		switch (ch)

@@ -30,7 +30,7 @@ public:
 	explicit Kdf(const QUuid &uuid);
 	virtual ~Kdf() = default;
 
-	const QUuid &uuid() const;
+	const QUuid& uuid() const;
 
 	int rounds() const;
 	virtual bool setRounds(int rounds);
@@ -51,10 +51,12 @@ public:
 	 * Default target encryption time, in MS.
 	 */
 	static const int DEFAULT_ENCRYPTION_TIME = 1000;
+
 	/*
 	 * Minimum target encryption time, in MS.
 	 */
 	static const int MIN_ENCRYPTION_TIME = 100;
+
 	/*
 	 * Maximum target encryption time, in MS.
 	 */

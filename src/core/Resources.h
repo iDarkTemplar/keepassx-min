@@ -18,6 +18,8 @@
 #ifndef KEEPASSX_RESOURCES_H
 #define KEEPASSX_RESOURCES_H
 
+#include <memory>
+
 #include <QString>
 
 class Resources
@@ -27,20 +29,20 @@ public:
 	QString wordlistPath(const QString &name) const;
 	QString userWordlistPath(const QString &name) const;
 
-	static Resources *instance();
+	static Resources* instance();
 
 private:
 	Resources();
 	bool trySetResourceDir(const QString &path);
 
-	static Resources *m_instance;
+	static std::unique_ptr<Resources> m_instance;
 
 	QString m_dataPath;
 
 	Q_DISABLE_COPY(Resources)
 };
 
-inline Resources *resources()
+inline Resources* resources()
 {
 	return Resources::instance();
 }

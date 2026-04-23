@@ -55,7 +55,9 @@ PreviewEntryAttachmentsDialog::PreviewEntryAttachmentsDialog(QWidget *parent)
 	});
 }
 
-PreviewEntryAttachmentsDialog::~PreviewEntryAttachmentsDialog() = default;
+PreviewEntryAttachmentsDialog::~PreviewEntryAttachmentsDialog()
+{
+}
 
 void PreviewEntryAttachmentsDialog::setAttachment(attachments::Attachment attachment)
 {

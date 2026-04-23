@@ -20,7 +20,3 @@ OSUtilsBase::OSUtilsBase(QObject *parent)
 	: QObject(parent)
 {
 }
-
-OSUtilsBase::~OSUtilsBase()
-{
-}

@@ -31,7 +31,6 @@ class ReportsWidget: public SettingsWidget
 public:
 	explicit ReportsWidget(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(ReportsWidget);
-	~ReportsWidget() override;
 
 	virtual void load(QSharedPointer<Database> db);
 

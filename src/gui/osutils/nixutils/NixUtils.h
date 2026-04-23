@@ -22,6 +22,8 @@
 #include <QSharedPointer>
 #include <QtDBus/QDBusVariant>
 
+#include <memory>
+
 class NixUtils: public OSUtilsBase, QAbstractNativeEventFilter
 {
 	Q_OBJECT
@@ -34,10 +36,11 @@ public:
 
 	void registerNativeEventFilter() override;
 
-	bool registerGlobalShortcut(const QString &name,
-	                            Qt::Key key,
-	                            Qt::KeyboardModifiers modifiers,
-	                            QString *error = nullptr) override;
+	bool registerGlobalShortcut(
+		const QString &name,
+		Qt::Key key,
+		Qt::KeyboardModifiers modifiers,
+		QString *error = nullptr) override;
 	bool unregisterGlobalShortcut(const QString &name) override;
 
 private slots:
@@ -46,19 +49,19 @@ private slots:
 
 private:
 	explicit NixUtils(QObject *parent = nullptr);
-	~NixUtils() override;
 
 	bool nativeEventFilter(const QByteArray &eventType, void *message, long *) override;
 
 	bool triggerGlobalShortcut(uint keycode, uint modifiers);
 
-	static QPointer<NixUtils> m_instance;
+	static std::unique_ptr<NixUtils> m_instance;
 
 	struct globalShortcut
 	{
 		uint nativeKeyCode;
 		uint nativeModifiers;
 	};
+
 	QHash<QString, QSharedPointer<globalShortcut>> m_globalShortcuts;
 
 	// defined as per "org.freedesktop.appearance color-scheme" spec in
@@ -69,6 +72,7 @@ private:
 		PreferDark,
 		PreferLight
 	};
+
 	ColorschemePref m_systemColorschemePref = ColorschemePref::PreferNone;
 	bool m_systemColorschemePrefExists;
 
@@ -77,7 +81,7 @@ private:
 	Q_DISABLE_COPY(NixUtils)
 };
 
-inline NixUtils *nixUtils()
+inline NixUtils* nixUtils()
 {
 	return NixUtils::instance();
 }

@@ -37,7 +37,7 @@ class TagsEdit: public QAbstractScrollArea
 
 public:
 	explicit TagsEdit(QWidget *parent = nullptr);
-	~TagsEdit() override;
+	~TagsEdit();
 
 	// QWidget
 	QSize sizeHint() const override;

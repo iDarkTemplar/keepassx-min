@@ -21,17 +21,18 @@
 #include <QScopedPointer>
 #include <QWidget>
 
-namespace Ui
-{
-	class TextAttachmentsPreviewWidget;
-}
+namespace Ui {
+
+class TextAttachmentsPreviewWidget;
+
+} // namespace Ui
 
 class TextAttachmentsPreviewWidget: public QWidget
 {
 	Q_OBJECT
 public:
 	explicit TextAttachmentsPreviewWidget(QWidget *parent = nullptr);
-	~TextAttachmentsPreviewWidget() override;
+	~TextAttachmentsPreviewWidget();
 
 	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
 	attachments::Attachment getAttachment() const;
@@ -40,9 +41,7 @@ public:
 	{
 		Html,
 		PlainText,
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 		Markdown
-#endif
 	};
 
 	Q_ENUM(PreviewTextType)

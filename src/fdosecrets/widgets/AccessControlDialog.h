@@ -31,15 +31,17 @@
 
 class Entry;
 
-namespace Ui
-{
-	class AccessControlDialog;
-}
+namespace Ui {
 
-namespace FdoSecrets
-{
-	struct PeerInfo;
-}
+class AccessControlDialog;
+
+} // namespace Ui
+
+namespace FdoSecrets {
+
+struct PeerInfo;
+
+} // namespace FdoSecrets
 
 enum class AuthOption
 {
@@ -47,6 +49,7 @@ enum class AuthOption
 	Remember = 1 << 1,
 	PerEntryDeny = 1 << 2,
 };
+
 Q_DECLARE_FLAGS(AuthOptions, AuthOption);
 Q_DECLARE_OPERATORS_FOR_FLAGS(AuthOptions);
 
@@ -55,12 +58,14 @@ class AccessControlDialog: public QDialog
 	Q_OBJECT
 
 public:
-	explicit AccessControlDialog(QWindow *parent,
-	                             const QList<Entry *> &entries,
-	                             const QString &app,
-	                             const FdoSecrets::PeerInfo &info,
-	                             AuthOptions authOptions = AuthOption::Remember | AuthOption::PerEntryDeny);
-	~AccessControlDialog() override;
+	explicit AccessControlDialog(
+		QWindow *parent,
+		const QList<Entry*> &entries,
+		const QString &app,
+		const FdoSecrets::PeerInfo &info,
+		AuthOptions authOptions = AuthOption::Remember | AuthOption::PerEntryDeny);
+
+	~AccessControlDialog();
 
 	enum DialogCode
 	{
@@ -70,10 +75,10 @@ public:
 		DenyAll,
 	};
 
-	QHash<Entry *, AuthDecision> decisions() const;
+	QHash<Entry*, AuthDecision> decisions() const;
 
 signals:
-	void finished(const QHash<Entry *, AuthDecision> &results, AuthDecision forFutureEntries);
+	void finished(const QHash<Entry*, AuthDecision> &results, AuthDecision forFutureEntries);
 
 private slots:
 	void denyEntryClicked(Entry *entry, const QModelIndex &index);
@@ -88,14 +93,15 @@ private:
 	QScopedPointer<Ui::AccessControlDialog> m_ui;
 	QPointer<QCheckBox> m_rememberCheck;
 	QScopedPointer<EntryModel> m_model;
-	QHash<Entry *, AuthDecision> m_decisions;
+	QHash<Entry*, AuthDecision> m_decisions;
 };
 
 class AccessControlDialog::EntryModel: public QAbstractTableModel
 {
 	Q_OBJECT
+
 public:
-	explicit EntryModel(QList<Entry *> entries, QObject *parent = nullptr);
+	explicit EntryModel(QList<Entry*> entries, QObject *parent = nullptr);
 
 	int rowCount(const QModelIndex &parent) const override;
 	int columnCount(const QModelIndex &parent) const override;
@@ -108,8 +114,8 @@ public slots:
 private:
 	bool isValid(const QModelIndex &index) const;
 
-	QList<Entry *> m_entries;
-	QSet<Entry *> m_selected;
+	QList<Entry*> m_entries;
+	QSet<Entry*> m_selected;
 };
 
 class AccessControlDialog::DenyButton: public QPushButton
@@ -125,7 +131,7 @@ public:
 	explicit DenyButton(QWidget *p, const QModelIndex &idx);
 
 	void setEntry(Entry *e);
-	Entry *entry() const;
+	Entry* entry() const;
 
 signals:
 	void clicked(Entry *, const QModelIndex &idx);

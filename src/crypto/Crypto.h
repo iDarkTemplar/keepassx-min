@@ -20,11 +20,12 @@
 
 #include <QString>
 
-namespace Crypto
-{
-	bool init();
-	QString errorString();
-	QString debugInfo();
-}; // namespace Crypto
+namespace Crypto {
+
+bool init();
+QString errorString();
+QString debugInfo();
+
+} // namespace Crypto
 
 #endif // KEEPASSXC_CRYPTO_H

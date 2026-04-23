@@ -57,7 +57,7 @@ SearchWidget::SearchWidget(QWidget *parent)
 	connect(m_ui->searchEdit, &QLineEdit::returnPressed, this, &SearchWidget::onReturnPressed);
 
 	m_ui->searchEdit->setPlaceholderText(tr("Search (%1)…", "Search placeholder text, %1 is the keyboard shortcut")
-	                                         .arg(QKeySequence(QKeySequence::Find).toString(QKeySequence::NativeText)));
+		.arg(QKeySequence(QKeySequence::Find).toString(QKeySequence::NativeText)));
 	m_ui->searchEdit->installEventFilter(this);
 
 	m_searchMenu = new QMenu(this);
@@ -70,8 +70,7 @@ SearchWidget::SearchWidget(QWidget *parent)
 	m_actionLimitGroup->setCheckable(true);
 	m_actionLimitGroup->setChecked(config()->get(Config::SearchLimitGroup).toBool());
 
-	m_actionWaitForEnter = m_searchMenu->addAction(
-		tr("Press Enter to search"), this, [](bool state) { config()->set(Config::GUI_SearchWaitForEnter, state); });
+	m_actionWaitForEnter = m_searchMenu->addAction(tr("Press Enter to search"), this, [](bool state) { config()->set(Config::GUI_SearchWaitForEnter, state); });
 	m_actionWaitForEnter->setObjectName("actionSearchWaitForEnter");
 	m_actionWaitForEnter->setCheckable(true);
 	m_actionWaitForEnter->setChecked(config()->get(Config::GUI_SearchWaitForEnter).toBool());
@@ -123,6 +122,7 @@ bool SearchWidget::eventFilter(QObject *obj, QEvent *event)
 				{
 					return true;
 				}
+
 				sendingCopyShortcutEvent = true;
 				QCoreApplication::sendEvent(getMainWindow(), event);
 				sendingCopyShortcutEvent = false;
@@ -156,6 +156,7 @@ bool SearchWidget::eventFilter(QObject *obj, QEvent *event)
 				m_clearSearchTimer->start(timeout * 60000); // 60 sec * 1000 ms
 			}
 		}
+
 		emit lostFocus();
 	}
 	else if (event->type() == QEvent::FocusIn)

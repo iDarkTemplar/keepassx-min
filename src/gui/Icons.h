@@ -20,6 +20,8 @@
 
 #include <QIcon>
 
+#include <memory>
+
 #include <core/Database.h>
 #include <gui/DatabaseIcons.h>
 
@@ -41,19 +43,19 @@ public:
 	static QByteArray saveToBytes(const QImage &image);
 	static QString imageFormatsFilter();
 
-	static Icons *instance();
+	static Icons* instance();
 
 private:
-	Icons();
+	Icons() = default;
 
-	static Icons *m_instance;
+	static std::unique_ptr<Icons> m_instance;
 
 	QHash<QString, QIcon> m_iconCache;
 
 	Q_DISABLE_COPY(Icons)
 };
 
-inline Icons *icons()
+inline Icons* icons()
 {
 	return Icons::instance();
 }

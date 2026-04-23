@@ -34,8 +34,7 @@ public:
 	int benchmark(int msec) const override;
 
 private:
-	Q_REQUIRED_RESULT static bool
-		transformKeyRaw(const QByteArray &key, const QByteArray &seed, int rounds, QByteArray *result);
+	Q_REQUIRED_RESULT static bool transformKeyRaw(const QByteArray &key, const QByteArray &seed, int rounds, QByteArray *result);
 };
 
 #endif // KEEPASSX_AESKDF_H

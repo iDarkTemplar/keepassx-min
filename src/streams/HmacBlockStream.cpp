@@ -138,6 +138,7 @@ bool HmacBlockStream::readHashedBlock()
 	{
 		return false;
 	}
+
 	QByteArray hmac = m_baseDevice->read(32);
 	if (hmac.size() != 32)
 	{
@@ -153,6 +154,7 @@ bool HmacBlockStream::readHashedBlock()
 		setErrorString("Invalid block size size.");
 		return false;
 	}
+
 	auto blockSize = Endian::bytesToSizedInt<qint32>(blockSizeBytes, ByteOrder);
 	if (blockSize < 0)
 	{
@@ -221,6 +223,7 @@ qint64 HmacBlockStream::writeData(const char *data, qint64 maxSize)
 			{
 				return -1;
 			}
+
 			return maxSize - bytesRemaining;
 		}
 	}
@@ -262,7 +265,9 @@ bool HmacBlockStream::writeHashedBlock()
 
 		m_buffer.clear();
 	}
+
 	++m_blockIndex;
+
 	return true;
 }
 

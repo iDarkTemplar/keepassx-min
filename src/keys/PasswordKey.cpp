@@ -23,8 +23,6 @@
 
 QUuid PasswordKey::UUID("77e90411-303a-43f2-b773-853b05635ead");
 
-constexpr int PasswordKey::SHA256_SIZE;
-
 PasswordKey::PasswordKey()
 	: Key(UUID)
 	, m_key(SHA256_SIZE)
@@ -44,6 +42,7 @@ QByteArray PasswordKey::rawKey() const
 	{
 		return {};
 	}
+
 	return QByteArray(m_key.data(), m_key.size());
 }
 

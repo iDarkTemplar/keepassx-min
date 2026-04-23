@@ -82,6 +82,7 @@ bool KdbxReader::readDatabase(QIODevice *device, QSharedPointer<const CompositeK
 	{
 		return false;
 	}
+
 	m_kdbxSignature = qMakePair(sig1, sig2);
 	m_db->setFormatVersion(version);
 
@@ -145,6 +146,7 @@ void KdbxReader::setCipher(const QByteArray &data)
 		raiseError(tr("Unsupported cipher"));
 		return;
 	}
+
 	m_db->setCipher(uuid);
 }
 
@@ -158,6 +160,7 @@ void KdbxReader::setCompressionFlags(const QByteArray &data)
 		raiseError(tr("Invalid compression flags length"));
 		return;
 	}
+
 	auto id = Endian::bytesToSizedInt<quint32>(data, KeePass2::BYTEORDER);
 
 	if (id > Database::CompressionAlgorithmMax)
@@ -165,6 +168,7 @@ void KdbxReader::setCompressionFlags(const QByteArray &data)
 		raiseError(tr("Unsupported compression algorithm"));
 		return;
 	}
+
 	m_db->setCompressionAlgorithm(static_cast<Database::CompressionAlgorithm>(id));
 }
 
@@ -178,6 +182,7 @@ void KdbxReader::setMasterSeed(const QByteArray &data)
 		raiseError(tr("Invalid master seed size"));
 		return;
 	}
+
 	m_masterSeed = data;
 }
 
@@ -244,6 +249,7 @@ void KdbxReader::setStreamStartBytes(const QByteArray &data)
 		raiseError(tr("Invalid start bytes size"));
 		return;
 	}
+
 	m_streamStartBytes = data;
 }
 
@@ -257,14 +263,16 @@ void KdbxReader::setInnerRandomStreamID(const QByteArray &data)
 		raiseError(tr("Invalid random stream id size"));
 		return;
 	}
+
 	auto id = Endian::bytesToSizedInt<quint32>(data, KeePass2::BYTEORDER);
 	KeePass2::ProtectedStreamAlgo irsAlgo = KeePass2::idToProtectedStreamAlgo(id);
-	if (irsAlgo == KeePass2::ProtectedStreamAlgo::InvalidProtectedStreamAlgo
-	    || irsAlgo == KeePass2::ProtectedStreamAlgo::ArcFourVariant)
+	if ((irsAlgo == KeePass2::ProtectedStreamAlgo::InvalidProtectedStreamAlgo)
+		|| (irsAlgo == KeePass2::ProtectedStreamAlgo::ArcFourVariant))
 	{
 		raiseError(tr("Invalid inner random stream cipher"));
 		return;
 	}
+
 	m_irsAlgo = irsAlgo;
 }
 

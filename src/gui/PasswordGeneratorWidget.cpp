@@ -41,8 +41,7 @@ PasswordGeneratorWidget::PasswordGeneratorWidget(QWidget *parent)
 	m_ui->setupUi(this);
 
 	m_ui->buttonGenerate->setIcon(icons()->icon("refresh"));
-	m_ui->buttonGenerate->setToolTip(
-		tr("Regenerate password (%1)").arg(m_ui->buttonGenerate->shortcut().toString(QKeySequence::NativeText)));
+	m_ui->buttonGenerate->setToolTip(tr("Regenerate password (%1)").arg(m_ui->buttonGenerate->shortcut().toString(QKeySequence::NativeText)));
 	m_ui->buttonCopy->setIcon(icons()->icon("clipboard-text"));
 	m_ui->buttonDeleteWordList->setIcon(icons()->icon("trash"));
 	m_ui->buttonAddWordList->setIcon(icons()->icon("document-new"));
@@ -125,7 +124,9 @@ PasswordGeneratorWidget::PasswordGeneratorWidget(QWidget *parent)
 	loadSettings();
 }
 
-PasswordGeneratorWidget::~PasswordGeneratorWidget() = default;
+PasswordGeneratorWidget::~PasswordGeneratorWidget()
+{
+}
 
 void PasswordGeneratorWidget::closeEvent(QCloseEvent *event)
 {
@@ -189,6 +190,7 @@ void PasswordGeneratorWidget::loadSettings()
 	{
 		m_ui->comboBoxWordList->setCurrentIndex(i);
 	}
+
 	m_ui->wordCaseComboBox->setCurrentIndex(config()->get(Config::PasswordGenerator_WordCase).toInt());
 
 	// Password or diceware?
@@ -217,6 +219,7 @@ void PasswordGeneratorWidget::saveSettings()
 	{
 		config()->set(Config::PasswordGenerator_SpecialChars, m_ui->checkBoxSpecialChars->isChecked());
 	}
+
 	config()->set(Config::PasswordGenerator_Braces, m_ui->checkBoxBraces->isChecked());
 	config()->set(Config::PasswordGenerator_Punctuation, m_ui->checkBoxPunctuation->isChecked());
 	config()->set(Config::PasswordGenerator_Quotes, m_ui->checkBoxQuotes->isChecked());
@@ -291,6 +294,7 @@ void PasswordGeneratorWidget::updateButtonsEnabled(const QString &password)
 	{
 		m_ui->buttonApply->setEnabled(!password.isEmpty());
 	}
+
 	m_ui->buttonCopy->setEnabled(!password.isEmpty());
 }
 
@@ -314,7 +318,8 @@ void PasswordGeneratorWidget::updatePasswordStrength()
 	// Update the visual strength meter
 	QString style = m_ui->entropyProgressBar->styleSheet();
 	QRegularExpression re("(QProgressBar::chunk\\s*\\{.*?background-color:)[^;]+;",
-	                      QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption);
+		QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption);
+
 	style.replace(re, "\\1 %1;");
 
 	StateColorPalette statePalette;
@@ -322,8 +327,7 @@ void PasswordGeneratorWidget::updatePasswordStrength()
 	{
 	case PasswordHealth::Quality::Bad:
 	case PasswordHealth::Quality::Poor:
-		m_ui->entropyProgressBar->setStyleSheet(
-			style.arg(statePalette.color(StateColorPalette::HealthCritical).name()));
+		m_ui->entropyProgressBar->setStyleSheet(style.arg(statePalette.color(StateColorPalette::HealthCritical).name()));
 		m_ui->strengthLabel->setText(tr("Password Quality: %1").arg(tr("Poor", "Password quality")));
 		break;
 
@@ -338,8 +342,7 @@ void PasswordGeneratorWidget::updatePasswordStrength()
 		break;
 
 	case PasswordHealth::Quality::Excellent:
-		m_ui->entropyProgressBar->setStyleSheet(
-			style.arg(statePalette.color(StateColorPalette::HealthExcellent).name()));
+		m_ui->entropyProgressBar->setStyleSheet(style.arg(statePalette.color(StateColorPalette::HealthExcellent).name()));
 		m_ui->strengthLabel->setText(tr("Password Quality: %1").arg(tr("Excellent", "Password quality")));
 		break;
 	}
@@ -415,10 +418,10 @@ void PasswordGeneratorWidget::removeCustomWordList()
 
 	auto wordlist = m_ui->comboBoxWordList->currentText();
 	auto result = MessageBox::question(this,
-	                                   tr("Confirm Remove Wordlist"),
-	                                   tr("Do you really want to remove the wordlist \"%1\"?").arg(wordlist),
-	                                   MessageBox::Remove | MessageBox::Cancel,
-	                                   MessageBox::Cancel);
+		tr("Confirm Remove Wordlist"),
+		tr("Do you really want to remove the wordlist \"%1\"?").arg(wordlist),
+		MessageBox::Remove | MessageBox::Cancel,
+		MessageBox::Cancel);
 
 	if (result == MessageBox::Remove)
 	{
@@ -453,16 +456,18 @@ void PasswordGeneratorWidget::addWordList()
 	if (dest.exists())
 	{
 		auto response = MessageBox::warning(this,
-		                                    tr("Overwrite Wordlist?"),
-		                                    tr("Wordlist \"%1\" already exists as a custom wordlist.\n"
-		                                       "Do you want to overwrite it?")
-		                                        .arg(fileName),
-		                                    MessageBox::Overwrite | MessageBox::Cancel,
-		                                    MessageBox::Cancel);
+			tr("Overwrite Wordlist?"),
+			tr("Wordlist \"%1\" already exists as a custom wordlist.\n"
+			   "Do you want to overwrite it?")
+				.arg(fileName),
+			MessageBox::Overwrite | MessageBox::Cancel,
+			MessageBox::Cancel);
+
 		if (response != MessageBox::Overwrite)
 		{
 			return;
 		}
+
 		if (!dest.remove())
 		{
 			MessageBox::critical(this, tr("Failed to delete wordlist"), dest.errorString());
@@ -484,6 +489,7 @@ void PasswordGeneratorWidget::addWordList()
 		m_ui->comboBoxWordList->addItem(fileName, destPath);
 		index = m_ui->comboBoxWordList->count() - 1;
 	}
+
 	m_ui->comboBoxWordList->setCurrentIndex(index);
 
 	// update the password generator
@@ -643,14 +649,14 @@ void PasswordGeneratorWidget::updateGenerator()
 		{
 			m_passwordGenerator->setCharClasses(classes);
 		}
+
 		m_passwordGenerator->setFlags(flags);
 
 		m_ui->buttonGenerate->setEnabled(m_passwordGenerator->isValid());
 	}
 	else
 	{
-		m_dicewareGenerator->setWordCase(
-			static_cast<PassphraseGenerator::PassphraseWordCase>(m_ui->wordCaseComboBox->currentData().toInt()));
+		m_dicewareGenerator->setWordCase(static_cast<PassphraseGenerator::PassphraseWordCase>(m_ui->wordCaseComboBox->currentData().toInt()));
 
 		m_dicewareGenerator->setWordCount(m_ui->spinBoxWordCount->value());
 		auto path = m_ui->comboBoxWordList->currentData().toString();
@@ -663,6 +669,7 @@ void PasswordGeneratorWidget::updateGenerator()
 		{
 			m_ui->buttonDeleteWordList->setEnabled(true);
 		}
+
 		m_dicewareGenerator->setWordList(path);
 
 		m_dicewareGenerator->setWordSeparator(m_ui->editWordSeparator->text());

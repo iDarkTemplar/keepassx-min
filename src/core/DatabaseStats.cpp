@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "DatabaseStats.h"
 
 // Ctor does all the work
@@ -27,7 +28,7 @@ DatabaseStats::DatabaseStats(QSharedPointer<Database> db)
 int DatabaseStats::averagePwdLength() const
 {
 	const auto passwords = uniquePasswords + reusedPasswords;
-	return passwords == 0 ? 0 : std::round(totalPasswordLength / double(passwords));
+	return (passwords == 0) ? 0 : std::round(totalPasswordLength / double(passwords));
 }
 
 // Get max number of password reuse (=how many entries
@@ -39,6 +40,7 @@ int DatabaseStats::maxPwdReuse() const
 	{
 		ret = std::max(ret, count);
 	}
+
 	return ret;
 }
 
@@ -46,22 +48,22 @@ int DatabaseStats::maxPwdReuse() const
 // following returns true.
 bool DatabaseStats::isAnyExpired() const
 {
-	return expiredEntries > 0;
+	return (expiredEntries > 0);
 }
 
 bool DatabaseStats::areTooManyPwdsReused() const
 {
-	return reusedPasswords > uniquePasswords / 10;
+	return (reusedPasswords > uniquePasswords / 10);
 }
 
 bool DatabaseStats::arePwdsReusedTooOften() const
 {
-	return maxPwdReuse() > 3;
+	return (maxPwdReuse() > 3);
 }
 
 bool DatabaseStats::isAvgPwdTooShort() const
 {
-	return averagePwdLength() < 10;
+	return (averagePwdLength() < 10);
 }
 
 void DatabaseStats::gatherStats(const QList<Group *> &groups)
@@ -112,8 +114,8 @@ void DatabaseStats::gatherStats(const QList<Group *> &groups)
 				}
 
 				// Speed up Zxcvbn process by excluding very long passwords and most passphrases
-				if (pwd.size() < PasswordHealth::Length::Long
-				    && checker.evaluate(entry)->quality() <= PasswordHealth::Quality::Weak)
+				if ((pwd.size() < PasswordHealth::Length::Long)
+					&& (checker.evaluate(entry)->quality() <= PasswordHealth::Quality::Weak))
 				{
 					++weakPasswords;
 				}
@@ -124,7 +126,7 @@ void DatabaseStats::gatherStats(const QList<Group *> &groups)
 				}
 
 				totalPasswordLength += pwd.size();
-				m_passwords[pwd]++;
+				++(m_passwords[pwd]);
 			}
 		}
 	}

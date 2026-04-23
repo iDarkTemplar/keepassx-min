@@ -20,88 +20,88 @@
 #include "core/Database.h"
 #include "core/Metadata.h"
 
-namespace FdoSecrets
+namespace FdoSecrets {
+
+FdoSecretsSettings *FdoSecretsSettings::m_instance = nullptr;
+
+FdoSecretsSettings *FdoSecretsSettings::instance()
 {
-
-	FdoSecretsSettings *FdoSecretsSettings::m_instance = nullptr;
-
-	FdoSecretsSettings *FdoSecretsSettings::instance()
+	if (!m_instance)
 	{
-		if (!m_instance)
-		{
-			m_instance = new FdoSecretsSettings;
-		}
-		return m_instance;
+		m_instance = new FdoSecretsSettings;
 	}
 
-	bool FdoSecretsSettings::isEnabled() const
-	{
-		return config()->get(Config::FdoSecrets_Enabled).toBool();
-	}
+	return m_instance;
+}
 
-	void FdoSecretsSettings::setEnabled(bool enabled)
-	{
-		config()->set(Config::FdoSecrets_Enabled, enabled);
-	}
+bool FdoSecretsSettings::isEnabled() const
+{
+	return config()->get(Config::FdoSecrets_Enabled).toBool();
+}
 
-	bool FdoSecretsSettings::showNotification() const
-	{
-		return config()->get(Config::FdoSecrets_ShowNotification).toBool();
-	}
+void FdoSecretsSettings::setEnabled(bool enabled)
+{
+	config()->set(Config::FdoSecrets_Enabled, enabled);
+}
 
-	void FdoSecretsSettings::setShowNotification(bool show)
-	{
-		config()->set(Config::FdoSecrets_ShowNotification, show);
-	}
+bool FdoSecretsSettings::showNotification() const
+{
+	return config()->get(Config::FdoSecrets_ShowNotification).toBool();
+}
 
-	bool FdoSecretsSettings::confirmDeleteItem() const
-	{
-		return config()->get(Config::FdoSecrets_ConfirmDeleteItem).toBool();
-	}
+void FdoSecretsSettings::setShowNotification(bool show)
+{
+	config()->set(Config::FdoSecrets_ShowNotification, show);
+}
 
-	void FdoSecretsSettings::setConfirmDeleteItem(bool confirm)
-	{
-		config()->set(Config::FdoSecrets_ConfirmDeleteItem, confirm);
-	}
+bool FdoSecretsSettings::confirmDeleteItem() const
+{
+	return config()->get(Config::FdoSecrets_ConfirmDeleteItem).toBool();
+}
 
-	bool FdoSecretsSettings::confirmAccessItem() const
-	{
-		return config()->get(Config::FdoSecrets_ConfirmAccessItem).toBool();
-	}
+void FdoSecretsSettings::setConfirmDeleteItem(bool confirm)
+{
+	config()->set(Config::FdoSecrets_ConfirmDeleteItem, confirm);
+}
 
-	void FdoSecretsSettings::setConfirmAccessItem(bool confirmAccessItem)
-	{
-		config()->set(Config::FdoSecrets_ConfirmAccessItem, confirmAccessItem);
-	}
+bool FdoSecretsSettings::confirmAccessItem() const
+{
+	return config()->get(Config::FdoSecrets_ConfirmAccessItem).toBool();
+}
 
-	bool FdoSecretsSettings::unlockBeforeSearch() const
-	{
-		return config()->get(Config::FdoSecrets_UnlockBeforeSearch).toBool();
-	}
+void FdoSecretsSettings::setConfirmAccessItem(bool confirmAccessItem)
+{
+	config()->set(Config::FdoSecrets_ConfirmAccessItem, confirmAccessItem);
+}
 
-	void FdoSecretsSettings::setUnlockBeforeSearch(bool unlockBeforeSearch)
-	{
-		config()->set(Config::FdoSecrets_UnlockBeforeSearch, unlockBeforeSearch);
-	}
+bool FdoSecretsSettings::unlockBeforeSearch() const
+{
+	return config()->get(Config::FdoSecrets_UnlockBeforeSearch).toBool();
+}
 
-	QUuid FdoSecretsSettings::exposedGroup(const QSharedPointer<Database> &db) const
-	{
-		return exposedGroup(db.data());
-	}
+void FdoSecretsSettings::setUnlockBeforeSearch(bool unlockBeforeSearch)
+{
+	config()->set(Config::FdoSecrets_UnlockBeforeSearch, unlockBeforeSearch);
+}
 
-	void FdoSecretsSettings::setExposedGroup(const QSharedPointer<Database> &db, const QUuid &group)
-	{
-		setExposedGroup(db.data(), group);
-	}
+QUuid FdoSecretsSettings::exposedGroup(const QSharedPointer<Database> &db) const
+{
+	return exposedGroup(db.data());
+}
 
-	QUuid FdoSecretsSettings::exposedGroup(Database *db) const
-	{
-		return {db->metadata()->customData()->value(CustomData::FdoSecretsExposedGroup)};
-	}
+void FdoSecretsSettings::setExposedGroup(const QSharedPointer<Database> &db, const QUuid &group)
+{
+	setExposedGroup(db.data(), group);
+}
 
-	void FdoSecretsSettings::setExposedGroup(Database *db, const QUuid &group)
-	{
-		db->metadata()->customData()->set(CustomData::FdoSecretsExposedGroup, group.toString());
-	}
+QUuid FdoSecretsSettings::exposedGroup(Database *db) const
+{
+	return {db->metadata()->customData()->value(CustomData::FdoSecretsExposedGroup)};
+}
+
+void FdoSecretsSettings::setExposedGroup(Database *db, const QUuid &group)
+{
+	db->metadata()->customData()->set(CustomData::FdoSecretsExposedGroup, group.toString());
+}
 
 } // namespace FdoSecrets

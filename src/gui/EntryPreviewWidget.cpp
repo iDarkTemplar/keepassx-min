@@ -27,10 +27,12 @@
 
 #include <QScrollBar>
 #include <QTabWidget>
-namespace
-{
-	constexpr int GeneralTabIndex = 0;
-}
+
+namespace {
+
+constexpr int GeneralTabIndex = 0;
+
+} // namespace
 
 EntryPreviewWidget::EntryPreviewWidget(QWidget *parent)
 	: QWidget(parent)
@@ -77,6 +79,7 @@ EntryPreviewWidget::EntryPreviewWidget(QWidget *parent)
 		openEntryUrl();
 		m_ui->entryTabWidget->setFocus();
 	});
+
 	connect(&m_totpTimer, SIGNAL(timeout()), SLOT(updateTotpLabel()));
 
 	connect(m_ui->entryAttributesTable, &QTableWidget::itemDoubleClicked, this, [this](QTableWidgetItem *item) {
@@ -122,6 +125,7 @@ bool EntryPreviewWidget::eventFilter(QObject *object, QEvent *event)
 			return true;
 		}
 	}
+
 	return QWidget::eventFilter(object, event);
 }
 
@@ -144,6 +148,7 @@ void EntryPreviewWidget::setEntry(Entry *selectedEntry)
 	{
 		disconnect(m_currentEntry, nullptr, this, nullptr);
 	}
+
 	if (m_currentGroup)
 	{
 		disconnect(m_currentGroup, nullptr, this, nullptr);
@@ -178,6 +183,7 @@ void EntryPreviewWidget::setGroup(Group *selectedGroup)
 	{
 		disconnect(m_currentEntry, nullptr, this, nullptr);
 	}
+
 	if (m_currentGroup)
 	{
 		disconnect(m_currentGroup, nullptr, this, nullptr);
@@ -208,8 +214,7 @@ void EntryPreviewWidget::refresh()
 		setVisible(!config()->get(Config::GUI_HidePreviewPanel).toBool());
 
 		m_ui->stackedWidget->setCurrentWidget(m_ui->pageEntry);
-		const int tabIndex =
-			m_ui->entryTabWidget->isTabEnabled(m_selectedTabEntry) ? m_selectedTabEntry : GeneralTabIndex;
+		const int tabIndex = m_ui->entryTabWidget->isTabEnabled(m_selectedTabEntry) ? m_selectedTabEntry : GeneralTabIndex;
 		Q_ASSERT(m_ui->entryTabWidget->isTabEnabled(GeneralTabIndex));
 		m_ui->entryTabWidget->setCurrentIndex(tabIndex);
 	}
@@ -221,8 +226,7 @@ void EntryPreviewWidget::refresh()
 		setVisible(!config()->get(Config::GUI_HidePreviewPanel).toBool());
 
 		m_ui->stackedWidget->setCurrentWidget(m_ui->pageGroup);
-		const int tabIndex =
-			m_ui->groupTabWidget->isTabEnabled(m_selectedTabGroup) ? m_selectedTabGroup : GeneralTabIndex;
+		const int tabIndex = m_ui->groupTabWidget->isTabEnabled(m_selectedTabGroup) ? m_selectedTabGroup : GeneralTabIndex;
 		Q_ASSERT(m_ui->groupTabWidget->isTabEnabled(GeneralTabIndex));
 		m_ui->groupTabWidget->setCurrentIndex(tabIndex);
 	}
@@ -315,15 +319,17 @@ void EntryPreviewWidget::setPasswordVisible(bool state)
 		if (config()->get(Config::GUI_ColorPasswords).toBool())
 		{
 			// Show the password in color
-            QString html;
-            const auto dark = kpxcApp->isDarkTheme();
-            for (const auto c : password) {
-                const auto color = c.isDigit()   ? (dark ? "lightblue" : "blue")
-                                   : c.isUpper() ? (dark ? "lightgreen" : "darkgreen")
-                                   : c.isLower() ? (dark ? "yellow" : "red")
-                                                 : (dark ? "white" : "black");
-                html += "<span style=\"color: " + QString(color) + ";\">" + QString(c).toHtmlEscaped() + "</span>";
-            }
+			QString html;
+			const auto dark = kpxcApp->isDarkTheme();
+			for (const auto c : password)
+			{
+				const auto color = c.isDigit() ? (dark ? "lightblue" : "blue")
+					: c.isUpper() ? (dark ? "lightgreen" : "darkgreen")
+					: c.isLower() ? (dark ? "yellow" : "red")
+					: (dark ? "white" : "black");
+				html += "<span style=\"color: " + QString(color) + ";\">" + QString(c).toHtmlEscaped() + "</span>";
+			}
+
 			m_ui->entryPasswordLabel->setTextFormat(Qt::RichText);
 			m_ui->entryPasswordLabel->setText(html);
 		}
@@ -344,15 +350,14 @@ void EntryPreviewWidget::setPasswordVisible(bool state)
 	}
 
 	m_ui->passwordScrollArea->setMaximumHeight(m_ui->entryPasswordLabel->sizeHint().height()
-	                                           + m_ui->passwordScrollArea->horizontalScrollBar()->sizeHint().height());
+		+ m_ui->passwordScrollArea->horizontalScrollBar()->sizeHint().height());
 
 	m_ui->togglePasswordButton->setIcon(icons()->onOffIcon("password-show", state));
 }
 
 void EntryPreviewWidget::setEntryNotesVisible(bool state)
 {
-	setNotesVisible(
-		m_ui->entryNotesTextEdit, m_currentEntry->resolveMultiplePlaceholders(m_currentEntry->notes()), state);
+	setNotesVisible(m_ui->entryNotesTextEdit, m_currentEntry->resolveMultiplePlaceholders(m_currentEntry->notes()), state);
 	m_ui->toggleEntryNotesButton->setIcon(icons()->onOffIcon("password-show", state));
 }
 
@@ -419,8 +424,7 @@ void EntryPreviewWidget::updateEntryGeneralTab()
 	auto hideNotes = config()->get(Config::Security_HideNotes).toBool();
 
 	setEntryNotesVisible(hasNotes && !hideNotes);
-	m_ui->toggleEntryNotesButton->setVisible(hasNotes && hideNotes
-	                                         && !m_ui->entryNotesTextEdit->toPlainText().isEmpty());
+	m_ui->toggleEntryNotesButton->setVisible(hasNotes && hideNotes && !m_ui->entryNotesTextEdit->toPlainText().isEmpty());
 	m_ui->toggleEntryNotesButton->setChecked(false);
 
 	if (config()->get(Config::GUI_MonospaceNotes).toBool())
@@ -472,6 +476,7 @@ void EntryPreviewWidget::updateEntryAdvancedTab()
 		auto i = 0;
 		QFont font;
 		font.setBold(true);
+
 		for (const QString &key: customAttributes)
 		{
 			m_ui->entryAttributesTable->setItem(i, 0, new QTableWidgetItem(key));
@@ -490,7 +495,7 @@ void EntryPreviewWidget::updateEntryAdvancedTab()
 				button->setProperty("row", i);
 				button->setIconSize({12, 12});
 				connect(button, &QToolButton::clicked, this, [this](bool state) {
-					auto btn = qobject_cast<QToolButton *>(sender());
+					auto btn = qobject_cast<QToolButton*>(sender());
 					btn->setIcon(icons()->onOffIcon("password-show", state));
 					auto item = m_ui->entryAttributesTable->item(btn->property("row").toInt(), 2);
 					if (state)
@@ -501,6 +506,7 @@ void EntryPreviewWidget::updateEntryAdvancedTab()
 					{
 						item->setText(QString("\u25cf").repeated(6));
 					}
+
 					// Maintain button height while showing contents of cell
 					auto size = btn->size();
 					m_ui->entryAttributesTable->resizeRowToContents(item->row());
@@ -636,5 +642,6 @@ QString EntryPreviewWidget::hierarchy(const Group *group, const QString &title)
 		QString groupList = QString("%1").arg(group->hierarchy().join(" / "));
 		return title.isEmpty() ? groupList : QString("%1 / %2").arg(groupList, title);
 	}
+
 	return {};
 }

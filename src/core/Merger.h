@@ -25,9 +25,11 @@ class Entry;
 class Merger: public QObject
 {
 	Q_OBJECT
+
 public:
 	Merger(const Database *sourceDb, Database *targetDb);
 	Merger(const Group *sourceGroup, Group *targetGroup);
+
 	void setForcedMergeMode(Group::MergeMode mode);
 	void resetForcedMergeMode();
 	void setSkipDatabaseCustomData(bool state);
@@ -46,16 +48,16 @@ public:
 		};
 
 		Change(Type type, QString details);
-		Change(Type type, const Group &group, QString details = "");
-		Change(Type type, const Entry &entry, QString details = "");
-		explicit Change(QString details = "");
+		Change(Type type, const Group &group, QString details = QString());
+		Change(Type type, const Entry &entry, QString details = QString());
+		explicit Change(QString details = QString());
 
 		[[nodiscard]] Type type() const;
 		[[nodiscard]] QString typeString() const;
-		[[nodiscard]] const QString &title() const;
-		[[nodiscard]] const QString &group() const;
-		[[nodiscard]] const QUuid &uuid() const;
-		[[nodiscard]] const QString &details() const;
+		[[nodiscard]] const QString& title() const;
+		[[nodiscard]] const QString& group() const;
+		[[nodiscard]] const QUuid& uuid() const;
+		[[nodiscard]] const QString& details() const;
 
 		[[nodiscard]] QString toString() const;
 		void merge();
@@ -98,10 +100,11 @@ private:
 	void eraseGroup(Group *group);
 	ChangeList resolveEntryConflict(const MergeContext &context, const Entry *existingEntry, Entry *otherEntry);
 	ChangeList resolveGroupConflict(const MergeContext &context, const Group *existingGroup, Group *otherGroup);
-	Merger::ChangeList resolveEntryConflict_MergeHistories(const MergeContext &context,
-	                                                       const Entry *sourceEntry,
-	                                                       Entry *targetEntry,
-	                                                       Group::MergeMode mergeMethod);
+	Merger::ChangeList resolveEntryConflict_MergeHistories(
+		const MergeContext &context,
+		const Entry *sourceEntry,
+		Entry *targetEntry,
+		Group::MergeMode mergeMethod);
 
 private:
 	MergeContext m_context;

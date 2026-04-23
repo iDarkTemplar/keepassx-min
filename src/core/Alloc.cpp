@@ -17,6 +17,7 @@
 #include <QtGlobal>
 #include <botan/mem_ops.h>
 #include <cstdlib>
+
 #if defined(HAVE_MALLOC_H)
 #include <malloc.h>
 #else
@@ -26,6 +27,38 @@
 #if defined(NDEBUG) && !defined(__cpp_sized_deallocation)
 #warning "KeePassXC is being compiled without sized deallocation support. Deletes may be slow."
 #endif
+
+void* operator new(std::size_t size)
+{
+	if (size == 0)
+	{
+		++size; // avoid std::malloc(0) which may return nullptr on success
+	}
+
+	void *ptr = std::malloc(size);
+	if (!ptr)
+	{
+		throw std::bad_alloc{};
+	}
+
+	return ptr;
+}
+
+void* operator new[](std::size_t size)
+{
+	if (size == 0)
+	{
+		++size; // avoid std::malloc(0) which may return nullptr on success
+	}
+
+	void *ptr = std::malloc(size);
+	if (!ptr)
+	{
+		throw std::bad_alloc{};
+	}
+
+	return ptr;
+}
 
 /**
  * Custom sized delete operator which securely zeroes out allocated

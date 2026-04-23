@@ -29,9 +29,10 @@
 #include <QDesktopServices>
 #include <QFont>
 
-namespace
-{
-	constexpr int clearFormsDelay = 30000;
+namespace {
+
+constexpr int clearFormsDelay = 30000;
+
 } // namespace
 
 DatabaseOpenWidget::DatabaseOpenWidget(QWidget *parent)
@@ -47,7 +48,7 @@ DatabaseOpenWidget::DatabaseOpenWidget(QWidget *parent)
 	m_hideTimer.setSingleShot(true);
 	connect(&m_hideTimer, &QTimer::timeout, this, [this] {
 		// Reset the password field after being hidden for a set time
-		m_ui->editPassword->setText("");
+		m_ui->editPassword->setText(QString());
 		m_ui->editPassword->setShowPassword(false);
 	});
 
@@ -91,6 +92,7 @@ void DatabaseOpenWidget::closeDatabase()
 		QTimer::singleShot(closeWarningInterval, this, [this]() { m_triedToQuit = false; });
 		return;
 	}
+
 	reject();
 }
 
@@ -163,6 +165,7 @@ void DatabaseOpenWidget::load(const QString &filename)
 	{
 		label.append(QString(": %1").arg(m_db->publicName()));
 	}
+
 	m_ui->labelHeadline->setText(label);
 
 	// Apply the public color to the central unlock stack if defined
@@ -173,7 +176,7 @@ void DatabaseOpenWidget::load(const QString &filename)
 	}
 	else
 	{
-		m_ui->centralStack->setStyleSheet("");
+		m_ui->centralStack->setStyleSheet(QString());
 	}
 
 	// Show the database icon if defined
@@ -202,7 +205,7 @@ void DatabaseOpenWidget::load(const QString &filename)
 void DatabaseOpenWidget::clearForms()
 {
 	setUserInteractionLock(false);
-	m_ui->editPassword->setText("");
+	m_ui->editPassword->setText(QString());
 	m_ui->editPassword->setShowPassword(false);
 	m_ui->keyFileLineEdit->clear();
 	m_ui->keyFileLineEdit->setShowPassword(false);
@@ -233,6 +236,7 @@ void DatabaseOpenWidget::enterKey(const QString &pw, const QString &keyFile)
 
 	m_ui->editPassword->setText(pw);
 	m_ui->keyFileLineEdit->setText(keyFile);
+
 	openDatabase();
 }
 
@@ -263,10 +267,11 @@ void DatabaseOpenWidget::openDatabase()
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setWindowTitle(tr("Database Version Mismatch"));
 			msgBox->setText(tr("The database you are trying to open was most likely\n"
-			                   "created by a newer version of KeePassXC.\n\n"
-			                   "You can try to open it anyway, but it may be incomplete\n"
-			                   "and saving any changes may incur data loss.\n\n"
-			                   "We recommend you update your KeePassXC installation."));
+				"created by a newer version of KeePassXC.\n\n"
+				"You can try to open it anyway, but it may be incomplete\n"
+				"and saving any changes may incur data loss.\n\n"
+				"We recommend you update your KeePassXC installation."));
+
 			auto btn = msgBox->addButton(tr("Open database anyway"), QMessageBox::ButtonRole::AcceptRole);
 			msgBox->setDefaultButton(btn);
 			msgBox->addButton(QMessageBox::Cancel);
@@ -294,9 +299,10 @@ void DatabaseOpenWidget::openDatabase()
 			msgBox->setIcon(QMessageBox::Critical);
 			msgBox->setWindowTitle(tr("Unlock failed and no password given"));
 			msgBox->setText(tr("Unlocking the database failed and you did not enter a password.\n"
-			                   "Do you want to retry with an \"empty\" password instead?\n\n"
-			                   "To prevent this error from appearing, you must go to "
-			                   "\"Database Settings / Security\" and reset your password."));
+				"Do you want to retry with an \"empty\" password instead?\n\n"
+				"To prevent this error from appearing, you must go to "
+				"\"Database Settings / Security\" and reset your password."));
+
 			auto btn = msgBox->addButton(tr("Retry with empty password"), QMessageBox::ButtonRole::AcceptRole);
 			msgBox->setDefaultButton(btn);
 			msgBox->addButton(QMessageBox::Cancel);
@@ -344,15 +350,18 @@ QSharedPointer<CompositeKey> DatabaseOpenWidget::buildDatabaseKey()
 			m_ui->messageWidget->showMessage(tr("Failed to open key file: %1").arg(errorMsg), MessageWidget::Error);
 			return {};
 		}
-		if (key->type() != FileKey::KeePass2XMLv2 && key->type() != FileKey::Hashed
-		    && !config()->get(Config::Messages_NoLegacyKeyFileWarning).toBool())
+
+		if (key->type() != FileKey::KeePass2XMLv2
+			&& key->type() != FileKey::Hashed
+			&& !config()->get(Config::Messages_NoLegacyKeyFileWarning).toBool())
 		{
 			QMessageBox legacyWarning;
 			legacyWarning.setWindowTitle(tr("Old key file format"));
 			legacyWarning.setText(tr("You are using an old key file format which KeePassXC may<br>"
-			                         "stop supporting in the future.<br><br>"
-			                         "Please consider generating a new key file by going to:<br>"
-			                         "<strong>Database &gt; Database Security &gt; Change Key File.</strong><br>"));
+				"stop supporting in the future.<br><br>"
+				"Please consider generating a new key file by going to:<br>"
+				"<strong>Database &gt; Database Security &gt; Change Key File.</strong><br>"));
+
 			legacyWarning.setIcon(QMessageBox::Icon::Warning);
 			legacyWarning.addButton(QMessageBox::Ok);
 			legacyWarning.setDefaultButton(QMessageBox::Ok);
@@ -384,12 +393,12 @@ void DatabaseOpenWidget::reject()
 bool DatabaseOpenWidget::browseKeyFile()
 {
 	QString filters = QString("%1 (*);;%2 (*.keyx; *.key)").arg(tr("All files"), tr("Key files"));
-	QString filename =
-		fileDialog()->getOpenFileName(this, tr("Select key file"), FileDialog::getLastDir("keyfile"), filters);
+	QString filename = fileDialog()->getOpenFileName(this, tr("Select key file"), FileDialog::getLastDir("keyfile"), filters);
 	if (filename.isEmpty())
 	{
 		return false;
 	}
+
 	if (config()->get(Config::RememberLastKeyFiles).toBool())
 	{
 		FileDialog::saveLastDir("keyfile", filename, true);
@@ -402,20 +411,21 @@ bool DatabaseOpenWidget::browseKeyFile()
 	if (QFileInfo(filename).canonicalFilePath() == QFileInfo(m_filename).canonicalFilePath())
 	{
 		MessageBox::warning(this,
-		                    tr("Cannot use database file as key file"),
-		                    tr("Your database file is NOT a key file!\nIf you don't have a key file or don't know what "
-		                       "that is, you don't have to select one."),
-		                    MessageBox::Button::Ok);
+			tr("Cannot use database file as key file"),
+			tr("Your database file is NOT a key file!\nIf you don't have a key file or don't know what "
+				"that is, you don't have to select one."),
+			MessageBox::Button::Ok);
+
 		return false;
 	}
-	if (filename.endsWith(".kdbx")
-	    && MessageBox::warning(this,
-	                           tr("KeePassXC database file selected"),
-	                           tr("The file you selected looks like a database file.\nA database file is NOT a key "
-	                              "file!\n\nAre you sure you want to continue with this file?."),
-	                           MessageBox::Button::Yes | MessageBox::Button::Cancel,
-	                           MessageBox::Button::Cancel)
-	           != MessageBox::Yes)
+
+	if (filename.endsWith(".kdbx") && MessageBox::warning(this,
+		tr("KeePassXC database file selected"),
+		tr("The file you selected looks like a database file.\nA database file is NOT a key "
+			"file!\n\nAre you sure you want to continue with this file?."),
+		MessageBox::Button::Yes | MessageBox::Button::Cancel,
+		MessageBox::Button::Cancel)
+		!= MessageBox::Yes)
 	{
 		return false;
 	}
@@ -440,5 +450,6 @@ void DatabaseOpenWidget::setUserInteractionLock(bool state)
 		}
 		m_ui->centralStack->setEnabled(true);
 	}
+
 	m_unlockingDatabase = state;
 }

@@ -44,7 +44,7 @@ private:
 	void raiseError(const QString &errorMessage);
 
 	bool m_error = false;
-	QString m_errorStr = "";
+	QString m_errorStr;
 
 	QScopedPointer<KdbxWriter> m_writer;
 	quint32 m_version = 0;

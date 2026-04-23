@@ -33,9 +33,9 @@ NewDatabaseWizard::NewDatabaseWizard(QWidget *parent)
 	setOption(QWizard::WizardOption::HaveHelpButton, false);
 	setOption(QWizard::WizardOption::NoDefaultButton, false); // Needed for macOS
 
-    m_pages << new NewDatabaseWizardPageMetaData()
-            << new NewDatabaseWizardPageEncryption()
-            << new NewDatabaseWizardPageDatabaseKey();
+	m_pages << new NewDatabaseWizardPageMetaData()
+		<< new NewDatabaseWizardPageEncryption()
+		<< new NewDatabaseWizardPageDatabaseKey();
 
 	for (const auto &page: asConst(m_pages))
 	{
@@ -59,10 +59,6 @@ NewDatabaseWizard::NewDatabaseWizard(QWidget *parent)
 	framePalette.setBrush(QPalette::Window, windowColor.lighter(120));
 	framePalette.setBrush(QPalette::Base, baseColor.lighter(120));
 	pageFrame->setPalette(framePalette);
-}
-
-NewDatabaseWizard::~NewDatabaseWizard()
-{
 }
 
 bool NewDatabaseWizard::validateCurrentPage()

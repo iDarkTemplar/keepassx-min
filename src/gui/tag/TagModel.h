@@ -28,7 +28,6 @@ class TagModel: public QAbstractListModel
 
 public:
 	explicit TagModel(QObject *parent = nullptr);
-	~TagModel() override;
 
 	void setDatabase(QSharedPointer<Database> db);
 
@@ -41,6 +40,7 @@ public:
 		SAVED_SEARCH,
 		TAG
 	};
+
 	TagType itemType(const QModelIndex &index);
 
 private slots:

@@ -50,15 +50,16 @@ Group::Group()
 Group::~Group()
 {
 	setUpdateTimeinfo(false);
+
 	// Destroy entries and children manually so DeletedObjects can be added
 	// to database.
-	const QList<Entry *> entries = m_entries;
+	const QList<Entry*> entries = m_entries;
 	for (Entry *entry: entries)
 	{
 		delete entry;
 	}
 
-	const QList<Group *> children = m_children;
+	const QList<Group*> children = m_children;
 	for (Group *group: children)
 	{
 		delete group;
@@ -75,7 +76,8 @@ Group::~Group()
 	cleanupParent();
 }
 
-template <class P, class V> inline bool Group::set(P &property, const V &value)
+template <class P, class V>
+inline bool Group::set(P &property, const V &value)
 {
 	if (property != value)
 	{
@@ -108,7 +110,7 @@ void Group::setUpdateTimeinfo(bool value)
 	m_updateTimeinfo = value;
 }
 
-const QUuid &Group::uuid() const
+const QUuid& Group::uuid() const
 {
 	return m_uuid;
 }
@@ -152,12 +154,12 @@ int Group::iconNumber() const
 	return m_data.iconNumber;
 }
 
-const QUuid &Group::iconUuid() const
+const QUuid& Group::iconUuid() const
 {
 	return m_data.customIcon;
 }
 
-const TimeInfo &Group::timeInfo() const
+const TimeInfo& Group::timeInfo() const
 {
 	return m_data.timeInfo;
 }
@@ -218,12 +220,14 @@ Group::MergeMode Group::mergeMode() const
 		{
 			return m_parent->mergeMode();
 		}
+
 		return Group::MergeMode::KeepNewer; // fallback
 	}
+
 	return m_data.mergeMode;
 }
 
-Entry *Group::lastTopVisibleEntry() const
+Entry* Group::lastTopVisibleEntry() const
 {
 	return m_lastTopVisibleEntry;
 }
@@ -241,6 +245,7 @@ bool Group::isRecycled() const
 			{
 				return true;
 			}
+
 			group = group->m_parent;
 		} while (group);
 	}
@@ -250,20 +255,20 @@ bool Group::isRecycled() const
 
 bool Group::isExpired() const
 {
-	return m_data.timeInfo.expires() && m_data.timeInfo.expiryTime() < Clock::currentDateTimeUtc();
+	return m_data.timeInfo.expires() && (m_data.timeInfo.expiryTime() < Clock::currentDateTimeUtc());
 }
 
 bool Group::isEmpty() const
 {
-	return !hasChildren() && m_entries.isEmpty();
+	return (!hasChildren()) && m_entries.isEmpty();
 }
 
-CustomData *Group::customData()
+CustomData* Group::customData()
 {
 	return m_customData;
 }
 
-const CustomData *Group::customData() const
+const CustomData* Group::customData() const
 {
 	return m_customData;
 }
@@ -327,26 +332,32 @@ bool Group::equals(const Group *other, CompareItemOptions options) const
 	{
 		return false;
 	}
+
 	if (m_uuid != other->m_uuid)
 	{
 		return false;
 	}
+
 	if (!m_data.equals(other->m_data, options))
 	{
 		return false;
 	}
+
 	if (m_customData != other->m_customData)
 	{
 		return false;
 	}
+
 	if (m_children.count() != other->m_children.count())
 	{
 		return false;
 	}
+
 	if (m_entries.count() != other->m_entries.count())
 	{
 		return false;
 	}
+
 	for (int i = 0; i < m_children.count(); ++i)
 	{
 		if (m_children[i]->uuid() != other->m_children[i]->uuid())
@@ -354,6 +365,7 @@ bool Group::equals(const Group *other, CompareItemOptions options) const
 			return false;
 		}
 	}
+
 	for (int i = 0; i < m_entries.count(); ++i)
 	{
 		if (m_entries[i]->uuid() != other->m_entries[i]->uuid())
@@ -361,6 +373,7 @@ bool Group::equals(const Group *other, CompareItemOptions options) const
 			return false;
 		}
 	}
+
 	return true;
 }
 
@@ -389,7 +402,7 @@ void Group::setTags(const QString &tags)
 
 void Group::setIcon(int iconNumber)
 {
-	if (iconNumber >= 0 && (m_data.iconNumber != iconNumber || !m_data.customIcon.isNull()))
+	if ((iconNumber >= 0) && ((m_data.iconNumber != iconNumber) || (!m_data.customIcon.isNull())))
 	{
 		m_data.iconNumber = iconNumber;
 		m_data.customIcon = QUuid();
@@ -400,7 +413,7 @@ void Group::setIcon(int iconNumber)
 
 void Group::setIcon(const QUuid &uuid)
 {
-	if (!uuid.isNull() && m_data.customIcon != uuid)
+	if ((!uuid.isNull()) && (m_data.customIcon != uuid))
 	{
 		m_data.customIcon = uuid;
 		m_data.iconNumber = 0;
@@ -466,12 +479,12 @@ void Group::setMergeMode(MergeMode newMode)
 	set(m_data.mergeMode, newMode);
 }
 
-Group *Group::parentGroup()
+Group* Group::parentGroup()
 {
 	return m_parent;
 }
 
-const Group *Group::parentGroup() const
+const Group* Group::parentGroup() const
 {
 	return m_parent;
 }
@@ -511,16 +524,20 @@ void Group::setParent(Group *parent, int index, bool trackPrevious)
 			recCreateDelObjects();
 
 			// copy custom icon to the new database
-			if (!iconUuid().isNull() && parent->m_db && m_db->metadata()->hasCustomIcon(iconUuid())
-			    && !parent->m_db->metadata()->hasCustomIcon(iconUuid()))
+			if ((!iconUuid().isNull())
+				&& parent->m_db
+				&& m_db->metadata()->hasCustomIcon(iconUuid())
+				&& (!parent->m_db->metadata()->hasCustomIcon(iconUuid())))
 			{
 				parent->m_db->metadata()->addCustomIcon(iconUuid(), m_db->metadata()->customIcon(iconUuid()));
 			}
 		}
+
 		if (m_db != parent->m_db)
 		{
 			connectDatabaseSignalsRecursive(parent->m_db);
 		}
+
 		QObject::setParent(parent);
 		emit groupAboutToAdd(this, index);
 		Q_ASSERT(index <= parent->m_children.size());
@@ -533,6 +550,7 @@ void Group::setParent(Group *parent, int index, bool trackPrevious)
 		{
 			setPreviousParentGroup(m_parent);
 		}
+
 		m_parent->m_children.removeAll(this);
 		m_parent = parent;
 		QObject::setParent(parent);
@@ -586,7 +604,7 @@ QStringList Group::hierarchy(int height) const
 	int level = 1;
 	bool heightReached = level == height;
 
-	while (parent && !heightReached)
+	while (parent && (!heightReached))
 	{
 		group = group->parentGroup();
 		parent = group->parentGroup();
@@ -603,39 +621,39 @@ bool Group::hasChildren() const
 	return !children().isEmpty();
 }
 
-Database *Group::database()
+Database* Group::database()
 {
 	return m_db;
 }
 
-const Database *Group::database() const
+const Database* Group::database() const
 {
 	return m_db;
 }
 
-QList<Group *> Group::children()
+QList<Group*> Group::children()
 {
 	return m_children;
 }
 
-const QList<Group *> &Group::children() const
+const QList<Group*> &Group::children() const
 {
 	return m_children;
 }
 
-QList<Entry *> Group::entries()
+QList<Entry*> Group::entries()
 {
 	return m_entries;
 }
 
-const QList<Entry *> &Group::entries() const
+const QList<Entry*>& Group::entries() const
 {
 	return m_entries;
 }
 
-QList<Entry *> Group::entriesRecursive(bool includeHistoryItems) const
+QList<Entry*> Group::entriesRecursive(bool includeHistoryItems) const
 {
-	QList<Entry *> entryList;
+	QList<Entry*> entryList;
 
 	entryList.append(m_entries);
 
@@ -655,14 +673,15 @@ QList<Entry *> Group::entriesRecursive(bool includeHistoryItems) const
 	return entryList;
 }
 
-QList<Entry *> Group::referencesRecursive(const Entry *entry) const
+QList<Entry*> Group::referencesRecursive(const Entry *entry) const
 {
 	auto entries = entriesRecursive();
-	return QtConcurrent::blockingFiltered(entries,
-	                                      [entry](const Entry *e) { return e->hasReferencesTo(entry->uuid()); });
+	return QtConcurrent::blockingFiltered(
+		entries,
+		[entry](const Entry *e) { return e->hasReferencesTo(entry->uuid()); });
 }
 
-Entry *Group::findEntryByUuid(const QUuid &uuid, bool recursive) const
+Entry* Group::findEntryByUuid(const QUuid &uuid, bool recursive) const
 {
 	if (uuid.isNull())
 	{
@@ -686,7 +705,7 @@ Entry *Group::findEntryByUuid(const QUuid &uuid, bool recursive) const
 	return nullptr;
 }
 
-Entry *Group::findEntryByPath(const QString &entryPath) const
+Entry* Group::findEntryByPath(const QString &entryPath) const
 {
 	if (entryPath.isEmpty())
 	{
@@ -700,21 +719,22 @@ Entry *Group::findEntryByPath(const QString &entryPath) const
 	{
 		normalizedEntryPath = "/" + normalizedEntryPath;
 	}
+
 	return findEntryByPathRecursive(normalizedEntryPath, "/");
 }
 
-Entry *Group::findEntryBySearchTerm(const QString &term, EntryReferenceType referenceType)
+Entry* Group::findEntryBySearchTerm(const QString &term, EntryReferenceType referenceType)
 {
 	Q_ASSERT_X(referenceType != EntryReferenceType::Unknown,
-	           "Database::findEntryRecursive",
-	           "Can't search entry with \"referenceType\" parameter equal to \"Unknown\"");
+		"Database::findEntryRecursive",
+		"Can't search entry with \"referenceType\" parameter equal to \"Unknown\"");
 
-	const QList<Group *> groups = groupsRecursive(true);
+	const QList<Group*> groups = groupsRecursive(true);
 
 	for (const Group *group: groups)
 	{
 		bool found = false;
-		const QList<Entry *> &entryList = group->entries();
+		const QList<Entry*> &entryList = group->entries();
 		for (Entry *entry: entryList)
 		{
 			switch (referenceType)
@@ -754,16 +774,18 @@ Entry *Group::findEntryBySearchTerm(const QString &term, EntryReferenceType refe
 	return nullptr;
 }
 
-Entry *Group::findEntryByPathRecursive(const QString &entryPath, const QString &basePath) const
+Entry* Group::findEntryByPathRecursive(const QString &entryPath, const QString &basePath) const
 {
 	// Return the first entry that matches the full path OR if there is no leading
 	// slash, return the first entry title that matches
 	for (Entry *entry: entries())
 	{
-        if (entryPath == (basePath + entry->title())
-            || (!entryPath.startsWith("/") && entry->title() == entryPath)) {
-            return entry;
-        }
+		if ((entryPath == (basePath + entry->title()))
+			|| ((!entryPath.startsWith("/"))
+				&& (entry->title() == entryPath)))
+		{
+			return entry;
+		}
 	}
 
 	for (Group *group: children())
@@ -778,7 +800,7 @@ Entry *Group::findEntryByPathRecursive(const QString &entryPath, const QString &
 	return nullptr;
 }
 
-Group *Group::findGroupByPath(const QString &groupPath)
+Group* Group::findGroupByPath(const QString &groupPath)
 {
 	// normalize the groupPath by adding missing front and rear slashes. once.
 	QString normalizedGroupPath;
@@ -789,14 +811,15 @@ Group *Group::findGroupByPath(const QString &groupPath)
 	}
 	else
 	{
-        normalizedGroupPath = (groupPath.startsWith("/") ? "" : "/")
-            + groupPath
-            + (groupPath.endsWith("/") ? "" : "/");
+		normalizedGroupPath = (groupPath.startsWith("/") ? "" : "/")
+			+ groupPath
+			+ (groupPath.endsWith("/") ? "" : "/");
 	}
+
 	return findGroupByPathRecursive(normalizedGroupPath, "/");
 }
 
-Group *Group::findGroupByPathRecursive(const QString &groupPath, const QString &basePath)
+Group* Group::findGroupByPathRecursive(const QString &groupPath, const QString &basePath)
 {
 	// paths must be normalized
 	Q_ASSERT(groupPath.startsWith("/") && groupPath.endsWith("/"));
@@ -862,9 +885,9 @@ QString Group::print(bool recursive, bool flatten, int depth)
 	return response;
 }
 
-QList<const Group *> Group::groupsRecursive(bool includeSelf) const
+QList<const Group*> Group::groupsRecursive(bool includeSelf) const
 {
-	QList<const Group *> groupList;
+	QList<const Group*> groupList;
 	if (includeSelf)
 	{
 		groupList.append(this);
@@ -878,9 +901,9 @@ QList<const Group *> Group::groupsRecursive(bool includeSelf) const
 	return groupList;
 }
 
-QList<Group *> Group::groupsRecursive(bool includeSelf)
+QList<Group*> Group::groupsRecursive(bool includeSelf)
 {
-	QList<Group *> groupList;
+	QList<Group*> groupList;
 	if (includeSelf)
 	{
 		groupList.append(this);
@@ -903,7 +926,7 @@ QSet<QUuid> Group::customIconsRecursive() const
 		result.insert(iconUuid());
 	}
 
-	const QList<Entry *> entryList = entriesRecursive(true);
+	const QList<Entry*> entryList = entriesRecursive(true);
 	for (Entry *entry: entryList)
 	{
 		if (!entry->iconUuid().isNull())
@@ -945,6 +968,7 @@ QList<QString> Group::usernamesRecursive(int topN) const
 		{
 			return arg1.first < arg2.first;
 		}
+
 		return arg1.second > arg2.second;
 	};
 
@@ -952,8 +976,8 @@ QList<QString> Group::usernamesRecursive(int topN) const
 
 	// Take first topN usernames if set
 	QList<QString> usernames;
-	int actualUsernames = topN < 0 ? sortedUsernames.size() : std::min(topN, sortedUsernames.size());
-	for (int i = 0; i < actualUsernames; i++)
+	int actualUsernames = (topN < 0) ? sortedUsernames.size() : std::min(topN, sortedUsernames.size());
+	for (int i = 0; i < actualUsernames; ++i)
 	{
 		usernames.append(sortedUsernames[i].first);
 	}
@@ -961,7 +985,7 @@ QList<QString> Group::usernamesRecursive(int topN) const
 	return usernames;
 }
 
-Group *Group::findGroupByUuid(const QUuid &uuid)
+Group* Group::findGroupByUuid(const QUuid &uuid)
 {
 	if (uuid.isNull())
 	{
@@ -979,7 +1003,7 @@ Group *Group::findGroupByUuid(const QUuid &uuid)
 	return nullptr;
 }
 
-const Group *Group::findGroupByUuid(const QUuid &uuid) const
+const Group* Group::findGroupByUuid(const QUuid &uuid) const
 {
 	if (uuid.isNull())
 	{
@@ -997,7 +1021,7 @@ const Group *Group::findGroupByUuid(const QUuid &uuid) const
 	return nullptr;
 }
 
-Group *Group::findChildByName(const QString &name)
+Group* Group::findChildByName(const QString &name)
 {
 	for (Group *group: asConst(m_children))
 	{
@@ -1015,7 +1039,7 @@ Group *Group::findChildByName(const QString &name)
  * Note that you need to copy the custom icons manually when inserting the
  * new group into another database.
  */
-Group *Group::clone(Entry::CloneFlags entryFlags, Group::CloneFlags groupFlags) const
+Group* Group::clone(Entry::CloneFlags entryFlags, Group::CloneFlags groupFlags) const
 {
 	Group *clonedGroup = new Group();
 
@@ -1035,14 +1059,14 @@ Group *Group::clone(Entry::CloneFlags entryFlags, Group::CloneFlags groupFlags) 
 
 	if (groupFlags & Group::CloneIncludeEntries)
 	{
-		const QList<Entry *> entryList = entries();
+		const QList<Entry*> entryList = entries();
 		for (Entry *entry: entryList)
 		{
 			Entry *clonedEntry = entry->clone(entryFlags);
 			clonedEntry->setGroup(clonedGroup);
 		}
 
-		const QList<Group *> childrenGroups = children();
+		const QList<Group*> childrenGroups = children();
 		for (Group *groupChild: childrenGroups)
 		{
 			Group *clonedGroupChild = groupChild->clone(entryFlags, groupFlags);
@@ -1075,6 +1099,7 @@ void Group::copyDataFrom(const Group *other)
 	{
 		emit groupDataChanged(this);
 	}
+
 	m_customData->copyDataFrom(other->m_customData);
 	m_lastTopVisibleEntry = other->m_lastTopVisibleEntry;
 }
@@ -1100,8 +1125,8 @@ void Group::addEntry(Entry *entry)
 void Group::removeEntry(Entry *entry)
 {
 	Q_ASSERT_X(m_entries.contains(entry),
-	           Q_FUNC_INFO,
-	           QString("Group %1 does not contain %2").arg(this->name(), entry->title()).toLatin1());
+		Q_FUNC_INFO,
+		QString("Group %1 does not contain %2").arg(this->name(), entry->title()).toLatin1());
 
 	emit entryAboutToRemove(entry);
 
@@ -1110,6 +1135,7 @@ void Group::removeEntry(Entry *entry)
 	{
 		entry->disconnect(m_db);
 	}
+
 	m_entries.removeAll(entry);
 	emitModified();
 	emit entryRemoved(entry);
@@ -1164,15 +1190,15 @@ void Group::connectDatabaseSignalsRecursive(Database *db)
 
 	if (db)
 	{
-        connect(this, &Group::groupDataChanged, db, &Database::groupDataChanged);
-        connect(this, &Group::groupAboutToRemove, db, &Database::groupAboutToRemove);
-        connect(this, &Group::groupRemoved, db, &Database::groupRemoved);
-        connect(this, &Group::groupAboutToAdd, db, &Database::groupAboutToAdd);
-        connect(this, &Group::groupAdded, db, &Database::groupAdded);
-        connect(this, &Group::aboutToMove, db, &Database::groupAboutToMove);
-        connect(this, &Group::groupMoved, db, &Database::groupMoved);
-        connect(this, &Group::groupNonDataChange, db, &Database::markNonDataChange);
-        connect(this, &Group::modified, db, &Database::markAsModified);
+		connect(this, &Group::groupDataChanged, db, &Database::groupDataChanged);
+		connect(this, &Group::groupAboutToRemove, db, &Database::groupAboutToRemove);
+		connect(this, &Group::groupRemoved, db, &Database::groupRemoved);
+		connect(this, &Group::groupAboutToAdd, db, &Database::groupAboutToAdd);
+		connect(this, &Group::groupAdded, db, &Database::groupAdded);
+		connect(this, &Group::aboutToMove, db, &Database::groupAboutToMove);
+		connect(this, &Group::groupMoved, db, &Database::groupMoved);
+		connect(this, &Group::groupNonDataChange, db, &Database::markNonDataChange);
+		connect(this, &Group::modified, db, &Database::markAsModified);
 	}
 
 	m_db = db;
@@ -1207,6 +1233,7 @@ void Group::recCreateDelObjects()
 		{
 			group->recCreateDelObjects();
 		}
+
 		m_db->addDeletedObject(m_uuid);
 	}
 }
@@ -1277,7 +1304,7 @@ bool Group::resolveBrowserOptionEnabled(const QString &option) const
 	}
 }
 
-Entry *Group::addEntryWithPath(const QString &entryPath)
+Entry* Group::addEntryWithPath(const QString &entryPath)
 {
 	if (entryPath.isEmpty() || findEntryByPath(entryPath))
 	{
@@ -1311,8 +1338,9 @@ void Group::applyGroupIconOnCreateTo(Entry *entry)
 		return;
 	}
 
-	if ((iconNumber() == Group::DefaultIconNumber || iconNumber() == Group::OpenFolderIconNumber)
-	    && iconUuid().isNull())
+	if (((iconNumber() == Group::DefaultIconNumber)
+			|| (iconNumber() == Group::OpenFolderIconNumber))
+		&& iconUuid().isNull())
 	{
 		return;
 	}
@@ -1371,11 +1399,13 @@ void Group::sortChildrenRecursively(bool reverse)
 	{
 		recycleBin = database()->metadata()->recycleBin();
 	}
+
 	std::sort(m_children.begin(), m_children.end(), [=](const Group *childGroup1, const Group *childGroup2) -> bool {
 		if (childGroup1 == recycleBin)
 		{
 			return false;
 		}
+
 		QString name1 = childGroup1->name();
 		QString name2 = childGroup2->name();
 		return reverse ? name1.compare(name2, Qt::CaseInsensitive) > 0 : name1.compare(name2, Qt::CaseInsensitive) < 0;
@@ -1389,12 +1419,13 @@ void Group::sortChildrenRecursively(bool reverse)
 	emitModified();
 }
 
-const Group *Group::previousParentGroup() const
+const Group* Group::previousParentGroup() const
 {
 	if (!database() || !database()->rootGroup())
 	{
 		return nullptr;
 	}
+
 	return database()->rootGroup()->findGroupByUuid(m_data.previousParentGroupUuid);
 }
 
@@ -1429,46 +1460,57 @@ bool Group::GroupData::equals(const Group::GroupData &other, CompareItemOptions 
 	{
 		return false;
 	}
+
 	if (::compare(notes, other.notes, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(tags, other.tags, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(iconNumber, other.iconNumber) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(customIcon, other.customIcon) != 0)
 	{
 		return false;
 	}
+
 	if (!timeInfo.equals(other.timeInfo, options))
 	{
 		return false;
 	}
+
 	// TODO HNH: Some properties are configurable - should they be ignored?
 	if (::compare(isExpanded, other.isExpanded, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(defaultAutoTypeSequence, other.defaultAutoTypeSequence, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(autoTypeEnabled, other.autoTypeEnabled, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(searchingEnabled, other.searchingEnabled, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(mergeMode, other.mergeMode, options) != 0)
 	{
 		return false;
 	}
+
 	return true;
 }

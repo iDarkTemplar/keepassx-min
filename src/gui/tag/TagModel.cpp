@@ -27,15 +27,13 @@
 TagModel::TagModel(QObject *parent)
 	: QAbstractListModel(parent)
 {
-	m_defaultSearches << qMakePair(tr("Clear Search"), QString("")) << qMakePair(tr("All Entries"), QString("*"))
-					  << qMakePair(tr("Expired"), QString("is:expired"))
-					  << qMakePair(tr("Weak Passwords"), QString("is:weak"))
-					  << qMakePair(tr("TOTP Entries"), QString("has:totp"));
+	m_defaultSearches << qMakePair(tr("Clear Search"), QString(""))
+		<< qMakePair(tr("All Entries"), QString("*"))
+		<< qMakePair(tr("Expired"), QString("is:expired"))
+		<< qMakePair(tr("Weak Passwords"), QString("is:weak"))
+		<< qMakePair(tr("TOTP Entries"), QString("has:totp"));
 }
 
-TagModel::~TagModel()
-{
-}
 
 void TagModel::setDatabase(QSharedPointer<Database> db)
 {
@@ -92,6 +90,7 @@ TagModel::TagType TagModel::itemType(const QModelIndex &index)
 	{
 		return TagType::SAVED_SEARCH;
 	}
+
 	return TagType::TAG;
 }
 
@@ -116,6 +115,7 @@ QVariant TagModel::data(const QModelIndex &index, int role) const
 		{
 			return icons()->icon("database-search");
 		}
+
 		return icons()->icon("tag");
 	case Qt::DisplayRole:
 		return m_tagList.at(row).first;
@@ -126,6 +126,7 @@ QVariant TagModel::data(const QModelIndex &index, int role) const
 		{
 			return true;
 		}
+
 		return false;
 	}
 

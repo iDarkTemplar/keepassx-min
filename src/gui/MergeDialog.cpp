@@ -63,15 +63,17 @@ MergeDialog::MergeDialog(const Merger::ChangeList &changes, QWidget *parent)
 	setupChangeTable();
 }
 
-MergeDialog::~MergeDialog() = default;
+MergeDialog::~MergeDialog()
+{
+}
 
 QVector<MergeDialog::MergeDialogColumns> MergeDialog::columns()
 {
 	return {MergeDialogColumns::Group,
-	        MergeDialogColumns::Title,
-	        MergeDialogColumns::Uuid,
-	        MergeDialogColumns::Type,
-	        MergeDialogColumns::Details};
+		MergeDialogColumns::Title,
+		MergeDialogColumns::Uuid,
+		MergeDialogColumns::Type,
+		MergeDialogColumns::Details};
 }
 
 int MergeDialog::columnIndex(MergeDialogColumns column)
@@ -94,6 +96,7 @@ QString MergeDialog::columnName(MergeDialogColumns column)
 	case MergeDialogColumns::Details:
 		return tr("Details");
 	}
+
 	return {};
 }
 
@@ -116,6 +119,7 @@ QString MergeDialog::cellValue(const Merger::Change &change, MergeDialogColumns 
 	case MergeDialogColumns::Details:
 		return change.details();
 	}
+
 	return {};
 }
 
@@ -174,6 +178,7 @@ void MergeDialog::updateChangeTable()
 		m_ui->changeTable->setHorizontalHeaderItem(index, new QTableWidgetItem(name));
 		m_ui->changeTable->setColumnHidden(index, isColumnHiddenByDefault(column));
 	}
+
 	for (int row = 0; row < m_changes.size(); ++row)
 	{
 		const auto &change = m_changes[row];
@@ -192,8 +197,8 @@ void MergeDialog::performMerge()
 	if (changes != m_changes)
 	{
 		qWarning("Merge results differed from the expected changes. Expected: %d, Actual: %d",
-		         m_changes.size(),
-		         changes.size());
+			m_changes.size(),
+			changes.size());
 	}
 
 	emit databaseMerged(!changes.isEmpty());

@@ -26,7 +26,6 @@ class NewDatabaseWizardPageEncryption: public NewDatabaseWizardPage
 public:
 	explicit NewDatabaseWizardPageEncryption(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(NewDatabaseWizardPageEncryption);
-	~NewDatabaseWizardPageEncryption() override;
 };
 
 #endif // KEEPASSXC_NEWDATABASEWIZARDPAGEENCRYPTION_H

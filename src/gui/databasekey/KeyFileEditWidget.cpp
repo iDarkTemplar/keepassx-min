@@ -48,11 +48,11 @@ bool KeyFileEditWidget::addToCompositeKey(QSharedPointer<CompositeKey> key)
 	if (fileKey->type() != FileKey::KeePass2XMLv2 && fileKey->type() != FileKey::Hashed)
 	{
 		QMessageBox::warning(getMainWindow(),
-		                     tr("Old key file format"),
-		                     tr("You selected a key file in an old format which KeePassXC<br>"
-		                        "may stop supporting in the future.<br><br>"
-		                        "Please consider generating a new key file instead."),
-		                     QMessageBox::Ok);
+			tr("Old key file format"),
+			tr("You selected a key file in an old format which KeePassXC<br>"
+				"may stop supporting in the future.<br><br>"
+				"Please consider generating a new key file instead."),
+			QMessageBox::Ok);
 	}
 
 	key->addKey(fileKey);
@@ -69,10 +69,11 @@ bool KeyFileEditWidget::validate(QString &errorMessage) const
 		errorMessage = tr("Error loading the key file '%1'\nMessage: %2").arg(fileKeyName, fileKeyError);
 		return false;
 	}
+
 	return true;
 }
 
-QWidget *KeyFileEditWidget::componentEditWidget()
+QWidget* KeyFileEditWidget::componentEditWidget()
 {
 	m_compEditWidget = new QWidget();
 	m_compUi->setupUi(m_compEditWidget);
@@ -101,7 +102,7 @@ void KeyFileEditWidget::initComponent()
 
 	m_ui->componentDescription->setText(
 		tr("<p>You can add a key file containing random bytes for additional security.</p>"
-	       "<p>You must keep it secret and never lose it or you will be locked out.</p>"));
+			"<p>You must keep it secret and never lose it or you will be locked out.</p>"));
 }
 
 void KeyFileEditWidget::createKeyFile()
@@ -111,6 +112,7 @@ void KeyFileEditWidget::createKeyFile()
 	{
 		return;
 	}
+
 	QString filters = QString("%1 (*.keyx *.key);;%2 (*)").arg(tr("Key files"), tr("All files"));
 	QString fileName = fileDialog()->getSaveFileName(this, tr("Create Key File…"), QString(), filters);
 
@@ -121,9 +123,9 @@ void KeyFileEditWidget::createKeyFile()
 		if (!created)
 		{
 			MessageBox::critical(getMainWindow(),
-			                     tr("Error creating key file"),
-			                     tr("Unable to create key file: %1").arg(errorMsg),
-			                     QMessageBox::Button::Ok);
+				tr("Error creating key file"),
+				tr("Unable to create key file: %1").arg(errorMsg),
+				QMessageBox::Button::Ok);
 		}
 		else
 		{
@@ -139,31 +141,34 @@ void KeyFileEditWidget::browseKeyFile()
 	{
 		return;
 	}
+
 	QString filters = QString("%1 (*.keyx *.key);;%2 (*)").arg(tr("Key files"), tr("All files"));
 	QString fileName = fileDialog()->getOpenFileName(this, tr("Select a key file"), QString(), filters);
 
 	if (fileName.isEmpty())
-	{ // user clicked on cancel
+	{
+		// user clicked on cancel
 		return;
 	}
+
 	if (QFileInfo(fileName).canonicalFilePath() == m_parent->getDatabase()->canonicalFilePath())
 	{
 		MessageBox::critical(getMainWindow(),
-		                     tr("Invalid Key File"),
-		                     tr("You cannot use the current database as its own keyfile. Please choose a different "
-		                        "file or generate a new key file."));
+			tr("Invalid Key File"),
+			tr("You cannot use the current database as its own keyfile. Please choose a different "
+				"file or generate a new key file."));
 		return;
 	}
 	else if (fileName.endsWith(".kdbx", Qt::CaseInsensitive))
 	{
-		auto response =
-			MessageBox::warning(getMainWindow(),
-		                        tr("Suspicious Key File"),
-		                        tr("The chosen key file looks like a password database file. A key file must be a "
-		                           "static file that never changes or you will lose access to your database "
-		                           "forever.\nAre you sure you want to continue with this file?"),
-		                        MessageBox::Continue | MessageBox::Cancel,
-		                        MessageBox::Cancel);
+		auto response = MessageBox::warning(getMainWindow(),
+			tr("Suspicious Key File"),
+			tr("The chosen key file looks like a password database file. A key file must be a "
+				"static file that never changes or you will lose access to your database "
+				"forever.\nAre you sure you want to continue with this file?"),
+			MessageBox::Continue | MessageBox::Cancel,
+			MessageBox::Cancel);
+
 		if (response != MessageBox::Continue)
 		{
 			return;

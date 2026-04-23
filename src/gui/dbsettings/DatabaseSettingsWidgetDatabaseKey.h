@@ -39,7 +39,6 @@ class DatabaseSettingsWidgetDatabaseKey: public DatabaseSettingsWidget
 public:
 	explicit DatabaseSettingsWidgetDatabaseKey(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(DatabaseSettingsWidgetDatabaseKey);
-	~DatabaseSettingsWidgetDatabaseKey() override;
 
 	void loadSettings(QSharedPointer<Database> db) override;
 
@@ -56,9 +55,10 @@ private slots:
 private:
 	void setAdditionalKeyOptionsVisible(bool show);
 
-    bool addToCompositeKey(KeyComponentWidget* widget,
-                           QSharedPointer<CompositeKey>& newKey,
-                           QSharedPointer<Key>& oldKey);
+	bool addToCompositeKey(
+		KeyComponentWidget* widget,
+		QSharedPointer<CompositeKey>& newKey,
+		QSharedPointer<Key>& oldKey);
 
 	bool m_isDirty = false;
 	const QPointer<QPushButton> m_additionalKeyOptionsToggle;

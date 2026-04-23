@@ -20,21 +20,20 @@
 
 #include "gui/EditWidget.h"
 
-namespace Ui
-{
-	class ApplicationSettingsWidgetGeneral;
-	class ApplicationSettingsWidgetSecurity;
+namespace Ui {
+
+class ApplicationSettingsWidgetGeneral;
+class ApplicationSettingsWidgetSecurity;
+
 } // namespace Ui
 
 class ISettingsPage
 {
 public:
-	virtual ~ISettingsPage()
-	{
-	}
+	virtual ~ISettingsPage() = default;
 	virtual QString name() = 0;
 	virtual QIcon icon() = 0;
-	virtual QWidget *createWidget() = 0;
+	virtual QWidget* createWidget() = 0;
 	virtual void loadSettings(QWidget *widget) = 0;
 	virtual void saveSettings(QWidget *widget) = 0;
 };
@@ -46,6 +45,7 @@ class ApplicationSettingsWidget: public EditWidget
 public:
 	explicit ApplicationSettingsWidget(QWidget *parent = nullptr);
 	~ApplicationSettingsWidget();
+
 	void addSettingsPage(ISettingsPage *page);
 	void loadSettings();
 

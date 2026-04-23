@@ -21,10 +21,6 @@ ReportsWidget::ReportsWidget(QWidget *parent)
 {
 }
 
-ReportsWidget::~ReportsWidget()
-{
-}
-
 /**
  * Load the database to be configured by this page and initialize the page.
  * The page will NOT take ownership of the database.

@@ -20,10 +20,11 @@
 #include <QPointer>
 #include <QWidget>
 
-namespace Ui
-{
-	class EntryAttachmentsWidget;
-}
+namespace Ui {
+
+class EntryAttachmentsWidget;
+
+} // namespace Ui
 
 class QByteArray;
 class EntryAttachments;
@@ -34,11 +35,12 @@ class EntryAttachmentsWidget: public QWidget
 	Q_OBJECT
 	Q_PROPERTY(bool readOnly READ isReadOnly WRITE setReadOnly NOTIFY readOnlyChanged)
 	Q_PROPERTY(bool isButtonsVisible READ isButtonsVisible WRITE setButtonsVisible NOTIFY buttonsVisibleChanged)
+
 public:
 	explicit EntryAttachmentsWidget(QWidget *parent = nullptr);
 	~EntryAttachmentsWidget();
 
-	const EntryAttachments *attachments() const;
+	const EntryAttachments* attachments() const;
 	bool isReadOnly() const;
 	bool isButtonsVisible() const;
 

@@ -30,10 +30,10 @@
  * \sa https://support.1password.com/opvault-design/#attachments
  */
 bool OpVaultReader::readAttachment(const QString &filePath,
-                                   const QByteArray &itemKey,
-                                   const QByteArray &itemHmacKey,
-                                   QJsonObject &metadata,
-                                   QByteArray &payload)
+	const QByteArray &itemKey,
+	const QByteArray &itemHmacKey,
+	QJsonObject &metadata,
+	QByteArray &payload)
 {
 	QFile file(filePath);
 	if (!file.open(QIODevice::ReadOnly))
@@ -56,6 +56,7 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 		qCritical() << "Unexpected version number; wanted 1 or 2, got <<" << version << ">>";
 		return false;
 	}
+
 	const QByteArray &metadataLenBytes = file.read(2);
 	if (metadataLenBytes.size() != 2)
 	{
@@ -63,6 +64,7 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 					<< ": <<" << metadataLenBytes.toHex() << ">>";
 		return false;
 	}
+
 	const auto b0 = static_cast<unsigned char>(metadataLenBytes[0]);
 	const auto b1 = static_cast<unsigned char>(metadataLenBytes[1]);
 	int metadataLen = ((0xFF & b1) << 8) | (0xFF & b0);
@@ -97,6 +99,7 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 					<< metadataJsonBytes.size();
 		return false;
 	}
+
 	QByteArray iconBytes = file.read(iconLen);
 	if (iconBytes.size() != iconLen)
 	{
@@ -123,6 +126,7 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 					<< jsError.error << "): " << jsError.errorString() << "\n<<" << metadataJsonBytes << ">>";
 		return false;
 	}
+
 	if (!jDoc.isObject())
 	{
 		qCritical() << "Expected " << metadataJsonBytes << "to be a JSON Object";
@@ -151,9 +155,9 @@ bool OpVaultReader::readAttachment(const QString &filePath,
  * \sa https://support.1password.com/opvault-design/#attachments
  */
 void OpVaultReader::fillAttachments(Entry *entry,
-                                    const QDir &attachmentDir,
-                                    const QByteArray &entryKey,
-                                    const QByteArray &entryHmacKey)
+	const QDir &attachmentDir,
+	const QByteArray &entryKey,
+	const QByteArray &entryHmacKey)
 {
 	/*!
 	 * Attachment files are named with the UUID of the item that they are attached to followed by an underscore
@@ -174,14 +178,15 @@ void OpVaultReader::fillAttachments(Entry *entry,
 			qCritical() << QString("Attachment file \"%1\" is not readable").arg(info.absoluteFilePath());
 			continue;
 		}
+
 		fillAttachment(entry, info, entryKey, entryHmacKey);
 	}
 }
 
 void OpVaultReader::fillAttachment(Entry *entry,
-                                   const QFileInfo &info,
-                                   const QByteArray &entryKey,
-                                   const QByteArray &entryHmacKey)
+	const QFileInfo &info,
+	const QByteArray &entryKey,
+	const QByteArray &entryHmacKey)
 {
 	QJsonObject attachMetadata;
 	QByteArray attachPayload;
@@ -215,6 +220,7 @@ void OpVaultReader::fillAttachment(Entry *entry,
 				{
 					insertAs = QString("%1_%2").arg(key, aa);
 				}
+
 				attachMetadata[insertAs] = value;
 			}
 		}
@@ -225,8 +231,7 @@ void OpVaultReader::fillAttachment(Entry *entry,
 	}
 	else
 	{
-		qCritical()
-			<< QString("Unable to decode attach.overview for \"%1\": %2").arg(info.fileName(), over01.errorString());
+		qCritical() << QString("Unable to decode attach.overview for \"%1\": %2").arg(info.fileName(), over01.errorString());
 	}
 
 	QByteArray payload;
@@ -251,6 +256,7 @@ void OpVaultReader::fillAttachment(Entry *entry,
 		{
 			valueBytes = QString("Unexpected metadata type in attachment: %1").arg(value.type()).toUtf8();
 		}
+
 		payload.append(key.toUtf8()).append(":=").append(valueBytes).append("\n");
 	}
 
@@ -267,6 +273,7 @@ void OpVaultReader::fillAttachment(Entry *entry,
 			qWarning() << QString("Unexpected type of attachment \"filename\": %1").arg(attFilename.type());
 		}
 	}
+
 	if (entry->attachments()->hasKey(attachKey))
 	{
 		// Prepend a random string to the attachment name to avoid collisions

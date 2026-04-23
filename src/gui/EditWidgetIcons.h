@@ -28,10 +28,11 @@ class Database;
 class DefaultIconModel;
 class CustomIconModel;
 
-namespace Ui
-{
-	class EditWidgetIcons;
-}
+namespace Ui {
+
+class EditWidgetIcons;
+
+} // namespace Ui
 
 enum ApplyIconToOptions
 {
@@ -62,10 +63,11 @@ public:
 
 	IconStruct state();
 	void reset();
-	void load(const QUuid &currentUuid,
-	          const QSharedPointer<Database> &database,
-	          const IconStruct &iconStruct,
-	          const QString &url = "");
+	void load(
+		const QUuid &currentUuid,
+		const QSharedPointer<Database> &database,
+		const IconStruct &iconStruct,
+		const QString &url = QString());
 	void setShowApplyIconToButton(bool state);
 
 signals:
@@ -75,7 +77,7 @@ signals:
 
 private slots:
 	void addCustomIconFromFile();
-	bool addCustomIcon(const QImage &icon, const QString &name = {});
+	bool addCustomIcon(const QImage &icon, const QString &name = QString());
 	void updateWidgetsDefaultIcons(bool checked);
 	void updateWidgetsCustomIcons(bool checked);
 	void updateRadioButtonDefaultIcons();
@@ -83,7 +85,7 @@ private slots:
 	void confirmApplyIconTo(QAction *action);
 
 private:
-	QMenu *createApplyIconToMenu();
+	QMenu* createApplyIconToMenu();
 
 	const QScopedPointer<Ui::EditWidgetIcons> m_ui;
 	QSharedPointer<Database> m_db;

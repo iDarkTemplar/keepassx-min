@@ -24,9 +24,5 @@ NewDatabaseWizardPageEncryption::NewDatabaseWizardPageEncryption(QWidget *parent
 
 	setTitle(tr("Encryption Settings"));
 	setSubTitle(tr("Here you can adjust the database encryption settings. "
-	               "Don't worry, you can change them later in the database settings."));
-}
-
-NewDatabaseWizardPageEncryption::~NewDatabaseWizardPageEncryption()
-{
+		"Don't worry, you can change them later in the database settings."));
 }

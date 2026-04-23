@@ -27,13 +27,14 @@
 
 #include <QSortFilterProxyModel>
 
-namespace
+namespace {
+
+enum class ExposedGroup
 {
-	enum class ExposedGroup
-	{
-		None,
-		Expose
-	};
+	None,
+	Expose
+};
+
 } // namespace
 
 DatabaseSettingsWidgetFdoSecrets::GroupModelNoRecycle::GroupModelNoRecycle(Database *db)
@@ -41,6 +42,10 @@ DatabaseSettingsWidgetFdoSecrets::GroupModelNoRecycle::GroupModelNoRecycle(Datab
 {
 	Q_ASSERT(db);
 	setSourceModel(new GroupModel(m_db, this));
+}
+
+DatabaseSettingsWidgetFdoSecrets::~DatabaseSettingsWidgetFdoSecrets()
+{
 }
 
 Group* DatabaseSettingsWidgetFdoSecrets::GroupModelNoRecycle::groupFromIndex(const QModelIndex &index) const
@@ -103,8 +108,6 @@ DatabaseSettingsWidgetFdoSecrets::DatabaseSettingsWidgetFdoSecrets(QWidget *pare
 		}
 	});
 }
-
-DatabaseSettingsWidgetFdoSecrets::~DatabaseSettingsWidgetFdoSecrets() = default;
 
 void DatabaseSettingsWidgetFdoSecrets::loadSettings(QSharedPointer<Database> db)
 {

@@ -28,13 +28,12 @@ class CsvParserModel: public QAbstractTableModel
 
 public:
 	explicit CsvParserModel(QObject *parent = nullptr);
-	~CsvParserModel() override;
 
 	void setFilename(const QString &filename);
 	QString getFileInfo();
 	bool parse();
 
-	CsvParser *parser();
+	CsvParser* parser();
 
 	void setHeaderLabels(const QStringList &labels);
 	void mapColumns(int csvColumn, int dbColumn);

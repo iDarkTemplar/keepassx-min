@@ -21,18 +21,23 @@
 #include <QSharedPointer>
 #include <QWidget>
 
-namespace Ui
-{
-	class DatabaseSettingsWidgetFdoSecrets;
-}
+#include "core/Database.h"
+
+namespace Ui {
+
+class DatabaseSettingsWidgetFdoSecrets;
+
+} // namespace Ui
 
 class Database;
+
 class DatabaseSettingsWidgetFdoSecrets: public QWidget
 {
 	Q_OBJECT
+
 public:
 	explicit DatabaseSettingsWidgetFdoSecrets(QWidget *parent = nullptr);
-	~DatabaseSettingsWidgetFdoSecrets() override;
+	~DatabaseSettingsWidgetFdoSecrets();
 
 	void loadSettings(QSharedPointer<Database> db);
 	void saveSettings();

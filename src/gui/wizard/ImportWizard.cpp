@@ -48,15 +48,11 @@ ImportWizard::ImportWizard(QWidget *parent)
 	auto baseColor = defaultPalette.color(QPalette::Base);
 	baseColor.setAlpha(153);
 
-	auto *pageFrame = findChildren<QFrame *>()[0];
+	auto *pageFrame = findChildren<QFrame*>()[0];
 	auto framePalette = pageFrame->palette();
 	framePalette.setBrush(QPalette::Window, windowColor.lighter(120));
 	framePalette.setBrush(QPalette::Base, baseColor.lighter(120));
 	pageFrame->setPalette(framePalette);
-}
-
-ImportWizard::~ImportWizard()
-{
 }
 
 bool ImportWizard::validateCurrentPage()
@@ -66,6 +62,7 @@ bool ImportWizard::validateCurrentPage()
 	{
 		m_db = m_pageReview->database();
 	}
+
 	return ret;
 }
 
@@ -76,6 +73,7 @@ QPair<QUuid, QUuid> ImportWizard::importInto()
 	{
 		return qMakePair(QUuid(list[0].toString()), QUuid(list[1].toString()));
 	}
+
 	return {};
 }
 

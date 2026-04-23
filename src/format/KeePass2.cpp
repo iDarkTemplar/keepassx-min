@@ -80,6 +80,7 @@ QSharedPointer<Kdf> KeePass2::kdfFromParameters(const QVariantMap &p)
 		// upgrade to non-legacy AES-KDF, since KDBX3 doesn't have any KDF parameters
 		kdfUuid = KDF_AES_KDBX4;
 	}
+
 	QSharedPointer<Kdf> kdf = uuidToKdf(kdfUuid);
 	if (kdf.isNull())
 	{
@@ -105,14 +106,17 @@ QSharedPointer<Kdf> KeePass2::uuidToKdf(const QUuid &uuid)
 	{
 		return QSharedPointer<AesKdf>::create(true);
 	}
+
 	if (uuid == KDF_AES_KDBX4)
 	{
 		return QSharedPointer<AesKdf>::create();
 	}
+
 	if (uuid == KDF_ARGON2D)
 	{
 		return QSharedPointer<Argon2Kdf>::create(Argon2Kdf::Type::Argon2d);
 	}
+
 	if (uuid == KDF_ARGON2ID)
 	{
 		return QSharedPointer<Argon2Kdf>::create(Argon2Kdf::Type::Argon2id);
@@ -150,6 +154,7 @@ QString KeePass2::cipherToString(QUuid cipherUuid)
 	{
 		return QObject::tr("ChaCha20 256-bit");
 	}
+
 	return QObject::tr("Invalid Cipher");
 }
 
@@ -171,5 +176,6 @@ QString KeePass2::kdfToString(QUuid kdfUuid)
 	{
 		return QObject::tr("AES-KDF (KDBX 3)");
 	}
+
 	return QObject::tr("Invalid KDF");
 }

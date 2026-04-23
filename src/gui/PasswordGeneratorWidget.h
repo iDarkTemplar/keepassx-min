@@ -24,10 +24,11 @@
 #include "core/PassphraseGenerator.h"
 #include "core/PasswordGenerator.h"
 
-namespace Ui
-{
-	class PasswordGeneratorWidget;
-}
+namespace Ui {
+
+class PasswordGeneratorWidget;
+
+} // namespace Ui
 
 class PasswordGenerator;
 class PasswordHealth;

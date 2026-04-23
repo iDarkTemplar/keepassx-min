@@ -23,11 +23,12 @@
 
 class Entry;
 
-namespace GuiTools
-{
-	bool confirmDeleteEntries(QWidget *parent, const QList<Entry *> &entries, bool permanent);
-	bool confirmDeletePluginData(QWidget *parent, const QList<Entry *> &entries);
-	size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry *> &entries, bool permanent);
+namespace GuiTools {
+
+bool confirmDeleteEntries(QWidget *parent, const QList<Entry *> &entries, bool permanent);
+bool confirmDeletePluginData(QWidget *parent, const QList<Entry *> &entries);
+size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry *> &entries, bool permanent);
+
 } // namespace GuiTools
 
 /**
@@ -38,7 +39,9 @@ class MouseWheelEventFilter: public QObject
 {
 public:
 	explicit MouseWheelEventFilter(QObject *parent)
-		: QObject(parent) {};
+		: QObject(parent)
+	{
+	}
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *event) override
@@ -49,6 +52,7 @@ protected:
 			event->ignore();
 			return true;
 		}
+
 		return QObject::eventFilter(obj, event);
 	}
 };

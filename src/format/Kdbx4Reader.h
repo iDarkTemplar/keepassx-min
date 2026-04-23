@@ -27,10 +27,12 @@ class Kdbx4Reader: public KdbxReader
 	Q_DECLARE_TR_FUNCTIONS(Kdbx4Reader)
 
 public:
-	bool readDatabaseImpl(QIODevice *device,
-	                      const QByteArray &headerData,
-	                      QSharedPointer<const CompositeKey> key,
-	                      Database *db) override;
+	bool readDatabaseImpl(
+		QIODevice *device,
+		const QByteArray &headerData,
+		QSharedPointer<const CompositeKey> key,
+		Database *db) override;
+
 	QHash<QString, QByteArray> binaryPool() const;
 
 protected:

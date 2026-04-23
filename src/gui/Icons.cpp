@@ -36,18 +36,14 @@ public:
 	explicit AdaptiveIconEngine(QIcon baseIcon, QColor overrideColor = {});
 	void paint(QPainter *painter, const QRect &rect, QIcon::Mode mode, QIcon::State state) override;
 	QPixmap pixmap(const QSize &size, QIcon::Mode mode, QIcon::State state) override;
-	QIconEngine *clone() const override;
+	QIconEngine* clone() const override;
 
 private:
 	QIcon m_baseIcon;
 	QColor m_overrideColor;
 };
 
-Icons *Icons::m_instance(nullptr);
-
-Icons::Icons()
-{
-}
+std::unique_ptr<Icons> Icons::m_instance;
 
 QString Icons::applicationIconName()
 {
@@ -66,6 +62,7 @@ QString Icons::trayIconAppearance() const
 	{
 		iconAppearance = "monochrome-light";
 	}
+
 	return iconAppearance;
 }
 
@@ -149,7 +146,7 @@ QPixmap AdaptiveIconEngine::pixmap(const QSize &size, QIcon::Mode mode, QIcon::S
 	return QPixmap::fromImage(img, Qt::ImageConversionFlag::NoFormatConversion);
 }
 
-QIconEngine *AdaptiveIconEngine::clone() const
+QIconEngine* AdaptiveIconEngine::clone() const
 {
 	return new AdaptiveIconEngine(m_baseIcon);
 }
@@ -165,8 +162,7 @@ QIcon Icons::icon(const QString &name, bool recolor, const QColor &overrideColor
 	// and qt5ct issue #80: https://sourceforge.net/p/qt5ct/tickets/80/
 	QIcon::setThemeName("application");
 
-	QString cacheName =
-		QString("%1:%2:%3").arg(recolor ? "1" : "0", overrideColor.isValid() ? overrideColor.name() : "#", name);
+	QString cacheName = QString("%1:%2:%3").arg(recolor ? "1" : "0", overrideColor.isValid() ? overrideColor.name() : "#", name);
 	QIcon icon = m_iconCache.value(cacheName);
 
 	if (!icon.isNull() && !overrideColor.isValid())
@@ -190,18 +186,18 @@ QIcon Icons::onOffIcon(const QString &name, bool on, bool recolor)
 	return icon(name + (on ? "-on" : "-off"), recolor);
 }
 
-Icons *Icons::instance()
+Icons* Icons::instance()
 {
 	if (!m_instance)
 	{
-		m_instance = new Icons();
+		m_instance.reset(new Icons());
 
 		Q_INIT_RESOURCE(icons);
 		QIcon::setThemeSearchPaths(QStringList{":/icons"} << QIcon::themeSearchPaths());
 		QIcon::setThemeName("application");
 	}
 
-	return m_instance;
+	return m_instance.get();
 }
 
 QPixmap Icons::customIconPixmap(const Database *db, const QUuid &uuid, IconSize size)
@@ -210,6 +206,7 @@ QPixmap Icons::customIconPixmap(const Database *db, const QUuid &uuid, IconSize 
 	{
 		return {};
 	}
+
 	// Generate QIcon with pre-baked resolutions
 	auto icon = QImage::fromData(db->metadata()->customIcon(uuid).data);
 	auto basePixmap = QPixmap::fromImage(icon.scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
@@ -290,6 +287,7 @@ QString Icons::imageFormatsFilter()
 				break;
 			}
 		}
+
 		if (codePointClean)
 		{
 			formatsStringList.append("*." + QString::fromLatin1(format).toLower());

@@ -21,9 +21,9 @@
 QDateTime operator+(const QDateTime &dateTime, const TimeDelta &delta)
 {
 	return dateTime.addSecs(delta.getHours() * 3600)
-	    .addDays(delta.getDays())
-	    .addMonths(delta.getMonths())
-	    .addYears(delta.getYears());
+		.addDays(delta.getDays())
+		.addMonths(delta.getMonths())
+		.addYears(delta.getYears());
 }
 
 TimeDelta TimeDelta::fromHours(int hours)

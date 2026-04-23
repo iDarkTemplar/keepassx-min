@@ -34,7 +34,7 @@ EntrySearcher::EntrySearcher(bool caseSensitive, bool skipProtected)
  * @param forceSearch ignore group search settings
  * @return list of entries that match the search terms
  */
-QList<Entry *> EntrySearcher::search(const QList<SearchTerm> &searchTerms, const Group *baseGroup, bool forceSearch)
+QList<Entry*> EntrySearcher::search(const QList<SearchTerm> &searchTerms, const Group *baseGroup, bool forceSearch)
 {
 	Q_ASSERT(baseGroup);
 	m_searchTerms = searchTerms;
@@ -50,7 +50,7 @@ QList<Entry *> EntrySearcher::search(const QList<SearchTerm> &searchTerms, const
  * @param forceSearch ignore group search settings
  * @return list of entries that match the search terms
  */
-QList<Entry *> EntrySearcher::search(const QString &searchString, const Group *baseGroup, bool forceSearch)
+QList<Entry*> EntrySearcher::search(const QString &searchString, const Group *baseGroup, bool forceSearch)
 {
 	Q_ASSERT(baseGroup);
 	parseSearchTerms(searchString);
@@ -64,11 +64,11 @@ QList<Entry *> EntrySearcher::search(const QString &searchString, const Group *b
  * @param forceSearch ignore group search settings
  * @return list of entries that match the search terms
  */
-QList<Entry *> EntrySearcher::repeat(const Group *baseGroup, bool forceSearch)
+QList<Entry*> EntrySearcher::repeat(const Group *baseGroup, bool forceSearch)
 {
 	Q_ASSERT(baseGroup);
 
-	QList<Entry *> results;
+	QList<Entry*> results;
 	for (const auto group: baseGroup->groupsRecursive(true))
 	{
 		if (forceSearch || group->resolveSearchingEnabled())
@@ -82,6 +82,7 @@ QList<Entry *> EntrySearcher::repeat(const Group *baseGroup, bool forceSearch)
 			}
 		}
 	}
+
 	return results;
 }
 
@@ -92,7 +93,7 @@ QList<Entry *> EntrySearcher::repeat(const Group *baseGroup, bool forceSearch)
  * @param entries list of entries to include in the search
  * @return list of entries that match the search terms
  */
-QList<Entry *> EntrySearcher::searchEntries(const QList<SearchTerm> &searchTerms, const QList<Entry *> &entries)
+QList<Entry*> EntrySearcher::searchEntries(const QList<SearchTerm> &searchTerms, const QList<Entry*> &entries)
 {
 	m_searchTerms = searchTerms;
 	return repeatEntries(entries);
@@ -106,7 +107,7 @@ QList<Entry *> EntrySearcher::searchEntries(const QList<SearchTerm> &searchTerms
  * @param entries list of entries to include in the search
  * @return list of entries that match the search terms
  */
-QList<Entry *> EntrySearcher::searchEntries(const QString &searchString, const QList<Entry *> &entries)
+QList<Entry*> EntrySearcher::searchEntries(const QString &searchString, const QList<Entry*> &entries)
 {
 	parseSearchTerms(searchString);
 	return repeatEntries(entries);
@@ -118,9 +119,9 @@ QList<Entry *> EntrySearcher::searchEntries(const QString &searchString, const Q
  * @param entries list of entries to include in the search
  * @return list of entries that match the search terms
  */
-QList<Entry *> EntrySearcher::repeatEntries(const QList<Entry *> &entries)
+QList<Entry*> EntrySearcher::repeatEntries(const QList<Entry*> &entries)
 {
-	QList<Entry *> results;
+	QList<Entry*> results;
 	for (auto *entry: entries)
 	{
 		if (searchEntryImpl(entry))
@@ -128,6 +129,7 @@ QList<Entry *> EntrySearcher::repeatEntries(const QList<Entry *> &entries)
 			results.append(entry);
 		}
 	}
+
 	return results;
 }
 
@@ -197,7 +199,7 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 				continue;
 			}
 			found = entry->attributes()->contains(term.word)
-			        && term.regex.match(entry->attributes()->value(term.word)).hasMatch();
+				&& term.regex.match(entry->attributes()->value(term.word)).hasMatch();
 			break;
 		case Field::Group:
 			// Match against the full hierarchy if the word contains a '/' otherwise just the group name
@@ -222,6 +224,7 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 				{
 					days = parts[1].toInt();
 				}
+
 				found = entry->willExpireInDays(days) && !entry->isRecycled();
 				break;
 			}
@@ -230,8 +233,9 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 				if (!entry->excludeFromReports() && !entry->password().isEmpty() && !entry->isExpired())
 				{
 					const auto quality = entry->passwordHealth()->quality();
-					if (quality == PasswordHealth::Quality::Bad || quality == PasswordHealth::Quality::Poor
-					    || quality == PasswordHealth::Quality::Weak)
+					if ((quality == PasswordHealth::Quality::Bad)
+						|| (quality == PasswordHealth::Quality::Poor)
+						|| (quality == PasswordHealth::Quality::Weak))
 					{
 						found = true;
 						break;
@@ -254,9 +258,10 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 		default:
 			// Terms without a specific field try to match title, username, url, and notes
 			found = term.regex.match(entry->resolvePlaceholder(entry->title())).hasMatch()
-			        || term.regex.match(entry->resolvePlaceholder(entry->username())).hasMatch()
-			        || term.regex.match(entry->resolvePlaceholder(entry->url())).hasMatch()
-			        || entry->tagList().indexOf(term.regex) != -1 || term.regex.match(entry->notes()).hasMatch();
+				|| term.regex.match(entry->resolvePlaceholder(entry->username())).hasMatch()
+				|| term.regex.match(entry->resolvePlaceholder(entry->url())).hasMatch()
+				|| (entry->tagList().indexOf(term.regex) != -1)
+				|| term.regex.match(entry->notes()).hasMatch();
 		}
 
 		// negate the result if exclude:
@@ -326,10 +331,12 @@ void EntrySearcher::parseSearchTerms(const QString &searchString)
 		{
 			opts |= Tools::RegexConvertOpts::WILDCARD_ALL;
 		}
+
 		if (mods.contains("+"))
 		{
 			opts |= Tools::RegexConvertOpts::EXACT_MATCH;
 		}
+
 		term.regex = Tools::convertToRegex(term.word, opts);
 
 		// Exclude modifier

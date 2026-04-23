@@ -52,13 +52,15 @@ bool Argon2Kdf::setVersion(quint32 version)
 		m_version = version;
 		return true;
 	}
+
 	m_version = ARGON2_DEFAULT_VERSION;
+
 	return false;
 }
 
 Argon2Kdf::Type Argon2Kdf::type() const
 {
-	return uuid() == KeePass2::KDF_ARGON2D ? Type::Argon2d : Type::Argon2id;
+	return (uuid() == KeePass2::KDF_ARGON2D) ? Type::Argon2d : Type::Argon2id;
 }
 
 quint64 Argon2Kdf::memory() const
@@ -74,7 +76,9 @@ bool Argon2Kdf::setMemory(quint64 kibibytes)
 		m_memory = kibibytes;
 		return true;
 	}
+
 	m_memory = ARGON2_DEFAULT_MEMORY;
+
 	return false;
 }
 
@@ -91,7 +95,9 @@ bool Argon2Kdf::setParallelism(quint32 threads)
 		m_parallelism = threads;
 		return true;
 	}
+
 	m_parallelism = ARGON2_DEFAULT_PARALLELISM;
+
 	return false;
 }
 
@@ -131,13 +137,15 @@ bool Argon2Kdf::processParameters(const QVariantMap &p)
 	/* KeePass2 does not currently implement these parameters
 	 *
 	QByteArray secret = p.value(KeePass2::KDFPARAM_ARGON2_SECRET).toByteArray();
-	if (!argon2Kdf->setSecret(secret)) {
-	    return nullptr;
+	if (!argon2Kdf->setSecret(secret))
+	{
+		return nullptr;
 	}
 
 	QByteArray ad = p.value(KeePass2::KDFPARAM_ARGON2_ASSOCDATA).toByteArray();
-	if (!argon2Kdf->setAssocData(ad)) {
-	    return nullptr;
+	if (!argon2Kdf->setAssocData(ad))
+	{
+		return nullptr;
 	}
 	*/
 
@@ -156,12 +164,14 @@ QVariantMap Argon2Kdf::writeParameters()
 
 	/* KeePass2 does not currently implement these
 	 *
-	if (!assocData().isEmpty()) {
-	    p.insert(KeePass2::KDFPARAM_ARGON2_ASSOCDATA, argon2Kdf.assocData());
+	if (!assocData().isEmpty())
+	{
+		p.insert(KeePass2::KDFPARAM_ARGON2_ASSOCDATA, argon2Kdf.assocData());
 	}
 
-	if (!secret().isEmpty()) {
-	    p.insert(KeePass2::KDFPARAM_ARGON2_SECRET, argon2Kdf.secret());
+	if (!secret().isEmpty())
+	{
+		p.insert(KeePass2::KDFPARAM_ARGON2_SECRET, argon2Kdf.secret());
 	}
 	*/
 
@@ -174,19 +184,21 @@ bool Argon2Kdf::transform(const QByteArray &raw, QByteArray &result) const
 	result.resize(32);
 	// Time Cost, Mem Cost, Threads/Lanes, Password, length, Salt, length, out, length
 
-	int rc = argon2_hash(rounds(),
-	                     memory(),
-	                     parallelism(),
-	                     raw.data(),
-	                     raw.size(),
-	                     seed().data(),
-	                     seed().size(),
-	                     result.data(),
-	                     result.size(),
-	                     nullptr,
-	                     0,
-	                     type() == Type::Argon2d ? Argon2_d : Argon2_id,
-	                     version());
+	int rc = argon2_hash(
+		rounds(),
+		memory(),
+		parallelism(),
+		raw.data(),
+		raw.size(),
+		seed().data(),
+		seed().size(),
+		result.data(),
+		result.size(),
+		nullptr,
+		0,
+		type() == Type::Argon2d ? Argon2_d : Argon2_id,
+		version());
+
 	if (rc != ARGON2_OK)
 	{
 		qWarning("Argon2 error: %s", argon2_error_message(rc));
@@ -219,5 +231,5 @@ int Argon2Kdf::benchmark(int msec) const
 QString Argon2Kdf::toString() const
 {
 	return QObject::tr("Argon2%1 (%2 rounds, %3 KB)")
-	    .arg(type() == Type::Argon2d ? "d" : "id", QString::number(rounds()), QString::number(memory()));
+		.arg((type() == Type::Argon2d) ? "d" : "id", QString::number(rounds()), QString::number(memory()));
 }

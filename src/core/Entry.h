@@ -32,10 +32,11 @@ class Database;
 class Group;
 class PasswordHealth;
 
-namespace Totp
-{
-	struct Settings;
-}
+namespace Totp {
+
+struct Settings;
+
+} // namespace Totp
 
 enum class EntryReferenceType
 {
@@ -75,16 +76,17 @@ class Entry: public ModifiableObject
 public:
 	Entry();
 	~Entry();
-	const QUuid &uuid() const;
+
+	const QUuid& uuid() const;
 	const QString uuidToHex() const;
 	int iconNumber() const;
-	const QUuid &iconUuid() const;
+	const QUuid& iconUuid() const;
 	QString foregroundColor() const;
 	QString backgroundColor() const;
 	QString overrideUrl() const;
 	QString tags() const;
 	QStringList tagList() const;
-	const TimeInfo &timeInfo() const;
+	const TimeInfo& timeInfo() const;
 	QString title() const;
 	QString url() const;
 	QString resolveUrl() const;
@@ -99,8 +101,8 @@ public:
 	QString totp(bool *isValid = nullptr) const;
 	QString totpSettingsString() const;
 	QSharedPointer<Totp::Settings> totpSettings() const;
-	Group *previousParentGroup();
-	const Group *previousParentGroup() const;
+	Group* previousParentGroup();
+	const Group* previousParentGroup() const;
 	QUuid previousParentGroupUuid() const;
 	int size() const;
 	QString path() const;
@@ -123,12 +125,12 @@ public:
 	void replaceReferencesWithValues(const Entry *other);
 	bool hasReferences() const;
 	bool hasReferencesTo(const QUuid &uuid) const;
-	EntryAttributes *attributes();
-	const EntryAttributes *attributes() const;
-	EntryAttachments *attachments();
-	const EntryAttachments *attachments() const;
-	CustomData *customData();
-	const CustomData *customData() const;
+	EntryAttributes* attributes();
+	const EntryAttributes* attributes() const;
+	EntryAttachments* attachments();
+	const EntryAttachments* attachments() const;
+	CustomData* customData();
+	const CustomData* customData() const;
 
 	void setUuid(const QUuid &uuid);
 	void setIcon(int iconNumber);
@@ -153,10 +155,10 @@ public:
 	void addTag(const QString &tag);
 	void removeTag(const QString &tag);
 
-	QList<Entry *> historyItems();
-	const QList<Entry *> &historyItems() const;
+	QList<Entry*> historyItems();
+	const QList<Entry*> &historyItems() const;
 	void addHistoryItem(Entry *entry);
-	void removeHistoryItems(const QList<Entry *> &historyEntries);
+	void removeHistoryItems(const QList<Entry*> &historyEntries);
 	void truncateHistory();
 
 	bool equals(const Entry *other, CompareItemOptions options = CompareItemDefault) const;
@@ -232,10 +234,10 @@ public:
 	 * Note that you need to copy the custom icons manually when inserting the
 	 * new entry into another database.
 	 */
-	Entry *clone(CloneFlags flags = CloneDefault) const;
+	Entry* clone(CloneFlags flags = CloneDefault) const;
 	void copyDataFrom(const Entry *other);
 	QString maskPasswordPlaceholders(const QString &str) const;
-	Entry *resolveReference(const QString &str) const;
+	Entry* resolveReference(const QString &str) const;
 	QString resolveMultiplePlaceholders(const QString &str) const;
 	QString resolvePlaceholder(const QString &str) const;
 	QString resolveUrlPlaceholder(const QString &str, PlaceholderType placeholderType) const;
@@ -255,11 +257,11 @@ public:
 	void moveUp();
 	void moveDown();
 
-	Group *group();
-	const Group *group() const;
+	Group* group();
+	const Group* group() const;
 	void setGroup(Group *group, bool trackPrevious = true);
-	const Database *database() const;
-	Database *database();
+	const Database* database() const;
+	Database* database();
 
 	bool canUpdateTimeinfo() const;
 	void setUpdateTimeinfo(bool value);
@@ -285,14 +287,15 @@ private:
 	static QString buildReference(const QUuid &uuid, const QString &field);
 	static EntryReferenceType referenceType(const QString &referenceStr);
 
-	template <class T> bool set(T &property, const T &value);
+	template <class T>
+	bool set(T &property, const T &value);
 
 	QUuid m_uuid;
 	EntryData m_data;
 	QPointer<EntryAttributes> m_attributes;
 	QPointer<EntryAttachments> m_attachments;
 	QPointer<CustomData> m_customData;
-	QList<Entry *> m_history; // Items sorted from oldest to newest
+	QList<Entry*> m_history; // Items sorted from oldest to newest
 
 	QScopedPointer<Entry> m_tmpHistoryItem;
 	bool m_modifiedSinceBegin;

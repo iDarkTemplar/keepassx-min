@@ -39,11 +39,12 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-namespace
-{
-	constexpr int WaitTimeoutMSec = 150;
-	const char BlockSizeProperty[] = "blockSize";
-	int g_OriginalFontSize = 0;
+namespace {
+
+constexpr int WaitTimeoutMSec = 150;
+const char BlockSizeProperty[] = "blockSize";
+int g_OriginalFontSize = 0;
+
 } // namespace
 
 Application::Application(int &argc, char **argv)
@@ -61,11 +62,6 @@ Application::Application(int &argc, char **argv)
 	{
 		identifier += QChar('-') + username;
 	}
-
-#ifdef QT_DEBUG
-	// In DEBUG mode don’t interfere with Release instances
-	identifier += QStringLiteral("-DEBUG");
-#endif
 
 	QString lockName = identifier + QStringLiteral(".lock");
 	m_socketName = identifier + QStringLiteral(".socket");
@@ -106,9 +102,7 @@ Application::Application(int &argc, char **argv)
 			if (!m_alreadyRunning)
 			{
 				// If we get here then the original instance is likely dead
-				qWarning() << QObject::tr("Existing single-instance lock file is invalid. Launching new instance.")
-								  .toUtf8()
-								  .constData();
+				qWarning() << QObject::tr("Existing single-instance lock file is invalid. Launching new instance.");
 
 				// forcibly reset the lock file
 				m_lockFile->removeStaleLockFile();
@@ -120,8 +114,7 @@ Application::Application(int &argc, char **argv)
 		break;
 	}
 	default:
-		qWarning()
-			<< QObject::tr("The lock file could not be created. Single-instance mode disabled.").toUtf8().constData();
+		qWarning() << QObject::tr("The lock file could not be created. Single-instance mode disabled.");
 	}
 
 	connect(osUtils, &OSUtilsBase::interfaceThemeChanged, this, [this]() {
@@ -164,6 +157,7 @@ void Application::applyTheme()
 	{
 		appTheme = osUtils->isDarkMode() ? "dark" : "light";
 	}
+
 	QPixmapCache::clear();
 	if (appTheme == "light")
 	{
@@ -285,7 +279,7 @@ void Application::processIncomingConnection()
 
 void Application::socketReadyRead()
 {
-	QLocalSocket *socket = qobject_cast<QLocalSocket *>(sender());
+	QLocalSocket *socket = qobject_cast<QLocalSocket*>(sender());
 	if (!socket)
 	{
 		return;
@@ -302,6 +296,7 @@ void Application::socketReadyRead()
 		{
 			return;
 		}
+
 		in >> blockSize;
 	}
 
@@ -340,10 +335,6 @@ void Application::socketReadyRead()
 
 bool Application::isAlreadyRunning() const
 {
-#ifdef QT_DEBUG
-	// In DEBUG mode we can run unlimited instances
-	return false;
-#endif
 	return config()->get(Config::SingleInstance).toBool() && m_alreadyRunning;
 }
 
@@ -374,8 +365,7 @@ bool Application::sendFileNamesToRunningInstance(const QStringList &fileNames)
 
 	const bool writeOk = client.write(data) != -1 && client.waitForBytesWritten(WaitTimeoutMSec);
 	client.disconnectFromServer();
-	const bool disconnected =
-		client.state() == QLocalSocket::UnconnectedState || client.waitForDisconnected(WaitTimeoutMSec);
+	const bool disconnected = (client.state() == QLocalSocket::UnconnectedState || client.waitForDisconnected(WaitTimeoutMSec));
 	return writeOk && disconnected;
 }
 
@@ -407,8 +397,7 @@ bool Application::sendLockToInstance()
 	// Finish gracefully
 	const bool writeOk = client.write(data) != -1 && client.waitForBytesWritten(WaitTimeoutMSec);
 	client.disconnectFromServer();
-	const bool disconnected =
-		client.state() == QLocalSocket::UnconnectedState || client.waitForConnected(WaitTimeoutMSec);
+	const bool disconnected = (client.state() == QLocalSocket::UnconnectedState || client.waitForConnected(WaitTimeoutMSec));
 	return writeOk && disconnected;
 }
 

@@ -59,10 +59,6 @@ DatabaseSettingsWidgetDatabaseKey::DatabaseSettingsWidgetDatabaseKey(QWidget *pa
 	setLayout(vbox);
 }
 
-DatabaseSettingsWidgetDatabaseKey::~DatabaseSettingsWidgetDatabaseKey()
-{
-}
-
 void DatabaseSettingsWidgetDatabaseKey::loadSettings(QSharedPointer<Database> db)
 {
 	DatabaseSettingsWidget::loadSettings(db);
@@ -139,21 +135,24 @@ bool DatabaseSettingsWidgetDatabaseKey::saveSettings()
 	}
 
 	// Show warning if database password has not been set
-	if (m_passwordEditWidget->visiblePage() == KeyComponentWidget::Page::AddNew
-	    || (m_passwordEditWidget->visiblePage() == KeyComponentWidget::Page::Edit && m_passwordEditWidget->isEmpty()))
+	if ((m_passwordEditWidget->visiblePage() == KeyComponentWidget::Page::AddNew)
+		|| ((m_passwordEditWidget->visiblePage() == KeyComponentWidget::Page::Edit)
+			&& m_passwordEditWidget->isEmpty()))
 	{
 
 		QScopedPointer<QMessageBox> msgBox(new QMessageBox(this));
 		msgBox->setIcon(QMessageBox::Warning);
 		msgBox->setWindowTitle(tr("No password set"));
 		msgBox->setText(tr("WARNING! You have not set a password. Using a database without "
-		                   "a password is strongly discouraged!\n\n"
-		                   "Are you sure you want to continue without a password?"));
+			"a password is strongly discouraged!\n\n"
+			"Are you sure you want to continue without a password?"));
+
 		auto btn = msgBox->addButton(tr("Continue without password"), QMessageBox::ButtonRole::AcceptRole);
 		msgBox->addButton(QMessageBox::Cancel);
 		msgBox->setDefaultButton(QMessageBox::Cancel);
 		msgBox->layout()->setSizeConstraint(QLayout::SetMinimumSize);
 		msgBox->exec();
+
 		if (msgBox->clickedButton() != btn)
 		{
 			return false;
@@ -171,23 +170,23 @@ bool DatabaseSettingsWidgetDatabaseKey::saveSettings()
 		if (m_passwordEditWidget->getPasswordQuality() < static_cast<PasswordHealth::Quality>(minQuality))
 		{
 			MessageBox::critical(this,
-			                     tr("Weak password"),
-			                     tr("The provided password does not meet the minimum quality requirement."),
-			                     MessageBox::Ok,
-			                     MessageBox::Ok);
+				tr("Weak password"),
+				tr("The provided password does not meet the minimum quality requirement."),
+				MessageBox::Ok,
+				MessageBox::Ok);
+
 			return false;
 		}
 
 		// Show warning if database password is weak or poor
 		if (m_passwordEditWidget->getPasswordQuality() < PasswordHealth::Quality::Good)
 		{
-			auto dialogResult =
-				MessageBox::warning(this,
-			                        tr("Weak password"),
-			                        tr("This is a weak password! For better protection of your secrets, "
-			                           "you should choose a stronger password."),
-			                        MessageBox::ContinueWithWeakPass | MessageBox::Cancel,
-			                        MessageBox::Cancel);
+			auto dialogResult = MessageBox::warning(this,
+				tr("Weak password"),
+				tr("This is a weak password! For better protection of your secrets, "
+					"you should choose a stronger password."),
+				MessageBox::ContinueWithWeakPass | MessageBox::Cancel,
+				MessageBox::Cancel);
 
 			if (dialogResult == MessageBox::Cancel)
 			{
@@ -243,9 +242,10 @@ void DatabaseSettingsWidgetDatabaseKey::setAdditionalKeyOptionsVisible(bool show
 	m_additionalKeyOptions->setVisible(show);
 }
 
-bool DatabaseSettingsWidgetDatabaseKey::addToCompositeKey(KeyComponentWidget *widget,
-                                                          QSharedPointer<CompositeKey> &newKey,
-                                                          QSharedPointer<Key> &oldKey)
+bool DatabaseSettingsWidgetDatabaseKey::addToCompositeKey(
+	KeyComponentWidget *widget,
+	QSharedPointer<CompositeKey> &newKey,
+	QSharedPointer<Key> &oldKey)
 {
 	if (widget->visiblePage() == KeyComponentWidget::Edit)
 	{
@@ -261,6 +261,7 @@ bool DatabaseSettingsWidgetDatabaseKey::addToCompositeKey(KeyComponentWidget *wi
 		Q_ASSERT(oldKey);
 		newKey->addKey(oldKey);
 	}
+
 	return true;
 }
 

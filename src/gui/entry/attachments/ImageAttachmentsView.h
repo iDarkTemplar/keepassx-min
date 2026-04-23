@@ -21,6 +21,7 @@
 class ImageAttachmentsView: public QGraphicsView
 {
 	Q_OBJECT
+
 public:
 	explicit ImageAttachmentsView(QWidget *parent = nullptr);
 

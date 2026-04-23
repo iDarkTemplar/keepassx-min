@@ -106,6 +106,7 @@ bool Translator::installQtTranslator(const QStringList &languages, const QString
 			return QCoreApplication::installTranslator(qtTranslator.take());
 		}
 	}
+
 	return false;
 }
 
@@ -137,6 +138,7 @@ QList<QPair<QString, QString>> Translator::availableLanguages()
 				// langcode "la" (Latin) is translated into "C" by QLocale::languageToString()
 				languageStr = "Latin";
 			}
+
 			if (langcode.contains("_"))
 			{
 				languageStr += QString(" (%1)").arg(QLocale::countryToString(locale.country()));

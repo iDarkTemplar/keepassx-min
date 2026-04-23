@@ -32,10 +32,12 @@ public:
 		, widget(w)
 	{
 	}
+
 	void loadSettings(QSharedPointer<Database> db) const
 	{
 		page->loadSettings(widget, db);
 	}
+
 	void saveSettings() const
 	{
 		page->saveSettings(widget);
@@ -67,8 +69,7 @@ ReportsDialog::ReportsDialog(QWidget *parent)
 	adjustSize();
 
 	connect(m_ui->categoryList, SIGNAL(categoryChanged(int)), m_ui->stackedWidget, SLOT(setCurrentIndex(int)));
-	connect(
-		m_healthPage->m_healthWidget, SIGNAL(entryActivated(Entry *)), SLOT(entryActivationSignalReceived(Entry *)));
+	connect(m_healthPage->m_healthWidget, SIGNAL(entryActivated(Entry*)), SLOT(entryActivationSignalReceived(Entry*)));
 	connect(m_editEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
 }
 
@@ -83,6 +84,7 @@ void ReportsDialog::load(const QSharedPointer<Database> &db)
 	{
 		page.loadSettings(db);
 	}
+
 	m_db = db;
 }
 
@@ -104,7 +106,7 @@ void ReportsDialog::reject()
 
 void ReportsDialog::entryActivationSignalReceived(Entry *entry)
 {
-	m_sender = qobject_cast<QWidget *>(sender());
+	m_sender = qobject_cast<QWidget*>(sender());
 	m_editEntryWidget->loadEntry(entry, false, false, entry->group()->hierarchy().join(" > "), m_db);
 	m_ui->stackedWidget->setCurrentWidget(m_editEntryWidget);
 }

@@ -18,6 +18,8 @@
 #ifndef KEEPASSX_CONFIG_H
 #define KEEPASSX_CONFIG_H
 
+#include <memory>
+
 #include <QPointer>
 #include <QVariant>
 
@@ -29,6 +31,7 @@ class Config: public QObject
 
 public:
 	Q_DISABLE_COPY(Config)
+	~Config();
 
 	enum ConfigKey
 	{
@@ -43,11 +46,7 @@ public:
 		AutoSaveNonDataChanges,
 		BackupBeforeSave,
 		BackupFilePathPattern,
-		UseAtomicSaves,
-		UseDirectWriteSaves,
 		SearchLimitGroup,
-		MinimizeOnOpenUrl,
-		OpenURLOnDoubleClick,
 		URLDoubleClickAction,
 		HideWindowOnCopy,
 		MinimizeOnCopy,
@@ -55,18 +54,6 @@ public:
 		AutoGeneratePasswordForNewEntries,
 		DropToBackgroundOnCopy,
 		UseGroupIconOnEntryCreation,
-		AutoTypeEntryTitleMatch,
-		AutoTypeEntryURLMatch,
-		AutoTypeDelay,
-		AutoTypeStartDelay,
-		AutoTypeHideExpiredEntry,
-		AutoTypeDialogSortColumn,
-		AutoTypeDialogSortOrder,
-		GlobalAutoTypeKey,
-		GlobalAutoTypeModifiers,
-		GlobalAutoTypeRetypeTime,
-		FaviconDownloadTimeout,
-		UpdateCheckMessageShown,
 		DefaultDatabaseFileName,
 
 		LastDatabases,
@@ -84,7 +71,6 @@ public:
 		GUI_HidePreviewPanel,
 		GUI_AlwaysOnTop,
 		GUI_ToolButtonStyle,
-		GUI_LaunchAtStartup, // TODO: remove
 		GUI_ShowTrayIcon,
 		GUI_TrayIconAppearance,
 		GUI_MinimizeToTray,
@@ -96,8 +82,6 @@ public:
 		GUI_MonospaceNotes,
 		GUI_ApplicationTheme,
 		GUI_CompactMode,
-		GUI_CheckForUpdates,
-		GUI_CheckForUpdatesIncludeBetas,
 		GUI_SearchWaitForEnter,
 		GUI_ShowExpiredEntriesOnDatabaseUnlock,
 		GUI_ShowExpiredEntriesOnDatabaseUnlockOffsetDays,
@@ -110,8 +94,6 @@ public:
 		GUI_PreviewSplitterState,
 		GUI_SplitterState,
 		GUI_GroupSplitterState,
-		GUI_AutoTypeSelectDialogSize,
-		GUI_CheckForUpdatesNextCheck,
 
 		Security_ClearClipboard,
 		Security_ClearClipboardTimeout,
@@ -122,60 +104,19 @@ public:
 		Security_LockDatabaseIdleSeconds,
 		Security_LockDatabaseMinimize,
 		Security_LockDatabaseScreenLock,
-		Security_LockDatabaseOnUserSwitch,
-		Security_RelockAutoType,
 		Security_PasswordsHidden,
 		Security_PasswordEmptyPlaceholder,
 		Security_HidePasswordPreviewPanel,
 		Security_HideTotpPreviewPanel,
-		Security_AutoTypeAsk,
-		Security_AutoTypeSkipMainWindowConfirmation,
-		Security_IconDownloadFallback,
 		Security_NoConfirmMoveEntryToRecycleBin,
 		Security_EnableCopyOnDoubleClick,
-		Security_QuickUnlock,
 		Security_DatabasePasswordMinimumQuality,
-
-		Browser_Enabled,	// remove
-		Browser_ShowNotification,	// remove
-		Browser_BestMatchOnly,	// remove
-		Browser_UnlockDatabase,	// remove
-		Browser_MatchUrlScheme,	// remove
-		Browser_SupportBrowserProxy,	// remove
-		Browser_UseCustomProxy,	// remove
-		Browser_CustomProxyLocation,	// remove
-		Browser_UpdateBinaryPath,	// remove
-		Browser_AllowExpiredCredentials,	// remove
-		Browser_AlwaysAllowAccess,	// remove
-		Browser_AlwaysAllowUpdate,	// remove
-		Browser_HttpAuthPermission,	// remove
-		Browser_SearchInAllDatabases,	// remove
-		Browser_SupportKphFields,	// remove
-		Browser_NoMigrationPrompt,	// remove
-		Browser_UseCustomBrowser,	// remove
-		Browser_CustomBrowserType,	// remove
-		Browser_CustomBrowserLocation,	// remove
-		Browser_AllowLocalhostWithPasskeys,	// remove
-#ifdef QT_DEBUG
-		Browser_CustomExtensionId,	// remove
-#endif
-
-		SSHAgent_Enabled,
-		SSHAgent_UseOpenSSH,
-		SSHAgent_UsePageant,
-		SSHAgent_AuthSockOverride,
-		SSHAgent_SecurityKeyProviderOverride,
 
 		FdoSecrets_Enabled,
 		FdoSecrets_ShowNotification,
 		FdoSecrets_ConfirmDeleteItem,
 		FdoSecrets_ConfirmAccessItem,
 		FdoSecrets_UnlockBeforeSearch,
-
-		KeeShare_QuietSuccess,
-		KeeShare_Own,
-		KeeShare_Foreign,
-		KeeShare_Active,
 
 		PasswordGenerator_LowerCase,
 		PasswordGenerator_UpperCase,
@@ -207,7 +148,6 @@ public:
 		Deleted
 	};
 
-	~Config() override;
 	QVariant get(ConfigKey key);
 	QVariant getDefault(ConfigKey key);
 	QString getFileName();
@@ -220,7 +160,7 @@ public:
 	bool importSettings(const QString &fileName);
 	void exportSettings(const QString &fileName) const;
 
-	static Config *instance();
+	static Config* instance();
 	static void createConfigFromFile(const QString &configFileName, const QString &localConfigFileName = {});
 	static void createTempFileInstance();
 	static bool isPortable();
@@ -232,18 +172,19 @@ signals:
 private:
 	Config(const QString &configFileName, const QString &localConfigFileName, QObject *parent);
 	explicit Config(QObject *parent);
+
 	void init(const QString &configFileName, const QString &localConfigFileName);
 	void migrate();
 	static QPair<QString, QString> defaultConfigFiles();
 
-	static QPointer<Config> m_instance;
+	static std::unique_ptr<Config> m_instance;
 
 	QScopedPointer<QSettings> m_settings;
 	QScopedPointer<QSettings> m_localSettings;
 	QHash<QString, QVariant> m_defaults;
 };
 
-inline Config *config()
+inline Config* config()
 {
 	return Config::instance();
 }

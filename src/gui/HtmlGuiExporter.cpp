@@ -20,21 +20,22 @@
 
 #include "gui/Icons.h"
 
-namespace
-{
-	QString PixmapToHTML(const QPixmap &pixmap)
-	{
-		if (pixmap.isNull())
-		{
-			return "";
-		}
+namespace {
 
-		// Based on https://stackoverflow.com/a/6621278
-		QByteArray a;
-		QBuffer buffer(&a);
-		pixmap.save(&buffer, "PNG");
-		return QString("<img src=\"data:image/png;base64,") + a.toBase64() + "\"/>";
+QString PixmapToHTML(const QPixmap &pixmap)
+{
+	if (pixmap.isNull())
+	{
+		return QString();
 	}
+
+	// Based on https://stackoverflow.com/a/6621278
+	QByteArray a;
+	QBuffer buffer(&a);
+	pixmap.save(&buffer, "PNG");
+	return QString("<img src=\"data:image/png;base64,") + a.toBase64() + "\"/>";
+}
+
 } // namespace
 
 QString HtmlGuiExporter::groupIconToHtml(const Group *group)

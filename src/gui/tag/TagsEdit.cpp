@@ -39,94 +39,98 @@
 
 #include <cassert>
 
-namespace
+namespace {
+
+constexpr int tag_v_spacing = 2;
+constexpr int tag_h_spacing = 3;
+
+constexpr QMargins tag_inner(5, 3, 4, 3);
+
+constexpr int tag_cross_width = 5;
+constexpr float tag_cross_radius = tag_cross_width / 2;
+constexpr int tag_cross_padding = 5;
+
+struct Tag
 {
-
-	constexpr int tag_v_spacing = 2;
-	constexpr int tag_h_spacing = 3;
-
-	constexpr QMargins tag_inner(5, 3, 4, 3);
-
-	constexpr int tag_cross_width = 5;
-	constexpr float tag_cross_radius = tag_cross_width / 2;
-	constexpr int tag_cross_padding = 5;
-
-	struct Tag
+	bool isEmpty() const noexcept
 	{
-		bool isEmpty() const noexcept
-		{
-			return text.isEmpty();
-		}
+		return text.isEmpty();
+	}
 
-		QString text;
-		QRect rect;
-		size_t row;
-	};
+	QString text;
+	QRect rect;
+	size_t row;
+};
 
-	/// Non empty string filtering iterator
-	template <class It> struct EmptySkipIterator
+/// Non empty string filtering iterator
+template <class It>
+struct EmptySkipIterator
+{
+	EmptySkipIterator() = default;
+
+	// skip until `end`
+	explicit EmptySkipIterator(It it, It end)
+		: it(it)
+		, end(end)
 	{
-		EmptySkipIterator() = default;
-
-		// skip until `end`
-		explicit EmptySkipIterator(It it, It end)
-			: it(it)
-			, end(end)
+		while (this->it != end && this->it->isEmpty())
 		{
-			while (this->it != end && this->it->isEmpty())
-			{
-				++this->it;
-			}
-			begin = it;
+			++this->it;
 		}
 
-		explicit EmptySkipIterator(It it)
-			: it(it)
-			, end{}
+		begin = it;
+	}
+
+	explicit EmptySkipIterator(It it)
+		: it(it)
+		, end{}
+	{
+	}
+
+	using difference_type = typename std::iterator_traits<It>::difference_type;
+	using value_type = typename std::iterator_traits<It>::value_type;
+	using pointer = typename std::iterator_traits<It>::pointer;
+	using reference = typename std::iterator_traits<It>::reference;
+	using iterator_category = std::output_iterator_tag;
+
+	EmptySkipIterator& operator++()
+	{
+		assert(it != end);
+		while ((++it != end) && it->isEmpty())
 		{
 		}
 
-		using difference_type = typename std::iterator_traits<It>::difference_type;
-		using value_type = typename std::iterator_traits<It>::value_type;
-		using pointer = typename std::iterator_traits<It>::pointer;
-		using reference = typename std::iterator_traits<It>::reference;
-		using iterator_category = std::output_iterator_tag;
+		return *this;
+	}
 
-		EmptySkipIterator &operator++()
-		{
-			assert(it != end);
-			while (++it != end && it->isEmpty())
-				;
-			return *this;
-		}
+	decltype(auto) operator*()
+	{
+		return *it;
+	}
 
-		decltype(auto) operator*()
-		{
-			return *it;
-		}
+	pointer operator->()
+	{
+		return &(*it);
+	}
 
-		pointer operator->()
-		{
-			return &(*it);
-		}
+	bool operator!=(EmptySkipIterator const &rhs) const
+	{
+		return it != rhs.it;
+	}
 
-		bool operator!=(EmptySkipIterator const &rhs) const
-		{
-			return it != rhs.it;
-		}
+	bool operator==(EmptySkipIterator const &rhs) const
+	{
+		return it == rhs.it;
+	}
 
-		bool operator==(EmptySkipIterator const &rhs) const
-		{
-			return it == rhs.it;
-		}
+private:
+	It begin;
+	It it;
+	It end;
+};
 
-	private:
-		It begin;
-		It it;
-		It end;
-	};
-
-	template <class It> EmptySkipIterator(It, It) -> EmptySkipIterator<It>;
+template <class It>
+EmptySkipIterator(It, It) -> EmptySkipIterator<It>;
 
 } // namespace
 
@@ -158,24 +162,22 @@ struct TagsEdit::Impl
 	bool inCrossArea(int tag_index, QPoint point) const
 	{
 		return cross_deleter
-		           ? crossRect(tags[tag_index].rect)
-		                     .adjusted(-tag_cross_radius, 0, 0, 0)
-		                     .translated(-ifce->horizontalScrollBar()->value(), -ifce->verticalScrollBar()->value())
-		                     .contains(point)
-		                 && (!cursorVisible() || tag_index != editing_index)
-		           : false;
+			? crossRect(tags[tag_index].rect)
+					.adjusted(-tag_cross_radius, 0, 0, 0)
+					.translated(-ifce->horizontalScrollBar()->value(), -ifce->verticalScrollBar()->value())
+					.contains(point)
+				&& (!cursorVisible() || tag_index != editing_index)
+			: false;
 	}
 
-	template <class It> void drawTags(QPainter &p, std::pair<It, It> range) const
+	template <class It>
+	void drawTags(QPainter &p, std::pair<It, It> range) const
 	{
 		for (auto it = range.first; it != range.second; ++it)
 		{
-			QRect const &i_r =
-				it->rect.translated(-ifce->horizontalScrollBar()->value(), -ifce->verticalScrollBar()->value());
-			auto const text_pos =
-				i_r.topLeft()
-				+ QPointF(tag_inner.left(),
-			              ifce->fontMetrics().ascent() + ((i_r.height() - ifce->fontMetrics().height()) / 2));
+			QRect const &i_r = it->rect.translated(-ifce->horizontalScrollBar()->value(), -ifce->verticalScrollBar()->value());
+			auto const text_pos = i_r.topLeft()
+				+ QPointF(tag_inner.left(), ifce->fontMetrics().ascent() + ((i_r.height() - ifce->fontMetrics().height()) / 2));
 
 			// draw tag rect
 			auto palette = getMainWindow()->palette();
@@ -195,8 +197,7 @@ struct TagsEdit::Impl
 				QPainterPath crossRectBg1, crossRectBg2;
 				crossRectBg1.addRoundedRect(i_cross_r, cornerRadius, cornerRadius);
 				// cover left rounded corners
-				crossRectBg2.addRect(
-					i_cross_r.left(), i_cross_r.bottom(), tag_cross_radius, i_cross_r.top() - i_cross_r.bottom());
+				crossRectBg2.addRect(i_cross_r.left(), i_cross_r.bottom(), tag_cross_radius, i_cross_r.top() - i_cross_r.bottom());
 				p.fillPath(crossRectBg1, palette.highlight());
 				p.fillPath(crossRectBg2, palette.highlight());
 
@@ -208,9 +209,9 @@ struct TagsEdit::Impl
 				p.setPen(pen);
 				p.setRenderHint(QPainter::Antialiasing);
 				p.drawLine(QLineF(i_cross_r.center() - QPointF(tag_cross_radius, tag_cross_radius),
-				                  i_cross_r.center() + QPointF(tag_cross_radius, tag_cross_radius)));
+					i_cross_r.center() + QPointF(tag_cross_radius, tag_cross_radius)));
 				p.drawLine(QLineF(i_cross_r.center() - QPointF(-tag_cross_radius, tag_cross_radius),
-				                  i_cross_r.center() + QPointF(-tag_cross_radius, tag_cross_radius)));
+					i_cross_r.center() + QPointF(-tag_cross_radius, tag_cross_radius)));
 				p.restore();
 			}
 		}
@@ -259,15 +260,14 @@ struct TagsEdit::Impl
 			const auto text_w = fm.horizontalAdvance(it->text);
 			auto const text_h = fm.height() + fm.leading();
 			auto const w = cross_deleter
-			                   ? tag_inner.left() + tag_inner.right() + tag_cross_padding * 2 + tag_cross_width
-			                   : tag_inner.left() + tag_inner.right();
+				? tag_inner.left() + tag_inner.right() + tag_cross_padding * 2 + tag_cross_width
+				: tag_inner.left() + tag_inner.right();
 			auto const h = tag_inner.top() + tag_inner.bottom();
 			QRect i_r(lt, QSize(text_w + w, text_h + h));
 
 			// line wrapping
-			if (r.right() < i_r.right() && // doesn't fit in current line
-			    i_r.left() != r.left() // doesn't occupy entire line already
-			)
+			if (r.right() < i_r.right() // doesn't fit in current line
+				&& i_r.left() != r.left()) // doesn't occupy entire line already
 			{
 				i_r.moveTo(r.left(), i_r.bottom() + tag_v_spacing);
 				++row;
@@ -280,7 +280,8 @@ struct TagsEdit::Impl
 		}
 	}
 
-	template <class It> void calcEditorRect(QPoint &lt, size_t &row, QRect r, QFontMetrics const &fm, It it) const
+	template <class It>
+	void calcEditorRect(QPoint &lt, size_t &row, QRect r, QFontMetrics const &fm, It it) const
 	{
 		auto const text_w = fm.horizontalAdvance(text_layout.text());
 		auto const text_h = fm.height() + fm.leading();
@@ -289,9 +290,8 @@ struct TagsEdit::Impl
 		QRect i_r(lt, QSize(text_w + w, text_h + h));
 
 		// line wrapping
-		if (r.right() < i_r.right() && // doesn't fit in current line
-		    i_r.left() != r.left() // doesn't occupy entire line already
-		)
+		if (r.right() < i_r.right() // doesn't fit in current line
+			&& i_r.left() != r.left()) // doesn't occupy entire line already
 		{
 			i_r.moveTo(r.left(), i_r.bottom() + tag_v_spacing);
 			++row;
@@ -349,8 +349,7 @@ struct TagsEdit::Impl
 	void setEditingIndex(int i)
 	{
 		assert(i < tags.size());
-		auto occurrencesOfCurrentText =
-			std::count_if(tags.cbegin(), tags.cend(), [this](const auto &tag) { return tag.text == currentText(); });
+		auto occurrencesOfCurrentText = std::count_if(tags.cbegin(), tags.cend(), [this](const auto &tag) { return tag.text == currentText(); });
 		if (tags.size() > 1 && (currentText().isEmpty() || occurrencesOfCurrentText > 1))
 		{
 			tags.erase(std::next(tags.begin(), std::ptrdiff_t(editing_index)));
@@ -359,6 +358,7 @@ struct TagsEdit::Impl
 				--i;
 			}
 		}
+
 		editing_index = i;
 	}
 
@@ -366,8 +366,8 @@ struct TagsEdit::Impl
 	{
 		auto const row = tags.back().row;
 		auto const max_width = std::max_element(std::begin(tags), std::end(tags), [](auto const &x, auto const &y) {
-								   return x.rect.width() < y.rect.width();
-							   })->rect.width();
+			return x.rect.width() < y.rect.width();
+		})->rect.width();
 
 		calcRects(tags);
 
@@ -377,8 +377,8 @@ struct TagsEdit::Impl
 		}
 
 		auto const new_max_width = std::max_element(std::begin(tags), std::end(tags), [](auto const &x, auto const &y) {
-									   return x.rect.width() < y.rect.width();
-								   })->rect.width();
+			return x.rect.width() < y.rect.width();
+		})->rect.width();
 
 		if (max_width != new_max_width)
 		{
@@ -395,17 +395,17 @@ struct TagsEdit::Impl
 		ifce->viewport()->update();
 	}
 
-	QString const &currentText() const
+	const QString& currentText() const
 	{
 		return tags[editing_index].text;
 	}
 
-	QString &currentText()
+	QString& currentText()
 	{
 		return tags[editing_index].text;
 	}
 
-	QRect const &currentRect() const
+	const QRect& currentRect() const
 	{
 		return tags[editing_index].rect;
 	}
@@ -420,6 +420,7 @@ struct TagsEdit::Impl
 		{
 			++editing_index;
 		}
+
 		setEditingIndex(i);
 		moveCursor(0, false);
 	}
@@ -429,8 +430,8 @@ struct TagsEdit::Impl
 		completer->setWidget(ifce);
 		completer->setCaseSensitivity(Qt::CaseInsensitive);
 		connect(completer.get(),
-		        static_cast<void (QCompleter::*)(QString const &)>(&QCompleter::activated),
-		        [this](QString const &text) { currentText(text); });
+			static_cast<void (QCompleter::*)(QString const &)>(&QCompleter::activated),
+			[this](QString const &text) { currentText(text); });
 	}
 
 	QVector<QTextLayout::FormatRange> formatting() const
@@ -489,9 +490,7 @@ struct TagsEdit::Impl
 		if (mark)
 		{
 			auto e = select_start + select_size;
-			int anchor = select_size > 0 && cursor == select_start ? e
-			             : select_size > 0 && cursor == e          ? select_start
-			                                                       : cursor;
+			int anchor = (select_size > 0 && cursor == select_start) ? e : ((select_size > 0 && cursor == e) ? select_start : cursor);
 			select_start = qMin(anchor, pos);
 			select_size = qMax(anchor, pos) - select_start;
 		}
@@ -540,6 +539,7 @@ struct TagsEdit::Impl
 		ifce->verticalScrollBar()->setPageStep(row_h);
 		auto const h = tags.back().rect.bottom() - tags.front().rect.top() + 1;
 		auto const contents_rect = contentsRect();
+
 		if (h > contents_rect.height())
 		{
 			ifce->verticalScrollBar()->setRange(0, h - contents_rect.height());
@@ -553,8 +553,9 @@ struct TagsEdit::Impl
 	void updateHScrollRange()
 	{
 		auto const max_width = std::max_element(std::begin(tags), std::end(tags), [](auto const &x, auto const &y) {
-								   return x.rect.width() < y.rect.width();
-							   })->rect.width();
+			return x.rect.width() < y.rect.width();
+		})->rect.width();
+
 		updateHScrollRange(max_width);
 	}
 
@@ -579,6 +580,7 @@ struct TagsEdit::Impl
 		auto const cursor_top = currentRect().topLeft() + QPoint(qRound(cursorToX()), 0);
 		auto const cursor_bottom = cursor_top + QPoint(0, row_h - 1);
 		auto const contents_rect = contentsRect().translated(0, vscroll);
+
 		if (contents_rect.bottom() < cursor_bottom.y())
 		{
 			ifce->verticalScrollBar()->setValue(cursor_bottom.y() - row_h);
@@ -594,6 +596,7 @@ struct TagsEdit::Impl
 		auto const hscroll = ifce->horizontalScrollBar()->value();
 		auto const contents_rect = contentsRect().translated(hscroll, 0);
 		auto const cursor_x = (currentRect() - tag_inner).left() + qRound(cursorToX());
+
 		if (contents_rect.right() < cursor_x)
 		{
 			ifce->horizontalScrollBar()->setValue(cursor_x - contents_rect.width());
@@ -604,7 +607,7 @@ struct TagsEdit::Impl
 		}
 	}
 
-	TagsEdit *const ifce;
+	TagsEdit * const ifce;
 	QList<Tag> tags;
 	int editing_index;
 	int cursor;
@@ -639,7 +642,9 @@ TagsEdit::TagsEdit(QWidget *parent)
 	viewport()->setContentsMargins(1, 1, 1, 1);
 }
 
-TagsEdit::~TagsEdit() = default;
+TagsEdit::~TagsEdit()
+{
+}
 
 void TagsEdit::setReadOnly(bool readOnly)
 {
@@ -706,32 +711,24 @@ void TagsEdit::paintEvent(QPaintEvent *)
 		auto const &txt_p = r.topLeft() + QPointF(tag_inner.left(), ((r.height() - fontMetrics().height()) / 2));
 
 		// tags
-		impl->drawTags(
-			p,
-			std::make_pair(impl->tags.cbegin(), std::next(impl->tags.cbegin(), std::ptrdiff_t(impl->editing_index))));
+		impl->drawTags(p, std::make_pair(impl->tags.cbegin(), std::next(impl->tags.cbegin(), std::ptrdiff_t(impl->editing_index))));
 
 		// draw not terminated tag
 		auto const formatting = impl->formatting();
-		impl->text_layout.draw(
-			&p, txt_p - QPointF(horizontalScrollBar()->value(), verticalScrollBar()->value()), formatting);
+		impl->text_layout.draw(&p, txt_p - QPointF(horizontalScrollBar()->value(), verticalScrollBar()->value()), formatting);
 
 		// draw cursor
 		if (impl->blink_status)
 		{
-			impl->text_layout.drawCursor(
-				&p, txt_p - QPointF(horizontalScrollBar()->value(), verticalScrollBar()->value()), impl->cursor);
+			impl->text_layout.drawCursor(&p, txt_p - QPointF(horizontalScrollBar()->value(), verticalScrollBar()->value()), impl->cursor);
 		}
 
 		// tags
-		impl->drawTags(
-			p,
-			std::make_pair(std::next(impl->tags.cbegin(), std::ptrdiff_t(impl->editing_index + 1)), impl->tags.cend()));
+		impl->drawTags(p, std::make_pair(std::next(impl->tags.cbegin(), std::ptrdiff_t(impl->editing_index + 1)), impl->tags.cend()));
 	}
 	else
 	{
-		impl->drawTags(p,
-		               std::make_pair(EmptySkipIterator(impl->tags.begin(), impl->tags.end()),
-		                              EmptySkipIterator(impl->tags.end())));
+		impl->drawTags(p, std::make_pair(EmptySkipIterator(impl->tags.begin(), impl->tags.end()), EmptySkipIterator(impl->tags.end())));
 	}
 }
 
@@ -747,6 +744,7 @@ void TagsEdit::timerEvent(QTimerEvent *event)
 void TagsEdit::mousePressEvent(QMouseEvent *event)
 {
 	bool found = false;
+
 	for (int i = 0; i < impl->tags.size(); ++i)
 	{
 		if (impl->inCrossArea(i, event->pos()))
@@ -756,27 +754,23 @@ void TagsEdit::mousePressEvent(QMouseEvent *event)
 			{
 				--impl->editing_index;
 			}
+
 			emit tagsEdited();
 			found = true;
 			break;
 		}
 
-		if (!impl->tags[i]
-		         .rect.translated(-horizontalScrollBar()->value(), -verticalScrollBar()->value())
-		         .contains(event->pos()))
+		if (!impl->tags[i].rect.translated(-horizontalScrollBar()->value(), -verticalScrollBar()->value()).contains(event->pos()))
 		{
 			continue;
 		}
 
 		if (impl->editing_index == i)
 		{
-			impl->moveCursor(impl->text_layout.lineAt(0).xToCursor(
-								 (event->pos()
-			                      - impl->currentRect()
-			                            .translated(-horizontalScrollBar()->value(), -verticalScrollBar()->value())
-			                            .topLeft())
-									 .x()),
-			                 false);
+			impl->moveCursor(
+				impl->text_layout.lineAt(0).xToCursor(
+					(event->pos() - impl->currentRect().translated(-horizontalScrollBar()->value(), -verticalScrollBar()->value()).topLeft()).x()),
+				false);
 		}
 		else
 		{
@@ -792,8 +786,7 @@ void TagsEdit::mousePressEvent(QMouseEvent *event)
 		for (auto it = std::begin(impl->tags); it != std::end(impl->tags); ++it)
 		{
 			// Click of a row.
-			if (it->rect.translated(-horizontalScrollBar()->value(), -verticalScrollBar()->value()).bottom()
-			    < event->pos().y())
+			if (it->rect.translated(-horizontalScrollBar()->value(), -verticalScrollBar()->value()).bottom() < event->pos().y())
 			{
 				continue;
 			}
@@ -879,6 +872,7 @@ void TagsEdit::keyPressEvent(QKeyEvent *event)
 				impl->editNewTag(impl->editing_index + 1);
 			}
 		}
+
 		event->accept();
 	}
 	else
@@ -968,6 +962,7 @@ void TagsEdit::keyPressEvent(QKeyEvent *event)
 		{
 			impl->removeSelection();
 		}
+
 		impl->currentText().insert(impl->cursor, event->text());
 		impl->cursor = impl->cursor + event->text().length();
 		event->accept();
@@ -1009,9 +1004,9 @@ void TagsEdit::tags(QStringList const &tags)
 	QList<Tag> t{Tag()};
 
 	std::transform(EmptySkipIterator(tags.begin(), tags.end()), // Ensure Invariant-1
-	               EmptySkipIterator(tags.end()),
-	               std::back_inserter(t),
-	               [](QString const &text) { return Tag{text, QRect(), 0}; });
+		EmptySkipIterator(tags.end()),
+		std::back_inserter(t),
+		[](QString const &text) { return Tag{text, QRect(), 0}; });
 
 	impl->tags = std::move(t);
 	impl->editNewTag(impl->tags.size());
@@ -1025,9 +1020,9 @@ QStringList TagsEdit::tags() const
 {
 	QStringList ret;
 	std::transform(EmptySkipIterator(impl->tags.begin(), impl->tags.end()),
-	               EmptySkipIterator(impl->tags.end()),
-	               std::back_inserter(ret),
-	               [](Tag const &tag) { return tag.text; });
+		EmptySkipIterator(impl->tags.end()),
+		std::back_inserter(ret),
+		[](Tag const &tag) { return tag.text; });
 	return ret;
 }
 
@@ -1043,6 +1038,7 @@ void TagsEdit::mouseMoveEvent(QMouseEvent *event)
 				return;
 			}
 		}
+
 		if (impl->contentsRect().contains(event->pos()))
 		{
 			viewport()->setCursor(Qt::IBeamCursor);
@@ -1058,14 +1054,18 @@ bool TagsEdit::isAcceptableInput(const QKeyEvent *event) const
 {
 	const QString text = event->text();
 	if (text.isEmpty())
+	{
 		return false;
+	}
 
 	const QChar c = text.at(0);
 
 	// Formatting characters such as ZWNJ, ZWJ, RLM, etc. This needs to go before the
 	// next test, since CTRL+SHIFT is sometimes used to input it on Windows.
 	if (c.category() == QChar::Other_Format)
+	{
 		return true;
+	}
 
 	// QTBUG-35734: ignore Ctrl/Ctrl+Shift; accept only AltGr (Alt+Ctrl) on German keyboards
 	if (event->modifiers() == Qt::ControlModifier || event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier))
@@ -1074,10 +1074,14 @@ bool TagsEdit::isAcceptableInput(const QKeyEvent *event) const
 	}
 
 	if (c.isPrint())
+	{
 		return true;
+	}
 
 	if (c.category() == QChar::Other_PrivateUse)
+	{
 		return true;
+	}
 
 	return false;
 }

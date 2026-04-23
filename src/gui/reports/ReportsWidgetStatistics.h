@@ -23,14 +23,16 @@
 class Database;
 class QStandardItemModel;
 
-namespace Ui
-{
-	class ReportsWidgetStatistics;
-}
+namespace Ui {
+
+class ReportsWidgetStatistics;
+
+} // namespace Ui
 
 class ReportsWidgetStatistics: public QWidget
 {
 	Q_OBJECT
+
 public:
 	explicit ReportsWidgetStatistics(QWidget *parent = nullptr);
 	~ReportsWidgetStatistics();
@@ -52,7 +54,7 @@ private:
 	QScopedPointer<QStandardItemModel> m_referencesModel;
 	QSharedPointer<Database> m_db;
 
-	void addStatsRow(QString name, QString value, bool bad = false, QString badMsg = "");
+	void addStatsRow(const QString &name, const QString &value, bool bad = false, const QString &badMsg = QString());
 };
 
 #endif // KEEPASSXC_REPORTSWIDGETSTATISTICS_H

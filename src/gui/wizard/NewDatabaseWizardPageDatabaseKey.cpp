@@ -25,7 +25,3 @@ NewDatabaseWizardPageDatabaseKey::NewDatabaseWizardPageDatabaseKey(QWidget *pare
 	setTitle(tr("Database Credentials"));
 	setSubTitle(tr("A set of credentials known only to you that protects your database."));
 }
-
-NewDatabaseWizardPageDatabaseKey::~NewDatabaseWizardPageDatabaseKey()
-{
-}

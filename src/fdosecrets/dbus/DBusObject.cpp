@@ -18,39 +18,38 @@
 
 #include <QUrl>
 
-namespace FdoSecrets
+namespace FdoSecrets {
+
+DBusObject::DBusObject(DBusObject *parent)
+	: QObject(parent)
+	, m_dbus(parent->dbus())
 {
+}
 
-	DBusObject::DBusObject(DBusObject *parent)
-		: QObject(parent)
-		, m_dbus(parent->dbus())
-	{
-	}
+DBusObject::DBusObject(QSharedPointer<DBusMgr> dbus)
+	: QObject(nullptr)
+	, m_objectPath("/")
+	, m_dbus(std::move(dbus))
+{
+}
 
-	DBusObject::DBusObject(QSharedPointer<DBusMgr> dbus)
-		: QObject(nullptr)
-		, m_objectPath("/")
-		, m_dbus(std::move(dbus))
-	{
-	}
+DBusObject::~DBusObject()
+{
+	emit destroyed(this);
+}
 
-	DBusObject::~DBusObject()
-	{
-		emit destroyed(this);
-	}
+void DBusObject::setObjectPath(const QString &path)
+{
+	m_objectPath.setPath(path);
+}
 
-	void DBusObject::setObjectPath(const QString &path)
-	{
-		m_objectPath.setPath(path);
-	}
-
-	QString encodePath(const QString &value)
-	{
-		// toPercentEncoding encodes everything except those in the unreserved group:
-		// ALPHA / DIGIT / "-" / "." / "_" / "~"
-		// we want only ALPHA / DIGIT / "_", with "_" as the escape character
-		// so force "-.~_" to be encoded
-		return QUrl::toPercentEncoding(value, "", "-.~_").replace('%', '_');
-	}
+QString encodePath(const QString &value)
+{
+	// toPercentEncoding encodes everything except those in the unreserved group:
+	// ALPHA / DIGIT / "-" / "." / "_" / "~"
+	// we want only ALPHA / DIGIT / "_", with "_" as the escape character
+	// so force "-.~_" to be encoded
+	return QUrl::toPercentEncoding(value, "", "-.~_").replace('%', '_');
+}
 
 } // namespace FdoSecrets

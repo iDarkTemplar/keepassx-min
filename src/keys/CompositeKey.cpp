@@ -150,6 +150,7 @@ QSharedPointer<Key> CompositeKey::getKey(const QUuid keyId) const
 			return key;
 		}
 	}
+
 	return {};
 }
 
@@ -171,6 +172,7 @@ QByteArray CompositeKey::serialize() const
 	{
 		stream << key->uuid().toRfc4122() << key->serialize();
 	}
+
 	return data;
 }
 

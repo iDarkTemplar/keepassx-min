@@ -22,10 +22,11 @@
 #include <QScopedPointer>
 #include <QWidget>
 
-namespace Ui
-{
-	class TextAttachmentsWidget;
-}
+namespace Ui {
+
+class TextAttachmentsWidget;
+
+} // namespace Ui
 
 class QSplitter;
 class QTimer;
@@ -37,7 +38,6 @@ class TextAttachmentsWidget: public QWidget
 	Q_OBJECT
 public:
 	explicit TextAttachmentsWidget(QWidget *parent = nullptr);
-	~TextAttachmentsWidget() override;
 
 	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
 	attachments::Attachment getAttachment() const;

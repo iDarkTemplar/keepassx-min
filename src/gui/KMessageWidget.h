@@ -106,6 +106,7 @@ class KMessageWidget: public QFrame
 	Q_PROPERTY(QIcon icon READ icon WRITE setIcon)
 
 	Q_DECLARE_PRIVATE(KMessageWidget)
+
 public:
 	/**
 	 * Available message types.

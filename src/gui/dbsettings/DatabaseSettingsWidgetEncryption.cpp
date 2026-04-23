@@ -33,16 +33,18 @@ const char *DatabaseSettingsWidgetEncryption::CD_DECRYPTION_TIME_PREFERENCE_KEY 
 #define IS_ARGON2(uuid) (uuid == KeePass2::KDF_ARGON2D || uuid == KeePass2::KDF_ARGON2ID)
 #define IS_AES_KDF(uuid) (uuid == KeePass2::KDF_AES_KDBX3 || uuid == KeePass2::KDF_AES_KDBX4)
 
-namespace
+namespace {
+
+QString getTextualEncryptionTime(int millisecs)
 {
-	QString getTextualEncryptionTime(int millisecs)
+	if (millisecs < 1000)
 	{
-		if (millisecs < 1000)
-		{
-			return QObject::tr("%1 ms", "milliseconds", millisecs).arg(millisecs);
-		}
-		return QObject::tr("%1 s", "seconds", millisecs / 1000).arg(millisecs / 1000.0, 0, 'f', 1);
+		return QObject::tr("%1 ms", "milliseconds", millisecs).arg(millisecs);
 	}
+
+	return QObject::tr("%1 s", "seconds", millisecs / 1000).arg(millisecs / 1000.0, 0, 'f', 1);
+}
+
 } // namespace
 
 DatabaseSettingsWidgetEncryption::DatabaseSettingsWidgetEncryption(QWidget *parent)
@@ -66,8 +68,7 @@ DatabaseSettingsWidgetEncryption::DatabaseSettingsWidgetEncryption(QWidget *pare
 	m_ui->decryptionTimeSlider->setValue(Kdf::DEFAULT_ENCRYPTION_TIME / 100);
 	updateDecryptionTime(m_ui->decryptionTimeSlider->value());
 
-	m_ui->transformBenchmarkButton->setText(
-		QObject::tr("Benchmark %1 delay").arg(getTextualEncryptionTime(Kdf::DEFAULT_ENCRYPTION_TIME)));
+	m_ui->transformBenchmarkButton->setText(QObject::tr("Benchmark %1 delay").arg(getTextualEncryptionTime(Kdf::DEFAULT_ENCRYPTION_TIME)));
 	m_ui->minTimeLabel->setText(getTextualEncryptionTime(Kdf::MIN_ENCRYPTION_TIME));
 	m_ui->maxTimeLabel->setText(getTextualEncryptionTime(Kdf::MAX_ENCRYPTION_TIME));
 
@@ -164,6 +165,7 @@ void DatabaseSettingsWidgetEncryption::initialize()
 	{
 		m_ui->algorithmComboBox->addItem(KeePass2::cipherToString(cipher), cipher);
 	}
+
 	int cipherIndex = m_ui->algorithmComboBox->findData(m_db->cipher());
 	if (cipherIndex > -1)
 	{
@@ -216,6 +218,7 @@ void DatabaseSettingsWidgetEncryption::loadKdfAlgorithms()
 			m_ui->kdfComboBox->setCurrentIndex(m_ui->kdfComboBox->count() - 1);
 		}
 	}
+
 	m_ui->kdfComboBox->blockSignals(false);
 
 	// Ensure consistency with current index
@@ -259,6 +262,7 @@ void DatabaseSettingsWidgetEncryption::loadKdfParameters()
 			m_ui->memorySpinBox->setValue(Argon2Kdf::toMebibytes(ARGON2_DEFAULT_MEMORY));
 			m_ui->parallelismSpinBox->setValue(ARGON2_DEFAULT_PARALLELISM);
 		}
+
 		benchmarkTransformRounds();
 	}
 }
@@ -336,12 +340,13 @@ bool DatabaseSettingsWidgetEncryption::saveSettings()
 		warning.setIcon(QMessageBox::Warning);
 		warning.setWindowTitle(tr("Number of rounds too high", "Key transformation rounds"));
 		warning.setText(tr("You are using a very high number of key transform rounds with Argon2.\n\n"
-		                   "If you keep this number, your database may take hours, days, or even longer to open."));
+			"If you keep this number, your database may take hours, days, or even longer to open."));
 		auto ok = warning.addButton(tr("Understood, keep number"), QMessageBox::ButtonRole::AcceptRole);
 		auto cancel = warning.addButton(tr("Cancel"), QMessageBox::ButtonRole::RejectRole);
 		warning.setDefaultButton(cancel);
 		warning.layout()->setSizeConstraint(QLayout::SetMinimumSize);
 		warning.exec();
+
 		if (warning.clickedButton() != ok)
 		{
 			return false;
@@ -353,12 +358,13 @@ bool DatabaseSettingsWidgetEncryption::saveSettings()
 		warning.setIcon(QMessageBox::Warning);
 		warning.setWindowTitle(tr("Number of rounds too low", "Key transformation rounds"));
 		warning.setText(tr("You are using a very low number of key transform rounds with AES-KDF.\n\n"
-		                   "If you keep this number, your database will not be protected from brute force attacks."));
+			"If you keep this number, your database will not be protected from brute force attacks."));
 		auto ok = warning.addButton(tr("Understood, keep number"), QMessageBox::ButtonRole::AcceptRole);
 		auto cancel = warning.addButton(tr("Cancel"), QMessageBox::ButtonRole::RejectRole);
 		warning.setDefaultButton(cancel);
 		warning.layout()->setSizeConstraint(QLayout::SetMinimumSize);
 		warning.exec();
+
 		if (warning.clickedButton() != ok)
 		{
 			return false;
@@ -390,9 +396,9 @@ bool DatabaseSettingsWidgetEncryption::saveSettings()
 	if (!ok)
 	{
 		MessageBox::warning(this,
-		                    tr("KDF unchanged"),
-		                    tr("Failed to transform key with new KDF parameters; KDF unchanged."),
-		                    QMessageBox::Ok);
+			tr("KDF unchanged"),
+			tr("Failed to transform key with new KDF parameters; KDF unchanged."),
+			QMessageBox::Ok);
 	}
 
 	return ok;
@@ -417,6 +423,7 @@ void DatabaseSettingsWidgetEncryption::benchmarkTransformRounds(int millisecs)
 		{
 			m_ui->memorySpinBox->setValue(Argon2Kdf::toMebibytes(argon2Kdf->memory()));
 		}
+
 		if (!argon2Kdf->setParallelism(static_cast<quint32>(m_ui->parallelismSpinBox->value())))
 		{
 			m_ui->parallelismSpinBox->setValue(argon2Kdf->parallelism());

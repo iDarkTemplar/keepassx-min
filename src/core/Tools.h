@@ -29,112 +29,108 @@
 class QIODevice;
 class QRegularExpression;
 
-namespace Tools
+namespace Tools {
+
+QString debugInfo();
+QString humanReadableFileSize(qint64 bytes, quint32 precision = 2);
+QString humanReadableTimeDifference(qint64 seconds);
+bool readFromDevice(QIODevice *device, QByteArray &data, int size = 16384);
+bool readAllFromDevice(QIODevice *device, QByteArray &data);
+bool isHex(const QByteArray &ba);
+bool isBase64(const QByteArray &ba);
+bool isAsciiString(const QString &str);
+void sleep(int ms);
+void wait(int ms);
+QString uuidToHex(const QUuid &uuid);
+QUuid hexToUuid(const QString &uuid);
+bool isValidUuid(const QString &uuidStr);
+
+QString cleanFilename(QString filename);
+QString cleanUsername();
+QString escapeAccelerators(QString string);
+
+template <class T>
+QSet<T> asSet(const QList<T> &a)
 {
-	QString debugInfo();
-	QString humanReadableFileSize(qint64 bytes, quint32 precision = 2);
-	QString humanReadableTimeDifference(qint64 seconds);
-	bool readFromDevice(QIODevice *device, QByteArray &data, int size = 16384);
-	bool readAllFromDevice(QIODevice *device, QByteArray &data);
-	bool isHex(const QByteArray &ba);
-	bool isBase64(const QByteArray &ba);
-	bool isAsciiString(const QString &str);
-	void sleep(int ms);
-	void wait(int ms);
-	QString uuidToHex(const QUuid &uuid);
-	QUuid hexToUuid(const QString &uuid);
-	bool isValidUuid(const QString &uuidStr);
-	QString envSubstitute(const QString &filepath,
-	                      QProcessEnvironment environment = QProcessEnvironment::systemEnvironment());
-	QString cleanFilename(QString filename);
-	QString cleanUsername();
-	QString escapeAccelerators(QString string);
+	return QSet<T>(a.begin(), a.end());
+}
 
-	template <class T> QSet<T> asSet(const QList<T> &a)
+/**
+ * Escapes all characters in regex such that they do not receive any special treatment when used
+ * in a regular expression. Essentially, this function escapes any characters not in a-zA-Z0-9.
+ * @param regex The unescaped regular expression string.
+ * @return An escaped string safe to use in a regular expression.
+ */
+QString escapeRegex(const QString &regex);
+
+enum RegexConvertOpts
+{
+	DEFAULT = 0,
+	WILDCARD_UNLIMITED_MATCH = 1,
+	WILDCARD_SINGLE_MATCH = 1 << 2,
+	WILDCARD_LOGICAL_OR = 1 << 3,
+	WILDCARD_ALL = WILDCARD_UNLIMITED_MATCH | WILDCARD_SINGLE_MATCH | WILDCARD_LOGICAL_OR,
+	EXACT_MATCH = 1 << 4,
+	CASE_SENSITIVE = 1 << 5,
+	ESCAPE_REGEX = 1 << 6,
+};
+
+/**
+ * Converts input string to a regular expression according to the options specified in opts.
+ * Note that, unless ESCAPE_REGEX is set, convertToRegex assumes a proper regular expression as input.
+ * @param string The input string. Assumed to be a proper regular expression unless ESCAPE_REGEX is set.
+ * @param opts Tools::RegexConvertOpts options the regex will be converted with.
+ * @return The regular expression built from string and opts.
+ */
+QRegularExpression convertToRegex(const QString &string, int opts = RegexConvertOpts::DEFAULT);
+
+template <typename RandomAccessIterator, typename T>
+RandomAccessIterator binaryFind(RandomAccessIterator begin, RandomAccessIterator end, const T &value)
+{
+	RandomAccessIterator it = std::lower_bound(begin, end, value);
+
+	if ((it == end) || (value < *it))
 	{
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		return QSet<T>(a.begin(), a.end());
-#else
-		return QSet<T>::fromList(a);
-#endif
+		return end;
 	}
-
-	/**
-	 * Escapes all characters in regex such that they do not receive any special treatment when used
-	 * in a regular expression. Essentially, this function escapes any characters not in a-zA-Z0-9.
-	 * @param regex The unescaped regular expression string.
-	 * @return An escaped string safe to use in a regular expression.
-	 */
-	QString escapeRegex(const QString &regex);
-
-	enum RegexConvertOpts
+	else
 	{
-		DEFAULT = 0,
-		WILDCARD_UNLIMITED_MATCH = 1,
-		WILDCARD_SINGLE_MATCH = 1 << 2,
-		WILDCARD_LOGICAL_OR = 1 << 3,
-		WILDCARD_ALL = WILDCARD_UNLIMITED_MATCH | WILDCARD_SINGLE_MATCH | WILDCARD_LOGICAL_OR,
-		EXACT_MATCH = 1 << 4,
-		CASE_SENSITIVE = 1 << 5,
-		ESCAPE_REGEX = 1 << 6,
-	};
+		return it;
+	}
+}
 
-	/**
-	 * Converts input string to a regular expression according to the options specified in opts.
-	 * Note that, unless ESCAPE_REGEX is set, convertToRegex assumes a proper regular expression as input.
-	 * @param string The input string. Assumed to be a proper regular expression unless ESCAPE_REGEX is set.
-	 * @param opts Tools::RegexConvertOpts options the regex will be converted with.
-	 * @return The regular expression built from string and opts.
-	 */
-	QRegularExpression convertToRegex(const QString &string, int opts = RegexConvertOpts::DEFAULT);
+// Checks if all values are found inside the list. Returns a list of values not found.
+template <typename T>
+QList<T> getMissingValuesFromList(const QList<T> &list, const QList<T> &required)
+{
+	QList<T> missingValues;
 
-	template <typename RandomAccessIterator, typename T>
-	RandomAccessIterator binaryFind(RandomAccessIterator begin, RandomAccessIterator end, const T &value)
+	for (const auto &r: required)
 	{
-		RandomAccessIterator it = std::lower_bound(begin, end, value);
-
-		if ((it == end) || (value < *it))
+		if (!list.contains(r))
 		{
-			return end;
-		}
-		else
-		{
-			return it;
+			missingValues << r;
 		}
 	}
 
-	// Checks if all values are found inside the list. Returns a list of values not found.
-	template <typename T> QList<T> getMissingValuesFromList(const QList<T> &list, const QList<T> &required)
-	{
-		QList<T> missingValues;
-		for (const auto &r: required)
-		{
-			if (!list.contains(r))
-			{
-				missingValues << r;
-			}
-		}
+	return missingValues;
+}
 
-		return missingValues;
-	}
+QString substituteBackupFilePath(QString pattern, const QString &databasePath);
 
-	QVariantMap qo2qvm(const QObject *object, const QStringList &ignoredProperties = {"objectName"});
+enum class MimeType: uint8_t
+{
+	Image,
+	PlainText,
+	Html,
+	Markdown,
+	Unknown
+};
 
-	QString substituteBackupFilePath(QString pattern, const QString &databasePath);
-
-	enum class MimeType : uint8_t
-	{
-		Image,
-		PlainText,
-		Html,
-		Markdown,
-		Unknown
-	};
-
-	MimeType toMimeType(const QString &mimeName);
-	MimeType getMimeType(const QByteArray &data);
-	MimeType getMimeType(const QFileInfo &fileInfo);
-	bool isTextMimeType(MimeType mimeType);
+MimeType toMimeType(const QString &mimeName);
+MimeType getMimeType(const QByteArray &data);
+MimeType getMimeType(const QFileInfo &fileInfo);
+bool isTextMimeType(MimeType mimeType);
 
 } // namespace Tools
 

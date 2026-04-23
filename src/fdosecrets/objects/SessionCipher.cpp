@@ -27,110 +27,111 @@
 #include <botan/dl_group.h>
 #include <botan/pubkey.h>
 
-namespace FdoSecrets
+namespace FdoSecrets {
+
+// XXX: remove the redundant definitions once we are at C++17
+constexpr char PlainCipher::Algorithm[];
+constexpr char DhIetf1024Sha256Aes128CbcPkcs7::Algorithm[];
+
+DhIetf1024Sha256Aes128CbcPkcs7::DhIetf1024Sha256Aes128CbcPkcs7(const QByteArray &clientPublicKey)
 {
-	// XXX: remove the redundant definitions once we are at C++17
-	constexpr char PlainCipher::Algorithm[];
-	constexpr char DhIetf1024Sha256Aes128CbcPkcs7::Algorithm[];
-
-	DhIetf1024Sha256Aes128CbcPkcs7::DhIetf1024Sha256Aes128CbcPkcs7(const QByteArray &clientPublicKey)
+	try
 	{
-		try
-		{
-			m_privateKey.reset(new Botan::DH_PrivateKey(*randomGen()->getRng(), Botan::DL_Group::from_name("modp/ietf/1024")));
-			m_valid = updateClientPublicKey(clientPublicKey);
-		}
-		catch (std::exception &e)
-		{
-			qCritical("Failed to derive DH key: %s", e.what());
-			m_privateKey.reset();
-			m_valid = false;
-		}
+		m_privateKey.reset(new Botan::DH_PrivateKey(*randomGen()->getRng(), Botan::DL_Group::from_name("modp/ietf/1024")));
+		m_valid = updateClientPublicKey(clientPublicKey);
+	}
+	catch (const std::exception &e)
+	{
+		qCritical("Failed to derive DH key: %s", e.what());
+		m_privateKey.reset();
+		m_valid = false;
+	}
+}
+
+bool DhIetf1024Sha256Aes128CbcPkcs7::updateClientPublicKey(const QByteArray &clientPublicKey)
+{
+	if (!m_privateKey)
+	{
+		return false;
 	}
 
-	bool DhIetf1024Sha256Aes128CbcPkcs7::updateClientPublicKey(const QByteArray &clientPublicKey)
+	try
 	{
-		if (!m_privateKey)
-		{
-			return false;
-		}
+		Botan::secure_vector<uint8_t> salt(32, '\0');
+		Botan::PK_Key_Agreement dhka(*m_privateKey, *randomGen()->getRng(), "HKDF(SHA-256)", "");
+		auto aesKey = dhka.derive_key(16,
+			reinterpret_cast<const uint8_t *>(clientPublicKey.constData()),
+			clientPublicKey.size(),
+			salt.data(),
+			salt.size());
+		m_aesKey = QByteArray(reinterpret_cast<const char *>(aesKey.begin()), aesKey.size());
 
-		try
-		{
-			Botan::secure_vector<uint8_t> salt(32, '\0');
-			Botan::PK_Key_Agreement dhka(*m_privateKey, *randomGen()->getRng(), "HKDF(SHA-256)", "");
-			auto aesKey = dhka.derive_key(16,
-			                              reinterpret_cast<const uint8_t *>(clientPublicKey.constData()),
-			                              clientPublicKey.size(),
-			                              salt.data(),
-			                              salt.size());
-			m_aesKey = QByteArray(reinterpret_cast<const char *>(aesKey.begin()), aesKey.size());
-
-			return true;
-		}
-		catch (std::exception &e)
-		{
-			qCritical("Failed to update client public key: %s", e.what());
-			return false;
-		}
+		return true;
 	}
-
-	Secret DhIetf1024Sha256Aes128CbcPkcs7::encrypt(const Secret &input)
+	catch (const std::exception &e)
 	{
-		Secret output = input;
-		output.parameters.clear();
-		output.value.clear();
+		qCritical("Failed to update client public key: %s", e.what());
+		return false;
+	}
+}
 
-		SymmetricCipher encrypter;
-		auto IV = randomGen()->randomArray(SymmetricCipher::defaultIvSize(SymmetricCipher::Aes128_CBC));
-		if (!encrypter.init(SymmetricCipher::Aes128_CBC, SymmetricCipher::Encrypt, m_aesKey, IV))
-		{
-			qWarning() << "Error encrypt: " << encrypter.errorString();
-			return output;
-		}
+Secret DhIetf1024Sha256Aes128CbcPkcs7::encrypt(const Secret &input)
+{
+	Secret output = input;
+	output.parameters.clear();
+	output.value.clear();
 
-		output.parameters = IV;
-		output.value = input.value;
-		if (!encrypter.finish(output.value))
-		{
-			qWarning() << "Error encrypt: " << encrypter.errorString();
-			return output;
-		}
-
+	SymmetricCipher encrypter;
+	auto IV = randomGen()->randomArray(SymmetricCipher::defaultIvSize(SymmetricCipher::Aes128_CBC));
+	if (!encrypter.init(SymmetricCipher::Aes128_CBC, SymmetricCipher::Encrypt, m_aesKey, IV))
+	{
+		qWarning() << "Error encrypt: " << encrypter.errorString();
 		return output;
 	}
 
-	Secret DhIetf1024Sha256Aes128CbcPkcs7::decrypt(const Secret &input)
+	output.parameters = IV;
+	output.value = input.value;
+	if (!encrypter.finish(output.value))
 	{
-		SymmetricCipher decrypter;
-		if (!decrypter.init(SymmetricCipher::Aes128_CBC, SymmetricCipher::Decrypt, m_aesKey, input.parameters))
-		{
-			qWarning() << "Error decoding: " << decrypter.errorString();
-			return input;
-		}
-
-		Secret output = input;
-		output.parameters.clear();
-		if (!decrypter.finish(output.value))
-		{
-			qWarning() << "Error decoding: " << decrypter.errorString();
-			return input;
-		}
+		qWarning() << "Error encrypt: " << encrypter.errorString();
 		return output;
 	}
 
-	bool DhIetf1024Sha256Aes128CbcPkcs7::isValid() const
+	return output;
+}
+
+Secret DhIetf1024Sha256Aes128CbcPkcs7::decrypt(const Secret &input)
+{
+	SymmetricCipher decrypter;
+	if (!decrypter.init(SymmetricCipher::Aes128_CBC, SymmetricCipher::Decrypt, m_aesKey, input.parameters))
 	{
-		return m_valid;
+		qWarning() << "Error decoding: " << decrypter.errorString();
+		return input;
 	}
 
-	QVariant DhIetf1024Sha256Aes128CbcPkcs7::negotiationOutput() const
+	Secret output = input;
+	output.parameters.clear();
+	if (!decrypter.finish(output.value))
 	{
-		if (m_valid)
-		{
-			auto pubkey = m_privateKey->public_value();
-			return QByteArray(reinterpret_cast<char *>(pubkey.data()), pubkey.size());
-		}
-		return {};
+		qWarning() << "Error decoding: " << decrypter.errorString();
+		return input;
 	}
+	return output;
+}
+
+bool DhIetf1024Sha256Aes128CbcPkcs7::isValid() const
+{
+	return m_valid;
+}
+
+QVariant DhIetf1024Sha256Aes128CbcPkcs7::negotiationOutput() const
+{
+	if (m_valid)
+	{
+		auto pubkey = m_privateKey->public_value();
+		return QByteArray(reinterpret_cast<char *>(pubkey.data()), pubkey.size());
+	}
+	return {};
+}
+
 } // namespace FdoSecrets

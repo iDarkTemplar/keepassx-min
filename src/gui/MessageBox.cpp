@@ -23,15 +23,13 @@
 #include <QPushButton>
 #include <QWindow>
 
-QWindow *MessageBox::m_overrideParent(nullptr);
+QWindow* MessageBox::m_overrideParent(nullptr);
 
 MessageBox::Button MessageBox::m_nextAnswer(MessageBox::NoButton);
 
-QHash<QAbstractButton *, MessageBox::Button> MessageBox::m_addedButtonLookup =
-	QHash<QAbstractButton *, MessageBox::Button>();
+QHash<QAbstractButton*, MessageBox::Button> MessageBox::m_addedButtonLookup;
 
-QMap<MessageBox::Button, std::pair<QString, QMessageBox::ButtonRole>> MessageBox::m_buttonDefs =
-	QMap<MessageBox::Button, std::pair<QString, QMessageBox::ButtonRole>>();
+QMap<MessageBox::Button, std::pair<QString, QMessageBox::ButtonRole>> MessageBox::m_buttonDefs;
 
 void MessageBox::initializeButtonDefs()
 {
@@ -76,14 +74,15 @@ QString MessageBox::stdButtonText(QMessageBox::StandardButton button)
 	return buttonHost.addButton(button)->text();
 }
 
-MessageBox::Button MessageBox::messageBox(QWidget *parent,
-                                          QMessageBox::Icon icon,
-                                          const QString &title,
-                                          const QString &text,
-                                          MessageBox::Buttons buttons,
-                                          MessageBox::Button defaultButton,
-                                          MessageBox::Action action,
-                                          QCheckBox *checkbox)
+MessageBox::Button MessageBox::messageBox(
+	QWidget *parent,
+	QMessageBox::Icon icon,
+	const QString &title,
+	const QString &text,
+	MessageBox::Buttons buttons,
+	MessageBox::Button defaultButton,
+	MessageBox::Action action,
+	QCheckBox *checkbox)
 {
 	if (m_nextAnswer == MessageBox::NoButton)
 	{
@@ -118,7 +117,7 @@ MessageBox::Button MessageBox::messageBox(QWidget *parent,
 
 		if (defaultButton != MessageBox::NoButton)
 		{
-			QList<QAbstractButton *> defPtrList = m_addedButtonLookup.keys(defaultButton);
+			QList<QAbstractButton*> defPtrList = m_addedButtonLookup.keys(defaultButton);
 			if (defPtrList.count() > 0)
 			{
 				msgBox.setDefaultButton(static_cast<QPushButton *>(defPtrList[0]));
@@ -137,6 +136,7 @@ MessageBox::Button MessageBox::messageBox(QWidget *parent,
 			msgBox.activateWindow();
 			msgBox.raise();
 		}
+
 		msgBox.layout()->setSizeConstraint(QLayout::SetMinimumSize);
 		msgBox.exec();
 
@@ -152,46 +152,50 @@ MessageBox::Button MessageBox::messageBox(QWidget *parent,
 	}
 }
 
-MessageBox::Button MessageBox::critical(QWidget *parent,
-                                        const QString &title,
-                                        const QString &text,
-                                        MessageBox::Buttons buttons,
-                                        MessageBox::Button defaultButton,
-                                        MessageBox::Action action,
-                                        QCheckBox *checkbox)
+MessageBox::Button MessageBox::critical(
+	QWidget *parent,
+	const QString &title,
+	const QString &text,
+	MessageBox::Buttons buttons,
+	MessageBox::Button defaultButton,
+	MessageBox::Action action,
+	QCheckBox *checkbox)
 {
 	return messageBox(parent, QMessageBox::Critical, title, text, buttons, defaultButton, action, checkbox);
 }
 
-MessageBox::Button MessageBox::warning(QWidget *parent,
-                                       const QString &title,
-                                       const QString &text,
-                                       MessageBox::Buttons buttons,
-                                       MessageBox::Button defaultButton,
-                                       MessageBox::Action action,
-                                       QCheckBox *checkbox)
+MessageBox::Button MessageBox::warning(
+	QWidget *parent,
+	const QString &title,
+	const QString &text,
+	MessageBox::Buttons buttons,
+	MessageBox::Button defaultButton,
+	MessageBox::Action action,
+	QCheckBox *checkbox)
 {
 	return messageBox(parent, QMessageBox::Warning, title, text, buttons, defaultButton, action, checkbox);
 }
 
-MessageBox::Button MessageBox::information(QWidget *parent,
-                                           const QString &title,
-                                           const QString &text,
-                                           MessageBox::Buttons buttons,
-                                           MessageBox::Button defaultButton,
-                                           MessageBox::Action action,
-                                           QCheckBox *checkbox)
+MessageBox::Button MessageBox::information(
+	QWidget *parent,
+	const QString &title,
+	const QString &text,
+	MessageBox::Buttons buttons,
+	MessageBox::Button defaultButton,
+	MessageBox::Action action,
+	QCheckBox *checkbox)
 {
 	return messageBox(parent, QMessageBox::Information, title, text, buttons, defaultButton, action, checkbox);
 }
 
-MessageBox::Button MessageBox::question(QWidget *parent,
-                                        const QString &title,
-                                        const QString &text,
-                                        MessageBox::Buttons buttons,
-                                        MessageBox::Button defaultButton,
-                                        MessageBox::Action action,
-                                        QCheckBox *checkbox)
+MessageBox::Button MessageBox::question(
+	QWidget *parent,
+	const QString &title,
+	const QString &text,
+	MessageBox::Buttons buttons,
+	MessageBox::Button defaultButton,
+	MessageBox::Action action,
+	QCheckBox *checkbox)
 {
 	return messageBox(parent, QMessageBox::Question, title, text, buttons, defaultButton, action, checkbox);
 }

@@ -33,10 +33,6 @@ OpVaultReader::OpVaultReader(QObject *parent)
 {
 }
 
-OpVaultReader::~OpVaultReader()
-{
-}
-
 QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &password)
 {
 	if (!opdataDir.exists())
@@ -44,6 +40,7 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 		m_error = tr("Directory .opvault must exist");
 		return {};
 	}
+
 	if (!opdataDir.isReadable())
 	{
 		m_error = tr("Directory .opvault must be readable");
@@ -57,6 +54,7 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 		m_error = tr("Directory .opvault/default must exist");
 		return {};
 	}
+
 	if (!defaultDir.isReadable())
 	{
 		m_error = tr("Directory .opvault/default must be readable");
@@ -77,6 +75,7 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 	{
 		return {};
 	}
+
 	if (!processProfileJson(profileJson, password, rootGroup))
 	{
 		zeroKeys();
@@ -103,6 +102,7 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 		{
 			continue;
 		}
+
 		// https://support.1password.com/opvault-design/#band-files
 		QJsonObject bandJs = readAndAssertJsonFile(bandFile, "ld(", ");");
 		const QStringList keys = bandJs.keys();
@@ -113,9 +113,10 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 			if (entryKey != uuid)
 			{
 				qWarning() << QString("Mismatched Entry UUID, its JSON key <<%1>> and its UUID <<%2>>")
-								  .arg(entryKey)
-								  .arg(uuid);
+					.arg(entryKey)
+					.arg(uuid);
 			}
+
 			QStringList requiredKeys({"d", "k", "hmac"});
 			bool ok = true;
 			for (const QString &requiredKey: asConst(requiredKeys))
@@ -127,10 +128,12 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 					break;
 				}
 			}
+
 			if (!ok)
 			{
 				continue;
 			}
+
 			// https://support.1password.com/opvault-design/#items
 			auto entry = processBandEntry(bandEnt, defaultDir, rootGroup);
 			if (!entry)
@@ -170,11 +173,13 @@ bool OpVaultReader::processProfileJson(QJsonObject &profileJson, const QString &
 	QString masterKeyB64 = profileJson["masterKey"].toString();
 	QString overviewKeyB64 = profileJson["overviewKey"].toString();
 	// QString profileName = profileJs["profileName"].toString();
+
 	QByteArray salt;
 	{
 		QString saltB64 = profileJson["salt"].toString();
 		salt = QByteArray::fromBase64(saltB64.toUtf8());
 	}
+
 	auto rootGroupTime = rootGroup->timeInfo();
 	auto createdAt = static_cast<uint>(profileJson["createdAt"].toInt());
 	rootGroupTime.setCreationTime(QDateTime::fromTime_t(createdAt, Qt::UTC));
@@ -198,6 +203,7 @@ bool OpVaultReader::processProfileJson(QJsonObject &profileJson, const QString &
 		m_error = masterKeys->error;
 		return false;
 	}
+
 	m_masterKey = masterKeys->encrypt;
 	m_masterHmacKey = masterKeys->hmac;
 	QScopedPointer overviewKeys(decodeB64CompositeKeys(overviewKeyB64, encKey, hmacKey));
@@ -206,6 +212,7 @@ bool OpVaultReader::processProfileJson(QJsonObject &profileJson, const QString &
 		m_error = overviewKeys->error;
 		return false;
 	}
+
 	m_overviewKey = overviewKeys->encrypt;
 	m_overviewHmacKey = overviewKeys->hmac;
 
@@ -225,6 +232,7 @@ bool OpVaultReader::processFolderJson(QJsonObject &foldersJson, Group *rootGroup
 			qWarning() << "Found non-Object folder with key \"" << key << "\"";
 			continue;
 		}
+
 		const QJsonObject folder = folderValue.toObject();
 		QJsonObject overviewJs;
 		const QString overviewStr = folder.value("overview").toString();
@@ -235,6 +243,7 @@ bool OpVaultReader::processFolderJson(QJsonObject &foldersJson, Group *rootGroup
 			result = false;
 			continue;
 		}
+
 		auto foldOverview = foldOverview01.getClearText();
 		QJsonDocument fOverJSON = QJsonDocument::fromJson(foldOverview);
 		overviewJs = fOverJSON.object();
@@ -252,8 +261,7 @@ bool OpVaultReader::processFolderJson(QJsonObject &foldersJson, Group *rootGroup
 		{
 			if (!overviewJs.contains("predicate_b64"))
 			{
-				const QString &errMsg =
-					QString(R"(Expected a predicate in smart folder[uuid="%1"; title="%2"]))").arg(key, folderTitle);
+				QString errMsg = QString(R"(Expected a predicate in smart folder[uuid="%1"; title="%2"]))").arg(key, folderTitle);
 				qWarning() << errMsg;
 				myGroup->setNotes(errMsg);
 			}
@@ -272,18 +280,21 @@ bool OpVaultReader::processFolderJson(QJsonObject &foldersJson, Group *rootGroup
 			ti.setCreationTime(QDateTime::fromTime_t(createdTime, Qt::UTC));
 			timeInfoOk = true;
 		}
+
 		if (folder.contains("updated"))
 		{
 			auto updateTime = static_cast<uint>(folder["updated"].toInt());
 			ti.setLastModificationTime(QDateTime::fromTime_t(updateTime, Qt::UTC));
 			timeInfoOk = true;
 		}
+
 		// "tx" is modified by sync, not by user; maybe a custom attribute?
 		if (timeInfoOk)
 		{
 			myGroup->setTimeInfo(ti);
 		}
 	}
+
 	return result;
 }
 
@@ -307,6 +318,7 @@ QJsonObject OpVaultReader::readAndAssertJsonFile(QFile &file, const QString &str
 		qCritical() << QString("File \"%1\" must exist").arg(absFilePath);
 		return QJsonObject();
 	}
+
 	if (!fileInfo.isReadable())
 	{
 		qCritical() << QString("File \"%1\" must be readable").arg(absFilePath);
@@ -317,6 +329,7 @@ QJsonObject OpVaultReader::readAndAssertJsonFile(QFile &file, const QString &str
 	{
 		qCritical() << QString("Unable to open \"%1\" readonly+text").arg(absFilePath);
 	}
+
 	filePayload = file.readAll();
 	file.close();
 	if (!stripLeading.isEmpty())
@@ -327,6 +340,7 @@ QJsonObject OpVaultReader::readAndAssertJsonFile(QFile &file, const QString &str
 			filePayload = filePayload.remove(0, prefix.size());
 		}
 	}
+
 	if (!stripTrailing.isEmpty())
 	{
 		QByteArray suffix = stripTrailing.toUtf8();
@@ -344,12 +358,12 @@ QJsonObject OpVaultReader::readAndAssertJsonFile(QFile &file, const QString &str
 		qCritical() << "Expected " << filePayload << "to be a JSON Object";
 		return QJsonObject();
 	}
+
 	return jDoc.object();
 }
 
 /* Convenience method for calling decodeCompositeKeys when you have a base64 encrypted composite key. */
-OpVaultReader::DerivedKeyHMAC *
-	OpVaultReader::decodeB64CompositeKeys(const QString &b64, const QByteArray &encKey, const QByteArray &hmacKey)
+OpVaultReader::DerivedKeyHMAC* OpVaultReader::decodeB64CompositeKeys(const QString &b64, const QByteArray &encKey, const QByteArray &hmacKey)
 {
 
 	OpData01 keyKey01;
@@ -373,7 +387,7 @@ OpVaultReader::DerivedKeyHMAC *
  * The first 32 bytes (256-bits) of the resulting hash are the master encryption key,
  * and the second 32 bytes are the master hmac key.
  */
-OpVaultReader::DerivedKeyHMAC *OpVaultReader::decodeCompositeKeys(const QByteArray &keyKey)
+OpVaultReader::DerivedKeyHMAC* OpVaultReader::decodeCompositeKeys(const QByteArray &keyKey)
 {
 	auto result = new DerivedKeyHMAC;
 
@@ -390,8 +404,7 @@ OpVaultReader::DerivedKeyHMAC *OpVaultReader::decodeCompositeKeys(const QByteArr
  * @param iterations the number of rounds to apply the derivation formula
  * @return a non-null structure containing either the error or the two password-derived keys
  */
-OpVaultReader::DerivedKeyHMAC *
-	OpVaultReader::deriveKeysFromPassPhrase(QByteArray &salt, const QString &password, unsigned long iterations)
+OpVaultReader::DerivedKeyHMAC* OpVaultReader::deriveKeysFromPassPhrase(QByteArray &salt, const QString &password, unsigned long iterations)
 {
 	auto result = new DerivedKeyHMAC;
 
@@ -399,14 +412,14 @@ OpVaultReader::DerivedKeyHMAC *
 	try
 	{
 		auto pwhash = Botan::PasswordHashFamily::create_or_throw("PBKDF2(SHA-512)")->from_iterations(iterations);
-		pwhash->derive_key(reinterpret_cast<uint8_t *>(out.data()),
-		                   out.size(),
-		                   password.toUtf8().constData(),
-		                   password.size(),
-		                   reinterpret_cast<const uint8_t *>(salt.constData()),
-		                   salt.size());
+		pwhash->derive_key(reinterpret_cast<uint8_t*>(out.data()),
+			out.size(),
+			password.toUtf8().constData(),
+			password.size(),
+			reinterpret_cast<const uint8_t*>(salt.constData()),
+			salt.size());
 	}
-	catch (std::exception &e)
+	catch (const std::exception &e)
 	{
 		result->error = tr("Unable to derive master key: %1").arg(e.what());
 		return result;
@@ -424,6 +437,7 @@ OpVaultReader::DerivedKeyHMAC *
 void OpVaultReader::populateCategoryGroups(Group *rootGroup)
 {
 	QMap<QString, QString> categoryMap;
+
 	categoryMap.insert("001", "Login");
 	categoryMap.insert("002", "Credit Card");
 	categoryMap.insert("003", "Secure Note");
@@ -442,6 +456,7 @@ void OpVaultReader::populateCategoryGroups(Group *rootGroup)
 	categoryMap.insert("109", "Router");
 	categoryMap.insert("110", "Server");
 	categoryMap.insert("111", "Email");
+
 	for (const QString &catNum: categoryMap.keys())
 	{
 		const QString &category = categoryMap[catNum];

@@ -25,28 +25,30 @@
 #include <QLocale>
 #include <QUrlQuery>
 
-namespace
+namespace {
+
+QDateTime resolveDate(const QString &kind, const QJsonValue &value)
 {
-	QDateTime resolveDate(const QString &kind, const QJsonValue &value)
+	QDateTime date;
+	if (kind == "monthYear")
 	{
-		QDateTime date;
-		if (kind == "monthYear")
-		{
-			// 1Password programmers are sadistic...
-			auto dateValue = QString::number(value.toInt());
-			date = QDateTime::fromString(dateValue, "yyyyMM");
-			date.setTimeSpec(Qt::UTC);
-		}
-		else if (value.isString())
-		{
-			date = QDateTime::fromTime_t(value.toString().toUInt(), Qt::UTC);
-		}
-		else
-		{
-			date = QDateTime::fromTime_t(value.toInt(), Qt::UTC);
-		}
-		return date;
+		// 1Password programmers are sadistic...
+		auto dateValue = QString::number(value.toInt());
+		date = QDateTime::fromString(dateValue, "yyyyMM");
+		date.setTimeSpec(Qt::UTC);
 	}
+	else if (value.isString())
+	{
+		date = QDateTime::fromTime_t(value.toString().toUInt(), Qt::UTC);
+	}
+	else
+	{
+		date = QDateTime::fromTime_t(value.toInt(), Qt::UTC);
+	}
+
+	return date;
+}
+
 } // namespace
 
 void OpVaultReader::fillFromSection(Entry *entry, const QJsonObject &section)
@@ -61,6 +63,7 @@ void OpVaultReader::fillFromSection(Entry *entry, const QJsonObject &section)
 		{
 			qWarning() << R"(Skipping "fields"-less Section in UUID ")" << uuid << "\": <<" << section << ">>";
 		}
+
 		return;
 	}
 	else if (!section["fields"].isArray())
@@ -77,6 +80,7 @@ void OpVaultReader::fillFromSection(Entry *entry, const QJsonObject &section)
 			qWarning() << R"(Skipping non-Object "fields" in UUID ")" << uuid << "\": << " << sectionField << ">>";
 			continue;
 		}
+
 		fillFromSectionField(entry, sectionTitle, sectionField.toObject());
 	}
 }
@@ -107,6 +111,7 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 			{
 				name = QString("otp_%1").arg(++i);
 			}
+
 			entry->attributes()->set(name, attrValue, true);
 		}
 		else if (attrValue.startsWith("otpauth://"))
@@ -117,10 +122,12 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 			{
 				query.addQueryItem("digits", QString("%1").arg(Totp::DEFAULT_DIGITS));
 			}
+
 			if (!query.hasQueryItem("period"))
 			{
 				query.addQueryItem("period", QString("%1").arg(Totp::DEFAULT_STEP));
 			}
+
 			attrValue = query.toString(QUrl::FullyEncoded);
 			entry->setTotp(Totp::parseSettings(attrValue));
 		}
@@ -153,8 +160,7 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 			}
 			else
 			{
-				qWarning()
-					<< QString("[%1] Invalid date attribute found: %2 = %3").arg(entry->title(), attrName, attrValue);
+				qWarning() << QString("[%1] Invalid date attribute found: %2 = %3").arg(entry->title(), attrName, attrValue);
 			}
 		}
 		else if (kind == "address")
@@ -173,6 +179,7 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 				// Append a random string to the attribute name to avoid collisions
 				attrName += QString("_%1").arg(QUuid::createUuid().toString().mid(1, 5));
 			}
+
 			entry->attributes()->set(attrName, attrValue, (kind == "password" || kind == "concealed"));
 		}
 	}
@@ -200,11 +207,15 @@ QString OpVaultReader::resolveAttributeName(const QString &section, const QStrin
 		{
 			return EntryAttributes::UserNameKey;
 		}
-		else if (lowName == "url" || lowText == "url" || lowName == "hostname" || lowText == "server"
-		         || lowName == "website")
+		else if (lowName == "url"
+			|| lowText == "url"
+			|| lowName == "hostname"
+			|| lowText == "server"
+			|| lowName == "website")
 		{
 			return EntryAttributes::URLKey;
 		}
+
 		return text;
 	}
 

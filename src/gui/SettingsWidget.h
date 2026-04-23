@@ -30,7 +30,6 @@ class SettingsWidget: public QWidget
 
 public:
 	explicit SettingsWidget(QWidget *parent = nullptr);
-	~SettingsWidget() override = default;
 
 public slots:
 	/**

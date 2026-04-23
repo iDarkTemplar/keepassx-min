@@ -19,6 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301  USA
  */
+
 #include "KMessageWidget.h"
 
 #include "core/Global.h"
@@ -39,6 +40,7 @@
 class KMessageWidgetPrivate: public QObject
 {
 	Q_OBJECT
+
 public:
 	void init(KMessageWidget *);
 
@@ -53,7 +55,7 @@ public:
 
 	KMessageWidget::MessageType messageType;
 	bool wordWrap;
-	QList<QToolButton *> buttons;
+	QList<QToolButton*> buttons;
 	QPixmap contentSnapShot;
 
 	void createLayout();

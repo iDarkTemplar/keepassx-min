@@ -32,7 +32,6 @@ class NewDatabaseWizard: public QWizard
 
 public:
 	explicit NewDatabaseWizard(QWidget *parent = nullptr);
-	~NewDatabaseWizard() override;
 
 	QSharedPointer<Database> takeDatabase();
 	bool validateCurrentPage() override;

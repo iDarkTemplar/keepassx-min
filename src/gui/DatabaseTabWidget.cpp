@@ -36,7 +36,6 @@
 DatabaseTabWidget::DatabaseTabWidget(QWidget *parent)
 	: QTabWidget(parent)
 	, m_dbWidgetStateSync(new DatabaseWidgetStateSync(this))
-	, m_dbWidgetPendingLock(nullptr)
 	, m_databaseOpenDialog(new DatabaseOpenDialog(this))
 	, m_databaseOpenInProgress(false)
 {
@@ -46,19 +45,15 @@ DatabaseTabWidget::DatabaseTabWidget(QWidget *parent)
 	setTabBar(tabBar);
 	setDocumentMode(true);
 
-    connect(this, SIGNAL(tabCloseRequested(int)), SLOT(closeDatabaseTab(int)));
-    connect(this, SIGNAL(currentChanged(int)), SLOT(emitActiveDatabaseChanged()));
-    connect(this, SIGNAL(activeDatabaseChanged(DatabaseWidget*)),
-            m_dbWidgetStateSync, SLOT(setActive(DatabaseWidget*)));
-    connect(m_databaseOpenDialog.data(), &DatabaseOpenDialog::dialogFinished,
-            this, &DatabaseTabWidget::handleDatabaseUnlockDialogFinished);
+	connect(this, SIGNAL(tabCloseRequested(int)), SLOT(closeDatabaseTab(int)));
+	connect(this, SIGNAL(currentChanged(int)), SLOT(emitActiveDatabaseChanged()));
+	connect(this, SIGNAL(activeDatabaseChanged(DatabaseWidget*)),
+		m_dbWidgetStateSync, SLOT(setActive(DatabaseWidget*)));
+	connect(m_databaseOpenDialog.data(), &DatabaseOpenDialog::dialogFinished,
+		this, &DatabaseTabWidget::handleDatabaseUnlockDialogFinished);
 
 	m_lockDelayTimer.setSingleShot(true);
 	connect(&m_lockDelayTimer, &QTimer::timeout, this, [this] { lockDatabases(); });
-}
-
-DatabaseTabWidget::~DatabaseTabWidget()
-{
 }
 
 void DatabaseTabWidget::toggleTabbar()
@@ -98,23 +93,25 @@ QSharedPointer<Database> DatabaseTabWidget::execNewDatabaseWizard()
 	{
 		return {};
 	}
+
 	Q_ASSERT(db->key());
 	Q_ASSERT(db->kdf());
 	if (!db->key() || !db->kdf())
 	{
 		MessageBox::critical(this,
-		                     tr("Database creation error"),
-		                     tr("The created database has no key or KDF, refusing to save it.\n"
-		                        "This is definitely a bug, please report it to the developers."),
-		                     MessageBox::Ok,
-		                     MessageBox::Ok);
+			tr("Database creation error"),
+			tr("The created database has no key or KDF, refusing to save it.\n"
+				"This is definitely a bug, please report it to the developers."),
+			MessageBox::Ok,
+			MessageBox::Ok);
+
 		return {};
 	}
 
 	return db;
 }
 
-DatabaseWidget *DatabaseTabWidget::newDatabase()
+DatabaseWidget* DatabaseTabWidget::newDatabase()
 {
 	auto db = execNewDatabaseWizard();
 	if (!db)
@@ -149,10 +146,11 @@ void DatabaseTabWidget::openDatabase()
  * @param keyfile optional, path to keyfile to unlock database
  *
  */
-void DatabaseTabWidget::addDatabaseTab(const QString &filePath,
-                                       bool inBackground,
-                                       const QString &password,
-                                       const QString &keyfile)
+void DatabaseTabWidget::addDatabaseTab(
+	const QString &filePath,
+	bool inBackground,
+	const QString &password,
+	const QString &keyfile)
 {
 	QString cleanFilePath = QDir::toNativeSeparators(filePath);
 	QFileInfo fileInfo(cleanFilePath);
@@ -161,7 +159,7 @@ void DatabaseTabWidget::addDatabaseTab(const QString &filePath,
 	if (canonicalFilePath.isEmpty())
 	{
 		emit messageGlobal(tr("Failed to open %1. It either does not exist or is not accessible.").arg(cleanFilePath),
-		                   MessageWidget::Error);
+			MessageWidget::Error);
 		return;
 	}
 
@@ -177,6 +175,7 @@ void DatabaseTabWidget::addDatabaseTab(const QString &filePath,
 				// switch to existing tab if file is already open
 				setCurrentIndex(indexOf(dbWidget));
 			}
+
 			return;
 		}
 	}
@@ -197,6 +196,7 @@ void DatabaseTabWidget::lockAndSwitchToFirstUnlockedDatabase(int index)
 	{
 		index = currentIndex();
 	}
+
 	auto dbWidget = databaseWidgetFromIndex(index);
 	if (!dbWidget)
 	{
@@ -243,13 +243,13 @@ void DatabaseTabWidget::addDatabaseTab(DatabaseWidget *dbWidget, bool inBackgrou
 	}
 
 	connect(dbWidget,
-	        SIGNAL(requestOpenDatabase(QString, bool, QString, QString)),
-	        SLOT(addDatabaseTab(QString, bool, QString, QString)));
+		SIGNAL(requestOpenDatabase(QString, bool, QString, QString)),
+		SLOT(addDatabaseTab(QString, bool, QString, QString)));
 	connect(dbWidget, SIGNAL(databaseFilePathChanged(QString, QString)), SLOT(updateTabName()));
 	connect(dbWidget, SIGNAL(closeRequest()), SLOT(closeDatabaseTabFromSender()));
 	connect(dbWidget,
-	        SIGNAL(databaseReplaced(const QSharedPointer<Database> &, const QSharedPointer<Database> &)),
-	        SLOT(updateTabName()));
+		SIGNAL(databaseReplaced(const QSharedPointer<Database> &, const QSharedPointer<Database> &)),
+		SLOT(updateTabName()));
 	connect(dbWidget, SIGNAL(databaseModified()), SLOT(updateTabName()));
 	connect(dbWidget, SIGNAL(databaseSaved()), SLOT(updateTabName()));
 	connect(dbWidget, SIGNAL(databaseSaved()), SLOT(updateLastDatabases()));
@@ -259,7 +259,7 @@ void DatabaseTabWidget::addDatabaseTab(DatabaseWidget *dbWidget, bool inBackgrou
 	connect(dbWidget, SIGNAL(databaseLocked()), SLOT(emitDatabaseLockChanged()));
 }
 
-DatabaseWidget *DatabaseTabWidget::importFile()
+DatabaseWidget* DatabaseTabWidget::importFile()
 {
 	// Show the import wizard
 	QScopedPointer wizard(new ImportWizard(this));
@@ -326,8 +326,7 @@ void DatabaseTabWidget::mergeDatabase()
 	if (dbWidget && !dbWidget->isLocked())
 	{
 		auto filter = QString("%1 (*.kdbx);;%2 (*)").arg(tr("KeePass 2 Database"), tr("All files"));
-		auto fileName =
-			fileDialog()->getOpenFileName(this, tr("Merge database"), FileDialog::getLastDir("merge"), filter);
+		auto fileName = fileDialog()->getOpenFileName(this, tr("Merge database"), FileDialog::getLastDir("merge"), filter);
 		if (!fileName.isEmpty())
 		{
 			FileDialog::saveLastDir("merge", fileName, true);
@@ -360,7 +359,7 @@ bool DatabaseTabWidget::closeCurrentDatabaseTab()
  */
 bool DatabaseTabWidget::closeDatabaseTabFromSender()
 {
-	return closeDatabaseTab(qobject_cast<DatabaseWidget *>(sender()));
+	return closeDatabaseTab(qobject_cast<DatabaseWidget*>(sender()));
 }
 
 /**
@@ -371,7 +370,7 @@ bool DatabaseTabWidget::closeDatabaseTabFromSender()
  */
 bool DatabaseTabWidget::closeDatabaseTab(int index)
 {
-	return closeDatabaseTab(qobject_cast<DatabaseWidget *>(widget(index)));
+	return closeDatabaseTab(qobject_cast<DatabaseWidget*>(widget(index)));
 }
 
 /**
@@ -398,6 +397,7 @@ bool DatabaseTabWidget::closeDatabaseTab(DatabaseWidget *dbWidget)
 	dbWidget->deleteLater();
 	toggleTabbar();
 	emit databaseClosed(filePath);
+
 	return true;
 }
 
@@ -419,6 +419,7 @@ bool DatabaseTabWidget::closeAllDatabaseTabs()
 				return false;
 			}
 		}
+
 		return true;
 	}
 
@@ -448,6 +449,7 @@ bool DatabaseTabWidget::saveDatabaseAs(int index)
 	{
 		updateLastDatabases(dbWidget->database()->filePath());
 	}
+
 	return ok;
 }
 
@@ -464,6 +466,7 @@ bool DatabaseTabWidget::saveDatabaseBackup(int index)
 	{
 		updateLastDatabases(dbWidget->database()->filePath());
 	}
+
 	return ok;
 }
 
@@ -488,8 +491,7 @@ void DatabaseTabWidget::exportToCsv()
 		return;
 	}
 
-	auto fileName = fileDialog()->getSaveFileName(
-		this, tr("Export database to CSV file"), FileDialog::getLastDir("csv"), tr("CSV file").append(" (*.csv)"));
+	auto fileName = fileDialog()->getSaveFileName(this, tr("Export database to CSV file"), FileDialog::getLastDir("csv"), tr("CSV file").append(" (*.csv)"));
 	if (fileName.isEmpty())
 	{
 		return;
@@ -501,7 +503,7 @@ void DatabaseTabWidget::exportToCsv()
 	if (!csvExporter.exportDatabase(fileName, db))
 	{
 		emit messageGlobal(tr("Writing the CSV file failed.").append("\n").append(csvExporter.errorString()),
-		                   MessageWidget::Error);
+			MessageWidget::Error);
 	}
 }
 
@@ -538,8 +540,7 @@ void DatabaseTabWidget::exportToXML()
 		return;
 	}
 
-	auto fileName = fileDialog()->getSaveFileName(
-		this, tr("Export database to XML file"), FileDialog::getLastDir("xml"), tr("XML file").append(" (*.xml)"));
+	auto fileName = fileDialog()->getSaveFileName(this, tr("Export database to XML file"), FileDialog::getLastDir("xml"), tr("XML file").append(" (*.xml)"));
 	if (fileName.isEmpty())
 	{
 		return;
@@ -558,21 +559,22 @@ void DatabaseTabWidget::exportToXML()
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
 	{
 		emit messageGlobal(tr("Writing the XML file failed").append("\n").append(file.errorString()),
-		                   MessageWidget::Error);
+			MessageWidget::Error);
 	}
+
 	file.write(xmlData);
 }
 
 bool DatabaseTabWidget::warnOnExport()
 {
-	auto ans =
-		MessageBox::question(this,
-	                         tr("Export Confirmation"),
-	                         tr("You are about to export your database to an unencrypted file. This will leave your "
-	                            "passwords and sensitive information vulnerable! Are you sure you want to continue?"),
-	                         MessageBox::Yes | MessageBox::No,
-	                         MessageBox::No);
-	return ans == MessageBox::Yes;
+	auto ans = MessageBox::question(this,
+		tr("Export Confirmation"),
+		tr("You are about to export your database to an unencrypted file. This will leave your "
+			"passwords and sensitive information vulnerable! Are you sure you want to continue?"),
+		MessageBox::Yes | MessageBox::No,
+		MessageBox::No);
+
+	return (ans == MessageBox::Yes);
 }
 
 void DatabaseTabWidget::showDatabaseReports(bool state)
@@ -634,6 +636,7 @@ bool DatabaseTabWidget::hasLockableDatabases() const
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -678,11 +681,13 @@ void DatabaseTabWidget::updateTabName(int index)
 	{
 		dbWidget = qobject_cast<DatabaseWidget *>(sender());
 	}
+
 	Q_ASSERT(dbWidget);
 	if (!dbWidget)
 	{
 		return;
 	}
+
 	index = indexOf(dbWidget);
 	setTabText(index, Tools::escapeAccelerators(tabName(index)));
 	setTabToolTip(index, dbWidget->displayFilePath());
@@ -695,17 +700,18 @@ void DatabaseTabWidget::updateTabName(int index)
 	{
 		setTabIcon(index, {});
 	}
+
 	emit tabNameChanged();
 }
 
-DatabaseWidget *DatabaseTabWidget::databaseWidgetFromIndex(int index) const
+DatabaseWidget* DatabaseTabWidget::databaseWidgetFromIndex(int index) const
 {
-	return qobject_cast<DatabaseWidget *>(widget(index));
+	return qobject_cast<DatabaseWidget*>(widget(index));
 }
 
-DatabaseWidget *DatabaseTabWidget::currentDatabaseWidget()
+DatabaseWidget* DatabaseTabWidget::currentDatabaseWidget()
 {
-	return qobject_cast<DatabaseWidget *>(currentWidget());
+	return qobject_cast<DatabaseWidget*>(currentWidget());
 }
 
 /**
@@ -765,9 +771,10 @@ void DatabaseTabWidget::unlockDatabaseInDialog(DatabaseWidget *dbWidget, Databas
  * @param intent intent for unlocking
  * @param file path of the database to be unlocked
  */
-void DatabaseTabWidget::unlockDatabaseInDialog(DatabaseWidget *dbWidget,
-                                               DatabaseOpenDialog::Intent intent,
-                                               const QString &filePath)
+void DatabaseTabWidget::unlockDatabaseInDialog(
+	DatabaseWidget *dbWidget,
+	DatabaseOpenDialog::Intent intent,
+	const QString &filePath)
 {
 	m_databaseOpenDialog->clearForms();
 	m_databaseOpenDialog->setIntent(intent);
@@ -795,6 +802,7 @@ void DatabaseTabWidget::unlockAnyDatabaseInDialog(DatabaseOpenDialog::Intent int
 			m_databaseOpenDialog->addDatabaseTab(dbWidget);
 		}
 	}
+
 	// default to the current tab
 	m_databaseOpenDialog->setActiveDatabaseTab(currentDatabaseWidget());
 	displayUnlockDialog();
@@ -827,12 +835,6 @@ void DatabaseTabWidget::handleDatabaseUnlockDialogFinished(bool accepted, Databa
 		}
 	}
 
-	// if unlocked for AutoType, set pending lock flag if needed
-	if (intent == DatabaseOpenDialog::Intent::AutoType && config()->get(Config::Security_RelockAutoType).toBool())
-	{
-		m_dbWidgetPendingLock = dbWidget;
-	}
-
 	// If browser extension requested the unlock make sure cancel is handled
 	m_databaseOpenInProgress = false;
 
@@ -856,6 +858,7 @@ void DatabaseTabWidget::updateLastDatabases(const QString &filename)
 		{
 			lastDatabases.removeLast();
 		}
+
 		config()->set(Config::LastDatabases, lastDatabases);
 	}
 }

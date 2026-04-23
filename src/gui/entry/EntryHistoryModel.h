@@ -29,16 +29,16 @@ class EntryHistoryModel: public QAbstractTableModel
 public:
 	explicit EntryHistoryModel(QObject *parent = nullptr);
 
-	Entry *entryFromIndex(const QModelIndex &index) const;
+	Entry* entryFromIndex(const QModelIndex &index) const;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 	QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
-	void setEntries(const QList<Entry *> &entries, Entry *parentEntry);
+	void setEntries(const QList<Entry*> &entries, Entry *parentEntry);
 	void clear();
 	void clearDeletedEntries();
-	QList<Entry *> deletedEntries();
+	QList<Entry*> deletedEntries();
 	void deleteIndex(QModelIndex index);
 	void deleteAll();
 
@@ -46,8 +46,8 @@ private:
 	void calculateHistoryModifications();
 
 	QLocale m_systemLocale;
-	QList<Entry *> m_historyEntries;
-	QList<Entry *> m_deletedHistoryEntries;
+	QList<Entry*> m_historyEntries;
+	QList<Entry*> m_deletedHistoryEntries;
 	QStringList m_historyModifications;
 	const Entry *m_parentEntry;
 };

@@ -28,22 +28,21 @@ class CustomData;
 class EditWidgetIcons;
 class EditWidgetProperties;
 
-namespace Ui
-{
-	class EditGroupWidgetMain;
-	class EditGroupWidgetBrowser;
-	class EditWidget;
+namespace Ui {
+
+class EditGroupWidgetMain;
+class EditGroupWidgetBrowser;
+class EditWidget;
+
 } // namespace Ui
 
 class IEditGroupPage
 {
 public:
-	virtual ~IEditGroupPage()
-	{
-	}
+	virtual ~IEditGroupPage() = default;
 	virtual QString name() = 0;
 	virtual QIcon icon() = 0;
-	virtual QWidget *createWidget() = 0;
+	virtual QWidget* createWidget() = 0;
 	virtual void set(QWidget *widget, Group *tempoaryGroup, QSharedPointer<Database> database) = 0;
 	virtual void assign(QWidget *widget) = 0;
 };

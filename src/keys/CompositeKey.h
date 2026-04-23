@@ -31,6 +31,7 @@ public:
 
 	CompositeKey();
 	~CompositeKey() override;
+
 	void clear();
 	bool isEmpty() const;
 

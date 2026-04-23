@@ -30,10 +30,11 @@ class CompositeKey;
 class Database;
 class QFile;
 
-namespace Ui
-{
-	class DatabaseOpenWidget;
-}
+namespace Ui {
+
+class DatabaseOpenWidget;
+
+} // namespace Ui
 
 class DatabaseOpenWidget: public DialogyWidget
 {
@@ -42,6 +43,7 @@ class DatabaseOpenWidget: public DialogyWidget
 public:
 	explicit DatabaseOpenWidget(QWidget *parent = nullptr);
 	~DatabaseOpenWidget();
+
 	void load(const QString &filename);
 	QString filename();
 	void clearForms();

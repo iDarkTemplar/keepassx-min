@@ -35,12 +35,12 @@ class DatabaseTabWidget: public QTabWidget
 
 public:
 	explicit DatabaseTabWidget(QWidget *parent = nullptr);
-	~DatabaseTabWidget() override;
+
 	void mergeDatabase(const QString &filePath);
 
 	QString tabName(int index);
-	DatabaseWidget *currentDatabaseWidget();
-	DatabaseWidget *databaseWidgetFromIndex(int index) const;
+	DatabaseWidget* currentDatabaseWidget();
+	DatabaseWidget* databaseWidgetFromIndex(int index) const;
 
 	bool canSave(int index = -1) const;
 	bool isModified(int index = -1) const;
@@ -48,10 +48,12 @@ public:
 
 public slots:
 	void lockAndSwitchToFirstUnlockedDatabase(int index = -1);
-	void addDatabaseTab(const QString &filePath,
-	                    bool inBackground = false,
-	                    const QString &password = {},
-	                    const QString &keyfile = {});
+	void addDatabaseTab(
+		const QString &filePath,
+		bool inBackground = false,
+		const QString &password = {},
+		const QString &keyfile = {});
+
 	void addDatabaseTab(DatabaseWidget *dbWidget, bool inBackground = false);
 	bool closeDatabaseTab(int index);
 	bool closeDatabaseTab(DatabaseWidget *dbWidget);
@@ -60,10 +62,10 @@ public slots:
 	bool closeDatabaseTabFromSender();
 	void updateTabName(int index = -1);
 
-	DatabaseWidget *newDatabase();
+	DatabaseWidget* newDatabase();
 	void openDatabase();
 	void mergeDatabase();
-	DatabaseWidget *importFile();
+	DatabaseWidget* importFile();
 	bool saveDatabase(int index = -1);
 	bool saveDatabaseAs(int index = -1);
 	bool saveDatabaseBackup(int index = -1);
@@ -109,7 +111,6 @@ private:
 	void displayUnlockDialog();
 
 	QPointer<DatabaseWidgetStateSync> m_dbWidgetStateSync;
-	QPointer<DatabaseWidget> m_dbWidgetPendingLock;
 	QPointer<DatabaseOpenDialog> m_databaseOpenDialog;
 	QTimer m_lockDelayTimer;
 	bool m_databaseOpenInProgress;

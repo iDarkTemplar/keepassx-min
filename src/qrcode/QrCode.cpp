@@ -52,7 +52,9 @@ QrCode::QrCode(const QByteArray &data, const Version version, const ErrorCorrect
 	init(data, version, ecl);
 }
 
-QrCode::~QrCode() = default;
+QrCode::~QrCode()
+{
+}
 
 void QrCode::init(const QString &data, const Version version, const ErrorCorrectionLevel ecl, bool caseSensitive)
 {
@@ -61,11 +63,12 @@ void QrCode::init(const QString &data, const Version version, const ErrorCorrect
 		return;
 	}
 
-	d_ptr->m_qrcode = QRcode_encodeString(data.toLocal8Bit().data(),
-	                                      static_cast<int>(version),
-	                                      static_cast<QRecLevel>(ecl),
-	                                      QR_MODE_8,
-	                                      caseSensitive ? 1 : 0);
+	d_ptr->m_qrcode = QRcode_encodeString(
+		data.toLocal8Bit().data(),
+		static_cast<int>(version),
+		static_cast<QRecLevel>(ecl),
+		QR_MODE_8,
+		caseSensitive ? 1 : 0);
 }
 
 void QrCode::init(const QByteArray &data, const Version version, const ErrorCorrectionLevel ecl)
@@ -75,20 +78,21 @@ void QrCode::init(const QByteArray &data, const Version version, const ErrorCorr
 		return;
 	}
 
-	d_ptr->m_qrcode = QRcode_encodeData(data.size(),
-	                                    reinterpret_cast<const unsigned char *>(data.data()),
-	                                    static_cast<int>(version),
-	                                    static_cast<QRecLevel>(ecl));
+	d_ptr->m_qrcode = QRcode_encodeData(
+		data.size(),
+		reinterpret_cast<const unsigned char *>(data.data()),
+		static_cast<int>(version),
+		static_cast<QRecLevel>(ecl));
 }
 
 bool QrCode::isValid() const
 {
-	return d_ptr->m_qrcode != nullptr;
+	return (d_ptr->m_qrcode != nullptr);
 }
 
 void QrCode::writeSvg(QIODevice *outputDevice, const int dpi, const int margin) const
 {
-	if (margin < 0 || d_ptr->m_qrcode == nullptr || outputDevice == nullptr)
+	if ((margin < 0) || (d_ptr->m_qrcode == nullptr) || (outputDevice == nullptr))
 	{
 		return;
 	}
@@ -118,6 +122,7 @@ void QrCode::writeSvg(QIODevice *outputDevice, const int dpi, const int margin) 
 
 	const int rowSize = d_ptr->m_qrcode->width;
 	unsigned char *dot = d_ptr->m_qrcode->data;
+
 	for (int y = 0; y < rowSize; ++y)
 	{
 		for (int x = 0; x < rowSize; ++x)

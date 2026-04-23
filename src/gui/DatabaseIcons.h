@@ -19,6 +19,8 @@
 
 #include <QIcon>
 
+#include <memory>
+
 enum IconSize
 {
 	Default,
@@ -29,7 +31,7 @@ enum IconSize
 class DatabaseIcons
 {
 public:
-	static DatabaseIcons *instance();
+	static DatabaseIcons* instance();
 
 	static constexpr int ExpiredIconIndex = 45;
 
@@ -49,14 +51,14 @@ public:
 private:
 	DatabaseIcons();
 
-	static DatabaseIcons *m_instance;
+	static std::unique_ptr<DatabaseIcons> m_instance;
 	QHash<QString, QIcon> m_iconCache;
 	bool m_compactMode;
 
 	Q_DISABLE_COPY(DatabaseIcons)
 };
 
-inline DatabaseIcons *databaseIcons()
+inline DatabaseIcons* databaseIcons()
 {
 	return DatabaseIcons::instance();
 }

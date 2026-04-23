@@ -89,6 +89,10 @@ FdoSecretsManageDatabase::FdoSecretsManageDatabase(FdoSecretsPlugin *plugin, QWi
 	layout->addStretch();
 }
 
+SettingsWidgetFdoSecrets::~SettingsWidgetFdoSecrets()
+{
+}
+
 DatabaseWidget* FdoSecretsManageDatabase::dbWidget() const
 {
 	return m_dbWidget;
@@ -248,8 +252,6 @@ SettingsWidgetFdoSecrets::SettingsWidgetFdoSecrets(FdoSecretsPlugin *plugin, QWi
 	connect(m_plugin, &FdoSecretsPlugin::secretServiceStarted, &m_checkTimer, &QTimer::stop);
 	connect(m_plugin, SIGNAL(secretServiceStopped()), &m_checkTimer, SLOT(start()));
 }
-
-SettingsWidgetFdoSecrets::~SettingsWidgetFdoSecrets() = default;
 
 void SettingsWidgetFdoSecrets::loadSettings()
 {

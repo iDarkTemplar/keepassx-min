@@ -28,7 +28,7 @@ SignalMultiplexer::~SignalMultiplexer()
 	setCurrentObject(nullptr);
 }
 
-QObject *SignalMultiplexer::currentObject() const
+QObject* SignalMultiplexer::currentObject() const
 {
 	return m_currentObject;
 }
@@ -107,12 +107,13 @@ void SignalMultiplexer::disconnect(QObject *sender, const char *signal, const ch
 	{
 		const Connection &con = i.next();
 
-		if (con.sender == sender && qstrcmp(con.signal, signal) == 0 && qstrcmp(con.slot, slot) == 0)
+		if ((con.sender == sender) && (qstrcmp(con.signal, signal) == 0) && (qstrcmp(con.slot, slot) == 0))
 		{
 			if (m_currentObject)
 			{
 				disconnect(con);
 			}
+
 			i.remove();
 		}
 	}
@@ -127,12 +128,13 @@ void SignalMultiplexer::disconnect(const char *signal, QObject *receiver, const 
 	{
 		const Connection &con = i.next();
 
-		if (con.receiver == receiver && qstrcmp(con.signal, signal) == 0 && qstrcmp(con.slot, slot) == 0)
+		if ((con.receiver == receiver) && (qstrcmp(con.signal, signal) == 0) && (qstrcmp(con.slot, slot) == 0))
 		{
 			if (m_currentObject)
 			{
 				disconnect(con);
 			}
+
 			i.remove();
 		}
 	}

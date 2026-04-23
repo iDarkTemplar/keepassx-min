@@ -29,10 +29,11 @@
 #include "gui/DatabaseWidget.h"
 #include "gui/osutils/ScreenLockListener.h"
 
-namespace Ui
-{
-	class MainWindow;
-}
+namespace Ui {
+
+class MainWindow;
+
+} // namespace Ui
 
 class InactivityTimer;
 class SearchWidget;
@@ -42,15 +43,11 @@ class MainWindow: public QMainWindow
 {
 	Q_OBJECT
 
-#if !defined(QT_NO_DBUS)
-	Q_CLASSINFO("D-Bus Interface", "org.keepassxc.KeePassXC.MainWindow")
-#endif
-
 public:
 	MainWindow();
 	~MainWindow();
 
-	QList<DatabaseWidget *> getOpenDatabases();
+	QList<DatabaseWidget*> getOpenDatabases();
 	void restoreConfigState();
 
 	enum StackedWidgetIndex
@@ -70,14 +67,18 @@ signals:
 public slots:
 	void openDatabase(const QString &filePath, const QString &password = {}, const QString &keyfile = {});
 	void appExit();
-	void displayGlobalMessage(const QString &text,
-	                          MessageWidget::MessageType type,
-	                          bool showClosebutton = true,
-	                          int autoHideTimeout = MessageWidget::DefaultAutoHideTimeout);
-	void displayTabMessage(const QString &text,
-	                       MessageWidget::MessageType type,
-	                       bool showClosebutton = true,
-	                       int autoHideTimeout = MessageWidget::DefaultAutoHideTimeout);
+	void displayGlobalMessage(
+		const QString &text,
+		MessageWidget::MessageType type,
+		bool showClosebutton = true,
+		int autoHideTimeout = MessageWidget::DefaultAutoHideTimeout);
+
+	void displayTabMessage(
+		const QString &text,
+		MessageWidget::MessageType type,
+		bool showClosebutton = true,
+		int autoHideTimeout = MessageWidget::DefaultAutoHideTimeout);
+
 	void hideGlobalMessage();
 	void hide();
 	void show();
@@ -211,6 +212,6 @@ private:
  *
  * @return MainWindow instance or nullptr
  */
-MainWindow *getMainWindow();
+MainWindow* getMainWindow();
 
 #endif // KEEPASSX_MAINWINDOW_H

@@ -30,6 +30,7 @@ QSharedPointer<Random> Random::instance()
 	{
 		m_instance.reset(new Random());
 	}
+
 	return m_instance;
 }
 

@@ -60,10 +60,12 @@ bool CsvParser::parse(QIODevice *device)
 		appendStatusMsg(QObject::tr("NULL device"), true);
 		return false;
 	}
+
 	if (!readFile(device))
 	{
 		return false;
 	}
+
 	return parseFile();
 }
 
@@ -91,8 +93,10 @@ bool CsvParser::readFile(QIODevice *device)
 		{
 			appendStatusMsg(QObject::tr("file empty").append("\n"));
 		}
+
 		m_isFileLoaded = true;
 	}
+
 	return m_isFileLoaded;
 }
 
@@ -136,6 +140,7 @@ bool CsvParser::parseFile()
 		m_currCol = 1;
 		parseRecord();
 	}
+
 	fillColumns();
 	return m_isGood;
 }
@@ -148,34 +153,38 @@ void CsvParser::parseRecord()
 		skipLine();
 		return;
 	}
+
 	do
 	{
 		parseField(row);
 		getChar(m_ch);
-	} while (m_ch == m_separator && !m_isEof);
+	} while ((m_ch == m_separator) && (!m_isEof));
 
 	if (!m_isEof)
 	{
 		ungetChar();
 	}
+
 	if (isEmptyRow(row))
 	{
 		row.clear();
 		return;
 	}
+
 	m_table.push_back(row);
 	if (m_maxCols < row.size())
 	{
 		m_maxCols = row.size();
 	}
-	m_currCol++;
+
+	++m_currCol;
 }
 
 void CsvParser::parseField(CsvRow &row)
 {
 	QString field;
 	peek(m_ch);
-	if (m_ch != m_separator && m_ch != '\n')
+	if ((m_ch != m_separator) && (m_ch != '\n'))
 	{
 		if (isQualifier(m_ch))
 		{
@@ -186,6 +195,7 @@ void CsvParser::parseField(CsvRow &row)
 			parseSimple(field);
 		}
 	}
+
 	row.push_back(field);
 }
 
@@ -193,11 +203,12 @@ void CsvParser::parseSimple(QString &s)
 {
 	QChar c;
 	getChar(c);
-	while (c != '\n' && c != m_separator && !m_isEof)
+	while ((c != '\n') && (c != m_separator) && (!m_isEof))
 	{
 		s.append(c);
 		getChar(c);
 	}
+
 	if (!m_isEof)
 	{
 		ungetChar();
@@ -222,6 +233,7 @@ void CsvParser::parseEscaped(QString &s)
 	{
 		parseEscapedText(s);
 	}
+
 	if (!m_isEof)
 	{
 		ungetChar();
@@ -249,6 +261,7 @@ bool CsvParser::processEscapeMark(QString &s, QChar c)
 		{
 			return false;
 		}
+
 		// consume (and append) second qualifier
 		getChar(c2);
 		if (m_isEof)
@@ -257,6 +270,7 @@ bool CsvParser::processEscapeMark(QString &s, QChar c)
 			s.append('\\');
 			return false;
 		}
+
 		s.append(c2);
 		return true;
 	}
@@ -266,6 +280,7 @@ bool CsvParser::processEscapeMark(QString &s, QChar c)
 	{
 		return false;
 	}
+
 	peek(c2);
 	if (!m_isEof)
 	{ // not EOF, can read one char
@@ -276,6 +291,7 @@ bool CsvParser::processEscapeMark(QString &s, QChar c)
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -292,6 +308,7 @@ void CsvParser::fillColumns()
 			{
 				r.append(QString(""));
 			}
+
 			m_table.replace(i, r);
 		}
 	}
@@ -341,9 +358,10 @@ bool CsvParser::isQualifier(const QChar &c) const
 {
 	if (m_isBackslashSyntax && c != m_qualifier)
 	{
-		return c == '\\';
+		return (c == '\\');
 	}
-	return c == m_qualifier;
+
+	return (c == m_qualifier);
 }
 
 bool CsvParser::isComment()
@@ -355,12 +373,13 @@ bool CsvParser::isComment()
 	do
 	{
 		getChar(c2);
-	} while ((c2 == ' ' || c2 == '\t') && !m_isEof);
+	} while (((c2 == ' ') || (c2 == '\t')) && (!m_isEof));
 
 	if (c2 == m_comment)
 	{
 		result = true;
 	}
+
 	m_ts.seek(pos);
 	return result;
 }
@@ -369,11 +388,12 @@ bool CsvParser::isEmptyRow(const CsvRow &row) const
 {
 	for (auto it = row.constBegin(); it != row.constEnd(); ++it)
 	{
-		if (*it != "\n" && *it != "")
+		if ((*it != "\n") && (*it != ""))
 		{
 			return false;
 		}
 	}
+
 	return true;
 }
 
@@ -423,6 +443,7 @@ int CsvParser::getCsvCols() const
 	{
 		return m_table.at(0).size();
 	}
+
 	return 0;
 }
 
@@ -438,8 +459,7 @@ void CsvParser::appendStatusMsg(const QString &s, bool isCritical)
 		m_statusMsg.append("\n");
 	}
 
-	m_statusMsg +=
-		QObject::tr("%1, row: %2, column: %3").arg(s, QString::number(m_currRow), QString::number(m_currCol));
+	m_statusMsg += QObject::tr("%1, row: %2, column: %3").arg(s, QString::number(m_currRow), QString::number(m_currCol));
 
 	m_isGood = !isCritical;
 }

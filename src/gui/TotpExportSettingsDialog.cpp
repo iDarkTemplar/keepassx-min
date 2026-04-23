@@ -75,7 +75,7 @@ TotpExportSettingsDialog::TotpExportSettingsDialog(DatabaseWidget *parent, Entry
 		m_warningLabel->setWordWrap(true);
 		m_warningLabel->setMargin(5);
 		m_warningLabel->setText(tr("NOTE: These TOTP settings are custom and may not work with other authenticators.",
-		                           "TOTP QR code dialog warning"));
+			"TOTP QR code dialog warning"));
 	}
 	else
 	{
@@ -133,5 +133,3 @@ void TotpExportSettingsDialog::autoClose()
 		close();
 	}
 }
-
-TotpExportSettingsDialog::~TotpExportSettingsDialog() = default;

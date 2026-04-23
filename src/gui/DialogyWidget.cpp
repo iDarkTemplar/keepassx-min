@@ -27,8 +27,9 @@ DialogyWidget::DialogyWidget(QWidget *parent)
 
 void DialogyWidget::keyPressEvent(QKeyEvent *e)
 {
-	if (!e->modifiers() || e->modifiers() == Qt::ControlModifier
-	        || (e->modifiers() & Qt::KeypadModifier && e->key() == Qt::Key_Enter))
+	if (!e->modifiers()
+		|| e->modifiers() == Qt::ControlModifier
+		|| (e->modifiers() & Qt::KeypadModifier && e->key() == Qt::Key_Enter))
 	{
 		switch (e->key())
 		{
@@ -64,7 +65,7 @@ bool DialogyWidget::clickButton(QDialogButtonBox::StandardButton standardButton)
 
 	if (standardButton == QDialogButtonBox::Ok)
 	{
-		pb = qobject_cast<QPushButton *>(focusWidget());
+		pb = qobject_cast<QPushButton*>(focusWidget());
 		if (pb && pb->isVisible() && pb->isEnabled() && pb->hasFocus())
 		{
 			pb->click();
@@ -72,7 +73,7 @@ bool DialogyWidget::clickButton(QDialogButtonBox::StandardButton standardButton)
 		}
 	}
 
-	QList<QDialogButtonBox *> buttonBoxes = findChildren<QDialogButtonBox *>();
+	QList<QDialogButtonBox*> buttonBoxes = findChildren<QDialogButtonBox *>();
 	for (auto buttonBox: buttonBoxes)
 	{
 		pb = buttonBox->button(standardButton);

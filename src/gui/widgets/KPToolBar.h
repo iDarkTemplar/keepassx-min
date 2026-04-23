@@ -30,7 +30,6 @@ class KPToolBar: public QToolBar
 public:
 	explicit KPToolBar(const QString &title, QWidget *parent = nullptr);
 	explicit KPToolBar(QWidget *parent = nullptr);
-	~KPToolBar() override = default;
 
 	bool isExpanded();
 	bool canExpand();

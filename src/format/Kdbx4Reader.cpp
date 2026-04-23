@@ -30,10 +30,11 @@
 #include "streams/SymmetricCipherStream.h"
 #include "streams/qtiocompressor.h"
 
-bool Kdbx4Reader::readDatabaseImpl(QIODevice *device,
-                                   const QByteArray &headerData,
-                                   QSharedPointer<const CompositeKey> key,
-                                   Database *db)
+bool Kdbx4Reader::readDatabaseImpl(
+	QIODevice *device,
+	const QByteArray &headerData,
+	QSharedPointer<const CompositeKey> key,
+	Database *db)
 {
 	Q_ASSERT((db->formatVersion() & KeePass2::FILE_VERSION_CRITICAL_MASK) == KeePass2::FILE_VERSION_4);
 
@@ -70,38 +71,48 @@ bool Kdbx4Reader::readDatabaseImpl(QIODevice *device,
 		raiseError(tr("Invalid header checksum size"));
 		return false;
 	}
+
 	if (headerSha256 != CryptoHash::hash(headerData, CryptoHash::Sha256))
 	{
 		raiseError(tr("Header SHA256 mismatch"));
 		return false;
 	}
 
-    QByteArray hmacKey = KeePass2::hmacKey(m_masterSeed, db->transformedDatabaseKey());
-    if (headerHmac != CryptoHash::hmac(headerData, HmacBlockStream::getHmacKey(UINT64_MAX, hmacKey), CryptoHash::Sha256)) {
-        raiseError(tr("Invalid credentials were provided, please try again.\n"
-                      "If this reoccurs, then your database file may be corrupt.") + " " + tr("(HMAC mismatch)"));
-        return false;
-    }
-    HmacBlockStream hmacStream(device, hmacKey);
-    if (!hmacStream.open(QIODevice::ReadOnly)) {
-        raiseError(hmacStream.errorString());
-        return false;
-    }
+	QByteArray hmacKey = KeePass2::hmacKey(m_masterSeed, db->transformedDatabaseKey());
+	if (headerHmac != CryptoHash::hmac(headerData, HmacBlockStream::getHmacKey(UINT64_MAX, hmacKey), CryptoHash::Sha256))
+	{
+		raiseError(tr("Invalid credentials were provided, please try again.\n"
+			"If this reoccurs, then your database file may be corrupt.") + " " + tr("(HMAC mismatch)"));
 
-    auto mode = SymmetricCipher::cipherUuidToMode(db->cipher());
-    if (mode == SymmetricCipher::InvalidMode) {
-        raiseError(tr("Unknown cipher"));
-        return false;
-    }
-    SymmetricCipherStream cipherStream(&hmacStream);
-    if (!cipherStream.init(mode, SymmetricCipher::Decrypt, finalKey, m_encryptionIV)) {
-        raiseError(cipherStream.errorString());
-        return false;
-    }
-    if (!cipherStream.open(QIODevice::ReadOnly)) {
-        raiseError(cipherStream.errorString());
-        return false;
-    }
+		return false;
+	}
+
+	HmacBlockStream hmacStream(device, hmacKey);
+	if (!hmacStream.open(QIODevice::ReadOnly))
+	{
+		raiseError(hmacStream.errorString());
+		return false;
+	}
+
+	auto mode = SymmetricCipher::cipherUuidToMode(db->cipher());
+	if (mode == SymmetricCipher::InvalidMode)
+	{
+		raiseError(tr("Unknown cipher"));
+		return false;
+	}
+
+	SymmetricCipherStream cipherStream(&hmacStream);
+	if (!cipherStream.init(mode, SymmetricCipher::Decrypt, finalKey, m_encryptionIV))
+	{
+		raiseError(cipherStream.errorString());
+		return false;
+	}
+
+	if (!cipherStream.open(QIODevice::ReadOnly))
+	{
+		raiseError(cipherStream.errorString());
+		return false;
+	}
 
 	QIODevice *xmlDevice = nullptr;
 	QScopedPointer<QtIOCompressor> ioCompressor;
@@ -119,6 +130,7 @@ bool Kdbx4Reader::readDatabaseImpl(QIODevice *device,
 			raiseError(ioCompressor->errorString());
 			return false;
 		}
+
 		xmlDevice = ioCompressor.data();
 	}
 
@@ -173,6 +185,7 @@ bool Kdbx4Reader::readHeaderField(StoreDataStream &device, Database *db)
 		raiseError(tr("Invalid header id size"));
 		return false;
 	}
+
 	char fieldID = fieldIDArray.at(0);
 
 	bool ok;
@@ -190,9 +203,10 @@ bool Kdbx4Reader::readHeaderField(StoreDataStream &device, Database *db)
 		if (static_cast<quint32>(fieldData.size()) != fieldLen)
 		{
 			raiseError(tr("Invalid header data length: field %1, %2 expected, %3 found")
-			               .arg(static_cast<int>(fieldID))
-			               .arg(fieldLen)
-			               .arg(fieldData.size()));
+				.arg(static_cast<int>(fieldID))
+				.arg(fieldLen)
+				.arg(fieldData.size()));
+
 			return false;
 		}
 	}
@@ -218,32 +232,36 @@ bool Kdbx4Reader::readHeaderField(StoreDataStream &device, Database *db)
 		setEncryptionIV(fieldData);
 		break;
 
-	case KeePass2::HeaderFieldID::KdfParameters: {
-		QBuffer bufIoDevice(&fieldData);
-		if (!bufIoDevice.open(QIODevice::ReadOnly))
+	case KeePass2::HeaderFieldID::KdfParameters:
 		{
-			raiseError(tr("Failed to open buffer for KDF parameters in header"));
-			return false;
-		}
-		QVariantMap kdfParams = readVariantMap(&bufIoDevice);
-		QSharedPointer<Kdf> kdf = KeePass2::kdfFromParameters(kdfParams);
-		if (!kdf)
-		{
-			raiseError(tr("Unsupported key derivation function (KDF) or invalid parameters"));
-			return false;
-		}
-		db->setKdf(kdf);
-		break;
-	}
+			QBuffer bufIoDevice(&fieldData);
+			if (!bufIoDevice.open(QIODevice::ReadOnly))
+			{
+				raiseError(tr("Failed to open buffer for KDF parameters in header"));
+				return false;
+			}
 
-	case KeePass2::HeaderFieldID::PublicCustomData: {
-		QBuffer variantBuffer;
-		variantBuffer.setBuffer(&fieldData);
-		variantBuffer.open(QBuffer::ReadOnly);
-		QVariantMap data = readVariantMap(&variantBuffer);
-		db->setPublicCustomData(data);
-		break;
-	}
+			QVariantMap kdfParams = readVariantMap(&bufIoDevice);
+			QSharedPointer<Kdf> kdf = KeePass2::kdfFromParameters(kdfParams);
+			if (!kdf)
+			{
+				raiseError(tr("Unsupported key derivation function (KDF) or invalid parameters"));
+				return false;
+			}
+
+			db->setKdf(kdf);
+			break;
+		}
+
+	case KeePass2::HeaderFieldID::PublicCustomData:
+		{
+			QBuffer variantBuffer;
+			variantBuffer.setBuffer(&fieldData);
+			variantBuffer.open(QBuffer::ReadOnly);
+			QVariantMap data = readVariantMap(&variantBuffer);
+			db->setPublicCustomData(data);
+			break;
+		}
 
 	case KeePass2::HeaderFieldID::ProtectedStreamKey:
 	case KeePass2::HeaderFieldID::TransformRounds:
@@ -275,6 +293,7 @@ bool Kdbx4Reader::readInnerHeaderField(QIODevice *device)
 		raiseError(tr("Invalid inner header id size"));
 		return false;
 	}
+
 	auto fieldID = static_cast<KeePass2::InnerHeaderFieldID>(fieldIDArray.at(0));
 
 	bool ok;
@@ -292,9 +311,10 @@ bool Kdbx4Reader::readInnerHeaderField(QIODevice *device)
 		if (static_cast<quint32>(fieldData.size()) != fieldLen)
 		{
 			raiseError(tr("Invalid inner header data length: field %1, %2 expected, %3 found")
-			               .arg(static_cast<int>(fieldID))
-			               .arg(fieldLen)
-			               .arg(fieldData.size()));
+				.arg(static_cast<int>(fieldID))
+				.arg(fieldLen)
+				.arg(fieldData.size()));
+
 			return false;
 		}
 	}
@@ -312,16 +332,18 @@ bool Kdbx4Reader::readInnerHeaderField(QIODevice *device)
 		setProtectedStreamKey(fieldData);
 		break;
 
-	case KeePass2::InnerHeaderFieldID::Binary: {
-		if (fieldLen < 1)
+	case KeePass2::InnerHeaderFieldID::Binary:
 		{
-			raiseError(tr("Invalid inner header binary size"));
-			return false;
+			if (fieldLen < 1)
+			{
+				raiseError(tr("Invalid inner header binary size"));
+				return false;
+			}
+
+			auto data = fieldData.mid(1);
+			m_binaryPool.insert(QString::number(m_binaryPool.size()), data);
+			break;
 		}
-		auto data = fieldData.mid(1);
-		m_binaryPool.insert(QString::number(m_binaryPool.size()), data);
-		break;
-	}
 	}
 
 	return true;
@@ -336,8 +358,7 @@ bool Kdbx4Reader::readInnerHeaderField(QIODevice *device)
 QVariantMap Kdbx4Reader::readVariantMap(QIODevice *device)
 {
 	bool ok;
-	quint16 version =
-		Endian::readSizedInt<quint16>(device, KeePass2::BYTEORDER, &ok) & KeePass2::VARIANTMAP_CRITICAL_MASK;
+	quint16 version = Endian::readSizedInt<quint16>(device, KeePass2::BYTEORDER, &ok) & KeePass2::VARIANTMAP_CRITICAL_MASK;
 	quint16 maxVersion = KeePass2::VARIANTMAP_VERSION & KeePass2::VARIANTMAP_CRITICAL_MASK;
 	if (!ok || (version > maxVersion))
 	{
@@ -350,8 +371,7 @@ QVariantMap Kdbx4Reader::readVariantMap(QIODevice *device)
 	QByteArray fieldTypeArray;
 	KeePass2::VariantMapFieldType fieldType = KeePass2::VariantMapFieldType::End;
 	while (((fieldTypeArray = device->read(1)).size() == 1)
-	       && ((fieldType = static_cast<KeePass2::VariantMapFieldType>(fieldTypeArray.at(0)))
-	           != KeePass2::VariantMapFieldType::End))
+		&& ((fieldType = static_cast<KeePass2::VariantMapFieldType>(fieldTypeArray.at(0))) != KeePass2::VariantMapFieldType::End))
 	{
 		auto nameLen = Endian::readSizedInt<quint32>(device, KeePass2::BYTEORDER, &ok);
 		if (!ok)
@@ -360,6 +380,7 @@ QVariantMap Kdbx4Reader::readVariantMap(QIODevice *device)
 			raiseError(tr("Invalid variant map entry name length"));
 			return {};
 		}
+
 		QByteArray nameBytes;
 		if (nameLen != 0)
 		{
@@ -371,6 +392,7 @@ QVariantMap Kdbx4Reader::readVariantMap(QIODevice *device)
 				return {};
 			}
 		}
+
 		QString name = QString::fromUtf8(nameBytes);
 
 		auto valueLen = Endian::readSizedInt<quint32>(device, KeePass2::BYTEORDER, &ok);
@@ -380,6 +402,7 @@ QVariantMap Kdbx4Reader::readVariantMap(QIODevice *device)
 			raiseError(tr("Invalid variant map entry value length"));
 			return {};
 		}
+
 		QByteArray valueBytes;
 		if (valueLen != 0)
 		{
@@ -395,68 +418,58 @@ QVariantMap Kdbx4Reader::readVariantMap(QIODevice *device)
 		switch (fieldType)
 		{
 		case KeePass2::VariantMapFieldType::Bool:
-			if (valueLen == 1)
-			{
-				vm.insert(name, QVariant(valueBytes.at(0) != 0));
-			}
-			else
+			if (valueLen != 1)
 			{
 				//: Translation: variant map = data structure for storing meta data
 				raiseError(tr("Invalid variant map Bool entry value length"));
 				return {};
 			}
+
+			vm.insert(name, QVariant(valueBytes.at(0) != 0));
 			break;
 
 		case KeePass2::VariantMapFieldType::Int32:
-			if (valueLen == 4)
-			{
-				vm.insert(name, QVariant(Endian::bytesToSizedInt<qint32>(valueBytes, KeePass2::BYTEORDER)));
-			}
-			else
+			if (valueLen != 4)
 			{
 				//: Translation: variant map = data structure for storing meta data
 				raiseError(tr("Invalid variant map Int32 entry value length"));
 				return {};
 			}
+
+			vm.insert(name, QVariant(Endian::bytesToSizedInt<qint32>(valueBytes, KeePass2::BYTEORDER)));
 			break;
 
 		case KeePass2::VariantMapFieldType::UInt32:
-			if (valueLen == 4)
-			{
-				vm.insert(name, QVariant(Endian::bytesToSizedInt<quint32>(valueBytes, KeePass2::BYTEORDER)));
-			}
-			else
+			if (valueLen != 4)
 			{
 				//: Translation: variant map = data structure for storing meta data
 				raiseError(tr("Invalid variant map UInt32 entry value length"));
 				return {};
 			}
+
+			vm.insert(name, QVariant(Endian::bytesToSizedInt<quint32>(valueBytes, KeePass2::BYTEORDER)));
 			break;
 
 		case KeePass2::VariantMapFieldType::Int64:
-			if (valueLen == 8)
-			{
-				vm.insert(name, QVariant(Endian::bytesToSizedInt<qint64>(valueBytes, KeePass2::BYTEORDER)));
-			}
-			else
+			if (valueLen != 8)
 			{
 				//: Translation: variant map = data structure for storing meta data
 				raiseError(tr("Invalid variant map Int64 entry value length"));
 				return {};
 			}
+
+			vm.insert(name, QVariant(Endian::bytesToSizedInt<qint64>(valueBytes, KeePass2::BYTEORDER)));
 			break;
 
 		case KeePass2::VariantMapFieldType::UInt64:
-			if (valueLen == 8)
-			{
-				vm.insert(name, QVariant(Endian::bytesToSizedInt<quint64>(valueBytes, KeePass2::BYTEORDER)));
-			}
-			else
+			if (valueLen != 8)
 			{
 				//: Translation: variant map = data structure for storing meta data
 				raiseError(tr("Invalid variant map UInt64 entry value length"));
 				return {};
 			}
+
+			vm.insert(name, QVariant(Endian::bytesToSizedInt<quint64>(valueBytes, KeePass2::BYTEORDER)));
 			break;
 
 		case KeePass2::VariantMapFieldType::String:

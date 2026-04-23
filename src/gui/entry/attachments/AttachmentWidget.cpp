@@ -36,8 +36,6 @@ AttachmentWidget::AttachmentWidget(QWidget *parent)
 	verticalLayout->setAlignment(Qt::AlignCenter);
 }
 
-AttachmentWidget::~AttachmentWidget() = default;
-
 void AttachmentWidget::openAttachment(attachments::Attachment attachment, attachments::OpenMode mode)
 {
 	m_attachment = std::move(attachment);

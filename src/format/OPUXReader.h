@@ -28,7 +28,6 @@ class OPUXReader
 {
 public:
 	explicit OPUXReader() = default;
-	~OPUXReader() = default;
 
 	QSharedPointer<Database> convert(const QString &path);
 

@@ -28,10 +28,11 @@
 #include "streams/SymmetricCipherStream.h"
 #include "streams/qtiocompressor.h"
 
-bool Kdbx3Reader::readDatabaseImpl(QIODevice *device,
-                                   const QByteArray &headerData,
-                                   QSharedPointer<const CompositeKey> key,
-                                   Database *db)
+bool Kdbx3Reader::readDatabaseImpl(
+	QIODevice *device,
+	const QByteArray &headerData,
+	QSharedPointer<const CompositeKey> key,
+	Database *db)
 {
 	Q_ASSERT((db->formatVersion() & KeePass2::FILE_VERSION_CRITICAL_MASK) <= KeePass2::FILE_VERSION_3);
 
@@ -41,8 +42,11 @@ bool Kdbx3Reader::readDatabaseImpl(QIODevice *device,
 	}
 
 	// check if all required headers were present
-	if (m_masterSeed.isEmpty() || m_encryptionIV.isEmpty() || m_streamStartBytes.isEmpty()
-	    || m_protectedStreamKey.isEmpty() || db->cipher().isNull())
+	if (m_masterSeed.isEmpty()
+		|| m_encryptionIV.isEmpty()
+		|| m_streamStartBytes.isEmpty()
+		|| m_protectedStreamKey.isEmpty()
+		|| db->cipher().isNull())
 	{
 		raiseError(tr("Missing database headers"));
 		return false;
@@ -67,6 +71,7 @@ bool Kdbx3Reader::readDatabaseImpl(QIODevice *device,
 		raiseError(cipherStream.errorString());
 		return false;
 	}
+
 	if (!cipherStream.open(QIODevice::ReadOnly))
 	{
 		raiseError(cipherStream.errorString());
@@ -78,7 +83,8 @@ bool Kdbx3Reader::readDatabaseImpl(QIODevice *device,
 	if (realStart != m_streamStartBytes)
 	{
 		raiseError(tr("Invalid credentials were provided, please try again.\n"
-		              "If this reoccurs, then your database file may be corrupt."));
+			"If this reoccurs, then your database file may be corrupt."));
+
 		return false;
 	}
 
@@ -105,6 +111,7 @@ bool Kdbx3Reader::readDatabaseImpl(QIODevice *device,
 			raiseError(ioCompressor->errorString());
 			return false;
 		}
+
 		xmlDevice = ioCompressor.data();
 	}
 
@@ -151,6 +158,7 @@ bool Kdbx3Reader::readHeaderField(StoreDataStream &headerStream, Database *db)
 		raiseError(tr("Invalid header id size"));
 		return false;
 	}
+
 	char fieldID = fieldIDArray.at(0);
 
 	bool ok;
@@ -168,9 +176,10 @@ bool Kdbx3Reader::readHeaderField(StoreDataStream &headerStream, Database *db)
 		if (fieldData.size() != fieldLen)
 		{
 			raiseError(tr("Invalid header data length: field %1, %2 expected, %3 found")
-			               .arg(fieldID)
-			               .arg(fieldLen)
-			               .arg(fieldData.size()));
+				.arg(fieldID)
+				.arg(fieldLen)
+				.arg(fieldData.size()));
+
 			return false;
 		}
 	}

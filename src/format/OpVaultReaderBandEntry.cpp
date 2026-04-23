@@ -27,16 +27,18 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-bool OpVaultReader::decryptBandEntry(const QJsonObject &bandEntry,
-                                     QJsonObject &data,
-                                     QByteArray &key,
-                                     QByteArray &hmacKey)
+bool OpVaultReader::decryptBandEntry(
+	const QJsonObject &bandEntry,
+	QJsonObject &data,
+	QByteArray &key,
+	QByteArray &hmacKey)
 {
 	if (!bandEntry.contains("d"))
 	{
 		qWarning() << "Band entries must contain a \"d\" key: " << bandEntry.keys();
 		return false;
 	}
+
 	if (!bandEntry.contains("k"))
 	{
 		qWarning() << "Band entries must contain a \"k\" key: " << bandEntry.keys();
@@ -68,14 +70,14 @@ bool OpVaultReader::decryptBandEntry(const QJsonObject &bandEntry,
 	}
 
 	QByteArray hmacSig = kBA.mid(kBA.size() - 32, 32);
-	const QByteArray &realHmacSig =
-		CryptoHash::hmac(kBA.mid(0, kBA.size() - hmacSig.size()), m_masterHmacKey, CryptoHash::Sha256);
+	const QByteArray &realHmacSig = CryptoHash::hmac(kBA.mid(0, kBA.size() - hmacSig.size()), m_masterHmacKey, CryptoHash::Sha256);
 	if (realHmacSig != hmacSig)
 	{
 		qCritical() << QString(R"(Entry "k" failed its HMAC in UUID "%1", wanted "%2" got "%3")")
-						   .arg(uuid)
-						   .arg(QString::fromUtf8(hmacSig.toHex()))
-						   .arg(QString::fromUtf8(realHmacSig));
+			.arg(uuid)
+			.arg(QString::fromUtf8(hmacSig.toHex()))
+			.arg(QString::fromUtf8(realHmacSig));
+
 		return false;
 	}
 
@@ -87,6 +89,7 @@ bool OpVaultReader::decryptBandEntry(const QJsonObject &bandEntry,
 		qCritical() << "Unable to init cipher using masterKey in UUID " << uuid;
 		return false;
 	}
+
 	if (!cipher.process(keyAndMacKey))
 	{
 		qCritical() << "Unable to decipher \"k\"(key+hmac) in UUID " << uuid;
@@ -106,6 +109,7 @@ bool OpVaultReader::decryptBandEntry(const QJsonObject &bandEntry,
 
 	auto clearText = entD01.getClearText();
 	data = QJsonDocument::fromJson(clearText).object();
+
 	return true;
 }
 
@@ -142,6 +146,7 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 					break;
 				}
 			}
+
 			if (!found)
 			{
 				qWarning() << QString("Unable to place Entry.Category \"%1\" so using the Root instead").arg(category);
@@ -151,15 +156,16 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 		else
 		{
 			qWarning() << QString(R"(Skipping non-String Category type "%1" in UUID "%2")")
-							  .arg(categoryValue.type())
-							  .arg(uuid);
+				.arg(categoryValue.type())
+				.arg(uuid);
+
 			entry->setGroup(rootGroup);
 		}
 	}
 	else
 	{
 		qWarning() << "Using the root group because the entry is category-less: <<\n"
-				   << bandEntry << "\n>> in UUID " << uuid;
+			<< bandEntry << "\n>> in UUID " << uuid;
 		entry->setGroup(rootGroup);
 	}
 
@@ -172,17 +178,20 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 		ti.setCreationTime(QDateTime::fromTime_t(createdTime, Qt::UTC));
 		timeInfoOk = true;
 	}
+
 	if (bandEntry.contains("updated"))
 	{
 		auto updateTime = static_cast<uint>(bandEntry["updated"].toInt());
 		ti.setLastModificationTime(QDateTime::fromTime_t(updateTime, Qt::UTC));
 		timeInfoOk = true;
 	}
+
 	// "tx" is modified by sync, not by user; maybe a custom attribute?
 	if (timeInfoOk)
 	{
 		entry->setTimeInfo(ti);
 	}
+
 	entry->setUuid(Tools::hexToUuid(uuid));
 
 	if (!fillAttributes(entry.data(), bandEntry))
@@ -235,16 +244,17 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 	{
 		if (!sectionValue.isObject())
 		{
-			qWarning() << R"(Skipping non-Object in "sections" for UUID ")" << uuid << "\" << " << sectionsArray
-					   << ">>";
+			qWarning() << R"(Skipping non-Object in "sections" for UUID ")" << uuid << "\" << " << sectionsArray << ">>";
 			continue;
 		}
+
 		const QJsonObject &section = sectionValue.toObject();
 
 		fillFromSection(entry.data(), section);
 	}
 
 	fillAttachments(entry.data(), attachmentDir, entryKey, entryHmacKey);
+
 	return entry.take();
 }
 
@@ -255,7 +265,8 @@ bool OpVaultReader::fillAttributes(Entry *entry, const QJsonObject &bandEntry)
 	if (!entOver01.decodeBase64(overviewStr, m_overviewKey, m_overviewHmacKey))
 	{
 		qCritical() << "Unable to decipher 'o' in UUID \"" << entry->uuid() << "\"\n"
-					<< ": " << entOver01.errorString();
+			<< ": " << entOver01.errorString();
+
 		return false;
 	}
 
@@ -279,8 +290,7 @@ bool OpVaultReader::fillAttributes(Entry *entry, const QJsonObject &bandEntry)
 			if (newUrl != url)
 			{
 				// Add this url if it isn't the base one
-				entry->attributes()->set(
-					QString("%1_%2").arg(EntryAttributes::AdditionalUrlAttribute, QString::number(i)), newUrl);
+				entry->attributes()->set(QString("%1_%2").arg(EntryAttributes::AdditionalUrlAttribute, QString::number(i)), newUrl);
 				++i;
 			}
 		}
@@ -294,6 +304,7 @@ bool OpVaultReader::fillAttributes(Entry *entry, const QJsonObject &bandEntry)
 			tagsList << tagV.toString();
 		}
 	}
+
 	entry->setTags(tagsList.join(','));
 
 	return true;

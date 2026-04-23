@@ -40,15 +40,15 @@ void EntryAttributesModel::setEntryAttributes(EntryAttributes *entryAttributes)
 	if (m_entryAttributes)
 	{
 		updateAttributes();
+
 		connect(m_entryAttributes, SIGNAL(customKeyModified(QString)), SLOT(attributeChange(QString)));
 		connect(m_entryAttributes, SIGNAL(aboutToBeAdded(QString)), SLOT(attributeAboutToAdd(QString)));
 		connect(m_entryAttributes, SIGNAL(added(QString)), SLOT(attributeAdd()));
 		connect(m_entryAttributes, SIGNAL(aboutToBeRemoved(QString)), SLOT(attributeAboutToRemove(QString)));
 		connect(m_entryAttributes, SIGNAL(removed(QString)), SLOT(attributeRemove()));
-        connect(
-            m_entryAttributes, SIGNAL(aboutToRename(QString,QString)), SLOT(attributeAboutToRename(QString,QString)));
+		connect(m_entryAttributes, SIGNAL(aboutToRename(QString,QString)), SLOT(attributeAboutToRename(QString,QString)));
 
-        connect(m_entryAttributes, SIGNAL(renamed(QString,QString)), SLOT(attributeRename(QString,QString)));
+		connect(m_entryAttributes, SIGNAL(renamed(QString,QString)), SLOT(attributeRename(QString,QString)));
 
 		connect(m_entryAttributes, SIGNAL(aboutToBeReset()), SLOT(aboutToReset()));
 		connect(m_entryAttributes, SIGNAL(reset()), SLOT(reset()));
@@ -112,6 +112,7 @@ bool EntryAttributesModel::setData(const QModelIndex &index, const QVariant &val
 	{
 		return false;
 	}
+
 	m_entryAttributes->rename(oldKey, newKey);
 
 	return true;
@@ -200,7 +201,7 @@ void EntryAttributesModel::attributeAboutToRename(const QString &oldKey, const Q
 	int newRow = rows.indexOf(newKey);
 	if (newRow > oldRow)
 	{
-		newRow++;
+		++newRow;
 	}
 
 	if (oldRow != newRow)
@@ -257,5 +258,6 @@ void EntryAttributesModel::updateAttributes()
 			m_attributes.append(key);
 		}
 	}
+
 	std::sort(m_attributes.begin(), m_attributes.end(), m_collator);
 }

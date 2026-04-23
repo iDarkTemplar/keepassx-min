@@ -46,11 +46,11 @@ private:
 		UTF8
 	};
 
-	SymmetricCipherStream *testKeys(const QString &password, const QByteArray &keyfileData, qint64 contentPos);
+	SymmetricCipherStream* testKeys(const QString &password, const QByteArray &keyfileData, qint64 contentPos);
 	QByteArray key(const QByteArray &password, const QByteArray &keyfileData);
 	bool verifyKey(SymmetricCipherStream *cipherStream);
-	Group *readGroup(QIODevice *cipherStream);
-	Entry *readEntry(QIODevice *cipherStream);
+	Group* readGroup(QIODevice *cipherStream);
+	Entry* readEntry(QIODevice *cipherStream);
 	bool constructGroupTree(const QList<Group *> &groups);
 	void parseMetaStream(const Entry *entry);
 	bool parseGroupTreeState(const QByteArray &data);
@@ -69,10 +69,10 @@ private:
 	QByteArray m_contentHashHeader;
 	QByteArray m_transformSeed;
 	quint32 m_transformRounds;
-	QHash<quint32, Group *> m_groupIds;
-	QHash<Group *, quint32> m_groupLevels;
-	QHash<QByteArray, Entry *> m_entryUuids;
-	QHash<Entry *, quint32> m_entryGroupIds;
+	QHash<quint32, Group*> m_groupIds;
+	QHash<Group*, quint32> m_groupLevels;
+	QHash<QByteArray, Entry*> m_entryUuids;
+	QHash<Entry*, quint32> m_entryGroupIds;
 
 	bool m_error;
 	QString m_errorStr;

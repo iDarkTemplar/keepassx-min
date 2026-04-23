@@ -144,6 +144,7 @@ bool FileKey::load(const QString &fileName, QString *errorMsg)
 		{
 			*errorMsg = file.errorString();
 		}
+
 		return false;
 	}
 
@@ -251,6 +252,7 @@ void FileKey::createXMLv2(QIODevice *device, int size)
 
 	w.writeAttribute("Hash", result.toHex().toUpper());
 	w.writeCharacters("\n            ");
+
 	for (int i = 0; i < key.size(); ++i)
 	{
 		// Pretty-print hex value (not strictly necessary, but nicer to read and KeePass2 does it)
@@ -262,8 +264,10 @@ void FileKey::createXMLv2(QIODevice *device, int size)
 		{
 			w.writeCharacters(" ");
 		}
+
 		w.writeCharacters(QChar(key[i]));
 	}
+
 	Botan::secure_scrub_memory(key.data(), static_cast<std::size_t>(key.capacity()));
 	w.writeCharacters("\n        ");
 
@@ -290,8 +294,10 @@ bool FileKey::create(const QString &fileName, QString *errorMsg)
 		{
 			*errorMsg = file.errorString();
 		}
+
 		return false;
 	}
+
 	if (fileName.endsWith(".keyx"))
 	{
 		createXMLv2(&file);
@@ -300,6 +306,7 @@ bool FileKey::create(const QString &fileName, QString *errorMsg)
 	{
 		createRandom(&file);
 	}
+
 	file.close();
 	file.setPermissions(QFile::ReadUser);
 
@@ -330,6 +337,7 @@ bool FileKey::loadXml(QIODevice *device, QString *errorMsg)
 	{
 		return false;
 	}
+
 	if (xmlReader.readNextStartElement() && xmlReader.name() != "KeyFile")
 	{
 		return false;
@@ -365,6 +373,7 @@ bool FileKey::loadXml(QIODevice *device, QString *errorMsg)
 						{
 							*errorMsg = QObject::tr("Unsupported key file version: %1").arg(keyFileData.version);
 						}
+
 						return false;
 					}
 				}
@@ -396,6 +405,7 @@ bool FileKey::loadXml(QIODevice *device, QString *errorMsg)
 							{
 								*errorMsg = QObject::tr("Checksum mismatch! Key file may be corrupt.");
 							}
+
 							return false;
 						}
 					}
@@ -405,6 +415,7 @@ bool FileKey::loadXml(QIODevice *device, QString *errorMsg)
 						{
 							*errorMsg = QObject::tr("Unexpected key file data! Key file may be corrupt.");
 						}
+
 						return false;
 					}
 				}
@@ -504,6 +515,7 @@ bool FileKey::loadHashed(QIODevice *device)
 		{
 			return false;
 		}
+
 		cryptoHash.addData(buffer);
 	} while (!buffer.isEmpty());
 

@@ -22,10 +22,11 @@
 #include "core/Database.h"
 #include "gui/DatabaseWidget.h"
 
-namespace Ui
-{
-	class CloneDialog;
-}
+namespace Ui {
+
+class CloneDialog;
+
+} // namespace Ui
 
 class CloneDialog: public QDialog
 {

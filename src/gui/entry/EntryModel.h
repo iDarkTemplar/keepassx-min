@@ -53,7 +53,7 @@ public:
 	};
 
 	explicit EntryModel(QObject *parent = nullptr);
-	Entry *entryFromIndex(const QModelIndex &index) const;
+	Entry* entryFromIndex(const QModelIndex &index) const;
 	QModelIndex indexFromEntry(Entry *entry) const;
 
 	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -64,7 +64,7 @@ public:
 	Qt::DropActions supportedDragActions() const override;
 	Qt::ItemFlags flags(const QModelIndex &modelIndex) const override;
 	QStringList mimeTypes() const override;
-	QMimeData *mimeData(const QModelIndexList &indexes) const override;
+	QMimeData* mimeData(const QModelIndexList &indexes) const override;
 
 	void setGroup(Group *group);
 	void setEntries(const QList<Entry *> &entries);

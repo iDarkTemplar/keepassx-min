@@ -50,8 +50,9 @@
 
 const QString MainWindow::BaseWindowTitle = "KeePassXC";
 
-MainWindow *g_MainWindow = nullptr;
-MainWindow *getMainWindow()
+MainWindow* g_MainWindow = nullptr;
+
+MainWindow* getMainWindow()
 {
 	return g_MainWindow;
 }
@@ -128,9 +129,9 @@ MainWindow::MainWindow()
 	connect(m_ui->tabWidget, &DatabaseTabWidget::databaseUnlocked, this, &MainWindow::databaseUnlocked);
 	connect(m_ui->tabWidget, &DatabaseTabWidget::activeDatabaseChanged, this, &MainWindow::activeDatabaseChanged);
 	connect(m_ui->tabWidget,
-	        &DatabaseTabWidget::databaseUnlockDialogFinished,
-	        this,
-	        &MainWindow::databaseUnlockDialogFinished);
+		&DatabaseTabWidget::databaseUnlockDialogFinished,
+		this,
+		&MainWindow::databaseUnlockDialogFinished);
 
 	initViewMenu();
 
@@ -154,8 +155,7 @@ MainWindow::MainWindow()
 	connect(m_ui->menuRecentDatabases, SIGNAL(aboutToShow()), this, SLOT(updateLastDatabasesMenu()));
 
 	m_copyAdditionalAttributeActions = new QActionGroup(m_ui->menuEntryCopyAttribute);
-	m_actionMultiplexer.connect(
-		m_copyAdditionalAttributeActions, SIGNAL(triggered(QAction *)), SLOT(copyAttribute(QAction *)));
+	m_actionMultiplexer.connect(m_copyAdditionalAttributeActions, SIGNAL(triggered(QAction *)), SLOT(copyAttribute(QAction *)));
 	connect(m_ui->menuEntryCopyAttribute, SIGNAL(aboutToShow()), this, SLOT(updateCopyAttributesMenu()));
 
 	m_setTagsMenuActions = new QActionGroup(m_ui->menuTags);
@@ -327,9 +327,9 @@ MainWindow::MainWindow()
 
 	// Notify search when the active database changes or gets locked
 	connect(m_ui->tabWidget,
-	        SIGNAL(activeDatabaseChanged(DatabaseWidget *)),
-	        m_searchWidget,
-	        SLOT(databaseChanged(DatabaseWidget *)));
+		SIGNAL(activeDatabaseChanged(DatabaseWidget *)),
+		m_searchWidget,
+		SLOT(databaseChanged(DatabaseWidget *)));
 	connect(m_ui->tabWidget, SIGNAL(databaseLocked(DatabaseWidget *)), m_searchWidget, SLOT(databaseChanged()));
 
 	connect(m_ui->tabWidget, SIGNAL(tabNameChanged()), SLOT(updateWindowTitle()));
@@ -361,8 +361,7 @@ MainWindow::MainWindow()
 	connect(m_ui->actionExportCsv, SIGNAL(triggered()), m_ui->tabWidget, SLOT(exportToCsv()));
 	connect(m_ui->actionExportHtml, SIGNAL(triggered()), m_ui->tabWidget, SLOT(exportToHtml()));
 	connect(m_ui->actionExportXML, SIGNAL(triggered()), m_ui->tabWidget, SLOT(exportToXML()));
-	connect(
-		m_ui->actionLockDatabase, SIGNAL(triggered()), m_ui->tabWidget, SLOT(lockAndSwitchToFirstUnlockedDatabase()));
+	connect(m_ui->actionLockDatabase, SIGNAL(triggered()), m_ui->tabWidget, SLOT(lockAndSwitchToFirstUnlockedDatabase()));
 	connect(m_ui->actionLockDatabaseToolbar, SIGNAL(triggered()), m_ui->actionLockDatabase, SIGNAL(triggered()));
 	connect(m_ui->actionLockAllDatabases, SIGNAL(triggered()), m_ui->tabWidget, SLOT(lockDatabases()));
 	connect(m_ui->actionQuit, SIGNAL(triggered()), SLOT(appExit()));
@@ -422,8 +421,8 @@ MainWindow::MainWindow()
 	m_ui->tabWidget->tabBar()->installEventFilter(eventFilter);
 	installEventFilter(eventFilter);
 
-    connect(m_ui->tabWidget, SIGNAL(messageGlobal(QString,MessageWidget::MessageType)),
-        SLOT(displayGlobalMessage(QString,MessageWidget::MessageType)));
+	connect(m_ui->tabWidget, SIGNAL(messageGlobal(QString,MessageWidget::MessageType)),
+		SLOT(displayGlobalMessage(QString,MessageWidget::MessageType)));
 
 	connect(m_ui->tabWidget, SIGNAL(messageDismissGlobal()), this, SLOT(hideGlobalMessage()));
 
@@ -439,47 +438,11 @@ MainWindow::MainWindow()
 	if (config()->hasAccessError())
 	{
 		m_ui->globalMessageWidget->showMessage(tr("Access error for config file %1").arg(config()->getFileName()),
-		                                       MessageWidget::Error);
+			MessageWidget::Error);
 	}
 
 	// Properly shutdown on logoff, restart, and shutdown
 	connect(qApp, &QGuiApplication::commitDataRequest, this, [this] { m_appExitCalled = true; });
-
-#if defined(KEEPASSXC_BUILD_TYPE_SNAPSHOT) || defined(KEEPASSXC_BUILD_TYPE_PRE_RELEASE)
-	auto *hidePreRelWarn = new QAction(tr("Don't show again for this version"), m_ui->globalMessageWidget);
-	m_ui->globalMessageWidget->addAction(hidePreRelWarn);
-	auto hidePreRelWarnConn = QSharedPointer<QMetaObject::Connection>::create();
-	*hidePreRelWarnConn = connect(
-		m_ui->globalMessageWidget, &KMessageWidget::hideAnimationFinished, [this, hidePreRelWarn, hidePreRelWarnConn] {
-			m_ui->globalMessageWidget->removeAction(hidePreRelWarn);
-			disconnect(*hidePreRelWarnConn);
-			hidePreRelWarn->deleteLater();
-		});
-	connect(hidePreRelWarn, &QAction::triggered, [this] {
-		m_ui->globalMessageWidget->animatedHide();
-		config()->set(Config::Messages_HidePreReleaseWarning, KEEPASSXM_VERSION);
-	});
-#endif
-#if defined(KEEPASSXC_BUILD_TYPE_SNAPSHOT)
-	if (config()->get(Config::Messages_HidePreReleaseWarning) != KEEPASSXM_VERSION)
-	{
-		m_ui->globalMessageWidget->showMessage(
-			tr("WARNING: You are using an unstable build of KeePassXC.\n"
-		       "There is a high risk of corruption, maintain a backup of your databases.\n"
-		       "This version is not meant for production use."),
-			MessageWidget::Warning,
-			-1);
-	}
-#elif defined(KEEPASSXC_BUILD_TYPE_PRE_RELEASE)
-	if (config()->get(Config::Messages_HidePreReleaseWarning) != KEEPASSXM_VERSION)
-	{
-		m_ui->globalMessageWidget->showMessage(
-			tr("NOTE: You are using a pre-release version of KeePassXC.\n"
-		       "Expect some bugs and minor issues, this version is meant for testing purposes."),
-			MessageWidget::Information,
-			-1);
-	}
-#endif
 
 	connect(qApp, SIGNAL(anotherInstanceStarted()), this, SLOT(bringToFront()));
 	connect(qApp, SIGNAL(applicationActivated()), this, SLOT(bringToFront()));
@@ -527,6 +490,7 @@ void MainWindow::restoreConfigState()
 				openDatabase(filename);
 			}
 		}
+
 		auto lastActiveFile = config()->get(Config::LastActiveDatabase).toString();
 		if (!lastActiveFile.isEmpty())
 		{
@@ -535,13 +499,14 @@ void MainWindow::restoreConfigState()
 	}
 }
 
-QList<DatabaseWidget *> MainWindow::getOpenDatabases()
+QList<DatabaseWidget*> MainWindow::getOpenDatabases()
 {
-	QList<DatabaseWidget *> dbWidgets;
+	QList<DatabaseWidget*> dbWidgets;
 	for (int i = 0; i < m_ui->tabWidget->count(); ++i)
 	{
 		dbWidgets << m_ui->tabWidget->databaseWidgetFromIndex(i);
 	}
+
 	return dbWidgets;
 }
 
@@ -567,6 +532,7 @@ void MainWindow::updateLastDatabasesMenu()
 		action->setData(database);
 		m_lastDatabasesActions->addAction(action);
 	}
+
 	m_ui->menuRecentDatabases->addSeparator();
 	m_ui->menuRecentDatabases->addAction(m_clearHistoryAction);
 }
@@ -584,8 +550,8 @@ void MainWindow::updateCopyAttributesMenu()
 		return;
 	}
 
-	QList<QAction *> actions = m_ui->menuEntryCopyAttribute->actions();
-	for (int i = m_countDefaultAttributes; i < actions.size(); i++)
+	QList<QAction*> actions = m_ui->menuEntryCopyAttribute->actions();
+	for (int i = m_countDefaultAttributes; i < actions.size(); ++i)
 	{
 		delete actions[i];
 	}
@@ -609,6 +575,7 @@ void MainWindow::updateSetTagsMenu()
 				return action;
 			}
 		}
+
 		return nullptr;
 	};
 
@@ -728,8 +695,7 @@ void MainWindow::updateMenuActionState()
 
 	bool entryViewSorted = (inDatabase && dbWidget->isSorted());
 	bool entryViewAtTop = (inDatabase && dbWidget->currentEntryIndex() == 0);
-	bool entryViewAtBottom =
-		(groupSelected && dbWidget->currentEntryIndex() == dbWidget->currentGroup()->entries().size() - 1);
+	bool entryViewAtBottom = (groupSelected && dbWidget->currentEntryIndex() == dbWidget->currentGroup()->entries().size() - 1);
 
 	m_ui->actionEntryNew->setEnabled(inDatabase && !inRecycleBin);
 	m_ui->actionEntryClone->setEnabled(singleEntrySelected && !inRecycleBin);
@@ -753,6 +719,7 @@ void MainWindow::updateMenuActionState()
 	{
 		m_ui->actionEntryDelete->setToolTip(tr("Delete Entry"));
 	}
+
 	bool hasRecycledEntries = (inDatabase && dbWidget && dbWidget->hasRecycledSelectedEntries());
 	m_ui->actionEntryRestore->setVisible(multiEntrySelected && hasRecycledEntries);
 	m_ui->actionEntryRestore->setEnabled(multiEntrySelected && hasRecycledEntries);
@@ -761,6 +728,7 @@ void MainWindow::updateMenuActionState()
 		m_ui->actionEntryRestore->setText(tr("Restore Entry(s)", "", dbWidget->numberOfSelectedEntries()));
 		m_ui->actionEntryRestore->setToolTip(tr("Restore Entry(s)", "", dbWidget->numberOfSelectedEntries()));
 	}
+
 	m_ui->actionEntryMoveUp->setVisible(inDatabase && !entryViewSorted);
 	m_ui->actionEntryMoveDown->setVisible(inDatabase && !entryViewSorted);
 	m_ui->actionEntryMoveUp->setEnabled(singleEntrySelected && !entryViewSorted && !entryViewAtTop);
@@ -775,6 +743,7 @@ void MainWindow::updateMenuActionState()
 	m_ui->menuEntryCopyAttribute->setEnabled(singleEntryOrEditing);
 	m_ui->menuEntryTotp->setEnabled(singleEntrySelected);
 	m_ui->menuTags->setEnabled(multiEntrySelected);
+
 	// Handle tear-off tags menu
 	if (m_ui->menuTags->isTearOffMenuVisible())
 	{
@@ -787,6 +756,7 @@ void MainWindow::updateMenuActionState()
 			updateSetTagsMenu();
 		}
 	}
+
 	m_ui->actionEntryOpenUrl->setEnabled(singleEntryOrEditing && dbWidget->currentEntryHasUrl());
 	m_ui->actionEntryTotp->setEnabled(singleEntrySelected && dbWidget->currentEntryHasTotp());
 	m_ui->actionEntryCopyTotp->setEnabled(singleEntrySelected);
@@ -832,8 +802,7 @@ void MainWindow::updateToolbarSeparatorVisibility()
 	switch (m_ui->stackedWidget->currentIndex())
 	{
 	case DatabaseTabScreen:
-		m_ui->toolbarSeparator->setVisible(!m_ui->tabWidget->tabBar()->isVisible()
-		                                   && m_ui->tabWidget->tabBar()->count() == 1);
+		m_ui->toolbarSeparator->setVisible(!m_ui->tabWidget->tabBar()->isVisible() && m_ui->tabWidget->tabBar()->count() == 1);
 		break;
 	case SettingsScreen:
 		m_ui->toolbarSeparator->setVisible(true);
@@ -857,6 +826,7 @@ void MainWindow::updateWindowTitle()
 		{
 			customWindowTitlePart.remove(customWindowTitlePart.size() - 1, 1);
 		}
+
 		m_ui->actionDatabaseSave->setEnabled(m_ui->tabWidget->canSave(tabWidgetIndex));
 	}
 	else if (stackedWidgetIndex == StackedWidgetIndex::SettingsScreen)
@@ -891,10 +861,11 @@ void MainWindow::showAboutDialog()
 	if (m_ui->tabWidget->currentDatabaseWidget())
 	{
 		connect(m_ui->tabWidget->currentDatabaseWidget(),
-		        &DatabaseWidget::databaseLockRequested,
-		        aboutDialog,
-		        &AboutDialog::close);
+			&DatabaseWidget::databaseLockRequested,
+			aboutDialog,
+			&AboutDialog::close);
 	}
+
 	aboutDialog->open();
 }
 
@@ -1077,6 +1048,7 @@ bool MainWindow::event(QEvent *event)
 			}
 		}
 	}
+
 	return QMainWindow::event(event);
 }
 
@@ -1102,8 +1074,10 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 	// Ignore event and hide to tray if this is not an actual close
 	// request by the system's session manager.
-	if (config()->get(Config::GUI_MinimizeOnClose).toBool() && !m_appExitCalled && !isHidden()
-	    && !qApp->isSavingSession())
+	if (config()->get(Config::GUI_MinimizeOnClose).toBool()
+		&& !m_appExitCalled
+		&& !isHidden()
+		&& !qApp->isSavingSession())
 	{
 		event->ignore();
 		hideWindow();
@@ -1230,6 +1204,7 @@ bool MainWindow::focusNextPrevChild(bool next)
 				}
 			}
 		}
+
 		return true;
 	}
 
@@ -1313,8 +1288,8 @@ void MainWindow::updateTrayIcon()
 			m_trayIcon->setContextMenu(menu);
 
 			connect(m_trayIcon,
-			        SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-			        SLOT(trayIconTriggered(QSystemTrayIcon::ActivationReason)));
+				SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+				SLOT(trayIconTriggered(QSystemTrayIcon::ActivationReason)));
 			connect(actionToggle, SIGNAL(triggered()), SLOT(toggleWindow()));
 		}
 
@@ -1373,7 +1348,7 @@ void MainWindow::updateEntryCountLabel()
 	}
 	else
 	{
-		m_statusBarLabel->setText("");
+		m_statusBarLabel->setText(QString());
 	}
 }
 
@@ -1455,8 +1430,7 @@ void MainWindow::applySettingsChanges()
 	}
 
 	bool isOk = false;
-	const auto toolButtonStyle =
-		static_cast<Qt::ToolButtonStyle>(config()->get(Config::GUI_ToolButtonStyle).toInt(&isOk));
+	const auto toolButtonStyle = static_cast<Qt::ToolButtonStyle>(config()->get(Config::GUI_ToolButtonStyle).toInt(&isOk));
 	if (isOk)
 	{
 		m_ui->toolBar->setToolButtonStyle(toolButtonStyle);
@@ -1481,6 +1455,7 @@ void MainWindow::trayIconTriggered(QSystemTrayIcon::ActivationReason reason)
 	{
 		m_trayIconTriggerTimer.start(150);
 	}
+
 	// Overcome Qt bug https://bugreports.qt.io/browse/QTBUG-69698
 	// Store last issued tray icon activation reason to properly
 	// capture doubleclick events
@@ -1495,7 +1470,7 @@ void MainWindow::processTrayIconTrigger()
 		toggleWindow();
 	}
 	else if (m_trayIconTriggerReason == QSystemTrayIcon::Trigger
-	         || m_trayIconTriggerReason == QSystemTrayIcon::MiddleClick)
+		|| m_trayIconTriggerReason == QSystemTrayIcon::MiddleClick)
 	{
 		// Toggle window if is not in front.
 		// If on Linux, check if the window has focus.
@@ -1535,12 +1510,6 @@ void MainWindow::hideWindow()
 	// Only hide if tray icon is active, otherwise window will be gone forever
 	if (isTrayIconEnabled())
 	{
-		// On X11, the window should NOT be minimized and hidden at the same time. See issue #1595.
-		// On macOS, we are skipping minimization as well to avoid playing the magic lamp animation.
-		if (QGuiApplication::platformName() != "xcb" && QGuiApplication::platformName() != "cocoa")
-		{
-			setWindowState(windowState() | Qt::WindowMinimized);
-		}
 		hide();
 	}
 	else
@@ -1591,19 +1560,21 @@ bool MainWindow::isTrayIconEnabled() const
 	return m_trayIcon && m_trayIcon->isVisible();
 }
 
-void MainWindow::displayGlobalMessage(const QString &text,
-                                      MessageWidget::MessageType type,
-                                      bool showClosebutton,
-                                      int autoHideTimeout)
+void MainWindow::displayGlobalMessage(
+	const QString &text,
+	MessageWidget::MessageType type,
+	bool showClosebutton,
+	int autoHideTimeout)
 {
 	m_ui->globalMessageWidget->setCloseButtonVisible(showClosebutton);
 	m_ui->globalMessageWidget->showMessage(text, type, autoHideTimeout);
 }
 
-void MainWindow::displayTabMessage(const QString &text,
-                                   MessageWidget::MessageType type,
-                                   bool showClosebutton,
-                                   int autoHideTimeout)
+void MainWindow::displayTabMessage(
+	const QString &text,
+	MessageWidget::MessageType type,
+	bool showClosebutton,
+	int autoHideTimeout)
 {
 	m_ui->tabWidget->currentDatabaseWidget()->showMessage(text, type, showClosebutton, autoHideTimeout);
 }
@@ -1669,6 +1640,7 @@ void MainWindow::dropEvent(QDropEvent *event)
 		{
 			event->acceptProposedAction();
 		}
+
 		for (const QString &kdbxFile: kdbxFiles)
 		{
 			openDatabase(kdbxFile);
@@ -1703,8 +1675,7 @@ void MainWindow::displayDesktopNotification(const QString &msg, QString title, i
 
 void MainWindow::restartApp(const QString &message)
 {
-	auto ans = MessageBox::question(
-		this, tr("Restart Application?"), message, MessageBox::Yes | MessageBox::No, MessageBox::Yes);
+	auto ans = MessageBox::question(this, tr("Restart Application?"), message, MessageBox::Yes | MessageBox::No, MessageBox::Yes);
 	if (ans == MessageBox::Yes)
 	{
 		m_appExitCalled = true;
@@ -1797,6 +1768,7 @@ void MainWindow::initViewMenu()
 		}
 		show();
 	});
+
 	// Set checked after connecting to act on a toggle in state (default state is unchecked)
 	m_ui->actionAlwaysOnTop->setChecked(config()->get(Config::GUI_AlwaysOnTop).toBool());
 
@@ -1822,7 +1794,7 @@ MainWindowEventFilter::MainWindowEventFilter(QObject *parent)
 	connect(&m_menubarTimer, &QTimer::timeout, this, [this] {
 		auto mainwindow = getMainWindow();
 		if (mainwindow && mainwindow->m_ui->menubar->maximumHeight() > 0
-		    && config()->get(Config::GUI_HideMenubar).toBool())
+			&& config()->get(Config::GUI_HideMenubar).toBool())
 		{
 			// If the menu bar is visible with no active menu, hide it
 			if (!mainwindow->m_ui->menubar->activeAction())
@@ -1834,6 +1806,7 @@ MainWindowEventFilter::MainWindowEventFilter(QObject *parent)
 			// Conditions to hide the menubar or stop the timer have not been met
 			return;
 		}
+
 		// We no longer need the timer
 		m_menubarTimer.stop();
 	});
@@ -1854,9 +1827,8 @@ bool MainWindowEventFilter::eventFilter(QObject *watched, QEvent *event)
 	auto eventType = event->type();
 	if (eventType == QEvent::MouseButtonPress)
 	{
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 		// startSystemMove was introduced in Qt 5.15
-		auto mouseEvent = dynamic_cast<QMouseEvent *>(event);
+		auto mouseEvent = dynamic_cast<QMouseEvent*>(event);
 		if (watched == mainWindow->m_ui->menubar)
 		{
 			if (!mainWindow->m_ui->menubar->actionAt(mouseEvent->pos()))
@@ -1881,14 +1853,15 @@ bool MainWindowEventFilter::eventFilter(QObject *watched, QEvent *event)
 				return true;
 			}
 		}
-#endif
 	}
 	else if (eventType == QEvent::KeyRelease && watched == mainWindow)
 	{
 		auto keyEvent = dynamic_cast<QKeyEvent *>(event);
 
-		if (keyEvent->key() == Qt::Key_Alt && !keyEvent->modifiers() && config()->get(Config::GUI_HideMenubar).toBool()
-		    && !m_altCoolDown.isActive())
+		if (keyEvent->key() == Qt::Key_Alt
+			&& !keyEvent->modifiers()
+			&& config()->get(Config::GUI_HideMenubar).toBool()
+			&& !m_altCoolDown.isActive())
 		{
 			auto menubar = mainWindow->m_ui->menubar;
 			menubar->setMaximumHeight(menubar->maximumHeight() > 0 ? 0 : QWIDGETSIZE_MAX);
@@ -1905,6 +1878,7 @@ bool MainWindowEventFilter::eventFilter(QObject *watched, QEvent *event)
 			{
 				m_menubarTimer.stop();
 			}
+
 			return true;
 		}
 	}

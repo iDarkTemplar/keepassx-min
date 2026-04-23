@@ -16,10 +16,11 @@
 
 #include "ElidedLabel.h"
 
-namespace
-{
-	const QString htmlLinkTemplate("<a href=\"%1\">%2</a>");
-}
+namespace {
+
+const QString htmlLinkTemplate("<a href=\"%1\">%2</a>");
+
+} // namespace
 
 ElidedLabel::ElidedLabel(QWidget *parent, Qt::WindowFlags f)
 	: QLabel(parent, f)

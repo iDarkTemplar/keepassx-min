@@ -66,13 +66,13 @@ protected:
 	virtual void parseCustomData(CustomData *customData);
 	virtual void parseCustomDataItem(CustomData *customData);
 	virtual bool parseRoot();
-	virtual Group *parseGroup();
+	virtual Group* parseGroup();
 	virtual void parseDeletedObjects();
 	virtual void parseDeletedObject();
-	virtual Entry *parseEntry(bool history);
+	virtual Entry* parseEntry(bool history);
 	virtual void parseEntryString(Entry *entry);
 	virtual QPair<QString, QString> parseEntryBinary(Entry *entry);
-	virtual QList<Entry *> parseEntryHistory();
+	virtual QList<Entry*> parseEntryHistory();
 	virtual TimeInfo parseTimes();
 
 	virtual QString readString();
@@ -87,8 +87,8 @@ protected:
 
 	virtual void skipCurrentElement();
 
-	virtual Group *getGroup(const QUuid &uuid);
-	virtual Entry *getEntry(const QUuid &uuid);
+	virtual Group* getGroup(const QUuid &uuid);
+	virtual Entry* getEntry(const QUuid &uuid);
 
 	virtual bool isTrueValue(const QStringRef &value);
 	virtual void raiseError(const QString &errorMessage);
@@ -103,15 +103,15 @@ protected:
 	QXmlStreamReader m_xml;
 
 	QScopedPointer<Group> m_tmpParent;
-	QHash<QUuid, Group *> m_groups;
-	QHash<QUuid, Entry *> m_entries;
+	QHash<QUuid, Group*> m_groups;
+	QHash<QUuid, Entry*> m_entries;
 
 	QHash<QString, QByteArray> m_binaryPool;
-	QMultiHash<QString, QPair<Entry *, QString>> m_binaryMap;
+	QMultiHash<QString, QPair<Entry*, QString>> m_binaryMap;
 	QByteArray m_headerHash;
 
 	bool m_error = false;
-	QString m_errorStr = "";
+	QString m_errorStr;
 };
 
 #endif // KEEPASSXC_KDBXXMLREADER_H

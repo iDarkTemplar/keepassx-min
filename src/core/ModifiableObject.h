@@ -22,6 +22,7 @@
 class ModifiableObject: public QObject
 {
 	Q_OBJECT
+
 public:
 	using QObject::QObject;
 
@@ -52,7 +53,7 @@ signals:
 	void emitModifiedChanged(bool value);
 
 private:
-	bool m_emitModified{true};
+	bool m_emitModified = true;
 };
 
 #endif // KEEPASSXC_MODIFIABLEOBJECT_H

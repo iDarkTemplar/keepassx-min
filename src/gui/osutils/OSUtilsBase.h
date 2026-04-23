@@ -42,10 +42,12 @@ public:
 
 	virtual void registerNativeEventFilter() = 0;
 
-	virtual bool registerGlobalShortcut(const QString &name,
-	                                    Qt::Key key,
-	                                    Qt::KeyboardModifiers modifiers,
-	                                    QString *error = nullptr) = 0;
+	virtual bool registerGlobalShortcut(
+		const QString &name,
+		Qt::Key key,
+		Qt::KeyboardModifiers modifiers,
+		QString *error = nullptr) = 0;
+
 	virtual bool unregisterGlobalShortcut(const QString &name) = 0;
 
 signals:
@@ -63,7 +65,7 @@ signals:
 
 protected:
 	explicit OSUtilsBase(QObject *parent = nullptr);
-	virtual ~OSUtilsBase();
+	virtual ~OSUtilsBase() = default;
 };
 
 #endif // KEEPASSXC_OSUTILSBASE_H

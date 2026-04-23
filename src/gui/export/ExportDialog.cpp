@@ -39,8 +39,8 @@ ExportDialog::ExportDialog(QSharedPointer<const Database> db, DatabaseTabWidget 
 	m_ui->messageWidget->setCloseButtonVisible(false);
 	m_ui->messageWidget->setAutoHideTimeout(-1);
 	m_ui->messageWidget->showMessage(tr("You are about to export your database to an unencrypted file.\n"
-	                                    "This will leave your passwords and sensitive information vulnerable!\n"),
-	                                 MessageWidget::Warning);
+		"This will leave your passwords and sensitive information vulnerable!\n"),
+		MessageWidget::Warning);
 }
 
 ExportDialog::~ExportDialog()
@@ -78,8 +78,7 @@ void ExportDialog::exportDatabase()
 	FileDialog::saveLastDir("html", fileName, true);
 
 	HtmlGuiExporter htmlExporter;
-	if (!htmlExporter.exportDatabase(
-			fileName, m_db, sortBy != ExportSortingStrategy::BY_DATABASE_ORDER, ascendingOrder))
+	if (!htmlExporter.exportDatabase(fileName, m_db, sortBy != ExportSortingStrategy::BY_DATABASE_ORDER, ascendingOrder))
 	{
 		emit exportFailed(htmlExporter.errorString());
 		reject();

@@ -25,7 +25,7 @@
 
 #include "core/Config.h"
 
-Clipboard *Clipboard::m_instance(nullptr);
+std::unique_ptr<Clipboard> Clipboard::m_instance;
 
 Clipboard::Clipboard(QObject *parent)
 	: QObject(parent)
@@ -52,6 +52,7 @@ void Clipboard::setText(const QString &text, bool clear)
 	{
 		clipboard->setMimeData(mime, QClipboard::Selection);
 	}
+
 	clipboard->setMimeData(mime, QClipboard::Clipboard);
 
 	if (clear)
@@ -92,8 +93,7 @@ void Clipboard::clearCopiedText()
 	}
 
 	if (!m_lastCopied.isEmpty()
-	    && (m_lastCopied == clipboard->text(QClipboard::Clipboard)
-	        || m_lastCopied == clipboard->text(QClipboard::Selection)))
+		&& (m_lastCopied == clipboard->text(QClipboard::Clipboard) || m_lastCopied == clipboard->text(QClipboard::Selection)))
 	{
 		clipboard->clear(QClipboard::Clipboard);
 		clipboard->clear(QClipboard::Selection);
@@ -127,12 +127,12 @@ void Clipboard::sendCountdownStatus()
 		QObject::tr("Clearing the clipboard in %1 second(s)…", "", m_secondsToClear).arg(m_secondsToClear));
 }
 
-Clipboard *Clipboard::instance()
+Clipboard* Clipboard::instance()
 {
 	if (!m_instance)
 	{
-		m_instance = new Clipboard(qApp);
+		m_instance.reset(new Clipboard(qApp));
 	}
 
-	return m_instance;
+	return m_instance.get();
 }

@@ -34,16 +34,15 @@ GroupView::GroupView(Database *db, QWidget *parent)
 	setUniformRowHeights(true);
 	setTextElideMode(Qt::ElideNone);
 
-    connect(this, SIGNAL(expanded(QModelIndex)), SLOT(expandedChanged(QModelIndex)));
-    connect(this, SIGNAL(collapsed(QModelIndex)), SLOT(expandedChanged(QModelIndex)));
-    connect(this, SIGNAL(clicked(QModelIndex)), SIGNAL(groupSelectionChanged()));
-    connect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(syncExpandedState(QModelIndex,int,int)));
-    connect(m_model, SIGNAL(modelReset()), SLOT(modelReset()));
-    connect(selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), SIGNAL(groupSelectionChanged()));
+	connect(this, SIGNAL(expanded(QModelIndex)), SLOT(expandedChanged(QModelIndex)));
+	connect(this, SIGNAL(collapsed(QModelIndex)), SLOT(expandedChanged(QModelIndex)));
+	connect(this, SIGNAL(clicked(QModelIndex)), SIGNAL(groupSelectionChanged()));
+	connect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(syncExpandedState(QModelIndex,int,int)));
+	connect(m_model, SIGNAL(modelReset()), SLOT(modelReset()));
+	connect(selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), SIGNAL(groupSelectionChanged()));
 
 	new QShortcut(Qt::CTRL + Qt::Key_F10, this, SLOT(contextMenuShortcutPressed()), nullptr, Qt::WidgetShortcut);
-	new QShortcut(
-		Qt::CTRL + Qt::SHIFT + Qt::Key_PageUp, this, SLOT(selectPreviousGroup()), nullptr, Qt::WindowShortcut);
+	new QShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_PageUp, this, SLOT(selectPreviousGroup()), nullptr, Qt::WindowShortcut);
 	new QShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown, this, SLOT(selectNextGroup()), nullptr, Qt::WindowShortcut);
 
 	// keyboard shortcuts to sort children of a group
@@ -110,8 +109,10 @@ void GroupView::dragMoveEvent(QDragMoveEvent *event)
 	QTreeView::dragMoveEvent(event);
 
 	// entries may only be dropped on groups
-	if (event->isAccepted() && event->mimeData()->hasFormat("application/x-keepassx-entry")
-	    && (dropIndicatorPosition() == AboveItem || dropIndicatorPosition() == BelowItem))
+	if (event->isAccepted()
+		&& event->mimeData()->hasFormat("application/x-keepassx-entry")
+		&& (dropIndicatorPosition() == AboveItem
+			|| dropIndicatorPosition() == BelowItem))
 	{
 		event->ignore();
 	}
@@ -123,7 +124,7 @@ void GroupView::focusInEvent(QFocusEvent *event)
 	QTreeView::focusInEvent(event);
 }
 
-Group *GroupView::currentGroup()
+Group* GroupView::currentGroup()
 {
 	if (currentIndex() == QModelIndex())
 	{
@@ -153,7 +154,7 @@ void GroupView::recInitExpanded(Group *group)
 	expandGroup(group, group->isExpanded());
 	m_updatingExpanded = false;
 
-	const QList<Group *> children = group->children();
+	const QList<Group*> children = group->children();
 	for (Group *child: children)
 	{
 		recInitExpanded(child);
@@ -183,7 +184,7 @@ void GroupView::setModel(QAbstractItemModel *model)
 
 void GroupView::syncExpandedState(const QModelIndex &parent, int start, int end)
 {
-	for (int row = start; row <= end; row++)
+	for (int row = start; row <= end; ++row)
 	{
 		Group *group = m_model->groupFromIndex(m_model->index(row, 0, parent));
 		recInitExpanded(group);

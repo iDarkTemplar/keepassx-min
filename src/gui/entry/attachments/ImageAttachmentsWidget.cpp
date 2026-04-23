@@ -30,36 +30,37 @@
 #include <QSizeF>
 #include <QWheelEvent>
 
-namespace
+namespace {
+
+// Predefined zoom levels must be in ascending order
+constexpr std::array ZoomList = {0.25, 0.5, 0.75, 1.0, 2.0};
+constexpr double WheelZoomStep = 1.1;
+
+QString formatZoomText(double zoomFactor)
 {
-	// Predefined zoom levels must be in ascending order
-	constexpr std::array ZoomList = {0.25, 0.5, 0.75, 1.0, 2.0};
-	constexpr double WheelZoomStep = 1.1;
+	return QString("%1%").arg(QString::number(zoomFactor * 100, 'f', 0));
+}
 
-	QString formatZoomText(double zoomFactor)
+double parseZoomText(const QString &zoomText)
+{
+	auto zoomTextTrimmed = zoomText.trimmed();
+
+	if (auto percentIndex = zoomTextTrimmed.indexOf('%'); percentIndex != -1)
 	{
-		return QString("%1%").arg(QString::number(zoomFactor * 100, 'f', 0));
+		// Remove the '%' character and parse the number
+		zoomTextTrimmed = zoomTextTrimmed.left(percentIndex).trimmed();
 	}
 
-	double parseZoomText(const QString &zoomText)
+	bool ok;
+	double zoomFactor = zoomTextTrimmed.toDouble(&ok);
+	if (!ok)
 	{
-		auto zoomTextTrimmed = zoomText.trimmed();
-
-		if (auto percentIndex = zoomTextTrimmed.indexOf('%'); percentIndex != -1)
-		{
-			// Remove the '%' character and parse the number
-			zoomTextTrimmed = zoomTextTrimmed.left(percentIndex).trimmed();
-		}
-
-		bool ok;
-		double zoomFactor = zoomTextTrimmed.toDouble(&ok);
-		if (!ok)
-		{
-			qWarning() << "Failed to parse zoom text:" << zoomText;
-			return std::numeric_limits<double>::quiet_NaN();
-		}
-		return zoomFactor / 100.0;
+		qWarning() << "Failed to parse zoom text:" << zoomText;
+		return std::numeric_limits<double>::quiet_NaN();
 	}
+
+	return zoomFactor / 100.0;
+}
 
 } // namespace
 
@@ -85,7 +86,9 @@ ImageAttachmentsWidget::ImageAttachmentsWidget(QWidget *parent)
 	initZoomComboBox();
 }
 
-ImageAttachmentsWidget::~ImageAttachmentsWidget() = default;
+ImageAttachmentsWidget::~ImageAttachmentsWidget()
+{
+}
 
 void ImageAttachmentsWidget::initZoomComboBox()
 {

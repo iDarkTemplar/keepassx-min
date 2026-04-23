@@ -24,168 +24,169 @@
 
 #include "core/Global.h"
 
-namespace FdoSecrets
+namespace FdoSecrets {
+
+class DBusMgr;
+class CipherPair;
+
+struct ProcInfo
 {
-	class DBusMgr;
-	class CipherPair;
+	uint pid;
+	uint ppid;
+	QString exePath;
+	QString name;
+	QString command;
 
-	struct ProcInfo
-	{
-		uint pid;
-		uint ppid;
-		QString exePath;
-		QString name;
-		QString command;
+	bool operator==(const ProcInfo &other) const;
+	bool operator!=(const ProcInfo &other) const;
+};
 
-		bool operator==(const ProcInfo &other) const;
-		bool operator!=(const ProcInfo &other) const;
-	};
+/**
+ * Contains info representing a process.
+ * This can be obtained by DBusMgr::serviceInfo given a dbus address.
+ */
+struct PeerInfo
+{
+	/**
+	 * @brief DBus address
+	 */
+	QString address;
+
+	uint pid;
+	/**
+	 * @brief Whether current process' exePath points to a valid executable file.
+	 *
+	 * Note that an empty exePath is not valid.
+	 */
+	bool valid;
 
 	/**
-	 * Contains info representing a process.
-	 * This can be obtained by DBusMgr::serviceInfo given a dbus address.
+	 * @brief List of parents of the process.
+	 *
+	 * The first element is the current process. The last element is usually PID 1.
+	 *
+	 * This is for showing to the user only and is intentionally simple.
+	 * Getting detailed process info is beyond the scope of KPXC.
 	 */
-	struct PeerInfo
+	QList<ProcInfo> hierarchy;
+
+	QString exePath() const
 	{
-		/**
-		 * @brief DBus address
-		 */
-		QString address;
+		return hierarchy.front().exePath;
+	}
 
-		uint pid;
-		/**
-		 * @brief Whether current process' exePath points to a valid executable file.
-		 *
-		 * Note that an empty exePath is not valid.
-		 */
-		bool valid;
+	bool operator==(const PeerInfo &other) const;
+	bool operator!=(const PeerInfo &other) const;
+};
 
-		/**
-		 * @brief List of parents of the process.
-		 *
-		 * The first element is the current process. The last element is usually PID 1.
-		 *
-		 * This is for showing to the user only and is intentionally simple.
-		 * Getting detailed process info is beyond the scope of KPXC.
-		 */
-		QList<ProcInfo> hierarchy;
+/**
+ * Represent a client that has made requests to our service. A client is identified by its
+ * DBus address, which is guaranteed to be unique by the DBus protocol.
+ *
+ * An object of this class is created on the first request and destroyed
+ * when the client address vanishes from the bus. DBus guarantees that the
+ * client address is not reused.
+ *
+ * One client may have multiple `Session`s with our service, and this class
+ * manages the negotiation state (if any) of ciphers and per-client authorization
+ * status.
+ */
+class DBusClient
+{
+public:
+	/**
+	 * @brief Given peer's service address, construct a client object
+	 * @param address obtained from `QDBusMessage::service()`
+	 * @param process the process info
+	 */
+	explicit DBusClient(DBusMgr *dbus, PeerInfo process);
 
-		QString exePath() const
-		{
-			return hierarchy.front().exePath;
-		}
-
-		bool operator==(const PeerInfo &other) const;
-		bool operator!=(const PeerInfo &other) const;
-	};
+	DBusMgr* dbus() const;
 
 	/**
-	 * Represent a client that has made requests to our service. A client is identified by its
-	 * DBus address, which is guaranteed to be unique by the DBus protocol.
-	 *
-	 * An object of this class is created on the first request and destroyed
-	 * when the client address vanishes from the bus. DBus guarantees that the
-	 * client address is not reused.
-	 *
-	 * One client may have multiple `Session`s with our service, and this class
-	 * manages the negotiation state (if any) of ciphers and per-client authorization
-	 * status.
+	 * @return The human readable client name, usually the process name
 	 */
-	class DBusClient
+	QString name() const;
+
+	/**
+	 * @return The unique DBus address of the client
+	 */
+	QString address() const
 	{
-	public:
-		/**
-		 * @brief Given peer's service address, construct a client object
-		 * @param address obtained from `QDBusMessage::service()`
-		 * @param process the process info
-		 */
-		explicit DBusClient(DBusMgr *dbus, PeerInfo process);
+		return m_process.address;
+	}
 
-		DBusMgr *dbus() const;
+	/**
+	 * @return The process id of the client
+	 */
+	uint pid() const
+	{
+		return m_process.pid;
+	}
 
-		/**
-		 * @return The human readable client name, usually the process name
-		 */
-		QString name() const;
+	/**
+	 * @return The process info
+	 */
+	const PeerInfo &processInfo() const
+	{
+		return m_process;
+	}
 
-		/**
-		 * @return The unique DBus address of the client
-		 */
-		QString address() const
-		{
-			return m_process.address;
-		}
+	QSharedPointer<CipherPair> negotiateCipher(const QString &algorithm, const QVariant &input, QVariant &output, bool &incomplete);
 
-		/**
-		 * @return The process id of the client
-		 */
-		uint pid() const
-		{
-			return m_process.pid;
-		}
+	/**
+	 * Check if the item is known in this client's auth list
+	 */
+	bool itemKnown(const QUuid &uuid) const;
 
-		/**
-		 * @return The process info
-		 */
-		const PeerInfo &processInfo() const
-		{
-			return m_process;
-		}
+	/**
+	 * Check if client may access item identified by @a uuid.
+	 */
+	bool itemAuthorized(const QUuid &uuid) const;
 
-		QSharedPointer<CipherPair>
-			negotiateCipher(const QString &algorithm, const QVariant &input, QVariant &output, bool &incomplete);
+	/**
+	 * Check if client may access item identified by @a uuid, and also reset any once auth.
+	 */
+	bool itemAuthorizedResetOnce(const QUuid &uuid);
 
-		/**
-		 * Check if the item is known in this client's auth list
-		 */
-		bool itemKnown(const QUuid &uuid) const;
+	/**
+	 * Authorize client to access item identified by @a uuid.
+	 */
+	void setItemAuthorized(const QUuid &uuid, AuthDecision auth);
 
-		/**
-		 * Check if client may access item identified by @a uuid.
-		 */
-		bool itemAuthorized(const QUuid &uuid) const;
+	/**
+	 * Authorize client to access all items.
+	 */
+	void setAllAuthorized(AuthDecision authorized);
 
-		/**
-		 * Check if client may access item identified by @a uuid, and also reset any once auth.
-		 */
-		bool itemAuthorizedResetOnce(const QUuid &uuid);
+	/**
+	 * Forget all previous authorization.
+	 */
+	void clearAuthorization();
 
-		/**
-		 * Authorize client to access item identified by @a uuid.
-		 */
-		void setItemAuthorized(const QUuid &uuid, AuthDecision auth);
+	/**
+	 * Forcefully disconnect the client.
+	 * Force close any remaining session, and cleanup negotiation states
+	 */
+	void disconnectDBus();
 
-		/**
-		 * Authorize client to access all items.
-		 */
-		void setAllAuthorized(AuthDecision authorized);
+private:
+	QPointer<DBusMgr> m_dbus;
+	PeerInfo m_process;
 
-		/**
-		 * Forget all previous authorization.
-		 */
-		void clearAuthorization();
+	AuthDecision m_authorizedAll{AuthDecision::Undecided};
 
-		/**
-		 * Forcefully disconnect the client.
-		 * Force close any remaining session, and cleanup negotiation states
-		 */
-		void disconnectDBus();
+	QSet<QUuid> m_allowed{};
+	QSet<QUuid> m_denied{};
 
-	private:
-		QPointer<DBusMgr> m_dbus;
-		PeerInfo m_process;
+	QSet<QUuid> m_allowedOnce{};
+	QSet<QUuid> m_deniedOnce{};
+};
 
-		AuthDecision m_authorizedAll{AuthDecision::Undecided};
+using DBusClientPtr = QSharedPointer<DBusClient>;
 
-		QSet<QUuid> m_allowed{};
-		QSet<QUuid> m_denied{};
-
-		QSet<QUuid> m_allowedOnce{};
-		QSet<QUuid> m_deniedOnce{};
-	};
-
-	using DBusClientPtr = QSharedPointer<DBusClient>;
 } // namespace FdoSecrets
+
 Q_DECLARE_METATYPE(FdoSecrets::DBusClientPtr);
 
 #endif // KEEPASSXC_FDOSECRETS_DBUSCLIENT_H

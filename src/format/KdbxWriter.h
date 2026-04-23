@@ -82,7 +82,7 @@ protected:
 	void raiseError(const QString &errorMessage);
 
 	bool m_error = false;
-	QString m_errorStr = "";
+	QString m_errorStr;
 };
 
 #endif // KEEPASSXC_KDBXWRITER_H

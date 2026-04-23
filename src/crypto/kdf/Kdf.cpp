@@ -25,7 +25,7 @@ Kdf::Kdf(const QUuid &uuid)
 {
 }
 
-const QUuid &Kdf::uuid() const
+const QUuid& Kdf::uuid() const
 {
 	return m_uuid;
 }
@@ -47,6 +47,7 @@ bool Kdf::setRounds(int rounds)
 		m_rounds = rounds;
 		return true;
 	}
+
 	m_rounds = 1;
 	return false;
 }

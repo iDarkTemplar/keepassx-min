@@ -103,6 +103,7 @@ void TotpDialog::updateTotp()
 	{
 		totpCode.insert(totpCode.size() / 2, " ");
 	}
+
 	m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(isValid);
 	m_ui->progressBar->setVisible(isValid);
 	m_ui->timerLabel->setVisible(isValid);

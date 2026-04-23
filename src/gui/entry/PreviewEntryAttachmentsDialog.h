@@ -23,10 +23,11 @@
 #include <QDialog>
 #include <QPointer>
 
-namespace Ui
-{
-	class PreviewEntryAttachmentsDialog;
-}
+namespace Ui {
+
+class PreviewEntryAttachmentsDialog;
+
+} // namespace Ui
 
 class PreviewEntryAttachmentsDialog: public QDialog
 {
@@ -34,7 +35,7 @@ class PreviewEntryAttachmentsDialog: public QDialog
 
 public:
 	explicit PreviewEntryAttachmentsDialog(QWidget *parent = nullptr);
-	~PreviewEntryAttachmentsDialog() override;
+	~PreviewEntryAttachmentsDialog();
 
 	void setAttachment(attachments::Attachment attachment);
 

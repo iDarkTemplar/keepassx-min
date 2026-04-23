@@ -16,27 +16,31 @@
 
 #include "ModifiableObject.h"
 
-namespace
-{
-	template <typename T> T findParent(const QObject *obj)
-	{
-		if (!obj)
-		{
-			return {};
-		}
+namespace {
 
-		auto p = obj->parent();
-		while (p)
-		{
-			auto casted = qobject_cast<T>(p);
-			if (casted)
-			{
-				return casted;
-			}
-			p = p->parent();
-		}
+template <typename T>
+T findParent(const QObject *obj)
+{
+	if (!obj)
+	{
 		return {};
 	}
+
+	auto p = obj->parent();
+	while (p)
+	{
+		auto casted = qobject_cast<T>(p);
+		if (casted)
+		{
+			return casted;
+		}
+
+		p = p->parent();
+	}
+
+	return {};
+}
+
 } // namespace
 
 bool ModifiableObject::modifiedSignalEnabled() const
@@ -48,8 +52,10 @@ bool ModifiableObject::modifiedSignalEnabled() const
 		{
 			return false;
 		}
+
 		p = findParent<ModifiableObject *>(p);
 	}
+
 	return true;
 }
 

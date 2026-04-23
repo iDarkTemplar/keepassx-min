@@ -23,20 +23,23 @@ bool KeePass2RandomStream::init(SymmetricCipher::Mode mode, const QByteArray &ke
 {
 	switch (mode)
 	{
-	case SymmetricCipher::Salsa20: {
-		return m_cipher.init(mode,
-		                     SymmetricCipher::Encrypt,
-		                     CryptoHash::hash(key, CryptoHash::Sha256),
-		                     KeePass2::INNER_STREAM_SALSA20_IV);
-	}
-	case SymmetricCipher::ChaCha20: {
-		QByteArray keyIv = CryptoHash::hash(key, CryptoHash::Sha512);
-		return m_cipher.init(mode, SymmetricCipher::Encrypt, keyIv.left(32), keyIv.mid(32, 12));
-	}
+	case SymmetricCipher::Salsa20:
+		{
+			return m_cipher.init(mode,
+				SymmetricCipher::Encrypt,
+				CryptoHash::hash(key, CryptoHash::Sha256),
+				KeePass2::INNER_STREAM_SALSA20_IV);
+		}
+	case SymmetricCipher::ChaCha20:
+		{
+			QByteArray keyIv = CryptoHash::hash(key, CryptoHash::Sha512);
+			return m_cipher.init(mode, SymmetricCipher::Encrypt, keyIv.left(32), keyIv.mid(32, 12));
+		}
 	default:
 		qWarning("Invalid stream cipher mode (%d)", mode);
 		break;
 	}
+
 	return false;
 }
 
@@ -81,7 +84,7 @@ QByteArray KeePass2RandomStream::process(const QByteArray &data, bool *ok)
 	QByteArray result;
 	result.resize(data.size());
 
-	for (int i = 0; i < data.size(); i++)
+	for (int i = 0; i < data.size(); ++i)
 	{
 		result[i] = data[i] ^ randomData[i];
 	}
@@ -99,7 +102,7 @@ bool KeePass2RandomStream::processInPlace(QByteArray &data)
 		return false;
 	}
 
-	for (int i = 0; i < data.size(); i++)
+	for (int i = 0; i < data.size(); ++i)
 	{
 		data[i] = data[i] ^ randomData[i];
 	}
@@ -121,6 +124,7 @@ bool KeePass2RandomStream::loadBlock()
 	{
 		return false;
 	}
+
 	m_offset = 0;
 
 	return true;

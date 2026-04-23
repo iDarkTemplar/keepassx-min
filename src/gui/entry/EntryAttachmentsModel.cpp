@@ -103,6 +103,7 @@ QVariant EntryAttachmentsModel::data(const QModelIndex &index, int role) const
 			{
 				return Tools::humanReadableFileSize(attachmentSize);
 			}
+
 			return attachmentSize;
 		}
 	}
@@ -119,9 +120,11 @@ bool EntryAttachmentsModel::setData(const QModelIndex &index, const QVariant &va
 		{
 			return false;
 		}
+
 		m_entryAttachments->rename(keyByIndex(index), key);
 		return true;
 	}
+
 	return QAbstractListModel::setData(index, value, role);
 }
 
@@ -132,6 +135,7 @@ Qt::ItemFlags EntryAttachmentsModel::flags(const QModelIndex &index) const
 	{
 		flags = flags | Qt::ItemIsEditable;
 	}
+
 	return flags;
 }
 

@@ -33,10 +33,11 @@
 
 const int Entry::DefaultIconNumber = 0;
 
-namespace
-{
-	const int ResolveMaximumDepth = 10;
-	const QRegularExpression TagDelimiterRegex(R"([,;\t])");
+namespace {
+
+const int ResolveMaximumDepth = 10;
+const QRegularExpression TagDelimiterRegex(R"([,;\t])");
+
 } // namespace
 
 Entry::Entry()
@@ -75,7 +76,8 @@ Entry::~Entry()
 	qDeleteAll(m_history);
 }
 
-template <class T> inline bool Entry::set(T &property, const T &value)
+template <class T>
+inline bool Entry::set(T &property, const T &value)
 {
 	if (property != value)
 	{
@@ -83,6 +85,7 @@ template <class T> inline bool Entry::set(T &property, const T &value)
 		emitModified();
 		return true;
 	}
+
 	return false;
 }
 
@@ -177,7 +180,7 @@ EntryReferenceType Entry::referenceType(const QString &referenceStr)
 	return result;
 }
 
-const QUuid &Entry::uuid() const
+const QUuid& Entry::uuid() const
 {
 	return m_uuid;
 }
@@ -192,7 +195,7 @@ int Entry::iconNumber() const
 	return m_data.iconNumber;
 }
 
-const QUuid &Entry::iconUuid() const
+const QUuid& Entry::iconUuid() const
 {
 	return m_data.customIcon;
 }
@@ -222,7 +225,7 @@ QStringList Entry::tagList() const
 	return m_data.tags;
 }
 
-const TimeInfo &Entry::timeInfo() const
+const TimeInfo& Entry::timeInfo() const
 {
 	return m_data.timeInfo;
 }
@@ -248,8 +251,8 @@ const QSharedPointer<PasswordHealth> Entry::passwordHealth() const
 bool Entry::excludeFromReports() const
 {
 	return m_data.excludeFromReports
-	       || (customData()->contains(CustomData::ExcludeFromReportsLegacy)
-	           && customData()->value(CustomData::ExcludeFromReportsLegacy) == TRUE_STR);
+		|| (customData()->contains(CustomData::ExcludeFromReportsLegacy)
+			&& customData()->value(CustomData::ExcludeFromReportsLegacy) == TRUE_STR);
 }
 
 void Entry::setExcludeFromReports(bool state)
@@ -288,7 +291,7 @@ QStringList Entry::getAllUrls() const
 		urlList << entryUrl;
 	}
 
-	return urlList << getAdditionalUrls();
+	return (urlList << getAdditionalUrls());
 }
 
 QStringList Entry::getAdditionalUrls() const
@@ -298,7 +301,7 @@ QStringList Entry::getAdditionalUrls() const
 	for (const auto &key: m_attributes->keys())
 	{
 		if (key.startsWith(EntryAttributes::AdditionalUrlAttribute)
-		    || key == QString("%1_RELYING_PARTY").arg(EntryAttributes::PasskeyAttribute))
+			|| (key == QString("%1_RELYING_PARTY").arg(EntryAttributes::PasskeyAttribute)))
 		{
 			auto additionalUrl = m_attributes->value(key);
 			if (!additionalUrl.isEmpty())
@@ -364,7 +367,7 @@ bool Entry::isExpired() const
 
 bool Entry::willExpireInDays(int days) const
 {
-	return m_data.timeInfo.expires() && m_data.timeInfo.expiryTime() < Clock::currentDateTime().addDays(days);
+	return m_data.timeInfo.expires() && (m_data.timeInfo.expiryTime() < Clock::currentDateTime().addDays(days));
 }
 
 void Entry::expireNow()
@@ -408,6 +411,7 @@ bool Entry::hasReferences() const
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -420,6 +424,7 @@ bool Entry::hasReferencesTo(const QUuid &uuid) const
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -434,32 +439,32 @@ void Entry::replaceReferencesWithValues(const Entry *other)
 	}
 }
 
-EntryAttributes *Entry::attributes()
+EntryAttributes* Entry::attributes()
 {
 	return m_attributes;
 }
 
-const EntryAttributes *Entry::attributes() const
+const EntryAttributes* Entry::attributes() const
 {
 	return m_attributes;
 }
 
-EntryAttachments *Entry::attachments()
+EntryAttachments* Entry::attachments()
 {
 	return m_attachments;
 }
 
-const EntryAttachments *Entry::attachments() const
+const EntryAttachments* Entry::attachments() const
 {
 	return m_attachments;
 }
 
-CustomData *Entry::customData()
+CustomData* Entry::customData()
 {
 	return m_customData;
 }
 
-const CustomData *Entry::customData() const
+const CustomData* Entry::customData() const
 {
 	return m_customData;
 }
@@ -492,16 +497,19 @@ QString Entry::totp(bool *isValid) const
 	{
 		return Totp::generateTotp(m_data.totpSettings, isValid);
 	}
+
 	if (isValid)
 	{
 		*isValid = false;
 	}
+
 	return {};
 }
 
 void Entry::setTotp(QSharedPointer<Totp::Settings> settings)
 {
 	beginUpdate();
+
 	m_attributes->remove(Totp::ATTRIBUTE_OTP);
 	m_attributes->remove(Totp::ATTRIBUTE_SEED);
 	m_attributes->remove(Totp::ATTRIBUTE_SETTINGS);
@@ -513,8 +521,7 @@ void Entry::setTotp(QSharedPointer<Totp::Settings> settings)
 	else
 	{
 		m_data.totpSettings = std::move(settings);
-		auto text = Totp::writeSettings(
-			m_data.totpSettings, resolveMultiplePlaceholders(title()), resolveMultiplePlaceholders(username()));
+		auto text = Totp::writeSettings(m_data.totpSettings, resolveMultiplePlaceholders(title()), resolveMultiplePlaceholders(username()));
 		if (m_data.totpSettings->format != Totp::StorageFormat::LEGACY)
 		{
 			m_attributes->set(Totp::ATTRIBUTE_OTP, text, true);
@@ -525,6 +532,7 @@ void Entry::setTotp(QSharedPointer<Totp::Settings> settings)
 			m_attributes->set(Totp::ATTRIBUTE_SETTINGS, text);
 		}
 	}
+
 	endUpdate();
 }
 
@@ -532,8 +540,9 @@ void Entry::updateTotp()
 {
 	if (m_attributes->contains(Totp::ATTRIBUTE_SETTINGS))
 	{
-		m_data.totpSettings = Totp::parseSettings(m_attributes->value(Totp::ATTRIBUTE_SETTINGS),
-		                                          m_attributes->value(Totp::ATTRIBUTE_SEED));
+		m_data.totpSettings = Totp::parseSettings(
+			m_attributes->value(Totp::ATTRIBUTE_SETTINGS),
+			m_attributes->value(Totp::ATTRIBUTE_SEED));
 	}
 	else if (m_attributes->contains(Totp::ATTRIBUTE_OTP))
 	{
@@ -541,10 +550,11 @@ void Entry::updateTotp()
 	}
 	else if (m_attributes->contains(Totp::KP2_TOTP_SECRET))
 	{
-		m_data.totpSettings = Totp::fromKeePass2Totp(m_attributes->value(Totp::KP2_TOTP_SECRET),
-		                                             m_attributes->value(Totp::KP2_TOTP_ALGORITHM),
-		                                             m_attributes->value(Totp::KP2_TOTP_LENGTH),
-		                                             m_attributes->value(Totp::KP2_TOTP_PERIOD));
+		m_data.totpSettings = Totp::fromKeePass2Totp(
+			m_attributes->value(Totp::KP2_TOTP_SECRET),
+			m_attributes->value(Totp::KP2_TOTP_ALGORITHM),
+			m_attributes->value(Totp::KP2_TOTP_LENGTH),
+			m_attributes->value(Totp::KP2_TOTP_PERIOD));
 	}
 	else
 	{
@@ -561,9 +571,9 @@ QString Entry::totpSettingsString() const
 {
 	if (m_data.totpSettings)
 	{
-		return Totp::writeSettings(
-			m_data.totpSettings, resolveMultiplePlaceholders(title()), resolveMultiplePlaceholders(username()), true);
+		return Totp::writeSettings(m_data.totpSettings, resolveMultiplePlaceholders(title()), resolveMultiplePlaceholders(username()), true);
 	}
+
 	return {};
 }
 
@@ -584,7 +594,7 @@ void Entry::setIcon(int iconNumber)
 {
 	Q_ASSERT(iconNumber >= 0);
 
-	if (m_data.iconNumber != iconNumber || !m_data.customIcon.isNull())
+	if ((m_data.iconNumber != iconNumber) || (!m_data.customIcon.isNull()))
 	{
 		m_data.iconNumber = iconNumber;
 		m_data.customIcon = QUuid();
@@ -626,11 +636,13 @@ void Entry::setOverrideUrl(const QString &url)
 void Entry::setTags(const QString &tags)
 {
 	auto taglist = tags.split(TagDelimiterRegex, Qt::SkipEmptyParts);
+
 	// Trim whitespace before/after tag text
 	for (auto &tag: taglist)
 	{
 		tag = tag.trimmed();
 	}
+
 	// Remove duplicates
 	taglist = Tools::asSet(taglist).values();
 	// Sort alphabetically
@@ -676,13 +688,15 @@ void Entry::setTitle(const QString &title)
 
 void Entry::setUrl(const QString &url)
 {
-	bool remove = url != m_attributes->value(EntryAttributes::URLKey)
-	              && (m_attributes->value(EntryAttributes::RememberCmdExecAttr) == "1"
-	                  || m_attributes->value(EntryAttributes::RememberCmdExecAttr) == "0");
+	bool remove = (url != m_attributes->value(EntryAttributes::URLKey))
+		&& (m_attributes->value(EntryAttributes::RememberCmdExecAttr) == "1"
+			|| m_attributes->value(EntryAttributes::RememberCmdExecAttr) == "0");
+
 	if (remove)
 	{
 		m_attributes->remove(EntryAttributes::RememberCmdExecAttr);
 	}
+
 	m_attributes->set(EntryAttributes::URLKey, url, m_attributes->isProtected(EntryAttributes::URLKey));
 }
 
@@ -733,12 +747,12 @@ void Entry::setExpiryTime(const QDateTime &dateTime)
 	}
 }
 
-QList<Entry *> Entry::historyItems()
+QList<Entry*> Entry::historyItems()
 {
 	return m_history;
 }
 
-const QList<Entry *> &Entry::historyItems() const
+const QList<Entry*>& Entry::historyItems() const
 {
 	return m_history;
 }
@@ -751,7 +765,7 @@ void Entry::addHistoryItem(Entry *entry)
 	emitModified();
 }
 
-void Entry::removeHistoryItems(const QList<Entry *> &historyEntries)
+void Entry::removeHistoryItems(const QList<Entry*> &historyEntries)
 {
 	if (historyEntries.isEmpty())
 	{
@@ -785,7 +799,8 @@ void Entry::truncateHistory()
 	if (histMaxItems > -1)
 	{
 		int historyCount = 0;
-		QMutableListIterator<Entry *> i(m_history);
+		QMutableListIterator<Entry*> i(m_history);
+
 		i.toBack();
 		while (i.hasPrevious())
 		{
@@ -840,32 +855,39 @@ bool Entry::equals(const Entry *other, CompareItemOptions options) const
 	{
 		return false;
 	}
+
 	if (m_uuid != other->uuid())
 	{
 		return false;
 	}
+
 	if (!m_data.equals(other->m_data, options))
 	{
 		return false;
 	}
+
 	if (*m_customData != *other->m_customData)
 	{
 		return false;
 	}
+
 	if (*m_attributes != *other->m_attributes)
 	{
 		return false;
 	}
+
 	if (*m_attachments != *other->m_attachments)
 	{
 		return false;
 	}
+
 	if (!options.testFlag(CompareItemIgnoreHistory))
 	{
 		if (m_history.count() != other->m_history.count())
 		{
 			return false;
 		}
+
 		for (int i = 0; i < m_history.count(); ++i)
 		{
 			if (!m_history[i]->equals(other->m_history[i], options))
@@ -874,6 +896,7 @@ bool Entry::equals(const Entry *other, CompareItemOptions options) const
 			}
 		}
 	}
+
 	return true;
 }
 
@@ -890,21 +913,25 @@ QStringList Entry::calculateDifference(const Entry *other)
 			modifiedFields << tr("Title");
 			foundAttribute = true;
 		}
+
 		if (username() != other->username())
 		{
 			modifiedFields << tr("Username");
 			foundAttribute = true;
 		}
+
 		if (password() != other->password())
 		{
 			modifiedFields << tr("Password");
 			foundAttribute = true;
 		}
+
 		if (url() != other->url())
 		{
 			modifiedFields << tr("URL");
 			foundAttribute = true;
 		}
+
 		if (notes() != other->notes())
 		{
 			modifiedFields << tr("Notes");
@@ -916,31 +943,38 @@ QStringList Entry::calculateDifference(const Entry *other)
 			modifiedFields << tr("Custom Attributes");
 		}
 	}
+
 	if (iconNumber() != other->iconNumber() || iconUuid() != other->iconUuid())
 	{
 		modifiedFields << tr("Icon");
 	}
+
 	if (foregroundColor() != other->foregroundColor() || backgroundColor() != other->backgroundColor())
 	{
 		modifiedFields << tr("Color");
 	}
-	if (timeInfo().expires() != other->timeInfo().expires()
-	    || timeInfo().expiryTime() != other->timeInfo().expiryTime())
+
+	if ((timeInfo().expires() != other->timeInfo().expires())
+		|| (timeInfo().expiryTime() != other->timeInfo().expiryTime()))
 	{
 		modifiedFields << tr("Expiration");
 	}
+
 	if (totp() != other->totp())
 	{
 		modifiedFields << tr("TOTP");
 	}
+
 	if (*customData() != *other->customData())
 	{
 		modifiedFields << tr("Custom Data");
 	}
+
 	if (*attachments() != *other->attachments())
 	{
 		modifiedFields << tr("Attachments");
 	}
+
 	if (tags() != other->tags())
 	{
 		modifiedFields << tr("Tags");
@@ -949,7 +983,7 @@ QStringList Entry::calculateDifference(const Entry *other)
 	return modifiedFields;
 }
 
-Entry *Entry::clone(CloneFlags flags) const
+Entry* Entry::clone(CloneFlags flags) const
 {
 	Entry *entry = new Entry();
 	entry->setUpdateTimeinfo(false);
@@ -961,6 +995,7 @@ Entry *Entry::clone(CloneFlags flags) const
 	{
 		entry->m_uuid = m_uuid;
 	}
+
 	entry->m_data = m_data;
 	entry->m_customData->copyDataFrom(m_customData);
 	entry->m_attributes->copyDataFrom(m_attributes);
@@ -968,24 +1003,25 @@ Entry *Entry::clone(CloneFlags flags) const
 
 	if (flags & CloneUserAsRef)
 	{
-		entry->m_attributes->set(EntryAttributes::UserNameKey,
-		                         buildReference(uuid(), EntryAttributes::UserNameKey),
-		                         m_attributes->isProtected(EntryAttributes::UserNameKey));
+		entry->m_attributes->set(
+			EntryAttributes::UserNameKey,
+			buildReference(uuid(), EntryAttributes::UserNameKey),
+			m_attributes->isProtected(EntryAttributes::UserNameKey));
 	}
 
 	if (flags & ClonePassAsRef)
 	{
-		entry->m_attributes->set(EntryAttributes::PasswordKey,
-		                         buildReference(uuid(), EntryAttributes::PasswordKey),
-		                         m_attributes->isProtected(EntryAttributes::PasswordKey));
+		entry->m_attributes->set(
+			EntryAttributes::PasswordKey,
+			buildReference(uuid(), EntryAttributes::PasswordKey),
+			m_attributes->isProtected(EntryAttributes::PasswordKey));
 	}
 
 	if (flags & CloneIncludeHistory)
 	{
 		for (Entry *historyItem: m_history)
 		{
-			Entry *historyItemClone =
-				historyItem->clone(flags & ~CloneIncludeHistory & ~CloneNewUuid & ~CloneResetTimeInfo);
+			Entry *historyItemClone = historyItem->clone(flags & ~CloneIncludeHistory & ~CloneNewUuid & ~CloneResetTimeInfo);
 			historyItemClone->setUpdateTimeinfo(false);
 			historyItemClone->setUuid(entry->uuid());
 			historyItemClone->setUpdateTimeinfo(true);
@@ -1086,6 +1122,7 @@ QString Entry::resolveMultiplePlaceholdersRecursive(const QString &str, int maxD
 		result += resolvePlaceholderRecursive(match.captured(), maxDepth);
 		capEnd = match.capturedEnd();
 	}
+
 	result += str.rightRef(str.length() - capEnd);
 	return result;
 }
@@ -1103,9 +1140,8 @@ QString Entry::resolvePlaceholderRecursive(const QString &placeholder, int maxDe
 	{
 	case PlaceholderType::NotPlaceholder:
 		return resolveMultiplePlaceholdersRecursive(placeholder, maxDepth);
-	case PlaceholderType::Unknown: {
+	case PlaceholderType::Unknown:
 		return "{" % resolveMultiplePlaceholdersRecursive(placeholder.mid(1, placeholder.length() - 2), maxDepth) % "}";
-	}
 	case PlaceholderType::Title:
 		return resolveMultiplePlaceholdersRecursive(title(), maxDepth);
 	case PlaceholderType::UserName:
@@ -1118,10 +1154,11 @@ QString Entry::resolvePlaceholderRecursive(const QString &placeholder, int maxDe
 		return resolveMultiplePlaceholdersRecursive(url(), maxDepth);
 	case PlaceholderType::Uuid:
 		return uuidToHex();
-	case PlaceholderType::DbDir: {
-		QFileInfo fileInfo(database()->filePath());
-		return fileInfo.absoluteDir().absolutePath();
-	}
+	case PlaceholderType::DbDir:
+		{
+			QFileInfo fileInfo(database()->filePath());
+			return fileInfo.absoluteDir().absolutePath();
+		}
 	case PlaceholderType::UrlWithoutScheme:
 	case PlaceholderType::UrlScheme:
 	case PlaceholderType::UrlHost:
@@ -1131,18 +1168,21 @@ QString Entry::resolvePlaceholderRecursive(const QString &placeholder, int maxDe
 	case PlaceholderType::UrlFragment:
 	case PlaceholderType::UrlUserInfo:
 	case PlaceholderType::UrlUserName:
-	case PlaceholderType::UrlPassword: {
-		const QString strUrl = resolveMultiplePlaceholdersRecursive(url(), maxDepth);
-		return resolveUrlPlaceholder(strUrl, typeOfPlaceholder);
-	}
+	case PlaceholderType::UrlPassword:
+		{
+			const QString strUrl = resolveMultiplePlaceholdersRecursive(url(), maxDepth);
+			return resolveUrlPlaceholder(strUrl, typeOfPlaceholder);
+		}
 	case PlaceholderType::Totp:
 		// totp can't have placeholder inside
 		return totp();
-	case PlaceholderType::CustomAttribute: {
-		const QString key = placeholder.mid(3, placeholder.length() - 4); // {S:attr} => mid(3, len - 4)
-		return attributes()->hasKey(key) ? resolveMultiplePlaceholdersRecursive(attributes()->value(key), maxDepth)
-		                                 : QString();
-	}
+	case PlaceholderType::CustomAttribute:
+		{
+			const QString key = placeholder.mid(3, placeholder.length() - 4); // {S:attr} => mid(3, len - 4)
+			return (attributes()->hasKey(key))
+				? resolveMultiplePlaceholdersRecursive(attributes()->value(key), maxDepth)
+				: QString();
+		}
 	case PlaceholderType::Reference:
 		return resolveReferencePlaceholderRecursive(placeholder, ++maxDepth);
 	case PlaceholderType::DateTimeSimple:
@@ -1204,13 +1244,14 @@ QString Entry::resolveDateTimePlaceholder(Entry::PlaceholderType placeholderType
 		return time_utc.toString("mm");
 	case PlaceholderType::DateTimeUtcSecond:
 		return time_utc.toString("ss");
-	default: {
-		Q_ASSERT_X(false, "Entry::resolveDateTimePlaceholder", "Bad DateTime placeholder type");
-		break;
-	}
+	default:
+		{
+			Q_ASSERT_X(false, "Entry::resolveDateTimePlaceholder", "Bad DateTime placeholder type");
+			break;
+		}
 	}
 
-	return {};
+	return QString();
 }
 
 QString Entry::resolveConversionPlaceholder(const QString &str, QString *error) const
@@ -1263,8 +1304,10 @@ QString Entry::resolveConversionPlaceholder(const QString &str, QString *error) 
 				{
 					*error = tr("Invalid conversion type: %1").arg(type);
 				}
-				return {};
+
+				return QString();
 			}
+
 			return resolved;
 		}
 	}
@@ -1273,7 +1316,8 @@ QString Entry::resolveConversionPlaceholder(const QString &str, QString *error) 
 	{
 		*error = tr("Invalid conversion syntax: %1").arg(str);
 	}
-	return {};
+
+	return QString();
 }
 
 QString Entry::resolveRegexPlaceholder(const QString &str, QString *error) const
@@ -1304,10 +1348,10 @@ QString Entry::resolveRegexPlaceholder(const QString &str, QString *error) const
 			{
 				if (error)
 				{
-					*error =
-						tr("Invalid regular expression syntax %1\n%2").arg(resolvedSearch, searchRegex.errorString());
+					*error = tr("Invalid regular expression syntax %1\n%2").arg(resolvedSearch, searchRegex.errorString());
 				}
-				return {};
+
+				return QString();
 			}
 
 			return resolvedText.replace(searchRegex, resolvedReplace);
@@ -1318,7 +1362,8 @@ QString Entry::resolveRegexPlaceholder(const QString &str, QString *error) const
 	{
 		*error = tr("Invalid conversion syntax: %1").arg(str);
 	}
-	return {};
+
+	return QString();
 }
 
 QString Entry::resolveReferencePlaceholderRecursive(const QString &placeholder, int maxDepth) const
@@ -1333,7 +1378,7 @@ QString Entry::resolveReferencePlaceholderRecursive(const QString &placeholder, 
 	// using format from http://keepass.info/help/base/fieldrefs.html at the time of writing
 
 	const QRegularExpressionMatch match = EntryAttributes::matchReference(placeholder);
-	if (!match.hasMatch() || !m_group || !m_group->database())
+	if ((!match.hasMatch()) || (!m_group) || (!m_group->database()))
 	{
 		return placeholder;
 	}
@@ -1382,6 +1427,7 @@ QString Entry::referenceFieldValue(EntryReferenceType referenceType) const
 	default:
 		break;
 	}
+
 	return QString();
 }
 
@@ -1401,12 +1447,12 @@ void Entry::moveDown()
 	}
 }
 
-Group *Entry::group()
+Group* Entry::group()
 {
 	return m_group;
 }
 
-const Group *Entry::group() const
+const Group* Entry::group() const
 {
 	return m_group;
 }
@@ -1429,14 +1475,15 @@ void Entry::setGroup(Group *group, bool trackPrevious)
 			m_group->database()->addDeletedObject(m_uuid);
 
 			// copy custom icon to the new database
-			if (!iconUuid().isNull() && group->database() && m_group->database()->metadata()->hasCustomIcon(iconUuid())
-			    && !group->database()->metadata()->hasCustomIcon(iconUuid()))
+			if ((!iconUuid().isNull()) && group->database() && m_group->database()->metadata()->hasCustomIcon(iconUuid())
+				&& (!group->database()->metadata()->hasCustomIcon(iconUuid())))
 			{
-				group->database()->metadata()->addCustomIcon(iconUuid(),
-				                                             m_group->database()->metadata()->customIcon(iconUuid()));
+				group->database()->metadata()->addCustomIcon(
+					iconUuid(),
+					m_group->database()->metadata()->customIcon(iconUuid()));
 			}
 		}
-		else if (trackPrevious && m_group->database() && group != m_group)
+		else if (trackPrevious && m_group->database() && (group != m_group))
 		{
 			setPreviousParentGroup(m_group);
 		}
@@ -1458,21 +1505,23 @@ void Entry::emitDataChanged()
 	emit entryDataChanged(this);
 }
 
-const Database *Entry::database() const
+const Database* Entry::database() const
 {
 	if (m_group)
 	{
 		return m_group->database();
 	}
+
 	return nullptr;
 }
 
-Database *Entry::database()
+Database* Entry::database()
 {
 	if (m_group)
 	{
 		return m_group->database();
 	}
+
 	return nullptr;
 }
 
@@ -1481,7 +1530,7 @@ QString Entry::maskPasswordPlaceholders(const QString &str) const
 	return QString{str}.replace(QStringLiteral("{PASSWORD}"), QStringLiteral("******"), Qt::CaseInsensitive);
 }
 
-Entry *Entry::resolveReference(const QString &str) const
+Entry* Entry::resolveReference(const QString &str) const
 {
 	QRegularExpressionMatch match = EntryAttributes::matchReference(str);
 	if (!match.hasMatch())
@@ -1536,10 +1585,11 @@ QString Entry::resolveUrlPlaceholder(const QString &str, Entry::PlaceholderType 
 		return qurl.userName();
 	case PlaceholderType::UrlPassword:
 		return qurl.password();
-	default: {
-		Q_ASSERT_X(false, "Entry::resolveUrlPlaceholder", "Bad url placeholder type");
-		break;
-	}
+	default:
+		{
+			Q_ASSERT_X(false, "Entry::resolveUrlPlaceholder", "Bad url placeholder type");
+			break;
+		}
 	}
 
 	return QString();
@@ -1633,10 +1683,10 @@ QString Entry::resolveUrl(const QString &url) const
 		}
 
 		// No URL in this command
-		return QString("");
+		return QString();
 	}
 
-	if (!newUrl.isEmpty() && !newUrl.contains("://"))
+	if ((!newUrl.isEmpty()) && (!newUrl.contains("://")))
 	{
 		// URL doesn't have a protocol, add https by default
 		newUrl.prepend("https://");
@@ -1650,24 +1700,26 @@ QString Entry::resolveUrl(const QString &url) const
 	}
 
 	// No valid http URLs found
-	return {};
+	return QString();
 }
 
-Group *Entry::previousParentGroup()
+Group* Entry::previousParentGroup()
 {
 	if (!database() || !database()->rootGroup())
 	{
 		return nullptr;
 	}
+
 	return database()->rootGroup()->findGroupByUuid(m_data.previousParentGroupUuid);
 }
 
-const Group *Entry::previousParentGroup() const
+const Group* Entry::previousParentGroup() const
 {
 	if (!database() || !database()->rootGroup())
 	{
 		return nullptr;
 	}
+
 	return database()->rootGroup()->findGroupByUuid(m_data.previousParentGroupUuid);
 }
 
@@ -1702,22 +1754,27 @@ bool EntryData::equals(const EntryData &other, CompareItemOptions options) const
 	{
 		return false;
 	}
+
 	if (::compare(customIcon, other.customIcon, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(foregroundColor, other.foregroundColor, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(backgroundColor, other.backgroundColor, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(overrideUrl, other.overrideUrl, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(tags, other.tags, options) != 0)
 	{
 		return false;
@@ -1726,17 +1783,20 @@ bool EntryData::equals(const EntryData &other, CompareItemOptions options) const
 	{
 		return false;
 	}
-	if (!totpSettings.isNull() && !other.totpSettings.isNull())
+
+	if (!totpSettings.isNull() && (!other.totpSettings.isNull()))
 	{
 		// Both have TOTP settings, compare them
 		if (::compare(totpSettings->key, other.totpSettings->key, options) != 0)
 		{
 			return false;
 		}
+
 		if (::compare(totpSettings->digits, other.totpSettings->digits, options) != 0)
 		{
 			return false;
 		}
+
 		if (::compare(totpSettings->step, other.totpSettings->step, options) != 0)
 		{
 			return false;
@@ -1747,10 +1807,12 @@ bool EntryData::equals(const EntryData &other, CompareItemOptions options) const
 		// The existance of TOTP has changed between these entries
 		return false;
 	}
+
 	if (::compare(excludeFromReports, other.excludeFromReports, options) != 0)
 	{
 		return false;
 	}
+
 	if (::compare(previousParentGroupUuid, other.previousParentGroupUuid, options) != 0)
 	{
 		return false;

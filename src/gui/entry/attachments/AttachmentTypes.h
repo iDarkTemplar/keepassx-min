@@ -19,18 +19,18 @@
 #include <QByteArray>
 #include <QString>
 
-namespace attachments
-{
-	struct Attachment
-	{
-		QString name;
-		QByteArray data;
-	};
+namespace attachments {
 
-	enum class OpenMode
-	{
-		ReadOnly,
-		ReadWrite
-	};
+struct Attachment
+{
+	QString name;
+	QByteArray data;
+};
+
+enum class OpenMode
+{
+	ReadOnly,
+	ReadWrite
+};
 
 } // namespace attachments

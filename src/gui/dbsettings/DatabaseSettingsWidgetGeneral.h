@@ -22,10 +22,12 @@
 #include <QColor>
 
 class Database;
-namespace Ui
-{
-	class DatabaseSettingsWidgetGeneral;
-}
+
+namespace Ui {
+
+class DatabaseSettingsWidgetGeneral;
+
+} // namespace Ui
 
 class DatabaseSettingsWidgetGeneral: public DatabaseSettingsWidget
 {
@@ -34,7 +36,7 @@ class DatabaseSettingsWidgetGeneral: public DatabaseSettingsWidget
 public:
 	explicit DatabaseSettingsWidgetGeneral(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(DatabaseSettingsWidgetGeneral);
-	~DatabaseSettingsWidgetGeneral() override;
+	~DatabaseSettingsWidgetGeneral();
 
 public slots:
 	void initialize() override;

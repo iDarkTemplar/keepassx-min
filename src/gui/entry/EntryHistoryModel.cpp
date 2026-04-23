@@ -29,12 +29,13 @@ EntryHistoryModel::EntryHistoryModel(QObject *parent)
 {
 }
 
-Entry *EntryHistoryModel::entryFromIndex(const QModelIndex &index) const
+Entry* EntryHistoryModel::entryFromIndex(const QModelIndex &index) const
 {
 	if (!index.isValid() || index.row() >= m_historyEntries.size())
 	{
 		return nullptr;
 	}
+
 	auto entry = m_historyEntries.at(index.row());
 	return entry == m_parentEntry ? nullptr : entry;
 }
@@ -63,6 +64,7 @@ QVariant EntryHistoryModel::data(const QModelIndex &index, int role) const
 	{
 		return {};
 	}
+
 	const auto entry = m_historyEntries[index.row()];
 
 	if (role == Qt::DisplayRole || role == Qt::UserRole)
@@ -81,29 +83,34 @@ QVariant EntryHistoryModel::data(const QModelIndex &index, int role) const
 			{
 				return lastModified;
 			}
-		case 1: {
-			const auto seconds = lastModified.secsTo(now);
-			if (role == Qt::DisplayRole)
+		case 1:
 			{
-				if (entry == m_parentEntry)
+				const auto seconds = lastModified.secsTo(now);
+				if (role == Qt::DisplayRole)
 				{
-					return tr("Current (%1)").arg(Tools::humanReadableTimeDifference(seconds));
+					if (entry == m_parentEntry)
+					{
+						return tr("Current (%1)").arg(Tools::humanReadableTimeDifference(seconds));
+					}
+
+					return Tools::humanReadableTimeDifference(seconds);
 				}
-				return Tools::humanReadableTimeDifference(seconds);
+
+				return seconds;
 			}
-			return seconds;
-		}
 		case 2:
 			if (index.row() < m_historyModifications.size())
 			{
 				return m_historyModifications[index.row()];
 			}
+
 			return {};
 		case 3:
 			if (role == Qt::DisplayRole)
 			{
 				return Tools::humanReadableFileSize(entry->size(), 0);
 			}
+
 			return entry->size();
 		}
 	}
@@ -143,10 +150,12 @@ void EntryHistoryModel::setEntries(const QList<Entry *> &entries, Entry *parentE
 	m_parentEntry = parentEntry;
 	m_historyEntries = entries;
 	m_historyEntries << parentEntry;
+
 	// Sort the entries by last modified (newest -> oldest) so we can calculate the differences
 	std::sort(m_historyEntries.begin(), m_historyEntries.end(), [](const Entry *lhs, const Entry *rhs) {
 		return lhs->timeInfo().lastModificationTime() > rhs->timeInfo().lastModificationTime();
 	});
+
 	m_deletedHistoryEntries.clear();
 	calculateHistoryModifications();
 	endResetModel();
@@ -167,7 +176,7 @@ void EntryHistoryModel::clearDeletedEntries()
 	m_deletedHistoryEntries.clear();
 }
 
-QList<Entry *> EntryHistoryModel::deletedEntries()
+QList<Entry*> EntryHistoryModel::deletedEntries()
 {
 	return m_deletedHistoryEntries;
 }
@@ -198,6 +207,7 @@ void EntryHistoryModel::deleteAll()
 			m_deletedHistoryEntries << entry;
 		}
 	}
+
 	m_historyEntries.clear();
 	endRemoveRows();
 }

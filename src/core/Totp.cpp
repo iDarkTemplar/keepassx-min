@@ -36,14 +36,17 @@ static QList<Totp::Encoder> totpEncoders{
 static Totp::Algorithm getHashTypeByName(const QString &name)
 {
 	auto nameUpper = name.toUpper();
+
 	if (nameUpper == "SHA512" || nameUpper == "HMAC-SHA-512")
 	{
 		return Totp::Algorithm::Sha512;
 	}
+
 	if (nameUpper == "SHA256" || nameUpper == "HMAC-SHA-256")
 	{
 		return Totp::Algorithm::Sha256;
 	}
+
 	return Totp::Algorithm::Sha1;
 }
 
@@ -52,18 +55,19 @@ static QString getNameForHashType(const Totp::Algorithm hashType)
 	switch (hashType)
 	{
 	case Totp::Algorithm::Sha512:
-		return QString("SHA512");
+		return QStringLiteral("SHA512");
 	case Totp::Algorithm::Sha256:
-		return QString("SHA256");
+		return QStringLiteral("SHA256");
 	default:
-		return QString("SHA1");
+		return QStringLiteral("SHA1");
 	}
 }
 
-QSharedPointer<Totp::Settings> Totp::fromKeePass2Totp(const QString &secret,
-                                                      const QString &algorithm,
-                                                      const QString &length,
-                                                      const QString &period)
+QSharedPointer<Totp::Settings> Totp::fromKeePass2Totp(
+	const QString &secret,
+	const QString &algorithm,
+	const QString &length,
+	const QString &period)
 {
 	// Must have at least a secret to continue
 	if (secret.isEmpty())
@@ -78,10 +82,12 @@ QSharedPointer<Totp::Settings> Totp::fromKeePass2Totp(const QString &secret,
 	{
 		settings->algorithm = getHashTypeByName(algorithm);
 	}
+
 	if (!length.isEmpty())
 	{
 		settings->digits = length.toUInt();
 	}
+
 	if (!period.isEmpty())
 	{
 		settings->step = period.toUInt();
@@ -108,18 +114,22 @@ QSharedPointer<Totp::Settings> Totp::parseSettings(const QString &rawSettings, c
 		QUrlQuery query(url);
 		settings->format = StorageFormat::OTPURL;
 		settings->key = query.queryItemValue("secret");
+
 		if (query.hasQueryItem("digits"))
 		{
 			settings->digits = query.queryItemValue("digits").toUInt();
 		}
+
 		if (query.hasQueryItem("period"))
 		{
 			settings->step = query.queryItemValue("period").toUInt();
 		}
+
 		if (query.hasQueryItem("encoder"))
 		{
 			settings->encoder = getEncoderByName(query.queryItemValue("encoder"));
 		}
+
 		if (query.hasQueryItem("algorithm"))
 		{
 			settings->algorithm = getHashTypeByName(query.queryItemValue("algorithm"));
@@ -133,14 +143,17 @@ QSharedPointer<Totp::Settings> Totp::parseSettings(const QString &rawSettings, c
 			// Compatibility with "KeeOtp" plugin
 			settings->format = StorageFormat::KEEOTP;
 			settings->key = query.queryItemValue("key");
+
 			if (query.hasQueryItem("size"))
 			{
 				settings->digits = query.queryItemValue("size").toUInt();
 			}
+
 			if (query.hasQueryItem("step"))
 			{
 				settings->step = query.queryItemValue("step").toUInt();
 			}
+
 			if (query.hasQueryItem("otpHashMode"))
 			{
 				settings->algorithm = getHashTypeByName(query.queryItemValue("otpHashMode"));
@@ -182,21 +195,22 @@ QSharedPointer<Totp::Settings> Totp::parseSettings(const QString &rawSettings, c
 	return settings;
 }
 
-QSharedPointer<Totp::Settings> Totp::createSettings(const QString &key,
-                                                    const uint digits,
-                                                    const uint step,
-                                                    const Totp::StorageFormat format,
-                                                    const QString &encoderShortName,
-                                                    const Totp::Algorithm algorithm)
+QSharedPointer<Totp::Settings> Totp::createSettings(
+	const QString &key,
+	const uint digits,
+	const uint step,
+	const Totp::StorageFormat format,
+	const QString &encoderShortName,
+	const Totp::Algorithm algorithm)
 {
-	return QSharedPointer<Totp::Settings>(
-		new Totp::Settings{format, getEncoderByShortName(encoderShortName), algorithm, key, digits, step});
+	return QSharedPointer<Totp::Settings>(new Totp::Settings{format, getEncoderByShortName(encoderShortName), algorithm, key, digits, step});
 }
 
-QString Totp::writeSettings(const QSharedPointer<Totp::Settings> &settings,
-                            const QString &title,
-                            const QString &username,
-                            bool forceOtp)
+QString Totp::writeSettings(
+	const QSharedPointer<Totp::Settings> &settings,
+	const QString &title,
+	const QString &username,
+	bool forceOtp)
 {
 	if (settings.isNull())
 	{
@@ -206,45 +220,49 @@ QString Totp::writeSettings(const QSharedPointer<Totp::Settings> &settings,
 	// OTP Url output
 	if (settings->format == StorageFormat::OTPURL || forceOtp)
 	{
-		auto urlstring = QString("otpauth://totp/%1:%2?secret=%3&period=%4&digits=%5&issuer=%1")
-		                     .arg(title.isEmpty() ? "KeePassXC" : QString(QUrl::toPercentEncoding(title)),
-		                          username.isEmpty() ? "none" : QString(QUrl::toPercentEncoding(username)),
-		                          QString(QUrl::toPercentEncoding(Base32::sanitizeInput(settings->key.toLatin1()))),
-		                          QString::number(settings->step),
-		                          QString::number(settings->digits));
+		auto urlstring = QStringLiteral("otpauth://totp/%1:%2?secret=%3&period=%4&digits=%5&issuer=%1")
+			.arg(title.isEmpty() ? "KeePassXC" : QString(QUrl::toPercentEncoding(title)),
+				username.isEmpty() ? "none" : QString(QUrl::toPercentEncoding(username)),
+				QString(QUrl::toPercentEncoding(Base32::sanitizeInput(settings->key.toLatin1()))),
+				QString::number(settings->step),
+				QString::number(settings->digits));
 
 		if (!settings->encoder.name.isEmpty())
 		{
 			urlstring.append("&encoder=").append(settings->encoder.name);
 		}
+
 		if (settings->algorithm != Totp::DEFAULT_ALGORITHM)
 		{
 			urlstring.append("&algorithm=").append(getNameForHashType(settings->algorithm));
 		}
+
 		return urlstring;
 	}
 	else if (settings->format == StorageFormat::KEEOTP)
 	{
 		// KeeOtp output
-		auto keyString = QString("key=%1&size=%2&step=%3")
-		                     .arg(QString(Base32::sanitizeInput(settings->key.toLatin1())))
-		                     .arg(settings->digits)
-		                     .arg(settings->step);
+		auto keyString = QStringLiteral("key=%1&size=%2&step=%3")
+			.arg(QString(Base32::sanitizeInput(settings->key.toLatin1())))
+			.arg(settings->digits)
+			.arg(settings->step);
+
 		if (settings->algorithm != Totp::DEFAULT_ALGORITHM)
 		{
 			keyString.append("&otpHashMode=").append(getNameForHashType(settings->algorithm));
 		}
+
 		return keyString;
 	}
 	else if (!settings->encoder.shortName.isEmpty())
 	{
 		// Semicolon output [step];[encoder]
-		return QString("%1;%2").arg(settings->step).arg(settings->encoder.shortName);
+		return QStringLiteral("%1;%2").arg(settings->step).arg(settings->encoder.shortName);
 	}
 	else
 	{
 		// Semicolon output [step];[digits]
-		return QString("%1;%2").arg(settings->step).arg(settings->digits);
+		return QStringLiteral("%1;%2").arg(settings->step).arg(settings->digits);
 	}
 }
 
@@ -254,19 +272,23 @@ QString Totp::checkValidSettings(const QSharedPointer<Totp::Settings> &settings)
 	{
 		return QObject::tr("Invalid Settings", "TOTP");
 	}
+
 	QVariant secret = Base32::decode(Base32::sanitizeInput(settings->key.toLatin1()));
 	if (secret.isNull())
 	{
 		return QObject::tr("Invalid Key", "TOTP");
 	}
+
 	if (settings->step == 0)
 	{
 		return QObject::tr("Invalid Step", "TOTP");
 	}
+
 	if (settings->digits == 0)
 	{
 		return QObject::tr("Invalid Digits", "TOTP");
 	}
+
 	return {};
 }
 
@@ -279,6 +301,7 @@ QString Totp::generateTotp(const QSharedPointer<Totp::Settings> &settings, bool 
 		{
 			*isValid = false;
 		}
+
 		return error;
 	}
 
@@ -311,6 +334,7 @@ QString Totp::generateTotp(const QSharedPointer<Totp::Settings> &settings, bool 
 		cryptoHash = QCryptographicHash::Sha1;
 		break;
 	}
+
 	QMessageAuthenticationCode code(cryptoHash);
 	code.setKey(secret.toByteArray());
 	code.addData(QByteArray(reinterpret_cast<char *>(&current), sizeof(current)));
@@ -318,11 +342,10 @@ QString Totp::generateTotp(const QSharedPointer<Totp::Settings> &settings, bool 
 
 	int offset = (hmac[hmac.length() - 1] & 0xf);
 
-    int binary =
-            ((hmac[offset] & 0x7f) << 24)
-            | ((hmac[offset + 1] & 0xff) << 16)
-            | ((hmac[offset + 2] & 0xff) << 8)
-            | (hmac[offset + 3] & 0xff);
+	int binary = ((hmac[offset] & 0x7f) << 24)
+		| ((hmac[offset + 1] & 0xff) << 16)
+		| ((hmac[offset + 2] & 0xff) << 8)
+		| (hmac[offset + 3] & 0xff);
 
 	int direction = -1;
 	int startpos = digits - 1;
@@ -331,6 +354,7 @@ QString Totp::generateTotp(const QSharedPointer<Totp::Settings> &settings, bool 
 		direction = 1;
 		startpos = 0;
 	}
+
 	quint32 digitsPower = pow(encoder.alphabet.size(), digits);
 
 	quint64 password = binary % digitsPower;
@@ -340,10 +364,12 @@ QString Totp::generateTotp(const QSharedPointer<Totp::Settings> &settings, bool 
 		retval[pos] = encoder.alphabet[int(password % encoder.alphabet.size())];
 		password /= encoder.alphabet.size();
 	}
+
 	if (isValid)
 	{
 		*isValid = true;
 	}
+
 	return retval;
 }
 
@@ -354,6 +380,7 @@ QList<QPair<QString, QString>> Totp::supportedEncoders()
 	{
 		encoders << QPair<QString, QString>(encoder.name, encoder.shortName);
 	}
+
 	return encoders;
 }
 
@@ -369,23 +396,24 @@ QList<QPair<QString, Totp::Algorithm>> Totp::supportedAlgorithms()
 bool Totp::hasCustomSettings(const QSharedPointer<Totp::Settings> &settings)
 {
 	return settings
-	       && (settings->digits != DEFAULT_DIGITS || settings->step != DEFAULT_STEP
-	           || settings->algorithm != DEFAULT_ALGORITHM);
+		&& ((settings->digits != DEFAULT_DIGITS)
+			|| (settings->step != DEFAULT_STEP)
+			|| (settings->algorithm != DEFAULT_ALGORITHM));
 }
 
-Totp::Encoder &Totp::defaultEncoder()
+Totp::Encoder& Totp::defaultEncoder()
 {
 	// The first encoder is always the default
 	Q_ASSERT(!totpEncoders.empty());
 	return totpEncoders[0];
 }
 
-Totp::Encoder &Totp::steamEncoder()
+Totp::Encoder& Totp::steamEncoder()
 {
 	return getEncoderByShortName("S");
 }
 
-Totp::Encoder &Totp::getEncoderByShortName(const QString &shortName)
+Totp::Encoder& Totp::getEncoderByShortName(const QString &shortName)
 {
 	for (auto &encoder: totpEncoders)
 	{
@@ -394,10 +422,11 @@ Totp::Encoder &Totp::getEncoderByShortName(const QString &shortName)
 			return encoder;
 		}
 	}
+
 	return defaultEncoder();
 }
 
-Totp::Encoder &Totp::getEncoderByName(const QString &name)
+Totp::Encoder& Totp::getEncoderByName(const QString &name)
 {
 	for (auto &encoder: totpEncoders)
 	{
@@ -406,5 +435,6 @@ Totp::Encoder &Totp::getEncoderByName(const QString &name)
 			return encoder;
 		}
 	}
+
 	return defaultEncoder();
 }

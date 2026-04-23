@@ -21,77 +21,81 @@
 
 #include <QDBusArgument>
 
-namespace FdoSecrets
+namespace FdoSecrets {
+
+struct Secret;
+class DBusMgr;
+
+// types used directly in Qt DBus system
+namespace wire {
+
+struct Secret
 {
-	struct Secret;
-	class DBusMgr;
+	QDBusObjectPath session;
+	QByteArray parameters;
+	QByteArray value;
+	QString contentType;
 
-	// types used directly in Qt DBus system
-	namespace wire
-	{
-		struct Secret
-		{
-			QDBusObjectPath session;
-			QByteArray parameters;
-			QByteArray value;
-			QString contentType;
+	::FdoSecrets::Secret unmarshal(const QWeakPointer<DBusMgr> &weak) const;
+};
 
-			::FdoSecrets::Secret unmarshal(const QWeakPointer<DBusMgr> &weak) const;
-		};
+inline QDBusArgument &operator<<(QDBusArgument &argument, const Secret &secret)
+{
+	argument.beginStructure();
+	argument << secret.session << secret.parameters << secret.value << secret.contentType;
+	argument.endStructure();
+	return argument;
+}
 
-		inline QDBusArgument &operator<<(QDBusArgument &argument, const Secret &secret)
-		{
-			argument.beginStructure();
-			argument << secret.session << secret.parameters << secret.value << secret.contentType;
-			argument.endStructure();
-			return argument;
-		}
+inline const QDBusArgument &operator>>(const QDBusArgument &argument, Secret &secret)
+{
+	argument.beginStructure();
+	argument >> secret.session >> secret.parameters >> secret.value >> secret.contentType;
+	argument.endStructure();
+	return argument;
+}
 
-		inline const QDBusArgument &operator>>(const QDBusArgument &argument, Secret &secret)
-		{
-			argument.beginStructure();
-			argument >> secret.session >> secret.parameters >> secret.value >> secret.contentType;
-			argument.endStructure();
-			return argument;
-		}
+using StringStringMap = QMap<QString, QString>;
+using ObjectPathSecretMap = QMap<QDBusObjectPath, Secret>;
 
-		using StringStringMap = QMap<QString, QString>;
-		using ObjectPathSecretMap = QMap<QDBusObjectPath, Secret>;
-	} // namespace wire
+} // namespace wire
 
-	// types used in method parameters
-	class Session;
-	class Item;
-	struct Secret
-	{
-		const Session *session;
-		QByteArray parameters;
-		QByteArray value;
-		QString contentType;
+// types used in method parameters
+class Session;
+class Item;
 
-		wire::Secret marshal() const;
-	};
-	using wire::StringStringMap;
-	using ItemSecretMap = QHash<Item *, Secret>;
+struct Secret
+{
+	const Session *session;
+	QByteArray parameters;
+	QByteArray value;
+	QString contentType;
 
-	/**
-	 * Register the types needed for the fd.o Secrets D-Bus interface.
-	 */
-	void registerDBusTypes(const QSharedPointer<DBusMgr> &dbus);
+	wire::Secret marshal() const;
+};
 
-	struct ParamData
-	{
-		QByteArray signature;
-		int dbusTypeId;
-	};
+using wire::StringStringMap;
+using ItemSecretMap = QHash<Item *, Secret>;
 
-	/**
-	 * @brief Convert parameter type to on-the-wire type and associated dbus signature.
-	 * This is NOT a generic version, and only handles types used in org.freedesktop.secrets
-	 * @param id
-	 * @return ParamData
-	 */
-	ParamData typeToWireType(int id);
+/**
+ * Register the types needed for the fd.o Secrets D-Bus interface.
+ */
+void registerDBusTypes(const QSharedPointer<DBusMgr> &dbus);
+
+struct ParamData
+{
+	QByteArray signature;
+	int dbusTypeId;
+};
+
+/**
+ * @brief Convert parameter type to on-the-wire type and associated dbus signature.
+ * This is NOT a generic version, and only handles types used in org.freedesktop.secrets
+ * @param id
+ * @return ParamData
+ */
+ParamData typeToWireType(int id);
+
 } // namespace FdoSecrets
 
 Q_DECLARE_METATYPE(FdoSecrets::wire::Secret)

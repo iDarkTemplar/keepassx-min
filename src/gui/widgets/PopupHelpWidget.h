@@ -23,6 +23,7 @@
 class PopupHelpWidget: public QFrame
 {
 	Q_OBJECT
+
 public:
 	explicit PopupHelpWidget(QWidget *parent);
 	~PopupHelpWidget() override;

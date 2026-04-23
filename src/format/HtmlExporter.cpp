@@ -21,91 +21,93 @@
 #include "core/Group.h"
 #include "core/Metadata.h"
 
-namespace
+namespace {
+
+QString formatEntry(const Entry &entry)
 {
-	QString formatEntry(const Entry &entry)
+	// Here we collect the table rows with this entry's data fields
+	QString item;
+
+	// Output the fixed fields
+	const auto &u = entry.username();
+	if (!u.isEmpty())
 	{
-		// Here we collect the table rows with this entry's data fields
-		QString item;
-
-		// Output the fixed fields
-		const auto &u = entry.username();
-		if (!u.isEmpty())
-		{
-			item.append("<tr><th>");
-			item.append(QObject::tr("User name"));
-			item.append("</th><td class=\"username\">");
-			item.append(entry.username().toHtmlEscaped());
-			item.append("</td></tr>");
-		}
-
-		const auto &p = entry.password();
-		if (!p.isEmpty())
-		{
-			item.append("<tr><th>");
-			item.append(QObject::tr("Password"));
-			item.append("</th><td class=\"password\">");
-			item.append(entry.password().toHtmlEscaped());
-			item.append("</td></tr>");
-		}
-
-		const auto &r = entry.url();
-		if (!r.isEmpty())
-		{
-			item.append("<tr><th>");
-			item.append(QObject::tr("URL"));
-			item.append("</th><td class=\"url\"><a href=\"");
-			item.append(r.toHtmlEscaped());
-			item.append("\">");
-
-			// Restrict the length of what we display of the URL -
-			// even from a paper backup, nobody will every type in
-			// more than 100 characters of a URL
-			constexpr auto maxlen = 100;
-			if (r.size() <= maxlen)
-			{
-				item.append(r.toHtmlEscaped());
-			}
-			else
-			{
-				item.append(r.mid(0, maxlen).toHtmlEscaped());
-				item.append("&hellip;");
-			}
-
-			item.append("</a></td></tr>");
-		}
-
-		// Now add the attributes (if there are any)
-		const auto *const attr = entry.attributes();
-		if (attr && !attr->customKeys().isEmpty())
-		{
-			for (const auto &key: attr->customKeys())
-			{
-				item.append("<tr><th>");
-				item.append(key.toHtmlEscaped());
-				item.append("</th><td class=\"attr\">");
-				item.append(attr->value(key).toHtmlEscaped().replace(" ", "&nbsp;").replace("\n", "<br>"));
-				item.append("</td></tr>");
-			}
-		}
-
-		const auto &n = entry.notes();
-		if (!n.isEmpty())
-		{
-			item.append("<tr><th>");
-			item.append(QObject::tr("Notes"));
-			item.append("</th><td class=\"notes\">");
-			item.append(entry.notes().toHtmlEscaped().replace("\n", "<br>"));
-			item.append("</td></tr>");
-		}
-		return item;
+		item.append("<tr><th>");
+		item.append(QObject::tr("User name"));
+		item.append("</th><td class=\"username\">");
+		item.append(entry.username().toHtmlEscaped());
+		item.append("</td></tr>");
 	}
+
+	const auto &p = entry.password();
+	if (!p.isEmpty())
+	{
+		item.append("<tr><th>");
+		item.append(QObject::tr("Password"));
+		item.append("</th><td class=\"password\">");
+		item.append(entry.password().toHtmlEscaped());
+		item.append("</td></tr>");
+	}
+
+	const auto &r = entry.url();
+	if (!r.isEmpty())
+	{
+		item.append("<tr><th>");
+		item.append(QObject::tr("URL"));
+		item.append("</th><td class=\"url\"><a href=\"");
+		item.append(r.toHtmlEscaped());
+		item.append("\">");
+
+		// Restrict the length of what we display of the URL -
+		// even from a paper backup, nobody will every type in
+		// more than 100 characters of a URL
+		constexpr auto maxlen = 100;
+		if (r.size() <= maxlen)
+		{
+			item.append(r.toHtmlEscaped());
+		}
+		else
+		{
+			item.append(r.mid(0, maxlen).toHtmlEscaped());
+			item.append("&hellip;");
+		}
+
+		item.append("</a></td></tr>");
+	}
+
+	// Now add the attributes (if there are any)
+	const auto *const attr = entry.attributes();
+	if (attr && !attr->customKeys().isEmpty())
+	{
+		for (const auto &key: attr->customKeys())
+		{
+			item.append("<tr><th>");
+			item.append(key.toHtmlEscaped());
+			item.append("</th><td class=\"attr\">");
+			item.append(attr->value(key).toHtmlEscaped().replace(" ", "&nbsp;").replace("\n", "<br>"));
+			item.append("</td></tr>");
+		}
+	}
+
+	const auto &n = entry.notes();
+	if (!n.isEmpty())
+	{
+		item.append("<tr><th>");
+		item.append(QObject::tr("Notes"));
+		item.append("</th><td class=\"notes\">");
+		item.append(entry.notes().toHtmlEscaped().replace("\n", "<br>"));
+		item.append("</td></tr>");
+	}
+	return item;
+}
+
 } // namespace
 
-bool HtmlExporter::exportDatabase(const QString &filename,
-                                  const QSharedPointer<const Database> &db,
-                                  bool sorted,
-                                  bool ascending)
+bool HtmlExporter::exportDatabase(
+	const QString &filename,
+	const QSharedPointer<const Database> &db,
+	bool sorted,
+	bool ascending)
 {
 	QFile file(filename);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
@@ -113,6 +115,7 @@ bool HtmlExporter::exportDatabase(const QString &filename,
 		m_error = file.errorString();
 		return false;
 	}
+
 	return exportDatabase(&file, db, sorted, ascending);
 }
 
@@ -123,18 +126,19 @@ QString HtmlExporter::errorString() const
 
 QString HtmlExporter::groupIconToHtml(const Group * /* group */)
 {
-	return "";
+	return QString();
 }
 
 QString HtmlExporter::entryIconToHtml(const Entry * /* entry */)
 {
-	return "";
+	return QString();
 }
 
-bool HtmlExporter::exportDatabase(QIODevice *device,
-                                  const QSharedPointer<const Database> &db,
-                                  bool sorted,
-                                  bool ascending)
+bool HtmlExporter::exportDatabase(
+	QIODevice *device,
+	const QSharedPointer<const Database> &db,
+	bool sorted,
+	bool ascending)
 {
 	if (device->write(exportHeader(db).toUtf8()) == -1)
 	{
@@ -171,6 +175,7 @@ QString HtmlExporter::exportDatabase(const QSharedPointer<const Database> &db, b
 		{
 			response.append(exportGroup(*db->rootGroup(), QString(), sorted, ascending));
 		}
+
 		response.append(exportFooter());
 	}
 
@@ -183,55 +188,59 @@ QString HtmlExporter::exportHeader(const QSharedPointer<const Database> &db)
 	if (!meta)
 	{
 		m_error = "Internal error: metadata is NULL";
-		return "";
+		return QString();
 	}
 
-	const auto header = QString("<html>"
-	                            "<head>"
-	                            "<meta charset=\"UTF-8\">"
-	                            "<title>"
-	                            + meta->name().toHtmlEscaped()
-	                            + "</title>"
-	                              "<style>"
-	                              "body "
-	                              "{ font-family: \"Open Sans\", Helvetica, Arial, sans-serif; }"
-	                              "h3 "
-	                              "{ margin-left: 2em; }"
-	                              "caption "
-	                              "{ text-align: left; font-weight: bold; font-size: 150%; border-bottom: .15em solid "
-	                              "#4ca; margin-bottom: .5em;} "
-	                              "th, td "
-	                              "{ text-align: left; vertical-align: top; padding: 1px; }"
-	                              "th "
-	                              "{ min-width: 7em; width: 15%; } "
-	                              ".username, .password, .url, .attr "
-	                              "{ font-size: larger; font-family: monospace; overflow-wrap: anywhere;} "
-	                              ".notes "
-	                              "{ font-size: small; } "
-	                              "</style>"
-	                              "</head>\n"
-	                              "<body>"
-	                              "<h1>"
-	                            + meta->name().toHtmlEscaped()
-	                            + "</h1>"
-	                              "<p>"
-	                            + meta->description().toHtmlEscaped().replace("\n", "<br>")
-	                            + "</p>"
-	                              "<p><code>"
-	                            + db->filePath().toHtmlEscaped() + "</code></p>");
+	const auto header = QString(
+		"<html>"
+		"<head>"
+		"<meta charset=\"UTF-8\">"
+		"<title>"
+		+ meta->name().toHtmlEscaped()
+		+ "</title>"
+		"<style>"
+		"body "
+		"{ font-family: \"Open Sans\", Helvetica, Arial, sans-serif; }"
+		"h3 "
+		"{ margin-left: 2em; }"
+		"caption "
+		"{ text-align: left; font-weight: bold; font-size: 150%; border-bottom: .15em solid "
+		"#4ca; margin-bottom: .5em;} "
+		"th, td "
+		"{ text-align: left; vertical-align: top; padding: 1px; }"
+		"th "
+		"{ min-width: 7em; width: 15%; } "
+		".username, .password, .url, .attr "
+		"{ font-size: larger; font-family: monospace; overflow-wrap: anywhere;} "
+		".notes "
+		"{ font-size: small; } "
+		"</style>"
+		"</head>\n"
+		"<body>"
+		"<h1>"
+		+ meta->name().toHtmlEscaped()
+		+ "</h1>"
+		"<p>"
+		+ meta->description().toHtmlEscaped().replace("\n", "<br>")
+		+ "</p>"
+		"<p><code>"
+		+ db->filePath().toHtmlEscaped() + "</code></p>");
+
 	return header;
 }
 
 QString HtmlExporter::exportFooter()
 {
-	const auto footer = QString("</body>"
-	                            "</html>");
+	const auto footer = QStringLiteral(
+		"</body>"
+		"</html>");
+
 	return footer;
 }
 
 QString HtmlExporter::exportGroup(const Group &group, QString path, bool sorted, bool ascending)
 {
-	QString response = "";
+	QString response;
 
 	// Don't output the recycle bin
 	if (&group == group.database()->metadata()->recycleBin())
@@ -243,6 +252,7 @@ QString HtmlExporter::exportGroup(const Group &group, QString path, bool sorted,
 	{
 		path.append(" &rarr; ");
 	}
+
 	path.append(group.name().toHtmlEscaped());
 
 	// Output the header for this group (but only if there are
@@ -259,6 +269,7 @@ QString HtmlExporter::exportGroup(const Group &group, QString path, bool sorted,
 			header.append(groupIcon);
 			header.append("&nbsp;");
 		}
+
 		header.append(path);
 		header.append("</h2>\n");
 
@@ -282,7 +293,7 @@ QString HtmlExporter::exportGroup(const Group &group, QString path, bool sorted,
 	{
 		std::sort(entries.begin(), entries.end(), [&](Entry *lhs, Entry *rhs) {
 			int cmp = lhs->title().compare(rhs->title(), Qt::CaseInsensitive);
-			return ascending ? cmp < 0 : cmp > 0;
+			return ascending ? (cmp < 0) : (cmp > 0);
 		});
 	}
 
@@ -302,11 +313,11 @@ QString HtmlExporter::exportGroup(const Group &group, QString path, bool sorted,
 		{
 			table += "<td width=\"1%\">" + entryIcon + "</td>";
 		}
+
 		auto caption = "<caption>" + entry->title().toHtmlEscaped() + "</caption>";
 
 		// ... then the right side with the data fields
-		table +=
-			"<td style=\"padding-bottom: 0.5em;\"><table width=\"100%\">" + caption + formatted_entry + "</table></td>";
+		table += "<td style=\"padding-bottom: 0.5em;\"><table width=\"100%\">" + caption + formatted_entry + "</table></td>";
 		table += "</tr>";
 	}
 

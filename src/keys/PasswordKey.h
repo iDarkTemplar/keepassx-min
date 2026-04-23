@@ -30,7 +30,7 @@ public:
 
 	PasswordKey();
 	explicit PasswordKey(const QString &password);
-	~PasswordKey() override = default;
+
 	QByteArray rawKey() const override;
 	void setRawKey(const QByteArray &data) override;
 	void setPassword(const QString &password);

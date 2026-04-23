@@ -36,7 +36,9 @@ TextAttachmentsEditWidget::TextAttachmentsEditWidget(QWidget *parent)
 	});
 }
 
-TextAttachmentsEditWidget::~TextAttachmentsEditWidget() = default;
+TextAttachmentsEditWidget::~TextAttachmentsEditWidget()
+{
+}
 
 void TextAttachmentsEditWidget::openAttachment(attachments::Attachment attachments, attachments::OpenMode mode)
 {

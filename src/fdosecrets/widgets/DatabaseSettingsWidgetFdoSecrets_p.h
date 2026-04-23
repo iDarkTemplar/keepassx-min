@@ -31,8 +31,8 @@ class DatabaseSettingsWidgetFdoSecrets::GroupModelNoRecycle: public QSortFilterP
 public:
 	explicit GroupModelNoRecycle(Database *db);
 
-	Group *groupFromIndex(const QModelIndex &index) const;
-	Group *groupFromSourceIndex(const QModelIndex &index) const;
+	Group* groupFromIndex(const QModelIndex &index) const;
+	Group* groupFromSourceIndex(const QModelIndex &index) const;
 	QModelIndex indexFromGroup(Group *group) const;
 
 protected:

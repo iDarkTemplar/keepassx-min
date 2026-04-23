@@ -25,7 +25,7 @@
 #include "core/Config.h"
 #include "core/Global.h"
 
-Resources *Resources::m_instance(nullptr);
+std::unique_ptr<Resources> Resources::m_instance;
 
 QString Resources::dataPath(const QString &name) const
 {
@@ -33,7 +33,8 @@ QString Resources::dataPath(const QString &name) const
 	{
 		return m_dataPath + name;
 	}
-	return m_dataPath + "/" + name;
+
+	return m_dataPath + QStringLiteral("/") + name;
 }
 
 QString Resources::wordlistPath(const QString &name) const
@@ -72,15 +73,16 @@ bool Resources::trySetResourceDir(const QString &path)
 		m_dataPath = dir.canonicalPath();
 		return true;
 	}
+
 	return false;
 }
 
-Resources *Resources::instance()
+Resources* Resources::instance()
 {
 	if (!m_instance)
 	{
-		m_instance = new Resources();
+		m_instance.reset(new Resources());
 	}
 
-	return m_instance;
+	return m_instance.get();
 }

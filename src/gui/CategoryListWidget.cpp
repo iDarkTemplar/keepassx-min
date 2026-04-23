@@ -37,7 +37,7 @@ CategoryListWidget::CategoryListWidget(QWidget *parent)
 	connect(m_ui->scrollUp, SIGNAL(clicked()), SLOT(scrollCategoriesUp()));
 	connect(m_ui->scrollDown, SIGNAL(clicked()), SLOT(scrollCategoriesDown()));
 	connect(m_ui->categoryList->verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(updateCategoryScrollButtons()));
-    connect(m_ui->categoryList->verticalScrollBar(), SIGNAL(rangeChanged(int,int)), SLOT(updateCategoryScrollButtons()));
+	connect(m_ui->categoryList->verticalScrollBar(), SIGNAL(rangeChanged(int,int)), SLOT(updateCategoryScrollButtons()));
 }
 
 CategoryListWidget::~CategoryListWidget()
@@ -55,6 +55,7 @@ QSize CategoryListWidget::sizeHint() const
 	{
 		width = min;
 	}
+
 	sizeHint.setWidth(width);
 
 	return sizeHint;
@@ -63,7 +64,7 @@ QSize CategoryListWidget::sizeHint() const
 QSize CategoryListWidget::minimumSizeHint() const
 {
 	return QSize(m_itemDelegate->minWidth() + m_ui->categoryList->frameWidth() * 2,
-	             m_ui->categoryList->sizeHintForRow(0) * 2);
+		m_ui->categoryList->sizeHintForRow(0) * 2);
 }
 
 int CategoryListWidget::addCategory(const QString &labelText, const QIcon &icon)
@@ -72,6 +73,7 @@ int CategoryListWidget::addCategory(const QString &labelText, const QIcon &icon)
 	item->setText(labelText);
 	item->setIcon(icon);
 	m_ui->categoryList->addItem(item);
+
 	return m_ui->categoryList->count() - 1;
 }
 
@@ -119,8 +121,7 @@ void CategoryListWidget::resizeEvent(QResizeEvent *event)
 void CategoryListWidget::updateCategoryScrollButtons()
 {
 	m_ui->scrollUp->setEnabled(m_ui->categoryList->verticalScrollBar()->value() != 0);
-	m_ui->scrollDown->setEnabled(m_ui->categoryList->verticalScrollBar()->value()
-	                             != m_ui->categoryList->verticalScrollBar()->maximum());
+	m_ui->scrollDown->setEnabled(m_ui->categoryList->verticalScrollBar()->value() != m_ui->categoryList->verticalScrollBar()->maximum());
 
 	m_ui->scrollUp->setVisible(m_ui->categoryList->verticalScrollBar()->maximum() > 0);
 	m_ui->scrollDown->setVisible(m_ui->scrollUp->isVisible());
@@ -128,14 +129,12 @@ void CategoryListWidget::updateCategoryScrollButtons()
 
 void CategoryListWidget::scrollCategoriesUp()
 {
-	m_ui->categoryList->verticalScrollBar()->setValue(m_ui->categoryList->verticalScrollBar()->value()
-	                                                  - m_ui->categoryList->verticalScrollBar()->pageStep());
+	m_ui->categoryList->verticalScrollBar()->setValue(m_ui->categoryList->verticalScrollBar()->value() - m_ui->categoryList->verticalScrollBar()->pageStep());
 }
 
 void CategoryListWidget::scrollCategoriesDown()
 {
-	m_ui->categoryList->verticalScrollBar()->setValue(m_ui->categoryList->verticalScrollBar()->value()
-	                                                  + m_ui->categoryList->verticalScrollBar()->pageStep());
+	m_ui->categoryList->verticalScrollBar()->setValue(m_ui->categoryList->verticalScrollBar()->value() + m_ui->categoryList->verticalScrollBar()->pageStep());
 }
 
 void CategoryListWidget::emitCategoryChanged(int index)
@@ -160,12 +159,14 @@ CategoryListWidgetDelegate::CategoryListWidgetDelegate(QListWidget *parent)
 class IconSelectionCorrectedStyle: public QProxyStyle
 {
 public:
-	void drawPrimitive(PrimitiveElement element,
-	                   const QStyleOption *option,
-	                   QPainter *painter,
-	                   const QWidget *widget) const override
+	void drawPrimitive(
+		PrimitiveElement element,
+		const QStyleOption *option,
+		QPainter *painter,
+		const QWidget *widget) const override
 	{
 		painter->save();
+
 		if (widget && PE_PanelItemViewItem == element)
 		{
 			// Qt on Windows and the Fusion/Phantom base styles draw selection backgrounds only for
@@ -193,9 +194,10 @@ public:
 	}
 };
 
-void CategoryListWidgetDelegate::paint(QPainter *painter,
-                                       const QStyleOptionViewItem &option,
-                                       const QModelIndex &index) const
+void CategoryListWidgetDelegate::paint(
+	QPainter *painter,
+	const QStyleOptionViewItem &option,
+	const QModelIndex &index) const
 {
 	QStyleOptionViewItem opt = option;
 	initStyleOption(&opt, index);
@@ -212,8 +214,7 @@ void CategoryListWidgetDelegate::paint(QPainter *painter,
 	QScopedPointer<QStyle> style(new IconSelectionCorrectedStyle());
 	style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, opt.widget);
 
-	QRect fontRect = painter->fontMetrics().boundingRect(
-		QRect(0, 0, minWidth(), m_size.height()), Qt::AlignHCenter | Qt::AlignBottom | Qt::TextWordWrap, opt.text);
+	QRect fontRect = painter->fontMetrics().boundingRect(QRect(0, 0, minWidth(), m_size.height()), Qt::AlignHCenter | Qt::AlignBottom | Qt::TextWordWrap, opt.text);
 
 	int paddingTop = fontRect.height() < 30 ? 15 : 10;
 	int left = opt.rect.left() + opt.rect.width() / 2 - iconSize.width() / 2;
@@ -231,6 +232,7 @@ void CategoryListWidgetDelegate::paint(QPainter *painter,
 	{
 		mode = QIcon::Active;
 	}
+
 	painter->drawPixmap(left, opt.rect.top() + paddingTop, icon.pixmap(iconSize, mode));
 
 	painter->restore();

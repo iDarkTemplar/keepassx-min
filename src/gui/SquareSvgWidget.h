@@ -23,7 +23,6 @@ class SquareSvgWidget: public QSvgWidget
 {
 public:
 	explicit SquareSvgWidget(QWidget *parent);
-	~SquareSvgWidget() override = default;
 
 	bool hasHeightForWidth() const override;
 	int heightForWidth(int width) const override;

@@ -58,6 +58,7 @@ QByteArray HashingStream::hashingResult()
 		setErrorString("Not enough data to compute hash");
 		return {};
 	}
+
 	m_hashFinalized = true;
 	return m_hash.result();
 }
@@ -80,8 +81,10 @@ qint64 HashingStream::readData(char *data, qint64 maxSize)
 				m_sizeHashed += sizeToHash;
 			}
 		}
+
 		m_sizeStreamed += sizeRead;
 	}
+
 	return sizeRead;
 }
 
@@ -103,7 +106,9 @@ qint64 HashingStream::writeData(const char *data, qint64 maxSize)
 				m_sizeHashed += sizeToHash;
 			}
 		}
+
 		m_sizeStreamed += sizeWritten;
 	}
+
 	return sizeWritten;
 }

@@ -36,9 +36,9 @@ DatabaseSettingsWidgetMaintenance::DatabaseSettingsWidgetMaintenance(QWidget *pa
 	connect(m_ui->deleteButton, SIGNAL(clicked()), SLOT(removeCustomIcon()));
 	connect(m_ui->purgeButton, SIGNAL(clicked()), SLOT(purgeUnusedCustomIcons()));
 	connect(m_ui->customIconsView->selectionModel(),
-	        SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-	        this,
-	        SLOT(selectionChanged()));
+		SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
+		this,
+		SLOT(selectionChanged()));
 }
 
 DatabaseSettingsWidgetMaintenance::~DatabaseSettingsWidgetMaintenance()
@@ -48,7 +48,8 @@ DatabaseSettingsWidgetMaintenance::~DatabaseSettingsWidgetMaintenance()
 void DatabaseSettingsWidgetMaintenance::populateIcons(QSharedPointer<Database> db)
 {
 	m_customIconModel->setIcons(Icons::customIconsPixmaps(db.data(), IconSize::Default),
-	                            db->metadata()->customIconsOrder());
+		db->metadata()->customIconsOrder());
+
 	m_ui->deleteButton->setEnabled(false);
 }
 
@@ -59,6 +60,7 @@ void DatabaseSettingsWidgetMaintenance::initialize()
 	{
 		return;
 	}
+
 	populateIcons(database);
 }
 
@@ -98,9 +100,9 @@ void DatabaseSettingsWidgetMaintenance::removeSingleCustomIcon(QSharedPointer<Da
 {
 	QUuid iconUuid = m_customIconModel->uuidFromIndex(index);
 
-	const QList<Entry *> allEntries = database->rootGroup()->entriesRecursive(true);
-	QList<Entry *> entriesWithSelectedIcon;
-	QList<Entry *> historicEntriesWithSelectedIcon;
+	const QList<Entry*> allEntries = database->rootGroup()->entriesRecursive(true);
+	QList<Entry*> entriesWithSelectedIcon;
+	QList<Entry*> historicEntriesWithSelectedIcon;
 
 	for (Entry *entry: allEntries)
 	{
@@ -118,8 +120,8 @@ void DatabaseSettingsWidgetMaintenance::removeSingleCustomIcon(QSharedPointer<Da
 		}
 	}
 
-	const QList<Group *> allGroups = database->rootGroup()->groupsRecursive(true);
-	QList<Group *> groupsWithSameIcon;
+	const QList<Group*> allGroups = database->rootGroup()->groupsRecursive(true);
+	QList<Group*> groupsWithSameIcon;
 
 	for (Group *group: allGroups)
 	{
@@ -138,8 +140,8 @@ void DatabaseSettingsWidgetMaintenance::removeSingleCustomIcon(QSharedPointer<Da
 				this,
 				tr("Confirm Deletion"),
 				tr("At least one of the selected icons is currently in use by at least one entry or group. "
-			       "The icons of all affected entries and groups will be replaced by the default icon. "
-			       "Are you sure you want to delete icons that are currently in use?"),
+					"The icons of all affected entries and groups will be replaced by the default icon. "
+					"Are you sure you want to delete icons that are currently in use?"),
 				MessageBox::Delete | MessageBox::Skip,
 				MessageBox::Skip);
 		}
@@ -185,11 +187,11 @@ void DatabaseSettingsWidgetMaintenance::purgeUnusedCustomIcons()
 		return;
 	}
 
-	QList<Entry *> historyEntries;
+	QList<Entry*> historyEntries;
 	QSet<QUuid> historicIcons;
 	QSet<QUuid> iconsInUse;
 
-	const QList<Entry *> allEntries = database->rootGroup()->entriesRecursive(true);
+	const QList<Entry*> allEntries = database->rootGroup()->entriesRecursive(true);
 	for (Entry *entry: allEntries)
 	{
 		if (!entry->group())
@@ -205,7 +207,7 @@ void DatabaseSettingsWidgetMaintenance::purgeUnusedCustomIcons()
 		}
 	}
 
-	const QList<Group *> allGroups = database->rootGroup()->groupsRecursive(true);
+	const QList<Group*> allGroups = database->rootGroup()->groupsRecursive(true);
 	for (Group *group: allGroups)
 	{
 		iconsInUse.insert(group->iconUuid());
@@ -242,14 +244,14 @@ void DatabaseSettingsWidgetMaintenance::purgeUnusedCustomIcons()
 	if (0 == purgeCounter)
 	{
 		MessageBox::information(this,
-		                        tr("Custom Icons Are In Use"),
-		                        tr("All custom icons are in use by at least one entry or group."),
-		                        MessageBox::Ok);
+			tr("Custom Icons Are In Use"),
+			tr("All custom icons are in use by at least one entry or group."),
+			MessageBox::Ok);
+
 		return;
 	}
 
 	populateIcons(database);
 
-	MessageBox::information(
-		this, tr("Purged Unused Icons"), tr("Purged %n icon(s) from the database.", "", purgeCounter), MessageBox::Ok);
+	MessageBox::information(this, tr("Purged Unused Icons"), tr("Purged %n icon(s) from the database.", "", purgeCounter), MessageBox::Ok);
 }

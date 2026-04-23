@@ -23,17 +23,19 @@ class QAbstractItemView;
 class QWidget;
 class QModelIndex;
 
-void installWidgetItemDelegate(QAbstractItemView *view,
-                               int column,
-                               std::function<QWidget *(QWidget *, const QModelIndex &)> &&create);
+void installWidgetItemDelegate(
+	QAbstractItemView *view,
+	int column,
+	std::function<QWidget *(QWidget *, const QModelIndex &)> &&create);
 
 /**
  * @brief Open an editor on the cell, the editor's user property will be edited.
  */
 template <typename Editor>
-void installWidgetItemDelegate(QAbstractItemView *view,
-                               int column,
-                               std::function<Editor *(QWidget *, const QModelIndex &)> &&create)
+void installWidgetItemDelegate(
+	QAbstractItemView *view,
+	int column,
+	std::function<Editor* (QWidget *, const QModelIndex &)> &&create)
 {
 	installWidgetItemDelegate(view, column, [create](QWidget *p, const QModelIndex &idx) { return create(p, idx); });
 }

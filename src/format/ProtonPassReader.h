@@ -28,7 +28,6 @@ class ProtonPassReader
 {
 public:
 	explicit ProtonPassReader() = default;
-	~ProtonPassReader() = default;
 
 	QSharedPointer<Database> convert(const QString &path);
 

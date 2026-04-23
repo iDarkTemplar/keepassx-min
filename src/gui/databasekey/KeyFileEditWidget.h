@@ -19,10 +19,11 @@
 
 #include "KeyComponentWidget.h"
 
-namespace Ui
-{
-	class KeyFileEditWidget;
-}
+namespace Ui {
+
+class KeyFileEditWidget;
+
+} // namespace Ui
 
 class DatabaseSettingsWidget;
 
@@ -33,13 +34,13 @@ class KeyFileEditWidget: public KeyComponentWidget
 public:
 	explicit KeyFileEditWidget(DatabaseSettingsWidget *parent);
 	Q_DISABLE_COPY(KeyFileEditWidget);
-	~KeyFileEditWidget() override;
+	~KeyFileEditWidget();
 
 	bool addToCompositeKey(QSharedPointer<CompositeKey> key) override;
 	bool validate(QString &errorMessage) const override;
 
 protected:
-	QWidget *componentEditWidget() override;
+	QWidget* componentEditWidget() override;
 	void initComponentEditWidget(QWidget *widget) override;
 	void initComponent() override;
 

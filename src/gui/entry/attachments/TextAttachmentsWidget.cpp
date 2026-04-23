@@ -31,8 +31,6 @@ TextAttachmentsWidget::TextAttachmentsWidget(QWidget *parent)
 	initWidget();
 }
 
-TextAttachmentsWidget::~TextAttachmentsWidget() = default;
-
 void TextAttachmentsWidget::openAttachment(attachments::Attachment attachment, attachments::OpenMode mode)
 {
 	m_attachment = std::move(attachment);
@@ -91,12 +89,11 @@ void TextAttachmentsWidget::initWidget()
 	// Only update the preview after a set timeout and if it is visible
 	connect(m_previewUpdateTimer, &QTimer::timeout, this, &TextAttachmentsWidget::updatePreviewWidget);
 	connect(m_editWidget,
-	        &TextAttachmentsEditWidget::scrollChanged,
-	        m_previewWidget,
-	        &TextAttachmentsPreviewWidget::matchScroll);
+		&TextAttachmentsEditWidget::scrollChanged,
+		m_previewWidget,
+		&TextAttachmentsPreviewWidget::matchScroll);
 
-	connect(
-		m_editWidget, &TextAttachmentsEditWidget::textChanged, m_previewUpdateTimer, QOverload<>::of(&QTimer::start));
+	connect(m_editWidget, &TextAttachmentsEditWidget::textChanged, m_previewUpdateTimer, QOverload<>::of(&QTimer::start));
 
 	connect(m_editWidget, &TextAttachmentsEditWidget::previewButtonClicked, [this] {
 		// Split the display in half if showing the preview widget

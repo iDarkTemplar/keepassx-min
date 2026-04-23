@@ -20,18 +20,15 @@
 
 #include <QProcessEnvironment>
 
-FileDialog *FileDialog::m_instance(nullptr);
+std::unique_ptr<FileDialog> FileDialog::m_instance;
 
-FileDialog::FileDialog()
-{
-}
-
-QString FileDialog::getOpenFileName(QWidget *parent,
-                                    const QString &caption,
-                                    const QString &dir,
-                                    const QString &filter,
-                                    QString *selectedFilter,
-                                    const QFileDialog::Options options)
+QString FileDialog::getOpenFileName(
+	QWidget *parent,
+	const QString &caption,
+	const QString &dir,
+	const QString &filter,
+	QString *selectedFilter,
+	const QFileDialog::Options options)
 {
 	if (!m_nextFileName.isEmpty())
 	{
@@ -42,19 +39,19 @@ QString FileDialog::getOpenFileName(QWidget *parent,
 	else
 	{
 		const auto &workingDir = dir.isEmpty() ? getLastDir("default") : dir;
-		const auto result = QDir::toNativeSeparators(
-			QFileDialog::getOpenFileName(parent, caption, workingDir, filter, selectedFilter, options));
+		const auto result = QDir::toNativeSeparators(QFileDialog::getOpenFileName(parent, caption, workingDir, filter, selectedFilter, options));
 
 		return result;
 	}
 }
 
-QStringList FileDialog::getOpenFileNames(QWidget *parent,
-                                         const QString &caption,
-                                         const QString &dir,
-                                         const QString &filter,
-                                         QString *selectedFilter,
-                                         const QFileDialog::Options options)
+QStringList FileDialog::getOpenFileNames(
+	QWidget *parent,
+	const QString &caption,
+	const QString &dir,
+	const QString &filter,
+	QString *selectedFilter,
+	const QFileDialog::Options options)
 {
 	if (!m_nextFileNames.isEmpty())
 	{
@@ -76,12 +73,13 @@ QStringList FileDialog::getOpenFileNames(QWidget *parent,
 	}
 }
 
-QString FileDialog::getSaveFileName(QWidget *parent,
-                                    const QString &caption,
-                                    const QString &dir,
-                                    const QString &filter,
-                                    QString *selectedFilter,
-                                    const QFileDialog::Options options)
+QString FileDialog::getSaveFileName(
+	QWidget *parent,
+	const QString &caption,
+	const QString &dir,
+	const QString &filter,
+	QString *selectedFilter,
+	const QFileDialog::Options options)
 {
 	if (!m_nextFileName.isEmpty())
 	{
@@ -92,17 +90,17 @@ QString FileDialog::getSaveFileName(QWidget *parent,
 	else
 	{
 		const auto &workingDir = dir.isEmpty() ? getLastDir("default") : dir;
-		const auto result = QDir::toNativeSeparators(
-			QFileDialog::getSaveFileName(parent, caption, workingDir, filter, selectedFilter, options));
+		const auto result = QDir::toNativeSeparators(QFileDialog::getSaveFileName(parent, caption, workingDir, filter, selectedFilter, options));
 
 		return result;
 	}
 }
 
-QString FileDialog::getExistingDirectory(QWidget *parent,
-                                         const QString &caption,
-                                         const QString &dir,
-                                         const QFileDialog::Options options)
+QString FileDialog::getExistingDirectory(
+	QWidget *parent,
+	const QString &caption,
+	const QString &dir,
+	const QFileDialog::Options options)
 {
 	if (!m_nextDirName.isEmpty())
 	{
@@ -113,8 +111,7 @@ QString FileDialog::getExistingDirectory(QWidget *parent,
 	else
 	{
 		const auto &workingDir = dir.isEmpty() ? getLastDir("default") : dir;
-		const auto result =
-			QDir::toNativeSeparators(QFileDialog::getExistingDirectory(parent, caption, workingDir, options));
+		const auto result = QDir::toNativeSeparators(QFileDialog::getExistingDirectory(parent, caption, workingDir, options));
 
 		return result;
 	}
@@ -150,6 +147,7 @@ void FileDialog::saveLastDir(const QString &role, const QString &path, bool sens
 			lastDirs.insert(role, pathInfo.absolutePath());
 		}
 	}
+
 	config()->set(Config::LastDir, lastDirs);
 }
 
@@ -168,12 +166,12 @@ QString FileDialog::getLastDir(const QString &role, const QString &defaultDir)
 	return lastDirs.value(role, fallbackDir).toString();
 }
 
-FileDialog *FileDialog::instance()
+FileDialog* FileDialog::instance()
 {
 	if (!m_instance)
 	{
-		m_instance = new FileDialog();
+		m_instance.reset(new FileDialog());
 	}
 
-	return m_instance;
+	return m_instance.get();
 }

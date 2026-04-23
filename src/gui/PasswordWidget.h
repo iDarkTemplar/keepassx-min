@@ -23,19 +23,22 @@
 #include <QPointer>
 #include <QWidget>
 
-namespace Ui
-{
-	class PasswordWidget;
-}
+namespace Ui {
+
+class PasswordWidget;
+
+} // namespace Ui
 
 class PasswordWidget: public QWidget
 {
 	Q_OBJECT
 
 	Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged USER true)
+
 public:
 	explicit PasswordWidget(QWidget *parent = nullptr);
-	~PasswordWidget() override;
+	~PasswordWidget();
+
 	void enablePasswordGenerator();
 	void setRepeatPartner(PasswordWidget *repeatPartner);
 	void setQualityVisible(bool state);

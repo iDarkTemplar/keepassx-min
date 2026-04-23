@@ -75,9 +75,10 @@ bool KeePass2Reader::readDatabase(QIODevice *device, QSharedPointer<const Compos
 	if (signature1 == KeePass1::SIGNATURE_1 && signature2 == KeePass1::SIGNATURE_2)
 	{
 		raiseError(tr("The selected file is an old KeePass 1 database (.kdb).\n\n"
-		              "You can import it by clicking on Database > 'Import KeePass 1 database…'.\n"
-		              "This is a one-way migration. You won't be able to open the imported "
-		              "database with the old KeePassX 0.4 version."));
+			"You can import it by clicking on Database > 'Import KeePass 1 database…'.\n"
+			"This is a one-way migration. You won't be able to open the imported "
+			"database with the old KeePassX 0.4 version."));
+
 		return false;
 	}
 	else if (!(signature1 == KeePass2::SIGNATURE_1 && signature2 == KeePass2::SIGNATURE_2))
@@ -87,7 +88,7 @@ bool KeePass2Reader::readDatabase(QIODevice *device, QSharedPointer<const Compos
 	}
 
 	if (m_version < KeePass2::FILE_VERSION_MIN
-	    || (m_version & KeePass2::FILE_VERSION_CRITICAL_MASK) > KeePass2::FILE_VERSION_MAX)
+		|| (m_version & KeePass2::FILE_VERSION_CRITICAL_MASK) > KeePass2::FILE_VERSION_MAX)
 	{
 		raiseError(tr("Unsupported KeePass 2 database version."));
 		return false;

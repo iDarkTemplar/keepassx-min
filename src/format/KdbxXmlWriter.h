@@ -32,15 +32,17 @@ public:
 	/**
 	 * Map of entry + attachment key to KDBX 4 inner header binary index.
 	 */
-	typedef QHash<QPair<const Entry *, QString>, qint64> BinaryIdxMap;
+	typedef QHash<QPair<const Entry*, QString>, qint64> BinaryIdxMap;
 
 	explicit KdbxXmlWriter(quint32 version);
 	explicit KdbxXmlWriter(quint32 version, KdbxXmlWriter::BinaryIdxMap binaryIdxMap);
 
-	void writeDatabase(QIODevice *device,
-	                   const Database *db,
-	                   KeePass2RandomStream *randomStream = nullptr,
-	                   const QByteArray &headerHash = QByteArray());
+	void writeDatabase(
+		QIODevice *device,
+		const Database *db,
+		KeePass2RandomStream *randomStream = nullptr,
+		const QByteArray &headerHash = QByteArray());
+
 	void writeDatabase(const QString &filename, Database *db);
 	void disableInnerStreamProtection(bool disable);
 	bool innerStreamProtectionDisabled() const;
@@ -56,8 +58,7 @@ private:
 	void writeIcon(const QUuid &uuid, const Metadata::CustomIconData &iconData);
 	void writeBinaries();
 	void writeCustomData(const CustomData *customData, bool writeItemLastModified = false);
-	void
-		writeCustomDataItem(const QString &key, const CustomData::CustomDataItem &item, bool writeLastModified = false);
+	void writeCustomDataItem(const QString &key, const CustomData::CustomDataItem &item, bool writeLastModified = false);
 	void writeRoot();
 	void writeGroup(const Group *group);
 	void writeTimes(const TimeInfo &ti);
@@ -92,7 +93,7 @@ private:
 
 	bool m_error = false;
 
-	QString m_errorStr = "";
+	QString m_errorStr;
 };
 
 #endif // KEEPASSX_KDBXXMLWRITER_H

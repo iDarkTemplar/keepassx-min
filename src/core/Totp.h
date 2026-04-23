@@ -23,88 +23,95 @@
 
 class QUrl;
 
-namespace Totp
+namespace Totp {
+
+struct Encoder
 {
-	struct Encoder
-	{
-		QString name;
-		QString shortName;
-		QString alphabet;
-		uint digits;
-		uint step;
-		bool reverse;
-	};
+	QString name;
+	QString shortName;
+	QString alphabet;
+	uint digits;
+	uint step;
+	bool reverse;
+};
 
-	enum Algorithm
-	{
-		Sha1,
-		Sha256,
-		Sha512,
-	};
+enum Algorithm
+{
+	Sha1,
+	Sha256,
+	Sha512,
+};
 
-	enum StorageFormat
-	{
-		OTPURL,
-		KEEOTP,
-		LEGACY,
-	};
+enum StorageFormat
+{
+	OTPURL,
+	KEEOTP,
+	LEGACY,
+};
 
-	struct Settings
-	{
-		Totp::StorageFormat format;
-		Totp::Encoder encoder;
-		Totp::Algorithm algorithm;
-		QString key;
-		uint digits;
-		uint step;
-	};
+struct Settings
+{
+	Totp::StorageFormat format;
+	Totp::Encoder encoder;
+	Totp::Algorithm algorithm;
+	QString key;
+	uint digits;
+	uint step;
+};
 
-	constexpr uint DEFAULT_STEP = 30u;
-	constexpr uint DEFAULT_DIGITS = 6u;
-	constexpr uint STEAM_DIGITS = 5u;
-	constexpr Totp::Algorithm DEFAULT_ALGORITHM = Sha1;
-	constexpr Totp::StorageFormat DEFAULT_FORMAT = OTPURL;
-	static const QString STEAM_SHORTNAME = "S";
+constexpr uint DEFAULT_STEP = 30u;
+constexpr uint DEFAULT_DIGITS = 6u;
+constexpr uint STEAM_DIGITS = 5u;
+constexpr Totp::Algorithm DEFAULT_ALGORITHM = Sha1;
+constexpr Totp::StorageFormat DEFAULT_FORMAT = OTPURL;
+static const QString STEAM_SHORTNAME = "S";
 
-	static const QString ATTRIBUTE_OTP = "otp";
-	static const QString ATTRIBUTE_SEED = "TOTP Seed";
-	static const QString ATTRIBUTE_SETTINGS = "TOTP Settings";
+static const QString ATTRIBUTE_OTP = "otp";
+static const QString ATTRIBUTE_SEED = "TOTP Seed";
+static const QString ATTRIBUTE_SETTINGS = "TOTP Settings";
 
-	// Support for KeePass2 TOTP
-	static const QString KP2_TOTP_SECRET = "TimeOtp-Secret-Base32";
-	static const QString KP2_TOTP_ALGORITHM = "TimeOtp-Algorithm";
-	static const QString KP2_TOTP_LENGTH = "TimeOtp-Length";
-	static const QString KP2_TOTP_PERIOD = "TimeOtp-Period";
+// Support for KeePass2 TOTP
+static const QString KP2_TOTP_SECRET = "TimeOtp-Secret-Base32";
+static const QString KP2_TOTP_ALGORITHM = "TimeOtp-Algorithm";
+static const QString KP2_TOTP_LENGTH = "TimeOtp-Length";
+static const QString KP2_TOTP_PERIOD = "TimeOtp-Period";
 
-	QSharedPointer<Totp::Settings>
-		fromKeePass2Totp(const QString &secret, const QString &algorithm, const QString &length, const QString &period);
+QSharedPointer<Totp::Settings> fromKeePass2Totp(
+	const QString &secret,
+	const QString &algorithm,
+	const QString &length,
+	const QString &period);
 
-	QSharedPointer<Totp::Settings> parseSettings(const QString &rawSettings, const QString &key = {});
-	QSharedPointer<Totp::Settings> createSettings(const QString &key,
-	                                              const uint digits = DEFAULT_DIGITS,
-	                                              const uint step = DEFAULT_STEP,
-	                                              const Totp::StorageFormat format = DEFAULT_FORMAT,
-	                                              const QString &encoderShortName = {},
-	                                              const Totp::Algorithm algorithm = DEFAULT_ALGORITHM);
-	QString writeSettings(const QSharedPointer<Totp::Settings> &settings,
-	                      const QString &title = {},
-	                      const QString &username = {},
-	                      bool forceOtp = false);
-	// Returns an empty string if settings are valid, otherwise an error message is supplied
-	QString checkValidSettings(const QSharedPointer<Totp::Settings> &settings);
-	QString generateTotp(const QSharedPointer<Totp::Settings> &settings,
-	                     bool *isValid = nullptr,
-	                     const quint64 time = 0ull);
+QSharedPointer<Totp::Settings> parseSettings(const QString &rawSettings, const QString &key = {});
+QSharedPointer<Totp::Settings> createSettings(
+	const QString &key,
+	const uint digits = DEFAULT_DIGITS,
+	const uint step = DEFAULT_STEP,
+	const Totp::StorageFormat format = DEFAULT_FORMAT,
+	const QString &encoderShortName = {},
+	const Totp::Algorithm algorithm = DEFAULT_ALGORITHM);
+QString writeSettings(
+	const QSharedPointer<Totp::Settings> &settings,
+	const QString &title = {},
+	const QString &username = {},
+	bool forceOtp = false);
+// Returns an empty string if settings are valid, otherwise an error message is supplied
+QString checkValidSettings(const QSharedPointer<Totp::Settings> &settings);
+QString generateTotp(
+	const QSharedPointer<Totp::Settings> &settings,
+	bool *isValid = nullptr,
+	const quint64 time = 0ull);
 
-	bool hasCustomSettings(const QSharedPointer<Totp::Settings> &settings);
+bool hasCustomSettings(const QSharedPointer<Totp::Settings> &settings);
 
-	QList<QPair<QString, QString>> supportedEncoders();
-	QList<QPair<QString, Algorithm>> supportedAlgorithms();
+QList<QPair<QString, QString>> supportedEncoders();
+QList<QPair<QString, Algorithm>> supportedAlgorithms();
 
-	Encoder &defaultEncoder();
-	Encoder &steamEncoder();
-	Encoder &getEncoderByShortName(const QString &shortName);
-	Encoder &getEncoderByName(const QString &name);
+Encoder& defaultEncoder();
+Encoder& steamEncoder();
+Encoder& getEncoderByShortName(const QString &shortName);
+Encoder& getEncoderByName(const QString &name);
+
 } // namespace Totp
 
 #endif // QTOTP_H

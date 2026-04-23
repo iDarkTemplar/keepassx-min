@@ -36,7 +36,9 @@ EditEntryAttachmentsDialog::EditEntryAttachmentsDialog(QWidget *parent)
 	connect(m_ui->dialogButtons, &QDialogButtonBox::rejected, this, &EditEntryAttachmentsDialog::reject);
 }
 
-EditEntryAttachmentsDialog::~EditEntryAttachmentsDialog() = default;
+EditEntryAttachmentsDialog::~EditEntryAttachmentsDialog()
+{
+}
 
 void EditEntryAttachmentsDialog::setAttachment(attachments::Attachment attachment)
 {

@@ -56,10 +56,11 @@ protected:
 	 * @param db database to read into
 	 * @return true on success
 	 */
-	virtual bool readDatabaseImpl(QIODevice *device,
-	                              const QByteArray &headerData,
-	                              QSharedPointer<const CompositeKey> key,
-	                              Database *db) = 0;
+	virtual bool readDatabaseImpl(
+		QIODevice *device,
+		const QByteArray &headerData,
+		QSharedPointer<const CompositeKey> key,
+		Database *db) = 0;
 
 	/**
 	 * Read next header field from stream.
@@ -93,7 +94,7 @@ private:
 	QPointer<Database> m_db;
 
 	bool m_error = false;
-	QString m_errorStr = "";
+	QString m_errorStr;
 };
 
 #endif // KEEPASSXC_KDBXREADER_H

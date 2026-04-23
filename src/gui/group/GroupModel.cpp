@@ -40,13 +40,13 @@ void GroupModel::changeDatabase(Database *newDb)
 
 	m_db = newDb;
 
-    connect(m_db, SIGNAL(groupDataChanged(Group*)), SLOT(groupDataChanged(Group*)));
-    connect(m_db, SIGNAL(groupAboutToAdd(Group*,int)), SLOT(groupAboutToAdd(Group*,int)));
-    connect(m_db, SIGNAL(groupAdded()), SLOT(groupAdded()));
-    connect(m_db, SIGNAL(groupAboutToRemove(Group*)), SLOT(groupAboutToRemove(Group*)));
-    connect(m_db, SIGNAL(groupRemoved()), SLOT(groupRemoved()));
-    connect(m_db, SIGNAL(groupAboutToMove(Group*,Group*,int)), SLOT(groupAboutToMove(Group*,Group*,int)));
-    connect(m_db, SIGNAL(groupMoved()), SLOT(groupMoved()));
+	connect(m_db, SIGNAL(groupDataChanged(Group*)), SLOT(groupDataChanged(Group*)));
+	connect(m_db, SIGNAL(groupAboutToAdd(Group*,int)), SLOT(groupAboutToAdd(Group*,int)));
+	connect(m_db, SIGNAL(groupAdded()), SLOT(groupAdded()));
+	connect(m_db, SIGNAL(groupAboutToRemove(Group*)), SLOT(groupAboutToRemove(Group*)));
+	connect(m_db, SIGNAL(groupRemoved()), SLOT(groupRemoved()));
+	connect(m_db, SIGNAL(groupAboutToMove(Group*,Group*,int)), SLOT(groupAboutToMove(Group*,Group*,int)));
+	connect(m_db, SIGNAL(groupMoved()), SLOT(groupMoved()));
 
 	endResetModel();
 }
@@ -151,6 +151,7 @@ QVariant GroupModel::data(const QModelIndex &index, int role) const
 		{
 			font.setStrikeOut(true);
 		}
+
 		return font;
 	}
 	else if (role == Qt::ToolTipRole)
@@ -161,6 +162,7 @@ QVariant GroupModel::data(const QModelIndex &index, int role) const
 			// only show a tooltip for the root group
 			tooltip = m_db->filePath();
 		}
+
 		return tooltip;
 	}
 	else
@@ -194,11 +196,11 @@ QModelIndex GroupModel::index(Group *group) const
 	return createIndex(row, 0, group);
 }
 
-Group *GroupModel::groupFromIndex(const QModelIndex &index) const
+Group* GroupModel::groupFromIndex(const QModelIndex &index) const
 {
 	Q_ASSERT(index.internalPointer());
 
-	return static_cast<Group *>(index.internalPointer());
+	return static_cast<Group*>(index.internalPointer());
 }
 
 Qt::DropActions GroupModel::supportedDropActions() const
@@ -223,10 +225,10 @@ Qt::ItemFlags GroupModel::flags(const QModelIndex &modelIndex) const
 }
 
 bool GroupModel::dropMimeData(const QMimeData *data,
-                              Qt::DropAction action,
-                              int row,
-                              int column,
-                              const QModelIndex &parent)
+	Qt::DropAction action,
+	int row,
+	int column,
+	const QModelIndex &parent)
 {
 	Q_UNUSED(column);
 
@@ -286,7 +288,7 @@ bool GroupModel::dropMimeData(const QMimeData *data,
 
 		if (parentGroup == dragGroup->parent() && row > parentGroup->children().indexOf(dragGroup))
 		{
-			row--;
+			--row;
 		}
 
 		Database *sourceDb = dragGroup->database();
@@ -379,7 +381,7 @@ QStringList GroupModel::mimeTypes() const
 	return types;
 }
 
-QMimeData *GroupModel::mimeData(const QModelIndexList &indexes) const
+QMimeData* GroupModel::mimeData(const QModelIndexList &indexes) const
 {
 	if (indexes.isEmpty())
 	{
@@ -390,7 +392,7 @@ QMimeData *GroupModel::mimeData(const QModelIndexList &indexes) const
 	QByteArray encoded;
 	QDataStream stream(&encoded, QIODevice::WriteOnly);
 
-	QSet<Group *> seenGroups;
+	QSet<Group*> seenGroups;
 
 	for (const QModelIndex &index: indexes)
 	{
@@ -469,7 +471,7 @@ void GroupModel::groupAboutToMove(Group *group, Group *toGroup, int pos)
 	{
 		// beginMoveRows() has a bit different semantics than Group::setParent() and
 		// QList::move() when the new position is greater than the old
-		pos++;
+		++pos;
 	}
 
 	bool moveResult = beginMoveRows(oldParentIndex, oldPos, oldPos, newParentIndex, pos);
@@ -494,7 +496,7 @@ void GroupModel::sortChildren(Group *rootGroup, bool reverse)
 	QList<QModelIndex> newIndexes;
 	collectIndexesRecursively(newIndexes, rootGroup->children());
 
-	for (int i = 0; i < oldIndexes.count(); i++)
+	for (int i = 0; i < oldIndexes.count(); ++i)
 	{
 		changePersistentIndex(oldIndexes[i], newIndexes[i]);
 	}

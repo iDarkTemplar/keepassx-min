@@ -26,7 +26,6 @@ class NewDatabaseWizardPageDatabaseKey: public NewDatabaseWizardPage
 public:
 	explicit NewDatabaseWizardPageDatabaseKey(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(NewDatabaseWizardPageDatabaseKey);
-	~NewDatabaseWizardPageDatabaseKey() override;
 };
 
 #endif // KEEPASSXC_NEWDATABASEWIZARDPAGEDATABASEKEY_H

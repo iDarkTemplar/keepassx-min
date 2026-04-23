@@ -69,7 +69,7 @@ void EntryAttachments::set(const QString &key, const QByteArray &value)
 		emit aboutToBeAdded(key);
 	}
 
-	if (addAttachment || m_attachments.value(key) != value)
+	if (addAttachment || (m_attachments.value(key) != value))
 	{
 		m_attachments.insert(key, value);
 		shouldEmitModified = true;
@@ -188,8 +188,10 @@ void EntryAttachments::disconnectAndEraseExternalFile(const QString &path)
 		{
 			f.write(randomGen()->randomArray(128));
 		}
+
 		f.close();
 	}
+
 	f.remove();
 }
 
@@ -226,10 +228,12 @@ bool EntryAttachments::operator!=(const EntryAttachments &other) const
 int EntryAttachments::attachmentsSize() const
 {
 	int size = 0;
+
 	for (auto it = m_attachments.constBegin(); it != m_attachments.constEnd(); ++it)
 	{
 		size += it.key().toUtf8().size() + it.value().size();
 	}
+
 	return size;
 }
 
@@ -244,8 +248,10 @@ bool EntryAttachments::openAttachment(const QString &key, QString *errorMessage)
 
 		QTemporaryFile tmpFile(tmpFileTemplate);
 
-		const bool saveOk = tmpFile.open() && tmpFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner)
-		                    && tmpFile.write(attachmentData) == attachmentData.size() && tmpFile.flush();
+		const bool saveOk = tmpFile.open()
+			&& tmpFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner)
+			&& (tmpFile.write(attachmentData) == attachmentData.size())
+			&& tmpFile.flush();
 
 		if (!saveOk)
 		{
@@ -253,6 +259,7 @@ bool EntryAttachments::openAttachment(const QString &key, QString *errorMessage)
 			{
 				*errorMessage = QString("%1 - %2").arg(key, tmpFile.errorString());
 			}
+
 			return false;
 		}
 
@@ -279,8 +286,10 @@ bool EntryAttachments::openAttachment(const QString &key, QString *errorMessage)
 		});
 
 		const auto attachmentData = value(key);
-		const bool saveOk = file.open(QIODevice::WriteOnly) && file.setPermissions(QFile::ReadOwner | QFile::WriteOwner)
-		                    && file.write(attachmentData) == attachmentData.size() && file.flush();
+		const bool saveOk = file.open(QIODevice::WriteOnly)
+			&& file.setPermissions(QFile::ReadOwner | QFile::WriteOwner)
+			&& (file.write(attachmentData) == attachmentData.size())
+			&& file.flush();
 
 		if (!saveOk)
 		{
@@ -288,12 +297,13 @@ bool EntryAttachments::openAttachment(const QString &key, QString *errorMessage)
 			{
 				*errorMessage = QString("%1 - %2").arg(key, file.errorString());
 			}
+
 			return false;
 		}
 	}
 
 	const bool openOk = QDesktopServices::openUrl(QUrl::fromLocalFile(m_openedAttachments.value(key)));
-	if (!openOk && errorMessage)
+	if ((!openOk) && errorMessage)
 	{
 		*errorMessage = tr("Cannot open file \"%1\"").arg(key);
 	}

@@ -33,170 +33,173 @@
 #include <QScopedPointer>
 #include <QUrl>
 
-namespace
+namespace {
+
+Entry* readItem(const QJsonObject &item)
 {
-	Entry *readItem(const QJsonObject &item)
+	const auto itemMap = item.toVariantMap();
+	const auto dataMap = itemMap.value("data").toMap();
+	const auto metadataMap = dataMap.value("metadata").toMap();
+
+	// Create entry and assign basic values
+	QScopedPointer<Entry> entry(new Entry());
+	entry->setUuid(QUuid::createUuid());
+	entry->setTitle(metadataMap.value("name").toString());
+	entry->setNotes(metadataMap.value("note").toString());
+
+	if (itemMap.value("pinned").toBool())
 	{
-		const auto itemMap = item.toVariantMap();
-		const auto dataMap = itemMap.value("data").toMap();
-		const auto metadataMap = dataMap.value("metadata").toMap();
+		entry->addTag(QObject::tr("Favorite", "Tag for favorite entries"));
+	}
 
-		// Create entry and assign basic values
-		QScopedPointer<Entry> entry(new Entry());
-		entry->setUuid(QUuid::createUuid());
-		entry->setTitle(metadataMap.value("name").toString());
-		entry->setNotes(metadataMap.value("note").toString());
+	// Handle specific item types
+	auto type = dataMap.value("type").toString();
 
-		if (itemMap.value("pinned").toBool())
+	// Login
+	if (type.compare("login", Qt::CaseInsensitive) == 0)
+	{
+		const auto loginMap = dataMap.value("content").toMap();
+		entry->setUsername(loginMap.value("itemUsername").toString());
+		entry->setPassword(loginMap.value("password").toString());
+		if (loginMap.contains("totpUri"))
 		{
-			entry->addTag(QObject::tr("Favorite", "Tag for favorite entries"));
+			auto totp = loginMap.value("totpUri").toString();
+			if (!totp.startsWith("otpauth://"))
+			{
+				QUrl url(QString("otpauth://totp/%1:%2?secret=%3")
+					.arg(QString(QUrl::toPercentEncoding(entry->title())),
+						QString(QUrl::toPercentEncoding(entry->username())),
+						QString(QUrl::toPercentEncoding(totp))));
+
+				totp = url.toString(QUrl::FullyEncoded);
+			}
+
+			entry->setTotp(Totp::parseSettings(totp));
 		}
 
-		// Handle specific item types
-		auto type = dataMap.value("type").toString();
-
-		// Login
-		if (type.compare("login", Qt::CaseInsensitive) == 0)
+		if (loginMap.contains("itemEmail"))
 		{
-			const auto loginMap = dataMap.value("content").toMap();
-			entry->setUsername(loginMap.value("itemUsername").toString());
-			entry->setPassword(loginMap.value("password").toString());
-			if (loginMap.contains("totpUri"))
+			// Place the email value as the username if empty, otherwise set it as an attribute
+			const auto email = loginMap.value("itemEmail").toString();
+			if (entry->username().isEmpty())
 			{
-				auto totp = loginMap.value("totpUri").toString();
-				if (!totp.startsWith("otpauth://"))
-				{
-					QUrl url(QString("otpauth://totp/%1:%2?secret=%3")
-					             .arg(QString(QUrl::toPercentEncoding(entry->title())),
-					                  QString(QUrl::toPercentEncoding(entry->username())),
-					                  QString(QUrl::toPercentEncoding(totp))));
-					totp = url.toString(QUrl::FullyEncoded);
-				}
-				entry->setTotp(Totp::parseSettings(totp));
+				entry->setUsername(email);
 			}
-
-			if (loginMap.contains("itemEmail"))
+			else if (!email.isEmpty())
 			{
-				// Place the email value as the username if empty, otherwise set it as an attribute
-				const auto email = loginMap.value("itemEmail").toString();
-				if (entry->username().isEmpty())
-				{
-					entry->setUsername(email);
-				}
-				else if (!email.isEmpty())
-				{
-					entry->attributes()->set("login_email", email);
-				}
-			}
-
-			// Set the entry url(s)
-			int i = 1;
-			for (const auto &urlObj: loginMap.value("urls").toList())
-			{
-				const auto url = urlObj.toString();
-				if (entry->url().isEmpty())
-				{
-					// First url encountered is set as the primary url
-					entry->setUrl(url);
-				}
-				else
-				{
-					// Subsequent urls
-					entry->attributes()->set(
-						QString("%1_%2").arg(EntryAttributes::AdditionalUrlAttribute, QString::number(i)), url);
-					++i;
-				}
-			}
-		}
-		// Credit Card
-		else if (type.compare("creditCard", Qt::CaseInsensitive) == 0)
-		{
-			const auto cardMap = dataMap.value("content").toMap();
-			entry->setUsername(cardMap.value("number").toString());
-			entry->setPassword(cardMap.value("verificationNumber").toString());
-			const QStringList attrs({"cardholderName", "pin", "expirationDate"});
-			const QStringList sensitive({"pin"});
-			for (const auto &attr: attrs)
-			{
-				auto value = cardMap.value(attr).toString();
-				if (!value.isEmpty())
-				{
-					entry->attributes()->set("card_" + attr, value, sensitive.contains(attr));
-				}
+				entry->attributes()->set("login_email", email);
 			}
 		}
 
-		// Parse extra fields
-		for (const auto &field: dataMap.value("extraFields").toList())
+		// Set the entry url(s)
+		int i = 1;
+		for (const auto &urlObj: loginMap.value("urls").toList())
 		{
-			// Derive a prefix for attribute names using the title or uuid if missing
-			const auto fieldMap = field.toMap();
-			auto name = fieldMap.value("fieldName").toString();
-			if (entry->attributes()->hasKey(name))
+			const auto url = urlObj.toString();
+			if (entry->url().isEmpty())
 			{
-				name = QString("%1_%2").arg(name, QUuid::createUuid().toString().mid(1, 5));
-			}
-
-			QString value;
-			const auto fieldType = fieldMap.value("type").toString();
-			if (fieldType.compare("totp", Qt::CaseInsensitive) == 0)
-			{
-				value = fieldMap.value("data").toJsonObject().value("totpUri").toString();
+				// First url encountered is set as the primary url
+				entry->setUrl(url);
 			}
 			else
 			{
-				value = fieldMap.value("data").toJsonObject().value("content").toString();
+				// Subsequent urls
+				entry->attributes()->set(QString("%1_%2").arg(EntryAttributes::AdditionalUrlAttribute, QString::number(i)), url);
+				++i;
 			}
-
-			entry->attributes()->set(name, value, fieldType.compare("hidden", Qt::CaseInsensitive) == 0);
 		}
-
-		// Checked expired/deleted state
-		if (itemMap.value("state").toInt() == 2)
-		{
-			entry->setExpires(true);
-			entry->setExpiryTime(QDateTime::currentDateTimeUtc());
-		}
-
-		// Collapse any accumulated history
-		entry->removeHistoryItems(entry->historyItems());
-
-		// Adjust the created and modified times
-		auto timeInfo = entry->timeInfo();
-		const auto createdTime = QDateTime::fromSecsSinceEpoch(itemMap.value("createTime").toULongLong(), Qt::UTC);
-		const auto modifiedTime = QDateTime::fromSecsSinceEpoch(itemMap.value("modifyTime").toULongLong(), Qt::UTC);
-		timeInfo.setCreationTime(createdTime);
-		timeInfo.setLastModificationTime(modifiedTime);
-		timeInfo.setLastAccessTime(modifiedTime);
-		entry->setTimeInfo(timeInfo);
-
-		return entry.take();
 	}
-
-	void writeVaultToDatabase(const QJsonObject &vault, QSharedPointer<Database> db)
+	// Credit Card
+	else if (type.compare("creditCard", Qt::CaseInsensitive) == 0)
 	{
-		// Create groups from vaults and store a temporary map of id -> uuid
-		const auto vaults = vault.value("vaults").toObject().toVariantMap();
-		for (const auto &vaultId: vaults.keys())
-		{
-			auto vaultObj = vaults.value(vaultId).toJsonObject();
-			auto group = new Group();
-			group->setUuid(QUuid::createUuid());
-			group->setName(vaultObj.value("name").toString());
-			group->setNotes(vaultObj.value("description").toString());
-			group->setParent(db->rootGroup());
+		const auto cardMap = dataMap.value("content").toMap();
+		entry->setUsername(cardMap.value("number").toString());
+		entry->setPassword(cardMap.value("verificationNumber").toString());
+		const QStringList attrs({"cardholderName", "pin", "expirationDate"});
+		const QStringList sensitive({"pin"});
 
-			const auto items = vaultObj.value("items").toArray();
-			for (const auto &item: items)
+		for (const auto &attr: attrs)
+		{
+			auto value = cardMap.value(attr).toString();
+			if (!value.isEmpty())
 			{
-				auto entry = readItem(item.toObject());
-				if (entry)
-				{
-					entry->setGroup(group, false);
-				}
+				entry->attributes()->set("card_" + attr, value, sensitive.contains(attr));
 			}
 		}
 	}
+
+	// Parse extra fields
+	for (const auto &field: dataMap.value("extraFields").toList())
+	{
+		// Derive a prefix for attribute names using the title or uuid if missing
+		const auto fieldMap = field.toMap();
+		auto name = fieldMap.value("fieldName").toString();
+		if (entry->attributes()->hasKey(name))
+		{
+			name = QString("%1_%2").arg(name, QUuid::createUuid().toString().mid(1, 5));
+		}
+
+		QString value;
+		const auto fieldType = fieldMap.value("type").toString();
+		if (fieldType.compare("totp", Qt::CaseInsensitive) == 0)
+		{
+			value = fieldMap.value("data").toJsonObject().value("totpUri").toString();
+		}
+		else
+		{
+			value = fieldMap.value("data").toJsonObject().value("content").toString();
+		}
+
+		entry->attributes()->set(name, value, fieldType.compare("hidden", Qt::CaseInsensitive) == 0);
+	}
+
+	// Checked expired/deleted state
+	if (itemMap.value("state").toInt() == 2)
+	{
+		entry->setExpires(true);
+		entry->setExpiryTime(QDateTime::currentDateTimeUtc());
+	}
+
+	// Collapse any accumulated history
+	entry->removeHistoryItems(entry->historyItems());
+
+	// Adjust the created and modified times
+	auto timeInfo = entry->timeInfo();
+	const auto createdTime = QDateTime::fromSecsSinceEpoch(itemMap.value("createTime").toULongLong(), Qt::UTC);
+	const auto modifiedTime = QDateTime::fromSecsSinceEpoch(itemMap.value("modifyTime").toULongLong(), Qt::UTC);
+	timeInfo.setCreationTime(createdTime);
+	timeInfo.setLastModificationTime(modifiedTime);
+	timeInfo.setLastAccessTime(modifiedTime);
+	entry->setTimeInfo(timeInfo);
+
+	return entry.take();
+}
+
+void writeVaultToDatabase(const QJsonObject &vault, QSharedPointer<Database> db)
+{
+	// Create groups from vaults and store a temporary map of id -> uuid
+	const auto vaults = vault.value("vaults").toObject().toVariantMap();
+	for (const auto &vaultId: vaults.keys())
+	{
+		auto vaultObj = vaults.value(vaultId).toJsonObject();
+		auto group = new Group();
+		group->setUuid(QUuid::createUuid());
+		group->setName(vaultObj.value("name").toString());
+		group->setNotes(vaultObj.value("description").toString());
+		group->setParent(db->rootGroup());
+
+		const auto items = vaultObj.value("items").toArray();
+		for (const auto &item: items)
+		{
+			auto entry = readItem(item.toObject());
+			if (entry)
+			{
+				entry->setGroup(group, false);
+			}
+		}
+	}
+}
+
 } // namespace
 
 bool ProtonPassReader::hasError()
@@ -232,8 +235,7 @@ QSharedPointer<Database> ProtonPassReader::convert(const QString &path)
 	auto json = QJsonDocument::fromJson(file.readAll(), &error).object();
 	if (error.error != QJsonParseError::NoError)
 	{
-		m_error =
-			QObject::tr("Cannot parse file: %1 at position %2").arg(error.errorString(), QString::number(error.offset));
+		m_error = QObject::tr("Cannot parse file: %1 at position %2").arg(error.errorString(), QString::number(error.offset));
 		return {};
 	}
 

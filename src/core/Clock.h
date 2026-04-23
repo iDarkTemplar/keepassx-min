@@ -17,8 +17,9 @@
 #ifndef KEEPASSXC_CLOCK_H
 #define KEEPASSXC_CLOCK_H
 
+#include <memory>
+
 #include <QDateTime>
-#include <QSharedPointer>
 
 class Clock
 {
@@ -42,19 +43,20 @@ public:
 
 	static QString toString(const QDateTime &dateTime);
 
-	virtual ~Clock();
+	virtual ~Clock() = default;
 
 protected:
-	Clock();
+	Clock() = default;
+
 	virtual QDateTime currentDateTimeUtcImpl() const;
 	virtual QDateTime currentDateTimeImpl() const;
 
 	static void resetInstance();
 	static void setInstance(Clock *clock);
-	static const Clock &instance();
+	static const Clock& instance();
 
 private:
-	static QSharedPointer<Clock> m_instance;
+	static std::unique_ptr<Clock> m_instance;
 };
 
 #endif // KEEPASSX_ENTRY_H

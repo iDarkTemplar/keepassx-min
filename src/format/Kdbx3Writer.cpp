@@ -66,25 +66,25 @@ bool Kdbx3Writer::writeDatabase(QIODevice *device, Database *db)
 	writeMagicNumbers(&header, KeePass2::SIGNATURE_1, KeePass2::SIGNATURE_2, db->formatVersion());
 
 	CHECK_RETURN_FALSE(writeHeaderField<quint16>(&header, KeePass2::HeaderFieldID::CipherID, db->cipher().toRfc4122()));
-	CHECK_RETURN_FALSE(
-		writeHeaderField<quint16>(&header,
-	                              KeePass2::HeaderFieldID::CompressionFlags,
-	                              Endian::sizedIntToBytes<qint32>(db->compressionAlgorithm(), KeePass2::BYTEORDER)));
+	CHECK_RETURN_FALSE(writeHeaderField<quint16>(&header,
+		KeePass2::HeaderFieldID::CompressionFlags,
+		Endian::sizedIntToBytes<qint32>(db->compressionAlgorithm(), KeePass2::BYTEORDER)));
+
 	auto kdf = db->kdf();
 	CHECK_RETURN_FALSE(writeHeaderField<quint16>(&header, KeePass2::HeaderFieldID::MasterSeed, masterSeed));
 	CHECK_RETURN_FALSE(writeHeaderField<quint16>(&header, KeePass2::HeaderFieldID::TransformSeed, kdf->seed()));
 	CHECK_RETURN_FALSE(writeHeaderField<quint16>(&header,
-	                                             KeePass2::HeaderFieldID::TransformRounds,
-	                                             Endian::sizedIntToBytes<qint64>(kdf->rounds(), KeePass2::BYTEORDER)));
+		KeePass2::HeaderFieldID::TransformRounds,
+		Endian::sizedIntToBytes<qint64>(kdf->rounds(), KeePass2::BYTEORDER)));
 	CHECK_RETURN_FALSE(writeHeaderField<quint16>(&header, KeePass2::HeaderFieldID::EncryptionIV, encryptionIV));
-	CHECK_RETURN_FALSE(
-		writeHeaderField<quint16>(&header, KeePass2::HeaderFieldID::ProtectedStreamKey, protectedStreamKey));
+	CHECK_RETURN_FALSE(writeHeaderField<quint16>(&header, KeePass2::HeaderFieldID::ProtectedStreamKey, protectedStreamKey));
 	CHECK_RETURN_FALSE(writeHeaderField<quint16>(&header, KeePass2::HeaderFieldID::StreamStartBytes, startBytes));
 	CHECK_RETURN_FALSE(writeHeaderField<quint16>(
 		&header,
 		KeePass2::HeaderFieldID::InnerRandomStreamID,
 		Endian::sizedIntToBytes<qint32>(static_cast<qint32>(KeePass2::ProtectedStreamAlgo::Salsa20),
-	                                    KeePass2::BYTEORDER)));
+			KeePass2::BYTEORDER)));
+
 	CHECK_RETURN_FALSE(writeHeaderField<quint16>(&header, KeePass2::HeaderFieldID::EndOfHeader, endOfHeader));
 	header.close();
 
@@ -102,6 +102,7 @@ bool Kdbx3Writer::writeDatabase(QIODevice *device, Database *db)
 		raiseError(cipherStream.errorString());
 		return false;
 	}
+
 	CHECK_RETURN_FALSE(writeData(&cipherStream, startBytes));
 
 	HashedBlockStream hashedStream(&cipherStream);
@@ -127,6 +128,7 @@ bool Kdbx3Writer::writeDatabase(QIODevice *device, Database *db)
 			raiseError(ioCompressor->errorString());
 			return false;
 		}
+
 		outputDevice = ioCompressor.data();
 	}
 
@@ -148,11 +150,13 @@ bool Kdbx3Writer::writeDatabase(QIODevice *device, Database *db)
 	{
 		ioCompressor->close();
 	}
+
 	if (!hashedStream.reset())
 	{
 		raiseError(hashedStream.errorString());
 		return false;
 	}
+
 	if (!cipherStream.reset())
 	{
 		raiseError(cipherStream.errorString());

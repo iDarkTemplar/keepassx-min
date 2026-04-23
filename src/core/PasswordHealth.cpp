@@ -21,9 +21,10 @@
 #include "PasswordHealth.h"
 #include "zxcvbn.h"
 
-namespace
-{
-	const static int ZXCVBN_ESTIMATE_THRESHOLD = 256;
+namespace {
+
+const static int ZXCVBN_ESTIMATE_THRESHOLD = 256;
+
 } // namespace
 
 PasswordHealth::PasswordHealth(double entropy)
@@ -41,6 +42,7 @@ PasswordHealth::PasswordHealth(const QString &pwd)
 		auto average = entropy / ZXCVBN_ESTIMATE_THRESHOLD;
 		entropy += average * (pwd.length() - ZXCVBN_ESTIMATE_THRESHOLD);
 	}
+
 	init(entropy);
 }
 
@@ -115,6 +117,7 @@ PasswordHealth::Quality PasswordHealth::quality() const
 	{
 		return Quality::Good;
 	}
+
 	return Quality::Excellent;
 }
 
@@ -129,8 +132,7 @@ HealthChecker::HealthChecker(QSharedPointer<Database> db)
 	{
 		if (!entry->isRecycled() && !entry->isAttributeReference("Password"))
 		{
-			m_reuse[entry->password()]
-				<< QObject::tr("Used in %1/%2").arg(entry->group()->hierarchy().join('/'), entry->title());
+			m_reuse[entry->password()] << QObject::tr("Used in %1/%2").arg(entry->group()->hierarchy().join('/'), entry->title());
 		}
 	}
 }
@@ -188,8 +190,7 @@ QSharedPointer<PasswordHealth> HealthChecker::evaluate(const Entry *entry) const
 	{
 		health->setScore(0);
 		health->addScoreReason(QObject::tr("Password has expired"));
-		health->addScoreDetails(
-			QObject::tr("Password expiry was %1").arg(Clock::toString(entry->timeInfo().expiryTime())));
+		health->addScoreDetails(QObject::tr("Password expiry was %1").arg(Clock::toString(entry->timeInfo().expiryTime())));
 	}
 	else if (entry->timeInfo().expires())
 	{
@@ -207,8 +208,7 @@ QSharedPointer<PasswordHealth> HealthChecker::evaluate(const Entry *entry) const
 			}
 
 			health->adjustScore((30 - days) * -2);
-			health->addScoreDetails(
-				QObject::tr("Password expires on %1").arg(Clock::toString(entry->timeInfo().expiryTime())));
+			health->addScoreDetails(QObject::tr("Password expires on %1").arg(Clock::toString(entry->timeInfo().expiryTime())));
 			if (days <= 2)
 			{
 				health->addScoreReason(QObject::tr("Password is about to expire"));

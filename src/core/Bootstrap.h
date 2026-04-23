@@ -19,10 +19,11 @@
 
 #include <QString>
 
-namespace Bootstrap
-{
-	void bootstrap(const QString &uiLanguage = "system");
-	void disableCoreDumps();
-}; // namespace Bootstrap
+namespace Bootstrap {
+
+void bootstrap(const QString &uiLanguage = "system");
+void disableCoreDumps();
+
+} // namespace Bootstrap
 
 #endif // KEEPASSXC_BOOTSTRAP_H

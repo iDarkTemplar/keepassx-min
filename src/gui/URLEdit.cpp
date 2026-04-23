@@ -54,6 +54,6 @@ void URLEdit::updateStylesheet()
 	else
 	{
 		m_errorAction->setVisible(false);
-		setStyleSheet("");
+		setStyleSheet(QString());
 	}
 }

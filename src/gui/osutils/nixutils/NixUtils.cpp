@@ -29,6 +29,9 @@
 #include <QStandardPaths>
 #include <QStyle>
 #include <QTextStream>
+
+#include <memory>
+
 #ifdef WITH_XC_X11
 #include <QX11Info>
 
@@ -38,30 +41,31 @@
 #include <X11/XKBlib.h>
 #include <xcb/xproto.h>
 
-namespace
-{
-	Display *dpy;
-	Window rootWindow;
-	bool x11ErrorOccurred = false;
+namespace {
 
-	int x11ErrorHandler(Display *, XErrorEvent *)
-	{
-		x11ErrorOccurred = true;
-		return 1;
-	}
+Display *dpy;
+Window rootWindow;
+bool x11ErrorOccurred = false;
+
+int x11ErrorHandler(Display *, XErrorEvent *)
+{
+	x11ErrorOccurred = true;
+	return 1;
+}
+
 } // namespace
 #endif
 
-QPointer<NixUtils> NixUtils::m_instance = nullptr;
+std::unique_ptr<NixUtils> NixUtils::m_instance;
 
-NixUtils *NixUtils::instance()
+NixUtils* NixUtils::instance()
 {
 	if (!m_instance)
 	{
-		m_instance = new NixUtils(qApp);
+		m_instance.reset(new NixUtils(qApp));
 	}
 
-	return m_instance;
+	return m_instance.get();
 }
 
 NixUtils::NixUtils(QObject *parent)
@@ -74,21 +78,17 @@ NixUtils::NixUtils(QObject *parent)
 
 	// notify about system color scheme changes
 	QDBusConnection sessionBus = QDBusConnection::sessionBus();
-	sessionBus.connect("org.freedesktop.portal.Desktop",
-	                   "/org/freedesktop/portal/desktop",
-	                   "org.freedesktop.portal.Settings",
-	                   "SettingChanged",
-	                   this,
-	                   SLOT(handleColorSchemeChanged(QString, QString, QDBusVariant)));
+	sessionBus.connect(
+		"org.freedesktop.portal.Desktop",
+		"/org/freedesktop/portal/desktop",
+		"org.freedesktop.portal.Settings",
+		"SettingChanged",
+		this,
+		SLOT(handleColorSchemeChanged(QString, QString, QDBusVariant)));
 
-	QDBusMessage msg = QDBusMessage::createMethodCall(
-		"org.freedesktop.portal.Desktop", "/org/freedesktop/portal/desktop", "org.freedesktop.portal.Settings", "Read");
+	QDBusMessage msg = QDBusMessage::createMethodCall("org.freedesktop.portal.Desktop", "/org/freedesktop/portal/desktop", "org.freedesktop.portal.Settings", "Read");
 	msg << QVariant("org.freedesktop.appearance") << QVariant("color-scheme");
 	sessionBus.callWithCallback(msg, this, SLOT(handleColorSchemeRead(QDBusVariant)));
-}
-
-NixUtils::~NixUtils()
-{
 }
 
 bool NixUtils::isDarkMode() const
@@ -103,6 +103,7 @@ bool NixUtils::isDarkMode() const
 	{
 		return false;
 	}
+
 	return qApp->style()->standardPalette().color(QPalette::Window).toHsl().lightness() < 110;
 }
 
@@ -158,6 +159,7 @@ bool NixUtils::nativeEventFilter(const QByteArray &eventType, void *message, lon
 	Q_UNUSED(eventType)
 	Q_UNUSED(message)
 #endif
+
 	return false;
 }
 
@@ -178,6 +180,7 @@ bool NixUtils::triggerGlobalShortcut(uint keycode, uint modifiers)
 	Q_UNUSED(keycode)
 	Q_UNUSED(modifiers)
 #endif
+
 	return false;
 }
 
@@ -235,6 +238,7 @@ bool NixUtils::registerGlobalShortcut(const QString &name, Qt::Key key, Qt::Keyb
 	Q_UNUSED(modifiers)
 	Q_UNUSED(error)
 #endif
+
 	return true;
 }
 
@@ -256,6 +260,7 @@ bool NixUtils::unregisterGlobalShortcut(const QString &name)
 #else
 	Q_UNUSED(name)
 #endif
+
 	return true;
 }
 

@@ -26,10 +26,11 @@ class Database;
 class Group;
 class QComboBox;
 
-namespace Ui
-{
-	class CsvImportWidget;
-}
+namespace Ui {
+
+class CsvImportWidget;
+
+} // namespace Ui
 
 class CsvImportWidget: public QWidget
 {
@@ -37,7 +38,7 @@ class CsvImportWidget: public QWidget
 
 public:
 	explicit CsvImportWidget(QWidget *parent = nullptr);
-	~CsvImportWidget() override;
+	~CsvImportWidget();
 
 	void load(const QString &filename);
 	QSharedPointer<Database> buildDatabase();
@@ -60,7 +61,7 @@ private:
 
 	CsvParserModel *m_parserModel;
 	QStringListModel *m_comboModel;
-	QList<QComboBox *> m_combos;
+	QList<QComboBox*> m_combos;
 	QStringList m_columnHeader;
 	QStringList m_fieldSeparatorList;
 	QString m_filename;

@@ -70,10 +70,6 @@ DatabaseSettingsDialog::DatabaseSettingsDialog(QWidget *parent)
 	setCurrentPage(0);
 }
 
-DatabaseSettingsDialog::~DatabaseSettingsDialog()
-{
-}
-
 void DatabaseSettingsDialog::load(const QSharedPointer<Database> &db)
 {
 	// Default to the main page on load
@@ -121,8 +117,6 @@ void DatabaseSettingsDialog::save()
 		m_securityTabWidget->setCurrentIndex(1);
 		return;
 	}
-
-	// Browser settings don't have anything to save
 
 #ifdef WITH_XC_FDOSECRETS
 	m_fdoSecretsWidget->saveSettings();

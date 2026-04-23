@@ -75,6 +75,7 @@ void DatabaseOpenDialog::selectTabOffset(int offset)
 	{
 		return;
 	}
+
 	int tab = m_tabBar->currentIndex() + offset;
 	int last = m_tabBar->count() - 1;
 	if (tab < 0)
@@ -85,6 +86,7 @@ void DatabaseOpenDialog::selectTabOffset(int offset)
 	{
 		tab = 0;
 	}
+
 	m_tabBar->setCurrentIndex(tab);
 }
 
@@ -110,6 +112,7 @@ void DatabaseOpenDialog::setActiveDatabaseTab(DatabaseWidget *dbWidget)
 	{
 		return;
 	}
+
 	int index = m_tabDbWidgets.indexOf(dbWidget);
 	if (index != -1)
 	{
@@ -133,8 +136,8 @@ void DatabaseOpenDialog::tabChanged(int index)
 	{
 		// if these list sizes don't match, there's a bug somewhere nearby
 		qWarning("DatabaseOpenDialog: mismatch between tab count %d and DB count %d",
-		         m_tabBar->count(),
-		         m_tabDbWidgets.count());
+			m_tabBar->count(),
+			m_tabDbWidgets.count());
 	}
 }
 
@@ -148,6 +151,7 @@ void DatabaseOpenDialog::setTarget(DatabaseWidget *dbWidget, const QString &file
 	{
 		disconnect(this, &DatabaseOpenDialog::dialogFinished, m_currentDbWidget, nullptr);
 	}
+
 	connect(this, &DatabaseOpenDialog::dialogFinished, dbWidget, &DatabaseWidget::unlockDatabase);
 
 	m_currentDbWidget = dbWidget;
@@ -173,6 +177,7 @@ void DatabaseOpenDialog::clearForms()
 	{
 		disconnect(this, &DatabaseOpenDialog::dialogFinished, m_currentDbWidget, nullptr);
 	}
+
 	m_currentDbWidget.clear();
 	m_tabDbWidgets.clear();
 
@@ -182,6 +187,7 @@ void DatabaseOpenDialog::clearForms()
 	{
 		m_tabBar->removeTab(0);
 	}
+
 	m_tabBar->blockSignals(false);
 }
 
@@ -203,15 +209,6 @@ void DatabaseOpenDialog::done(int result)
 	clearForms();
 
 	QDialog::done(result);
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 3, 0)
-	// CDialogs are not really closed, just hidden, pre Qt 6.3?
-	if (testAttribute(Qt::WA_DeleteOnClose))
-	{
-		setAttribute(Qt::WA_DeleteOnClose, false);
-		deleteLater();
-	}
-#endif
 }
 
 void DatabaseOpenDialog::complete(bool accepted)

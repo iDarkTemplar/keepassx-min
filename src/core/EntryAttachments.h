@@ -34,6 +34,7 @@ class EntryAttachments: public ModifiableObject
 public:
 	explicit EntryAttachments(QObject *parent = nullptr);
 	virtual ~EntryAttachments();
+
 	QList<QString> keys() const;
 	bool hasKey(const QString &key) const;
 	QSet<QByteArray> values() const;
@@ -45,10 +46,11 @@ public:
 	bool isEmpty() const;
 	void clear();
 	void copyDataFrom(const EntryAttachments *other);
-	bool operator==(const EntryAttachments &other) const;
-	bool operator!=(const EntryAttachments &other) const;
 	int attachmentsSize() const;
 	bool openAttachment(const QString &key, QString *errorMessage = nullptr);
+
+	bool operator==(const EntryAttachments &other) const;
+	bool operator!=(const EntryAttachments &other) const;
 
 signals:
 	void keyModified(const QString &key);

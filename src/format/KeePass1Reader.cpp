@@ -51,8 +51,7 @@ KeePass1Reader::KeePass1Reader()
 {
 }
 
-QSharedPointer<Database>
-	KeePass1Reader::readDatabase(QIODevice *device, const QString &password, QIODevice *keyfileDevice)
+QSharedPointer<Database> KeePass1Reader::readDatabase(QIODevice *device, const QString &password, QIODevice *keyfileDevice)
 {
 	m_error = false;
 	m_errorStr.clear();
@@ -69,6 +68,7 @@ QSharedPointer<Database>
 			raiseError(tr("Unable to read keyfile.").append("\n").append(keyfileDevice->errorString()));
 			return {};
 		}
+
 		if (!keyfileDevice->seek(0))
 		{
 			raiseError(tr("Unable to read keyfile.").append("\n").append(keyfileDevice->errorString()));
@@ -112,9 +112,7 @@ QSharedPointer<Database>
 	}
 
 	auto version = Endian::readSizedInt<quint32>(m_device, KeePass1::BYTEORDER, &ok);
-	if (!ok
-	    || (version & KeePass1::FILE_VERSION_CRITICAL_MASK)
-	           != (KeePass1::FILE_VERSION & KeePass1::FILE_VERSION_CRITICAL_MASK))
+	if (!ok || (version & KeePass1::FILE_VERSION_CRITICAL_MASK) != (KeePass1::FILE_VERSION & KeePass1::FILE_VERSION_CRITICAL_MASK))
 	{
 		raiseError(tr("Unsupported KeePass database version."));
 		return {};
@@ -168,6 +166,7 @@ QSharedPointer<Database>
 		raiseError(tr("Invalid number of transform rounds"));
 		return {};
 	}
+
 	auto kdf = QSharedPointer<AesKdf>::create(true);
 	kdf->setRounds(m_transformRounds);
 	kdf->setSeed(m_transformSeed);
@@ -182,7 +181,7 @@ QSharedPointer<Database>
 		return {};
 	}
 
-	QList<Group *> groups;
+	QList<Group*> groups;
 	for (quint32 i = 0; i < numGroups; i++)
 	{
 		Group *group = readGroup(cipherStream.data());
@@ -190,10 +189,11 @@ QSharedPointer<Database>
 		{
 			return {};
 		}
+
 		groups.append(group);
 	}
 
-	QList<Entry *> entries;
+	QList<Entry*> entries;
 	for (quint32 i = 0; i < numEntries; i++)
 	{
 		Entry *entry = readEntry(cipherStream.data());
@@ -201,6 +201,7 @@ QSharedPointer<Database>
 		{
 			return {};
 		}
+
 		entries.append(entry);
 	}
 
@@ -230,6 +231,7 @@ QSharedPointer<Database>
 			{
 				entry->setGroup(m_groupIds.value(groupId));
 			}
+
 			entry->setUuid(QUuid::createUuid());
 		}
 	}
@@ -254,7 +256,7 @@ QSharedPointer<Database>
 		group->setUpdateTimeinfo(true);
 	}
 
-	const QList<Entry *> dbEntries = m_db->rootGroup()->entriesRecursive();
+	const QList<Entry*> dbEntries = m_db->rootGroup()->entriesRecursive();
 	for (Entry *entry: dbEntries)
 	{
 		entry->setUpdateTimeinfo(true);
@@ -332,8 +334,7 @@ QString KeePass1Reader::errorString()
 	return m_errorStr;
 }
 
-SymmetricCipherStream *
-	KeePass1Reader::testKeys(const QString &password, const QByteArray &keyfileData, qint64 contentPos)
+SymmetricCipherStream* KeePass1Reader::testKeys(const QString &password, const QByteArray &keyfileData, qint64 contentPos)
 {
 	const QList<PasswordEncoding> encodings = {Windows1252, Latin1, UTF8};
 
@@ -392,11 +393,13 @@ SymmetricCipherStream *
 		{
 			mode = SymmetricCipher::Twofish_CBC;
 		}
+
 		if (!cipherStream->init(mode, SymmetricCipher::Decrypt, finalKey, m_encryptionIV))
 		{
 			raiseError(cipherStream->errorString());
 			return nullptr;
 		}
+
 		if (!cipherStream->open(QIODevice::ReadOnly))
 		{
 			raiseError(cipherStream->errorString());
@@ -414,6 +417,7 @@ SymmetricCipherStream *
 			{
 				msg.append("\n").append(m_device->errorString());
 			}
+
 			raiseError(msg);
 
 			return nullptr;
@@ -426,6 +430,7 @@ SymmetricCipherStream *
 				raiseError(cipherStream->errorString());
 				return nullptr;
 			}
+
 			cipherStream->open(QIODevice::ReadOnly);
 			break;
 		}
@@ -438,7 +443,7 @@ SymmetricCipherStream *
 	if (!cipherStream)
 	{
 		raiseError(tr("Invalid credentials were provided, please try again.\n"
-		              "If this reoccurs, then your database file may be corrupt."));
+			"If this reoccurs, then your database file may be corrupt."));
 	}
 
 	return cipherStream.take();
@@ -479,13 +484,14 @@ bool KeePass1Reader::verifyKey(SymmetricCipherStream *cipherStream)
 		{
 			return false;
 		}
+
 		contentHash.addData(buffer);
 	} while (!buffer.isEmpty());
 
 	return contentHash.result() == m_contentHashHeader;
 }
 
-Group *KeePass1Reader::readGroup(QIODevice *cipherStream)
+Group* KeePass1Reader::readGroup(QIODevice *cipherStream)
 {
 	QScopedPointer<Group> group(new Group());
 	group->setUpdateTimeinfo(false);
@@ -535,83 +541,96 @@ Group *KeePass1Reader::readGroup(QIODevice *cipherStream)
 				raiseError(tr("Incorrect group id field size"));
 				return nullptr;
 			}
+
 			groupId = Endian::bytesToSizedInt<quint32>(fieldData, KeePass1::BYTEORDER);
 			groupIdSet = true;
 			break;
 		case 0x0002:
 			group->setName(QString::fromUtf8(fieldData.constData()));
 			break;
-		case 0x0003: {
-			if (fieldSize != 5)
+		case 0x0003:
 			{
-				raiseError(tr("Incorrect group creation time field size"));
-				return nullptr;
+				if (fieldSize != 5)
+				{
+					raiseError(tr("Incorrect group creation time field size"));
+					return nullptr;
+				}
+
+				QDateTime dateTime = dateFromPackedStruct(fieldData);
+				if (dateTime.isValid())
+				{
+					timeInfo.setCreationTime(dateTime);
+				}
+				break;
 			}
-			QDateTime dateTime = dateFromPackedStruct(fieldData);
-			if (dateTime.isValid())
+		case 0x0004:
 			{
-				timeInfo.setCreationTime(dateTime);
+				if (fieldSize != 5)
+				{
+					raiseError(tr("Incorrect group modification time field size"));
+					return nullptr;
+				}
+
+				QDateTime dateTime = dateFromPackedStruct(fieldData);
+				if (dateTime.isValid())
+				{
+					timeInfo.setLastModificationTime(dateTime);
+				}
+				break;
 			}
-			break;
-		}
-		case 0x0004: {
-			if (fieldSize != 5)
+		case 0x0005:
 			{
-				raiseError(tr("Incorrect group modification time field size"));
-				return nullptr;
+				if (fieldSize != 5)
+				{
+					raiseError(tr("Incorrect group access time field size"));
+				}
+
+				QDateTime dateTime = dateFromPackedStruct(fieldData);
+				if (dateTime.isValid())
+				{
+					timeInfo.setLastAccessTime(dateTime);
+				}
+				break;
 			}
-			QDateTime dateTime = dateFromPackedStruct(fieldData);
-			if (dateTime.isValid())
+		case 0x0006:
 			{
-				timeInfo.setLastModificationTime(dateTime);
+				if (fieldSize != 5)
+				{
+					raiseError(tr("Incorrect group expiry time field size"));
+				}
+
+				QDateTime dateTime = dateFromPackedStruct(fieldData);
+				if (dateTime.isValid())
+				{
+					timeInfo.setExpires(true);
+					timeInfo.setExpiryTime(dateTime);
+				}
+				break;
 			}
-			break;
-		}
-		case 0x0005: {
-			if (fieldSize != 5)
+		case 0x0007:
 			{
-				raiseError(tr("Incorrect group access time field size"));
+				if (fieldSize != 4)
+				{
+					raiseError(tr("Incorrect group icon field size"));
+					return nullptr;
+				}
+
+				quint32 iconNumber = Endian::bytesToSizedInt<quint32>(fieldData, KeePass1::BYTEORDER);
+				group->setIcon(iconNumber);
+				break;
 			}
-			QDateTime dateTime = dateFromPackedStruct(fieldData);
-			if (dateTime.isValid())
+		case 0x0008:
 			{
-				timeInfo.setLastAccessTime(dateTime);
+				if (fieldSize != 2)
+				{
+					raiseError(tr("Incorrect group level field size"));
+					return nullptr;
+				}
+
+				groupLevel = Endian::bytesToSizedInt<quint16>(fieldData, KeePass1::BYTEORDER);
+				groupLevelSet = true;
+				break;
 			}
-			break;
-		}
-		case 0x0006: {
-			if (fieldSize != 5)
-			{
-				raiseError(tr("Incorrect group expiry time field size"));
-			}
-			QDateTime dateTime = dateFromPackedStruct(fieldData);
-			if (dateTime.isValid())
-			{
-				timeInfo.setExpires(true);
-				timeInfo.setExpiryTime(dateTime);
-			}
-			break;
-		}
-		case 0x0007: {
-			if (fieldSize != 4)
-			{
-				raiseError(tr("Incorrect group icon field size"));
-				return nullptr;
-			}
-			quint32 iconNumber = Endian::bytesToSizedInt<quint32>(fieldData, KeePass1::BYTEORDER);
-			group->setIcon(iconNumber);
-			break;
-		}
-		case 0x0008: {
-			if (fieldSize != 2)
-			{
-				raiseError(tr("Incorrect group level field size"));
-				return nullptr;
-			}
-			groupLevel = Endian::bytesToSizedInt<quint16>(fieldData, KeePass1::BYTEORDER);
-			groupLevelSet = true;
-			break;
-		}
 		case 0x0009:
 			// flags, ignore field
 			break;
@@ -639,7 +658,7 @@ Group *KeePass1Reader::readGroup(QIODevice *cipherStream)
 	return group.take();
 }
 
-Entry *KeePass1Reader::readEntry(QIODevice *cipherStream)
+Entry* KeePass1Reader::readEntry(QIODevice *cipherStream)
 {
 	QScopedPointer<Entry> entry(new Entry());
 	entry->setUpdateTimeinfo(false);
@@ -684,28 +703,33 @@ Entry *KeePass1Reader::readEntry(QIODevice *cipherStream)
 				raiseError(tr("Invalid entry UUID field size"));
 				return nullptr;
 			}
+
 			m_entryUuids.insert(fieldData, entry.data());
 			break;
-		case 0x0002: {
-			if (fieldSize != 4)
+		case 0x0002:
 			{
-				raiseError(tr("Invalid entry group id field size"));
-				return nullptr;
+				if (fieldSize != 4)
+				{
+					raiseError(tr("Invalid entry group id field size"));
+					return nullptr;
+				}
+
+				quint32 groupId = Endian::bytesToSizedInt<quint32>(fieldData, KeePass1::BYTEORDER);
+				m_entryGroupIds.insert(entry.data(), groupId);
+				break;
 			}
-			quint32 groupId = Endian::bytesToSizedInt<quint32>(fieldData, KeePass1::BYTEORDER);
-			m_entryGroupIds.insert(entry.data(), groupId);
-			break;
-		}
-		case 0x0003: {
-			if (fieldSize != 4)
+		case 0x0003:
 			{
-				raiseError(tr("Invalid entry icon field size"));
-				return nullptr;
+				if (fieldSize != 4)
+				{
+					raiseError(tr("Invalid entry icon field size"));
+					return nullptr;
+				}
+
+				quint32 iconNumber = Endian::bytesToSizedInt<quint32>(fieldData, KeePass1::BYTEORDER);
+				entry->setIcon(iconNumber);
+				break;
 			}
-			quint32 iconNumber = Endian::bytesToSizedInt<quint32>(fieldData, KeePass1::BYTEORDER);
-			entry->setIcon(iconNumber);
-			break;
-		}
 		case 0x0004:
 			entry->setTitle(QString::fromUtf8(fieldData.constData()));
 			break;
@@ -721,59 +745,67 @@ Entry *KeePass1Reader::readEntry(QIODevice *cipherStream)
 		case 0x0008:
 			entry->setNotes(QString::fromUtf8(fieldData.constData()));
 			break;
-		case 0x0009: {
-			if (fieldSize != 5)
+		case 0x0009:
 			{
-				raiseError(tr("Invalid entry creation time field size"));
-				return nullptr;
+				if (fieldSize != 5)
+				{
+					raiseError(tr("Invalid entry creation time field size"));
+					return nullptr;
+				}
+
+				QDateTime dateTime = dateFromPackedStruct(fieldData);
+				if (dateTime.isValid())
+				{
+					timeInfo.setCreationTime(dateTime);
+				}
+				break;
 			}
-			QDateTime dateTime = dateFromPackedStruct(fieldData);
-			if (dateTime.isValid())
+		case 0x000A:
 			{
-				timeInfo.setCreationTime(dateTime);
+				if (fieldSize != 5)
+				{
+					raiseError(tr("Invalid entry modification time field size"));
+					return nullptr;
+				}
+
+				QDateTime dateTime = dateFromPackedStruct(fieldData);
+				if (dateTime.isValid())
+				{
+					timeInfo.setLastModificationTime(dateTime);
+				}
+				break;
 			}
-			break;
-		}
-		case 0x000A: {
-			if (fieldSize != 5)
+		case 0x000B:
 			{
-				raiseError(tr("Invalid entry modification time field size"));
-				return nullptr;
+				if (fieldSize != 5)
+				{
+					raiseError(tr("Invalid entry creation time field size"));
+					return nullptr;
+				}
+
+				QDateTime dateTime = dateFromPackedStruct(fieldData);
+				if (dateTime.isValid())
+				{
+					timeInfo.setLastAccessTime(dateTime);
+				}
+				break;
 			}
-			QDateTime dateTime = dateFromPackedStruct(fieldData);
-			if (dateTime.isValid())
+		case 0x000C:
 			{
-				timeInfo.setLastModificationTime(dateTime);
+				if (fieldSize != 5)
+				{
+					raiseError(tr("Invalid entry expiry time field size"));
+					return nullptr;
+				}
+
+				QDateTime dateTime = dateFromPackedStruct(fieldData);
+				if (dateTime.isValid())
+				{
+					timeInfo.setExpires(true);
+					timeInfo.setExpiryTime(dateTime);
+				}
+				break;
 			}
-			break;
-		}
-		case 0x000B: {
-			if (fieldSize != 5)
-			{
-				raiseError(tr("Invalid entry creation time field size"));
-				return nullptr;
-			}
-			QDateTime dateTime = dateFromPackedStruct(fieldData);
-			if (dateTime.isValid())
-			{
-				timeInfo.setLastAccessTime(dateTime);
-			}
-			break;
-		}
-		case 0x000C: {
-			if (fieldSize != 5)
-			{
-				raiseError(tr("Invalid entry expiry time field size"));
-				return nullptr;
-			}
-			QDateTime dateTime = dateFromPackedStruct(fieldData);
-			if (dateTime.isValid())
-			{
-				timeInfo.setExpires(true);
-				timeInfo.setExpiryTime(dateTime);
-			}
-			break;
-		}
 		case 0x000D:
 			binaryName = QString::fromUtf8(fieldData.constData());
 			break;
@@ -798,9 +830,9 @@ Entry *KeePass1Reader::readEntry(QIODevice *cipherStream)
 	return entry.take();
 }
 
-bool KeePass1Reader::constructGroupTree(const QList<Group *> &groups)
+bool KeePass1Reader::constructGroupTree(const QList<Group*> &groups)
 {
-	for (int i = 0; i < groups.size(); i++)
+	for (int i = 0; i < groups.size(); ++i)
 	{
 		quint32 level = m_groupLevels.value(groups[i]);
 
@@ -810,7 +842,7 @@ bool KeePass1Reader::constructGroupTree(const QList<Group *> &groups)
 		}
 		else
 		{
-			for (int j = (i - 1); j >= 0; j--)
+			for (int j = (i - 1); j >= 0; --j)
 			{
 				if (m_groupLevels.value(groups[j]) < level)
 				{
@@ -874,7 +906,7 @@ bool KeePass1Reader::parseGroupTreeState(const QByteArray &data)
 		return false;
 	}
 
-	for (quint32 i = 0; i < num; i++)
+	for (quint32 i = 0; i < num; ++i)
 	{
 		quint32 groupId = Endian::bytesToSizedInt<quint32>(data.mid(pos, 4), KeePass1::BYTEORDER);
 		pos += 4;
@@ -911,12 +943,13 @@ bool KeePass1Reader::parseCustomIcons4(const QByteArray &data)
 
 	QList<QUuid> iconUuids;
 
-	for (quint32 i = 0; i < numIcons; i++)
+	for (quint32 i = 0; i < numIcons; ++i)
 	{
 		if (data.size() < (pos + 4))
 		{
 			return false;
 		}
+
 		quint32 iconSize = Endian::bytesToSizedInt<quint32>(data.mid(pos, 4), KeePass1::BYTEORDER);
 		pos += 4;
 
@@ -924,6 +957,7 @@ bool KeePass1Reader::parseCustomIcons4(const QByteArray &data)
 		{
 			return false;
 		}
+
 		QByteArray icon = data.mid(pos, iconSize);
 		pos += iconSize;
 
@@ -937,7 +971,7 @@ bool KeePass1Reader::parseCustomIcons4(const QByteArray &data)
 		return false;
 	}
 
-	for (quint32 i = 0; i < numEntries; i++)
+	for (quint32 i = 0; i < numEntries; ++i)
 	{
 		QByteArray entryUuid = data.mid(pos, 16);
 		pos += 16;
@@ -956,7 +990,7 @@ bool KeePass1Reader::parseCustomIcons4(const QByteArray &data)
 		return false;
 	}
 
-	for (quint32 i = 0; i < numGroups; i++)
+	for (quint32 i = 0; i < numGroups; ++i)
 	{
 		quint32 groupId = Endian::bytesToSizedInt<quint32>(data.mid(pos, 4), KeePass1::BYTEORDER);
 		pos += 4;
@@ -1011,9 +1045,12 @@ QDateTime KeePass1Reader::dateFromPackedStruct(const QByteArray &data)
 
 bool KeePass1Reader::isMetaStream(const Entry *entry)
 {
-	return entry->attachments()->keys().contains("bin-stream") && !entry->notes().isEmpty()
-	       && entry->title() == "Meta-Info" && entry->username() == "SYSTEM" && entry->url() == "$"
-	       && entry->iconNumber() == 0;
+	return entry->attachments()->keys().contains("bin-stream")
+		&& !entry->notes().isEmpty()
+		&& entry->title() == "Meta-Info"
+		&& entry->username() == "SYSTEM"
+		&& entry->url() == "$"
+		&& entry->iconNumber() == 0;
 }
 
 QByteArray KeePass1Reader::readKeyfile(QIODevice *device)
@@ -1062,6 +1099,7 @@ QByteArray KeePass1Reader::readKeyfile(QIODevice *device)
 		{
 			return QByteArray();
 		}
+
 		cryptoHash.addData(buffer);
 	} while (!buffer.isEmpty());
 

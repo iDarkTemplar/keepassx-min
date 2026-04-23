@@ -30,6 +30,7 @@ class EntryAttributes: public ModifiableObject
 
 public:
 	explicit EntryAttributes(QObject *parent = nullptr);
+
 	QList<QString> keys() const;
 	bool hasKey(const QString &key) const;
 	bool hasPasskey() const;
@@ -50,6 +51,7 @@ public:
 	int attributesSize() const;
 	void copyDataFrom(const EntryAttributes *other);
 	QUuid referenceUuid(const QString &key) const;
+
 	bool operator==(const EntryAttributes &other) const;
 	bool operator!=(const EntryAttributes &other) const;
 

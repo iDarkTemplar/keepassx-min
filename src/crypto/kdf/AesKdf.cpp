@@ -57,6 +57,7 @@ QVariantMap AesKdf::writeParameters()
 
 	p.insert(KeePass2::KDFPARAM_AES_ROUNDS, static_cast<quint64>(rounds()));
 	p.insert(KeePass2::KDFPARAM_AES_SEED, seed());
+
 	return p;
 }
 
@@ -75,6 +76,7 @@ bool AesKdf::transformKeyRaw(const QByteArray &key, const QByteArray &seed, int 
 	auto out = key;
 	SymmetricCipher::aesKdf(seed, rounds, out);
 	*result = CryptoHash::hash(out, CryptoHash::Sha256);
+
 	return true;
 }
 
@@ -93,6 +95,7 @@ int AesKdf::benchmark(int msec) const
 
 	QElapsedTimer timer;
 	timer.start();
+
 	for (int i = 0; i < trials; ++i)
 	{
 		QByteArray result;

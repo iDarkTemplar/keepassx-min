@@ -50,9 +50,11 @@
 #include <QIODevice>
 
 class QtIOCompressorPrivate;
+
 class QtIOCompressor: public QIODevice
 {
 	Q_OBJECT
+
 public:
 	enum StreamFormat
 	{
@@ -60,6 +62,7 @@ public:
 		GzipFormat,
 		RawZipFormat
 	};
+
 	QtIOCompressor(QIODevice *device, int compressionLevel = 6, int bufferSize = 65500);
 	~QtIOCompressor();
 	void setStreamFormat(StreamFormat format);

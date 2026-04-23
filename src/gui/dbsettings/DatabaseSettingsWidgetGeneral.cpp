@@ -74,6 +74,7 @@ void DatabaseSettingsWidgetGeneral::initialize()
 		m_ui->historyMaxItemsSpinBox->setEnabled(false);
 		m_ui->historyMaxItemsCheckBox->setChecked(false);
 	}
+
 	int historyMaxSizeMiB = qRound(meta->historyMaxSize() / qreal(1024 * 1024));
 	if (historyMaxSizeMiB > 0)
 	{
@@ -86,6 +87,7 @@ void DatabaseSettingsWidgetGeneral::initialize()
 		m_ui->historyMaxSizeSpinBox->setEnabled(false);
 		m_ui->historyMaxSizeCheckBox->setChecked(false);
 	}
+
 	if (meta->autosaveDelayMin() > 0)
 	{
 		m_ui->autosaveDelaySpinBox->setValue(meta->autosaveDelayMin());
@@ -118,11 +120,11 @@ bool DatabaseSettingsWidgetGeneral::saveSettings()
 		if (recycleBin && !recycleBin->isEmpty())
 		{
 			auto result = MessageBox::question(this,
-			                                   tr("Delete Recycle Bin"),
-			                                   tr("Do you want to delete the current recycle bin and all its "
-			                                      "contents?\nThis action is not reversible."),
-			                                   MessageBox::Delete | MessageBox::No,
-			                                   MessageBox::No);
+				tr("Delete Recycle Bin"),
+				tr("Do you want to delete the current recycle bin and all its "
+					"contents?\nThis action is not reversible."),
+				MessageBox::Delete | MessageBox::No,
+				MessageBox::No);
 
 			if (result == MessageBox::Delete)
 			{
@@ -138,8 +140,7 @@ bool DatabaseSettingsWidgetGeneral::saveSettings()
 		meta->setRecycleBin(nullptr);
 	}
 
-	m_db->setCompressionAlgorithm(m_ui->compressionCheckbox->isChecked() ? Database::CompressionGZip
-	                                                                     : Database::CompressionNone);
+	m_db->setCompressionAlgorithm(m_ui->compressionCheckbox->isChecked() ? Database::CompressionGZip : Database::CompressionNone);
 
 	meta->setName(m_ui->dbNameEdit->text());
 	meta->setDescription(m_ui->dbDescriptionEdit->text());
@@ -152,8 +153,8 @@ bool DatabaseSettingsWidgetGeneral::saveSettings()
 	m_db->setPublicIcon(m_ui->dbPublicIconButton->property("iconIndex").toInt());
 
 	bool truncate = false;
-
 	int historyMaxItems;
+
 	if (m_ui->historyMaxItemsCheckBox->isChecked())
 	{
 		historyMaxItems = m_ui->historyMaxItemsSpinBox->value();
@@ -162,6 +163,7 @@ bool DatabaseSettingsWidgetGeneral::saveSettings()
 	{
 		historyMaxItems = -1;
 	}
+
 	if (historyMaxItems != meta->historyMaxItems())
 	{
 		meta->setHistoryMaxItems(historyMaxItems);
@@ -169,6 +171,7 @@ bool DatabaseSettingsWidgetGeneral::saveSettings()
 	}
 
 	int historyMaxSize;
+
 	if (m_ui->historyMaxSizeCheckBox->isChecked())
 	{
 		historyMaxSize = m_ui->historyMaxSizeSpinBox->value() * 1048576;
@@ -177,6 +180,7 @@ bool DatabaseSettingsWidgetGeneral::saveSettings()
 	{
 		historyMaxSize = -1;
 	}
+
 	if (historyMaxSize != meta->historyMaxSize())
 	{
 		meta->setHistoryMaxSize(historyMaxSize);
@@ -184,10 +188,12 @@ bool DatabaseSettingsWidgetGeneral::saveSettings()
 	}
 
 	int autosaveDelayMin = 0;
+
 	if (m_ui->autosaveDelayCheckBox->isChecked())
 	{
 		autosaveDelayMin = m_ui->autosaveDelaySpinBox->value();
 	}
+
 	meta->setAutosaveDelayMin(autosaveDelayMin);
 
 	if (truncate)
@@ -264,8 +270,7 @@ void DatabaseSettingsWidgetGeneral::pickPublicIcon()
 	connect(iconList, &QListView::doubleClicked, &dialog, &QDialog::accept);
 	connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
 	connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
-	connect(
-		&dialog, &QDialog::accepted, this, [this, iconList] { setupPublicIconButton(iconList->currentIndex().row()); });
+	connect(&dialog, &QDialog::accepted, this, [this, iconList] { setupPublicIconButton(iconList->currentIndex().row()); });
 
 	dialog.exec();
 }

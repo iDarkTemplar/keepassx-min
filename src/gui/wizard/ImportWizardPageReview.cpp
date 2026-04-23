@@ -51,6 +51,7 @@ void ImportWizardPageReview::initializePage()
 	{
 		delete child;
 	}
+
 	m_ui->setupUi(this);
 
 	auto filename = field("ImportFile").toString();
@@ -94,6 +95,7 @@ bool ImportWizardPageReview::validatePage()
 	{
 		m_db = m_csvWidget->buildDatabase();
 	}
+
 	return !m_db.isNull();
 }
 
@@ -150,16 +152,19 @@ void ImportWizardPageReview::setupDatabasePreview()
 	int row = 0;
 	for (auto entry: entryList)
 	{
-		QList items({new QTableWidgetItem(entry->group()->name()),
-		             new QTableWidgetItem(entry->title()),
-		             new QTableWidgetItem(entry->username()),
-		             new QTableWidgetItem(entry->password()),
-		             new QTableWidgetItem(entry->url())});
+		QList items({
+			new QTableWidgetItem(entry->group()->name()),
+			new QTableWidgetItem(entry->title()),
+			new QTableWidgetItem(entry->username()),
+			new QTableWidgetItem(entry->password()),
+			new QTableWidgetItem(entry->url())});
+
 		int column = 0;
 		for (auto item: items)
 		{
 			tableWidget->setItem(row, column++, item);
 		}
+
 		++row;
 	}
 
@@ -182,6 +187,7 @@ QSharedPointer<Database> ImportWizardPageReview::importOPUX(const QString &filen
 	{
 		m_ui->messageWidget->showMessage(reader.errorString(), KMessageWidget::Error, -1);
 	}
+
 	return db;
 }
 
@@ -193,6 +199,7 @@ QSharedPointer<Database> ImportWizardPageReview::importBitwarden(const QString &
 	{
 		m_ui->messageWidget->showMessage(reader.errorString(), KMessageWidget::Error, -1);
 	}
+
 	return db;
 }
 

@@ -25,10 +25,11 @@
 
 class SignalMultiplexer;
 
-namespace Ui
-{
-	class SearchWidget;
-}
+namespace Ui {
+
+class SearchWidget;
+
+} // namespace Ui
 
 class PopupHelpWidget;
 
@@ -38,7 +39,7 @@ class SearchWidget: public QWidget
 
 public:
 	explicit SearchWidget(QWidget *parent = nullptr);
-	~SearchWidget() override;
+	~SearchWidget();
 
 	Q_DISABLE_COPY(SearchWidget)
 

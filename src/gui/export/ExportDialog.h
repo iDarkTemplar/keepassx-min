@@ -21,10 +21,11 @@
 #include "gui/DatabaseTabWidget.h"
 #include <QDialog>
 
-namespace Ui
-{
-	class ExportDialog;
-}
+namespace Ui {
+
+class ExportDialog;
+
+} // namespace Ui
 
 class ExportDialog: public QDialog
 {
@@ -32,7 +33,7 @@ class ExportDialog: public QDialog
 
 public:
 	explicit ExportDialog(QSharedPointer<const Database> db, DatabaseTabWidget *parent = nullptr);
-	~ExportDialog() override;
+	~ExportDialog();
 
 	enum ExportSortingStrategy
 	{

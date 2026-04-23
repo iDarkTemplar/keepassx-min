@@ -21,10 +21,11 @@
 #include <QSharedPointer>
 #include <QString>
 
-namespace Botan
-{
-	class Cipher_Mode;
-}
+namespace Botan {
+
+class Cipher_Mode;
+
+} // namespace Botan
 
 class SymmetricCipher
 {
@@ -48,8 +49,7 @@ public:
 		Encrypt
 	};
 
-	explicit SymmetricCipher() = default;
-	~SymmetricCipher() = default;
+	SymmetricCipher() = default;
 
 	bool isInitalized() const;
 	Q_REQUIRED_RESULT bool init(Mode mode, Direction direction, const QByteArray &key, const QByteArray &iv);
@@ -75,7 +75,7 @@ private:
 	static QString modeToString(const Mode mode);
 
 	QString m_error;
-	Mode m_mode;
+	Mode m_mode = Mode::InvalidMode;
 	QSharedPointer<Botan::Cipher_Mode> m_cipher;
 
 	Q_DISABLE_COPY(SymmetricCipher)

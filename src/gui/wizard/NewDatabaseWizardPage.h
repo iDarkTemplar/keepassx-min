@@ -22,10 +22,12 @@
 
 class Database;
 class DatabaseSettingsWidget;
-namespace Ui
-{
-	class NewDatabaseWizardPage;
-}
+
+namespace Ui {
+
+class NewDatabaseWizardPage;
+
+} // namespace Ui
 
 /**
  * Pure-virtual base class for "New Database" setup wizard pages
@@ -37,10 +39,10 @@ class NewDatabaseWizardPage: public QWizardPage
 public:
 	explicit NewDatabaseWizardPage(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(NewDatabaseWizardPage)
-	~NewDatabaseWizardPage() override;
+	~NewDatabaseWizardPage();
 
 	void setPageWidget(DatabaseSettingsWidget *page);
-	DatabaseSettingsWidget *pageWidget();
+	DatabaseSettingsWidget* pageWidget();
 	void setDatabase(QSharedPointer<Database> db);
 
 	void initializePage() override;

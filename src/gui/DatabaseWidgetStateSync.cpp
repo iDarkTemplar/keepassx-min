@@ -37,10 +37,6 @@ DatabaseWidgetStateSync::DatabaseWidgetStateSync(QObject *parent)
 	connect(&m_syncTimer, &QTimer::timeout, this, &DatabaseWidgetStateSync::sync);
 }
 
-DatabaseWidgetStateSync::~DatabaseWidgetStateSync()
-{
-}
-
 /**
  * Sync state with persistent storage.
  */
@@ -48,10 +44,8 @@ void DatabaseWidgetStateSync::sync()
 {
 	m_syncTimer.stop();
 	config()->set(Config::GUI_SplitterState, intListToVariant(m_splitterSizes.value(Config::GUI_SplitterState)));
-	config()->set(Config::GUI_PreviewSplitterState,
-	              intListToVariant(m_splitterSizes.value(Config::GUI_PreviewSplitterState)));
-	config()->set(Config::GUI_GroupSplitterState,
-	              intListToVariant(m_splitterSizes.value(Config::GUI_GroupSplitterState)));
+	config()->set(Config::GUI_PreviewSplitterState, intListToVariant(m_splitterSizes.value(Config::GUI_PreviewSplitterState)));
+	config()->set(Config::GUI_GroupSplitterState, intListToVariant(m_splitterSizes.value(Config::GUI_GroupSplitterState)));
 	config()->set(Config::GUI_ListViewState, m_listViewState);
 	config()->set(Config::GUI_SearchViewState, m_searchViewState);
 	config()->sync();
@@ -66,6 +60,7 @@ void DatabaseWidgetStateSync::setActive(DatabaseWidget *dbWidget)
 			// Update settings from previously active database if unlocked
 			updateAll();
 		}
+
 		disconnect(m_activeDbWidget, nullptr, this, nullptr);
 	}
 
@@ -150,6 +145,7 @@ void DatabaseWidgetStateSync::updateAll(bool forceSync)
 {
 	updateSplitterSizes();
 	updateViewState();
+
 	if (forceSync)
 	{
 		sync();

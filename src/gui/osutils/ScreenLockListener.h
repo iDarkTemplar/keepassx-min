@@ -16,6 +16,7 @@
 
 #ifndef SCREENLOCKLISTENER_H
 #define SCREENLOCKLISTENER_H
+
 #include <QWidget>
 
 class ScreenLockListenerPrivate;
@@ -26,7 +27,6 @@ class ScreenLockListener: public QObject
 
 public:
 	explicit ScreenLockListener(QWidget *parent);
-	~ScreenLockListener() override;
 
 signals:
 	void screenLocked();

@@ -39,7 +39,6 @@ class DatabaseSettingsDialog: public EditWidget
 
 public:
 	explicit DatabaseSettingsDialog(QWidget *parent = nullptr);
-	~DatabaseSettingsDialog() override;
 	Q_DISABLE_COPY(DatabaseSettingsDialog);
 
 	void load(const QSharedPointer<Database> &db);

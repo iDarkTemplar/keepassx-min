@@ -27,14 +27,16 @@ class PasswordHealth;
 class QSortFilterProxyModel;
 class QStandardItemModel;
 
-namespace Ui
-{
-	class ReportsWidgetHealthcheck;
-}
+namespace Ui {
+
+class ReportsWidgetHealthcheck;
+
+} // namespace Ui
 
 class ReportsWidgetHealthcheck: public QWidget
 {
 	Q_OBJECT
+
 public:
 	explicit ReportsWidgetHealthcheck(QWidget *parent = nullptr);
 	~ReportsWidgetHealthcheck() override;
@@ -52,7 +54,7 @@ public slots:
 	void calculateHealth();
 	void emitEntryActivated(const QModelIndex &index);
 	void customMenuRequested(QPoint);
-	QList<Entry *> getSelectedEntries();
+	QList<Entry*> getSelectedEntries();
 	void expireSelectedEntries();
 	void deleteSelectedEntries();
 
@@ -65,7 +67,7 @@ private:
 	QScopedPointer<QStandardItemModel> m_referencesModel;
 	QScopedPointer<QSortFilterProxyModel> m_modelProxy;
 	QSharedPointer<Database> m_db;
-	QList<QPair<Group *, Entry *>> m_rowToEntry;
+	QList<QPair<Group*, Entry*>> m_rowToEntry;
 };
 
 #endif // KEEPASSXC_REPORTSWIDGETHEALTHCHECK_H

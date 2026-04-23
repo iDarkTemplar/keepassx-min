@@ -57,9 +57,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>615</width>
-            <height>1402</height>
+            <y>-710</y>
+            <width>568</width>
+            <height>1304</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -413,69 +413,6 @@
                 </item>
                </layout>
               </item>
-              <item>
-               <widget class="QCheckBox" name="useAlternativeSaveCheckBox">
-                <property name="text">
-                 <string>Use alternative saving method (may solve problems with Dropbox, Google Drive, GVFS, etc.)</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_3">
-                <property name="spacing">
-                 <number>0</number>
-                </property>
-                <item>
-                 <spacer name="horizontalSpacer_8">
-                  <property name="orientation">
-                   <enum>Qt::Orientation::Horizontal</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Policy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>30</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="alternativeSaveComboBox">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="sizeAdjustPolicy">
-                   <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Temporary file moved into place</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Directly write to database file (dangerous)</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_7">
-                  <property name="orientation">
-                   <enum>Qt::Orientation::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </item>
              </layout>
             </widget>
            </item>
@@ -568,13 +505,6 @@
                 </property>
                 <property name="checked">
                  <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="minimizeOnOpenUrlCheckBox">
-                <property name="text">
-                 <string>Minimize when opening a URL</string>
                 </property>
                </widget>
               </item>
@@ -1092,13 +1022,10 @@
   <tabstop>backupBeforeSaveCheckBox</tabstop>
   <tabstop>backupFilePath</tabstop>
   <tabstop>backupFilePathPicker</tabstop>
-  <tabstop>useAlternativeSaveCheckBox</tabstop>
-  <tabstop>alternativeSaveComboBox</tabstop>
   <tabstop>ConfirmMoveEntryToRecycleBinCheckBox</tabstop>
   <tabstop>EnableCopyOnDoubleClickCheckBox</tabstop>
   <tabstop>urlDoubleClickComboBox</tabstop>
   <tabstop>useGroupIconOnEntryCreationCheckBox</tabstop>
-  <tabstop>minimizeOnOpenUrlCheckBox</tabstop>
   <tabstop>hideWindowOnCopyCheckBox</tabstop>
   <tabstop>minimizeOnCopyRadioButton</tabstop>
   <tabstop>dropToBackgroundOnCopyRadioButton</tabstop>

@@ -37,11 +37,11 @@ public:
 	enum class Intent
 	{
 		None,
-		AutoType,
 		Merge
 	};
 
 	explicit DatabaseOpenDialog(QWidget *parent = nullptr);
+
 	void setTarget(DatabaseWidget *dbWidget, const QString &filePath);
 	void addDatabaseTab(DatabaseWidget *dbWidget);
 	void setActiveDatabaseTab(DatabaseWidget *dbWidget);

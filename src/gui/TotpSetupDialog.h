@@ -23,10 +23,11 @@
 #include "core/Database.h"
 #include "gui/DatabaseWidget.h"
 
-namespace Ui
-{
-	class TotpSetupDialog;
-}
+namespace Ui {
+
+class TotpSetupDialog;
+
+} // namespace Ui
 
 class TotpSetupDialog: public QDialog
 {
@@ -34,7 +35,8 @@ class TotpSetupDialog: public QDialog
 
 public:
 	explicit TotpSetupDialog(QWidget *parent = nullptr, Entry *entry = nullptr);
-	~TotpSetupDialog() override;
+	~TotpSetupDialog();
+
 	void init();
 
 signals:

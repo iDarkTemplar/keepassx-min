@@ -55,6 +55,7 @@ public:
 	{
 		return kibibytes >> 10;
 	}
+
 	static quint64 toKibibytes(quint64 mebibits)
 	{
 		return mebibits << 10;

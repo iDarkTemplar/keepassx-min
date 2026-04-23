@@ -27,7 +27,6 @@ class DatabaseWidgetStateSync: public QObject
 
 public:
 	explicit DatabaseWidgetStateSync(QObject *parent = nullptr);
-	~DatabaseWidgetStateSync() override;
 
 public slots:
 	void setActive(DatabaseWidget *dbWidget);

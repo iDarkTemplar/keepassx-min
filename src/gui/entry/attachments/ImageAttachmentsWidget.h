@@ -22,10 +22,11 @@
 #include <QScopedPointer>
 #include <QWidget>
 
-namespace Ui
-{
-	class ImageAttachmentsWidget;
-}
+namespace Ui {
+
+class ImageAttachmentsWidget;
+
+} // namespace Ui
 
 class QGraphicsView;
 class QGraphicsScene;
@@ -61,7 +62,7 @@ class ImageAttachmentsWidget: public QWidget
 	Q_OBJECT
 public:
 	explicit ImageAttachmentsWidget(QWidget *parent = nullptr);
-	~ImageAttachmentsWidget() override;
+	~ImageAttachmentsWidget();
 
 	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
 	attachments::Attachment getAttachment() const;

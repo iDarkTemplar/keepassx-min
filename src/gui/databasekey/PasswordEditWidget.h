@@ -21,10 +21,11 @@
 
 #include "core/PasswordHealth.h"
 
-namespace Ui
-{
-	class PasswordEditWidget;
-}
+namespace Ui {
+
+class PasswordEditWidget;
+
+} // namespace Ui
 
 class PasswordEditWidget: public KeyComponentWidget
 {
@@ -33,7 +34,7 @@ class PasswordEditWidget: public KeyComponentWidget
 public:
 	explicit PasswordEditWidget(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(PasswordEditWidget);
-	~PasswordEditWidget() override;
+	~PasswordEditWidget();
 
 	bool addToCompositeKey(QSharedPointer<CompositeKey> key) override;
 	void setPasswordVisible(bool visible);
@@ -43,7 +44,7 @@ public:
 	bool validate(QString &errorMessage) const override;
 
 protected:
-	QWidget *componentEditWidget() override;
+	QWidget* componentEditWidget() override;
 	void initComponentEditWidget(QWidget *widget) override;
 	void initComponent() override;
 

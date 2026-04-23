@@ -28,7 +28,6 @@ class NewDatabaseWizardPageMetaData: public NewDatabaseWizardPage
 public:
 	explicit NewDatabaseWizardPageMetaData(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(NewDatabaseWizardPageMetaData);
-	~NewDatabaseWizardPageMetaData() override;
 };
 
 #endif // KEEPASSXC_NEWDATABASEWIZARDPAGEMETADATA_H

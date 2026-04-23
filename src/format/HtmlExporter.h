@@ -29,14 +29,18 @@ class QIODevice;
 class HtmlExporter
 {
 public:
-	bool exportDatabase(const QString &filename,
-	                    const QSharedPointer<const Database> &db,
-	                    bool sorted = true,
-	                    bool ascending = true);
-	bool exportDatabase(QIODevice *device,
-	                    const QSharedPointer<const Database> &db,
-	                    bool sorted = true,
-	                    bool ascending = true);
+	bool exportDatabase(
+		const QString &filename,
+		const QSharedPointer<const Database> &db,
+		bool sorted = true,
+		bool ascending = true);
+
+	bool exportDatabase(
+		QIODevice *device,
+		const QSharedPointer<const Database> &db,
+		bool sorted = true,
+		bool ascending = true);
+
 	QString exportDatabase(const QSharedPointer<const Database> &db, bool sorted = true, bool ascending = true);
 	QString errorString() const;
 

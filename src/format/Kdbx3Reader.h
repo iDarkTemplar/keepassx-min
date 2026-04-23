@@ -28,10 +28,11 @@ class Kdbx3Reader: public KdbxReader
 	Q_DECLARE_TR_FUNCTIONS(Kdbx3Reader)
 
 public:
-	bool readDatabaseImpl(QIODevice *device,
-	                      const QByteArray &headerData,
-	                      QSharedPointer<const CompositeKey> key,
-	                      Database *db) override;
+	bool readDatabaseImpl(
+		QIODevice *device,
+		const QByteArray &headerData,
+		QSharedPointer<const CompositeKey> key,
+		Database *db) override;
 
 protected:
 	bool readHeaderField(StoreDataStream &headerStream, Database *db) override;

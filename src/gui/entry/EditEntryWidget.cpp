@@ -85,9 +85,9 @@ EditEntryWidget::EditEntryWidget(QWidget *parent)
 	connect(this, SIGNAL(accepted()), SLOT(acceptEntry()));
 	connect(this, SIGNAL(rejected()), SLOT(cancel()));
 	connect(this, SIGNAL(apply()), SLOT(commitEntry()));
-    connect(m_iconsWidget,
-            SIGNAL(messageEditEntry(QString,MessageWidget::MessageType)),
-            SLOT(showMessage(QString,MessageWidget::MessageType)));
+	connect(m_iconsWidget,
+		SIGNAL(messageEditEntry(QString,MessageWidget::MessageType)),
+		SLOT(showMessage(QString,MessageWidget::MessageType)));
 
 	connect(m_iconsWidget, SIGNAL(messageEditEntryDismiss()), SLOT(hideMessage()));
 
@@ -108,10 +108,11 @@ bool EditEntryWidget::switchToPage(Page page)
 		setCurrentPage(index);
 		return true;
 	}
+
 	return false;
 }
 
-QWidget *EditEntryWidget::widgetForPage(Page page) const
+QWidget* EditEntryWidget::widgetForPage(Page page) const
 {
 	switch (page)
 	{
@@ -126,6 +127,7 @@ QWidget *EditEntryWidget::widgetForPage(Page page) const
 	case Page::History:
 		return m_historyWidget;
 	}
+
 	return nullptr;
 }
 
@@ -166,23 +168,24 @@ void EditEntryWidget::setupAdvanced()
 	m_advancedUi->attachmentsWidget->setButtonsVisible(true);
 
 	connect(m_advancedUi->attachmentsWidget,
-	        &EntryAttachmentsWidget::errorOccurred,
-	        this,
-	        [this](const QString &error) { showMessage(error, MessageWidget::Error); });
+		&EntryAttachmentsWidget::errorOccurred,
+		this,
+		[this](const QString &error) { showMessage(error, MessageWidget::Error); });
 
 	m_attributesModel->setEntryAttributes(m_entryAttributes);
 	m_advancedUi->attributesView->setModel(m_attributesModel);
 
-    connect(m_advancedUi->addAttributeButton, SIGNAL(clicked()), SLOT(insertAttribute()));
-    connect(m_advancedUi->editAttributeButton, SIGNAL(clicked()), SLOT(editCurrentAttribute()));
-    connect(m_advancedUi->removeAttributeButton, SIGNAL(clicked()), SLOT(removeCurrentAttribute()));
-    connect(m_advancedUi->protectAttributeButton, SIGNAL(toggled(bool)), SLOT(protectCurrentAttribute(bool)));
-    connect(m_advancedUi->revealAttributeButton, SIGNAL(clicked(bool)), SLOT(toggleCurrentAttributeVisibility()));
-    connect(m_advancedUi->attributesView->selectionModel(),
-            SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-            SLOT(updateCurrentAttribute()));
-    connect(m_advancedUi->fgColorButton, SIGNAL(clicked()), SLOT(pickColor()));
-    connect(m_advancedUi->bgColorButton, SIGNAL(clicked()), SLOT(pickColor()));
+	connect(m_advancedUi->addAttributeButton, SIGNAL(clicked()), SLOT(insertAttribute()));
+	connect(m_advancedUi->editAttributeButton, SIGNAL(clicked()), SLOT(editCurrentAttribute()));
+	connect(m_advancedUi->removeAttributeButton, SIGNAL(clicked()), SLOT(removeCurrentAttribute()));
+	connect(m_advancedUi->protectAttributeButton, SIGNAL(toggled(bool)), SLOT(protectCurrentAttribute(bool)));
+	connect(m_advancedUi->revealAttributeButton, SIGNAL(clicked(bool)), SLOT(toggleCurrentAttributeVisibility()));
+	connect(m_advancedUi->attributesView->selectionModel(),
+		SIGNAL(currentChanged(QModelIndex,QModelIndex)),
+		SLOT(updateCurrentAttribute()));
+
+	connect(m_advancedUi->fgColorButton, SIGNAL(clicked()), SLOT(pickColor()));
+	connect(m_advancedUi->bgColorButton, SIGNAL(clicked()), SLOT(pickColor()));
 }
 
 void EditEntryWidget::setupIcon()
@@ -212,15 +215,15 @@ void EditEntryWidget::setupHistory()
 	m_historyUi->historyView->setModel(m_sortModel);
 	m_historyUi->historyView->setRootIsDecorated(false);
 
-    connect(m_historyUi->historyView, SIGNAL(activated(QModelIndex)), SLOT(histEntryActivated(QModelIndex)));
-    connect(m_historyUi->historyView->selectionModel(),
-            SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-            SLOT(updateHistoryButtons(QModelIndex,QModelIndex)));
+	connect(m_historyUi->historyView, SIGNAL(activated(QModelIndex)), SLOT(histEntryActivated(QModelIndex)));
+	connect(m_historyUi->historyView->selectionModel(),
+		SIGNAL(currentChanged(QModelIndex,QModelIndex)),
+		SLOT(updateHistoryButtons(QModelIndex,QModelIndex)));
 
-    connect(m_historyUi->showButton, SIGNAL(clicked()), SLOT(showHistoryEntry()));
-    connect(m_historyUi->restoreButton, SIGNAL(clicked()), SLOT(restoreHistoryEntry()));
-    connect(m_historyUi->deleteButton, SIGNAL(clicked()), SLOT(deleteHistoryEntry()));
-    connect(m_historyUi->deleteAllButton, SIGNAL(clicked()), SLOT(deleteAllHistoryEntries()));
+	connect(m_historyUi->showButton, SIGNAL(clicked()), SLOT(showHistoryEntry()));
+	connect(m_historyUi->restoreButton, SIGNAL(clicked()), SLOT(restoreHistoryEntry()));
+	connect(m_historyUi->deleteButton, SIGNAL(clicked()), SLOT(deleteHistoryEntry()));
+	connect(m_historyUi->deleteAllButton, SIGNAL(clicked()), SLOT(deleteAllHistoryEntries()));
 }
 
 void EditEntryWidget::setupEntryUpdate()
@@ -304,16 +307,17 @@ void EditEntryWidget::toggleHideNotes(bool visible)
 	m_mainUi->revealNotesButton->setIcon(icons()->onOffIcon("password-show", visible));
 }
 
-Entry *EditEntryWidget::currentEntry() const
+Entry* EditEntryWidget::currentEntry() const
 {
 	return m_entry;
 }
 
-void EditEntryWidget::loadEntry(Entry *entry,
-                                bool create,
-                                bool history,
-                                const QString &parentName,
-                                QSharedPointer<Database> database)
+void EditEntryWidget::loadEntry(
+	Entry *entry,
+	bool create,
+	bool history,
+	const QString &parentName,
+	QSharedPointer<Database> database)
 {
 	m_entry = entry;
 	m_db = std::move(database);
@@ -375,6 +379,7 @@ void EditEntryWidget::setForms(Entry *entry, bool restore)
 	m_mainUi->revealNotesButton->setChecked(false);
 	m_mainUi->notesEdit->setReadOnly(m_history);
 	m_mainUi->notesEdit->setVisible(!config()->get(Config::Security_HideNotes).toBool());
+
 	if (config()->get(Config::GUI_MonospaceNotes).toBool())
 	{
 		m_mainUi->notesEdit->setFont(Font::fixedFont());
@@ -390,6 +395,7 @@ void EditEntryWidget::setForms(Entry *entry, bool restore)
 	m_advancedUi->removeAttributeButton->setEnabled(false);
 	m_advancedUi->attributesEdit->setReadOnly(m_history);
 	QAbstractItemView::EditTriggers editTriggers;
+
 	if (m_history)
 	{
 		editTriggers = QAbstractItemView::NoEditTriggers;
@@ -398,6 +404,7 @@ void EditEntryWidget::setForms(Entry *entry, bool restore)
 	{
 		editTriggers = QAbstractItemView::DoubleClicked;
 	}
+
 	m_advancedUi->attributesView->setEditTriggers(editTriggers);
 	m_advancedUi->excludeReportsCheckBox->setChecked(entry->excludeFromReports());
 	setupColorButton(true, entry->foregroundColor());
@@ -410,10 +417,12 @@ void EditEntryWidget::setForms(Entry *entry, bool restore)
 	m_mainUi->urlEdit->setText(entry->url());
 	m_mainUi->passwordEdit->setText(entry->password());
 	m_mainUi->passwordEdit->setShowPassword(!config()->get(Config::Security_PasswordsHidden).toBool());
+
 	if (!m_history)
 	{
 		m_mainUi->passwordEdit->enablePasswordGenerator();
 	}
+
 	m_mainUi->expireCheck->setChecked(entry->timeInfo().expires());
 	m_mainUi->expireDatePicker->setDateTime(entry->timeInfo().expiryTime().toLocalTime());
 	m_mainUi->expirePresets->setEnabled(!m_history);
@@ -457,6 +466,7 @@ void EditEntryWidget::setForms(Entry *entry, bool restore)
 		m_historyModel->setEntries(entry->historyItems(), entry);
 		m_historyUi->historyView->sortByColumn(0, Qt::DescendingOrder);
 	}
+
 	if (m_historyModel->rowCount() > 0)
 	{
 		m_historyUi->deleteAllButton->setEnabled(true);
@@ -490,9 +500,10 @@ bool EditEntryWidget::commitEntry()
 	if (!m_entry)
 	{
 		QMessageBox::information(this,
-		                         tr("Invalid Entry"),
-		                         tr("An external merge operation has invalidated this entry.\n"
-		                            "Unfortunately, any changes made have been lost."));
+			tr("Invalid Entry"),
+			tr("An external merge operation has invalidated this entry.\n"
+				"Unfortunately, any changes made have been lost."));
+
 		return true;
 	}
 
@@ -622,10 +633,11 @@ void EditEntryWidget::cancel()
 	if (isModified())
 	{
 		auto result = MessageBox::question(this,
-		                                   tr("Unsaved Changes"),
-		                                   tr("Would you like to save changes to this entry?"),
-		                                   MessageBox::Cancel | MessageBox::Save | MessageBox::Discard,
-		                                   MessageBox::Cancel);
+			tr("Unsaved Changes"),
+			tr("Would you like to save changes to this entry?"),
+			MessageBox::Cancel | MessageBox::Save | MessageBox::Discard,
+			MessageBox::Cancel);
+
 		if (result == MessageBox::Cancel)
 		{
 			return;
@@ -677,10 +689,10 @@ void EditEntryWidget::insertAttribute()
 	while (m_entryAttributes->keys().contains(name))
 	{
 		name = tr("New attribute %1").arg(i);
-		i++;
+		++i;
 	}
 
-	m_entryAttributes->set(name, "");
+	m_entryAttributes->set(name, QString());
 	QModelIndex index = m_attributesModel->indexByKey(name);
 
 	m_advancedUi->attributesView->setCurrentIndex(index);
@@ -712,10 +724,10 @@ void EditEntryWidget::removeCurrentAttribute()
 	{
 
 		auto result = MessageBox::question(this,
-		                                   tr("Confirm Removal"),
-		                                   tr("Are you sure you want to remove this attribute?"),
-		                                   MessageBox::Remove | MessageBox::Cancel,
-		                                   MessageBox::Cancel);
+			tr("Confirm Removal"),
+			tr("Are you sure you want to remove this attribute?"),
+			MessageBox::Remove | MessageBox::Cancel,
+			MessageBox::Cancel);
 
 		if (result == MessageBox::Remove)
 		{
@@ -736,8 +748,7 @@ void EditEntryWidget::updateCurrentAttribute()
 		if (m_currentAttribute.isValid() && m_advancedUi->attributesEdit->isEnabled())
 		{
 			QString currKey = m_attributesModel->keyByIndex(m_currentAttribute);
-			m_entryAttributes->set(
-				currKey, m_advancedUi->attributesEdit->toPlainText(), m_entryAttributes->isProtected(currKey));
+			m_entryAttributes->set(currKey, m_advancedUi->attributesEdit->toPlainText(), m_entryAttributes->isProtected(currKey));
 		}
 	}
 
@@ -826,6 +837,7 @@ void EditEntryWidget::toggleCurrentAttributeVisibility()
 			m_advancedUi->attributesEdit->setEnabled(true);
 			m_advancedUi->attributesEdit->blockSignals(oldBlockSignals);
 		}
+
 		m_advancedUi->revealAttributeButton->setText(tr("Hide"));
 	}
 	else
@@ -869,6 +881,7 @@ void EditEntryWidget::deleteHistoryEntry()
 		{
 			m_historyUi->deleteAllButton->setEnabled(false);
 		}
+
 		setModified(true);
 	}
 }
@@ -880,7 +893,7 @@ void EditEntryWidget::deleteAllHistoryEntries()
 	setModified(true);
 }
 
-QMenu *EditEntryWidget::createPresetsMenu()
+QMenu* EditEntryWidget::createPresetsMenu()
 {
 	auto *expirePresetsMenu = new QMenu(this);
 	expirePresetsMenu->addAction(tr("%n hour(s)", "", 12))->setData(QVariant::fromValue(TimeDelta::fromHours(12)));
@@ -898,6 +911,7 @@ QMenu *EditEntryWidget::createPresetsMenu()
 	expirePresetsMenu->addAction(tr("%n year(s)", "", 1))->setData(QVariant::fromValue(TimeDelta::fromYears(1)));
 	expirePresetsMenu->addAction(tr("%n year(s)", "", 2))->setData(QVariant::fromValue(TimeDelta::fromYears(2)));
 	expirePresetsMenu->addAction(tr("%n year(s)", "", 3))->setData(QVariant::fromValue(TimeDelta::fromYears(3)));
+
 	return expirePresetsMenu;
 }
 

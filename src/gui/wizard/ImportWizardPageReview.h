@@ -22,10 +22,12 @@
 
 class CsvImportWidget;
 class Database;
-namespace Ui
-{
-	class ImportWizardPageReview;
-};
+
+namespace Ui {
+
+class ImportWizardPageReview;
+
+} // namespace Ui
 
 class ImportWizardPageReview: public QWizardPage
 {
@@ -34,7 +36,7 @@ class ImportWizardPageReview: public QWizardPage
 public:
 	explicit ImportWizardPageReview(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(ImportWizardPageReview)
-	~ImportWizardPageReview() override;
+	~ImportWizardPageReview();
 
 	void initializePage() override;
 	bool validatePage() override;

@@ -112,5 +112,6 @@ QModelIndex CustomIconModel::indexFromUuid(const QUuid &uuid) const
 	{
 		return index(idx, 0);
 	}
+
 	return {};
 }

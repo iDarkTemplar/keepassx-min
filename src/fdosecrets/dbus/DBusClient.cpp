@@ -23,190 +23,198 @@
 
 #include <utility>
 
-namespace FdoSecrets
+namespace FdoSecrets {
+
+bool ProcInfo::operator==(const ProcInfo &other) const
 {
-	bool ProcInfo::operator==(const ProcInfo &other) const
+	return this->pid == other.pid && this->ppid == other.ppid && this->exePath == other.exePath
+	       && this->name == other.name && this->command == other.command;
+}
+
+bool ProcInfo::operator!=(const ProcInfo &other) const
+{
+	return !(*this == other);
+}
+
+bool PeerInfo::operator==(const PeerInfo &other) const
+{
+	return this->address == other.address && this->pid == other.pid && this->valid == other.valid
+	       && this->hierarchy == other.hierarchy;
+}
+
+bool PeerInfo::operator!=(const PeerInfo &other) const
+{
+	return !(*this == other);
+}
+
+DBusClient::DBusClient(DBusMgr *dbus, PeerInfo process)
+	: m_dbus(dbus)
+	, m_process(std::move(process))
+{
+}
+
+DBusMgr *DBusClient::dbus() const
+{
+	return m_dbus;
+}
+
+QString DBusClient::name() const
+{
+	auto exePath = m_process.exePath();
+	if (exePath.isEmpty())
 	{
-		return this->pid == other.pid && this->ppid == other.ppid && this->exePath == other.exePath
-		       && this->name == other.name && this->command == other.command;
+		return QObject::tr("unknown executable (DBus address %1)").arg(m_process.address);
 	}
 
-	bool ProcInfo::operator!=(const ProcInfo &other) const
+	if (!m_process.valid)
 	{
-		return !(*this == other);
+		return QObject::tr("%1 (invalid executable path)").arg(exePath);
 	}
 
-	bool PeerInfo::operator==(const PeerInfo &other) const
+	return exePath;
+}
+
+bool DBusClient::itemKnown(const QUuid &uuid) const
+{
+	return m_authorizedAll != AuthDecision::Undecided || m_allowed.contains(uuid) || m_allowedOnce.contains(uuid)
+	       || m_denied.contains(uuid) || m_deniedOnce.contains(uuid);
+}
+
+bool DBusClient::itemAuthorized(const QUuid &uuid) const
+{
+	if (!FdoSecrets::settings()->confirmAccessItem())
 	{
-		return this->address == other.address && this->pid == other.pid && this->valid == other.valid
-		       && this->hierarchy == other.hierarchy;
+		// everyone is authorized if this is not enabled
+		return true;
 	}
 
-	bool PeerInfo::operator!=(const PeerInfo &other) const
+	// check if we have catch-all decision
+	if (m_authorizedAll == AuthDecision::Allowed)
 	{
-		return !(*this == other);
+		return true;
 	}
 
-	DBusClient::DBusClient(DBusMgr *dbus, PeerInfo process)
-		: m_dbus(dbus)
-		, m_process(std::move(process))
+	if (m_authorizedAll == AuthDecision::Denied)
 	{
-	}
-
-	DBusMgr *DBusClient::dbus() const
-	{
-		return m_dbus;
-	}
-
-	QString DBusClient::name() const
-	{
-		auto exePath = m_process.exePath();
-		if (exePath.isEmpty())
-		{
-			return QObject::tr("unknown executable (DBus address %1)").arg(m_process.address);
-		}
-		if (!m_process.valid)
-		{
-			return QObject::tr("%1 (invalid executable path)").arg(exePath);
-		}
-		return exePath;
-	}
-
-	bool DBusClient::itemKnown(const QUuid &uuid) const
-	{
-		return m_authorizedAll != AuthDecision::Undecided || m_allowed.contains(uuid) || m_allowedOnce.contains(uuid)
-		       || m_denied.contains(uuid) || m_deniedOnce.contains(uuid);
-	}
-
-	bool DBusClient::itemAuthorized(const QUuid &uuid) const
-	{
-		if (!FdoSecrets::settings()->confirmAccessItem())
-		{
-			// everyone is authorized if this is not enabled
-			return true;
-		}
-
-		// check if we have catch-all decision
-		if (m_authorizedAll == AuthDecision::Allowed)
-		{
-			return true;
-		}
-		if (m_authorizedAll == AuthDecision::Denied)
-		{
-			return false;
-		}
-
-		// individual decisions
-		if (m_deniedOnce.contains(uuid) || m_denied.contains(uuid))
-		{
-			// explicitly denied
-			return false;
-		}
-		if (m_allowedOnce.contains(uuid) || m_allowed.contains(uuid))
-		{
-			// explicitly allowed
-			return true;
-		}
-		// haven't asked, not authorized by default
 		return false;
 	}
 
-	bool DBusClient::itemAuthorizedResetOnce(const QUuid &uuid)
+	// individual decisions
+	if (m_deniedOnce.contains(uuid) || m_denied.contains(uuid))
 	{
-		auto auth = itemAuthorized(uuid);
-		m_deniedOnce.remove(uuid);
-		m_allowedOnce.remove(uuid);
-		return auth;
+		// explicitly denied
+		return false;
 	}
 
-	void DBusClient::setItemAuthorized(const QUuid &uuid, AuthDecision auth)
+	if (m_allowedOnce.contains(uuid) || m_allowed.contains(uuid))
 	{
-		// uuid should only be in exactly one set at any time
-		m_allowed.remove(uuid);
-		m_allowedOnce.remove(uuid);
-		m_denied.remove(uuid);
-		m_deniedOnce.remove(uuid);
-		switch (auth)
-		{
-		case AuthDecision::Allowed:
-			m_allowed.insert(uuid);
-			break;
-		case AuthDecision::AllowedOnce:
-			m_allowedOnce.insert(uuid);
-			break;
-		case AuthDecision::Denied:
-			m_denied.insert(uuid);
-			break;
-		case AuthDecision::DeniedOnce:
-			m_deniedOnce.insert(uuid);
-			break;
-		default:
-			break;
-		}
+		// explicitly allowed
+		return true;
 	}
 
-	void DBusClient::setAllAuthorized(AuthDecision authorized)
+	// haven't asked, not authorized by default
+	return false;
+}
+
+bool DBusClient::itemAuthorizedResetOnce(const QUuid &uuid)
+{
+	auto auth = itemAuthorized(uuid);
+	m_deniedOnce.remove(uuid);
+	m_allowedOnce.remove(uuid);
+	return auth;
+}
+
+void DBusClient::setItemAuthorized(const QUuid &uuid, AuthDecision auth)
+{
+	// uuid should only be in exactly one set at any time
+	m_allowed.remove(uuid);
+	m_allowedOnce.remove(uuid);
+	m_denied.remove(uuid);
+	m_deniedOnce.remove(uuid);
+
+	switch (auth)
 	{
-		// once variants doesn't make sense here
-		if (authorized == AuthDecision::AllowedOnce)
-		{
-			authorized = AuthDecision::Allowed;
-		}
-		if (authorized == AuthDecision::DeniedOnce)
-		{
-			authorized = AuthDecision::Denied;
-		}
-		m_authorizedAll = authorized;
+	case AuthDecision::Allowed:
+		m_allowed.insert(uuid);
+		break;
+	case AuthDecision::AllowedOnce:
+		m_allowedOnce.insert(uuid);
+		break;
+	case AuthDecision::Denied:
+		m_denied.insert(uuid);
+		break;
+	case AuthDecision::DeniedOnce:
+		m_deniedOnce.insert(uuid);
+		break;
+	default:
+		break;
+	}
+}
+
+void DBusClient::setAllAuthorized(AuthDecision authorized)
+{
+	// once variants doesn't make sense here
+	if (authorized == AuthDecision::AllowedOnce)
+	{
+		authorized = AuthDecision::Allowed;
 	}
 
-	void DBusClient::clearAuthorization()
+	if (authorized == AuthDecision::DeniedOnce)
 	{
-		m_authorizedAll = AuthDecision::Undecided;
-		m_allowed.clear();
-		m_allowedOnce.clear();
-		m_denied.clear();
-		m_deniedOnce.clear();
+		authorized = AuthDecision::Denied;
 	}
 
-	void DBusClient::disconnectDBus()
+	m_authorizedAll = authorized;
+}
+
+void DBusClient::clearAuthorization()
+{
+	m_authorizedAll = AuthDecision::Undecided;
+	m_allowed.clear();
+	m_allowedOnce.clear();
+	m_denied.clear();
+	m_deniedOnce.clear();
+}
+
+void DBusClient::disconnectDBus()
+{
+	clearAuthorization();
+	// notify DBusMgr about the removal
+	m_dbus->removeClient(this);
+}
+
+QSharedPointer<CipherPair> DBusClient::negotiateCipher(const QString &algorithm, const QVariant &input, QVariant &output, bool &incomplete)
+{
+	incomplete = false;
+
+	QSharedPointer<CipherPair> cipher{};
+	if (algorithm == PlainCipher::Algorithm)
 	{
-		clearAuthorization();
-		// notify DBusMgr about the removal
-		m_dbus->removeClient(this);
+		cipher.reset(new PlainCipher);
+	}
+	else if (algorithm == DhIetf1024Sha256Aes128CbcPkcs7::Algorithm)
+	{
+		QByteArray clientPublicKey = input.toByteArray();
+		cipher.reset(new DhIetf1024Sha256Aes128CbcPkcs7(clientPublicKey));
+	}
+	else
+	{
+		// error notSupported
 	}
 
-	QSharedPointer<CipherPair>
-		DBusClient::negotiateCipher(const QString &algorithm, const QVariant &input, QVariant &output, bool &incomplete)
+	if (!cipher)
 	{
-		incomplete = false;
-
-		QSharedPointer<CipherPair> cipher{};
-		if (algorithm == PlainCipher::Algorithm)
-		{
-			cipher.reset(new PlainCipher);
-		}
-		else if (algorithm == DhIetf1024Sha256Aes128CbcPkcs7::Algorithm)
-		{
-			QByteArray clientPublicKey = input.toByteArray();
-			cipher.reset(new DhIetf1024Sha256Aes128CbcPkcs7(clientPublicKey));
-		}
-		else
-		{
-			// error notSupported
-		}
-
-		if (!cipher)
-		{
-			return {};
-		}
-
-		if (!cipher->isValid())
-		{
-			qWarning() << "FdoSecrets: Error creating cipher";
-			return {};
-		}
-
-		output = cipher->negotiationOutput();
-		return cipher;
+		return {};
 	}
+
+	if (!cipher->isValid())
+	{
+		qWarning() << "FdoSecrets: Error creating cipher";
+		return {};
+	}
+
+	output = cipher->negotiationOutput();
+	return cipher;
+}
+
 } // namespace FdoSecrets

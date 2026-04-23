@@ -78,15 +78,15 @@ PasswordWidget::PasswordWidget(QWidget *parent)
 	m_ui->passwordEdit->addAction(m_passwordGeneratorAction, QLineEdit::TrailingPosition);
 	m_passwordGeneratorAction->setVisible(false);
 
-	m_capslockAction =
-		new QAction(icons()->icon("dialog-warning", true, StateColorPalette().color(StateColorPalette::Error)),
-	                tr("Warning: Caps Lock enabled!"),
-	                this);
+	m_capslockAction = new QAction(icons()->icon("dialog-warning", true, StateColorPalette().color(StateColorPalette::Error)),
+		tr("Warning: Caps Lock enabled!"),
+		this);
+
 	m_ui->passwordEdit->addAction(m_capslockAction, QLineEdit::LeadingPosition);
 	m_capslockAction->setVisible(false);
 
 	// Reset the password strength bar, hidden by default
-	updatePasswordStrength("");
+	updatePasswordStrength(QString());
 	m_ui->qualityProgressBar->setVisible(false);
 
 	connect(m_ui->passwordEdit, &QLineEdit::textChanged, this, [this](const QString &pwd) {
@@ -215,6 +215,7 @@ void PasswordWidget::updateRepeatStatus()
 			color = statePalette.color(StateColorPalette::ColorRole::Incomplete);
 			isCorrect = true;
 		}
+
 		setStyleSheet(stylesheetTemplate.arg(color.name()));
 		m_correctAction->setVisible(isCorrect);
 		m_errorAction->setVisible(!isCorrect);
@@ -223,7 +224,7 @@ void PasswordWidget::updateRepeatStatus()
 	{
 		m_correctAction->setVisible(false);
 		m_errorAction->setVisible(false);
-		setStyleSheet("");
+		setStyleSheet(QString());
 	}
 }
 
@@ -260,8 +261,7 @@ void PasswordWidget::checkCapslockState()
 
 		if (newCapslockState)
 		{
-			QTimer::singleShot(
-				150, [this] { QToolTip::showText(mapToGlobal(rect().bottomLeft()), m_capslockAction->text()); });
+			QTimer::singleShot(150, [this] { QToolTip::showText(mapToGlobal(rect().bottomLeft()), m_capslockAction->text()); });
 		}
 		else if (QToolTip::isVisible())
 		{
@@ -285,7 +285,8 @@ void PasswordWidget::updatePasswordStrength(const QString &password)
 
 	QString style = m_ui->qualityProgressBar->styleSheet();
 	QRegularExpression re("(QProgressBar::chunk\\s*\\{.*?background-color:)[^;]+;",
-	                      QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption);
+		QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption);
+
 	style.replace(re, "\\1 %1;");
 
 	StateColorPalette qualityPalette;
@@ -294,32 +295,23 @@ void PasswordWidget::updatePasswordStrength(const QString &password)
 	{
 	case PasswordHealth::Quality::Bad:
 	case PasswordHealth::Quality::Poor:
-		m_ui->qualityProgressBar->setStyleSheet(
-			style.arg(qualityPalette.color(StateColorPalette::HealthCritical).name()));
-
+		m_ui->qualityProgressBar->setStyleSheet(style.arg(qualityPalette.color(StateColorPalette::HealthCritical).name()));
 		m_ui->qualityProgressBar->setToolTip(tr("Quality: %1").arg(tr("Poor", "Password quality")));
-
 		break;
 
 	case PasswordHealth::Quality::Weak:
 		m_ui->qualityProgressBar->setStyleSheet(style.arg(qualityPalette.color(StateColorPalette::HealthBad).name()));
-
 		m_ui->qualityProgressBar->setToolTip(tr("Quality: %1").arg(tr("Weak", "Password quality")));
-
 		break;
+
 	case PasswordHealth::Quality::Good:
 		m_ui->qualityProgressBar->setStyleSheet(style.arg(qualityPalette.color(StateColorPalette::HealthOk).name()));
-
 		m_ui->qualityProgressBar->setToolTip(tr("Quality: %1").arg(tr("Good", "Password quality")));
-
 		break;
+
 	case PasswordHealth::Quality::Excellent:
-
-		m_ui->qualityProgressBar->setStyleSheet(
-			style.arg(qualityPalette.color(StateColorPalette::HealthExcellent).name()));
-
+		m_ui->qualityProgressBar->setStyleSheet(style.arg(qualityPalette.color(StateColorPalette::HealthExcellent).name()));
 		m_ui->qualityProgressBar->setToolTip(tr("Quality: %1").arg(tr("Excellent", "Password quality")));
-
 		break;
 	}
 }

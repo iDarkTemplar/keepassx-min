@@ -26,10 +26,11 @@ class CustomData;
 class TimeInfo;
 class QUuid;
 
-namespace Ui
-{
-	class EditWidgetProperties;
-}
+namespace Ui {
+
+class EditWidgetProperties;
+
+} // namespace Ui
 
 class EditWidgetProperties: public QWidget
 {

@@ -30,7 +30,7 @@ public:
 	explicit GroupModel(Database *db, QObject *parent = nullptr);
 	void changeDatabase(Database *newDb);
 	QModelIndex index(Group *group) const;
-	Group *groupFromIndex(const QModelIndex &index) const;
+	Group* groupFromIndex(const QModelIndex &index) const;
 
 	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -40,18 +40,19 @@ public:
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 	Qt::DropActions supportedDropActions() const override;
 	Qt::ItemFlags flags(const QModelIndex &modelIndex) const override;
-	bool dropMimeData(const QMimeData *data,
-	                  Qt::DropAction action,
-	                  int row,
-	                  int column,
-	                  const QModelIndex &parent) override;
+	bool dropMimeData(
+		const QMimeData *data,
+		Qt::DropAction action,
+		int row,
+		int column,
+		const QModelIndex &parent) override;
 	QStringList mimeTypes() const override;
-	QMimeData *mimeData(const QModelIndexList &indexes) const override;
+	QMimeData* mimeData(const QModelIndexList &indexes) const override;
 	void sortChildren(Group *rootGroup, bool reverse = false);
 
 private:
 	QModelIndex parent(Group *group) const;
-	void collectIndexesRecursively(QList<QModelIndex> &indexes, QList<Group *> groups);
+	void collectIndexesRecursively(QList<QModelIndex> &indexes, QList<Group*> groups);
 
 private slots:
 	void groupDataChanged(Group *group);

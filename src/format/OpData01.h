@@ -30,7 +30,6 @@ class OpData01: public QObject
 
 public:
 	explicit OpData01(QObject *parent = nullptr);
-	~OpData01() override;
 
 	/*!
 	 * The convenience equivalent of decode01(OpData01,const QByteArray,const QByteArray,const QByteArray) that simply

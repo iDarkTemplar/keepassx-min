@@ -22,13 +22,15 @@
 #include <QUrl>
 #include <QVariant>
 
+#include <memory>
+
 class UrlTools: public QObject
 {
 	Q_OBJECT
 
 public:
 	explicit UrlTools() = default;
-	static UrlTools *instance();
+	static UrlTools* instance();
 
 	bool isUrlIdentical(const QString &first, const QString &second) const;
 	bool isUrlValid(const QString &urlField, bool looseComparison = false) const;
@@ -43,7 +45,7 @@ private:
 	Q_DISABLE_COPY(UrlTools);
 };
 
-static inline UrlTools *urlTools()
+static inline UrlTools* urlTools()
 {
 	return UrlTools::instance();
 }

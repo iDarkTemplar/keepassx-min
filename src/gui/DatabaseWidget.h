@@ -45,10 +45,11 @@ class EntryPreviewWidget;
 class TagView;
 class ElidedLabel;
 
-namespace Ui
-{
-	class SearchWidget;
-}
+namespace Ui {
+
+class SearchWidget;
+
+} // namespace Ui
 
 class DatabaseWidget: public QStackedWidget
 {
@@ -88,10 +89,10 @@ public:
 	QString getCurrentSearch();
 	void refreshSearch();
 
-	GroupView *groupView();
-	EntryView *entryView();
+	GroupView* groupView();
+	EntryView* entryView();
 
-	Group *currentGroup() const;
+	Group* currentGroup() const;
 	bool canCloneCurrentGroup() const;
 	bool canDeleteCurrentGroup() const;
 	bool isGroupSelected() const;
@@ -107,7 +108,7 @@ public:
 	QStringList customEntryAttributes() const;
 	bool isEditWidgetModified() const;
 	void clearAllWidgets();
-	Entry *currentSelectedEntry() const;
+	Entry* currentSelectedEntry() const;
 	bool currentEntryHasTitle();
 	bool currentEntryHasUsername();
 	bool currentEntryHasPassword();
@@ -139,10 +140,11 @@ signals:
 	void currentModeChanged(DatabaseWidget::Mode mode);
 	void groupChanged();
 	void entrySelectionChanged();
-	void requestOpenDatabase(const QString &filePath,
-	                         bool inBackground,
-	                         const QString &password,
-	                         const QString &keyFile);
+	void requestOpenDatabase(
+		const QString &filePath,
+		bool inBackground,
+		const QString &password,
+		const QString &keyFile);
 	void databaseMerged(QSharedPointer<Database> mergedDb);
 	void updateSyncProgress(int progress, const QString &message);
 	void groupContextMenuRequested(const QPoint &globalPos);
@@ -218,10 +220,11 @@ public slots:
 	void setSearchLimitGroup(bool state);
 	void endSearch();
 
-	void showMessage(const QString &text,
-	                 MessageWidget::MessageType type,
-	                 bool showClosebutton = true,
-	                 int autoHideTimeout = MessageWidget::DefaultAutoHideTimeout);
+	void showMessage(
+		const QString &text,
+		MessageWidget::MessageType type,
+		bool showClosebutton = true,
+		int autoHideTimeout = MessageWidget::DefaultAutoHideTimeout);
 	void showErrorMessage(const QString &errorMessage);
 	void hideMessage();
 	void triggerAutosaveTimer();
@@ -287,7 +290,6 @@ private:
 	QUuid m_groupBeforeLock;
 	QUuid m_entryBeforeLock;
 
-	int m_saveAttempts;
 	bool m_attemptingLock = false;
 
 	// Search state

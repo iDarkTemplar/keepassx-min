@@ -52,18 +52,16 @@ EditWidgetIcons::EditWidgetIcons(QWidget *parent)
 
 	m_ui->applyIconToPushButton->setMenu(createApplyIconToMenu());
 
-    connect(m_ui->defaultIconsView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateRadioButtonDefaultIcons()));
-    connect(m_ui->customIconsView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateRadioButtonCustomIcons()));
-    connect(m_ui->defaultIconsRadio, SIGNAL(toggled(bool)), this, SLOT(updateWidgetsDefaultIcons(bool)));
-    connect(m_ui->customIconsRadio, SIGNAL(toggled(bool)), this, SLOT(updateWidgetsCustomIcons(bool)));
-    connect(m_ui->addButton, SIGNAL(clicked()), SLOT(addCustomIconFromFile()));
-    connect(m_ui->applyIconToPushButton->menu(), SIGNAL(triggered(QAction*)), SLOT(confirmApplyIconTo(QAction*)));
+	connect(m_ui->defaultIconsView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateRadioButtonDefaultIcons()));
+	connect(m_ui->customIconsView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateRadioButtonCustomIcons()));
+	connect(m_ui->defaultIconsRadio, SIGNAL(toggled(bool)), this, SLOT(updateWidgetsDefaultIcons(bool)));
+	connect(m_ui->customIconsRadio, SIGNAL(toggled(bool)), this, SLOT(updateWidgetsCustomIcons(bool)));
+	connect(m_ui->addButton, SIGNAL(clicked()), SLOT(addCustomIconFromFile()));
+	connect(m_ui->applyIconToPushButton->menu(), SIGNAL(triggered(QAction*)), SLOT(confirmApplyIconTo(QAction*)));
 
-    connect(m_ui->defaultIconsRadio, SIGNAL(toggled(bool)), this, SIGNAL(widgetUpdated()));
-    connect(m_ui->defaultIconsView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-            this, SIGNAL(widgetUpdated()));
-    connect(m_ui->customIconsView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-            this, SIGNAL(widgetUpdated()));
+	connect(m_ui->defaultIconsRadio, SIGNAL(toggled(bool)), this, SIGNAL(widgetUpdated()));
+	connect(m_ui->defaultIconsView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SIGNAL(widgetUpdated()));
+	connect(m_ui->customIconsView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SIGNAL(widgetUpdated()));
 }
 
 EditWidgetIcons::~EditWidgetIcons()
@@ -112,10 +110,11 @@ void EditWidgetIcons::reset()
 	m_currentUuid = QUuid();
 }
 
-void EditWidgetIcons::load(const QUuid &currentUuid,
-                           const QSharedPointer<Database> &database,
-                           const IconStruct &iconStruct,
-                           const QString &url)
+void EditWidgetIcons::load(
+	const QUuid &currentUuid,
+	const QSharedPointer<Database> &database,
+	const IconStruct &iconStruct,
+	const QString &url)
 {
 	Q_ASSERT(database);
 	Q_ASSERT(!currentUuid.isNull());
@@ -125,8 +124,7 @@ void EditWidgetIcons::load(const QUuid &currentUuid,
 	m_db = database;
 	m_currentUuid = currentUuid;
 
-	m_customIconModel->setIcons(Icons::customIconsPixmaps(database.data(), IconSize::Default),
-	                            database->metadata()->customIconsOrder());
+	m_customIconModel->setIcons(Icons::customIconsPixmaps(database.data(), IconSize::Default), database->metadata()->customIconsOrder());
 
 	QUuid iconUuid = iconStruct.uuid;
 	if (iconUuid.isNull())
@@ -159,19 +157,17 @@ void EditWidgetIcons::setShowApplyIconToButton(bool state)
 	m_ui->applyIconToPushButton->setVisible(state);
 }
 
-QMenu *EditWidgetIcons::createApplyIconToMenu()
+QMenu* EditWidgetIcons::createApplyIconToMenu()
 {
 	auto *applyIconToMenu = new QMenu(this);
 	QAction *defaultAction = applyIconToMenu->addAction(tr("Apply to this group only"));
 	defaultAction->setData(QVariant::fromValue(ApplyIconToOptions::THIS_ONLY));
 	applyIconToMenu->setDefaultAction(defaultAction);
 	applyIconToMenu->addSeparator();
-	applyIconToMenu->addAction(tr("Also apply to child groups"))
-		->setData(QVariant::fromValue(ApplyIconToOptions::CHILD_GROUPS));
-	applyIconToMenu->addAction(tr("Also apply to child entries"))
-		->setData(QVariant::fromValue(ApplyIconToOptions::CHILD_ENTRIES));
-	applyIconToMenu->addAction(tr("Also apply to all children"))
-		->setData(QVariant::fromValue(ApplyIconToOptions::ALL_CHILDREN));
+	applyIconToMenu->addAction(tr("Also apply to child groups"))->setData(QVariant::fromValue(ApplyIconToOptions::CHILD_GROUPS));
+	applyIconToMenu->addAction(tr("Also apply to child entries"))->setData(QVariant::fromValue(ApplyIconToOptions::CHILD_ENTRIES));
+	applyIconToMenu->addAction(tr("Also apply to all children"))->setData(QVariant::fromValue(ApplyIconToOptions::ALL_CHILDREN));
+
 	return applyIconToMenu;
 }
 
@@ -183,8 +179,7 @@ void EditWidgetIcons::addCustomIconFromFile()
 	}
 
 	auto filter = QString("%1 (%2);;%3 (*)").arg(tr("Images"), Icons::imageFormatsFilter(), tr("All files"));
-	auto filenames =
-		fileDialog()->getOpenFileNames(this, tr("Select Image(s)"), FileDialog::getLastDir("icons"), filter);
+	auto filenames = fileDialog()->getOpenFileNames(this, tr("Select Image(s)"), FileDialog::getLastDir("icons"), filter);
 	if (!filenames.empty())
 	{
 		QStringList errornames;
@@ -231,8 +226,8 @@ void EditWidgetIcons::addCustomIconFromFile()
 			// Show the first 8 icons that failed to load
 			errornames = errornames.mid(0, 8);
 			emit messageEditEntry(msg + "\n" + tr("The following icon(s) failed:", "", errornames.size()) + "\n"
-			                          + errornames.join("\n"),
-			                      MessageWidget::Error);
+					+ errornames.join("\n"),
+				MessageWidget::Error);
 		}
 		else if (numloaded > 0)
 		{
@@ -264,7 +259,7 @@ bool EditWidgetIcons::addCustomIcon(const QImage &icon, const QString &name)
 			uuid = QUuid::createUuid();
 			m_db->metadata()->addCustomIcon(uuid, serializedIcon, name, Clock::currentDateTimeUtc());
 			m_customIconModel->setIcons(Icons::customIconsPixmaps(m_db.data(), IconSize::Default),
-			                            m_db->metadata()->customIconsOrder());
+				m_db->metadata()->customIconsOrder());
 			added = true;
 		}
 
@@ -292,6 +287,7 @@ void EditWidgetIcons::updateWidgetsDefaultIcons(bool check)
 		{
 			m_ui->defaultIconsView->setCurrentIndex(index);
 		}
+
 		m_ui->customIconsView->selectionModel()->clearSelection();
 	}
 }
@@ -309,6 +305,7 @@ void EditWidgetIcons::updateWidgetsCustomIcons(bool check)
 		{
 			m_ui->customIconsView->setCurrentIndex(index);
 		}
+
 		m_ui->defaultIconsView->selectionModel()->clearSelection();
 	}
 }

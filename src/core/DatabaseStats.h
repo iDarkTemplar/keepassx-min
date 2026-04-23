@@ -16,10 +16,12 @@
 
 #ifndef KEEPASSXC_DATABASESTATS_H
 #define KEEPASSXC_DATABASESTATS_H
+
 #include "PasswordHealth.h"
 #include "core/Group.h"
 #include <QFileInfo>
 #include <cmath>
+
 class DatabaseStats
 {
 public:
@@ -53,6 +55,6 @@ private:
 	QSharedPointer<Database> m_db;
 	QHash<QString, int> m_passwords;
 
-	void gatherStats(const QList<Group *> &groups);
+	void gatherStats(const QList<Group*> &groups);
 };
 #endif // KEEPASSXC_DATABASESTATS_H

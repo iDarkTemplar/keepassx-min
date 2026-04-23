@@ -26,42 +26,43 @@
 #include <sys/prctl.h>
 #endif
 
-namespace Bootstrap
+namespace Bootstrap {
+
+/**
+ * Perform early application bootstrapping that does not rely on a QApplication
+ * being present.
+ */
+void bootstrap(const QString &uiLanguage)
 {
-	/**
-	 * Perform early application bootstrapping that does not rely on a QApplication
-	 * being present.
-	 */
-	void bootstrap(const QString &uiLanguage)
-	{
 #ifdef QT_NO_DEBUG
-		disableCoreDumps();
+	disableCoreDumps();
 #endif
 
-		Translator::installTranslators(uiLanguage);
-	}
+	Translator::installTranslators(uiLanguage);
+}
 
-	// LCOV_EXCL_START
-	void disableCoreDumps()
-	{
-		// default to true
-		// there is no point in printing a warning if this is not implemented on the platform
-		bool success = true;
+// LCOV_EXCL_START
+void disableCoreDumps()
+{
+	// default to true
+	// there is no point in printing a warning if this is not implemented on the platform
+	bool success = true;
 
 #if defined(HAVE_RLIMIT_CORE)
-		struct rlimit limit;
-		limit.rlim_cur = 0;
-		limit.rlim_max = 0;
-		success = success && (setrlimit(RLIMIT_CORE, &limit) == 0);
+	struct rlimit limit;
+	limit.rlim_cur = 0;
+	limit.rlim_max = 0;
+	success = success && (setrlimit(RLIMIT_CORE, &limit) == 0);
 #endif
 
 #if defined(HAVE_PR_SET_DUMPABLE)
-		success = success && (prctl(PR_SET_DUMPABLE, 0) == 0);
+	success = success && (prctl(PR_SET_DUMPABLE, 0) == 0);
 #endif
 
-		if (!success)
-		{
-			qWarning("Unable to disable core dumps.");
-		}
+	if (!success)
+	{
+		qWarning("Unable to disable core dumps.");
 	}
+}
+
 } // namespace Bootstrap

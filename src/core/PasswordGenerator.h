@@ -68,10 +68,10 @@ public:
 	int getMinLength() const;
 
 	int getLength() const;
-	const GeneratorFlags &getFlags() const;
-	const CharClasses &getActiveClasses() const;
-	const QString &getCustomCharacterSet() const;
-	const QString &getExcludedCharacterSet() const;
+	const GeneratorFlags& getFlags() const;
+	const CharClasses& getActiveClasses() const;
+	const QString& getCustomCharacterSet() const;
+	const QString& getExcludedCharacterSet() const;
 
 	QString generatePassword() const;
 
@@ -91,7 +91,6 @@ private:
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(PasswordGenerator::CharClasses)
-
 Q_DECLARE_OPERATORS_FOR_FLAGS(PasswordGenerator::GeneratorFlags)
 
 #endif // KEEPASSX_PASSWORDGENERATOR_H

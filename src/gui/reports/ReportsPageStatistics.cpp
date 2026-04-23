@@ -29,19 +29,19 @@ QIcon ReportsPageStatistics::icon()
 	return icons()->icon("statistics");
 }
 
-QWidget *ReportsPageStatistics::createWidget()
+QWidget* ReportsPageStatistics::createWidget()
 {
 	return new ReportsWidgetStatistics();
 }
 
 void ReportsPageStatistics::loadSettings(QWidget *widget, QSharedPointer<Database> db)
 {
-	ReportsWidgetStatistics *settingsWidget = reinterpret_cast<ReportsWidgetStatistics *>(widget);
+	ReportsWidgetStatistics *settingsWidget = reinterpret_cast<ReportsWidgetStatistics*>(widget);
 	settingsWidget->loadSettings(db);
 }
 
 void ReportsPageStatistics::saveSettings(QWidget *widget)
 {
-	ReportsWidgetStatistics *settingsWidget = reinterpret_cast<ReportsWidgetStatistics *>(widget);
+	ReportsWidgetStatistics *settingsWidget = reinterpret_cast<ReportsWidgetStatistics*>(widget);
 	settingsWidget->saveSettings();
 }

@@ -38,7 +38,9 @@ class PasswordStrengthItemDelegate: public QStyledItemDelegate
 {
 public:
 	explicit PasswordStrengthItemDelegate(QObject *parent)
-		: QStyledItemDelegate(parent) {};
+		: QStyledItemDelegate(parent)
+	{
+	}
 
 	void initStyleOption(QStyleOptionViewItem *option, const QModelIndex &index) const override
 	{
@@ -52,6 +54,7 @@ public:
 			{
 				pen = option->widget->palette().color(QPalette::Shadow);
 			}
+
 			auto size = option->decorationSize;
 			QImage image(size.width(), size.height(), QImage::Format_ARGB32_Premultiplied);
 			QPainter p(&image);
@@ -123,6 +126,7 @@ EntryView::EntryView(QWidget *parent)
 		action->setData(logicalIndex);
 		m_columnActions->addAction(action);
 	}
+
 	connect(m_columnActions, SIGNAL(triggered(QAction *)), this, SLOT(toggleColumnVisibility(QAction *)));
 
 	m_headerMenu->addSeparator();
@@ -159,8 +163,8 @@ void EntryView::sortIndicatorChanged(int logicalIndex, Qt::SortOrder order)
 	m_lastOrder = order;
 
 	if (oldIndex == logicalIndex // same index
-	    && oldOrder == Qt::DescendingOrder // old order is descending
-	    && order == Qt::AscendingOrder) // new order is ascending
+		&& oldOrder == Qt::DescendingOrder // old order is descending
+		&& order == Qt::AscendingOrder) // new order is ascending
 	{
 		// a change from descending to ascending on the same column occurred
 		// this sets the header into no sort order
@@ -288,13 +292,14 @@ Entry *EntryView::currentEntry()
 	}
 }
 
-QList<Entry *> EntryView::selectedEntries()
+QList<Entry*> EntryView::selectedEntries()
 {
-	QList<Entry *> list;
+	QList<Entry*> list;
 	for (auto row: selectionModel()->selectedRows())
 	{
 		list.append(m_model->entryFromIndex(m_sortModel->mapToSource(row)));
 	}
+
 	return list;
 }
 
@@ -309,11 +314,11 @@ void EntryView::setCurrentEntry(Entry *entry)
 	if (index.isValid())
 	{
 		selectionModel()->setCurrentIndex(m_sortModel->mapFromSource(index),
-		                                  QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
+			QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
 	}
 }
 
-Entry *EntryView::entryFromIndex(const QModelIndex &index)
+Entry* EntryView::entryFromIndex(const QModelIndex &index)
 {
 	if (index.isValid())
 	{
@@ -372,7 +377,7 @@ bool EntryView::setViewState(const QByteArray &state)
  */
 void EntryView::showHeaderMenu(const QPoint &position)
 {
-	const QList<QAction *> actions = m_columnActions->actions();
+	const QList<QAction*> actions = m_columnActions->actions();
 	for (auto &action: actions)
 	{
 		Q_ASSERT(static_cast<QMetaType::Type>(action->data().type()) == QMetaType::Int);
@@ -380,6 +385,7 @@ void EntryView::showHeaderMenu(const QPoint &position)
 		{
 			continue;
 		}
+
 		int columnIndex = action->data().toInt();
 		action->setChecked(!isColumnHidden(columnIndex));
 	}
@@ -410,6 +416,7 @@ void EntryView::toggleColumnVisibility(QAction *action)
 	{
 		m_model->setBackgroundColorVisible(!action->isChecked());
 	}
+
 	if (action->isChecked())
 	{
 		header()->showSection(columnIndex);
@@ -417,14 +424,17 @@ void EntryView::toggleColumnVisibility(QAction *action)
 		{
 			header()->resizeSection(columnIndex, header()->defaultSectionSize());
 		}
+
 		resetFixedColumns();
 		return;
 	}
+
 	if ((header()->count() - header()->hiddenSectionCount()) > 1)
 	{
 		header()->hideSection(columnIndex);
 		return;
 	}
+
 	action->setChecked(true);
 }
 
@@ -479,14 +489,15 @@ void EntryView::resetFixedColumns()
 
 			// Increase column width, if sorting, to accommodate icon and arrow
 			auto width = ICON_ONLY_SECTION_SIZE;
-			if (header()->sortIndicatorSection() == col
-			    && config()->get(Config::GUI_ApplicationTheme).toString() != "classic")
+			if (header()->sortIndicatorSection() == col && config()->get(Config::GUI_ApplicationTheme).toString() != "classic")
 			{
 				width += 18;
 			}
+
 			header()->resizeSection(col, width);
 		}
 	}
+
 	header()->setMinimumSectionSize(1);
 	header()->resizeSection(EntryModel::Color, ICON_ONLY_SECTION_SIZE);
 }
@@ -505,6 +516,7 @@ void EntryView::resetViewToDefaults()
 	{
 		header()->hideSection(EntryModel::ParentGroup);
 	}
+
 	header()->showSection(EntryModel::Title);
 	header()->showSection(EntryModel::Username);
 	header()->showSection(EntryModel::Url);
@@ -611,7 +623,7 @@ void EntryView::startDrag(Qt::DropActions supportedActions)
 	listWidget.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	listWidget.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	listWidget.setStyleSheet("QListWidget { background-color: palette(highlight); border: 1px solid palette(dark); "
-	                         "padding: 4px; color: palette(highlighted-text); }");
+		"padding: 4px; color: palette(highlighted-text); }");
 	auto width = listWidget.sizeHintForColumn(0) + 2 * listWidget.frameWidth();
 	auto height = listWidget.sizeHintForRow(0) * listWidget.count() + 2 * listWidget.frameWidth();
 	listWidget.setFixedWidth(width);

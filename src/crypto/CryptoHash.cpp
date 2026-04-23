@@ -88,7 +88,7 @@ void CryptoHash::addData(const QByteArray &data)
 			d->hashFunction->update(reinterpret_cast<const uint8_t *>(data.data()), data.size());
 		}
 	}
-	catch (std::exception &e)
+	catch (const std::exception &e)
 	{
 		qWarning("CryptoHash::update failed to add data: %s", e.what());
 		Q_ASSERT(false);
@@ -105,7 +105,7 @@ void CryptoHash::setKey(const QByteArray &data)
 		{
 			d->hmacFunction->set_key(reinterpret_cast<const uint8_t *>(data.data()), data.size());
 		}
-		catch (std::exception &e)
+		catch (const std::exception &e)
 		{
 			qWarning("CryptoHash::setKey failed to set HMAC key: %s", e.what());
 			Q_ASSERT(false);
@@ -126,6 +126,7 @@ QByteArray CryptoHash::result() const
 	{
 		result = d->hashFunction->final();
 	}
+
 	return QByteArray(reinterpret_cast<const char *>(result.data()), result.size());
 }
 

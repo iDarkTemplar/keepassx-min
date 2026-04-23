@@ -29,11 +29,7 @@ CsvParserModel::CsvParserModel(QObject *parent)
 {
 }
 
-CsvParserModel::~CsvParserModel()
-{
-}
-
-CsvParser *CsvParserModel::parser()
+CsvParser* CsvParserModel::parser()
 {
 	return m_parser;
 }
@@ -46,15 +42,17 @@ void CsvParserModel::setFilename(const QString &filename)
 QString CsvParserModel::getFileInfo()
 {
 	return QString("%1, %2, %3")
-	    .arg(Tools::humanReadableFileSize(m_parser->getFileSize()),
-	         tr("%n row(s)", "CSV row count", m_parser->getCsvRows()),
-	         tr("%n column(s)", "CSV column count", qMax(0, m_parser->getCsvCols() - 1)));
+		.arg(Tools::humanReadableFileSize(m_parser->getFileSize()),
+			tr("%n row(s)", "CSV row count", m_parser->getCsvRows()),
+			tr("%n column(s)", "CSV column count", qMax(0, m_parser->getCsvCols() - 1)));
 }
 
 bool CsvParserModel::parse()
 {
 	bool r;
+
 	beginResetModel();
+
 	m_columnMap.clear();
 	if (m_parser->isFileLoaded())
 	{
@@ -65,11 +63,14 @@ bool CsvParserModel::parse()
 		QFile csv(m_filename);
 		r = m_parser->parse(&csv);
 	}
+
 	for (int i = 0; i < columnCount(); ++i)
 	{
 		m_columnMap.insert(i, 0);
 	}
+
 	endResetModel();
+
 	return r;
 }
 
@@ -79,7 +80,9 @@ void CsvParserModel::mapColumns(int csvColumn, int dbColumn)
 	{
 		return;
 	}
+
 	beginResetModel();
+
 	if (csvColumn < 0 || csvColumn >= m_parser->getCsvCols())
 	{
 		// This indicates a blank cell
@@ -89,6 +92,7 @@ void CsvParserModel::mapColumns(int csvColumn, int dbColumn)
 	{
 		m_columnMap[dbColumn] = csvColumn;
 	}
+
 	endResetModel();
 }
 
@@ -117,6 +121,7 @@ int CsvParserModel::rowCount(const QModelIndex &parent) const
 	{
 		return 0;
 	}
+
 	return m_parser->getCsvRows();
 }
 
@@ -126,6 +131,7 @@ int CsvParserModel::columnCount(const QModelIndex &parent) const
 	{
 		return 0;
 	}
+
 	return m_columnHeader.size();
 }
 
@@ -135,6 +141,7 @@ QVariant CsvParserModel::data(const QModelIndex &index, int role) const
 	{
 		return {};
 	}
+
 	if (role == Qt::DisplayRole)
 	{
 		auto column = m_columnMap[index.column()];
@@ -143,6 +150,7 @@ QVariant CsvParserModel::data(const QModelIndex &index, int role) const
 			return m_parser->getCsvTable().at(index.row() + m_skipped).at(column);
 		}
 	}
+
 	return QVariant();
 }
 
@@ -165,5 +173,6 @@ QVariant CsvParserModel::headerData(int section, Qt::Orientation orientation, in
 			}
 		}
 	}
+
 	return QVariant();
 }

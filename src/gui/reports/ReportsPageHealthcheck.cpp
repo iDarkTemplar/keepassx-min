@@ -34,19 +34,19 @@ QIcon ReportsPageHealthcheck::icon()
 	return icons()->icon("health");
 }
 
-QWidget *ReportsPageHealthcheck::createWidget()
+QWidget* ReportsPageHealthcheck::createWidget()
 {
 	return m_healthWidget;
 }
 
 void ReportsPageHealthcheck::loadSettings(QWidget *widget, QSharedPointer<Database> db)
 {
-	const auto settingsWidget = reinterpret_cast<ReportsWidgetHealthcheck *>(widget);
+	const auto settingsWidget = reinterpret_cast<ReportsWidgetHealthcheck*>(widget);
 	settingsWidget->loadSettings(db);
 }
 
 void ReportsPageHealthcheck::saveSettings(QWidget *widget)
 {
-	const auto settingsWidget = reinterpret_cast<ReportsWidgetHealthcheck *>(widget);
+	const auto settingsWidget = reinterpret_cast<ReportsWidgetHealthcheck*>(widget);
 	settingsWidget->saveSettings();
 }

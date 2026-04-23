@@ -16,13 +16,15 @@
 
 #ifndef SCREENLOCKLISTENERPRIVATE_H
 #define SCREENLOCKLISTENERPRIVATE_H
+
 #include <QWidget>
 
 class ScreenLockListenerPrivate: public QObject
 {
 	Q_OBJECT
+
 public:
-	static ScreenLockListenerPrivate *instance(QWidget *parent = nullptr);
+	static ScreenLockListenerPrivate* instance(QWidget *parent = nullptr);
 
 protected:
 	explicit ScreenLockListenerPrivate(QWidget *parent = nullptr);

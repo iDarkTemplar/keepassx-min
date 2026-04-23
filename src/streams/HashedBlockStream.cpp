@@ -246,7 +246,8 @@ bool HashedBlockStream::writeHashedBlock()
 		setErrorString(m_baseDevice->errorString());
 		return false;
 	}
-	m_blockIndex++;
+
+	++m_blockIndex;
 
 	QByteArray hash;
 	if (!m_buffer.isEmpty())

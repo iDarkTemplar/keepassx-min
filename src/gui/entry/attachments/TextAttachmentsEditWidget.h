@@ -21,17 +21,18 @@
 #include <QScopedPointer>
 #include <QWidget>
 
-namespace Ui
-{
-	class TextAttachmentsEditWidget;
-}
+namespace Ui {
+
+class TextAttachmentsEditWidget;
+
+} // namespace Ui
 
 class TextAttachmentsEditWidget: public QWidget
 {
 	Q_OBJECT
 public:
 	explicit TextAttachmentsEditWidget(QWidget *parent = nullptr);
-	~TextAttachmentsEditWidget() override;
+	~TextAttachmentsEditWidget();
 
 	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
 	attachments::Attachment getAttachment() const;

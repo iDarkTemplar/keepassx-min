@@ -34,8 +34,7 @@ bool SymmetricCipher::init(Mode mode, Direction direction, const QByteArray &key
 	try
 	{
 		auto botanMode = modeToString(mode);
-		auto botanDirection =
-			(direction == SymmetricCipher::Encrypt ? Botan::Cipher_Dir::Encryption : Botan::Cipher_Dir::Decryption);
+		auto botanDirection = ((direction == SymmetricCipher::Encrypt) ? Botan::Cipher_Dir::Encryption : Botan::Cipher_Dir::Decryption);
 
 		auto cipher = Botan::Cipher_Mode::create_or_throw(botanMode.toStdString(), botanDirection);
 		m_cipher.reset(cipher.release());
@@ -48,9 +47,10 @@ bool SymmetricCipher::init(Mode mode, Direction direction, const QByteArray &key
 			m_error = QObject::tr("SymmetricCipher::init: Invalid IV size of %1 for %2.").arg(iv.size()).arg(botanMode);
 			return false;
 		}
+
 		m_cipher->start(reinterpret_cast<const uint8_t *>(iv.data()), iv.size());
 	}
-	catch (std::exception &e)
+	catch (const std::exception &e)
 	{
 		m_mode = InvalidMode;
 		m_cipher.reset();
@@ -76,6 +76,7 @@ bool SymmetricCipher::process(char *data, int len)
 		m_error = QObject::tr("Cipher not initialized prior to use.");
 		return false;
 	}
+
 	if (len == 0)
 	{
 		m_error = QObject::tr("Cannot process 0 length data.");
@@ -88,7 +89,7 @@ bool SymmetricCipher::process(char *data, int len)
 		m_cipher->process(reinterpret_cast<uint8_t *>(data), len);
 		return true;
 	}
-	catch (std::exception &e)
+	catch (const std::exception &e)
 	{
 		m_error = e.what();
 		return false;
@@ -118,9 +119,10 @@ bool SymmetricCipher::finish(QByteArray &data)
 		data.resize(input.size());
 		// Direct copy the finished data back into the QByteArray
 		std::copy(input.begin(), input.end(), data.begin());
+
 		return true;
 	}
-	catch (std::exception &e)
+	catch (const std::exception &e)
 	{
 		m_error = e.what();
 		return false;
@@ -130,6 +132,7 @@ bool SymmetricCipher::finish(QByteArray &data)
 void SymmetricCipher::reset()
 {
 	m_error.clear();
+
 	if (isInitalized())
 	{
 		m_cipher.reset();
@@ -153,10 +156,12 @@ bool SymmetricCipher::aesKdf(const QByteArray &key, int rounds, QByteArray &data
 		{
 			cipher->encrypt(out);
 		}
+
 		std::copy(out.begin(), out.end(), data.begin());
+
 		return true;
 	}
-	catch (std::exception &e)
+	catch (const std::exception &e)
 	{
 		qWarning("SymmetricCipher::aesKdf: Could not process: %s", e.what());
 		return false;

@@ -44,575 +44,616 @@ QT_BEGIN_NAMESPACE
 Q_GUI_EXPORT int qt_defaultDpiX();
 QT_END_NAMESPACE
 
-namespace Phantom
+namespace Phantom {
+
+namespace {
+
+constexpr qint16 DefaultFrameWidth = 6;
+constexpr qint16 SplitterMaxLength = 25; // Length of splitter handle (not thickness)
+constexpr qint16 MenuMinimumWidth = 20; // Smallest width that menu items can have
+constexpr qint16 MenuBar_FrameWidth = 6;
+constexpr qint16 SpinBox_ButtonWidth = 15;
+
+// These two are currently not based on font, but could be
+constexpr qint16 LineEdit_ContentsHPad = 5;
+constexpr qint16 ComboBox_NonEditable_ContentsHPad = 7;
+constexpr qint16 HeaderSortIndicator_HOffset = 6;
+constexpr qint16 HeaderSortIndicator_VOffset = 4;
+constexpr qint16 HeaderSortIndicator_Width = 12;
+constexpr qint16 TabBar_InactiveVShift = 0;
+
+constexpr qreal TabBarTab_Rounding = 1.0;
+constexpr qreal SpinBox_Rounding = 1.0;
+constexpr qreal LineEdit_Rounding = 1.0;
+constexpr qreal FrameFocusRect_Rounding = 1.0;
+constexpr qreal PushButton_Rounding = 1.0;
+constexpr qreal ToolButton_Rounding = 1.0;
+constexpr qreal ProgressBar_Rounding = 1.0;
+constexpr qreal GroupBox_Rounding = 1.0;
+constexpr qreal SliderGroove_Rounding = 1.0;
+constexpr qreal SliderHandle_Rounding = 1.0;
+
+constexpr qreal CheckMark_WidthOfHeightScale = 0.8;
+constexpr qreal PushButton_HorizontalPaddingFontHeightRatio = 1.0;
+constexpr qreal TabBar_HPaddingFontRatio = 1.25;
+constexpr qreal TabBar_VPaddingFontRatio = 1.0 / 1.25;
+constexpr qreal GroupBox_LabelBottomMarginFontRatio = 1.0 / 4.0;
+constexpr qreal ComboBox_ArrowMarginRatio = 1.0 / 3.25;
+
+constexpr qreal MenuBar_HorizontalPaddingFontRatio = 1.0 / 2.0;
+constexpr qreal MenuBar_VerticalPaddingFontRatio = 1.0 / 3.0;
+
+constexpr qreal MenuItem_LeftMarginFontRatio = 1.0 / 2.0;
+constexpr qreal MenuItem_RightMarginForTextFontRatio = 1.0 / 1.5;
+constexpr qreal MenuItem_RightMarginForArrowFontRatio = 1.0 / 4.0;
+constexpr qreal MenuItem_VerticalMarginsFontRatio = 1.0 / 5.0;
+// Number that's multiplied with a font's height to get the space between a
+// menu item's checkbox (or other sign) and its text (or icon).
+constexpr qreal MenuItem_CheckRightSpaceFontRatio = 1.0 / 4.0;
+constexpr qreal MenuItem_TextMnemonicSpaceFontRatio = 1.5;
+constexpr qreal MenuItem_SubMenuArrowSpaceFontRatio = 1.0 / 1.5;
+constexpr qreal MenuItem_SubMenuArrowWidthFontRatio = 1.0 / 2.75;
+constexpr qreal MenuItem_SeparatorHeightFontRatio = 1.0 / 1.5;
+constexpr qreal MenuItem_CheckMarkVerticalInsetFontRatio = 1.0 / 5.0;
+constexpr qreal MenuItem_IconRightSpaceFontRatio = 1.0 / 3.0;
+
+constexpr bool BranchesOnEdge = false;
+constexpr bool OverhangShadows = false;
+constexpr bool IndicatorShadows = false;
+constexpr bool MenuExtraBottomMargin = true;
+constexpr bool MenuBarLeftMargin = false;
+constexpr bool MenuBarDrawBorder = false;
+constexpr bool AllowToolBarAutoRaise = true;
+// Note that this only applies to the disclosure etc. decorators in tree views.
+constexpr bool ShowItemViewDecorationSelected = false;
+constexpr bool UseQMenuForComboBoxPopup = true;
+constexpr bool ItemView_UseFontHeightForDecorationSize = true;
+
+// Whether or not the non-raised tabs in a tab bar have shininess/highlights to
+// them. Setting this to false adds an extra visual hint for distinguishing
+// between the current and non-current tabs, but makes the non-current tabs
+// appear less clickable. Other ways to increase the visual differences could
+// be to increase the color contrast for the background fill color, or increase
+// the vertical offset. However, increasing the vertical offset comes with some
+// layout challenges, and increasing the color contrast further may visually
+// imply an incorrect layout structure. Not sure what's best.
+//
+// This doesn't disable creating the color/brush resource, even though it's
+// currently a compile-time-only option, because it may be changed to be part
+// of some dynamic config system for Phantom in the future, or have a
+// per-widget style hint associated with it.
+const bool TabBar_InactiveTabsHaveSpecular = false;
+
+struct Grad
 {
-	namespace
+	Grad(const QColor &from, const QColor &to)
 	{
-		constexpr qint16 DefaultFrameWidth = 6;
-		constexpr qint16 SplitterMaxLength = 25; // Length of splitter handle (not thickness)
-		constexpr qint16 MenuMinimumWidth = 20; // Smallest width that menu items can have
-		constexpr qint16 MenuBar_FrameWidth = 6;
-		constexpr qint16 SpinBox_ButtonWidth = 15;
+		rgbA = Rgb::ofQColor(from);
+		rgbB = Rgb::ofQColor(to);
+		lA = rgbA.toHsl().l;
+		lB = rgbB.toHsl().l;
+	}
 
-		// These two are currently not based on font, but could be
-		constexpr qint16 LineEdit_ContentsHPad = 5;
-		constexpr qint16 ComboBox_NonEditable_ContentsHPad = 7;
-		constexpr qint16 HeaderSortIndicator_HOffset = 6;
-		constexpr qint16 HeaderSortIndicator_VOffset = 4;
-		constexpr qint16 HeaderSortIndicator_Width = 12;
-		constexpr qint16 TabBar_InactiveVShift = 0;
+	QColor sample(qreal alpha) const
+	{
+		Hsl hsl = Rgb::lerp(rgbA, rgbB, alpha).toHsl();
+		hsl.l = Phantom::lerp(lA, lB, alpha);
+		return hsl.toQColor();
+	}
 
-		constexpr qreal TabBarTab_Rounding = 1.0;
-		constexpr qreal SpinBox_Rounding = 1.0;
-		constexpr qreal LineEdit_Rounding = 1.0;
-		constexpr qreal FrameFocusRect_Rounding = 1.0;
-		constexpr qreal PushButton_Rounding = 1.0;
-		constexpr qreal ToolButton_Rounding = 1.0;
-		constexpr qreal ProgressBar_Rounding = 1.0;
-		constexpr qreal GroupBox_Rounding = 1.0;
-		constexpr qreal SliderGroove_Rounding = 1.0;
-		constexpr qreal SliderHandle_Rounding = 1.0;
+	Rgb rgbA, rgbB;
+	qreal lA, lB;
+};
 
-		constexpr qreal CheckMark_WidthOfHeightScale = 0.8;
-		constexpr qreal PushButton_HorizontalPaddingFontHeightRatio = 1.0;
-		constexpr qreal TabBar_HPaddingFontRatio = 1.25;
-		constexpr qreal TabBar_VPaddingFontRatio = 1.0 / 1.25;
-		constexpr qreal GroupBox_LabelBottomMarginFontRatio = 1.0 / 4.0;
-		constexpr qreal ComboBox_ArrowMarginRatio = 1.0 / 3.25;
+namespace DeriveColors {
 
-		constexpr qreal MenuBar_HorizontalPaddingFontRatio = 1.0 / 2.0;
-		constexpr qreal MenuBar_VerticalPaddingFontRatio = 1.0 / 3.0;
+Q_NEVER_INLINE QColor adjustLightness(const QColor &qcolor, qreal ld)
+{
+	Hsl hsl = Hsl::ofQColor(qcolor);
+	const qreal gamma = 3.0;
+	hsl.l = std::pow(Phantom::saturate(std::pow(hsl.l, 1.0 / gamma) + ld * 0.8), gamma);
+	return hsl.toQColor();
+}
 
-		constexpr qreal MenuItem_LeftMarginFontRatio = 1.0 / 2.0;
-		constexpr qreal MenuItem_RightMarginForTextFontRatio = 1.0 / 1.5;
-		constexpr qreal MenuItem_RightMarginForArrowFontRatio = 1.0 / 4.0;
-		constexpr qreal MenuItem_VerticalMarginsFontRatio = 1.0 / 5.0;
-		// Number that's multiplied with a font's height to get the space between a
-		// menu item's checkbox (or other sign) and its text (or icon).
-		constexpr qreal MenuItem_CheckRightSpaceFontRatio = 1.0 / 4.0;
-		constexpr qreal MenuItem_TextMnemonicSpaceFontRatio = 1.5;
-		constexpr qreal MenuItem_SubMenuArrowSpaceFontRatio = 1.0 / 1.5;
-		constexpr qreal MenuItem_SubMenuArrowWidthFontRatio = 1.0 / 2.75;
-		constexpr qreal MenuItem_SeparatorHeightFontRatio = 1.0 / 1.5;
-		constexpr qreal MenuItem_CheckMarkVerticalInsetFontRatio = 1.0 / 5.0;
-		constexpr qreal MenuItem_IconRightSpaceFontRatio = 1.0 / 3.0;
+bool hack_isLightPalette(const QPalette &pal)
+{
+	Hsl hsl0 = Hsl::ofQColor(pal.color(QPalette::WindowText));
+	Hsl hsl1 = Hsl::ofQColor(pal.color(QPalette::Window));
 
-		constexpr bool BranchesOnEdge = false;
-		constexpr bool OverhangShadows = false;
-		constexpr bool IndicatorShadows = false;
-		constexpr bool MenuExtraBottomMargin = true;
-		constexpr bool MenuBarLeftMargin = false;
-		constexpr bool MenuBarDrawBorder = false;
-		constexpr bool AllowToolBarAutoRaise = true;
-		// Note that this only applies to the disclosure etc. decorators in tree views.
-		constexpr bool ShowItemViewDecorationSelected = false;
-		constexpr bool UseQMenuForComboBoxPopup = true;
-		constexpr bool ItemView_UseFontHeightForDecorationSize = true;
+	return hsl0.l < hsl1.l;
+}
 
-		// Whether or not the non-raised tabs in a tab bar have shininess/highlights to
-		// them. Setting this to false adds an extra visual hint for distinguishing
-		// between the current and non-current tabs, but makes the non-current tabs
-		// appear less clickable. Other ways to increase the visual differences could
-		// be to increase the color contrast for the background fill color, or increase
-		// the vertical offset. However, increasing the vertical offset comes with some
-		// layout challenges, and increasing the color contrast further may visually
-		// imply an incorrect layout structure. Not sure what's best.
-		//
-		// This doesn't disable creating the color/brush resource, even though it's
-		// currently a compile-time-only option, because it may be changed to be part
-		// of some dynamic config system for Phantom in the future, or have a
-		// per-widget style hint associated with it.
-		const bool TabBar_InactiveTabsHaveSpecular = false;
+QColor buttonColor(const QPalette &pal)
+{
+	// temp hack
+	if (pal.color(QPalette::Button) == pal.color(QPalette::Window))
+	{
+		return adjustLightness(pal.color(QPalette::Button), 0.01);
+	}
 
-		struct Grad
-		{
-			Grad(const QColor &from, const QColor &to)
-			{
-				rgbA = Rgb::ofQColor(from);
-				rgbB = Rgb::ofQColor(to);
-				lA = rgbA.toHsl().l;
-				lB = rgbB.toHsl().l;
-			}
-			QColor sample(qreal alpha) const
-			{
-				Hsl hsl = Rgb::lerp(rgbA, rgbB, alpha).toHsl();
-				hsl.l = Phantom::lerp(lA, lB, alpha);
-				return hsl.toQColor();
-			}
-			Rgb rgbA, rgbB;
-			qreal lA, lB;
-		};
+	return pal.color(QPalette::Button);
+}
 
-		namespace DeriveColors
-		{
-			Q_NEVER_INLINE QColor adjustLightness(const QColor &qcolor, qreal ld)
-			{
-				Hsl hsl = Hsl::ofQColor(qcolor);
-				const qreal gamma = 3.0;
-				hsl.l = std::pow(Phantom::saturate(std::pow(hsl.l, 1.0 / gamma) + ld * 0.8), gamma);
-				return hsl.toQColor();
-			}
-			bool hack_isLightPalette(const QPalette &pal)
-			{
-				Hsl hsl0 = Hsl::ofQColor(pal.color(QPalette::WindowText));
-				Hsl hsl1 = Hsl::ofQColor(pal.color(QPalette::Window));
-				return hsl0.l < hsl1.l;
-			}
-			QColor buttonColor(const QPalette &pal)
-			{
-				// temp hack
-				if (pal.color(QPalette::Button) == pal.color(QPalette::Window))
-					return adjustLightness(pal.color(QPalette::Button), 0.01);
-				return pal.color(QPalette::Button);
-			}
-			QColor highlightedOutlineOf(const QPalette &pal)
-			{
-				return adjustLightness(pal.color(QPalette::Highlight), -0.08);
-			}
-			QColor dividerColor(const QColor &underlying)
-			{
-				return adjustLightness(underlying, -0.05);
-			}
-			QColor lightDividerColor(const QColor &underlying)
-			{
-				return adjustLightness(underlying, 0.02);
-			}
-			QColor outlineOf(const QPalette &pal)
-			{
-				return adjustLightness(pal.color(QPalette::Window), -0.1);
-			}
-			QColor gutterColorOf(const QPalette &pal)
-			{
-				return adjustLightness(pal.color(QPalette::Window), -0.05);
-			}
-			QColor darkGutterColorOf(const QPalette &pal)
-			{
-				return adjustLightness(pal.color(QPalette::Window), -0.08);
-			}
-			QColor lightShadeOf(const QColor &underlying)
-			{
-				return adjustLightness(underlying, 0.08);
-			}
-			QColor darkShadeOf(const QColor &underlying)
-			{
-				return adjustLightness(underlying, -0.08);
-			}
-			QColor overhangShadowOf(const QColor &underlying)
-			{
-				return adjustLightness(underlying, -0.05);
-			}
-			QColor sliderGutterShadowOf(const QColor &underlying)
-			{
-				return adjustLightness(underlying, -0.01);
-			}
-			QColor specularOf(const QColor &underlying)
-			{
-				return adjustLightness(underlying, 0.01);
-			}
-			QColor lightSpecularOf(const QColor &underlying)
-			{
-				return adjustLightness(underlying, 0.05);
-			}
-			QColor pressedOf(const QColor &color)
-			{
-				return adjustLightness(color, -0.05);
-			}
-			QColor darkPressedOf(const QColor &color)
-			{
-				return adjustLightness(color, -0.08);
-			}
-			QColor lightOnOf(const QColor &color)
-			{
-				return adjustLightness(color, -0.04);
-			}
-			QColor onOf(const QColor &color)
-			{
-				return adjustLightness(color, -0.08);
-			}
-			QColor indicatorColorOf(const QPalette &palette, QPalette::ColorGroup group = QPalette::Current)
-			{
-				if (hack_isLightPalette(palette))
-				{
-					qreal adjust = (palette.currentColorGroup() == QPalette::Disabled) ? 0.09 : 0.32;
-					return adjustLightness(palette.color(group, QPalette::WindowText), adjust);
-				}
-				return adjustLightness(palette.color(group, QPalette::WindowText), -0.05);
-			}
-			QColor inactiveTabFillColorOf(const QColor &underlying)
-			{
-				// used to be -0.01
-				return adjustLightness(underlying, -0.025);
-			}
-			QColor progressBarOutlineColorOf(const QPalette &pal)
-			{
-				// Pretty wasteful
-				Hsl hsl0 = Hsl::ofQColor(pal.color(QPalette::Window));
-				Hsl hsl1 = Hsl::ofQColor(pal.color(QPalette::Highlight));
-				hsl1.l = Phantom::saturate(qMin(hsl0.l - 0.1, hsl1.l - 0.2));
-				return hsl1.toQColor();
-			}
-			QColor itemViewMultiSelectionCurrentBorderOf(const QPalette &pal)
-			{
-				return adjustLightness(pal.color(QPalette::Highlight), -0.15);
-			}
-			QColor itemViewHeaderOnLineColorOf(const QPalette &pal)
-			{
-				return hack_isLightPalette(pal)
-				           ? highlightedOutlineOf(pal)
-				           : Grad(pal.color(QPalette::WindowText), pal.color(QPalette::Window)).sample(0.5);
-			}
-		} // namespace DeriveColors
+QColor highlightedOutlineOf(const QPalette &pal)
+{
+	return adjustLightness(pal.color(QPalette::Highlight), -0.08);
+}
 
-		namespace SwatchColors
-		{
-			enum SwatchColor
-			{
-				S_none = 0,
-				S_window,
-				S_button,
-				S_base,
-				S_text,
-				S_windowText,
-				S_highlight,
-				S_highlightedText,
-				S_scrollbarGutter,
-				S_scrollbarSlider,
-				S_window_outline,
-				S_window_specular,
-				S_window_divider,
-				S_window_lighter,
-				S_window_darker,
-				S_frame_outline,
-				S_button_specular,
-				S_button_pressed,
-				S_button_on,
-				S_button_pressed_specular,
-				S_sliderHandle,
-				S_sliderHandle_pressed,
-				S_sliderHandle_specular,
-				S_sliderHandle_pressed_specular,
-				S_splitterHandle,
-				S_base_shadow,
-				S_base_divider,
-				S_windowText_disabled,
-				S_highlight_outline,
-				S_highlight_specular,
-				S_progressBar_outline,
-				S_inactiveTabYesFrame,
-				S_inactiveTabNoFrame,
-				S_inactiveTabYesFrame_specular,
-				S_inactiveTabNoFrame_specular,
-				S_indicator_current,
-				S_indicator_disabled,
-				S_itemView_multiSelection_currentBorder,
-				S_itemView_headerOnLine,
-				S_scrollbarGutter_disabled,
+QColor dividerColor(const QColor &underlying)
+{
+	return adjustLightness(underlying, -0.05);
+}
 
-				S_tabBarBase,
-				S_tabBarBase_inactive,
+QColor lightDividerColor(const QColor &underlying)
+{
+	return adjustLightness(underlying, 0.02);
+}
 
-				// Aliases
-				S_progressBar = S_highlight,
-				S_progressBar_specular = S_highlight_specular,
-				S_tabFrame = S_window,
-				S_tabFrame_specular = S_window_specular,
-			};
-		}
+QColor outlineOf(const QPalette &pal)
+{
+	return adjustLightness(pal.color(QPalette::Window), -0.1);
+}
 
-		using Swatchy = SwatchColors::SwatchColor;
+QColor gutterColorOf(const QPalette &pal)
+{
+	return adjustLightness(pal.color(QPalette::Window), -0.05);
+}
 
-		enum
-		{
-			Num_SwatchColors = SwatchColors::S_tabBarBase_inactive + 1,
-			Num_ShadowSteps = 3,
-		};
+QColor darkGutterColorOf(const QPalette &pal)
+{
+	return adjustLightness(pal.color(QPalette::Window), -0.08);
+}
 
-		struct PhSwatch: public QSharedData
-		{
-			// The pens store the brushes within them, so storing the brushes here as
-			// well is redundant. However, QPen::brush() does not return its brush by
-			// reference, so we'd end up doing a bunch of inc/dec work every time we use
-			// one. Also, it saves us the indirection of chasing two pointers (Swatch ->
-			// QPen -> QBrush) every time we want to get a QColor.
-			QBrush brushes[Num_SwatchColors];
-			QPen pens[Num_SwatchColors];
-			QColor scrollbarShadowColors[Num_ShadowSteps];
+QColor lightShadeOf(const QColor &underlying)
+{
+	return adjustLightness(underlying, 0.08);
+}
 
-			// Note: the casts to int in the assert macros are to suppress a false
-			// positive warning for tautological comparison in the clang linter.
-			inline const QColor &color(Swatchy swatchValue) const
-			{
-				Q_ASSERT(swatchValue >= 0 && static_cast<int>(swatchValue) < Num_SwatchColors);
-				return brushes[swatchValue].color();
-			}
-			inline const QBrush &brush(Swatchy swatchValue) const
-			{
-				Q_ASSERT(swatchValue >= 0 && static_cast<int>(swatchValue) < Num_SwatchColors);
-				return brushes[swatchValue];
-			}
-			inline const QPen &pen(Swatchy swatchValue) const
-			{
-				Q_ASSERT(swatchValue >= 0 && static_cast<int>(swatchValue) < Num_SwatchColors);
-				return pens[swatchValue];
-			}
+QColor darkShadeOf(const QColor &underlying)
+{
+	return adjustLightness(underlying, -0.08);
+}
 
-			void loadFromQPalette(const QPalette &pal);
-		};
+QColor overhangShadowOf(const QColor &underlying)
+{
+	return adjustLightness(underlying, -0.05);
+}
 
-		using PhSwatchPtr = QExplicitlySharedDataPointer<PhSwatch>;
-		using PhCacheEntry = QPair<uint, PhSwatchPtr>;
-		enum : int
-		{
-			Num_ColorCacheEntries = 10,
-		};
-		using PhSwatchCache = QVarLengthArray<PhCacheEntry, Num_ColorCacheEntries>;
-		Q_NEVER_INLINE void PhSwatch::loadFromQPalette(const QPalette &pal)
-		{
-			using namespace SwatchColors;
-			namespace Dc = DeriveColors;
-			bool isLight = Dc::hack_isLightPalette(pal);
-			QColor colors[Num_SwatchColors];
-			colors[S_none] = QColor();
+QColor sliderGutterShadowOf(const QColor &underlying)
+{
+	return adjustLightness(underlying, -0.01);
+}
 
-			colors[S_window] = pal.color(QPalette::Window);
-			colors[S_button] = pal.color(QPalette::Button);
-			if (colors[S_button] == colors[S_window])
-				colors[S_button] = Dc::adjustLightness(colors[S_button], 0.01);
-			colors[S_base] = pal.color(QPalette::Base);
-			colors[S_text] = pal.color(QPalette::Text);
-			colors[S_windowText] = pal.color(QPalette::WindowText);
-			colors[S_highlight] = pal.color(QPalette::Highlight);
-			colors[S_highlightedText] = pal.color(QPalette::HighlightedText);
-			colors[S_scrollbarGutter] = isLight ? Dc::gutterColorOf(pal) : Dc::darkGutterColorOf(pal);
-			colors[S_scrollbarSlider] = isLight ? colors[S_button] : Dc::adjustLightness(colors[S_window], 0.2);
+QColor specularOf(const QColor &underlying)
+{
+	return adjustLightness(underlying, 0.01);
+}
 
-			colors[S_window_outline] =
-				isLight ? Dc::adjustLightness(colors[S_window], -0.1) : Dc::adjustLightness(colors[S_window], 0.03);
-			colors[S_window_specular] = Dc::specularOf(colors[S_window]);
-			colors[S_window_divider] =
-				isLight ? Dc::dividerColor(colors[S_window]) : Dc::lightDividerColor(colors[S_window]);
-			colors[S_window_lighter] = Dc::lightShadeOf(colors[S_window]);
-			colors[S_window_darker] = Dc::darkShadeOf(colors[S_window]);
-			colors[S_frame_outline] = isLight ? colors[S_window_outline] : Dc::adjustLightness(colors[S_window], 0.08);
-			colors[S_button_specular] =
-				isLight ? Dc::specularOf(colors[S_button]) : Dc::lightSpecularOf(colors[S_button]);
-			colors[S_button_pressed] = isLight ? Dc::pressedOf(colors[S_button]) : Dc::darkPressedOf(colors[S_button]);
-			colors[S_button_on] = isLight ? Dc::lightOnOf(colors[S_button]) : Dc::onOf(colors[S_button]);
-			colors[S_button_pressed_specular] =
-				isLight ? Dc::specularOf(colors[S_button_pressed]) : Dc::lightSpecularOf(colors[S_button_pressed]);
+QColor lightSpecularOf(const QColor &underlying)
+{
+	return adjustLightness(underlying, 0.05);
+}
 
-			colors[S_sliderHandle] = isLight ? colors[S_button] : Dc::adjustLightness(colors[S_button], -0.03);
-			colors[S_sliderHandle_specular] =
-				isLight ? Dc::specularOf(colors[S_sliderHandle]) : Dc::lightSpecularOf(colors[S_sliderHandle]);
-			colors[S_sliderHandle_pressed] =
-				isLight ? colors[S_button_pressed] : Dc::adjustLightness(colors[S_button_pressed], 0.03);
-			colors[S_sliderHandle_pressed_specular] = isLight ? Dc::specularOf(colors[S_sliderHandle_pressed])
-			                                                  : Dc::lightSpecularOf(colors[S_sliderHandle_pressed]);
-			colors[S_splitterHandle] =
-				isLight ? Dc::adjustLightness(colors[S_window], -0.1) : Dc::adjustLightness(colors[S_window], 0.15);
-			colors[S_base_shadow] = Dc::overhangShadowOf(colors[S_base]);
-			colors[S_base_divider] = colors[S_window_divider];
-			colors[S_windowText_disabled] = pal.color(QPalette::Disabled, QPalette::WindowText);
-			colors[S_highlight_outline] = isLight ? Dc::adjustLightness(colors[S_highlight], -0.02)
-			                                      : Dc::adjustLightness(colors[S_highlight], 0.05);
-			colors[S_highlight_specular] = Dc::specularOf(colors[S_highlight]);
-			colors[S_progressBar_outline] = Dc::progressBarOutlineColorOf(pal);
-			colors[S_inactiveTabYesFrame] = Dc::inactiveTabFillColorOf(colors[S_tabFrame]);
-			colors[S_inactiveTabNoFrame] = Dc::inactiveTabFillColorOf(colors[S_window]);
-			colors[S_inactiveTabYesFrame_specular] = Dc::specularOf(colors[S_inactiveTabYesFrame]);
-			colors[S_inactiveTabNoFrame_specular] = Dc::specularOf(colors[S_inactiveTabNoFrame]);
-			colors[S_indicator_current] = Dc::indicatorColorOf(pal, QPalette::Current);
-			colors[S_indicator_disabled] = Dc::indicatorColorOf(pal, QPalette::Disabled);
-			colors[S_itemView_multiSelection_currentBorder] = Dc::itemViewMultiSelectionCurrentBorderOf(pal);
-			colors[S_itemView_headerOnLine] = Dc::itemViewHeaderOnLineColorOf(pal);
-			colors[S_scrollbarGutter_disabled] = colors[S_window];
-			colors[S_tabBarBase] = pal.color(QPalette::Active, QPalette::Window);
-			colors[S_tabBarBase_inactive] = pal.color(QPalette::Inactive, QPalette::Window);
+QColor pressedOf(const QColor &color)
+{
+	return adjustLightness(color, -0.05);
+}
 
-			brushes[S_none] = Qt::NoBrush;
-			for (int i = S_none + 1; i < Num_SwatchColors; ++i)
-			{
-				// todo try to reuse
-				brushes[i] = colors[i];
-			}
-			pens[S_none] = Qt::NoPen;
-			// QPen::setColor constructs a QBrush behind the scenes, so better to just
-			// re-use the ones we already made.
-			for (int i = S_none + 1; i < Num_SwatchColors; ++i)
-			{
-				pens[i].setBrush(brushes[i]);
-				// Width is already 1, don't need to set it. Caps and joins already fine at
-				// their defaults, too.
-			}
+QColor darkPressedOf(const QColor &color)
+{
+	return adjustLightness(color, -0.08);
+}
 
-			Grad gutterGrad(Dc::sliderGutterShadowOf(colors[S_scrollbarGutter]), colors[S_scrollbarGutter]);
-			for (int i = 0; i < Num_ShadowSteps; ++i)
-			{
-				scrollbarShadowColors[i] = gutterGrad.sample(i / static_cast<qreal>(Num_ShadowSteps));
-			}
-		}
+QColor lightOnOf(const QColor &color)
+{
+	return adjustLightness(color, -0.04);
+}
 
-		// This is the "hash" (not really a hash) function we'll use on the happy fast
-		// path when looking up a PhSwatch for a given QPalette. It's fragile, because
-		// it uses QPalette::cacheKey(), so it may not match even when the contents
-		// (currentColorGroup + the RGB colors) of the QPalette are actually a match.
-		// But it's cheaper to calculate, so we'll store a single one of these "hashes"
-		// for the head (most recently used) cached PhSwatch, and check to see if it
-		// matches. This is the most common case, so we can usually save some work by
-		// doing this. (The second most common case is probably having a different
-		// ColorGroup but the rest of the contents are the same, but we don't have a
-		// special path for that.)
-		inline quint64 fastfragile_hash_qpalette(const QPalette &p)
-		{
-			union
-			{
-				qint64 i;
-				quint64 u;
-			} x;
-			x.i = p.cacheKey();
-			// QPalette::ColorGroup has range 0..5 (inclusive), so it only uses 3 bits.
-			// The high 32 bits in QPalette::cacheKey() are a global incrementing serial
-			// number for the QPalette creation. We don't store (2^29-1) things in our
-			// cache, and I doubt that many will ever be created in a real application
-			// while also retaining some of them across such a broad time range, so it's
-			// really unlikely that repurposing these top 3 bits to also include the
-			// QPalette::currentColorGroup() (which the cacheKey doesn't include for some
-			// reason...) will generate a collision.
-			//
-			// This may not be true in the future if the way the QPalette::cacheKey() is
-			// generated changes. If that happens, change to use the definition of
-			// `fastfragile_hash_qpalette` below, which is less likely to collide with an
-			// arbitrarily numbered key but also does more work.
+QColor onOf(const QColor &color)
+{
+	return adjustLightness(color, -0.08);
+}
+
+QColor indicatorColorOf(const QPalette &palette, QPalette::ColorGroup group = QPalette::Current)
+{
+	if (hack_isLightPalette(palette))
+	{
+		qreal adjust = (palette.currentColorGroup() == QPalette::Disabled) ? 0.09 : 0.32;
+		return adjustLightness(palette.color(group, QPalette::WindowText), adjust);
+	}
+
+	return adjustLightness(palette.color(group, QPalette::WindowText), -0.05);
+}
+
+QColor inactiveTabFillColorOf(const QColor &underlying)
+{
+	// used to be -0.01
+	return adjustLightness(underlying, -0.025);
+}
+
+QColor progressBarOutlineColorOf(const QPalette &pal)
+{
+	// Pretty wasteful
+	Hsl hsl0 = Hsl::ofQColor(pal.color(QPalette::Window));
+	Hsl hsl1 = Hsl::ofQColor(pal.color(QPalette::Highlight));
+	hsl1.l = Phantom::saturate(qMin(hsl0.l - 0.1, hsl1.l - 0.2));
+	return hsl1.toQColor();
+}
+
+QColor itemViewMultiSelectionCurrentBorderOf(const QPalette &pal)
+{
+	return adjustLightness(pal.color(QPalette::Highlight), -0.15);
+}
+
+QColor itemViewHeaderOnLineColorOf(const QPalette &pal)
+{
+	return hack_isLightPalette(pal)
+	? highlightedOutlineOf(pal)
+	: Grad(pal.color(QPalette::WindowText), pal.color(QPalette::Window)).sample(0.5);
+}
+
+} // namespace DeriveColors
+
+namespace SwatchColors {
+
+enum SwatchColor
+{
+	S_none = 0,
+	S_window,
+	S_button,
+	S_base,
+	S_text,
+	S_windowText,
+	S_highlight,
+	S_highlightedText,
+	S_scrollbarGutter,
+	S_scrollbarSlider,
+	S_window_outline,
+	S_window_specular,
+	S_window_divider,
+	S_window_lighter,
+	S_window_darker,
+	S_frame_outline,
+	S_button_specular,
+	S_button_pressed,
+	S_button_on,
+	S_button_pressed_specular,
+	S_sliderHandle,
+	S_sliderHandle_pressed,
+	S_sliderHandle_specular,
+	S_sliderHandle_pressed_specular,
+	S_splitterHandle,
+	S_base_shadow,
+	S_base_divider,
+	S_windowText_disabled,
+	S_highlight_outline,
+	S_highlight_specular,
+	S_progressBar_outline,
+	S_inactiveTabYesFrame,
+	S_inactiveTabNoFrame,
+	S_inactiveTabYesFrame_specular,
+	S_inactiveTabNoFrame_specular,
+	S_indicator_current,
+	S_indicator_disabled,
+	S_itemView_multiSelection_currentBorder,
+	S_itemView_headerOnLine,
+	S_scrollbarGutter_disabled,
+
+	S_tabBarBase,
+	S_tabBarBase_inactive,
+
+	// Aliases
+	S_progressBar = S_highlight,
+	S_progressBar_specular = S_highlight_specular,
+	S_tabFrame = S_window,
+	S_tabFrame_specular = S_window_specular,
+};
+
+} // namespace SwatchColors
+
+using Swatchy = SwatchColors::SwatchColor;
+
+enum
+{
+	Num_SwatchColors = SwatchColors::S_tabBarBase_inactive + 1,
+	Num_ShadowSteps = 3,
+};
+
+struct PhSwatch: public QSharedData
+{
+	// The pens store the brushes within them, so storing the brushes here as
+	// well is redundant. However, QPen::brush() does not return its brush by
+	// reference, so we'd end up doing a bunch of inc/dec work every time we use
+	// one. Also, it saves us the indirection of chasing two pointers (Swatch ->
+	// QPen -> QBrush) every time we want to get a QColor.
+	QBrush brushes[Num_SwatchColors];
+	QPen pens[Num_SwatchColors];
+	QColor scrollbarShadowColors[Num_ShadowSteps];
+
+	// Note: the casts to int in the assert macros are to suppress a false
+	// positive warning for tautological comparison in the clang linter.
+	inline const QColor& color(Swatchy swatchValue) const
+	{
+		Q_ASSERT(swatchValue >= 0 && static_cast<int>(swatchValue) < Num_SwatchColors);
+		return brushes[swatchValue].color();
+	}
+
+	inline const QBrush& brush(Swatchy swatchValue) const
+	{
+		Q_ASSERT(swatchValue >= 0 && static_cast<int>(swatchValue) < Num_SwatchColors);
+		return brushes[swatchValue];
+	}
+
+	inline const QPen& pen(Swatchy swatchValue) const
+	{
+		Q_ASSERT(swatchValue >= 0 && static_cast<int>(swatchValue) < Num_SwatchColors);
+		return pens[swatchValue];
+	}
+
+	void loadFromQPalette(const QPalette &pal);
+};
+
+using PhSwatchPtr = QExplicitlySharedDataPointer<PhSwatch>;
+using PhCacheEntry = QPair<uint, PhSwatchPtr>;
+
+enum: int
+{
+	Num_ColorCacheEntries = 10,
+};
+
+using PhSwatchCache = QVarLengthArray<PhCacheEntry, Num_ColorCacheEntries>;
+
+Q_NEVER_INLINE void PhSwatch::loadFromQPalette(const QPalette &pal)
+{
+	using namespace SwatchColors;
+	namespace Dc = DeriveColors;
+	bool isLight = Dc::hack_isLightPalette(pal);
+	QColor colors[Num_SwatchColors];
+	colors[S_none] = QColor();
+
+	colors[S_window] = pal.color(QPalette::Window);
+	colors[S_button] = pal.color(QPalette::Button);
+	if (colors[S_button] == colors[S_window])
+	{
+		colors[S_button] = Dc::adjustLightness(colors[S_button], 0.01);
+	}
+
+	colors[S_base] = pal.color(QPalette::Base);
+	colors[S_text] = pal.color(QPalette::Text);
+	colors[S_windowText] = pal.color(QPalette::WindowText);
+	colors[S_highlight] = pal.color(QPalette::Highlight);
+	colors[S_highlightedText] = pal.color(QPalette::HighlightedText);
+	colors[S_scrollbarGutter] = isLight ? Dc::gutterColorOf(pal) : Dc::darkGutterColorOf(pal);
+	colors[S_scrollbarSlider] = isLight ? colors[S_button] : Dc::adjustLightness(colors[S_window], 0.2);
+
+	colors[S_window_outline] = isLight ? Dc::adjustLightness(colors[S_window], -0.1) : Dc::adjustLightness(colors[S_window], 0.03);
+	colors[S_window_specular] = Dc::specularOf(colors[S_window]);
+	colors[S_window_divider] = isLight ? Dc::dividerColor(colors[S_window]) : Dc::lightDividerColor(colors[S_window]);
+	colors[S_window_lighter] = Dc::lightShadeOf(colors[S_window]);
+	colors[S_window_darker] = Dc::darkShadeOf(colors[S_window]);
+	colors[S_frame_outline] = isLight ? colors[S_window_outline] : Dc::adjustLightness(colors[S_window], 0.08);
+	colors[S_button_specular] = isLight ? Dc::specularOf(colors[S_button]) : Dc::lightSpecularOf(colors[S_button]);
+	colors[S_button_pressed] = isLight ? Dc::pressedOf(colors[S_button]) : Dc::darkPressedOf(colors[S_button]);
+	colors[S_button_on] = isLight ? Dc::lightOnOf(colors[S_button]) : Dc::onOf(colors[S_button]);
+	colors[S_button_pressed_specular] = isLight ? Dc::specularOf(colors[S_button_pressed]) : Dc::lightSpecularOf(colors[S_button_pressed]);
+
+	colors[S_sliderHandle] = isLight ? colors[S_button] : Dc::adjustLightness(colors[S_button], -0.03);
+	colors[S_sliderHandle_specular] = isLight ? Dc::specularOf(colors[S_sliderHandle]) : Dc::lightSpecularOf(colors[S_sliderHandle]);
+	colors[S_sliderHandle_pressed] = isLight ? colors[S_button_pressed] : Dc::adjustLightness(colors[S_button_pressed], 0.03);
+	colors[S_sliderHandle_pressed_specular] = isLight ? Dc::specularOf(colors[S_sliderHandle_pressed])
+		: Dc::lightSpecularOf(colors[S_sliderHandle_pressed]);
+	colors[S_splitterHandle] = isLight ? Dc::adjustLightness(colors[S_window], -0.1) : Dc::adjustLightness(colors[S_window], 0.15);
+	colors[S_base_shadow] = Dc::overhangShadowOf(colors[S_base]);
+	colors[S_base_divider] = colors[S_window_divider];
+	colors[S_windowText_disabled] = pal.color(QPalette::Disabled, QPalette::WindowText);
+	colors[S_highlight_outline] = isLight ? Dc::adjustLightness(colors[S_highlight], -0.02)
+		: Dc::adjustLightness(colors[S_highlight], 0.05);
+	colors[S_highlight_specular] = Dc::specularOf(colors[S_highlight]);
+	colors[S_progressBar_outline] = Dc::progressBarOutlineColorOf(pal);
+	colors[S_inactiveTabYesFrame] = Dc::inactiveTabFillColorOf(colors[S_tabFrame]);
+	colors[S_inactiveTabNoFrame] = Dc::inactiveTabFillColorOf(colors[S_window]);
+	colors[S_inactiveTabYesFrame_specular] = Dc::specularOf(colors[S_inactiveTabYesFrame]);
+	colors[S_inactiveTabNoFrame_specular] = Dc::specularOf(colors[S_inactiveTabNoFrame]);
+	colors[S_indicator_current] = Dc::indicatorColorOf(pal, QPalette::Current);
+	colors[S_indicator_disabled] = Dc::indicatorColorOf(pal, QPalette::Disabled);
+	colors[S_itemView_multiSelection_currentBorder] = Dc::itemViewMultiSelectionCurrentBorderOf(pal);
+	colors[S_itemView_headerOnLine] = Dc::itemViewHeaderOnLineColorOf(pal);
+	colors[S_scrollbarGutter_disabled] = colors[S_window];
+	colors[S_tabBarBase] = pal.color(QPalette::Active, QPalette::Window);
+	colors[S_tabBarBase_inactive] = pal.color(QPalette::Inactive, QPalette::Window);
+
+	brushes[S_none] = Qt::NoBrush;
+	for (int i = S_none + 1; i < Num_SwatchColors; ++i)
+	{
+		// todo try to reuse
+		brushes[i] = colors[i];
+	}
+
+	pens[S_none] = Qt::NoPen;
+
+	// QPen::setColor constructs a QBrush behind the scenes, so better to just
+	// re-use the ones we already made.
+	for (int i = S_none + 1; i < Num_SwatchColors; ++i)
+	{
+		pens[i].setBrush(brushes[i]);
+		// Width is already 1, don't need to set it. Caps and joins already fine at
+		// their defaults, too.
+	}
+
+	Grad gutterGrad(Dc::sliderGutterShadowOf(colors[S_scrollbarGutter]), colors[S_scrollbarGutter]);
+	for (int i = 0; i < Num_ShadowSteps; ++i)
+	{
+		scrollbarShadowColors[i] = gutterGrad.sample(i / static_cast<qreal>(Num_ShadowSteps));
+	}
+}
+
+// This is the "hash" (not really a hash) function we'll use on the happy fast
+// path when looking up a PhSwatch for a given QPalette. It's fragile, because
+// it uses QPalette::cacheKey(), so it may not match even when the contents
+// (currentColorGroup + the RGB colors) of the QPalette are actually a match.
+// But it's cheaper to calculate, so we'll store a single one of these "hashes"
+// for the head (most recently used) cached PhSwatch, and check to see if it
+// matches. This is the most common case, so we can usually save some work by
+// doing this. (The second most common case is probably having a different
+// ColorGroup but the rest of the contents are the same, but we don't have a
+// special path for that.)
+inline quint64 fastfragile_hash_qpalette(const QPalette &p)
+{
+	union
+	{
+		qint64 i;
+		quint64 u;
+	} x;
+
+	x.i = p.cacheKey();
+	// QPalette::ColorGroup has range 0..5 (inclusive), so it only uses 3 bits.
+	// The high 32 bits in QPalette::cacheKey() are a global incrementing serial
+	// number for the QPalette creation. We don't store (2^29-1) things in our
+	// cache, and I doubt that many will ever be created in a real application
+	// while also retaining some of them across such a broad time range, so it's
+	// really unlikely that repurposing these top 3 bits to also include the
+	// QPalette::currentColorGroup() (which the cacheKey doesn't include for some
+	// reason...) will generate a collision.
+	//
+	// This may not be true in the future if the way the QPalette::cacheKey() is
+	// generated changes. If that happens, change to use the definition of
+	// `fastfragile_hash_qpalette` below, which is less likely to collide with an
+	// arbitrarily numbered key but also does more work.
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-			x.u = x.u ^ (static_cast<quint64>(p.currentColorGroup()) << (64 - 3));
-			return x.u;
+	x.u = x.u ^ (static_cast<quint64>(p.currentColorGroup()) << (64 - 3));
+	return x.u;
 #else
-			// Use this definition here if the contents/layout of QPalette::cacheKey()
-			// (as in, the C++ code in qpalette.cpp) are changed. We'll also put a Qt6
-			// guard for it, so that it will default to a more safe definition on the
-			// next guaranteed big breaking change for Qt. A warning will hopefully get
-			// someone to double-check it at some point in the future.
+	// Use this definition here if the contents/layout of QPalette::cacheKey()
+	// (as in, the C++ code in qpalette.cpp) are changed. We'll also put a Qt6
+	// guard for it, so that it will default to a more safe definition on the
+	// next guaranteed big breaking change for Qt. A warning will hopefully get
+	// someone to double-check it at some point in the future.
 #warning "Verify contents and layout of QPalette::cacheKey() have not changed"
-			QtPrivate::QHashCombine c;
-			uint h = qHash(p.currentColorGroup());
-			h = c(h, (uint)(x.u & 0xFFFFFFFFu));
-			h = c(h, (uint)((x.u >> 32) & 0xFFFFFFFFu));
-			return h;
+	QtPrivate::QHashCombine c;
+	uint h = qHash(p.currentColorGroup());
+	h = c(h, (uint)(x.u & 0xFFFFFFFFu));
+	h = c(h, (uint)((x.u >> 32) & 0xFFFFFFFFu));
+	return h;
 #endif
-		}
+}
 
-		// This hash function is for when we want an actual accurate hash of a
-		// QPalette. QPalette's cacheKey() isn't very reliable -- it seems to change to
-		// a new random number whenever it's modified, with the exception of the
-		// currentColorGroup being changed. This kind of sucks for us, because it means
-		// two QPalette's can have the same contents but hash to different values. And
-		// this actually happens a lot! We'll do the hashing ourselves. Also, we're not
-		// interested in all of the colors, only some of them, and we ignore
-		// pens/brushes.
-		uint accurate_hash_qpalette(const QPalette &p)
+// This hash function is for when we want an actual accurate hash of a
+// QPalette. QPalette's cacheKey() isn't very reliable -- it seems to change to
+// a new random number whenever it's modified, with the exception of the
+// currentColorGroup being changed. This kind of sucks for us, because it means
+// two QPalette's can have the same contents but hash to different values. And
+// this actually happens a lot! We'll do the hashing ourselves. Also, we're not
+// interested in all of the colors, only some of them, and we ignore
+// pens/brushes.
+uint accurate_hash_qpalette(const QPalette &p)
+{
+	// Probably shouldn't use this, could replace with our own guy. It's not a
+	// great hasher anyway.
+	QtPrivate::QHashCombine c;
+	uint h = qHash(p.currentColorGroup());
+	QPalette::ColorRole const roles[] = {QPalette::Window,
+		QPalette::Button,
+		QPalette::Base,
+		QPalette::Text,
+		QPalette::WindowText,
+		QPalette::Highlight,
+		QPalette::HighlightedText};
+
+	for (auto role: roles)
+	{
+		h = c(h, p.color(role).rgb());
+	}
+
+	return h;
+}
+
+Q_NEVER_INLINE PhSwatchPtr deep_getCachedSwatchOfQPalette(
+	PhSwatchCache *cache,
+	int cacheCount, // Just saving a call to cache->count()
+	const QPalette &qpalette)
+{
+	// Calculate our hash key from the QPalette's current ColorGroup and the
+	// actual RGBA values that we use. We have to mix the ColorGroup in
+	// ourselves, because QPalette does not account for it in the cache key.
+	uint key = accurate_hash_qpalette(qpalette);
+	int n = cacheCount;
+	int idx = -1;
+	for (int i = 0; i < n; ++i)
+	{
+		const auto &x = cache->at(i);
+		if (x.first == key)
 		{
-			// Probably shouldn't use this, could replace with our own guy. It's not a
-			// great hasher anyway.
-			QtPrivate::QHashCombine c;
-			uint h = qHash(p.currentColorGroup());
-			QPalette::ColorRole const roles[] = {QPalette::Window,
-			                                     QPalette::Button,
-			                                     QPalette::Base,
-			                                     QPalette::Text,
-			                                     QPalette::WindowText,
-			                                     QPalette::Highlight,
-			                                     QPalette::HighlightedText};
-			for (auto role: roles)
-			{
-				h = c(h, p.color(role).rgb());
-			}
-			return h;
+			idx = i;
+			break;
 		}
+	}
 
-		Q_NEVER_INLINE PhSwatchPtr
-			deep_getCachedSwatchOfQPalette(PhSwatchCache *cache,
-		                                   int cacheCount, // Just saving a call to cache->count()
-		                                   const QPalette &qpalette)
+	if (idx == -1)
+	{
+		PhSwatchPtr ptr;
+		if (n < Num_ColorCacheEntries)
 		{
-			// Calculate our hash key from the QPalette's current ColorGroup and the
-			// actual RGBA values that we use. We have to mix the ColorGroup in
-			// ourselves, because QPalette does not account for it in the cache key.
-			uint key = accurate_hash_qpalette(qpalette);
-			int n = cacheCount;
-			int idx = -1;
-			for (int i = 0; i < n; ++i)
-			{
-				const auto &x = cache->at(i);
-				if (x.first == key)
-				{
-					idx = i;
-					break;
-				}
-			}
-			if (idx == -1)
-			{
-				PhSwatchPtr ptr;
-				if (n < Num_ColorCacheEntries)
-				{
-					ptr = new PhSwatch;
-				}
-				else
-				{
-					// Remove the oldest guy from the cache. Remember that because we may
-					// re-enter QStyle functions multiple times when drawing or calculating
-					// something, we may have to load several swaitches derived from
-					// different QPalettes on different stack frames at the same time. But as
-					// an extra cost-savings measure, we'll check and see if something else
-					// has a reference to the removed guy. If there aren't any references to
-					// it, then we'll re-use it directly instead of allocating a new one. (We
-					// will only ever run into the case where we can't re-use it directly if
-					// some other stack frame has a reference to it.) This is nice because
-					// then the QPens and QBrushes don't all also have to reallocate their d
-					// ptr stuff.
-					ptr = cache->last().second;
-					cache->removeLast();
-					ptr.detach();
-				}
-				ptr->loadFromQPalette(qpalette);
-				cache->prepend(PhCacheEntry(key, ptr));
-				return ptr;
-			}
-			else
-			{
-				if (idx == 0)
-				{
-					return cache->at(idx).second;
-				}
-				PhCacheEntry e = cache->at(idx);
-				// Using std::move from algorithm could be more efficient here, but I don't
-				// want to depend on algorithm or write this myself. Small N with a movable
-				// type means it doesn't really matter in this case.
-				cache->remove(idx);
-				cache->prepend(e);
-				return e.second;
-			}
+			ptr = new PhSwatch;
 		}
-
-		Q_NEVER_INLINE PhSwatchPtr
-			getCachedSwatchOfQPalette(PhSwatchCache *cache,
-		                              quint64 *headSwatchFastKey, // Optimistic fast-path quick hash key
-		                              const QPalette &qpalette)
+		else
 		{
-			quint64 ck = fastfragile_hash_qpalette(qpalette);
-			int cacheCount = cache->count();
-			// This hint is counter-productive if we're being called in a way that
-			// interleaves different QPalettes. But misses to this optimistic path were
-			// rare in my tests. (Probably not going to amount to any significant
-			// difference, anyway.)
-			if (Q_LIKELY(cacheCount > 0 && *headSwatchFastKey == ck))
-			{
-				return cache->at(0).second;
-			}
-			*headSwatchFastKey = ck;
-			return deep_getCachedSwatchOfQPalette(cache, cacheCount, qpalette);
+			// Remove the oldest guy from the cache. Remember that because we may
+			// re-enter QStyle functions multiple times when drawing or calculating
+			// something, we may have to load several swaitches derived from
+			// different QPalettes on different stack frames at the same time. But as
+			// an extra cost-savings measure, we'll check and see if something else
+			// has a reference to the removed guy. If there aren't any references to
+			// it, then we'll re-use it directly instead of allocating a new one. (We
+			// will only ever run into the case where we can't re-use it directly if
+			// some other stack frame has a reference to it.) This is nice because
+			// then the QPens and QBrushes don't all also have to reallocate their d
+			// ptr stuff.
+			ptr = cache->last().second;
+			cache->removeLast();
+			ptr.detach();
 		}
+		ptr->loadFromQPalette(qpalette);
+		cache->prepend(PhCacheEntry(key, ptr));
+		return ptr;
+	}
+	else
+	{
+		if (idx == 0)
+		{
+			return cache->at(idx).second;
+		}
+		PhCacheEntry e = cache->at(idx);
+		// Using std::move from algorithm could be more efficient here, but I don't
+		// want to depend on algorithm or write this myself. Small N with a movable
+		// type means it doesn't really matter in this case.
+		cache->remove(idx);
+		cache->prepend(e);
+		return e.second;
+	}
+}
 
-	} // namespace
+Q_NEVER_INLINE PhSwatchPtr getCachedSwatchOfQPalette(
+	PhSwatchCache *cache,
+	quint64 *headSwatchFastKey, // Optimistic fast-path quick hash key
+	const QPalette &qpalette)
+{
+	quint64 ck = fastfragile_hash_qpalette(qpalette);
+	int cacheCount = cache->count();
+	// This hint is counter-productive if we're being called in a way that
+	// interleaves different QPalettes. But misses to this optimistic path were
+	// rare in my tests. (Probably not going to amount to any significant
+	// difference, anyway.)
+	if (Q_LIKELY(cacheCount > 0 && *headSwatchFastKey == ck))
+	{
+		return cache->at(0).second;
+	}
+
+	*headSwatchFastKey = ck;
+	return deep_getCachedSwatchOfQPalette(cache, cacheCount, qpalette);
+}
+
+} // namespace
+
 } // namespace Phantom
 
 class BaseStylePrivate
@@ -655,745 +696,820 @@ public:
 	QPen checkBox_pen_scratch;
 };
 
-namespace Phantom
+namespace Phantom {
+
+namespace {
+
+// Minimal QPainter save/restore just for pen, brush, and AA render hint. If
+// you touch more than that, this won't help you. But if you're only touching
+// those things, this will save you some typing from manually storing/saving
+// those properties each time.
+struct PSave final
 {
-	namespace
+	Q_DISABLE_COPY(PSave)
+
+	explicit PSave(QPainter *painter_)
 	{
+		Q_ASSERT(painter_);
+		painter = painter_;
+		pen = painter_->pen();
+		brush = painter_->brush();
+		hintAA = painter_->testRenderHint(QPainter::Antialiasing);
+	}
 
-		// Minimal QPainter save/restore just for pen, brush, and AA render hint. If
-		// you touch more than that, this won't help you. But if you're only touching
-		// those things, this will save you some typing from manually storing/saving
-		// those properties each time.
-		struct PSave final
+	Q_NEVER_INLINE void restore()
+	{
+		QPainter *p = painter;
+		if (!p)
 		{
-			Q_DISABLE_COPY(PSave)
-
-			explicit PSave(QPainter *painter_)
-			{
-				Q_ASSERT(painter_);
-				painter = painter_;
-				pen = painter_->pen();
-				brush = painter_->brush();
-				hintAA = painter_->testRenderHint(QPainter::Antialiasing);
-			}
-			Q_NEVER_INLINE void restore()
-			{
-				QPainter *p = painter;
-				if (!p)
-					return;
-				bool hintAA_ = hintAA;
-				// QPainter will check both pen and brush for equality when setting, so we
-				// should set it unconditionally here.
-				p->setPen(pen);
-				p->setBrush(brush);
-				// But it won't check the render hint to guard against doing extra work.
-				// We'll do that ourselves. (Though at least for the raster engine, this
-				// doesn't cause very much work to occur. But it still chases a few
-				// pointers.)
-				if (p->testRenderHint(QPainter::Antialiasing) != hintAA_)
-				{
-					p->setRenderHint(QPainter::Antialiasing, hintAA_);
-				}
-				painter = nullptr;
-				pen = QPen();
-				brush = QBrush();
-				hintAA = false;
-			}
-			~PSave()
-			{
-				restore();
-			}
-
-		private:
-			QPainter *painter;
-			QPen pen;
-			QBrush brush;
-			bool hintAA;
-		};
-
-		const qreal Pi = M_PI;
-
-		qreal dpiScaled(qreal value)
-		{
-			const qreal scale = qt_defaultDpiX() / 96.0;
-			return value * scale;
+			return;
 		}
 
-		struct MenuItemMetrics
+		bool hintAA_ = hintAA;
+		// QPainter will check both pen and brush for equality when setting, so we
+		// should set it unconditionally here.
+		p->setPen(pen);
+		p->setBrush(brush);
+		// But it won't check the render hint to guard against doing extra work.
+		// We'll do that ourselves. (Though at least for the raster engine, this
+		// doesn't cause very much work to occur. But it still chases a few
+		// pointers.)
+		if (p->testRenderHint(QPainter::Antialiasing) != hintAA_)
 		{
-			int fontHeight;
-			int frameThickness;
-			int leftMargin;
-			int rightMarginForText;
-			int rightMarginForArrow;
-			int topMargin;
-			int bottomMargin;
-			int checkWidth;
-			int checkRightSpace;
-			int iconRightSpace;
-			int mnemonicSpace;
-			int arrowSpace;
-			int arrowWidth;
-			int separatorHeight;
-			int totalHeight;
-
-			static MenuItemMetrics ofFontHeight(int fontHeight);
-
-		private:
-			MenuItemMetrics()
-			{
-			}
-		};
-
-		MenuItemMetrics MenuItemMetrics::ofFontHeight(int fontHeight)
-		{
-			MenuItemMetrics m;
-			m.fontHeight = fontHeight;
-			m.frameThickness = dpiScaled(1.0);
-			m.leftMargin = static_cast<int>(fontHeight * MenuItem_LeftMarginFontRatio);
-			m.rightMarginForText = static_cast<int>(fontHeight * MenuItem_RightMarginForTextFontRatio);
-			m.rightMarginForArrow = static_cast<int>(fontHeight * MenuItem_RightMarginForArrowFontRatio);
-			m.topMargin = static_cast<int>(fontHeight * MenuItem_VerticalMarginsFontRatio);
-			m.bottomMargin = static_cast<int>(fontHeight * MenuItem_VerticalMarginsFontRatio);
-			int checkVMargin = static_cast<int>(fontHeight * MenuItem_CheckMarkVerticalInsetFontRatio);
-			int checkHeight = fontHeight - checkVMargin * 2;
-			if (checkHeight < 0)
-				checkHeight = 0;
-			m.checkWidth = static_cast<int>(checkHeight * CheckMark_WidthOfHeightScale);
-			m.checkRightSpace = static_cast<int>(fontHeight * MenuItem_CheckRightSpaceFontRatio);
-			m.iconRightSpace = static_cast<int>(fontHeight * MenuItem_IconRightSpaceFontRatio);
-			m.mnemonicSpace = static_cast<int>(fontHeight * MenuItem_TextMnemonicSpaceFontRatio);
-			m.arrowSpace = static_cast<int>(fontHeight * MenuItem_SubMenuArrowSpaceFontRatio);
-			m.arrowWidth = static_cast<int>(fontHeight * MenuItem_SubMenuArrowWidthFontRatio);
-			m.separatorHeight = static_cast<int>(fontHeight * MenuItem_SeparatorHeightFontRatio);
-			// Odd numbers only
-			m.separatorHeight = (m.separatorHeight / 2) * 2 + 1;
-			m.totalHeight = fontHeight + m.frameThickness * 2 + m.topMargin + m.bottomMargin;
-			return m;
+			p->setRenderHint(QPainter::Antialiasing, hintAA_);
 		}
 
-		QRect menuItemContentRect(const MenuItemMetrics &metrics, QRect itemRect, bool hasArrow)
-		{
-			QRect r = itemRect;
-			int ft = metrics.frameThickness;
-			int rm = hasArrow ? metrics.rightMarginForArrow : metrics.rightMarginForText;
-			r.adjust(ft + metrics.leftMargin, ft + metrics.topMargin, -(ft + rm), -(ft + metrics.bottomMargin));
-			return r.isValid() ? r : QRect();
-		}
-		QRect menuItemCheckRect(const MenuItemMetrics &metrics,
-		                        Qt::LayoutDirection direction,
-		                        QRect itemRect,
-		                        bool hasArrow)
-		{
-			QRect r = menuItemContentRect(metrics, itemRect, hasArrow);
-			int checkVMargin = static_cast<int>(metrics.fontHeight * MenuItem_CheckMarkVerticalInsetFontRatio);
-			if (checkVMargin < 0)
-				checkVMargin = 0;
-			r.setSize(QSize(metrics.checkWidth, metrics.fontHeight));
-			r.adjust(0, checkVMargin, 0, -checkVMargin);
-			return QStyle::visualRect(direction, itemRect, r) & itemRect;
-		}
-		QRect menuItemIconRect(const MenuItemMetrics &metrics,
-		                       Qt::LayoutDirection direction,
-		                       QRect itemRect,
-		                       bool hasArrow)
-		{
-			QRect r = menuItemContentRect(metrics, itemRect, hasArrow);
-			r.setX(r.x() + metrics.checkWidth + metrics.checkRightSpace);
-			r.setSize(QSize(metrics.fontHeight, metrics.fontHeight));
-			return QStyle::visualRect(direction, itemRect, r) & itemRect;
-		}
-		QRect menuItemTextRect(const MenuItemMetrics &metrics,
-		                       Qt::LayoutDirection direction,
-		                       QRect itemRect,
-		                       bool hasArrow,
-		                       bool hasIcon,
-		                       int tabWidth)
-		{
-			QRect r = menuItemContentRect(metrics, itemRect, hasArrow);
-			r.setX(r.x() + metrics.checkWidth + metrics.checkRightSpace);
-			if (hasIcon)
-			{
-				r.setX(r.x() + metrics.fontHeight + metrics.iconRightSpace);
-			}
-			r.setWidth(r.width() - tabWidth);
-			r.setHeight(metrics.fontHeight);
-			r &= itemRect;
-			return QStyle::visualRect(direction, itemRect, r);
-		}
-		QRect menuItemMnemonicRect(const MenuItemMetrics &metrics,
-		                           Qt::LayoutDirection direction,
-		                           QRect itemRect,
-		                           bool hasArrow,
-		                           int tabWidth)
-		{
-			QRect r = menuItemContentRect(metrics, itemRect, hasArrow);
-			int x = r.x() + r.width() - tabWidth;
-			if (hasArrow)
-				x -= metrics.arrowSpace + metrics.arrowWidth;
-			r.setX(x);
-			r.setHeight(metrics.fontHeight);
-			r &= itemRect;
-			return QStyle::visualRect(direction, itemRect, r);
-		}
-		QRect menuItemArrowRect(const MenuItemMetrics &metrics, Qt::LayoutDirection direction, QRect itemRect)
-		{
-			QRect r = menuItemContentRect(metrics, itemRect, true);
-			int x = r.x() + r.width() - metrics.arrowWidth;
-			r.setX(x);
-			r &= itemRect;
-			return QStyle::visualRect(direction, itemRect, r);
-		}
+		painter = nullptr;
+		pen = QPen();
+		brush = QBrush();
+		hintAA = false;
+	}
 
-		Q_NEVER_INLINE
-		void progressBarFillRects(const QStyleOptionProgressBar *bar,
-		                          // The rect that represents the filled/completed region
-		                          QRect &outFilled,
-		                          // The rect that represents the incomplete region
-		                          QRect &outNonFilled,
-		                          // Whether or not the progress bar is indeterminate
-		                          bool &outIsIndeterminate)
-		{
-			QRect ra = bar->rect;
-			QRect rb = ra;
-			bool isHorizontal = bar->orientation != Qt::Vertical;
-			bool isInverted = bar->invertedAppearance;
-			bool isIndeterminate = bar->minimum == 0 && bar->maximum == 0;
-			bool isForward = !isHorizontal || bar->direction != Qt::RightToLeft;
-			if (isInverted)
-				isForward = !isForward;
-			int maxLen = isHorizontal ? ra.width() : ra.height();
-			const auto availSteps = qMax(Q_INT64_C(1), qint64(bar->maximum) - bar->minimum);
-			const auto progress = qMax(bar->progress, bar->minimum); // workaround for bug in QProgressBar
-			const auto progressSteps = qint64(progress) - bar->minimum;
-			const auto progressBarWidth = progressSteps * maxLen / availSteps;
-			int barLen = isIndeterminate ? maxLen : progressBarWidth;
-			if (isHorizontal)
-			{
-				if (isForward)
-				{
-					ra.setWidth(barLen);
-					rb.setX(barLen);
-				}
-				else
-				{
-					ra.setX(ra.x() + ra.width() - barLen);
-					rb.setWidth(rb.width() - barLen);
-				}
-			}
-			else
-			{
-				if (isForward)
-				{
-					ra.setY(ra.y() + ra.height() - barLen);
-					rb.setHeight(rb.height() - barLen);
-				}
-				else
-				{
-					ra.setHeight(barLen);
-					rb.setY(barLen);
-				}
-			}
-			outFilled = ra;
-			outNonFilled = rb;
-			outIsIndeterminate = isIndeterminate;
-		}
+	~PSave()
+	{
+		restore();
+	}
 
-		int calcBigLineSize(int radius)
-		{
-			int bigLineSize = radius / 6;
-			if (bigLineSize < 4)
-				bigLineSize = 4;
-			if (bigLineSize > radius / 2)
-				bigLineSize = radius / 2;
-			return bigLineSize;
-		}
-		Q_NEVER_INLINE QPointF calcRadialPos(const QStyleOptionSlider *dial, qreal offset)
-		{
-			const int width = dial->rect.width();
-			const int height = dial->rect.height();
-			const int r = qMin(width, height) / 2;
-			const int currentSliderPosition =
-				dial->upsideDown ? dial->sliderPosition : (dial->maximum - dial->sliderPosition);
-			qreal a = 0;
-			if (dial->maximum == dial->minimum)
-				a = Pi / 2;
-			else if (dial->dialWrapping)
-				a = Pi * 3 / 2 - (currentSliderPosition - dial->minimum) * 2 * Pi / (dial->maximum - dial->minimum);
-			else
-				a = (Pi * 8 - (currentSliderPosition - dial->minimum) * 10 * Pi / (dial->maximum - dial->minimum)) / 6;
-			qreal xc = width / 2.0;
-			qreal yc = height / 2.0;
-			qreal len = r - calcBigLineSize(r) - 3;
-			qreal back = offset * len;
-			QPointF pos(QPointF(xc + back * qCos(a), yc - back * qSin(a)));
-			return pos;
-		}
-		Q_NEVER_INLINE QPolygonF calcLines(const QStyleOptionSlider *dial)
-		{
-			QPolygonF poly;
-			qreal width = dial->rect.width();
-			qreal height = dial->rect.height();
-			qreal r = qMin(width, height) / 2.0;
-			int bigLineSize = calcBigLineSize(r);
+private:
+	QPainter *painter;
+	QPen pen;
+	QBrush brush;
+	bool hintAA;
+};
 
-			qreal xc = width / 2.0 + 0.5;
-			qreal yc = height / 2.0 + 0.5;
-			const int ns = dial->tickInterval;
-			if (!ns) // Invalid values may be set by Qt Designer.
-				return poly;
-			int notches = (dial->maximum + ns - 1 - dial->minimum) / ns;
-			if (notches <= 0)
-				return poly;
-			if (dial->maximum < dial->minimum || dial->maximum - dial->minimum > 1000)
-			{
-				int maximum = dial->minimum + 1000;
-				notches = (maximum + ns - 1 - dial->minimum) / ns;
-			}
-			poly.resize(2 + 2 * notches);
-			int smallLineSize = bigLineSize / 2;
-			for (int i = 0; i <= notches; ++i)
-			{
-				qreal angle =
-					dial->dialWrapping ? Pi * 3 / 2 - i * 2 * Pi / notches : (Pi * 8 - i * 10 * Pi / notches) / 6;
-				qreal s = qSin(angle);
-				qreal c = qCos(angle);
-				if (i == 0 || (((ns * i) % (dial->pageStep ? dial->pageStep : 1)) == 0))
-				{
-					poly[2 * i] = QPointF(xc + (r - bigLineSize) * c, yc - (r - bigLineSize) * s);
-					poly[2 * i + 1] = QPointF(xc + r * c, yc - r * s);
-				}
-				else
-				{
-					poly[2 * i] = QPointF(xc + (r - 1 - smallLineSize) * c, yc - (r - 1 - smallLineSize) * s);
-					poly[2 * i + 1] = QPointF(xc + (r - 1) * c, yc - (r - 1) * s);
-				}
-			}
-			return poly;
-		}
-		// This will draw a nice and shiny QDial for us. We don't want
-		// all the shinyness in QWindowsStyle, hence we place it here
-		Q_NEVER_INLINE void drawDial(const QStyleOptionSlider *option, QPainter *painter)
-		{
-			namespace Dc = Phantom::DeriveColors;
-			const QPalette &pal = option->palette;
-			QColor buttonColor = Dc::buttonColor(option->palette);
-			const int width = option->rect.width();
-			const int height = option->rect.height();
-			const bool enabled = option->state & QStyle::State_Enabled;
-			qreal r = qMin(width, height) / 2.0;
-			r -= r / 50.0;
-			painter->save();
-			painter->setRenderHint(QPainter::Antialiasing);
-			// Draw notches
-			if (option->subControls & QStyle::SC_DialTickmarks)
-			{
-				painter->setPen(pal.color(QPalette::Disabled, QPalette::Text));
-				painter->drawLines(calcLines(option));
-			}
-			const qreal d_ = r / 6;
-			const qreal dx = option->rect.x() + d_ + (width - 2 * r) / 2 + 1;
-			const qreal dy = option->rect.y() + d_ + (height - 2 * r) / 2 + 1;
-			QRectF br = QRectF(dx + 0.5, dy + 0.5, int(r * 2 - 2 * d_ - 2), int(r * 2 - 2 * d_ - 2));
-			if (enabled)
-			{
-				painter->setBrush(buttonColor);
-			}
-			else
-			{
-				painter->setBrush(Qt::NoBrush);
-			}
-			painter->setPen(Dc::outlineOf(option->palette));
-			painter->drawEllipse(br);
-			painter->setBrush(Qt::NoBrush);
-			painter->setPen(Dc::specularOf(buttonColor));
-			painter->drawEllipse(br.adjusted(1, 1, -1, -1));
-			if (option->state & QStyle::State_HasFocus)
-			{
-				QColor highlight = pal.highlight().color();
-				highlight.setHsv(highlight.hue(), qMin(160, highlight.saturation()), qMax(230, highlight.value()));
-				highlight.setAlpha(127);
-				painter->setPen(QPen(highlight, 2.0));
-				painter->setBrush(Qt::NoBrush);
-				painter->drawEllipse(br.adjusted(-1, -1, 1, 1));
-			}
-			QPointF dp = calcRadialPos(option, 0.70);
-			const qreal ds = r / 7.0;
-			QRectF dialRect(dp.x() - ds, dp.y() - ds, 2 * ds, 2 * ds);
-			painter->setBrush(option->palette.color(QPalette::Window));
-			painter->setPen(Dc::outlineOf(option->palette));
-			painter->drawEllipse(dialRect.adjusted(-1, -1, 1, 1));
-			painter->restore();
-		}
+const qreal Pi = M_PI;
 
-		// This always draws the arrow with the correct aspect ratio, even if the
-		// provided bounding rect is non-square. The base edge of the triangle is
-		// snapped to a whole pixel to avoid anti-aliasing making it look soft.
-		//
-		// Expected time (release): 5usecs for regular-sized arrows
-		Q_NEVER_INLINE void drawArrow(QPainter *p, QRect rect, Qt::ArrowType arrowDirection, const QBrush &brush)
-		{
-			const qreal ArrowBaseRatio = 1.0;
-			qreal irx, iry, irw, irh;
-			QRectF(rect).getRect(&irx, &iry, &irw, &irh);
-			if (irw < 1.0 || irh < 1.0)
-				return;
-			qreal dw, dh;
-			if (arrowDirection == Qt::LeftArrow || arrowDirection == Qt::RightArrow)
-			{
-				dw = ArrowBaseRatio;
-				dh = 1.0;
-			}
-			else
-			{
-				dw = 1.0;
-				dh = ArrowBaseRatio;
-			}
-			QSizeF sz = QSizeF(dw, dh).scaled(irw, irh, Qt::KeepAspectRatio);
-			qreal aw = sz.width();
-			qreal ah = sz.height();
-			qreal ax, ay;
-			ax = irx + (irw - aw) / 2;
-			ay = iry + (irh - ah) / 2;
-			QRectF arrowRect(ax, ay, aw, ah);
-			QPointF points[3];
-			switch (arrowDirection)
-			{
-			case Qt::DownArrow:
-				arrowRect.setTop(std::round(arrowRect.top()));
-				points[0] = arrowRect.topLeft();
-				points[1] = arrowRect.topRight();
-				points[2] = QPointF(arrowRect.center().x(), arrowRect.bottom());
-				break;
-			case Qt::RightArrow: {
-				arrowRect.setLeft(std::round(arrowRect.left()));
-				points[0] = arrowRect.topLeft();
-				points[1] = arrowRect.bottomLeft();
-				points[2] = QPointF(arrowRect.right(), arrowRect.center().y());
-				break;
-			}
-			case Qt::LeftArrow:
-				arrowRect.setRight(std::round(arrowRect.right()));
-				points[0] = arrowRect.topRight();
-				points[1] = arrowRect.bottomRight();
-				points[2] = QPointF(arrowRect.left(), arrowRect.center().y());
-				break;
-			case Qt::UpArrow:
-			default:
-				arrowRect.setBottom(std::round(arrowRect.bottom()));
-				points[0] = arrowRect.bottomLeft();
-				points[1] = arrowRect.bottomRight();
-				points[2] = QPointF(arrowRect.center().x(), arrowRect.top());
-				break;
-			}
-			auto oldPen = p->pen();
-			auto oldBrush = p->brush();
-			bool oldAA = p->testRenderHint(QPainter::Antialiasing);
-			p->setPen(Qt::NoPen);
-			p->setBrush(brush);
-			if (!oldAA)
-			{
-				p->setRenderHint(QPainter::Antialiasing);
-			}
-			p->drawConvexPolygon(points, 3);
-			p->setPen(oldPen);
-			p->setBrush(oldBrush);
-			if (!oldAA)
-			{
-				p->setRenderHint(QPainter::Antialiasing, false);
-			}
-		}
+qreal dpiScaled(qreal value)
+{
+	const qreal scale = qt_defaultDpiX() / 96.0;
+	return value * scale;
+}
 
-		// Pass allowEnabled as false to always draw the arrow with the disabled color,
-		// even if the underlying palette's current color group is not disabled. Useful
-		// for parts of widgets which may want to be drawn as disabled even if the
-		// actual widget is not set as disabled, such as scrollbar step buttons when
-		// the scrollbar has no movable range.
-		Q_NEVER_INLINE void drawArrow(QPainter *painter,
-		                              QRect rect,
-		                              Qt::ArrowType type,
-		                              const PhSwatch &swatch,
-		                              bool allowEnabled = true,
-		                              qreal lightnessAdjustment = 0.0)
-		{
-			if (rect.isEmpty())
-				return;
-			using namespace SwatchColors;
-			auto brush = swatch.brush(allowEnabled ? S_indicator_current : S_indicator_disabled);
-			brush.setColor(DeriveColors::adjustLightness(brush.color(), lightnessAdjustment));
-			Phantom::drawArrow(painter, rect, type, brush);
-		}
+struct MenuItemMetrics
+{
+	int fontHeight;
+	int frameThickness;
+	int leftMargin;
+	int rightMarginForText;
+	int rightMarginForArrow;
+	int topMargin;
+	int bottomMargin;
+	int checkWidth;
+	int checkRightSpace;
+	int iconRightSpace;
+	int mnemonicSpace;
+	int arrowSpace;
+	int arrowWidth;
+	int separatorHeight;
+	int totalHeight;
 
-		// This draws exactly within the rect provided. If you provide a square rect,
-		// it will appear too wide -- you probably want to shrink the width of your
-		// square first by multiplying it with CheckMark_WidthOfHeightScale.
-		Q_NEVER_INLINE void
-			drawCheck(QPainter *painter, QPen &scratchPen, const QRectF &r, const PhSwatch &swatch, Swatchy color)
-		{
-			using namespace Phantom::SwatchColors;
-			qreal rx, ry, rw, rh;
-			QRectF(r).getRect(&rx, &ry, &rw, &rh);
-			qreal penWidth = 0.25 * qMin(rw, rh);
-			qreal dimx = rw - penWidth;
-			qreal dimy = rh - penWidth;
-			if (dimx < 0.5 || dimy < 0.5)
-				return;
-			qreal x = (rw - dimx) / 2 + rx;
-			qreal y = (rh - dimy) / 2 + ry;
-			QPointF points[3];
-			points[0] = QPointF(0.0, 0.55);
-			points[1] = QPointF(0.4, 1.0);
-			points[2] = QPointF(1.0, 0);
-			for (int i = 0; i < 3; ++i)
-			{
-				QPointF pnt = points[i];
-				pnt.setX(pnt.x() * dimx + x);
-				pnt.setY(pnt.y() * dimy + y);
-				points[i] = pnt;
-			}
-			scratchPen.setBrush(swatch.brush(color));
-			scratchPen.setCapStyle(Qt::RoundCap);
-			scratchPen.setJoinStyle(Qt::RoundJoin);
-			scratchPen.setWidthF(penWidth);
-			Phantom::PSave save(painter);
-			if (!painter->testRenderHint(QPainter::Antialiasing))
-				painter->setRenderHint(QPainter::Antialiasing);
-			painter->setPen(scratchPen);
-			painter->setBrush(Qt::NoBrush);
-			painter->drawPolyline(points, 3);
-		}
+	static MenuItemMetrics ofFontHeight(int fontHeight);
 
-		Q_NEVER_INLINE void
-			drawHyphen(QPainter *painter, QPen &scratchPen, const QRectF &r, const PhSwatch &swatch, Swatchy color)
-		{
-			using namespace Phantom::SwatchColors;
-			qreal rx, ry, rw, rh;
-			QRectF(r).getRect(&rx, &ry, &rw, &rh);
-			qreal penWidth = 0.25 * qMin(rw, rh);
-			qreal dimx = rw - penWidth;
-			qreal dimy = rh - penWidth;
-			if (dimx < 0.5 || dimy < 0.5)
-				return;
-			qreal x = (rw - dimx) / 2 + rx;
-			qreal y = (rh - dimy) / 2 + ry;
-			QPointF p0(0.0 * dimx + x, 0.5 * dimy + y);
-			QPointF p1(1.0 * dimx + x, 0.5 * dimy + y);
-			scratchPen.setBrush(swatch.brush(color));
-			scratchPen.setCapStyle(Qt::RoundCap);
-			scratchPen.setWidthF(penWidth);
-			Phantom::PSave save(painter);
-			if (!painter->testRenderHint(QPainter::Antialiasing))
-				painter->setRenderHint(QPainter::Antialiasing);
-			painter->setPen(scratchPen);
-			painter->setBrush(Qt::NoBrush);
-			painter->drawLine(p0, p1);
-		}
+private:
+	MenuItemMetrics() = default;
+};
 
-		Q_NEVER_INLINE void
-			drawMdiButton(QPainter *painter, const QStyleOptionTitleBar *option, QRect tmp, bool hover, bool sunken)
-		{
-			QColor dark;
-			dark.setHsv(option->palette.button().color().hue(),
-			            qMin<int>(255, (option->palette.button().color().saturation())),
-			            qMin<int>(255, option->palette.button().color().value() * 0.7));
-			QColor highlight = option->palette.highlight().color();
-			bool active = (option->titleBarState & QStyle::State_Active);
-			QColor titleBarHighlight(255, 255, 255, 60);
-			if (sunken)
-				painter->fillRect(tmp.adjusted(1, 1, -1, -1), option->palette.highlight().color().darker(120));
-			else if (hover)
-				painter->fillRect(tmp.adjusted(1, 1, -1, -1), QColor(255, 255, 255, 20));
-			if (sunken)
-				titleBarHighlight = highlight.darker(130);
-			QColor mdiButtonBorderColor(active ? option->palette.highlight().color().darker(180) : dark.darker(110));
-			painter->setPen(QPen(mdiButtonBorderColor));
-			const QLine lines[4] = {QLine(tmp.left() + 2, tmp.top(), tmp.right() - 2, tmp.top()),
-			                        QLine(tmp.left() + 2, tmp.bottom(), tmp.right() - 2, tmp.bottom()),
-			                        QLine(tmp.left(), tmp.top() + 2, tmp.left(), tmp.bottom() - 2),
-			                        QLine(tmp.right(), tmp.top() + 2, tmp.right(), tmp.bottom() - 2)};
-			painter->drawLines(lines, 4);
-			const QPoint points[4] = {QPoint(tmp.left() + 1, tmp.top() + 1),
-			                          QPoint(tmp.right() - 1, tmp.top() + 1),
-			                          QPoint(tmp.left() + 1, tmp.bottom() - 1),
-			                          QPoint(tmp.right() - 1, tmp.bottom() - 1)};
-			painter->drawPoints(points, 4);
-			painter->setPen(titleBarHighlight);
-			painter->drawLine(tmp.left() + 2, tmp.top() + 1, tmp.right() - 2, tmp.top() + 1);
-			painter->drawLine(tmp.left() + 1, tmp.top() + 2, tmp.left() + 1, tmp.bottom() - 2);
-		}
+MenuItemMetrics MenuItemMetrics::ofFontHeight(int fontHeight)
+{
+	MenuItemMetrics m;
+	m.fontHeight = fontHeight;
+	m.frameThickness = dpiScaled(1.0);
+	m.leftMargin = static_cast<int>(fontHeight * MenuItem_LeftMarginFontRatio);
+	m.rightMarginForText = static_cast<int>(fontHeight * MenuItem_RightMarginForTextFontRatio);
+	m.rightMarginForArrow = static_cast<int>(fontHeight * MenuItem_RightMarginForArrowFontRatio);
+	m.topMargin = static_cast<int>(fontHeight * MenuItem_VerticalMarginsFontRatio);
+	m.bottomMargin = static_cast<int>(fontHeight * MenuItem_VerticalMarginsFontRatio);
+	int checkVMargin = static_cast<int>(fontHeight * MenuItem_CheckMarkVerticalInsetFontRatio);
+	int checkHeight = fontHeight - checkVMargin * 2;
+	if (checkHeight < 0)
+	{
+		checkHeight = 0;
+	}
 
-		Q_NEVER_INLINE void fillRectOutline(QPainter *p, QRect rect, QMargins margins, const QColor &brush)
+	m.checkWidth = static_cast<int>(checkHeight * CheckMark_WidthOfHeightScale);
+	m.checkRightSpace = static_cast<int>(fontHeight * MenuItem_CheckRightSpaceFontRatio);
+	m.iconRightSpace = static_cast<int>(fontHeight * MenuItem_IconRightSpaceFontRatio);
+	m.mnemonicSpace = static_cast<int>(fontHeight * MenuItem_TextMnemonicSpaceFontRatio);
+	m.arrowSpace = static_cast<int>(fontHeight * MenuItem_SubMenuArrowSpaceFontRatio);
+	m.arrowWidth = static_cast<int>(fontHeight * MenuItem_SubMenuArrowWidthFontRatio);
+	m.separatorHeight = static_cast<int>(fontHeight * MenuItem_SeparatorHeightFontRatio);
+	// Odd numbers only
+	m.separatorHeight = (m.separatorHeight / 2) * 2 + 1;
+	m.totalHeight = fontHeight + m.frameThickness * 2 + m.topMargin + m.bottomMargin;
+	return m;
+}
+
+QRect menuItemContentRect(const MenuItemMetrics &metrics, QRect itemRect, bool hasArrow)
+{
+	QRect r = itemRect;
+	int ft = metrics.frameThickness;
+	int rm = hasArrow ? metrics.rightMarginForArrow : metrics.rightMarginForText;
+	r.adjust(ft + metrics.leftMargin, ft + metrics.topMargin, -(ft + rm), -(ft + metrics.bottomMargin));
+	return r.isValid() ? r : QRect();
+}
+
+QRect menuItemCheckRect(const MenuItemMetrics &metrics,
+	Qt::LayoutDirection direction,
+	QRect itemRect,
+	bool hasArrow)
+{
+	QRect r = menuItemContentRect(metrics, itemRect, hasArrow);
+	int checkVMargin = static_cast<int>(metrics.fontHeight * MenuItem_CheckMarkVerticalInsetFontRatio);
+	if (checkVMargin < 0)
+		checkVMargin = 0;
+	r.setSize(QSize(metrics.checkWidth, metrics.fontHeight));
+	r.adjust(0, checkVMargin, 0, -checkVMargin);
+	return QStyle::visualRect(direction, itemRect, r) & itemRect;
+}
+
+QRect menuItemIconRect(const MenuItemMetrics &metrics,
+	Qt::LayoutDirection direction,
+	QRect itemRect,
+	bool hasArrow)
+{
+	QRect r = menuItemContentRect(metrics, itemRect, hasArrow);
+	r.setX(r.x() + metrics.checkWidth + metrics.checkRightSpace);
+	r.setSize(QSize(metrics.fontHeight, metrics.fontHeight));
+	return QStyle::visualRect(direction, itemRect, r) & itemRect;
+}
+
+QRect menuItemTextRect(const MenuItemMetrics &metrics,
+	Qt::LayoutDirection direction,
+	QRect itemRect,
+	bool hasArrow,
+	bool hasIcon,
+	int tabWidth)
+{
+	QRect r = menuItemContentRect(metrics, itemRect, hasArrow);
+	r.setX(r.x() + metrics.checkWidth + metrics.checkRightSpace);
+	if (hasIcon)
+	{
+		r.setX(r.x() + metrics.fontHeight + metrics.iconRightSpace);
+	}
+	r.setWidth(r.width() - tabWidth);
+	r.setHeight(metrics.fontHeight);
+	r &= itemRect;
+	return QStyle::visualRect(direction, itemRect, r);
+}
+
+QRect menuItemMnemonicRect(const MenuItemMetrics &metrics,
+	Qt::LayoutDirection direction,
+	QRect itemRect,
+	bool hasArrow,
+	int tabWidth)
+{
+	QRect r = menuItemContentRect(metrics, itemRect, hasArrow);
+	int x = r.x() + r.width() - tabWidth;
+	if (hasArrow)
+		x -= metrics.arrowSpace + metrics.arrowWidth;
+	r.setX(x);
+	r.setHeight(metrics.fontHeight);
+	r &= itemRect;
+	return QStyle::visualRect(direction, itemRect, r);
+}
+
+QRect menuItemArrowRect(const MenuItemMetrics &metrics, Qt::LayoutDirection direction, QRect itemRect)
+{
+	QRect r = menuItemContentRect(metrics, itemRect, true);
+	int x = r.x() + r.width() - metrics.arrowWidth;
+	r.setX(x);
+	r &= itemRect;
+	return QStyle::visualRect(direction, itemRect, r);
+}
+
+Q_NEVER_INLINE void progressBarFillRects(
+	const QStyleOptionProgressBar *bar,
+	// The rect that represents the filled/completed region
+	QRect &outFilled,
+	// The rect that represents the incomplete region
+	QRect &outNonFilled,
+	// Whether or not the progress bar is indeterminate
+	bool &outIsIndeterminate)
+{
+	QRect ra = bar->rect;
+	QRect rb = ra;
+	bool isHorizontal = bar->orientation != Qt::Vertical;
+	bool isInverted = bar->invertedAppearance;
+	bool isIndeterminate = bar->minimum == 0 && bar->maximum == 0;
+	bool isForward = !isHorizontal || bar->direction != Qt::RightToLeft;
+	if (isInverted)
+	{
+		isForward = !isForward;
+	}
+
+	int maxLen = isHorizontal ? ra.width() : ra.height();
+	const auto availSteps = qMax(Q_INT64_C(1), qint64(bar->maximum) - bar->minimum);
+	const auto progress = qMax(bar->progress, bar->minimum); // workaround for bug in QProgressBar
+	const auto progressSteps = qint64(progress) - bar->minimum;
+	const auto progressBarWidth = progressSteps * maxLen / availSteps;
+	int barLen = isIndeterminate ? maxLen : progressBarWidth;
+	if (isHorizontal)
+	{
+		if (isForward)
 		{
-			int x, y, w, h;
-			rect.getRect(&x, &y, &w, &h);
-			int ml = margins.left();
-			int mt = margins.top();
-			int mr = margins.right();
-			int mb = margins.bottom();
-			QRect r0(x, y, w, mt);
-			QRect r1(x, y + mt, ml, h - (mt + mb));
-			QRect r2((x + w) - mr, y + mt, mr, h - (mt + mb));
-			QRect r3(x, (y + h) - mb, w, mb);
-			p->fillRect(r0 & rect, brush);
-			p->fillRect(r1 & rect, brush);
-			p->fillRect(r2 & rect, brush);
-			p->fillRect(r3 & rect, brush);
+			ra.setWidth(barLen);
+			rb.setX(barLen);
 		}
-		void fillRectOutline(QPainter *p, QRect rect, int thickness, const QColor &color)
+		else
 		{
-			fillRectOutline(p, rect, QMargins(thickness, thickness, thickness, thickness), color);
+			ra.setX(ra.x() + ra.width() - barLen);
+			rb.setWidth(rb.width() - barLen);
 		}
-		Q_NEVER_INLINE void
-			fillRectEdges(QPainter *p, QRect rect, Qt::Edges edges, QMargins margins, const QColor &color)
+	}
+	else
+	{
+		if (isForward)
 		{
-			int x, y, w, h;
-			rect.getRect(&x, &y, &w, &h);
-			if (edges & Qt::LeftEdge)
-			{
-				int ml = margins.left();
-				QRect r0(x, y, ml, h);
-				p->fillRect(r0 & rect, color);
-			}
-			if (edges & Qt::TopEdge)
-			{
-				int mt = margins.top();
-				QRect r1(x, y, w, mt);
-				p->fillRect(r1 & rect, color);
-			}
-			if (edges & Qt::RightEdge)
-			{
-				int mr = margins.right();
-				QRect r2((x + w) - mr, y, mr, h);
-				p->fillRect(r2 & rect, color);
-			}
-			if (edges & Qt::BottomEdge)
-			{
-				int mb = margins.bottom();
-				QRect r3(x, (y + h) - mb, w, mb);
-				p->fillRect(r3 & rect, color);
-			}
+			ra.setY(ra.y() + ra.height() - barLen);
+			rb.setHeight(rb.height() - barLen);
 		}
-		void fillRectEdges(QPainter *p, QRect rect, Qt::Edges edges, int thickness, const QColor &color)
+		else
 		{
-			fillRectEdges(p, rect, edges, QMargins(thickness, thickness, thickness, thickness), color);
+			ra.setHeight(barLen);
+			rb.setY(barLen);
 		}
-		inline QRect expandRect(QRect rect, Qt::Edges edges, int delta)
+	}
+
+	outFilled = ra;
+	outNonFilled = rb;
+	outIsIndeterminate = isIndeterminate;
+}
+
+int calcBigLineSize(int radius)
+{
+	int bigLineSize = radius / 6;
+	if (bigLineSize < 4)
+	{
+		bigLineSize = 4;
+	}
+
+	if (bigLineSize > radius / 2)
+	{
+		bigLineSize = radius / 2;
+	}
+
+	return bigLineSize;
+}
+Q_NEVER_INLINE QPointF calcRadialPos(const QStyleOptionSlider *dial, qreal offset)
+{
+	const int width = dial->rect.width();
+	const int height = dial->rect.height();
+	const int r = qMin(width, height) / 2;
+	const int currentSliderPosition = dial->upsideDown ? dial->sliderPosition : (dial->maximum - dial->sliderPosition);
+	qreal a = 0;
+	if (dial->maximum == dial->minimum)
+	{
+		a = Pi / 2;
+	}
+	else if (dial->dialWrapping)
+	{
+		a = Pi * 3 / 2 - (currentSliderPosition - dial->minimum) * 2 * Pi / (dial->maximum - dial->minimum);
+	}
+	else
+	{
+		a = (Pi * 8 - (currentSliderPosition - dial->minimum) * 10 * Pi / (dial->maximum - dial->minimum)) / 6;
+	}
+
+	qreal xc = width / 2.0;
+	qreal yc = height / 2.0;
+	qreal len = r - calcBigLineSize(r) - 3;
+	qreal back = offset * len;
+	QPointF pos(QPointF(xc + back * qCos(a), yc - back * qSin(a)));
+
+	return pos;
+}
+Q_NEVER_INLINE QPolygonF calcLines(const QStyleOptionSlider *dial)
+{
+	QPolygonF poly;
+	qreal width = dial->rect.width();
+	qreal height = dial->rect.height();
+	qreal r = qMin(width, height) / 2.0;
+	int bigLineSize = calcBigLineSize(r);
+
+	qreal xc = width / 2.0 + 0.5;
+	qreal yc = height / 2.0 + 0.5;
+	const int ns = dial->tickInterval;
+	if (!ns) // Invalid values may be set by Qt Designer.
+	{
+		return poly;
+	}
+
+	int notches = (dial->maximum + ns - 1 - dial->minimum) / ns;
+	if (notches <= 0)
+	{
+		return poly;
+	}
+
+	if (dial->maximum < dial->minimum || dial->maximum - dial->minimum > 1000)
+	{
+		int maximum = dial->minimum + 1000;
+		notches = (maximum + ns - 1 - dial->minimum) / ns;
+	}
+
+	poly.resize(2 + 2 * notches);
+	int smallLineSize = bigLineSize / 2;
+	for (int i = 0; i <= notches; ++i)
+	{
+		qreal angle = dial->dialWrapping ? Pi * 3 / 2 - i * 2 * Pi / notches : (Pi * 8 - i * 10 * Pi / notches) / 6;
+		qreal s = qSin(angle);
+		qreal c = qCos(angle);
+		if (i == 0 || (((ns * i) % (dial->pageStep ? dial->pageStep : 1)) == 0))
 		{
-			int l = edges & Qt::LeftEdge ? -delta : 0;
-			int t = edges & Qt::TopEdge ? -delta : 0;
-			int r = edges & Qt::RightEdge ? delta : 0;
-			int b = edges & Qt::BottomEdge ? delta : 0;
-			return rect.adjusted(l, t, r, b);
+			poly[2 * i] = QPointF(xc + (r - bigLineSize) * c, yc - (r - bigLineSize) * s);
+			poly[2 * i + 1] = QPointF(xc + r * c, yc - r * s);
 		}
-		inline Qt::Edge oppositeEdge(Qt::Edge edge)
+		else
 		{
-			switch (edge)
-			{
-			case Qt::LeftEdge:
-				return Qt::RightEdge;
-			case Qt::TopEdge:
-				return Qt::BottomEdge;
-			case Qt::RightEdge:
-				return Qt::LeftEdge;
-			case Qt::BottomEdge:
-				return Qt::TopEdge;
-			}
-			return Qt::TopEdge;
+			poly[2 * i] = QPointF(xc + (r - 1 - smallLineSize) * c, yc - (r - 1 - smallLineSize) * s);
+			poly[2 * i + 1] = QPointF(xc + (r - 1) * c, yc - (r - 1) * s);
 		}
-		inline QRect rectTranslatedTowardEdge(QRect rect, Qt::Edge edge, int delta)
+	}
+
+	return poly;
+}
+// This will draw a nice and shiny QDial for us. We don't want
+// all the shinyness in QWindowsStyle, hence we place it here
+Q_NEVER_INLINE void drawDial(const QStyleOptionSlider *option, QPainter *painter)
+{
+	namespace Dc = Phantom::DeriveColors;
+	const QPalette &pal = option->palette;
+	QColor buttonColor = Dc::buttonColor(option->palette);
+	const int width = option->rect.width();
+	const int height = option->rect.height();
+	const bool enabled = option->state & QStyle::State_Enabled;
+	qreal r = qMin(width, height) / 2.0;
+	r -= r / 50.0;
+	painter->save();
+	painter->setRenderHint(QPainter::Antialiasing);
+	// Draw notches
+	if (option->subControls & QStyle::SC_DialTickmarks)
+	{
+		painter->setPen(pal.color(QPalette::Disabled, QPalette::Text));
+		painter->drawLines(calcLines(option));
+	}
+
+	const qreal d_ = r / 6;
+	const qreal dx = option->rect.x() + d_ + (width - 2 * r) / 2 + 1;
+	const qreal dy = option->rect.y() + d_ + (height - 2 * r) / 2 + 1;
+	QRectF br = QRectF(dx + 0.5, dy + 0.5, int(r * 2 - 2 * d_ - 2), int(r * 2 - 2 * d_ - 2));
+	if (enabled)
+	{
+		painter->setBrush(buttonColor);
+	}
+	else
+	{
+		painter->setBrush(Qt::NoBrush);
+	}
+
+	painter->setPen(Dc::outlineOf(option->palette));
+	painter->drawEllipse(br);
+	painter->setBrush(Qt::NoBrush);
+	painter->setPen(Dc::specularOf(buttonColor));
+	painter->drawEllipse(br.adjusted(1, 1, -1, -1));
+	if (option->state & QStyle::State_HasFocus)
+	{
+		QColor highlight = pal.highlight().color();
+		highlight.setHsv(highlight.hue(), qMin(160, highlight.saturation()), qMax(230, highlight.value()));
+		highlight.setAlpha(127);
+		painter->setPen(QPen(highlight, 2.0));
+		painter->setBrush(Qt::NoBrush);
+		painter->drawEllipse(br.adjusted(-1, -1, 1, 1));
+	}
+
+	QPointF dp = calcRadialPos(option, 0.70);
+	const qreal ds = r / 7.0;
+	QRectF dialRect(dp.x() - ds, dp.y() - ds, 2 * ds, 2 * ds);
+	painter->setBrush(option->palette.color(QPalette::Window));
+	painter->setPen(Dc::outlineOf(option->palette));
+	painter->drawEllipse(dialRect.adjusted(-1, -1, 1, 1));
+	painter->restore();
+}
+
+// This always draws the arrow with the correct aspect ratio, even if the
+// provided bounding rect is non-square. The base edge of the triangle is
+// snapped to a whole pixel to avoid anti-aliasing making it look soft.
+//
+// Expected time (release): 5usecs for regular-sized arrows
+Q_NEVER_INLINE void drawArrow(QPainter *p, QRect rect, Qt::ArrowType arrowDirection, const QBrush &brush)
+{
+	const qreal ArrowBaseRatio = 1.0;
+	qreal irx, iry, irw, irh;
+	QRectF(rect).getRect(&irx, &iry, &irw, &irh);
+	if (irw < 1.0 || irh < 1.0)
+	{
+		return;
+	}
+
+	qreal dw, dh;
+	if (arrowDirection == Qt::LeftArrow || arrowDirection == Qt::RightArrow)
+	{
+		dw = ArrowBaseRatio;
+		dh = 1.0;
+	}
+	else
+	{
+		dw = 1.0;
+		dh = ArrowBaseRatio;
+	}
+
+	QSizeF sz = QSizeF(dw, dh).scaled(irw, irh, Qt::KeepAspectRatio);
+	qreal aw = sz.width();
+	qreal ah = sz.height();
+	qreal ax, ay;
+	ax = irx + (irw - aw) / 2;
+	ay = iry + (irh - ah) / 2;
+	QRectF arrowRect(ax, ay, aw, ah);
+	QPointF points[3];
+	switch (arrowDirection)
+	{
+	case Qt::DownArrow:
+		arrowRect.setTop(std::round(arrowRect.top()));
+		points[0] = arrowRect.topLeft();
+		points[1] = arrowRect.topRight();
+		points[2] = QPointF(arrowRect.center().x(), arrowRect.bottom());
+		break;
+	case Qt::RightArrow: {
+			arrowRect.setLeft(std::round(arrowRect.left()));
+			points[0] = arrowRect.topLeft();
+			points[1] = arrowRect.bottomLeft();
+			points[2] = QPointF(arrowRect.right(), arrowRect.center().y());
+			break;
+		}
+	case Qt::LeftArrow:
+		arrowRect.setRight(std::round(arrowRect.right()));
+		points[0] = arrowRect.topRight();
+		points[1] = arrowRect.bottomRight();
+		points[2] = QPointF(arrowRect.left(), arrowRect.center().y());
+		break;
+	case Qt::UpArrow:
+	default:
+		arrowRect.setBottom(std::round(arrowRect.bottom()));
+		points[0] = arrowRect.bottomLeft();
+		points[1] = arrowRect.bottomRight();
+		points[2] = QPointF(arrowRect.center().x(), arrowRect.top());
+		break;
+	}
+
+	auto oldPen = p->pen();
+	auto oldBrush = p->brush();
+	bool oldAA = p->testRenderHint(QPainter::Antialiasing);
+	p->setPen(Qt::NoPen);
+	p->setBrush(brush);
+	if (!oldAA)
+	{
+		p->setRenderHint(QPainter::Antialiasing);
+	}
+	p->drawConvexPolygon(points, 3);
+	p->setPen(oldPen);
+	p->setBrush(oldBrush);
+	if (!oldAA)
+	{
+		p->setRenderHint(QPainter::Antialiasing, false);
+	}
+}
+
+// Pass allowEnabled as false to always draw the arrow with the disabled color,
+// even if the underlying palette's current color group is not disabled. Useful
+// for parts of widgets which may want to be drawn as disabled even if the
+// actual widget is not set as disabled, such as scrollbar step buttons when
+// the scrollbar has no movable range.
+Q_NEVER_INLINE void drawArrow(
+	QPainter *painter,
+	QRect rect,
+	Qt::ArrowType type,
+	const PhSwatch &swatch,
+	bool allowEnabled = true,
+	qreal lightnessAdjustment = 0.0)
+{
+	if (rect.isEmpty())
+	{
+		return;
+	}
+
+	using namespace SwatchColors;
+	auto brush = swatch.brush(allowEnabled ? S_indicator_current : S_indicator_disabled);
+	brush.setColor(DeriveColors::adjustLightness(brush.color(), lightnessAdjustment));
+	Phantom::drawArrow(painter, rect, type, brush);
+}
+
+// This draws exactly within the rect provided. If you provide a square rect,
+// it will appear too wide -- you probably want to shrink the width of your
+// square first by multiplying it with CheckMark_WidthOfHeightScale.
+Q_NEVER_INLINE void drawCheck(QPainter *painter, QPen &scratchPen, const QRectF &r, const PhSwatch &swatch, Swatchy color)
+{
+	using namespace Phantom::SwatchColors;
+	qreal rx, ry, rw, rh;
+	QRectF(r).getRect(&rx, &ry, &rw, &rh);
+	qreal penWidth = 0.25 * qMin(rw, rh);
+	qreal dimx = rw - penWidth;
+	qreal dimy = rh - penWidth;
+	if (dimx < 0.5 || dimy < 0.5)
+	{
+		return;
+	}
+
+	qreal x = (rw - dimx) / 2 + rx;
+	qreal y = (rh - dimy) / 2 + ry;
+	QPointF points[3];
+	points[0] = QPointF(0.0, 0.55);
+	points[1] = QPointF(0.4, 1.0);
+	points[2] = QPointF(1.0, 0);
+	for (int i = 0; i < 3; ++i)
+	{
+		QPointF pnt = points[i];
+		pnt.setX(pnt.x() * dimx + x);
+		pnt.setY(pnt.y() * dimy + y);
+		points[i] = pnt;
+	}
+	scratchPen.setBrush(swatch.brush(color));
+	scratchPen.setCapStyle(Qt::RoundCap);
+	scratchPen.setJoinStyle(Qt::RoundJoin);
+	scratchPen.setWidthF(penWidth);
+	Phantom::PSave save(painter);
+	if (!painter->testRenderHint(QPainter::Antialiasing))
+	{
+		painter->setRenderHint(QPainter::Antialiasing);
+	}
+
+	painter->setPen(scratchPen);
+	painter->setBrush(Qt::NoBrush);
+	painter->drawPolyline(points, 3);
+}
+
+Q_NEVER_INLINE void drawHyphen(QPainter *painter, QPen &scratchPen, const QRectF &r, const PhSwatch &swatch, Swatchy color)
+{
+	using namespace Phantom::SwatchColors;
+	qreal rx, ry, rw, rh;
+	QRectF(r).getRect(&rx, &ry, &rw, &rh);
+	qreal penWidth = 0.25 * qMin(rw, rh);
+	qreal dimx = rw - penWidth;
+	qreal dimy = rh - penWidth;
+	if (dimx < 0.5 || dimy < 0.5)
+	{
+		return;
+	}
+
+	qreal x = (rw - dimx) / 2 + rx;
+	qreal y = (rh - dimy) / 2 + ry;
+	QPointF p0(0.0 * dimx + x, 0.5 * dimy + y);
+	QPointF p1(1.0 * dimx + x, 0.5 * dimy + y);
+	scratchPen.setBrush(swatch.brush(color));
+	scratchPen.setCapStyle(Qt::RoundCap);
+	scratchPen.setWidthF(penWidth);
+	Phantom::PSave save(painter);
+	if (!painter->testRenderHint(QPainter::Antialiasing))
+	{
+		painter->setRenderHint(QPainter::Antialiasing);
+	}
+
+	painter->setPen(scratchPen);
+	painter->setBrush(Qt::NoBrush);
+	painter->drawLine(p0, p1);
+}
+
+Q_NEVER_INLINE void drawMdiButton(QPainter *painter, const QStyleOptionTitleBar *option, QRect tmp, bool hover, bool sunken)
+{
+	QColor dark;
+	dark.setHsv(option->palette.button().color().hue(),
+		qMin<int>(255, (option->palette.button().color().saturation())),
+		qMin<int>(255, option->palette.button().color().value() * 0.7));
+	QColor highlight = option->palette.highlight().color();
+	bool active = (option->titleBarState & QStyle::State_Active);
+	QColor titleBarHighlight(255, 255, 255, 60);
+	if (sunken)
+	{
+		painter->fillRect(tmp.adjusted(1, 1, -1, -1), option->palette.highlight().color().darker(120));
+	}
+	else if (hover)
+	{
+		painter->fillRect(tmp.adjusted(1, 1, -1, -1), QColor(255, 255, 255, 20));
+	}
+
+	if (sunken)
+	{
+		titleBarHighlight = highlight.darker(130);
+	}
+
+	QColor mdiButtonBorderColor(active ? option->palette.highlight().color().darker(180) : dark.darker(110));
+	painter->setPen(QPen(mdiButtonBorderColor));
+	const QLine lines[4] = {QLine(tmp.left() + 2, tmp.top(), tmp.right() - 2, tmp.top()),
+		QLine(tmp.left() + 2, tmp.bottom(), tmp.right() - 2, tmp.bottom()),
+		QLine(tmp.left(), tmp.top() + 2, tmp.left(), tmp.bottom() - 2),
+		QLine(tmp.right(), tmp.top() + 2, tmp.right(), tmp.bottom() - 2)};
+	painter->drawLines(lines, 4);
+	const QPoint points[4] = {QPoint(tmp.left() + 1, tmp.top() + 1),
+		QPoint(tmp.right() - 1, tmp.top() + 1),
+		QPoint(tmp.left() + 1, tmp.bottom() - 1),
+		QPoint(tmp.right() - 1, tmp.bottom() - 1)};
+	painter->drawPoints(points, 4);
+	painter->setPen(titleBarHighlight);
+	painter->drawLine(tmp.left() + 2, tmp.top() + 1, tmp.right() - 2, tmp.top() + 1);
+	painter->drawLine(tmp.left() + 1, tmp.top() + 2, tmp.left() + 1, tmp.bottom() - 2);
+}
+
+Q_NEVER_INLINE void fillRectOutline(QPainter *p, QRect rect, QMargins margins, const QColor &brush)
+{
+	int x, y, w, h;
+	rect.getRect(&x, &y, &w, &h);
+	int ml = margins.left();
+	int mt = margins.top();
+	int mr = margins.right();
+	int mb = margins.bottom();
+	QRect r0(x, y, w, mt);
+	QRect r1(x, y + mt, ml, h - (mt + mb));
+	QRect r2((x + w) - mr, y + mt, mr, h - (mt + mb));
+	QRect r3(x, (y + h) - mb, w, mb);
+	p->fillRect(r0 & rect, brush);
+	p->fillRect(r1 & rect, brush);
+	p->fillRect(r2 & rect, brush);
+	p->fillRect(r3 & rect, brush);
+}
+
+void fillRectOutline(QPainter *p, QRect rect, int thickness, const QColor &color)
+{
+	fillRectOutline(p, rect, QMargins(thickness, thickness, thickness, thickness), color);
+}
+
+Q_NEVER_INLINE void fillRectEdges(QPainter *p, QRect rect, Qt::Edges edges, QMargins margins, const QColor &color)
+{
+	int x, y, w, h;
+	rect.getRect(&x, &y, &w, &h);
+	if (edges & Qt::LeftEdge)
+	{
+		int ml = margins.left();
+		QRect r0(x, y, ml, h);
+		p->fillRect(r0 & rect, color);
+	}
+
+	if (edges & Qt::TopEdge)
+	{
+		int mt = margins.top();
+		QRect r1(x, y, w, mt);
+		p->fillRect(r1 & rect, color);
+	}
+
+	if (edges & Qt::RightEdge)
+	{
+		int mr = margins.right();
+		QRect r2((x + w) - mr, y, mr, h);
+		p->fillRect(r2 & rect, color);
+	}
+
+	if (edges & Qt::BottomEdge)
+	{
+		int mb = margins.bottom();
+		QRect r3(x, (y + h) - mb, w, mb);
+		p->fillRect(r3 & rect, color);
+	}
+}
+
+void fillRectEdges(QPainter *p, QRect rect, Qt::Edges edges, int thickness, const QColor &color)
+{
+	fillRectEdges(p, rect, edges, QMargins(thickness, thickness, thickness, thickness), color);
+}
+
+inline QRect expandRect(QRect rect, Qt::Edges edges, int delta)
+{
+	int l = edges & Qt::LeftEdge ? -delta : 0;
+	int t = edges & Qt::TopEdge ? -delta : 0;
+	int r = edges & Qt::RightEdge ? delta : 0;
+	int b = edges & Qt::BottomEdge ? delta : 0;
+	return rect.adjusted(l, t, r, b);
+}
+
+inline Qt::Edge oppositeEdge(Qt::Edge edge)
+{
+	switch (edge)
+	{
+	case Qt::LeftEdge:
+		return Qt::RightEdge;
+	case Qt::TopEdge:
+		return Qt::BottomEdge;
+	case Qt::RightEdge:
+		return Qt::LeftEdge;
+	case Qt::BottomEdge:
+		return Qt::TopEdge;
+	}
+	return Qt::TopEdge;
+}
+
+inline QRect rectTranslatedTowardEdge(QRect rect, Qt::Edge edge, int delta)
+{
+	switch (edge)
+	{
+	case Qt::LeftEdge:
+		return rect.translated(-delta, 0);
+	case Qt::TopEdge:
+		return rect.translated(0, -delta);
+	case Qt::RightEdge:
+		return rect.translated(delta, 0);
+	case Qt::BottomEdge:
+		return rect.translated(0, delta);
+	}
+	return rect;
+}
+
+Q_NEVER_INLINE QRect rectFromInnerEdgeWithThickness(QRect rect, Qt::Edge edge, int thickness)
+{
+	int x, y, w, h;
+	rect.getRect(&x, &y, &w, &h);
+	QRect r;
+	switch (edge)
+	{
+	case Qt::LeftEdge:
+		r = QRect(x, y, thickness, h);
+		break;
+	case Qt::TopEdge:
+		r = QRect(x, y, w, thickness);
+		break;
+	case Qt::RightEdge:
+		r = QRect((x + w) - thickness, y, thickness, h);
+		break;
+	case Qt::BottomEdge:
+		r = QRect(x, (y + h) - thickness, w, thickness);
+		break;
+	}
+	return r & rect;
+}
+
+Q_NEVER_INLINE void paintSolidRoundRect(QPainter *p, QRect rect, qreal radius, const PhSwatch &swatch, Swatchy fill)
+{
+	if (!fill)
+		return;
+	bool aa = p->testRenderHint(QPainter::Antialiasing);
+	if (radius > 0.5)
+	{
+		if (!aa)
+			p->setRenderHint(QPainter::Antialiasing);
+		p->setPen(swatch.pen(SwatchColors::S_none));
+		p->setBrush(swatch.brush(fill));
+		p->drawRoundedRect(rect, radius, radius);
+	}
+	else
+	{
+		if (aa)
+			p->setRenderHint(QPainter::Antialiasing, false);
+		p->fillRect(rect, swatch.color(fill));
+	}
+}
+Q_NEVER_INLINE void paintBorderedRoundRect(QPainter *p,
+	QRect rect,
+	qreal radius,
+	const PhSwatch &swatch,
+	Swatchy stroke,
+	Swatchy fill)
+{
+	if (rect.width() < 1 || rect.height() < 1)
+		return;
+	if (!stroke && !fill)
+		return;
+	bool aa = p->testRenderHint(QPainter::Antialiasing);
+	if (radius > 0.5)
+	{
+		if (!aa)
+			p->setRenderHint(QPainter::Antialiasing);
+		p->setPen(swatch.pen(stroke));
+		p->setBrush(swatch.brush(fill));
+		QRectF rf(rect.x() + 0.5, rect.y() + 0.5, rect.width() - 1.0, rect.height() - 1.0);
+		p->drawRoundedRect(rf, radius, radius);
+	}
+	else
+	{
+		if (aa)
+			p->setRenderHint(QPainter::Antialiasing, false);
+		if (stroke)
 		{
-			switch (edge)
-			{
-			case Qt::LeftEdge:
-				return rect.translated(-delta, 0);
-			case Qt::TopEdge:
-				return rect.translated(0, -delta);
-			case Qt::RightEdge:
-				return rect.translated(delta, 0);
-			case Qt::BottomEdge:
-				return rect.translated(0, delta);
-			}
-			return rect;
+			fillRectOutline(p, rect, 1, swatch.color(stroke));
 		}
-		Q_NEVER_INLINE QRect rectFromInnerEdgeWithThickness(QRect rect, Qt::Edge edge, int thickness)
+		if (fill)
 		{
-			int x, y, w, h;
-			rect.getRect(&x, &y, &w, &h);
-			QRect r;
-			switch (edge)
-			{
-			case Qt::LeftEdge:
-				r = QRect(x, y, thickness, h);
-				break;
-			case Qt::TopEdge:
-				r = QRect(x, y, w, thickness);
-				break;
-			case Qt::RightEdge:
-				r = QRect((x + w) - thickness, y, thickness, h);
-				break;
-			case Qt::BottomEdge:
-				r = QRect(x, (y + h) - thickness, w, thickness);
-				break;
-			}
-			return r & rect;
+			p->fillRect(rect.adjusted(1, 1, -1, -1), swatch.color(fill));
 		}
-		Q_NEVER_INLINE void
-			paintSolidRoundRect(QPainter *p, QRect rect, qreal radius, const PhSwatch &swatch, Swatchy fill)
-		{
-			if (!fill)
-				return;
-			bool aa = p->testRenderHint(QPainter::Antialiasing);
-			if (radius > 0.5)
-			{
-				if (!aa)
-					p->setRenderHint(QPainter::Antialiasing);
-				p->setPen(swatch.pen(SwatchColors::S_none));
-				p->setBrush(swatch.brush(fill));
-				p->drawRoundedRect(rect, radius, radius);
-			}
-			else
-			{
-				if (aa)
-					p->setRenderHint(QPainter::Antialiasing, false);
-				p->fillRect(rect, swatch.color(fill));
-			}
-		}
-		Q_NEVER_INLINE void paintBorderedRoundRect(QPainter *p,
-		                                           QRect rect,
-		                                           qreal radius,
-		                                           const PhSwatch &swatch,
-		                                           Swatchy stroke,
-		                                           Swatchy fill)
-		{
-			if (rect.width() < 1 || rect.height() < 1)
-				return;
-			if (!stroke && !fill)
-				return;
-			bool aa = p->testRenderHint(QPainter::Antialiasing);
-			if (radius > 0.5)
-			{
-				if (!aa)
-					p->setRenderHint(QPainter::Antialiasing);
-				p->setPen(swatch.pen(stroke));
-				p->setBrush(swatch.brush(fill));
-				QRectF rf(rect.x() + 0.5, rect.y() + 0.5, rect.width() - 1.0, rect.height() - 1.0);
-				p->drawRoundedRect(rf, radius, radius);
-			}
-			else
-			{
-				if (aa)
-					p->setRenderHint(QPainter::Antialiasing, false);
-				if (stroke)
-				{
-					fillRectOutline(p, rect, 1, swatch.color(stroke));
-				}
-				if (fill)
-				{
-					p->fillRect(rect.adjusted(1, 1, -1, -1), swatch.color(fill));
-				}
-			}
-		}
-	} // namespace
+	}
+}
+
+} // namespace
+
 } // namespace Phantom
 
 BaseStylePrivate::BaseStylePrivate()

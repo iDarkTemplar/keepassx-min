@@ -123,6 +123,7 @@ AccessControlDialog::AccessControlDialog(QWindow *parent,
 		m_rememberCheck->hide();
 		m_rememberCheck->setChecked(false);
 	}
+
 	if (!authOptions.testFlag(AuthOption::PerEntryDeny))
 	{
 		m_ui->itemsTable->horizontalHeader()->setSectionHidden(2, true);
@@ -141,7 +142,9 @@ AccessControlDialog::AccessControlDialog(QWindow *parent,
 	allowButton->setFocus();
 }
 
-AccessControlDialog::~AccessControlDialog() = default;
+AccessControlDialog::~AccessControlDialog()
+{
+}
 
 void AccessControlDialog::setupDetails(const FdoSecrets::PeerInfo &info)
 {

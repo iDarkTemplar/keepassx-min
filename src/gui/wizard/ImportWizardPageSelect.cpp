@@ -80,6 +80,7 @@ bool ImportWizardPageSelect::validatePage()
 		{
 			return false;
 		}
+
 		setField("ImportInto", m_ui->existingDatabaseChoice->currentData());
 	}
 	else
@@ -177,7 +178,7 @@ void ImportWizardPageSelect::updateDatabaseChoices() const
 					auto path = group->hierarchy();
 					path.removeFirst();
 					m_ui->existingDatabaseChoice->addItem(QString("  / %1").arg(path.join(" / ")),
-					                                      QList<QVariant>() << db->uuid() << group->uuid());
+						QList<QVariant>() << db->uuid() << group->uuid());
 				}
 			}
 		}
@@ -239,11 +240,13 @@ void ImportWizardPageSelect::setCredentialState(bool passwordEnabled, bool keyFi
 			auto diff = m_ui->passwordEdit->height() + m_ui->inputFields->layout()->spacing();
 			height += passwordEnabled ? diff : -diff;
 		}
+
 		if (keyFileStateChanged)
 		{
 			auto diff = m_ui->keyFileEdit->height() + m_ui->inputFields->layout()->spacing();
 			height += keyFileEnable ? diff : -diff;
 		}
+
 		window()->resize(window()->width(), height);
 	}
 }

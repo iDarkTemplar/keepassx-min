@@ -47,187 +47,121 @@ struct ConfigDirective
  * Map of legal config values, their type and default value.
  */
 static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
-    // General
-    {Config::SingleInstance,{QS("SingleInstance"), Roaming, true}},
-    {Config::RememberLastDatabases,{QS("RememberLastDatabases"), Roaming, true}},
-    {Config::NumberOfRememberedLastDatabases,{QS("NumberOfRememberedLastDatabases"), Roaming, 5}},
-    {Config::RememberLastKeyFiles,{QS("RememberLastKeyFiles"), Roaming, true}},
-    {Config::OpenPreviousDatabasesOnStartup,{QS("OpenPreviousDatabasesOnStartup"), Roaming, true}},
-    {Config::AutoSaveAfterEveryChange,{QS("AutoSaveAfterEveryChange"), Roaming, true}},
-    {Config::AutoReloadOnChange,{QS("AutoReloadOnChange"), Roaming, true}},
-    {Config::AutoSaveOnExit,{QS("AutoSaveOnExit"), Roaming, true}},
-    {Config::AutoSaveNonDataChanges,{QS("AutoSaveNonDataChanges"), Roaming, true}},
-    {Config::BackupBeforeSave,{QS("BackupBeforeSave"), Roaming, false}},
-    {Config::BackupFilePathPattern,{QS("BackupFilePathPattern"), Roaming, QString("{DB_FILENAME}.old.kdbx")}},
-    {Config::UseAtomicSaves,{QS("UseAtomicSaves"), Roaming, true}},
-    {Config::UseDirectWriteSaves,{QS("UseDirectWriteSaves"), Local, false}},
-    {Config::SearchLimitGroup,{QS("SearchLimitGroup"), Roaming, false}},
-    {Config::MinimizeOnOpenUrl,{QS("MinimizeOnOpenUrl"), Roaming, false}},
-    {Config::OpenURLOnDoubleClick, {QS("OpenURLOnDoubleClick"), Roaming, true}},
-    {Config::URLDoubleClickAction, {QS("URLDoubleClickAction"), Roaming, 0}},
-    {Config::HideWindowOnCopy,{QS("HideWindowOnCopy"), Roaming, false}},
-    {Config::MinimizeOnCopy,{QS("MinimizeOnCopy"), Roaming, true}},
-    {Config::AutoGeneratePasswordForNewEntries,{QS("AutoGeneratePasswordForNewEntries"), Roaming, false}},
-    {Config::MinimizeAfterUnlock,{QS("MinimizeAfterUnlock"), Roaming, false}},
-    {Config::DropToBackgroundOnCopy,{QS("DropToBackgroundOnCopy"), Roaming, false}},
-    {Config::UseGroupIconOnEntryCreation,{QS("UseGroupIconOnEntryCreation"), Roaming, true}},
-    {Config::AutoTypeEntryTitleMatch,{QS("AutoTypeEntryTitleMatch"), Roaming, true}},
-    {Config::AutoTypeEntryURLMatch,{QS("AutoTypeEntryURLMatch"), Roaming, true}},
-    {Config::AutoTypeDelay,{QS("AutoTypeDelay"), Roaming, 25}},
-    {Config::AutoTypeStartDelay,{QS("AutoTypeStartDelay"), Roaming, 500}},
-    {Config::AutoTypeHideExpiredEntry,{QS("AutoTypeHideExpiredEntry"), Roaming, false}},
-    {Config::AutoTypeDialogSortColumn,{QS("AutoTypeDialogSortColumn"), Roaming, 0}},
-    {Config::AutoTypeDialogSortOrder,{QS("AutoTypeDialogSortOrder"), Roaming, Qt::AscendingOrder}},
-    {Config::GlobalAutoTypeKey,{QS("GlobalAutoTypeKey"), Roaming, 0}},
-    {Config::GlobalAutoTypeModifiers,{QS("GlobalAutoTypeModifiers"), Roaming, 0}},
-    {Config::GlobalAutoTypeRetypeTime,{QS("GlobalAutoTypeRetypeTime"), Roaming, 15}},
-    {Config::FaviconDownloadTimeout,{QS("FaviconDownloadTimeout"), Roaming, 10}},
-    {Config::UpdateCheckMessageShown,{QS("UpdateCheckMessageShown"), Roaming, false}},
-    {Config::DefaultDatabaseFileName,{QS("DefaultDatabaseFileName"), Roaming, {}}},
+	// General
+	{Config::SingleInstance,{QS("SingleInstance"), Roaming, true}},
+	{Config::RememberLastDatabases,{QS("RememberLastDatabases"), Roaming, true}},
+	{Config::NumberOfRememberedLastDatabases,{QS("NumberOfRememberedLastDatabases"), Roaming, 5}},
+	{Config::RememberLastKeyFiles,{QS("RememberLastKeyFiles"), Roaming, true}},
+	{Config::OpenPreviousDatabasesOnStartup,{QS("OpenPreviousDatabasesOnStartup"), Roaming, true}},
+	{Config::AutoSaveAfterEveryChange,{QS("AutoSaveAfterEveryChange"), Roaming, true}},
+	{Config::AutoReloadOnChange,{QS("AutoReloadOnChange"), Roaming, true}},
+	{Config::AutoSaveOnExit,{QS("AutoSaveOnExit"), Roaming, true}},
+	{Config::AutoSaveNonDataChanges,{QS("AutoSaveNonDataChanges"), Roaming, true}},
+	{Config::BackupBeforeSave,{QS("BackupBeforeSave"), Roaming, false}},
+	{Config::BackupFilePathPattern,{QS("BackupFilePathPattern"), Roaming, QString("{DB_FILENAME}.old.kdbx")}},
+	{Config::SearchLimitGroup,{QS("SearchLimitGroup"), Roaming, false}},
+	{Config::HideWindowOnCopy,{QS("HideWindowOnCopy"), Roaming, false}},
+	{Config::MinimizeOnCopy,{QS("MinimizeOnCopy"), Roaming, true}},
+	{Config::AutoGeneratePasswordForNewEntries,{QS("AutoGeneratePasswordForNewEntries"), Roaming, false}},
+	{Config::MinimizeAfterUnlock,{QS("MinimizeAfterUnlock"), Roaming, false}},
+	{Config::DropToBackgroundOnCopy,{QS("DropToBackgroundOnCopy"), Roaming, false}},
+	{Config::UseGroupIconOnEntryCreation,{QS("UseGroupIconOnEntryCreation"), Roaming, true}},
+	{Config::DefaultDatabaseFileName,{QS("DefaultDatabaseFileName"), Roaming, {}}},
 
-    {Config::LastDatabases, {QS("LastDatabases"), Local, {}}},
-    {Config::LastKeyFiles, {QS("LastKeyFiles"), Local, {}}},
-    {Config::LastChallengeResponse, {QS("LastChallengeResponse"), Local, {}}},
-    {Config::LastActiveDatabase, {QS("LastActiveDatabase"), Local, {}}},
-    {Config::LastOpenedDatabases, {QS("LastOpenedDatabases"), Local, {}}},
-    {Config::LastDir, {QS("LastDir"), Local, QDir::homePath()}},
+	{Config::LastDatabases, {QS("LastDatabases"), Local, {}}},
+	{Config::LastKeyFiles, {QS("LastKeyFiles"), Local, {}}},
+	{Config::LastChallengeResponse, {QS("LastChallengeResponse"), Local, {}}},
+	{Config::LastActiveDatabase, {QS("LastActiveDatabase"), Local, {}}},
+	{Config::LastOpenedDatabases, {QS("LastOpenedDatabases"), Local, {}}},
+	{Config::LastDir, {QS("LastDir"), Local, QDir::homePath()}},
 
-    // GUI
-    {Config::GUI_Language, {QS("GUI/Language"), Roaming, QS("system")}},
-    {Config::GUI_HideMenubar, {QS("GUI/HideMenubar"), Roaming, false}},
-    {Config::GUI_HideToolbar, {QS("GUI/HideToolbar"), Roaming, false}},
-    {Config::GUI_MovableToolbar, {QS("GUI/MovableToolbar"), Roaming, false}},
-    {Config::GUI_HideGroupPanel, {QS("GUI/HideGroupPanel"), Roaming, false}},
-    {Config::GUI_HidePreviewPanel, {QS("GUI/HidePreviewPanel"), Roaming, false}},
-    {Config::GUI_AlwaysOnTop, {QS("GUI/GUI_AlwaysOnTop"), Local, false}},
-    {Config::GUI_ToolButtonStyle, {QS("GUI/ToolButtonStyle"), Roaming, Qt::ToolButtonIconOnly}},
-    {Config::GUI_LaunchAtStartup, {QS("GUI/LaunchAtStartup"), Roaming, false}},
-    {Config::GUI_ShowTrayIcon, {QS("GUI/ShowTrayIcon"), Roaming, false}},
-    {Config::GUI_TrayIconAppearance, {QS("GUI/TrayIconAppearance"), Roaming, {}}},
-    {Config::GUI_MinimizeToTray, {QS("GUI/MinimizeToTray"), Roaming, false}},
-    {Config::GUI_MinimizeOnStartup, {QS("GUI/MinimizeOnStartup"), Roaming, false}},
-    {Config::GUI_MinimizeOnClose, {QS("GUI/MinimizeOnClose"), Roaming, false}},
-    {Config::GUI_HideUsernames, {QS("GUI/HideUsernames"), Roaming, false}},
-    {Config::GUI_HidePasswords, {QS("GUI/HidePasswords"), Roaming, true}},
-    {Config::GUI_ColorPasswords, {QS("GUI/ColorPasswords"), Roaming, false}},
-    {Config::GUI_MonospaceNotes, {QS("GUI/MonospaceNotes"), Roaming, false}},
-    {Config::GUI_ApplicationTheme, {QS("GUI/ApplicationTheme"), Roaming, QS("auto")}},
-    {Config::GUI_CompactMode, {QS("GUI/CompactMode"), Roaming, false}},
-    {Config::GUI_CheckForUpdates, {QS("GUI/CheckForUpdates"), Roaming, true}},
-    {Config::GUI_CheckForUpdatesNextCheck, {QS("GUI/CheckForUpdatesNextCheck"), Local, 0}},
-    {Config::GUI_CheckForUpdatesIncludeBetas, {QS("GUI/CheckForUpdatesIncludeBetas"), Roaming, false}},
-    {Config::GUI_SearchWaitForEnter, {QS("GUI/SearchWaitForEnter"), Roaming, false}},
-    {Config::GUI_ShowExpiredEntriesOnDatabaseUnlock, {QS("GUI/ShowExpiredEntriesOnDatabaseUnlock"), Roaming, true}},
-    {Config::GUI_ShowExpiredEntriesOnDatabaseUnlockOffsetDays, {QS("GUI/ShowExpiredEntriesOnDatabaseUnlockOffsetDays"), Roaming, 3}},
-    {Config::GUI_FontSizeOffset, {QS("GUI/FontSizeOffset"), Local, 0}},
+	// GUI
+	{Config::GUI_Language, {QS("GUI/Language"), Roaming, QS("system")}},
+	{Config::GUI_HideMenubar, {QS("GUI/HideMenubar"), Roaming, false}},
+	{Config::GUI_HideToolbar, {QS("GUI/HideToolbar"), Roaming, false}},
+	{Config::GUI_MovableToolbar, {QS("GUI/MovableToolbar"), Roaming, false}},
+	{Config::GUI_HideGroupPanel, {QS("GUI/HideGroupPanel"), Roaming, false}},
+	{Config::GUI_HidePreviewPanel, {QS("GUI/HidePreviewPanel"), Roaming, false}},
+	{Config::GUI_AlwaysOnTop, {QS("GUI/GUI_AlwaysOnTop"), Local, false}},
+	{Config::GUI_ToolButtonStyle, {QS("GUI/ToolButtonStyle"), Roaming, Qt::ToolButtonIconOnly}},
+	{Config::GUI_ShowTrayIcon, {QS("GUI/ShowTrayIcon"), Roaming, false}},
+	{Config::GUI_TrayIconAppearance, {QS("GUI/TrayIconAppearance"), Roaming, {}}},
+	{Config::GUI_MinimizeToTray, {QS("GUI/MinimizeToTray"), Roaming, false}},
+	{Config::GUI_MinimizeOnStartup, {QS("GUI/MinimizeOnStartup"), Roaming, false}},
+	{Config::GUI_MinimizeOnClose, {QS("GUI/MinimizeOnClose"), Roaming, false}},
+	{Config::GUI_HideUsernames, {QS("GUI/HideUsernames"), Roaming, false}},
+	{Config::GUI_HidePasswords, {QS("GUI/HidePasswords"), Roaming, true}},
+	{Config::GUI_ColorPasswords, {QS("GUI/ColorPasswords"), Roaming, false}},
+	{Config::GUI_MonospaceNotes, {QS("GUI/MonospaceNotes"), Roaming, false}},
+	{Config::GUI_ApplicationTheme, {QS("GUI/ApplicationTheme"), Roaming, QS("auto")}},
+	{Config::GUI_CompactMode, {QS("GUI/CompactMode"), Roaming, false}},
+	{Config::GUI_SearchWaitForEnter, {QS("GUI/SearchWaitForEnter"), Roaming, false}},
+	{Config::GUI_ShowExpiredEntriesOnDatabaseUnlock, {QS("GUI/ShowExpiredEntriesOnDatabaseUnlock"), Roaming, true}},
+	{Config::GUI_ShowExpiredEntriesOnDatabaseUnlockOffsetDays, {QS("GUI/ShowExpiredEntriesOnDatabaseUnlockOffsetDays"), Roaming, 3}},
+	{Config::GUI_FontSizeOffset, {QS("GUI/FontSizeOffset"), Local, 0}},
 
-    {Config::GUI_MainWindowGeometry, {QS("GUI/MainWindowGeometry"), Local, {}}},
-    {Config::GUI_MainWindowState, {QS("GUI/MainWindowState"), Local, {}}},
-    {Config::GUI_ListViewState, {QS("GUI/ListViewState"), Local, {}}},
-    {Config::GUI_SearchViewState, {QS("GUI/SearchViewState"), Local, {}}},
-    {Config::GUI_SplitterState, {QS("GUI/SplitterState"), Local, {}}},
-    {Config::GUI_GroupSplitterState, {QS("GUI/GroupSplitterState"), Local, {}}},
-    {Config::GUI_PreviewSplitterState, {QS("GUI/PreviewSplitterState"), Local, {}}},
-    {Config::GUI_AutoTypeSelectDialogSize, {QS("GUI/AutoTypeSelectDialogSize"), Local, QSize(600, 250)}},
+	{Config::GUI_MainWindowGeometry, {QS("GUI/MainWindowGeometry"), Local, {}}},
+	{Config::GUI_MainWindowState, {QS("GUI/MainWindowState"), Local, {}}},
+	{Config::GUI_ListViewState, {QS("GUI/ListViewState"), Local, {}}},
+	{Config::GUI_SearchViewState, {QS("GUI/SearchViewState"), Local, {}}},
+	{Config::GUI_SplitterState, {QS("GUI/SplitterState"), Local, {}}},
+	{Config::GUI_GroupSplitterState, {QS("GUI/GroupSplitterState"), Local, {}}},
+	{Config::GUI_PreviewSplitterState, {QS("GUI/PreviewSplitterState"), Local, {}}},
 
-    // Security
-    {Config::Security_ClearClipboard, {QS("Security/ClearClipboard"), Roaming, true}},
-    {Config::Security_ClearClipboardTimeout, {QS("Security/ClearClipboardTimeout"), Roaming, 10}},
-    {Config::Security_ClearSearch, {QS("Security/ClearSearch"), Roaming, false}},
-    {Config::Security_ClearSearchTimeout, {QS("Security/ClearSearchTimeout"), Roaming, 5}},
-    {Config::Security_HideNotes, {QS("Security/Security_HideNotes"), Roaming, false}},
-    {Config::Security_LockDatabaseIdle, {QS("Security/LockDatabaseIdle"), Roaming, true}},
-    {Config::Security_LockDatabaseIdleSeconds, {QS("Security/LockDatabaseIdleSeconds"), Roaming, 900}},
-    {Config::Security_LockDatabaseMinimize, {QS("Security/LockDatabaseMinimize"), Roaming, false}},
-    {Config::Security_LockDatabaseScreenLock, {QS("Security/LockDatabaseScreenLock"), Roaming, true}},
-    {Config::Security_LockDatabaseOnUserSwitch, {QS("Security/LockDatabaseOnUserSwitch"), Roaming, true}},
-    {Config::Security_RelockAutoType, {QS("Security/RelockAutoType"), Roaming, false}},
-    {Config::Security_PasswordsHidden, {QS("Security/PasswordsHidden"), Roaming, true}},
-    {Config::Security_PasswordEmptyPlaceholder, {QS("Security/PasswordEmptyPlaceholder"), Roaming, false}},
-    {Config::Security_HidePasswordPreviewPanel, {QS("Security/HidePasswordPreviewPanel"), Roaming, true}},
-    {Config::Security_HideTotpPreviewPanel, {QS("Security/HideTotpPreviewPanel"), Roaming, false}},
-    {Config::Security_AutoTypeAsk, {QS("Security/AutotypeAsk"), Roaming, true}},
-    {Config::Security_AutoTypeSkipMainWindowConfirmation, {QS("Security/AutoTypeSkipMainWindowConfirmation"), Roaming, false}},
-    {Config::Security_IconDownloadFallback, {QS("Security/IconDownloadFallback"), Roaming, false}},
-    {Config::Security_NoConfirmMoveEntryToRecycleBin,{QS("Security/NoConfirmMoveEntryToRecycleBin"), Roaming, true}},
-    {Config::Security_EnableCopyOnDoubleClick,{QS("Security/EnableCopyOnDoubleClick"), Roaming, false}},
-    {Config::Security_QuickUnlock, {QS("Security/QuickUnlock"), Local, true}},
-    {Config::Security_DatabasePasswordMinimumQuality, {QS("Security/DatabasePasswordMinimumQuality"), Local, 0}},
+	// Security
+	{Config::Security_ClearClipboard, {QS("Security/ClearClipboard"), Roaming, true}},
+	{Config::Security_ClearClipboardTimeout, {QS("Security/ClearClipboardTimeout"), Roaming, 10}},
+	{Config::Security_ClearSearch, {QS("Security/ClearSearch"), Roaming, false}},
+	{Config::Security_ClearSearchTimeout, {QS("Security/ClearSearchTimeout"), Roaming, 5}},
+	{Config::Security_HideNotes, {QS("Security/Security_HideNotes"), Roaming, false}},
+	{Config::Security_LockDatabaseIdle, {QS("Security/LockDatabaseIdle"), Roaming, true}},
+	{Config::Security_LockDatabaseIdleSeconds, {QS("Security/LockDatabaseIdleSeconds"), Roaming, 900}},
+	{Config::Security_LockDatabaseMinimize, {QS("Security/LockDatabaseMinimize"), Roaming, false}},
+	{Config::Security_LockDatabaseScreenLock, {QS("Security/LockDatabaseScreenLock"), Roaming, true}},
+	{Config::Security_PasswordsHidden, {QS("Security/PasswordsHidden"), Roaming, true}},
+	{Config::Security_PasswordEmptyPlaceholder, {QS("Security/PasswordEmptyPlaceholder"), Roaming, false}},
+	{Config::Security_HidePasswordPreviewPanel, {QS("Security/HidePasswordPreviewPanel"), Roaming, true}},
+	{Config::Security_HideTotpPreviewPanel, {QS("Security/HideTotpPreviewPanel"), Roaming, false}},
+	{Config::Security_NoConfirmMoveEntryToRecycleBin,{QS("Security/NoConfirmMoveEntryToRecycleBin"), Roaming, true}},
+	{Config::Security_EnableCopyOnDoubleClick,{QS("Security/EnableCopyOnDoubleClick"), Roaming, false}},
+	{Config::Security_DatabasePasswordMinimumQuality, {QS("Security/DatabasePasswordMinimumQuality"), Local, 0}},
 
-    // Browser
-    {Config::Browser_Enabled, {QS("Browser/Enabled"), Roaming, false}},
-    {Config::Browser_ShowNotification, {QS("Browser/ShowNotification"), Roaming, true}},
-    {Config::Browser_BestMatchOnly, {QS("Browser/BestMatchOnly"), Roaming, false}},
-    {Config::Browser_UnlockDatabase, {QS("Browser/UnlockDatabase"), Roaming, true}},
-    {Config::Browser_MatchUrlScheme, {QS("Browser/MatchUrlScheme"), Roaming, true}},
-    {Config::Browser_SupportBrowserProxy, {QS("Browser/SupportBrowserProxy"), Roaming, true}},
-    {Config::Browser_UseCustomProxy, {QS("Browser/UseCustomProxy"), Roaming, false}},
-    {Config::Browser_CustomProxyLocation, {QS("Browser/CustomProxyLocation"), Roaming, {}}},
-    {Config::Browser_UpdateBinaryPath, {QS("Browser/UpdateBinaryPath"), Roaming, true}},
-    {Config::Browser_AllowExpiredCredentials, {QS("Browser/AllowExpiredCredentials"), Roaming, false}},
-    {Config::Browser_AlwaysAllowAccess, {QS("Browser/AlwaysAllowAccess"), Roaming, false}},
-    {Config::Browser_AlwaysAllowUpdate, {QS("Browser/AlwaysAllowUpdate"), Roaming, false}},
-    {Config::Browser_HttpAuthPermission, {QS("Browser/HttpAuthPermission"), Roaming, false}},
-    {Config::Browser_SearchInAllDatabases, {QS("Browser/SearchInAllDatabases"), Roaming, false}},
-    {Config::Browser_SupportKphFields, {QS("Browser/SupportKphFields"), Roaming, true}},
-    {Config::Browser_NoMigrationPrompt, {QS("Browser/NoMigrationPrompt"), Roaming, false}},
-    {Config::Browser_UseCustomBrowser, {QS("Browser/UseCustomBrowser"), Local, false}},
-    {Config::Browser_CustomBrowserType, {QS("Browser/CustomBrowserType"), Local, -1}},
-    {Config::Browser_CustomBrowserLocation, {QS("Browser/CustomBrowserLocation"), Local, {}}},
-    {Config::Browser_AllowLocalhostWithPasskeys, {QS("Browser/Browser_AllowLocalhostWithPasskeys"), Roaming, false}},
-#ifdef QT_DEBUG
-    {Config::Browser_CustomExtensionId, {QS("Browser/CustomExtensionId"), Local, {}}},
-#endif
+	// FdoSecrets
+	{Config::FdoSecrets_Enabled, {QS("FdoSecrets/Enabled"), Roaming, false}},
+	{Config::FdoSecrets_ShowNotification, {QS("FdoSecrets/ShowNotification"), Roaming, true}},
+	{Config::FdoSecrets_ConfirmDeleteItem, {QS("FdoSecrets/ConfirmDeleteItem"), Roaming, true}},
+	{Config::FdoSecrets_ConfirmAccessItem, {QS("FdoSecrets/ConfirmAccessItem"), Roaming, true}},
+	{Config::FdoSecrets_UnlockBeforeSearch, {QS("FdoSecrets/UnlockBeforeSearch"), Roaming, true}},
 
-    // SSHAgent
-    {Config::SSHAgent_Enabled, {QS("SSHAgent/Enabled"), Roaming, false}},
-    {Config::SSHAgent_UseOpenSSH, {QS("SSHAgent/UseOpenSSH"), Roaming, false}},
-    {Config::SSHAgent_UsePageant, {QS("SSHAgent/UsePageant"), Roaming, true} },
-    {Config::SSHAgent_AuthSockOverride, {QS("SSHAgent/AuthSockOverride"), Local, {}}},
-    {Config::SSHAgent_SecurityKeyProviderOverride, {QS("SSHAgent/SecurityKeyProviderOverride"), Local, {}}},
+	// PasswordGenerator
+	{Config::PasswordGenerator_LowerCase, {QS("PasswordGenerator/LowerCase"), Roaming, true}},
+	{Config::PasswordGenerator_UpperCase, {QS("PasswordGenerator/UpperCase"), Roaming, true}},
+	{Config::PasswordGenerator_Numbers, {QS("PasswordGenerator/Numbers"), Roaming, true}},
+	{Config::PasswordGenerator_EASCII, {QS("PasswordGenerator/EASCII"), Roaming, false}},
+	{Config::PasswordGenerator_AdvancedMode, {QS("PasswordGenerator/AdvancedMode"), Roaming, false}},
+	{Config::PasswordGenerator_SpecialChars, {QS("PasswordGenerator/SpecialChars"), Roaming, true}},
+	{Config::PasswordGenerator_Braces, {QS("PasswordGenerator/Braces"), Roaming, false}},
+	{Config::PasswordGenerator_Punctuation, {QS("PasswordGenerator/Punctuation"), Roaming, false}},
+	{Config::PasswordGenerator_Quotes, {QS("PasswordGenerator/Quotes"), Roaming, false}},
+	{Config::PasswordGenerator_Dashes, {QS("PasswordGenerator/Dashes"), Roaming, false}},
+	{Config::PasswordGenerator_Math, {QS("PasswordGenerator/Math"), Roaming, false}},
+	{Config::PasswordGenerator_Logograms, {QS("PasswordGenerator/Logograms"), Roaming, false}},
+	{Config::PasswordGenerator_AdditionalChars, {QS("PasswordGenerator/AdditionalChars"), Roaming, {}}},
+	{Config::PasswordGenerator_ExcludedChars, {QS("PasswordGenerator/ExcludedChars"), Roaming, {}}},
+	{Config::PasswordGenerator_ExcludeAlike, {QS("PasswordGenerator/ExcludeAlike"), Roaming, true}},
+	{Config::PasswordGenerator_EnsureEvery, {QS("PasswordGenerator/EnsureEvery"), Roaming, true}},
+	{Config::PasswordGenerator_Length, {QS("PasswordGenerator/Length"), Roaming, 20}},
+	{Config::PasswordGenerator_WordCount, {QS("PasswordGenerator/WordCount"), Roaming, 7}},
+	{Config::PasswordGenerator_WordSeparator, {QS("PasswordGenerator/WordSeparator"), Roaming, QS(" ")}},
+	{Config::PasswordGenerator_WordList, {QS("PasswordGenerator/WordList"), Roaming, QS("eff_large.wordlist")}},
+	{Config::PasswordGenerator_WordCase, {QS("PasswordGenerator/WordCase"), Roaming, 0}},
+	{Config::PasswordGenerator_Type, {QS("PasswordGenerator/Type"), Roaming, 0}},
 
-    // FdoSecrets
-    {Config::FdoSecrets_Enabled, {QS("FdoSecrets/Enabled"), Roaming, false}},
-    {Config::FdoSecrets_ShowNotification, {QS("FdoSecrets/ShowNotification"), Roaming, true}},
-    {Config::FdoSecrets_ConfirmDeleteItem, {QS("FdoSecrets/ConfirmDeleteItem"), Roaming, true}},
-    {Config::FdoSecrets_ConfirmAccessItem, {QS("FdoSecrets/ConfirmAccessItem"), Roaming, true}},
-    {Config::FdoSecrets_UnlockBeforeSearch, {QS("FdoSecrets/UnlockBeforeSearch"), Roaming, true}},
+	// Messages
+	{Config::Messages_NoLegacyKeyFileWarning, {QS("Messages/NoLegacyKeyFileWarning"), Roaming, false}},
+	{Config::Messages_HidePreReleaseWarning, {QS("Messages/HidePreReleaseWarning"), Local, {}}}};
 
-    // KeeShare
-    {Config::KeeShare_QuietSuccess, {QS("KeeShare/QuietSuccess"), Roaming, false}},
-    {Config::KeeShare_Own, {QS("KeeShare/Own"), Roaming, {}}},
-    {Config::KeeShare_Foreign, {QS("KeeShare/Foreign"), Roaming, {}}},
-    {Config::KeeShare_Active, {QS("KeeShare/Active"), Roaming, {}}},
-
-    // PasswordGenerator
-    {Config::PasswordGenerator_LowerCase, {QS("PasswordGenerator/LowerCase"), Roaming, true}},
-    {Config::PasswordGenerator_UpperCase, {QS("PasswordGenerator/UpperCase"), Roaming, true}},
-    {Config::PasswordGenerator_Numbers, {QS("PasswordGenerator/Numbers"), Roaming, true}},
-    {Config::PasswordGenerator_EASCII, {QS("PasswordGenerator/EASCII"), Roaming, false}},
-    {Config::PasswordGenerator_AdvancedMode, {QS("PasswordGenerator/AdvancedMode"), Roaming, false}},
-    {Config::PasswordGenerator_SpecialChars, {QS("PasswordGenerator/SpecialChars"), Roaming, true}},
-    {Config::PasswordGenerator_Braces, {QS("PasswordGenerator/Braces"), Roaming, false}},
-    {Config::PasswordGenerator_Punctuation, {QS("PasswordGenerator/Punctuation"), Roaming, false}},
-    {Config::PasswordGenerator_Quotes, {QS("PasswordGenerator/Quotes"), Roaming, false}},
-    {Config::PasswordGenerator_Dashes, {QS("PasswordGenerator/Dashes"), Roaming, false}},
-    {Config::PasswordGenerator_Math, {QS("PasswordGenerator/Math"), Roaming, false}},
-    {Config::PasswordGenerator_Logograms, {QS("PasswordGenerator/Logograms"), Roaming, false}},
-    {Config::PasswordGenerator_AdditionalChars, {QS("PasswordGenerator/AdditionalChars"), Roaming, {}}},
-    {Config::PasswordGenerator_ExcludedChars, {QS("PasswordGenerator/ExcludedChars"), Roaming, {}}},
-    {Config::PasswordGenerator_ExcludeAlike, {QS("PasswordGenerator/ExcludeAlike"), Roaming, true}},
-    {Config::PasswordGenerator_EnsureEvery, {QS("PasswordGenerator/EnsureEvery"), Roaming, true}},
-    {Config::PasswordGenerator_Length, {QS("PasswordGenerator/Length"), Roaming, 20}},
-    {Config::PasswordGenerator_WordCount, {QS("PasswordGenerator/WordCount"), Roaming, 7}},
-    {Config::PasswordGenerator_WordSeparator, {QS("PasswordGenerator/WordSeparator"), Roaming, QS(" ")}},
-    {Config::PasswordGenerator_WordList, {QS("PasswordGenerator/WordList"), Roaming, QS("eff_large.wordlist")}},
-    {Config::PasswordGenerator_WordCase, {QS("PasswordGenerator/WordCase"), Roaming, 0}},
-    {Config::PasswordGenerator_Type, {QS("PasswordGenerator/Type"), Roaming, 0}},
-
-    // Messages
-    {Config::Messages_NoLegacyKeyFileWarning, {QS("Messages/NoLegacyKeyFileWarning"), Roaming, false}},
-    {Config::Messages_HidePreReleaseWarning, {QS("Messages/HidePreReleaseWarning"), Local, {}}}};
-
-QPointer<Config> Config::m_instance(nullptr);
+std::unique_ptr<Config> Config::m_instance;
 
 QVariant Config::get(ConfigKey key)
 {
@@ -237,6 +171,7 @@ QVariant Config::get(ConfigKey key)
 	{
 		return m_localSettings->value(cfg.name, defaultValue);
 	}
+
 	return m_settings->value(cfg.name, defaultValue);
 }
 
@@ -300,6 +235,7 @@ void Config::remove(ConfigKey key)
 void Config::sync()
 {
 	m_settings->sync();
+
 	if (m_localSettings)
 	{
 		m_localSettings->sync();
@@ -309,6 +245,7 @@ void Config::sync()
 void Config::resetToDefaults()
 {
 	m_settings->clear();
+
 	if (m_localSettings)
 	{
 		m_localSettings->clear();
@@ -319,7 +256,7 @@ bool Config::importSettings(const QString &fileName)
 {
 	// Ensure file is valid ini with values
 	QSettings settings(fileName, QSettings::IniFormat);
-	if (settings.status() != QSettings::NoError || settings.allKeys().isEmpty())
+	if ((settings.status() != QSettings::NoError) || settings.allKeys().isEmpty())
 	{
 		return false;
 	}
@@ -328,16 +265,18 @@ bool Config::importSettings(const QString &fileName)
 	auto isValidSetting = [](const QString &key) {
 		for (const auto &value: configStrings.values())
 		{
-			if (value.type == ConfigType::Roaming && value.name == key)
+			if ((value.type == ConfigType::Roaming) && (value.name == key))
 			{
 				return true;
 			}
 		}
+
 		return false;
 	};
 
 	// Clear existing settings and set valid items
 	m_settings->clear();
+
 	for (const auto &key: settings.allKeys())
 	{
 		if (isValidSetting(key))
@@ -354,6 +293,7 @@ bool Config::importSettings(const QString &fileName)
 void Config::exportSettings(const QString &fileName) const
 {
 	QSettings settings(fileName, QSettings::IniFormat);
+
 	for (const auto &key: m_settings->allKeys())
 	{
 		settings.setValue(key, m_settings->value(key));
@@ -371,10 +311,8 @@ static const QHash<QString, Config::ConfigKey> deprecationMap = {
 	{QS("security/hidepassworddetails"), Config::Security_HidePasswordPreviewPanel},
 	{QS("GUI/HideDetailsView"), Config::GUI_HidePreviewPanel},
 	{QS("GUI/DetailSplitterState"), Config::GUI_PreviewSplitterState},
-	{QS("security/IconDownloadFallbackToGoogle"), Config::Security_IconDownloadFallback},
 
 	// 2.6.0
-	{QS("security/autotypeask"), Config::Security_AutoTypeAsk},
 	{QS("security/clearclipboard"), Config::Security_ClearClipboard},
 	{QS("security/clearclipboardtimeout"), Config::Security_ClearClipboardTimeout},
 	{QS("security/clearsearch"), Config::Security_ClearSearch},
@@ -383,19 +321,11 @@ static const QHash<QString, Config::ConfigKey> deprecationMap = {
 	{QS("security/lockdatabaseidlesec"), Config::Security_LockDatabaseIdleSeconds},
 	{QS("security/lockdatabaseminimize"), Config::Security_LockDatabaseMinimize},
 	{QS("security/lockdatabasescreenlock"), Config::Security_LockDatabaseScreenLock},
-	{QS("security/relockautotype"), Config::Security_RelockAutoType},
-	{QS("security/IconDownloadFallback"), Config::Security_IconDownloadFallback},
 	{QS("security/passwordscleartext"), Config::Security_PasswordsHidden},
 	{QS("security/passwordemptynodots"), Config::Security_PasswordEmptyPlaceholder},
 	{QS("security/HidePasswordPreviewPanel"), Config::Security_HidePasswordPreviewPanel},
 	{QS("security/passwordsrepeat"), Config::Deleted},
 	{QS("security/hidenotes"), Config::Security_HideNotes},
-	{QS("KeeShare/Settings.own"), Config::KeeShare_Own},
-	{QS("KeeShare/Settings.foreign"), Config::KeeShare_Foreign},
-	{QS("KeeShare/Settings.active"), Config::KeeShare_Active},
-	{QS("SSHAgent"), Config::SSHAgent_Enabled},
-	{QS("SSHAgentOpenSSH"), Config::SSHAgent_UseOpenSSH},
-	{QS("SSHAuthSockOverride"), Config::SSHAgent_AuthSockOverride},
 	{QS("generator/LowerCase"), Config::PasswordGenerator_LowerCase},
 	{QS("generator/UpperCase"), Config::PasswordGenerator_UpperCase},
 	{QS("generator/Numbers"), Config::PasswordGenerator_Numbers},
@@ -453,8 +383,10 @@ void Config::migrate()
 		QVariant value;
 		if (m_settings->contains(setting))
 		{
-			if (setting == QS("IgnoreGroupExpansion") || setting == QS("security/passwordsrepeat")
-			    || setting == QS("security/passwordscleartext") || setting == QS("security/passwordemptynodots"))
+			if (setting == QS("IgnoreGroupExpansion")
+				|| setting == QS("security/passwordsrepeat")
+				|| setting == QS("security/passwordscleartext")
+				|| setting == QS("security/passwordemptynodots"))
 			{
 				// Keep user's original setting for boolean settings whose meanings were reversed
 				value = !m_settings->value(setting).toBool();
@@ -463,6 +395,7 @@ void Config::migrate()
 			{
 				value = m_settings->value(setting);
 			}
+
 			m_settings->remove(setting);
 		}
 		else if (m_localSettings && m_localSettings->contains(setting))
@@ -488,7 +421,7 @@ void Config::migrate()
 	{
 		for (const auto &setting: asConst(configStrings))
 		{
-			if (setting.type == Local && m_settings->contains(setting.name))
+			if ((setting.type == Local) && m_settings->contains(setting.name))
 			{
 				m_localSettings->setValue(setting.name, m_settings->value(setting.name));
 				m_settings->remove(setting.name);
@@ -501,7 +434,6 @@ void Config::migrate()
 	// pre 2.6.0 (no versioned configs)
 	if (previousVersion < 1)
 	{
-
 		// 2.3.4
 		if (get(AutoSaveAfterEveryChange).toBool())
 		{
@@ -517,16 +449,6 @@ void Config::migrate()
 
 		// Reset database columns if upgrading from pre 2.6.0
 		remove(GUI_ListViewState);
-	}
-
-	// Migrate from boolean OpenURLOnDoubleClick to enum URLDoubleClickAction
-	if (m_settings->contains(configStrings[OpenURLOnDoubleClick].name)
-	    && !m_settings->contains(configStrings[URLDoubleClickAction].name))
-	{
-		bool openUrlOnDoubleClick = get(OpenURLOnDoubleClick).toBool();
-		// Convert: true (open browser) -> 0, false (edit entry) -> 2
-		set(URLDoubleClickAction, openUrlOnDoubleClick ? 0 : 2);
-		// Keep the old setting for now for compatibility
 	}
 
 	m_settings->setValue("ConfigVersion", CONFIG_VERSION);
@@ -589,12 +511,9 @@ QPair<QString, QString> Config::defaultConfigFiles()
 	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/keepassxc";
 
 	QString suffix;
-#ifdef QT_DEBUG
-	suffix = "_debug";
-#endif
 
-	configPath += QString("/keepassxc%1.ini").arg(suffix);
-	localConfigPath += QString("/keepassxc%1.ini").arg(suffix);
+	configPath += QString("/keepassxc.ini");
+	localConfigPath += QString("/keepassxc.ini");
 
 	// Allow overriding the default location with env vars
 	const auto &env = QProcessEnvironment::systemEnvironment();
@@ -604,41 +523,34 @@ QPair<QString, QString> Config::defaultConfigFiles()
 	return {QDir::toNativeSeparators(configPath), QDir::toNativeSeparators(localConfigPath)};
 }
 
-Config *Config::instance()
+Config* Config::instance()
 {
 	if (!m_instance)
 	{
-		m_instance = new Config(qApp);
+		m_instance.reset(new Config(qApp));
 	}
 
-	return m_instance;
+	return m_instance.get();
 }
 
 void Config::createConfigFromFile(const QString &configFileName, const QString &localConfigFileName)
 {
-	if (m_instance)
-	{
-		delete m_instance;
-	}
-
 	auto defaultFiles = defaultConfigFiles();
-	m_instance = new Config(configFileName.isEmpty() ? defaultFiles.first : configFileName,
-	                        localConfigFileName.isEmpty() ? defaultFiles.second : localConfigFileName,
-	                        qApp);
+	m_instance .reset(new Config(
+		configFileName.isEmpty() ? defaultFiles.first : configFileName,
+		localConfigFileName.isEmpty() ? defaultFiles.second : localConfigFileName,
+		qApp));
 }
 
 void Config::createTempFileInstance()
 {
-	if (m_instance)
-	{
-		delete m_instance;
-	}
-	auto *tmpFile = new QTemporaryFile();
+	std::unique_ptr<QTemporaryFile> tmpFile { new QTemporaryFile() };
 	bool openResult = tmpFile->open();
 	Q_ASSERT(openResult);
 	Q_UNUSED(openResult);
-	m_instance = new Config(tmpFile->fileName(), "", qApp);
-	tmpFile->setParent(m_instance);
+	m_instance.reset(new Config(tmpFile->fileName(), QString(), qApp));
+	tmpFile->setParent(m_instance.get());
+	tmpFile.release();
 }
 
 bool Config::isPortable()

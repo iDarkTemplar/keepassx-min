@@ -31,7 +31,6 @@ class DatabaseSettingsWidget: public SettingsWidget
 public:
 	explicit DatabaseSettingsWidget(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(DatabaseSettingsWidget);
-	~DatabaseSettingsWidget() override;
 
 	virtual void loadSettings(QSharedPointer<Database> db);
 

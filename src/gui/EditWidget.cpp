@@ -72,6 +72,7 @@ void EditWidget::addPage(const QString &labelText, const QIcon &icon, QWidget *w
 		scrollArea->setWidget(widget);
 		m_ui->stackedWidget->addWidget(scrollArea);
 	}
+
 	m_ui->categoryList->addCategory(labelText, icon);
 }
 
@@ -87,9 +88,9 @@ int EditWidget::pageIndex(const QWidget *widget) const
 		return -1;
 	}
 
-	for (int i = 0; i < m_ui->stackedWidget->count(); i++)
+	for (int i = 0; i < m_ui->stackedWidget->count(); ++i)
 	{
-		auto *scrollArea = qobject_cast<QScrollArea *>(m_ui->stackedWidget->widget(i));
+		auto *scrollArea = qobject_cast<QScrollArea*>(m_ui->stackedWidget->widget(i));
 		if (scrollArea && (scrollArea == widget || scrollArea->widget() == widget))
 		{
 			return i;
@@ -105,7 +106,7 @@ void EditWidget::setPageHidden(QWidget *widget, bool hidden)
 
 	for (int i = 0; i < m_ui->stackedWidget->count(); i++)
 	{
-		auto *scrollArea = qobject_cast<QScrollArea *>(m_ui->stackedWidget->widget(i));
+		auto *scrollArea = qobject_cast<QScrollArea*>(m_ui->stackedWidget->widget(i));
 		if (scrollArea && scrollArea->widget() == widget)
 		{
 			index = i;
@@ -128,6 +129,7 @@ void EditWidget::setPageHidden(QWidget *widget, bool hidden)
 		{
 			newIndex = m_ui->stackedWidget->count() - 1;
 		}
+
 		m_ui->categoryList->setCurrentCategory(newIndex);
 	}
 }
@@ -144,7 +146,7 @@ void EditWidget::setHeadline(const QString &text)
 	m_ui->headerLabel->setText(text);
 }
 
-QLabel *EditWidget::headlineLabel()
+QLabel* EditWidget::headlineLabel()
 {
 	return m_ui->headerLabel;
 }

@@ -96,21 +96,21 @@ public:
 	bool hasCustomIcon(const QUuid &uuid) const;
 	QList<QUuid> customIconsOrder() const;
 	bool recycleBinEnabled() const;
-	Group *recycleBin();
-	const Group *recycleBin() const;
+	Group* recycleBin();
+	const Group* recycleBin() const;
 	QDateTime recycleBinChanged() const;
-	const Group *entryTemplatesGroup() const;
+	const Group* entryTemplatesGroup() const;
 	QDateTime entryTemplatesGroupChanged() const;
-	const Group *lastSelectedGroup() const;
-	const Group *lastTopVisibleGroup() const;
+	const Group* lastSelectedGroup() const;
+	const Group* lastTopVisibleGroup() const;
 	QDateTime databaseKeyChanged() const;
 	int databaseKeyChangeRec() const;
 	int databaseKeyChangeForce() const;
 	int historyMaxItems() const;
 	int historyMaxSize() const;
 	int autosaveDelayMin() const;
-	CustomData *customData();
-	const CustomData *customData() const;
+	CustomData* customData();
+	const CustomData* customData() const;
 
 	static const int DefaultHistoryMaxItems;
 	static const int DefaultHistoryMaxSize;
@@ -132,10 +132,11 @@ public:
 	void setProtectUrl(bool value);
 	void setProtectNotes(bool value);
 	void addCustomIcon(const QUuid &uuid, const CustomIconData &iconData);
-	void addCustomIcon(const QUuid &uuid,
-	                   const QByteArray &iconBytes,
-	                   const QString &name = {},
-	                   const QDateTime &lastModified = {});
+	void addCustomIcon(
+		const QUuid &uuid,
+		const QByteArray &iconBytes,
+		const QString &name = {},
+		const QDateTime &lastModified = {});
 	void removeCustomIcon(const QUuid &uuid);
 	void copyCustomIcons(const QSet<QUuid> &iconList, const Metadata *otherMetadata);
 	QUuid findCustomIcon(const QByteArray &candidate);
@@ -167,8 +168,11 @@ public:
 	void copyAttributesFrom(const Metadata *other);
 
 private:
-	template <class P, class V> bool set(P &property, const V &value);
-	template <class P, class V> bool set(P &property, const V &value, QDateTime &dateTime);
+	template <class P, class V>
+	bool set(P &property, const V &value);
+
+	template <class P, class V>
+	bool set(P &property, const V &value, QDateTime &dateTime);
 
 	QByteArray hashIcon(const QByteArray &iconData);
 

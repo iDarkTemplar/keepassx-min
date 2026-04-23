@@ -33,10 +33,11 @@ SymmetricCipherStream::~SymmetricCipherStream()
 	close();
 }
 
-bool SymmetricCipherStream::init(SymmetricCipher::Mode mode,
-                                 SymmetricCipher::Direction direction,
-                                 const QByteArray &key,
-                                 const QByteArray &iv)
+bool SymmetricCipherStream::init(
+	SymmetricCipher::Mode mode,
+	SymmetricCipher::Direction direction,
+	const QByteArray &key,
+	const QByteArray &iv)
 {
 	m_isInitialized = m_cipher->init(mode, direction, key, iv);
 	if (!m_isInitialized)
@@ -44,6 +45,7 @@ bool SymmetricCipherStream::init(SymmetricCipher::Mode mode,
 		setErrorString(m_cipher->errorString());
 		return false;
 	}
+
 	m_streamCipher = m_cipher->blockSize(m_cipher->mode()) == 1;
 	return true;
 }
@@ -163,31 +165,30 @@ bool SymmetricCipherStream::readBlock()
 		m_bufferFilling = true;
 		return false;
 	}
-	else
-	{
-		m_bufferPos = 0;
-		m_bufferFilling = false;
 
-		if (!m_streamCipher && m_baseDevice->atEnd())
+	m_bufferPos = 0;
+	m_bufferFilling = false;
+
+	if (!m_streamCipher && m_baseDevice->atEnd())
+	{
+		if (!m_cipher->finish(m_buffer))
 		{
-			if (!m_cipher->finish(m_buffer))
-			{
-				m_error = true;
-				setErrorString(m_cipher->errorString());
-				return false;
-			}
+			m_error = true;
+			setErrorString(m_cipher->errorString());
+			return false;
 		}
-		else if (m_buffer.size() > 0)
-		{
-			if (!m_cipher->process(m_buffer))
-			{
-				m_error = true;
-				setErrorString(m_cipher->errorString());
-				return false;
-			}
-		}
-		return m_buffer.size() > 0;
 	}
+	else if (m_buffer.size() > 0)
+	{
+		if (!m_cipher->process(m_buffer))
+		{
+			m_error = true;
+			setErrorString(m_cipher->errorString());
+			return false;
+		}
+	}
+
+	return m_buffer.size() > 0;
 }
 
 qint64 SymmetricCipherStream::writeData(const char *data, qint64 maxSize)
@@ -271,5 +272,6 @@ int SymmetricCipherStream::blockSize() const
 	{
 		return 1024;
 	}
+
 	return m_cipher->blockSize(m_cipher->mode());
 }

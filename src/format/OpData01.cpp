@@ -26,10 +26,6 @@ OpData01::OpData01(QObject *parent)
 {
 }
 
-OpData01::~OpData01()
-{
-}
-
 bool OpData01::decodeBase64(QString const &b64String, const QByteArray &key, const QByteArray &hmacKey)
 {
 	const QByteArray b64Bytes = QByteArray::fromBase64(b64String.toUtf8());
@@ -90,6 +86,7 @@ bool OpData01::decode(const QByteArray &data, const QByteArray &key, const QByte
 		// add random block
 		randomBytes = blockSize;
 	}
+
 	qlonglong clear_len = len + randomBytes;
 	QByteArray qbaCT(clear_len, '\0');
 	in.readRawData(qbaCT.data(), clear_len);
@@ -128,6 +125,7 @@ bool OpData01::decode(const QByteArray &data, const QByteArray &key, const QByte
 		m_errorStr = tr("Expected %1 bytes of clear-text, found %2").arg(len, clearText.size());
 		return false;
 	}
+
 	m_clearText = clearText;
 	return true;
 }

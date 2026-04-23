@@ -47,7 +47,7 @@ void NewDatabaseWizardPage::setPageWidget(DatabaseSettingsWidget *page)
 /**
  * @return database settings widget of this page widget.
  */
-DatabaseSettingsWidget *NewDatabaseWizardPage::pageWidget()
+DatabaseSettingsWidget* NewDatabaseWizardPage::pageWidget()
 {
 	return m_pageWidget;
 }

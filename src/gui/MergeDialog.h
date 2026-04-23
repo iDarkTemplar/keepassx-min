@@ -22,10 +22,11 @@
 #include <QDialog>
 #include <QMenu>
 
-namespace Ui
-{
-	class MergeDialog;
-}
+namespace Ui {
+
+class MergeDialog;
+
+} // namespace Ui
 
 class Database;
 
@@ -39,11 +40,13 @@ public:
 	 * On user confirmation, merge source into target.
 	 */
 	explicit MergeDialog(QSharedPointer<Database> source, QSharedPointer<Database> target, QWidget *parent = nullptr);
+
 	/**
 	 * Display given changes.
 	 */
 	explicit MergeDialog(const Merger::ChangeList &changes, QWidget *parent = nullptr);
-	~MergeDialog() override;
+
+	~MergeDialog();
 
 signals:
 	// Signal will be emitted when a normal merge operation has been performed.
@@ -62,6 +65,7 @@ private:
 		Type,
 		Details
 	};
+
 	static QVector<MergeDialogColumns> columns();
 	static int columnIndex(MergeDialogColumns column);
 	static QString columnName(MergeDialogColumns column);

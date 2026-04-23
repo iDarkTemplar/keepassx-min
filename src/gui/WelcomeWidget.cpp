@@ -49,9 +49,9 @@ WelcomeWidget::WelcomeWidget(QWidget *parent)
 	connect(m_ui->buttonOpenDatabase, SIGNAL(clicked()), SIGNAL(openDatabase()));
 	connect(m_ui->buttonImport, SIGNAL(clicked()), SIGNAL(importFile()));
 	connect(m_ui->recentListWidget,
-	        SIGNAL(itemActivated(QListWidgetItem *)),
-	        this,
-	        SLOT(openDatabaseFromFile(QListWidgetItem *)));
+		SIGNAL(itemActivated(QListWidgetItem*)),
+		this,
+		SLOT(openDatabaseFromFile(QListWidgetItem*)));
 }
 
 WelcomeWidget::~WelcomeWidget()
@@ -64,6 +64,7 @@ void WelcomeWidget::openDatabaseFromFile(QListWidgetItem *item)
 	{
 		return;
 	}
+
 	emit openDatabaseFile(item->text());
 }
 
@@ -80,6 +81,7 @@ void WelcomeWidget::removeFromLastDatabases(QListWidgetItem *item)
 		lastDatabases.removeOne(item->text());
 		config()->set(Config::LastDatabases, lastDatabases);
 	}
+
 	refreshLastDatabases();
 }
 

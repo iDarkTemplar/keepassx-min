@@ -30,72 +30,75 @@
 #include <QSortFilterProxyModel>
 #include <QStandardItemModel>
 
-namespace
+namespace {
+
+class Health
 {
-	class Health
+public:
+	struct Item
 	{
-	public:
-		struct Item
+		QPointer<Group> group;
+		QPointer<Entry> entry;
+		QSharedPointer<PasswordHealth> health;
+		bool exclude = false;
+
+		Item(Group *g, Entry *e, QSharedPointer<PasswordHealth> h)
+			: group(g)
+			, entry(e)
+			, health(h)
+			, exclude(e->excludeFromReports())
 		{
-			QPointer<Group> group;
-			QPointer<Entry> entry;
-			QSharedPointer<PasswordHealth> health;
-			bool exclude = false;
-
-			Item(Group *g, Entry *e, QSharedPointer<PasswordHealth> h)
-				: group(g)
-				, entry(e)
-				, health(h)
-				, exclude(e->excludeFromReports())
-			{
-			}
-
-			bool operator<(const Item &rhs) const
-			{
-				return health->score() < rhs.health->score();
-			}
-		};
-
-		explicit Health(QSharedPointer<Database>);
-
-		const QList<QSharedPointer<Item>> &items() const
-		{
-			return m_items;
 		}
 
-		bool anyExcludedEntries() const
+		bool operator<(const Item &rhs) const
 		{
-			return m_anyExcludedEntries;
+			return health->score() < rhs.health->score();
 		}
-
-	private:
-		QSharedPointer<Database> m_db;
-		HealthChecker m_checker;
-		QList<QSharedPointer<Item>> m_items;
-		bool m_anyExcludedEntries = false;
 	};
 
-	class ReportSortProxyModel: public QSortFilterProxyModel
-	{
-	public:
-		ReportSortProxyModel(QObject *parent)
-			: QSortFilterProxyModel(parent) {};
-		~ReportSortProxyModel() override = default;
+	explicit Health(QSharedPointer<Database>);
 
-	protected:
-		bool lessThan(const QModelIndex &left, const QModelIndex &right) const override
+	const QList<QSharedPointer<Item>> &items() const
+	{
+		return m_items;
+	}
+
+	bool anyExcludedEntries() const
+	{
+		return m_anyExcludedEntries;
+	}
+
+private:
+	QSharedPointer<Database> m_db;
+	HealthChecker m_checker;
+	QList<QSharedPointer<Item>> m_items;
+	bool m_anyExcludedEntries = false;
+};
+
+class ReportSortProxyModel: public QSortFilterProxyModel
+{
+public:
+	ReportSortProxyModel(QObject *parent)
+		: QSortFilterProxyModel(parent)
+	{
+	}
+
+protected:
+	bool lessThan(const QModelIndex &left, const QModelIndex &right) const override
+	{
+		// Check if the display data is a number, convert and compare if so
+		bool ok = false;
+		int leftInt = sourceModel()->data(left).toString().toInt(&ok);
+		if (ok)
 		{
-			// Check if the display data is a number, convert and compare if so
-			bool ok = false;
-			int leftInt = sourceModel()->data(left).toString().toInt(&ok);
-			if (ok)
-			{
-				return leftInt < sourceModel()->data(right).toString().toInt();
-			}
-			// Otherwise use default sorting
-			return QSortFilterProxyModel::lessThan(left, right);
+			return leftInt < sourceModel()->data(right).toString().toInt();
 		}
-	};
+
+		// Otherwise use default sorting
+		return QSortFilterProxyModel::lessThan(left, right);
+	}
+};
+
 } // namespace
 
 Health::Health(QSharedPointer<Database> db)
@@ -169,10 +172,11 @@ ReportsWidgetHealthcheck::~ReportsWidgetHealthcheck()
 {
 }
 
-void ReportsWidgetHealthcheck::addHealthRow(QSharedPointer<PasswordHealth> health,
-                                            Group *group,
-                                            Entry *entry,
-                                            bool excluded)
+void ReportsWidgetHealthcheck::addHealthRow(
+	QSharedPointer<PasswordHealth> health,
+	Group *group,
+	Entry *entry,
+	bool excluded)
 {
 	QString tip;
 	QString iconName = "lock-question";
@@ -186,6 +190,7 @@ void ReportsWidgetHealthcheck::addHealthRow(QSharedPointer<PasswordHealth> healt
 		iconName = "lock-open-alert";
 		qualityColor = statePalette.color(StateColorPalette::HealthCritical);
 		break;
+
 	case PasswordHealth::Quality::Poor:
 		tip = tr("Poor — password should be changed");
 		iconName = "lock-open-alert";
@@ -210,12 +215,13 @@ void ReportsWidgetHealthcheck::addHealthRow(QSharedPointer<PasswordHealth> healt
 	{
 		title.append(tr(" (Excluded)"));
 	}
+
 	if (entry->isExpired())
 	{
 		title.append(tr(" (Expired)"));
 	}
 
-	auto row = QList<QStandardItem *>();
+	QList<QStandardItem*> row;
 	row << new QStandardItem(Icons::instance()->icon(iconName, true, qualityColor), "");
 	row << new QStandardItem(Icons::entryIconPixmap(entry), title);
 	row << new QStandardItem(Icons::groupIconPixmap(group), group->hierarchy().join("/"));
@@ -234,6 +240,7 @@ void ReportsWidgetHealthcheck::addHealthRow(QSharedPointer<PasswordHealth> healt
 	{
 		row[1]->setToolTip(tr("This entry is being excluded from reports"));
 	}
+
 	row[4]->setToolTip(health->scoreDetails());
 
 	// Store entry pointer per table row (used in double click handler)
@@ -251,6 +258,7 @@ void ReportsWidgetHealthcheck::loadSettings(QSharedPointer<Database> db)
 	auto row = QList<QStandardItem *>();
 	row << new QStandardItem(tr("Please wait, health data is being calculated…"));
 	m_referencesModel->appendRow(row);
+
 	// Default sort by first column (health score)
 	m_ui->healthcheckTableView->sortByColumn(0, Qt::AscendingOrder);
 }
@@ -285,7 +293,7 @@ void ReportsWidgetHealthcheck::calculateHealth()
 	{
 		// Check if the entry should be displayed
 		if ((!m_ui->showExcluded->isChecked() && item->exclude)
-		    || (!m_ui->showExpired->isChecked() && item->entry->isExpired()))
+			|| (!m_ui->showExpired->isChecked() && item->entry->isExpired()))
 		{
 			continue;
 		}
@@ -301,8 +309,7 @@ void ReportsWidgetHealthcheck::calculateHealth()
 	}
 	else
 	{
-		m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("") << tr("Title") << tr("Path") << tr("Score")
-		                                                           << tr("Reason"));
+		m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("") << tr("Title") << tr("Path") << tr("Score") << tr("Reason"));
 	}
 
 	// Restore sorting options that was stored before the model was cleared
@@ -380,6 +387,7 @@ void ReportsWidgetHealthcheck::customMenuRequested(QPoint pos)
 			break;
 		}
 	}
+
 	exclude->setCheckable(true);
 	exclude->setChecked(isExcluded);
 
@@ -406,9 +414,9 @@ void ReportsWidgetHealthcheck::saveSettings()
 	// nothing to do - the tab is passive
 }
 
-QList<Entry *> ReportsWidgetHealthcheck::getSelectedEntries()
+QList<Entry*> ReportsWidgetHealthcheck::getSelectedEntries()
 {
-	QList<Entry *> selectedEntries;
+	QList<Entry*> selectedEntries;
 	for (auto index: m_ui->healthcheckTableView->selectionModel()->selectedRows())
 	{
 		auto row = m_modelProxy->mapToSource(index).row();
@@ -418,6 +426,7 @@ QList<Entry *> ReportsWidgetHealthcheck::getSelectedEntries()
 			selectedEntries << entry;
 		}
 	}
+
 	return selectedEntries;
 }
 
@@ -433,7 +442,7 @@ void ReportsWidgetHealthcheck::expireSelectedEntries()
 
 void ReportsWidgetHealthcheck::deleteSelectedEntries()
 {
-	QList<Entry *> selectedEntries = getSelectedEntries();
+	QList<Entry*> selectedEntries = getSelectedEntries();
 	bool permanent = !m_db->metadata()->recycleBinEnabled();
 	if (GuiTools::confirmDeleteEntries(this, selectedEntries, permanent))
 	{

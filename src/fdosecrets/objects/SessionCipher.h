@@ -21,74 +21,78 @@
 
 #include <QSharedPointer>
 
-namespace Botan
+namespace Botan {
+
+class DH_PrivateKey;
+
+} // namespace Botan
+
+namespace FdoSecrets {
+
+class CipherPair
 {
-	class DH_PrivateKey;
-}
+	Q_DISABLE_COPY(CipherPair)
 
-namespace FdoSecrets
+public:
+	CipherPair() = default;
+	virtual ~CipherPair() = default;
+	virtual Secret encrypt(const Secret &input) = 0;
+	virtual Secret decrypt(const Secret &input) = 0;
+	virtual bool isValid() const = 0;
+	virtual QVariant negotiationOutput() const = 0;
+};
+
+class PlainCipher: public CipherPair
 {
-	class CipherPair
+	Q_DISABLE_COPY(PlainCipher)
+
+public:
+	static constexpr const char Algorithm[] = "plain";
+
+	PlainCipher() = default;
+
+	Secret encrypt(const Secret &input) override
 	{
-		Q_DISABLE_COPY(CipherPair)
-	public:
-		CipherPair() = default;
-		virtual ~CipherPair() = default;
-		virtual Secret encrypt(const Secret &input) = 0;
-		virtual Secret decrypt(const Secret &input) = 0;
-		virtual bool isValid() const = 0;
-		virtual QVariant negotiationOutput() const = 0;
-	};
+		return input;
+	}
 
-	class PlainCipher: public CipherPair
+	Secret decrypt(const Secret &input) override
 	{
-		Q_DISABLE_COPY(PlainCipher)
-	public:
-		static constexpr const char Algorithm[] = "plain";
+		return input;
+	}
 
-		PlainCipher() = default;
-		Secret encrypt(const Secret &input) override
-		{
-			return input;
-		}
-
-		Secret decrypt(const Secret &input) override
-		{
-			return input;
-		}
-
-		bool isValid() const override
-		{
-			return true;
-		}
-
-		QVariant negotiationOutput() const override
-		{
-			return QStringLiteral("");
-		}
-	};
-
-	class DhIetf1024Sha256Aes128CbcPkcs7: public CipherPair
+	bool isValid() const override
 	{
-	public:
-		static constexpr const char Algorithm[] = "dh-ietf1024-sha256-aes128-cbc-pkcs7";
+		return true;
+	}
 
-		explicit DhIetf1024Sha256Aes128CbcPkcs7(const QByteArray &clientPublicKey);
+	QVariant negotiationOutput() const override
+	{
+		return QString();
+	}
+};
 
-		Secret encrypt(const Secret &input) override;
-		Secret decrypt(const Secret &input) override;
-		bool isValid() const override;
-		QVariant negotiationOutput() const override;
+class DhIetf1024Sha256Aes128CbcPkcs7: public CipherPair
+{
+public:
+	static constexpr const char Algorithm[] = "dh-ietf1024-sha256-aes128-cbc-pkcs7";
 
-		bool updateClientPublicKey(const QByteArray &clientPublicKey);
+	explicit DhIetf1024Sha256Aes128CbcPkcs7(const QByteArray &clientPublicKey);
 
-	private:
-		Q_DISABLE_COPY(DhIetf1024Sha256Aes128CbcPkcs7);
+	Secret encrypt(const Secret &input) override;
+	Secret decrypt(const Secret &input) override;
+	bool isValid() const override;
+	QVariant negotiationOutput() const override;
 
-		bool m_valid = false;
-		QSharedPointer<Botan::DH_PrivateKey> m_privateKey;
-		QByteArray m_aesKey;
-	};
+	bool updateClientPublicKey(const QByteArray &clientPublicKey);
+
+private:
+	Q_DISABLE_COPY(DhIetf1024Sha256Aes128CbcPkcs7);
+
+	bool m_valid = false;
+	QSharedPointer<Botan::DH_PrivateKey> m_privateKey;
+	QByteArray m_aesKey;
+};
 
 } // namespace FdoSecrets
 

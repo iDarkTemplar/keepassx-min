@@ -25,16 +25,19 @@ class QAbstractItemView;
 
 class FdoSecretsPlugin;
 
-namespace Ui
-{
-	class SettingsWidgetFdoSecrets;
-}
+namespace Ui {
+
+class SettingsWidgetFdoSecrets;
+
+} // namespace Ui
+
 class SettingsWidgetFdoSecrets: public QWidget
 {
 	Q_OBJECT
+
 public:
 	explicit SettingsWidgetFdoSecrets(FdoSecretsPlugin *plugin, QWidget *parent = nullptr);
-	~SettingsWidgetFdoSecrets() override;
+	~SettingsWidgetFdoSecrets();
 
 public slots:
 	void loadSettings();

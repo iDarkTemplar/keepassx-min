@@ -20,10 +20,11 @@
 #include "config-keepassx.h"
 #include "gui/DatabaseWidget.h"
 
-namespace Ui
-{
-	class EntryPreviewWidget;
-}
+namespace Ui {
+
+class EntryPreviewWidget;
+
+} // namespace Ui
 
 class QTabWidget;
 class QTextEdit;
@@ -34,7 +35,7 @@ class EntryPreviewWidget: public QWidget
 
 public:
 	explicit EntryPreviewWidget(QWidget *parent = nullptr);
-	~EntryPreviewWidget() override;
+	~EntryPreviewWidget();
 
 public slots:
 	void setEntry(Entry *selectedEntry);

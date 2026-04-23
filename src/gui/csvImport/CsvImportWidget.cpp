@@ -30,44 +30,46 @@
 
 #include <QStringListModel>
 
-namespace
+namespace {
+
+// Extract group names from nested path and return the last group created
+Group* createGroupStructure(Database *db, const QString &groupPath, const QString &rootGroupToSkip)
 {
-	// Extract group names from nested path and return the last group created
-	Group *createGroupStructure(Database *db, const QString &groupPath, const QString &rootGroupToSkip)
+	auto group = db->rootGroup();
+	if (!group || groupPath.isEmpty())
 	{
-		auto group = db->rootGroup();
-		if (!group || groupPath.isEmpty())
-		{
-			return group;
-		}
-
-		auto nameList = groupPath.split("/", Qt::SkipEmptyParts);
-
-		// Skip the identified root group name if present
-		if (!rootGroupToSkip.isEmpty() && !nameList.isEmpty()
-		    && nameList.first().compare(rootGroupToSkip, Qt::CaseInsensitive) == 0)
-		{
-			nameList.removeFirst();
-		}
-
-		for (const auto &name: qAsConst(nameList))
-		{
-			auto child = group->findChildByName(name);
-			if (!child)
-			{
-				auto newGroup = new Group();
-				newGroup->setUuid(QUuid::createUuid());
-				newGroup->setName(name);
-				newGroup->setParent(group);
-				group = newGroup;
-			}
-			else
-			{
-				group = child;
-			}
-		}
 		return group;
 	}
+
+	auto nameList = groupPath.split("/", Qt::SkipEmptyParts);
+
+	// Skip the identified root group name if present
+	if (!rootGroupToSkip.isEmpty()
+		&& !nameList.isEmpty()
+		&& nameList.first().compare(rootGroupToSkip, Qt::CaseInsensitive) == 0)
+	{
+		nameList.removeFirst();
+	}
+
+	for (const auto &name: qAsConst(nameList))
+	{
+		auto child = group->findChildByName(name);
+		if (!child)
+		{
+			auto newGroup = new Group();
+			newGroup->setUuid(QUuid::createUuid());
+			newGroup->setName(name);
+			newGroup->setParent(group);
+			group = newGroup;
+		}
+		else
+		{
+			group = child;
+		}
+	}
+	return group;
+}
+
 } // namespace
 
 CsvImportWidget::CsvImportWidget(QWidget *parent)
@@ -82,14 +84,14 @@ CsvImportWidget::CsvImportWidget(QWidget *parent)
 	m_ui->tableViewFields->setFocusPolicy(Qt::NoFocus);
 
 	m_columnHeader << QObject::tr("Group") << QObject::tr("Title") << QObject::tr("Username") << QObject::tr("Password")
-				   << QObject::tr("URL") << QObject::tr("Tags") << QObject::tr("Notes") << QObject::tr("TOTP")
-				   << QObject::tr("Icon") << QObject::tr("Last Modified") << QObject::tr("Created");
+		<< QObject::tr("URL") << QObject::tr("Tags") << QObject::tr("Notes") << QObject::tr("TOTP")
+		<< QObject::tr("Icon") << QObject::tr("Last Modified") << QObject::tr("Created");
 
 	m_fieldSeparatorList << "," << ";" << "-" << ":" << "." << "\t";
 
 	m_combos << m_ui->groupCombo << m_ui->titleCombo << m_ui->usernameCombo << m_ui->passwordCombo << m_ui->urlCombo
-			 << m_ui->tagsCombo << m_ui->notesCombo << m_ui->totpCombo << m_ui->iconCombo << m_ui->lastModifiedCombo
-			 << m_ui->createdCombo;
+		<< m_ui->tagsCombo << m_ui->notesCombo << m_ui->totpCombo << m_ui->iconCombo << m_ui->lastModifiedCombo
+		<< m_ui->createdCombo;
 
 	for (auto combo: m_combos)
 	{
@@ -109,6 +111,10 @@ CsvImportWidget::CsvImportWidget(QWidget *parent)
 	connect(m_ui->checkBoxFieldNames, SIGNAL(toggled(bool)), SLOT(updatePreview()));
 }
 
+CsvImportWidget::~CsvImportWidget()
+{
+}
+
 void CsvImportWidget::comboChanged(int index)
 {
 	// this line is the one that actually updates GUI table
@@ -120,10 +126,6 @@ void CsvImportWidget::skippedChanged(int rows)
 {
 	m_parserModel->setSkippedRows(rows);
 	updateTableview();
-}
-
-CsvImportWidget::~CsvImportWidget()
-{
 }
 
 void CsvImportWidget::configParser()
@@ -188,6 +190,7 @@ void CsvImportWidget::updatePreview()
 			csvColumns << QString(tr("Column %1").arg(i));
 		}
 	}
+
 	// Before setting new columns, see if they changed
 	bool newColumns = prevColumns != csvColumns;
 	m_comboModel->setStringList(csvColumns);
@@ -212,6 +215,7 @@ void CsvImportWidget::updatePreview()
 				break;
 			}
 		}
+
 		// Named column not found, default to "Not Present" or previous index
 		if (!found)
 		{
@@ -234,7 +238,7 @@ void CsvImportWidget::load(const QString &filename)
 void CsvImportWidget::parse()
 {
 	// Hide any previous messages
-	emit message("");
+	emit message(QString());
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	QApplication::processEvents();
@@ -244,6 +248,7 @@ void CsvImportWidget::parse()
 	{
 		emit message(tr("Failed to parse CSV file: %1").arg(formatStatusText()));
 	}
+
 	updatePreview();
 
 	QApplication::restoreOverrideCursor();
@@ -259,6 +264,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 			tr("No Title Selected"),
 			tr("No title column was selected, entries will be hard to tell apart.\nAre you sure you want to import?"),
 			MessageBox::Continue | MessageBox::Cancel);
+
 		if (ans == MessageBox::Cancel)
 		{
 			return {};
@@ -281,6 +287,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 			rootGroupName.clear();
 			break;
 		}
+
 		rootGroupName = groupName;
 	}
 
@@ -291,8 +298,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 
 	for (int r = 0; r < rows; ++r)
 	{
-		auto group =
-			createGroupStructure(db.data(), m_parserModel->data(m_parserModel->index(r, 0)).toString(), rootGroupName);
+		auto group = createGroupStructure(db.data(), m_parserModel->data(m_parserModel->index(r, 0)).toString(), rootGroupName);
 		if (!group)
 		{
 			continue;
@@ -319,6 +325,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 				// Bare secret, use default TOTP settings
 				totp = Totp::parseSettings({}, otpString.toString());
 			}
+
 			entry->setTotp(totp);
 		}
 
@@ -342,6 +349,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 				{
 					t *= 1000;
 				}
+
 				auto lastModified = Clock::datetimeUtc(t);
 				timeInfo.setLastModificationTime(lastModified);
 				timeInfo.setLastAccessTime(lastModified);
@@ -356,6 +364,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 				}
 			}
 		}
+
 		// Creation Time
 		if (m_parserModel->data(m_parserModel->index(r, 10)).isValid())
 		{
@@ -367,6 +376,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 				{
 					t *= 1000;
 				}
+
 				timeInfo.setCreationTime(Clock::datetimeUtc(t));
 			}
 			else
@@ -378,6 +388,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 				}
 			}
 		}
+
 		entry->setTimeInfo(timeInfo);
 	}
 
@@ -392,9 +403,11 @@ QString CsvImportWidget::formatStatusText() const
 	{
 		return text.section('\n', 0, 1).append("\n").append(tr("[%n more message(s) skipped]", "", items - 2));
 	}
+
 	if (items == 1)
 	{
 		text.append(QString("\n"));
 	}
+
 	return text;
 }

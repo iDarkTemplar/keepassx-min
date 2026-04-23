@@ -31,7 +31,9 @@ class TagItemDelegate: public QStyledItemDelegate
 {
 public:
 	explicit TagItemDelegate(QObject *parent)
-		: QStyledItemDelegate(parent) {};
+		: QStyledItemDelegate(parent)
+	{
+	}
 
 	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
 	{
@@ -101,9 +103,10 @@ void TagView::contextMenuRequested(const QPoint &pos)
 		{
 			auto tag = index.data(Qt::DisplayRole).toString();
 			auto ans = MessageBox::question(this,
-			                                tr("Confirm Remove Tag"),
-			                                tr("Remove tag \"%1\" from all entries in this database?").arg(tag),
-			                                MessageBox::Remove | MessageBox::Cancel);
+				tr("Confirm Remove Tag"),
+				tr("Remove tag \"%1\" from all entries in this database?").arg(tag),
+				MessageBox::Remove | MessageBox::Cancel);
+
 			if (ans == MessageBox::Remove)
 			{
 				m_db->removeTag(tag);

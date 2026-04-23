@@ -45,7 +45,7 @@ public:
 		editPage->assign(widget);
 	}
 
-	QWidget *getWidget()
+	QWidget* getWidget()
 	{
 		return widget;
 	}
@@ -71,17 +71,17 @@ EditGroupWidget::EditGroupWidget(QWidget *parent)
 
 	connect(m_mainUi->expireCheck, SIGNAL(toggled(bool)), m_mainUi->expireDatePicker, SLOT(setEnabled(bool)));
 	connect(m_mainUi->autoTypeSequenceCustomRadio,
-	        SIGNAL(toggled(bool)),
-	        m_mainUi->autoTypeSequenceCustomEdit,
-	        SLOT(setEnabled(bool)));
+		SIGNAL(toggled(bool)),
+		m_mainUi->autoTypeSequenceCustomEdit,
+		SLOT(setEnabled(bool)));
 
 	connect(this, SIGNAL(apply()), SLOT(apply()));
 	connect(this, SIGNAL(accepted()), SLOT(save()));
 	connect(this, SIGNAL(rejected()), SLOT(cancel()));
 
-    connect(m_editGroupWidgetIcons,
-            SIGNAL(messageEditEntry(QString,MessageWidget::MessageType)),
-            SLOT(showMessage(QString,MessageWidget::MessageType)));
+	connect(m_editGroupWidgetIcons,
+		SIGNAL(messageEditEntry(QString,MessageWidget::MessageType)),
+		SLOT(showMessage(QString,MessageWidget::MessageType)));
 
 	connect(m_editGroupWidgetIcons, SIGNAL(messageEditEntryDismiss()), SLOT(hideMessage()));
 
@@ -143,6 +143,7 @@ void EditGroupWidget::loadGroup(Group *group, bool create, const QSharedPointer<
 	m_mainUi->expireDatePicker->setDateTime(group->timeInfo().expiryTime().toLocalTime());
 	m_mainUi->searchComboBox->setCurrentIndex(indexFromTriState(group->searchingEnabled()));
 	m_mainUi->autotypeComboBox->setCurrentIndex(indexFromTriState(group->autoTypeEnabled()));
+
 	if (group->defaultAutoTypeSequence().isEmpty())
 	{
 		m_mainUi->autoTypeSequenceInherit->setChecked(true);
@@ -151,6 +152,7 @@ void EditGroupWidget::loadGroup(Group *group, bool create, const QSharedPointer<
 	{
 		m_mainUi->autoTypeSequenceCustomRadio->setChecked(true);
 	}
+
 	m_mainUi->autoTypeSequenceCustomEdit->setText(group->effectiveAutoTypeSequence());
 
 	if (config()->get(Config::GUI_MonospaceNotes).toBool())
@@ -235,13 +237,13 @@ void EditGroupWidget::apply()
 
 	// Assign the icon to children if selected
 	if (iconStruct.applyTo == ApplyIconToOptions::CHILD_GROUPS
-	    || iconStruct.applyTo == ApplyIconToOptions::ALL_CHILDREN)
+		|| iconStruct.applyTo == ApplyIconToOptions::ALL_CHILDREN)
 	{
 		m_group->applyGroupIconToChildGroups();
 	}
 
 	if (iconStruct.applyTo == ApplyIconToOptions::CHILD_ENTRIES
-	    || iconStruct.applyTo == ApplyIconToOptions::ALL_CHILDREN)
+		|| iconStruct.applyTo == ApplyIconToOptions::ALL_CHILDREN)
 	{
 		m_group->applyGroupIconToChildEntries();
 	}
@@ -259,14 +261,16 @@ void EditGroupWidget::cancel()
 	if (isModified())
 	{
 		auto result = MessageBox::question(this,
-		                                   QString(),
-		                                   tr("Group has unsaved changes"),
-		                                   MessageBox::Cancel | MessageBox::Save | MessageBox::Discard,
-		                                   MessageBox::Cancel);
+			QString(),
+			tr("Group has unsaved changes"),
+			MessageBox::Cancel | MessageBox::Save | MessageBox::Discard,
+			MessageBox::Cancel);
+
 		if (result == MessageBox::Cancel)
 		{
 			return;
 		}
+
 		if (result == MessageBox::Save)
 		{
 			save();

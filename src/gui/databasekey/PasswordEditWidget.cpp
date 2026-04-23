@@ -43,6 +43,7 @@ bool PasswordEditWidget::addToCompositeKey(QSharedPointer<CompositeKey> key)
 		key->addKey(QSharedPointer<PasswordKey>::create(pw));
 		return true;
 	}
+
 	return false;
 }
 
@@ -75,7 +76,7 @@ PasswordHealth::Quality PasswordEditWidget::getPasswordQuality() const
 	return passwordHealth.quality();
 }
 
-QWidget *PasswordEditWidget::componentEditWidget()
+QWidget* PasswordEditWidget::componentEditWidget()
 {
 	m_compEditWidget = new QWidget();
 	m_compUi->setupUi(m_compEditWidget);
@@ -102,9 +103,8 @@ void PasswordEditWidget::initComponent()
 	m_ui->removeButton->setText(tr("Remove Password"));
 	m_ui->changeOrRemoveLabel->setText(tr("Password set, click to change or remove"));
 
-	m_ui->componentDescription->setText(
-		tr("<p>A password is the primary method for securing your database.</p>"
-	       "<p>Good passwords are long and unique. KeePassXC can generate one for you.</p>"));
+	m_ui->componentDescription->setText(tr("<p>A password is the primary method for securing your database.</p>"
+		"<p>Good passwords are long and unique. KeePassXC can generate one for you.</p>"));
 }
 
 bool PasswordEditWidget::validate(QString &errorMessage) const

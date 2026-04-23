@@ -33,7 +33,6 @@ class ImportWizard: public QWizard
 
 public:
 	explicit ImportWizard(QWidget *parent = nullptr);
-	~ImportWizard() override;
 
 	bool validateCurrentPage() override;
 

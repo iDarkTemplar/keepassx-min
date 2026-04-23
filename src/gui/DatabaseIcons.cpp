@@ -24,15 +24,16 @@
 #include <QPainter>
 #include <QPixmapCache>
 
-DatabaseIcons *DatabaseIcons::m_instance(nullptr);
+std::unique_ptr<DatabaseIcons> DatabaseIcons::m_instance;
 
-namespace
-{
-	const QString iconDir = QStringLiteral(":/icons/database/");
-	QStringList iconList;
+namespace {
 
-	const QString badgeDir = QStringLiteral(":/icons/badges/");
-	QStringList badgeList;
+const QString iconDir = QStringLiteral(":/icons/database/");
+QStringList iconList;
+
+const QString badgeDir = QStringLiteral(":/icons/badges/");
+QStringList badgeList;
+
 } // namespace
 
 DatabaseIcons::DatabaseIcons()
@@ -44,14 +45,14 @@ DatabaseIcons::DatabaseIcons()
 	m_compactMode = config()->get(Config::GUI_CompactMode).toBool();
 }
 
-DatabaseIcons *DatabaseIcons::instance()
+DatabaseIcons* DatabaseIcons::instance()
 {
 	if (!m_instance)
 	{
-		m_instance = new DatabaseIcons();
+		m_instance.reset(new DatabaseIcons());
 	}
 
-	return m_instance;
+	return m_instance.get();
 }
 
 QPixmap DatabaseIcons::icon(int index, IconSize size)
@@ -86,8 +87,7 @@ QPixmap DatabaseIcons::applyBadge(const QPixmap &basePixmap, Badges badgeIndex)
 	else if (!QPixmapCache::find(cacheKey, &pixmap))
 	{
 		int baseSize = basePixmap.width();
-		int badgeSize =
-			baseSize <= iconSize(IconSize::Default) * basePixmap.devicePixelRatio() ? baseSize * 0.6 : baseSize * 0.5;
+		int badgeSize = baseSize <= iconSize(IconSize::Default) * basePixmap.devicePixelRatio() ? baseSize * 0.6 : baseSize * 0.5;
 		QPoint badgePos(baseSize - badgeSize, baseSize - badgeSize);
 		badgePos /= basePixmap.devicePixelRatio();
 

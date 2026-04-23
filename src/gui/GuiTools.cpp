@@ -20,145 +20,148 @@
 #include "core/Group.h"
 #include "gui/MessageBox.h"
 
-namespace GuiTools
+namespace GuiTools {
+
+bool confirmDeleteEntries(QWidget *parent, const QList<Entry *> &entries, bool permanent)
 {
-	bool confirmDeleteEntries(QWidget *parent, const QList<Entry *> &entries, bool permanent)
+	if (!parent || entries.isEmpty())
 	{
-		if (!parent || entries.isEmpty())
-		{
-			return false;
-		}
+		return false;
+	}
 
-		if (permanent)
+	if (permanent)
+	{
+		QString prompt;
+		if (entries.size() == 1)
 		{
-			QString prompt;
-			if (entries.size() == 1)
-			{
-				auto entry = entries.first();
-				prompt = QObject::tr("Do you really want to permanently delete the entry \"%1\"?")
-				             .arg(entry->resolvePlaceholder(entry->title()).toHtmlEscaped());
-			}
-			else
-			{
-				prompt = QObject::tr("Do you really want to permanently delete %n entry(s)?", "", entries.size());
-			}
-
-			auto answer = MessageBox::question(parent,
-			                                   QObject::tr("Confirm Delete Entry(s)", "", entries.size()),
-			                                   prompt,
-			                                   MessageBox::Delete | MessageBox::Cancel,
-			                                   MessageBox::Cancel);
-
-			return answer == MessageBox::Delete;
-		}
-		else if (config()->get(Config::Security_NoConfirmMoveEntryToRecycleBin).toBool())
-		{
-			return true;
+			auto entry = entries.first();
+			prompt = QObject::tr("Do you really want to permanently delete the entry \"%1\"?")
+						 .arg(entry->resolvePlaceholder(entry->title()).toHtmlEscaped());
 		}
 		else
 		{
-			QString prompt;
-			if (entries.size() == 1)
-			{
-				auto entry = entries.first();
-				prompt = QObject::tr("Do you really want to move entry \"%1\" to the recycle bin?")
-				             .arg(entry->resolvePlaceholder(entry->title()).toHtmlEscaped());
-			}
-			else
-			{
-				prompt = QObject::tr("Do you really want to move %n entry(s) to the recycle bin?", "", entries.size());
-			}
-
-			auto answer = MessageBox::question(parent,
-			                                   QObject::tr("Confirm Recycle Entry(s)", "", entries.size()),
-			                                   prompt,
-			                                   MessageBox::Move | MessageBox::Cancel,
-			                                   MessageBox::Cancel);
-
-			return answer == MessageBox::Move;
-		}
-	}
-
-	bool confirmDeletePluginData(QWidget *parent, const QList<Entry *> &entries)
-	{
-		if (!parent || entries.isEmpty())
-		{
-			return false;
+			prompt = QObject::tr("Do you really want to permanently delete %n entry(s)?", "", entries.size());
 		}
 
-		auto answer =
-			MessageBox::question(parent,
-		                         QObject::tr("Confirm Delete Plugin Data"),
-		                         QObject::tr("Delete plugin data from the selected entry(s)?", "", entries.size()),
-		                         MessageBox::Delete | MessageBox::Cancel,
-		                         MessageBox::Cancel);
+		auto answer = MessageBox::question(parent,
+			QObject::tr("Confirm Delete Entry(s)", "", entries.size()),
+			prompt,
+			MessageBox::Delete | MessageBox::Cancel,
+			MessageBox::Cancel);
 
 		return answer == MessageBox::Delete;
 	}
-
-	size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry *> &entries, bool permanent)
+	else if (config()->get(Config::Security_NoConfirmMoveEntryToRecycleBin).toBool())
 	{
-		if (!parent || entries.isEmpty())
+		return true;
+	}
+	else
+	{
+		QString prompt;
+		if (entries.size() == 1)
 		{
-			return 0;
+			auto entry = entries.first();
+			prompt = QObject::tr("Do you really want to move entry \"%1\" to the recycle bin?")
+				.arg(entry->resolvePlaceholder(entry->title()).toHtmlEscaped());
+		}
+		else
+		{
+			prompt = QObject::tr("Do you really want to move %n entry(s) to the recycle bin?", "", entries.size());
 		}
 
-		QList<Entry *> selectedEntries;
-		// Find references to entries and prompt for direction if necessary
-		for (auto entry: entries)
-		{
-			if (permanent)
-			{
-				auto references = entry->database()->rootGroup()->referencesRecursive(entry);
-				if (!references.isEmpty())
-				{
-					// Ignore references that are part of this cohort
-					for (auto e: entries)
-					{
-						references.removeAll(e);
-					}
-					// Prompt the user on what to do with the reference (Overwrite, Delete, Skip)
-					auto result = MessageBox::question(
-						parent,
-						QObject::tr("Confirm Replace Entry References"),
-						QObject::tr(
-							"Entry \"%1\" has %2 reference(s). "
-							"Do you want to overwrite references with values, skip this entry, or delete anyway?",
-							"",
-							references.size())
-							.arg(entry->resolvePlaceholder(entry->title()).toHtmlEscaped())
-							.arg(references.size()),
-						MessageBox::Overwrite | MessageBox::Skip | MessageBox::Delete,
-						MessageBox::Overwrite);
+		auto answer = MessageBox::question(parent,
+			QObject::tr("Confirm Recycle Entry(s)", "", entries.size()),
+			prompt,
+			MessageBox::Move | MessageBox::Cancel,
+			MessageBox::Cancel);
 
-					if (result == MessageBox::Overwrite)
+		return answer == MessageBox::Move;
+	}
+}
+
+bool confirmDeletePluginData(QWidget *parent, const QList<Entry *> &entries)
+{
+	if (!parent || entries.isEmpty())
+	{
+		return false;
+	}
+
+	auto answer = MessageBox::question(parent,
+		QObject::tr("Confirm Delete Plugin Data"),
+		QObject::tr("Delete plugin data from the selected entry(s)?", "", entries.size()),
+		MessageBox::Delete | MessageBox::Cancel,
+		MessageBox::Cancel);
+
+	return answer == MessageBox::Delete;
+}
+
+size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry *> &entries, bool permanent)
+{
+	if (!parent || entries.isEmpty())
+	{
+		return 0;
+	}
+
+	QList<Entry*> selectedEntries;
+	// Find references to entries and prompt for direction if necessary
+	for (auto entry: entries)
+	{
+		if (permanent)
+		{
+			auto references = entry->database()->rootGroup()->referencesRecursive(entry);
+			if (!references.isEmpty())
+			{
+				// Ignore references that are part of this cohort
+				for (auto e: entries)
+				{
+					references.removeAll(e);
+				}
+
+				// Prompt the user on what to do with the reference (Overwrite, Delete, Skip)
+				auto result = MessageBox::question(
+					parent,
+					QObject::tr("Confirm Replace Entry References"),
+					QObject::tr(
+						"Entry \"%1\" has %2 reference(s). "
+						"Do you want to overwrite references with values, skip this entry, or delete anyway?",
+						"",
+						references.size())
+						.arg(entry->resolvePlaceholder(entry->title()).toHtmlEscaped())
+						.arg(references.size()),
+					MessageBox::Overwrite | MessageBox::Skip | MessageBox::Delete,
+					MessageBox::Overwrite);
+
+				if (result == MessageBox::Overwrite)
+				{
+					for (auto ref: references)
 					{
-						for (auto ref: references)
-						{
-							ref->replaceReferencesWithValues(entry);
-						}
-					}
-					else if (result == MessageBox::Skip)
-					{
-						continue;
+						ref->replaceReferencesWithValues(entry);
 					}
 				}
+				else if (result == MessageBox::Skip)
+				{
+					continue;
+				}
 			}
-			// Marked for deletion
-			selectedEntries << entry;
 		}
 
-		for (auto entry: asConst(selectedEntries))
-		{
-			if (permanent)
-			{
-				delete entry;
-			}
-			else
-			{
-				entry->database()->recycleEntry(entry);
-			}
-		}
-		return selectedEntries.size();
+		// Marked for deletion
+		selectedEntries << entry;
 	}
+
+	for (auto entry: asConst(selectedEntries))
+	{
+		if (permanent)
+		{
+			delete entry;
+		}
+		else
+		{
+			entry->database()->recycleEntry(entry);
+		}
+	}
+
+	return selectedEntries.size();
+}
+
 } // namespace GuiTools

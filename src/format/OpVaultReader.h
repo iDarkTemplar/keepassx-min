@@ -36,7 +36,6 @@ class OpVaultReader: public QObject
 
 public:
 	explicit OpVaultReader(QObject *parent = nullptr);
-	~OpVaultReader() override;
 
 	QSharedPointer<Database> convert(QDir &opdataDir, const QString &password);
 
@@ -53,9 +52,9 @@ private:
 
 	QJsonObject readAndAssertJsonFile(QFile &file, const QString &stripLeading, const QString &stripTrailing);
 
-	DerivedKeyHMAC *deriveKeysFromPassPhrase(QByteArray &salt, const QString &password, unsigned long iterations);
-	DerivedKeyHMAC *decodeB64CompositeKeys(const QString &b64, const QByteArray &encKey, const QByteArray &hmacKey);
-	DerivedKeyHMAC *decodeCompositeKeys(const QByteArray &keyKey);
+	DerivedKeyHMAC* deriveKeysFromPassPhrase(QByteArray &salt, const QString &password, unsigned long iterations);
+	DerivedKeyHMAC* decodeB64CompositeKeys(const QString &b64, const QByteArray &encKey, const QByteArray &hmacKey);
+	DerivedKeyHMAC* decodeCompositeKeys(const QByteArray &keyKey);
 
 	/*!
 	 * \sa https://support.1password.com/opvault-design/#profile-js
@@ -78,21 +77,26 @@ private:
 	 * @returns \c nullptr if unable to do the decryption, otherwise the interior object and its keys
 	 */
 	bool decryptBandEntry(const QJsonObject &bandEntry, QJsonObject &data, QByteArray &key, QByteArray &hmacKey);
-	Entry *processBandEntry(const QJsonObject &bandEntry, const QDir &attachmentDir, Group *rootGroup);
+	Entry* processBandEntry(const QJsonObject &bandEntry, const QDir &attachmentDir, Group *rootGroup);
 
-	bool readAttachment(const QString &filePath,
-	                    const QByteArray &itemKey,
-	                    const QByteArray &itemHmacKey,
-	                    QJsonObject &metadata,
-	                    QByteArray &payload);
-	void fillAttachment(Entry *entry,
-	                    const QFileInfo &attachmentFileInfo,
-	                    const QByteArray &entryKey,
-	                    const QByteArray &entryHmacKey);
-	void fillAttachments(Entry *entry,
-	                     const QDir &attachmentDir,
-	                     const QByteArray &entryKey,
-	                     const QByteArray &entryHmacKey);
+	bool readAttachment(
+		const QString &filePath,
+		const QByteArray &itemKey,
+		const QByteArray &itemHmacKey,
+		QJsonObject &metadata,
+		QByteArray &payload);
+
+	void fillAttachment(
+		Entry *entry,
+		const QFileInfo &attachmentFileInfo,
+		const QByteArray &entryKey,
+		const QByteArray &entryHmacKey);
+
+	void fillAttachments(
+		Entry *entry,
+		const QDir &attachmentDir,
+		const QByteArray &entryKey,
+		const QByteArray &entryHmacKey);
 
 	bool fillAttributes(Entry *entry, const QJsonObject &bandEntry);
 
@@ -101,6 +105,7 @@ private:
 	QString resolveAttributeName(const QString &section, const QString &name, const QString &text);
 
 	void populateCategoryGroups(Group *rootGroup);
+
 	/*! Used to blank the memory after the keys have been used. */
 	void zeroKeys();
 

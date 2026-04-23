@@ -24,10 +24,11 @@
 #include <QScopedPointer>
 #include <QWidget>
 
-namespace Ui
-{
-	class AttachmentWidget;
-}
+namespace Ui {
+
+class AttachmentWidget;
+
+} // namespace Ui
 
 /**
  * @brief The AttachmentWidget class provides a way to manage attachments in a GUI application.
@@ -39,7 +40,6 @@ class AttachmentWidget: public QWidget
 
 public:
 	explicit AttachmentWidget(QWidget *parent = nullptr);
-	~AttachmentWidget() override;
 
 	/**
 	 * @brief Opens an attachment in the specified mode.

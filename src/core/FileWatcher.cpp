@@ -52,6 +52,7 @@ void FileWatcher::start(const QString &filePath, int checksumIntervalSeconds, in
 		// if we can't get the fs type let's fall back to polling
 		forcePolling = true;
 	}
+
 	auto objectName = forcePolling ? QLatin1String("_qt_autotest_force_engine_poller") : QLatin1String("");
 	m_fileWatcher.setObjectName(objectName);
 
@@ -75,6 +76,7 @@ void FileWatcher::stop()
 	{
 		m_fileWatcher.removePath(m_filePath);
 	}
+
 	m_filePath.clear();
 	m_fileChecksum.clear();
 	m_fileChecksumTimer.stop();
@@ -91,6 +93,7 @@ void FileWatcher::pause()
 void FileWatcher::resume()
 {
 	m_paused = false;
+
 	// Add a short delay to start in the next event loop
 	if (!m_fileIgnoreDelayTimer.isActive())
 	{
@@ -100,13 +103,16 @@ void FileWatcher::resume()
 
 bool FileWatcher::shouldIgnoreChanges()
 {
-	return m_filePath.isEmpty() || m_ignoreFileChange || m_paused || m_fileIgnoreDelayTimer.isActive()
-	       || m_fileChangeDelayTimer.isActive();
+	return m_filePath.isEmpty()
+		|| m_ignoreFileChange
+		|| m_paused
+		|| m_fileIgnoreDelayTimer.isActive()
+		|| m_fileChangeDelayTimer.isActive();
 }
 
 bool FileWatcher::hasSameFileChecksum()
 {
-	return calculateChecksum() == m_fileChecksum;
+	return (calculateChecksum() == m_fileChecksum);
 }
 
 void FileWatcher::checkFileChanged()
@@ -119,17 +125,18 @@ void FileWatcher::checkFileChanged()
 	// Prevent reentrance
 	m_ignoreFileChange = true;
 
-	AsyncTask::runThenCallback([this] { return calculateChecksum(); },
-	                           this,
-	                           [this](const QByteArray &checksum) {
-								   if (checksum != m_fileChecksum)
-								   {
-									   m_fileChecksum = checksum;
-									   m_fileChangeDelayTimer.start(0);
-								   }
+	AsyncTask::runThenCallback(
+		[this] { return calculateChecksum(); },
+		this,
+		[this](const QByteArray &checksum) {
+			if (checksum != m_fileChecksum)
+			{
+				m_fileChecksum = checksum;
+				m_fileChangeDelayTimer.start(0);
+			}
 
-								   m_ignoreFileChange = false;
-							   });
+			m_ignoreFileChange = false;
+		});
 }
 
 QByteArray FileWatcher::calculateChecksum()
@@ -146,8 +153,10 @@ QByteArray FileWatcher::calculateChecksum()
 		{
 			hash.addData(&file);
 		}
+
 		return hash.result();
 	}
+
 	// If we fail to open the file return the last known checksum, this
 	// prevents unnecessary merge requests on intermittent network shares
 	return m_fileChecksum;

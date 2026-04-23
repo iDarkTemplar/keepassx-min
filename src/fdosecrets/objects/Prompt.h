@@ -26,204 +26,214 @@ class QWindow;
 class DatabaseWidget;
 class Entry;
 
-namespace FdoSecrets
+namespace FdoSecrets {
+
+class Service;
+
+// a simple helper class to auto convert
+// true/false, DBusResult and Pending values
+class PromptResult
 {
-
-	class Service;
-
-	// a simple helper class to auto convert
-	// true/false, DBusResult and Pending values
-	class PromptResult
+	enum Value
 	{
-		enum Value
-		{
-			Accepted,
-			Dismissed,
-			AsyncPending,
-		};
-		const Value value;
-
-		explicit PromptResult(Value v) noexcept
-			: value(v)
-		{
-		}
-		explicit PromptResult(bool accepted)
-			: value(accepted ? Accepted : Dismissed)
-		{
-		}
-
-	public:
-		PromptResult()
-			: PromptResult(true)
-		{
-		}
-		PromptResult(const DBusResult &res) // NOLINT(google-explicit-constructor)
-			: PromptResult(res.ok())
-		{
-		}
-
-		static const PromptResult Pending;
-		static PromptResult accepted(bool accepted)
-		{
-			return PromptResult{accepted};
-		}
-
-		bool isDismiss() const
-		{
-			return value == Dismissed;
-		}
-		bool isPending() const
-		{
-			return value == AsyncPending;
-		}
+		Accepted,
+		Dismissed,
+		AsyncPending,
 	};
 
-	class PromptBase: public DBusObject
-	{
-		Q_OBJECT
-		Q_CLASSINFO("D-Bus Interface", DBUS_INTERFACE_SECRET_PROMPT_LITERAL)
-	public:
-		Q_INVOKABLE DBusResult prompt(const DBusClientPtr &client, const QString &windowId);
-		Q_INVOKABLE DBusResult dismiss();
+	const Value value;
 
-		template <typename PROMPT, typename... ARGS> static PromptBase *Create(Service *parent, ARGS &&...args)
+	explicit PromptResult(Value v) noexcept
+		: value(v)
+	{
+	}
+
+	explicit PromptResult(bool accepted)
+		: value(accepted ? Accepted : Dismissed)
+	{
+	}
+
+public:
+	PromptResult()
+		: PromptResult(true)
+	{
+	}
+
+	PromptResult(const DBusResult &res) // NOLINT(google-explicit-constructor)
+		: PromptResult(res.ok())
+	{
+	}
+
+	static const PromptResult Pending;
+
+	static PromptResult accepted(bool accepted)
+	{
+		return PromptResult{accepted};
+	}
+
+	bool isDismiss() const
+	{
+		return value == Dismissed;
+	}
+
+	bool isPending() const
+	{
+		return value == AsyncPending;
+	}
+};
+
+class PromptBase: public DBusObject
+{
+	Q_OBJECT
+	Q_CLASSINFO("D-Bus Interface", DBUS_INTERFACE_SECRET_PROMPT_LITERAL)
+
+public:
+	Q_INVOKABLE DBusResult prompt(const DBusClientPtr &client, const QString &windowId);
+	Q_INVOKABLE DBusResult dismiss();
+
+	template <typename PROMPT, typename... ARGS>
+	static PromptBase *Create(Service *parent, ARGS &&...args)
+	{
+		QScopedPointer<PROMPT> res{new PROMPT(parent, std::forward<ARGS>(args)...)};
+		if (!res->dbus()->registerObject(res.data()))
 		{
-			QScopedPointer<PROMPT> res{new PROMPT(parent, std::forward<ARGS>(args)...)};
-			if (!res->dbus()->registerObject(res.data()))
-			{
-				// internal error;
-				return nullptr;
-			}
-			return res.take();
+			// internal error;
+			return nullptr;
 		}
 
-	signals:
-		void completed(bool dismissed, const QVariant &result);
+		return res.take();
+	}
 
-	protected:
-		explicit PromptBase(Service *parent);
+signals:
+	void completed(bool dismissed, const QVariant &result);
 
-		virtual PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) = 0;
-		virtual QVariant currentResult() const;
+protected:
+	explicit PromptBase(Service *parent);
 
-		QWindow *findWindow(const QString &windowId);
-		Service *service() const;
-		void finishPrompt(bool dismissed);
+	virtual PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) = 0;
+	virtual QVariant currentResult() const;
 
-	private:
-		bool m_signalSent = false;
-	};
+	QWindow* findWindow(const QString &windowId);
+	Service* service() const;
+	void finishPrompt(bool dismissed);
 
-	class Collection;
+private:
+	bool m_signalSent = false;
+};
 
-	class DeleteCollectionPrompt: public PromptBase
-	{
-		Q_OBJECT
-		friend class PromptBase;
+class Collection;
 
-		explicit DeleteCollectionPrompt(Service *parent, Collection *coll);
+class DeleteCollectionPrompt: public PromptBase
+{
+	Q_OBJECT
+	friend class PromptBase;
 
-		PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
+	explicit DeleteCollectionPrompt(Service *parent, Collection *coll);
 
-		QPointer<Collection> m_collection;
-	};
+	PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
 
-	class CreateCollectionPrompt: public PromptBase
-	{
-		Q_OBJECT
-		friend class PromptBase;
+	QPointer<Collection> m_collection;
+};
 
-		explicit CreateCollectionPrompt(Service *parent, QVariantMap properties, QString alias);
+class CreateCollectionPrompt: public PromptBase
+{
+	Q_OBJECT
+	friend class PromptBase;
 
-		PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
-		QVariant currentResult() const override;
+	explicit CreateCollectionPrompt(Service *parent, QVariantMap properties, QString alias);
 
-		QVariantMap m_properties;
-		QString m_alias;
-		Collection *m_coll{};
-	};
+	PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
+	QVariant currentResult() const override;
 
-	class LockCollectionsPrompt: public PromptBase
-	{
-		Q_OBJECT
-		friend class PromptBase;
+	QVariantMap m_properties;
+	QString m_alias;
+	Collection *m_coll{};
+};
 
-		explicit LockCollectionsPrompt(Service *parent, const QList<Collection *> &colls);
+class LockCollectionsPrompt: public PromptBase
+{
+	Q_OBJECT
+	friend class PromptBase;
 
-		PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
-		QVariant currentResult() const override;
+	explicit LockCollectionsPrompt(Service *parent, const QList<Collection *> &colls);
 
-		QList<QPointer<Collection>> m_collections;
-		QList<QDBusObjectPath> m_locked;
-	};
+	PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
+	QVariant currentResult() const override;
 
-	class DBusClient;
-	class UnlockPrompt: public PromptBase
-	{
-		Q_OBJECT
-		friend class PromptBase;
+	QList<QPointer<Collection>> m_collections;
+	QList<QDBusObjectPath> m_locked;
+};
 
-		explicit UnlockPrompt(Service *parent, const QSet<Collection *> &colls, const QSet<Item *> &items);
+class DBusClient;
 
-		PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
-		QVariant currentResult() const override;
+class UnlockPrompt: public PromptBase
+{
+	Q_OBJECT
+	friend class PromptBase;
 
-		void collectionUnlockFinished(bool accepted);
-		void itemUnlockFinished(const QHash<Entry *, AuthDecision> &results, AuthDecision forFutureEntries);
-		void unlockItems();
+	explicit UnlockPrompt(Service *parent, const QSet<Collection *> &colls, const QSet<Item *> &items);
 
-		QList<QPointer<Collection>> m_collections;
-		QHash<Collection *, QList<QPointer<Item>>> m_items;
-		QHash<QUuid, Item *> m_entryToItems;
+	PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
+	QVariant currentResult() const override;
 
-		QList<QDBusObjectPath> m_unlocked;
-		int m_numRejected = 0;
+	void collectionUnlockFinished(bool accepted);
+	void itemUnlockFinished(const QHash<Entry *, AuthDecision> &results, AuthDecision forFutureEntries);
+	void unlockItems();
 
-		// info about calling client
-		QWeakPointer<DBusClient> m_client;
-		QString m_windowId;
-	};
+	QList<QPointer<Collection>> m_collections;
+	QHash<Collection*, QList<QPointer<Item>>> m_items;
+	QHash<QUuid, Item*> m_entryToItems;
 
-	class Item;
-	class DeleteItemPrompt: public PromptBase
-	{
-		Q_OBJECT
-		friend class PromptBase;
+	QList<QDBusObjectPath> m_unlocked;
+	int m_numRejected = 0;
 
-		explicit DeleteItemPrompt(Service *parent, Item *item);
+	// info about calling client
+	QWeakPointer<DBusClient> m_client;
+	QString m_windowId;
+};
 
-		PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
+class Item;
 
-		QPointer<Item> m_item;
-	};
+class DeleteItemPrompt: public PromptBase
+{
+	Q_OBJECT
+	friend class PromptBase;
 
-	class CreateItemPrompt: public PromptBase
-	{
-		Q_OBJECT
-		friend class PromptBase;
+	explicit DeleteItemPrompt(Service *parent, Item *item);
 
-		explicit CreateItemPrompt(Service *parent,
-		                          Collection *coll,
-		                          QVariantMap properties,
-		                          Secret secret,
-		                          bool replace);
+	PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
 
-		PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
-		QVariant currentResult() const override;
+	QPointer<Item> m_item;
+};
 
-		DBusResult createItem(const QString &windowId);
-		DBusResult updateItem();
+class CreateItemPrompt: public PromptBase
+{
+	Q_OBJECT
+	friend class PromptBase;
 
-		QPointer<Collection> m_coll;
-		QVariantMap m_properties;
-		Secret m_secret;
-		bool m_replace;
+	explicit CreateItemPrompt(
+		Service *parent,
+		Collection *coll,
+		QVariantMap properties,
+		Secret secret,
+		bool replace);
 
-		QPointer<Item> m_item;
+	PromptResult promptSync(const DBusClientPtr &client, const QString &windowId) override;
+	QVariant currentResult() const override;
 
-		QPointer<const Session> m_sess;
-		QWeakPointer<DBusClient> m_client;
-	};
+	DBusResult createItem(const QString &windowId);
+	DBusResult updateItem();
+
+	QPointer<Collection> m_coll;
+	QVariantMap m_properties;
+	Secret m_secret;
+	bool m_replace;
+
+	QPointer<Item> m_item;
+
+	QPointer<const Session> m_sess;
+	QWeakPointer<DBusClient> m_client;
+};
 
 } // namespace FdoSecrets
 

@@ -20,10 +20,12 @@
 #include "DatabaseSettingsWidget.h"
 
 class Database;
-namespace Ui
-{
-	class DatabaseSettingsWidgetMetaDataSimple;
-}
+
+namespace Ui {
+
+class DatabaseSettingsWidgetMetaDataSimple;
+
+} // namespace Ui
 
 class DatabaseSettingWidgetMetaData: public DatabaseSettingsWidget
 {
@@ -32,7 +34,7 @@ class DatabaseSettingWidgetMetaData: public DatabaseSettingsWidget
 public:
 	explicit DatabaseSettingWidgetMetaData(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(DatabaseSettingWidgetMetaData);
-	~DatabaseSettingWidgetMetaData() override;
+	~DatabaseSettingWidgetMetaData();
 
 public slots:
 	void initialize() override;

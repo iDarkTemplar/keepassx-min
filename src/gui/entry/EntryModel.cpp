@@ -37,7 +37,7 @@ EntryModel::EntryModel(QObject *parent)
 	connect(config(), &Config::changed, this, &EntryModel::onConfigChanged);
 }
 
-Entry *EntryModel::entryFromIndex(const QModelIndex &index) const
+Entry* EntryModel::entryFromIndex(const QModelIndex &index) const
 {
 	Q_ASSERT(index.isValid() && index.row() < m_entries.size());
 	return m_entries.at(index.row());
@@ -50,6 +50,7 @@ QModelIndex EntryModel::indexFromEntry(Entry *entry) const
 	{
 		return index(row, 1);
 	}
+
 	return {};
 }
 
@@ -157,6 +158,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			{
 				result.prepend(tr("Ref: ", "Reference abbreviation"));
 			}
+
 			return result;
 		case Username:
 			if (config()->get(Config::GUI_HideUsernames).toBool())
@@ -167,10 +169,12 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			{
 				result = entry->resolveMultiplePlaceholders(entry->username());
 			}
+
 			if (attr->isReference(EntryAttributes::UserNameKey))
 			{
 				result.prepend(tr("Ref: ", "Reference abbreviation"));
 			}
+
 			if (entry->username().isEmpty() && !config()->get(Config::Security_PasswordEmptyPlaceholder).toBool())
 			{
 				result = "";
@@ -185,14 +189,17 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			{
 				result = entry->resolveMultiplePlaceholders(entry->password());
 			}
+
 			if (attr->isReference(EntryAttributes::PasswordKey))
 			{
 				result.prepend(tr("Ref: ", "Reference abbreviation"));
 			}
+
 			if (entry->password().isEmpty() && !config()->get(Config::Security_PasswordEmptyPlaceholder).toBool())
 			{
 				result = "";
 			}
+
 			return result;
 		case Url:
 			result = entry->resolveMultiplePlaceholders(entry->displayUrl());
@@ -200,6 +207,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			{
 				result.prepend(tr("Ref: ", "Reference abbreviation"));
 			}
+
 			return result;
 		case Notes:
 			if (!entry->notes().isEmpty())
@@ -213,16 +221,17 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 					// Display only first line of notes in simplified format if not hidden
 					result = entry->notes().section("\n", 0, 0).simplified();
 				}
+
 				if (attr->isReference(EntryAttributes::NotesKey))
 				{
 					result.prepend(tr("Ref: ", "Reference abbreviation"));
 				}
 			}
+
 			return result;
 		case Expires:
 			// Display either date of expiry or 'Never'
-			result = entry->timeInfo().expires() ? Clock::toString(entry->timeInfo().expiryTime().toLocalTime())
-			                                     : tr("Never");
+			result = entry->timeInfo().expires() ? Clock::toString(entry->timeInfo().expiryTime().toLocalTime()) : tr("Never");
 			return result;
 		case Created:
 			result = Clock::toString(entry->timeInfo().creationTime().toLocalTime());
@@ -230,38 +239,43 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 		case Modified:
 			result = Clock::toString(entry->timeInfo().lastModificationTime().toLocalTime());
 			return result;
-		case Attachments: {
-			// Display comma-separated list of attachments
-			QList<QString> attachments = entry->attachments()->keys();
-			for (const auto &attachment: attachments)
+		case Attachments:
 			{
-				if (result.isEmpty())
+				// Display comma-separated list of attachments
+				QList<QString> attachments = entry->attachments()->keys();
+				for (const auto &attachment: attachments)
 				{
-					result.append(attachment);
-					continue;
-				}
-				result.append(QString(", ") + attachment);
-			}
-			return result;
-		}
-		case Size: {
-			const int unitsSize = 4;
-			QString units[unitsSize] = {"B", "KiB", "MiB", "GiB"};
-			float resultInt = entry->size();
+					if (result.isEmpty())
+					{
+						result.append(attachment);
+						continue;
+					}
 
-			for (int i = 0; i < unitsSize; i++)
+					result.append(QString(", ") + attachment);
+				}
+
+				return result;
+			}
+		case Size:
 			{
-				if (resultInt < 1024 || i == unitsSize - 1)
-				{
-					resultInt = qRound(resultInt * 100) / 100.0;
-					result = QStringLiteral("%1 %2").arg(QString::number(resultInt), units[i]);
-					break;
-				}
-				resultInt /= 1024.0;
-			}
+				const int unitsSize = 4;
+				QString units[unitsSize] = {"B", "KiB", "MiB", "GiB"};
+				float resultInt = entry->size();
 
-			return result;
-		}
+				for (int i = 0; i < unitsSize; ++i)
+				{
+					if (resultInt < 1024 || i == unitsSize - 1)
+					{
+						resultInt = qRound(resultInt * 100) / 100.0;
+						result = QStringLiteral("%1 %2").arg(QString::number(resultInt), units[i]);
+						break;
+					}
+
+					resultInt /= 1024.0;
+				}
+
+				return result;
+			}
 		case Color:
 			QColor backgroundColor;
 			backgroundColor.setNamedColor(entry->backgroundColor());
@@ -280,21 +294,18 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			return entry->resolveMultiplePlaceholders(entry->username());
 		case Password:
 			return entry->resolveMultiplePlaceholders(entry->password());
-		case PasswordStrength: {
-			if (!entry->password().isEmpty() && !entry->excludeFromReports())
+		case PasswordStrength:
 			{
-				return entry->passwordHealth()->score();
+				if (!entry->password().isEmpty() && !entry->excludeFromReports())
+				{
+					return entry->passwordHealth()->score();
+				}
+
+				return 0;
 			}
-			return 0;
-		}
 		case Expires:
-			return entry->timeInfo().expires() ? entry->timeInfo().expiryTime()
 			// There seems to be no better way of expressing 'infinity'
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-			                                   : QDate(9999, 1, 1).startOfDay();
-#else
-			                                   : QDateTime(QDate(9999, 1, 1));
-#endif
+			return entry->timeInfo().expires() ? entry->timeInfo().expiryTime() : QDate(9999, 1, 1).startOfDay();
 		case Created:
 			return entry->timeInfo().creationTime();
 		case Modified:
@@ -377,11 +388,11 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 		{
 			font.setStrikeOut(true);
 		}
+
 		return font;
 	}
 	else if (role == Qt::ForegroundRole)
 	{
-
 		if (index.column() == Color)
 		{
 			QColor backgroundColor;
@@ -398,8 +409,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 		{
 			QPalette p;
 			foregroundColor = p.color(QPalette::Current, QPalette::Text);
-			int lightness =
-				qMin(255, qMax(0, foregroundColor.lightness() + (foregroundColor.lightness() < 110 ? 85 : -51)));
+			int lightness = qMin(255, qMax(0, foregroundColor.lightness() + (foregroundColor.lightness() < 110 ? 85 : -51)));
 			foregroundColor.setHsl(foregroundColor.hue(), foregroundColor.saturation(), lightness);
 			return QVariant(foregroundColor);
 		}
@@ -548,7 +558,7 @@ QStringList EntryModel::mimeTypes() const
 	return types;
 }
 
-QMimeData *EntryModel::mimeData(const QModelIndexList &indexes) const
+QMimeData* EntryModel::mimeData(const QModelIndexList &indexes) const
 {
 	if (indexes.isEmpty())
 	{
@@ -559,7 +569,7 @@ QMimeData *EntryModel::mimeData(const QModelIndexList &indexes) const
 	QByteArray encoded;
 	QDataStream stream(&encoded, QIODevice::WriteOnly);
 
-	QSet<Entry *> seenEntries;
+	QSet<Entry*> seenEntries;
 
 	for (const QModelIndex &index: indexes)
 	{
@@ -615,6 +625,7 @@ void EntryModel::entryAdded(Entry *entry)
 	{
 		m_entries = m_group->entries();
 	}
+
 	endInsertRows();
 }
 
@@ -633,6 +644,7 @@ void EntryModel::entryRemoved()
 	{
 		m_entries = m_group->entries();
 	}
+
 	endRemoveRows();
 }
 
@@ -651,12 +663,14 @@ void EntryModel::entryMovedUp()
 	{
 		m_entries = m_group->entries();
 	}
+
 	endMoveRows();
 }
 
 void EntryModel::entryAboutToMoveDown(int row)
 {
 	beginMoveRows(QModelIndex(), row, row, QModelIndex(), row + 2);
+
 	if (m_group)
 	{
 		m_entries.move(row, row + 1);
@@ -669,6 +683,7 @@ void EntryModel::entryMovedDown()
 	{
 		m_entries = m_group->entries();
 	}
+
 	endMoveRows();
 }
 

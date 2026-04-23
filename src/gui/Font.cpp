@@ -19,15 +19,19 @@
 #include <QFontDatabase>
 #include <QGuiApplication>
 
-QFont Font::defaultFont()
+namespace Font {
+
+QFont defaultFont()
 {
 	return qApp->font();
 }
 
-QFont Font::fixedFont()
+QFont fixedFont()
 {
 	auto fixedFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
 	fixedFont.setPointSize(defaultFont().pointSize());
 
 	return fixedFont;
 }
+
+} // namespace Font

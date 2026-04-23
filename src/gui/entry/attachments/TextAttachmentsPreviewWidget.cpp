@@ -27,24 +27,22 @@
 #include <QStandardItemModel>
 #include <QTimer>
 
-namespace
+namespace {
+
+constexpr TextAttachmentsPreviewWidget::PreviewTextType ConvertToPreviewTextType(Tools::MimeType mimeType) noexcept
 {
-	constexpr TextAttachmentsPreviewWidget::PreviewTextType ConvertToPreviewTextType(Tools::MimeType mimeType) noexcept
+	if (mimeType == Tools::MimeType::Html)
 	{
-		if (mimeType == Tools::MimeType::Html)
-		{
-			return TextAttachmentsPreviewWidget::Html;
-		}
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-		if (mimeType == Tools::MimeType::Markdown)
-		{
-			return TextAttachmentsPreviewWidget::Markdown;
-		}
-#endif
-
-		return TextAttachmentsPreviewWidget::PlainText;
+		return TextAttachmentsPreviewWidget::Html;
 	}
+
+	if (mimeType == Tools::MimeType::Markdown)
+	{
+		return TextAttachmentsPreviewWidget::Markdown;
+	}
+
+	return TextAttachmentsPreviewWidget::PlainText;
+}
 
 } // namespace
 
@@ -58,7 +56,9 @@ TextAttachmentsPreviewWidget::TextAttachmentsPreviewWidget(QWidget *parent)
 	initTypeCombobox();
 }
 
-TextAttachmentsPreviewWidget::~TextAttachmentsPreviewWidget() = default;
+TextAttachmentsPreviewWidget::~TextAttachmentsPreviewWidget()
+{
+}
 
 void TextAttachmentsPreviewWidget::openAttachment(attachments::Attachment attachments, attachments::OpenMode mode)
 {
@@ -146,16 +146,13 @@ void TextAttachmentsPreviewWidget::onTypeChanged(int index)
 		m_ui->previewTextBrowser->setHtml(m_attachment.data);
 	}
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 	if (fileType == TextAttachmentsPreviewWidget::PreviewTextType::Markdown)
 	{
 		m_ui->previewTextBrowser->setMarkdown(m_attachment.data);
 	}
-#endif
 
 	// Delay setting the scrollbar position to ensure the text is rendered first
-	QTimer::singleShot(
-		100, this, [this, scrollPos] { m_ui->previewTextBrowser->verticalScrollBar()->setValue(scrollPos); });
+	QTimer::singleShot(100, this, [this, scrollPos] { m_ui->previewTextBrowser->verticalScrollBar()->setValue(scrollPos); });
 }
 
 void TextAttachmentsPreviewWidget::matchScroll(double percent)

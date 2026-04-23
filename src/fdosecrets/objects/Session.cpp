@@ -21,60 +21,61 @@
 
 #include "core/Tools.h"
 
-namespace FdoSecrets
+namespace FdoSecrets {
+
+Session *Session::Create(QSharedPointer<CipherPair> cipher, const QString &peer, Service *parent)
 {
-	Session *Session::Create(QSharedPointer<CipherPair> cipher, const QString &peer, Service *parent)
+	QScopedPointer<Session> res{new Session(std::move(cipher), peer, parent)};
+	if (!res->dbus()->registerObject(res.data()))
 	{
-		QScopedPointer<Session> res{new Session(std::move(cipher), peer, parent)};
-		if (!res->dbus()->registerObject(res.data()))
-		{
-			return nullptr;
-		}
-
-		return res.take();
+		return nullptr;
 	}
 
-	Session::Session(QSharedPointer<CipherPair> cipher, const QString &peer, Service *parent)
-		: DBusObject(parent)
-		, m_cipher(std::move(cipher))
-		, m_peer(peer)
-		, m_id(QUuid::createUuid())
-	{
-	}
+	return res.take();
+}
 
-	DBusResult Session::close()
-	{
-		emit aboutToClose();
-		deleteLater();
+Session::Session(QSharedPointer<CipherPair> cipher, const QString &peer, Service *parent)
+	: DBusObject(parent)
+	, m_cipher(std::move(cipher))
+	, m_peer(peer)
+	, m_id(QUuid::createUuid())
+{
+}
 
-		return {};
-	}
+DBusResult Session::close()
+{
+	emit aboutToClose();
+	deleteLater();
 
-	QString Session::peer() const
-	{
-		return m_peer;
-	}
+	return {};
+}
 
-	QString Session::id() const
-	{
-		return Tools::uuidToHex(m_id);
-	}
+QString Session::peer() const
+{
+	return m_peer;
+}
 
-	Service *Session::service() const
-	{
-		return qobject_cast<Service *>(parent());
-	}
+QString Session::id() const
+{
+	return Tools::uuidToHex(m_id);
+}
 
-	Secret Session::encode(const Secret &input) const
-	{
-		auto output = m_cipher->encrypt(input);
-		output.session = this;
-		return output;
-	}
+Service *Session::service() const
+{
+	return qobject_cast<Service *>(parent());
+}
 
-	Secret Session::decode(const Secret &input) const
-	{
-		Q_ASSERT(input.session == this);
-		return m_cipher->decrypt(input);
-	}
+Secret Session::encode(const Secret &input) const
+{
+	auto output = m_cipher->encrypt(input);
+	output.session = this;
+	return output;
+}
+
+Secret Session::decode(const Secret &input) const
+{
+	Q_ASSERT(input.session == this);
+	return m_cipher->decrypt(input);
+}
+
 } // namespace FdoSecrets

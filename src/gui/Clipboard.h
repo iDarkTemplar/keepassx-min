@@ -21,6 +21,8 @@
 #include <QElapsedTimer>
 #include <QObject>
 
+#include <memory>
+
 class QTimer;
 
 class Clipboard: public QObject
@@ -31,7 +33,7 @@ public:
 	void setText(const QString &text, bool clear = true);
 	int secondsToClear();
 
-	static Clipboard *instance();
+	static Clipboard* instance();
 
 public slots:
 	void clearCopiedText();
@@ -45,7 +47,7 @@ private slots:
 private:
 	explicit Clipboard(QObject *parent = nullptr);
 
-	static Clipboard *m_instance;
+	static std::unique_ptr<Clipboard> m_instance;
 
 	void sendCountdownStatus();
 
@@ -55,7 +57,7 @@ private:
 	QString m_lastCopied;
 };
 
-inline Clipboard *clipboard()
+inline Clipboard* clipboard()
 {
 	return Clipboard::instance();
 }

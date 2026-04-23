@@ -30,13 +30,14 @@ const int Metadata::DefaultHistoryMaxSize = 6 * 1024 * 1024;
 const int Metadata::DefaultAutosaveDelayMin = 0;
 
 // Fallback icon for return by reference
-static const Metadata::CustomIconData NULL_ICON{};
+static const Metadata::CustomIconData NULL_ICON;
 
-namespace customDataKeys
-{
-	static const QString savedSearch = QStringLiteral("KPXC_SavedSearch");
-	static const QString autosaveDelay = QStringLiteral("KPXC_autosaveDelayMin");
-}; // namespace customDataKeys
+namespace customDataKeys {
+
+static const QString savedSearch = QStringLiteral("KPXC_SavedSearch");
+static const QString autosaveDelay = QStringLiteral("KPXC_autosaveDelayMin");
+
+} // namespace customDataKeys
 
 Metadata::Metadata(QObject *parent)
 	: ModifiableObject(parent)
@@ -81,7 +82,8 @@ void Metadata::clear()
 	m_customData->clear();
 }
 
-template <class P, class V> bool Metadata::set(P &property, const V &value)
+template <class P, class V>
+bool Metadata::set(P &property, const V &value)
 {
 	if (property != value)
 	{
@@ -95,7 +97,8 @@ template <class P, class V> bool Metadata::set(P &property, const V &value)
 	}
 }
 
-template <class P, class V> bool Metadata::set(P &property, const V &value, QDateTime &dateTime)
+template <class P, class V>
+bool Metadata::set(P &property, const V &value, QDateTime &dateTime)
 {
 	if (property != value)
 	{
@@ -104,6 +107,7 @@ template <class P, class V> bool Metadata::set(P &property, const V &value, QDat
 		{
 			dateTime = Clock::currentDateTimeUtc();
 		}
+
 		emitModified();
 		return true;
 	}
@@ -193,7 +197,7 @@ bool Metadata::protectNotes() const
 	return m_data.protectNotes;
 }
 
-const Metadata::CustomIconData &Metadata::customIcon(const QUuid &uuid) const
+const Metadata::CustomIconData& Metadata::customIcon(const QUuid &uuid) const
 {
 	auto icon = m_customIcons.find(uuid);
 	Q_ASSERT(icon != m_customIcons.end());
@@ -201,6 +205,7 @@ const Metadata::CustomIconData &Metadata::customIcon(const QUuid &uuid) const
 	{
 		return NULL_ICON;
 	}
+
 	return icon.value();
 }
 
@@ -219,12 +224,12 @@ bool Metadata::recycleBinEnabled() const
 	return m_data.recycleBinEnabled;
 }
 
-Group *Metadata::recycleBin()
+Group* Metadata::recycleBin()
 {
 	return m_recycleBin;
 }
 
-const Group *Metadata::recycleBin() const
+const Group* Metadata::recycleBin() const
 {
 	return m_recycleBin;
 }
@@ -234,7 +239,7 @@ QDateTime Metadata::recycleBinChanged() const
 	return m_recycleBinChanged;
 }
 
-const Group *Metadata::entryTemplatesGroup() const
+const Group* Metadata::entryTemplatesGroup() const
 {
 	return m_entryTemplatesGroup;
 }
@@ -244,12 +249,12 @@ QDateTime Metadata::entryTemplatesGroupChanged() const
 	return m_entryTemplatesGroupChanged;
 }
 
-const Group *Metadata::lastSelectedGroup() const
+const Group* Metadata::lastSelectedGroup() const
 {
 	return m_lastSelectedGroup;
 }
 
-const Group *Metadata::lastTopVisibleGroup() const
+const Group* Metadata::lastTopVisibleGroup() const
 {
 	return m_lastTopVisibleGroup;
 }
@@ -287,18 +292,21 @@ int Metadata::autosaveDelayMin() const
 		// data is not set yet, use default
 		return Metadata::DefaultAutosaveDelayMin;
 	}
+
 	bool ok; // check for QString to int op failuer
 	int autosaveDelayMin = autosaveDelayMinStr.toInt(&ok);
+
 	Q_ASSERT(ok);
+
 	return autosaveDelayMin;
 }
 
-CustomData *Metadata::customData()
+CustomData* Metadata::customData()
 {
 	return m_customData;
 }
 
-const CustomData *Metadata::customData() const
+const CustomData* Metadata::customData() const
 {
 	return m_customData;
 }
@@ -378,7 +386,6 @@ void Metadata::setProtectNotes(bool value)
 
 void Metadata::addCustomIcon(const QUuid &uuid, const CustomIconData &iconData)
 {
-
 	Q_ASSERT(!uuid.isNull());
 	Q_ASSERT(!m_customIcons.contains(uuid));
 
@@ -395,10 +402,11 @@ void Metadata::addCustomIcon(const QUuid &uuid, const CustomIconData &iconData)
 	emitModified();
 }
 
-void Metadata::addCustomIcon(const QUuid &uuid,
-                             const QByteArray &iconBytes,
-                             const QString &name,
-                             const QDateTime &lastModified)
+void Metadata::addCustomIcon(
+	const QUuid &uuid,
+	const QByteArray &iconBytes,
+	const QString &name,
+	const QDateTime &lastModified)
 {
 	addCustomIcon(uuid, {iconBytes, name, lastModified});
 }
@@ -418,7 +426,7 @@ void Metadata::removeCustomIcon(const QUuid &uuid)
 	m_customIcons.remove(uuid);
 	m_customIconsOrder.removeAll(uuid);
 	Q_ASSERT(m_customIcons.count() == m_customIconsOrder.count());
-	dynamic_cast<Database *>(parent())->addDeletedObject(uuid);
+	dynamic_cast<Database*>(parent())->addDeletedObject(uuid);
 	emitModified();
 }
 

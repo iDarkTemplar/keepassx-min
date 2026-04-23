@@ -32,9 +32,10 @@ EditWidgetProperties::EditWidgetProperties(QWidget *parent)
 	m_ui->removeCustomDataButton->setEnabled(false);
 	m_ui->customDataTable->setModel(m_customDataModel);
 
-    connect(m_ui->customDataTable->selectionModel(),
-            SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-            SLOT(toggleRemoveButton(QItemSelection)));
+	connect(m_ui->customDataTable->selectionModel(),
+		SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+		SLOT(toggleRemoveButton(QItemSelection)));
+
 	connect(m_ui->removeCustomDataButton, SIGNAL(clicked()), SLOT(removeSelectedPluginData()));
 }
 
@@ -76,11 +77,11 @@ void EditWidgetProperties::removeSelectedPluginData()
 	}
 
 	auto result = MessageBox::question(this,
-	                                   tr("Delete plugin data?"),
-	                                   tr("Do you really want to delete the selected plugin data?\n"
-	                                      "This may cause the affected plugins to malfunction."),
-	                                   MessageBox::Delete | MessageBox::Cancel,
-	                                   MessageBox::Cancel);
+		tr("Delete plugin data?"),
+		tr("Do you really want to delete the selected plugin data?\n"
+		   "This may cause the affected plugins to malfunction."),
+		MessageBox::Delete | MessageBox::Cancel,
+		MessageBox::Cancel);
 
 	if (result == MessageBox::Cancel)
 	{
@@ -120,9 +121,10 @@ void EditWidgetProperties::update()
 	{
 		for (const QString &key: m_customData->keys())
 		{
-			m_customDataModel->appendRow(QList<QStandardItem *>()
-			                             << new QStandardItem(key) << new QStandardItem(m_customData->value(key)));
+			m_customDataModel->appendRow(QList<QStandardItem*>()
+				<< new QStandardItem(key) << new QStandardItem(m_customData->value(key)));
 		}
+
 		m_ui->removeCustomDataButton->setEnabled(!m_customData->isEmpty());
 	}
 }

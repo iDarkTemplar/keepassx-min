@@ -27,8 +27,7 @@ const QString EntryAttributes::UserNameKey = "UserName";
 const QString EntryAttributes::PasswordKey = "Password";
 const QString EntryAttributes::URLKey = "URL";
 const QString EntryAttributes::NotesKey = "Notes";
-const QStringList EntryAttributes::DefaultAttributes(QStringList()
-                                                     << TitleKey << UserNameKey << PasswordKey << URLKey << NotesKey);
+const QStringList EntryAttributes::DefaultAttributes(QStringList() << TitleKey << UserNameKey << PasswordKey << URLKey << NotesKey);
 const QString EntryAttributes::WantedFieldGroupName = "WantedField";
 const QString EntryAttributes::SearchInGroupName = "SearchIn";
 const QString EntryAttributes::SearchTextGroupName = "SearchText";
@@ -103,6 +102,7 @@ QList<QString> EntryAttributes::customKeys() const
 			customKeys.append(key);
 		}
 	}
+
 	return customKeys;
 }
 
@@ -118,6 +118,7 @@ QList<QString> EntryAttributes::values(const QList<QString> &keys) const
 	{
 		values.append(m_attributes.value(key));
 	}
+
 	return values;
 }
 
@@ -156,7 +157,7 @@ void EntryAttributes::set(const QString &key, const QString &value, bool protect
 	bool changeValue = !addAttribute && (m_attributes.value(key) != value);
 	bool defaultAttribute = isDefaultAttribute(key);
 
-	if (addAttribute && !defaultAttribute)
+	if (addAttribute && (!defaultAttribute))
 	{
 		emit aboutToBeAdded(key);
 	}
@@ -173,6 +174,7 @@ void EntryAttributes::set(const QString &key, const QString &value, bool protect
 		{
 			shouldEmitModified = true;
 		}
+
 		m_protectedAttributes.insert(key);
 	}
 	else if (m_protectedAttributes.remove(key))
@@ -391,6 +393,7 @@ int EntryAttributes::attributesSize() const
 	{
 		size += it.key().toUtf8().size() + it.value().toUtf8().size();
 	}
+
 	return size;
 }
 

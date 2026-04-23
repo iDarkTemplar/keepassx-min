@@ -32,8 +32,8 @@ KdbxXmlWriter::KdbxXmlWriter(quint32 version)
 	: m_kdbxVersion(version)
 {
 	Q_ASSERT_X(m_kdbxVersion < KeePass2::FILE_VERSION_4,
-	           "KDBX version",
-	           "KDBX version >= 4 requires explicit binary index map.");
+		"KDBX version",
+		"KDBX version >= 4 requires explicit binary index map.");
 }
 
 KdbxXmlWriter::KdbxXmlWriter(quint32 version, KdbxXmlWriter::BinaryIdxMap binaryIdxMap)
@@ -42,10 +42,11 @@ KdbxXmlWriter::KdbxXmlWriter(quint32 version, KdbxXmlWriter::BinaryIdxMap binary
 {
 }
 
-void KdbxXmlWriter::writeDatabase(QIODevice *device,
-                                  const Database *db,
-                                  KeePass2RandomStream *randomStream,
-                                  const QByteArray &headerHash)
+void KdbxXmlWriter::writeDatabase(
+	QIODevice *device,
+	const Database *db,
+	KeePass2RandomStream *randomStream,
+	const QByteArray &headerHash)
 {
 	m_db = db;
 	m_meta = db->metadata();
@@ -101,7 +102,7 @@ QString KdbxXmlWriter::errorString()
  */
 void KdbxXmlWriter::fillBinaryIdxMap()
 {
-	const QList<Entry *> allEntries = m_db->rootGroup()->entriesRecursive(true);
+	const QList<Entry*> allEntries = m_db->rootGroup()->entriesRecursive(true);
 	QHash<QByteArray, qint64> writtenAttachments;
 	qint64 nextIdx = 0;
 
@@ -119,6 +120,7 @@ void KdbxXmlWriter::fillBinaryIdxMap()
 			{
 				writtenAttachments.insert(hashResult, nextIdx++);
 			}
+
 			m_binaryIdxMap.insert(qMakePair(entry, key), writtenAttachments.value(hashResult));
 		}
 	}
@@ -132,6 +134,7 @@ void KdbxXmlWriter::writeMetadata()
 	{
 		writeBinary("HeaderHash", m_headerHash);
 	}
+
 	writeString("DatabaseName", m_meta->name());
 	writeDateTime("DatabaseNameChanged", m_meta->nameChanged());
 	writeString("DatabaseDescription", m_meta->description());
@@ -154,14 +157,17 @@ void KdbxXmlWriter::writeMetadata()
 	writeUuid("LastTopVisibleGroup", m_meta->lastTopVisibleGroup());
 	writeNumber("HistoryMaxItems", m_meta->historyMaxItems());
 	writeNumber("HistoryMaxSize", m_meta->historyMaxSize());
+
 	if (m_kdbxVersion >= KeePass2::FILE_VERSION_4)
 	{
 		writeDateTime("SettingsChanged", m_meta->settingsChanged());
 	}
+
 	if (m_kdbxVersion < KeePass2::FILE_VERSION_4)
 	{
 		writeBinaries();
 	}
+
 	writeCustomData(m_meta->customData(), true);
 
 	m_xml.writeEndElement();
@@ -209,6 +215,7 @@ void KdbxXmlWriter::writeIcon(const QUuid &uuid, const Metadata::CustomIconData 
 			writeDateTime("LastModificationTime", iconData.lastModified);
 		}
 	}
+
 	writeBinary("Data", iconData.data);
 
 	m_xml.writeEndElement();
@@ -262,6 +269,7 @@ void KdbxXmlWriter::writeBinaries()
 		{
 			m_xml.writeCharacters(QString::fromLatin1(data.toBase64()));
 		}
+
 		m_xml.writeEndElement();
 	}
 
@@ -274,6 +282,7 @@ void KdbxXmlWriter::writeCustomData(const CustomData *customData, bool writeItem
 	{
 		return;
 	}
+
 	m_xml.writeStartElement("CustomData");
 
 	const QList<QString> keyList = customData->keys();
@@ -285,9 +294,10 @@ void KdbxXmlWriter::writeCustomData(const CustomData *customData, bool writeItem
 	m_xml.writeEndElement();
 }
 
-void KdbxXmlWriter::writeCustomDataItem(const QString &key,
-                                        const CustomData::CustomDataItem &item,
-                                        bool writeLastModified)
+void KdbxXmlWriter::writeCustomDataItem(
+	const QString &key,
+	const CustomData::CustomDataItem &item,
+	bool writeLastModified)
 {
 	m_xml.writeStartElement("Item");
 
@@ -326,12 +336,14 @@ void KdbxXmlWriter::writeGroup(const Group *group)
 	{
 		writeString("Tags", group->tags());
 	}
+
 	writeNumber("IconID", group->iconNumber());
 
 	if (!group->iconUuid().isNull())
 	{
 		writeUuid("CustomIconUUID", group->iconUuid());
 	}
+
 	writeTimes(group->timeInfo());
 	writeBool("IsExpanded", group->isExpanded());
 	writeString("DefaultAutoTypeSequence", group->defaultAutoTypeSequence());
@@ -346,18 +358,19 @@ void KdbxXmlWriter::writeGroup(const Group *group)
 	{
 		writeCustomData(group->customData());
 	}
+
 	if (m_kdbxVersion >= KeePass2::FILE_VERSION_4_1 && !group->previousParentGroupUuid().isNull())
 	{
 		writeUuid("PreviousParentGroup", group->previousParentGroupUuid());
 	}
 
-	const QList<Entry *> &entryList = group->entries();
+	const QList<Entry*> &entryList = group->entries();
 	for (const Entry *entry: entryList)
 	{
 		writeEntry(entry);
 	}
 
-	const QList<Group *> &children = group->children();
+	const QList<Group*> &children = group->children();
 	for (const Group *child: children)
 	{
 		writeGroup(child);
@@ -416,6 +429,7 @@ void KdbxXmlWriter::writeEntry(const Entry *entry)
 	{
 		writeUuid("CustomIconUUID", entry->iconUuid());
 	}
+
 	writeString("ForegroundColor", entry->foregroundColor());
 	writeString("BackgroundColor", entry->backgroundColor());
 	writeString("OverrideURL", entry->overrideUrl());
@@ -428,6 +442,7 @@ void KdbxXmlWriter::writeEntry(const Entry *entry)
 		{
 			writeBool("QualityCheck", false);
 		}
+
 		if (!entry->previousParentGroupUuid().isNull())
 		{
 			writeUuid("PreviousParentGroup", entry->previousParentGroupUuid());
@@ -439,12 +454,12 @@ void KdbxXmlWriter::writeEntry(const Entry *entry)
 	{
 		m_xml.writeStartElement("String");
 
-        bool protect =
-            (((key == "Title") && m_meta->protectTitle()) || ((key == "UserName") && m_meta->protectUsername())
-            || ((key == "Password") && m_meta->protectPassword())
-            || ((key == "URL") && m_meta->protectUrl())
-            || ((key == "Notes") && m_meta->protectNotes())
-            || entry->attributes()->isProtected(key));
+		bool protect = (((key == "Title") && m_meta->protectTitle())
+				|| ((key == "UserName") && m_meta->protectUsername())
+				|| ((key == "Password") && m_meta->protectPassword())
+				|| ((key == "URL") && m_meta->protectUrl())
+				|| ((key == "Notes") && m_meta->protectNotes())
+				|| entry->attributes()->isProtected(key));
 
 		writeString("Key", key);
 
@@ -462,6 +477,7 @@ void KdbxXmlWriter::writeEntry(const Entry *entry)
 				{
 					raiseError(m_randomStream->errorString());
 				}
+
 				value = QString::fromLatin1(rawData.toBase64());
 			}
 			else
@@ -479,6 +495,7 @@ void KdbxXmlWriter::writeEntry(const Entry *entry)
 		{
 			m_xml.writeCharacters(stripInvalidXml10Chars(value));
 		}
+
 		m_xml.writeEndElement();
 
 		m_xml.writeEndElement();
@@ -516,7 +533,7 @@ void KdbxXmlWriter::writeEntryHistory(const Entry *entry)
 {
 	m_xml.writeStartElement("History");
 
-	const QList<Entry *> &historyItems = entry->historyItems();
+	const QList<Entry*> &historyItems = entry->historyItems();
 	for (const Entry *item: historyItems)
 	{
 		writeEntry(item);
@@ -576,6 +593,7 @@ void KdbxXmlWriter::writeDateTime(const QString &qualifiedName, const QDateTime 
 		QByteArray secsBytes = Endian::sizedIntToBytes(secs, KeePass2::BYTEORDER);
 		dateTimeStr = QString::fromLatin1(secsBytes.toBase64());
 	}
+
 	writeString(qualifiedName, dateTimeStr);
 }
 
@@ -657,11 +675,11 @@ QString KdbxXmlWriter::stripInvalidXml10Chars(QString str)
 			i--;
 		}
 		else if ((uc < 0x20 && uc != 0x09 && uc != 0x0A && uc != 0x0D) // control characters
-		         || (uc >= 0x7F && uc <= 0x84) // control characters, valid but discouraged by XML
-		         || (uc >= 0x86 && uc <= 0x9F) // control characters, valid but discouraged by XML
-		         || (uc > 0xFFFD) // noncharacter
-		         || ch.isLowSurrogate() // single low surrogate
-		         || ch.isHighSurrogate()) // single high surrogate
+			|| (uc >= 0x7F && uc <= 0x84) // control characters, valid but discouraged by XML
+			|| (uc >= 0x86 && uc <= 0x9F) // control characters, valid but discouraged by XML
+			|| (uc > 0xFFFD) // noncharacter
+			|| ch.isLowSurrogate() // single low surrogate
+			|| ch.isHighSurrogate()) // single high surrogate
 		{
 			qWarning("Stripping invalid XML 1.0 codepoint %x", uc);
 			str.remove(i, 1);

@@ -35,10 +35,10 @@ class EntryView: public QTreeView
 public:
 	explicit EntryView(QWidget *parent = nullptr);
 	void setModel(QAbstractItemModel *model) override;
-	Entry *currentEntry();
+	Entry* currentEntry();
 	void setCurrentEntry(Entry *entry);
-	QList<Entry *> selectedEntries();
-	Entry *entryFromIndex(const QModelIndex &index);
+	QList<Entry*> selectedEntries();
+	Entry* entryFromIndex(const QModelIndex &index);
 	QModelIndex indexFromEntry(Entry *entry);
 	int currentEntryIndex();
 	bool inSearchMode();

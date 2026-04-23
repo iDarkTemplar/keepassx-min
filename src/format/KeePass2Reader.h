@@ -39,7 +39,7 @@ private:
 	void raiseError(const QString &errorMessage);
 
 	bool m_error = false;
-	QString m_errorStr = "";
+	QString m_errorStr;
 
 	QSharedPointer<KdbxReader> m_reader;
 	quint32 m_version = 0;

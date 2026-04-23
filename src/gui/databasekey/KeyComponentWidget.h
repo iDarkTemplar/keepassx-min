@@ -20,18 +20,19 @@
 #include <QPointer>
 #include <QWidget>
 
-namespace Ui
-{
-	class KeyComponentWidget;
-}
+namespace Ui {
+
+class KeyComponentWidget;
+
+} // namespace Ui
+
 class CompositeKey;
 class QStackedWidget;
 
 class KeyComponentWidget: public QWidget
 {
 	Q_OBJECT
-    Q_PROPERTY(bool componentAdded READ m_isComponentAdded READ componentAdded
-                   WRITE setComponentAdded NOTIFY componentAddChanged)
+	Q_PROPERTY(bool componentAdded READ m_isComponentAdded READ componentAdded WRITE setComponentAdded NOTIFY componentAddChanged)
 
 public:
 	enum Page
@@ -42,7 +43,7 @@ public:
 	};
 
 	explicit KeyComponentWidget(QWidget *parent = nullptr);
-	~KeyComponentWidget() override;
+	~KeyComponentWidget();
 
 	/**
 	 * Add the new key component to the given \link CompositeKey.
@@ -77,7 +78,7 @@ protected:
 	 *
 	 * @return edit widget instance
 	 */
-	virtual QWidget *componentEditWidget() = 0;
+	virtual QWidget* componentEditWidget() = 0;
 
 	/**
 	 * Initialize the key component widget created by \link componentEditWidget().

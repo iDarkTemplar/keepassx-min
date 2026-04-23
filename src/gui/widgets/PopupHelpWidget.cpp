@@ -72,6 +72,7 @@ bool PopupHelpWidget::eventFilter(QObject *obj, QEvent *event)
 			alignWithParent();
 		}
 	}
+
 	return QFrame::eventFilter(obj, event);
 }
 

@@ -34,20 +34,21 @@
 #include "gui/FileDialog.h"
 #include "gui/MessageBox.h"
 
-namespace
-{
-	constexpr const char *Suffix = ".txt";
+namespace {
 
-	QString generateUniqueName(const QString &name, const QStringList &existingNames)
+constexpr const char *Suffix = ".txt";
+
+QString generateUniqueName(const QString &name, const QStringList &existingNames)
+{
+	uint64_t i = 0;
+	QString newName = QStringLiteral("%1%2").arg(name).arg(Suffix);
+	while (existingNames.contains(newName))
 	{
-		uint64_t i = 0;
-		QString newName = QStringLiteral("%1%2").arg(name).arg(Suffix);
-		while (existingNames.contains(newName))
-		{
-			newName = QStringLiteral("%1_%2%3").arg(name).arg(++i).arg(Suffix);
-		}
-		return newName;
+		newName = QStringLiteral("%1_%2%3").arg(name).arg(++i).arg(Suffix);
 	}
+
+	return newName;
+}
 
 } // namespace
 
@@ -68,18 +69,18 @@ EntryAttachmentsWidget::EntryAttachmentsWidget(QWidget *parent)
 	m_ui->attachmentsView->setModel(m_attachmentsModel);
 	m_ui->attachmentsView->horizontalHeader()->setMinimumSectionSize(70);
 	m_ui->attachmentsView->horizontalHeader()->setSectionResizeMode(EntryAttachmentsModel::NameColumn,
-	                                                                QHeaderView::Stretch);
+		QHeaderView::Stretch);
 	m_ui->attachmentsView->horizontalHeader()->setSectionResizeMode(EntryAttachmentsModel::SizeColumn,
-	                                                                QHeaderView::ResizeToContents);
+		QHeaderView::ResizeToContents);
 	m_ui->attachmentsView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
 	connect(this, SIGNAL(buttonsVisibleChanged(bool)), this, SLOT(updateButtonsVisible()));
 	connect(this, SIGNAL(readOnlyChanged(bool)), SLOT(updateButtonsEnabled()));
 	connect(m_attachmentsModel, SIGNAL(modelReset()), SLOT(updateButtonsEnabled()));
 
-    connect(m_ui->attachmentsView->selectionModel(),
-            SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-            SLOT(updateButtonsEnabled()));
+	connect(m_ui->attachmentsView->selectionModel(),
+		SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+		SLOT(updateButtonsEnabled()));
 	connect(this, SIGNAL(readOnlyChanged(bool)), m_attachmentsModel, SLOT(setReadOnly(bool)));
 
 	connect(m_ui->attachmentsView, &QAbstractItemView::doubleClicked, [this](const QModelIndex &) {
@@ -115,7 +116,7 @@ EntryAttachmentsWidget::~EntryAttachmentsWidget()
 {
 }
 
-const EntryAttachments *EntryAttachmentsWidget::attachments() const
+const EntryAttachments* EntryAttachmentsWidget::attachments() const
 {
 	return m_entryAttachments;
 }
@@ -140,9 +141,9 @@ void EntryAttachmentsWidget::linkAttachments(EntryAttachments *attachments)
 	if (m_entryAttachments)
 	{
 		connect(m_entryAttachments,
-		        SIGNAL(valueModifiedExternally(QString, QString)),
-		        this,
-		        SLOT(attachmentModifiedExternally(QString, QString)));
+			SIGNAL(valueModifiedExternally(QString, QString)),
+			this,
+			SLOT(attachmentModifiedExternally(QString, QString)));
 		connect(m_entryAttachments, SIGNAL(modified()), this, SIGNAL(widgetUpdated()));
 	}
 }
@@ -194,11 +195,13 @@ void EntryAttachmentsWidget::insertAttachments()
 	{
 		return;
 	}
+
 	const auto confirmedFileNames = confirmAttachmentSelection(filenames);
 	if (confirmedFileNames.isEmpty())
 	{
 		return;
 	}
+
 	// Save path to first filename
 	FileDialog::saveLastDir("attachments", filenames[0]);
 	QString errorMessage;
@@ -206,6 +209,7 @@ void EntryAttachmentsWidget::insertAttachments()
 	{
 		errorOccurred(errorMessage);
 	}
+
 	emit widgetUpdated();
 }
 
@@ -265,14 +269,14 @@ void EntryAttachmentsWidget::previewSelectedAttachment()
 	connect(&previewDialog, SIGNAL(saveAttachment(QString)), SLOT(saveSelectedAttachments()));
 	// Refresh the preview if the attachment changes
 	connect(m_entryAttachments,
-	        &EntryAttachments::keyModified,
-	        &previewDialog,
-	        [&previewDialog, &name, this](const QString &key) {
-				if (key == name)
-				{
-					previewDialog.setAttachment({name, m_entryAttachments->value(name)});
-				}
-			});
+		&EntryAttachments::keyModified,
+		&previewDialog,
+		[&previewDialog, &name, this](const QString &key) {
+			if (key == name)
+			{
+				previewDialog.setAttachment({name, m_entryAttachments->value(name)});
+			}
+		});
 
 	previewDialog.exec();
 
@@ -346,10 +350,10 @@ void EntryAttachmentsWidget::removeSelectedAttachments()
 	}
 
 	auto result = MessageBox::question(this,
-	                                   tr("Confirm remove"),
-	                                   tr("Are you sure you want to remove %n attachment(s)?", "", indexes.count()),
-	                                   MessageBox::Remove | MessageBox::Cancel,
-	                                   MessageBox::Cancel);
+		tr("Confirm remove"),
+		tr("Are you sure you want to remove %n attachment(s)?", "", indexes.count()),
+		MessageBox::Remove | MessageBox::Cancel,
+		MessageBox::Cancel);
 
 	if (result == MessageBox::Remove)
 	{
@@ -358,6 +362,7 @@ void EntryAttachmentsWidget::removeSelectedAttachments()
 		{
 			keys.append(m_attachmentsModel->keyByIndex(index));
 		}
+
 		m_entryAttachments->remove(keys);
 		emit widgetUpdated();
 	}
@@ -389,6 +394,7 @@ void EntryAttachmentsWidget::saveSelectedAttachments()
 			return;
 		}
 	}
+
 	FileDialog::saveLastDir("attachments", saveDirPath);
 
 	QStringList errors;
@@ -406,11 +412,9 @@ void EntryAttachmentsWidget::saveSelectedAttachments()
 				buttons |= MessageBox::Skip;
 			}
 
-			const QString questionText(
-				tr("Are you sure you want to overwrite the existing file \"%1\" with the attachment?"));
+			const QString questionText(tr("Are you sure you want to overwrite the existing file \"%1\" with the attachment?"));
 
-			auto result = MessageBox::question(
-				this, tr("Confirm overwrite"), questionText.arg(filename), buttons, MessageBox::Cancel);
+			auto result = MessageBox::question(this, tr("Confirm overwrite"), questionText.arg(filename), buttons, MessageBox::Cancel);
 
 			if (result == MessageBox::Skip)
 			{
@@ -425,7 +429,8 @@ void EntryAttachmentsWidget::saveSelectedAttachments()
 		QFile file(attachmentPath);
 		const QByteArray attachmentData = m_entryAttachments->value(filename);
 		const bool saveOk = file.open(QIODevice::WriteOnly) && file.setPermissions(QFile::ReadUser | QFile::WriteUser)
-		                    && file.write(attachmentData) == attachmentData.size();
+			&& file.write(attachmentData) == attachmentData.size();
+
 		if (!saveOk)
 		{
 			errors.append(QString("%1 - %2").arg(filename, file.errorString()));
@@ -560,12 +565,13 @@ QStringList EntryAttachmentsWidget::confirmAttachmentSelection(const QStringList
 		if (m_entryAttachments->hasKey(fileName))
 		{
 			auto result = MessageBox::question(this,
-			                                   tr("Confirm Overwrite Attachment"),
-			                                   tr("Attachment \"%1\" already exists. \n"
-			                                      "Would you like to overwrite the existing attachment?")
-			                                       .arg(fileName),
-			                                   MessageBox::Overwrite | MessageBox::No,
-			                                   MessageBox::No);
+				tr("Confirm Overwrite Attachment"),
+				tr("Attachment \"%1\" already exists. \n"
+				   "Would you like to overwrite the existing attachment?")
+					.arg(fileName),
+				MessageBox::Overwrite | MessageBox::No,
+				MessageBox::No);
+
 			if (result == MessageBox::No)
 			{
 				continue;
@@ -576,14 +582,14 @@ QStringList EntryAttachmentsWidget::confirmAttachmentSelection(const QStringList
 		double size = fileInfo.size() / (1024.0 * 1024.0);
 		if (size > 5.0)
 		{
-			auto result =
-				MessageBox::question(this,
-			                         tr("Confirm Attachment"),
-			                         tr("%1 is a big file (%2 MB).\nYour database may get very large and reduce "
-			                            "performance.\n\nAre you sure to add this file?")
-			                             .arg(fileName, QString::number(size, 'f', 1)),
-			                         MessageBox::Yes | MessageBox::No,
-			                         MessageBox::No);
+			auto result = MessageBox::question(this,
+					tr("Confirm Attachment"),
+					tr("%1 is a big file (%2 MB).\nYour database may get very large and reduce "
+						"performance.\n\nAre you sure to add this file?")
+						.arg(fileName, QString::number(size, 'f', 1)),
+					MessageBox::Yes | MessageBox::No,
+					MessageBox::No);
+
 			if (result == MessageBox::No)
 			{
 				continue;
@@ -671,8 +677,8 @@ void EntryAttachmentsWidget::attachmentModifiedExternally(const QString &key, co
 		else
 		{
 			MessageBox::critical(this,
-			                     tr("Saving attachment failed"),
-			                     tr("Saving updated attachment failed.\nError: %1").arg(f.errorString()));
+				tr("Saving attachment failed"),
+				tr("Saving updated attachment failed.\nError: %1").arg(f.errorString()));
 		}
 	}
 

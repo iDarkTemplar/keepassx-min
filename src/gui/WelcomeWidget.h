@@ -20,10 +20,11 @@
 
 #include <QListWidgetItem>
 
-namespace Ui
-{
-	class WelcomeWidget;
-}
+namespace Ui {
+
+class WelcomeWidget;
+
+} // namespace Ui
 
 class WelcomeWidget: public QWidget
 {
@@ -32,6 +33,7 @@ class WelcomeWidget: public QWidget
 public:
 	explicit WelcomeWidget(QWidget *parent = nullptr);
 	~WelcomeWidget();
+
 	void refreshLastDatabases();
 
 signals:

@@ -17,7 +17,7 @@
 
 #include <QLocale>
 
-QSharedPointer<Clock> Clock::m_instance;
+std::unique_ptr<Clock> Clock::m_instance;
 
 QDateTime Clock::currentDateTimeUtc()
 {
@@ -31,8 +31,7 @@ QDateTime Clock::currentDateTime()
 
 uint Clock::currentSecondsSinceEpoch()
 {
-	// TODO: change to toSecsSinceEpoch() when min Qt >= 5.8
-	return instance().currentDateTimeImpl().toTime_t();
+	return instance().currentDateTimeImpl().toSecsSinceEpoch();
 }
 
 qint64 Clock::currentMilliSecondsSinceEpoch()
@@ -43,10 +42,12 @@ qint64 Clock::currentMilliSecondsSinceEpoch()
 QDateTime Clock::serialized(const QDateTime &dateTime)
 {
 	auto time = dateTime.time();
-	if (time.isValid() && time.msec() != 0)
+
+	if (time.isValid() && (time.msec() != 0))
 	{
 		return dateTime.addMSecs(-time.msec());
 	}
+
 	return dateTime;
 }
 
@@ -86,12 +87,6 @@ QString Clock::toString(const QDateTime &dateTime)
 	return locale.toString(dateTime, QLocale::ShortFormat);
 }
 
-Clock::~Clock() = default;
-
-Clock::Clock()
-{
-}
-
 QDateTime Clock::currentDateTimeUtcImpl() const
 {
 	return QDateTime::currentDateTimeUtc();
@@ -109,14 +104,15 @@ void Clock::resetInstance()
 
 void Clock::setInstance(Clock *clock)
 {
-	m_instance = QSharedPointer<Clock>(clock);
+	m_instance.reset(clock);
 }
 
-const Clock &Clock::instance()
+const Clock& Clock::instance()
 {
 	if (!m_instance)
 	{
-		m_instance = QSharedPointer<Clock>(new Clock());
+		m_instance = std::unique_ptr<Clock>(new Clock());
 	}
+
 	return *m_instance;
 }

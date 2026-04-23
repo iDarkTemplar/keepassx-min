@@ -58,8 +58,10 @@ quint32 KeePass2Writer::kdbxVersionRequired(Database const *db, bool ignoreCurre
 		VERSION_MAX(version, db->formatVersion())
 	}
 
-	if (!ignoreKdf && !db->kdf().isNull() && !db->kdf()->uuid().isNull()
-	    && db->kdf()->uuid() != KeePass2::KDF_AES_KDBX3)
+	if (!ignoreKdf
+		&& !db->kdf().isNull()
+		&& !db->kdf()->uuid().isNull()
+		&& db->kdf()->uuid() != KeePass2::KDF_AES_KDBX3)
 	{
 		VERSION_MAX(version, KeePass2::FILE_VERSION_4)
 	}
@@ -75,10 +77,12 @@ quint32 KeePass2Writer::kdbxVersionRequired(Database const *db, bool ignoreCurre
 		{
 			VERSION_MAX(version, KeePass2::FILE_VERSION_4)
 		}
+
 		if (!group->tags().isEmpty())
 		{
 			VERSION_MAX(version, KeePass2::FILE_VERSION_4_1)
 		}
+
 		if (group->previousParentGroup())
 		{
 			VERSION_MAX(version, KeePass2::FILE_VERSION_4_1)
@@ -86,15 +90,16 @@ quint32 KeePass2Writer::kdbxVersionRequired(Database const *db, bool ignoreCurre
 
 		for (const auto *entry: group->entries())
 		{
-
 			if (entry->customData() && !entry->customData()->isEmpty())
 			{
 				VERSION_MAX(version, KeePass2::FILE_VERSION_4)
 			}
+
 			if (entry->excludeFromReports())
 			{
 				VERSION_MAX(version, KeePass2::FILE_VERSION_4_1)
 			}
+
 			if (entry->previousParentGroup())
 			{
 				VERSION_MAX(version, KeePass2::FILE_VERSION_4_1)

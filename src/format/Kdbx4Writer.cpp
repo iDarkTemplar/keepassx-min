@@ -37,6 +37,7 @@ bool Kdbx4Writer::writeDatabase(QIODevice *device, Database *db)
 		raiseError(tr("Invalid symmetric cipher algorithm."));
 		return false;
 	}
+
 	int ivSize = SymmetricCipher::defaultIvSize(mode);
 	if (ivSize < 0)
 	{
@@ -70,8 +71,7 @@ bool Kdbx4Writer::writeDatabase(QIODevice *device, Database *db)
 
 		writeMagicNumbers(&header, KeePass2::SIGNATURE_1, KeePass2::SIGNATURE_2, db->formatVersion());
 
-		CHECK_RETURN_FALSE(
-			writeHeaderField<quint32>(&header, KeePass2::HeaderFieldID::CipherID, db->cipher().toRfc4122()));
+		CHECK_RETURN_FALSE(writeHeaderField<quint32>(&header, KeePass2::HeaderFieldID::CipherID, db->cipher().toRfc4122()));
 		CHECK_RETURN_FALSE(writeHeaderField<quint32>(
 			&header,
 			KeePass2::HeaderFieldID::CompressionFlags,
@@ -95,14 +95,14 @@ bool Kdbx4Writer::writeDatabase(QIODevice *device, Database *db)
 		{
 			QByteArray serialized;
 			serializeVariantMap(publicCustomData, serialized);
-			CHECK_RETURN_FALSE(
-				writeHeaderField<quint32>(&header, KeePass2::HeaderFieldID::PublicCustomData, serialized));
+			CHECK_RETURN_FALSE(writeHeaderField<quint32>(&header, KeePass2::HeaderFieldID::PublicCustomData, serialized));
 		}
 
 		CHECK_RETURN_FALSE(writeHeaderField<quint32>(&header, KeePass2::HeaderFieldID::EndOfHeader, endOfHeader));
 		header.close();
 		headerData = header.data();
 	}
+
 	CHECK_RETURN_FALSE(writeData(device, headerData));
 
 	// hash header
@@ -110,8 +110,7 @@ bool Kdbx4Writer::writeDatabase(QIODevice *device, Database *db)
 
 	// write HMAC-authenticated cipher stream
 	QByteArray hmacKey = KeePass2::hmacKey(masterSeed, db->transformedDatabaseKey());
-	QByteArray headerHmac =
-		CryptoHash::hmac(headerData, HmacBlockStream::getHmacKey(UINT64_MAX, hmacKey), CryptoHash::Sha256);
+	QByteArray headerHmac = CryptoHash::hmac(headerData, HmacBlockStream::getHmacKey(UINT64_MAX, hmacKey), CryptoHash::Sha256);
 	CHECK_RETURN_FALSE(writeData(device, headerHash));
 	CHECK_RETURN_FALSE(writeData(device, headerHmac));
 
@@ -132,6 +131,7 @@ bool Kdbx4Writer::writeDatabase(QIODevice *device, Database *db)
 		raiseError(cipherStream->errorString());
 		return false;
 	}
+
 	if (!cipherStream->open(QIODevice::WriteOnly))
 	{
 		raiseError(cipherStream->errorString());
@@ -154,6 +154,7 @@ bool Kdbx4Writer::writeDatabase(QIODevice *device, Database *db)
 			raiseError(ioCompressor->errorString());
 			return false;
 		}
+
 		outputDevice = ioCompressor.data();
 	}
 
@@ -163,6 +164,7 @@ bool Kdbx4Writer::writeDatabase(QIODevice *device, Database *db)
 		outputDevice,
 		KeePass2::InnerHeaderFieldID::InnerRandomStreamID,
 		Endian::sizedIntToBytes(static_cast<int>(KeePass2::ProtectedStreamAlgo::ChaCha20), KeePass2::BYTEORDER)));
+
 	CHECK_RETURN_FALSE(
 		writeInnerHeaderField(outputDevice, KeePass2::InnerHeaderFieldID::InnerRandomStreamKey, protectedStreamKey));
 
@@ -187,11 +189,13 @@ bool Kdbx4Writer::writeDatabase(QIODevice *device, Database *db)
 	{
 		ioCompressor->close();
 	}
+
 	if (!cipherStream->reset())
 	{
 		raiseError(cipherStream->errorString());
 		return false;
 	}
+
 	if (!hmacBlockStream->reset())
 	{
 		raiseError(hmacBlockStream->errorString());
@@ -220,8 +224,7 @@ bool Kdbx4Writer::writeInnerHeaderField(QIODevice *device, KeePass2::InnerHeader
 	QByteArray fieldIdArr;
 	fieldIdArr.append(static_cast<char>(fieldId));
 	CHECK_RETURN_FALSE(writeData(device, fieldIdArr));
-	CHECK_RETURN_FALSE(
-		writeData(device, Endian::sizedIntToBytes(static_cast<quint32>(data.size()), KeePass2::BYTEORDER)));
+	CHECK_RETURN_FALSE(writeData(device, Endian::sizedIntToBytes(static_cast<quint32>(data.size()), KeePass2::BYTEORDER)));
 	CHECK_RETURN_FALSE(writeData(device, data));
 
 	return true;
@@ -229,7 +232,7 @@ bool Kdbx4Writer::writeInnerHeaderField(QIODevice *device, KeePass2::InnerHeader
 
 KdbxXmlWriter::BinaryIdxMap Kdbx4Writer::writeAttachments(QIODevice *device, Database *db)
 {
-	const QList<Entry *> allEntries = db->rootGroup()->entriesRecursive(true);
+	const QList<Entry*> allEntries = db->rootGroup()->entriesRecursive(true);
 	QHash<QByteArray, qint64> writtenAttachments;
 	KdbxXmlWriter::BinaryIdxMap idxMap;
 	qint64 nextIdx = 0;
@@ -252,6 +255,7 @@ KdbxXmlWriter::BinaryIdxMap Kdbx4Writer::writeAttachments(QIODevice *device, Dat
 				writeInnerHeaderField(device, KeePass2::InnerHeaderFieldID::Binary, data);
 				writtenAttachments.insert(hashResult, nextIdx++);
 			}
+
 			idxMap.insert(qMakePair(entry, key), writtenAttachments[hashResult]);
 		}
 	}

@@ -22,10 +22,12 @@
 #include "crypto/kdf/Kdf.h"
 
 class Database;
-namespace Ui
-{
-	class DatabaseSettingsWidgetEncryption;
-}
+
+namespace Ui {
+
+class DatabaseSettingsWidgetEncryption;
+
+} // namespace Ui
 
 class DatabaseSettingsWidgetEncryption: public DatabaseSettingsWidget
 {
@@ -34,7 +36,7 @@ class DatabaseSettingsWidgetEncryption: public DatabaseSettingsWidget
 public:
 	explicit DatabaseSettingsWidgetEncryption(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(DatabaseSettingsWidgetEncryption);
-	~DatabaseSettingsWidgetEncryption() override;
+	~DatabaseSettingsWidgetEncryption();
 
 public slots:
 	void initialize() override;

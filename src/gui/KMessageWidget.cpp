@@ -114,6 +114,7 @@ void KMessageWidgetPrivate::createLayout()
 			button->show();
 			buttonLayout->addWidget(button);
 		}
+
 		buttonLayout->addWidget(closeButton);
 		layout->addItem(buttonLayout, 1, 0, 1, 2);
 	}
@@ -135,6 +136,7 @@ void KMessageWidgetPrivate::createLayout()
 	{
 		q->setFixedHeight(content->sizeHint().height());
 	}
+
 	q->updateGeometry();
 }
 
@@ -238,6 +240,7 @@ void KMessageWidget::setMessageType(KMessageWidget::MessageType type)
 	d->messageType = type;
 	QColor bg0, bg1, bg2, border;
 	QColor fg = QColor(238, 238, 238);
+
 	switch (type)
 	{
 	case Positive:
@@ -264,40 +267,38 @@ void KMessageWidget::setMessageType(KMessageWidget::MessageType type)
 	auto closeButtonPixmap = d->closeButtonPixmap;
 	QPainter painter;
 	painter.begin(&closeButtonPixmap);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	painter.setRenderHints(QPainter::Antialiasing);
-#else
-	painter.setRenderHints(QPainter::HighQualityAntialiasing);
-#endif
 	painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
 	painter.fillRect(QRect(0, 0, 16, 16), fg);
 	painter.end();
-	d->closeButton->setIcon(closeButtonPixmap);
-	d->closeButton->setStyleSheet(QStringLiteral("QToolButton {"
-	                                             "  background: transparent;"
-	                                             "  border-radius: 2px;"
-	                                             "  border: none; }"
-	                                             "QToolButton:hover, QToolButton:focus {"
-	                                             "  border: 1px solid %1; }")
-	                                  .arg(fg.name()));
 
-	d->content->setStyleSheet(
-		QStringLiteral(".QFrame {"
-	                   "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
-	                   "    stop: 0 %1,"
-	                   "    stop: 0.1 %2,"
-	                   "    stop: 1.0 %3);"
-	                   "    border-radius: 2px;"
-	                   "    border: 1px solid %4;"
-	                   "    margin: %5px;"
-	                   "    padding: 5px;"
-	                   "}"
-	                   ".QLabel { color: %6; }")
-			.arg(bg0.name(), bg1.name(), bg2.name(), border.name())
-			// DefaultFrameWidth returns the size of the external margin + border width. We know our border is 1px,
-	        // so we subtract this from the frame normal QStyle FrameWidth to get our margin
-			.arg(style()->pixelMetric(QStyle::PM_DefaultFrameWidth, nullptr, this) - 1)
-			.arg(fg.name()));
+	d->closeButton->setIcon(closeButtonPixmap);
+	d->closeButton->setStyleSheet(QStringLiteral(
+		"QToolButton {"
+		"  background: transparent;"
+		"  border-radius: 2px;"
+		"  border: none; }"
+		"QToolButton:hover, QToolButton:focus {"
+		"  border: 1px solid %1; }")
+		.arg(fg.name()));
+
+	d->content->setStyleSheet(QStringLiteral(
+		".QFrame {"
+		"background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
+		"    stop: 0 %1,"
+		"    stop: 0.1 %2,"
+		"    stop: 1.0 %3);"
+		"    border-radius: 2px;"
+		"    border: 1px solid %4;"
+		"    margin: %5px;"
+		"    padding: 5px;"
+		"}"
+		".QLabel { color: %6; }")
+		.arg(bg0.name(), bg1.name(), bg2.name(), border.name())
+		// DefaultFrameWidth returns the size of the external margin + border width. We know our border is 1px,
+		// so we subtract this from the frame normal QStyle FrameWidth to get our margin
+		.arg(style()->pixelMetric(QStyle::PM_DefaultFrameWidth, nullptr, this) - 1)
+		.arg(fg.name()));
 }
 
 QSize KMessageWidget::sizeHint() const
@@ -318,6 +319,7 @@ bool KMessageWidget::event(QEvent *event)
 	{
 		d->createLayout();
 	}
+
 	return QFrame::event(event);
 }
 
@@ -361,6 +363,7 @@ void KMessageWidget::setWordWrap(bool wordWrap)
 	policy.setHeightForWidth(wordWrap);
 	setSizePolicy(policy);
 	d->updateLayout();
+
 	// Without this, when user does wordWrap -> !wordWrap -> wordWrap, a minimum
 	// height is set, causing the widget to be too high.
 	// Mostly visible in test programs.

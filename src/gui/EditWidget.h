@@ -27,10 +27,11 @@
 
 class QLabel;
 
-namespace Ui
-{
-	class EditWidget;
-}
+namespace Ui {
+
+class EditWidget;
+
+} // namespace Ui
 
 class EditWidget: public DialogyWidget
 {
@@ -46,7 +47,7 @@ public:
 	void setPageHidden(QWidget *widget, bool hidden);
 	void setCurrentPage(int index);
 	void setHeadline(const QString &text);
-	QLabel *headlineLabel();
+	QLabel* headlineLabel();
 	void setReadOnly(bool readOnly);
 	bool readOnly() const;
 	void enableApplyButton(bool enabled);

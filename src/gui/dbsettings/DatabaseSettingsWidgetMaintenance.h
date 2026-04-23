@@ -22,10 +22,12 @@
 class QItemSelection;
 class CustomIconModel;
 class Database;
-namespace Ui
-{
-	class DatabaseSettingsWidgetMaintenance;
-}
+
+namespace Ui {
+
+class DatabaseSettingsWidgetMaintenance;
+
+} // namespace Ui
 
 class DatabaseSettingsWidgetMaintenance: public DatabaseSettingsWidget
 {
@@ -34,7 +36,7 @@ class DatabaseSettingsWidgetMaintenance: public DatabaseSettingsWidget
 public:
 	explicit DatabaseSettingsWidgetMaintenance(QWidget *parent = nullptr);
 	Q_DISABLE_COPY(DatabaseSettingsWidgetMaintenance);
-	~DatabaseSettingsWidgetMaintenance() override;
+	~DatabaseSettingsWidgetMaintenance();
 
 public slots:
 	void initialize() override;
