@@ -48,7 +48,6 @@ option(WITH_ASAN "Enable address sanitizer checks (Linux / macOS only)" OFF)
 option(WITH_COVERAGE "Use to build with coverage tests (GCC only)." OFF)
 
 option(WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API." OFF)
-option(WITH_XC_X11 "Enable building with X11 deps" ON)
 
 # Retrieve git info
 file(READ ${CMAKE_SOURCE_DIR}/VERSION GIT_VERSION)
@@ -275,9 +274,6 @@ find_package(ZXCVBN REQUIRED)
 find_package(QREncode REQUIRED)
 
 set(QT_COMPONENTS Core DBus Network Concurrent Gui Svg Widgets LinguistTools)
-if (WITH_XC_X11)
-	list(APPEND QT_COMPONENTS X11Extras)
-endif()
 if (WITH_TESTS)
 	list(APPEND QT_COMPONENTS Test)
 endif()

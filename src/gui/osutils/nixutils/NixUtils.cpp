@@ -32,30 +32,6 @@
 
 #include <memory>
 
-#ifdef WITH_XC_X11
-#include <QX11Info>
-
-#include <qpa/qplatformnativeinterface.h>
-
-#include "X11Funcs.h"
-#include <X11/XKBlib.h>
-#include <xcb/xproto.h>
-
-namespace {
-
-Display *dpy;
-Window rootWindow;
-bool x11ErrorOccurred = false;
-
-int x11ErrorHandler(Display *, XErrorEvent *)
-{
-	x11ErrorOccurred = true;
-	return 1;
-}
-
-} // namespace
-#endif
-
 std::unique_ptr<NixUtils> NixUtils::m_instance;
 
 NixUtils* NixUtils::instance()
@@ -71,11 +47,6 @@ NixUtils* NixUtils::instance()
 NixUtils::NixUtils(QObject *parent)
 	: OSUtilsBase(parent)
 {
-#ifdef WITH_XC_X11
-	dpy = QX11Info::display();
-	rootWindow = QX11Info::appRootWindow();
-#endif
-
 	// notify about system color scheme changes
 	QDBusConnection sessionBus = QDBusConnection::sessionBus();
 	sessionBus.connect(
@@ -105,163 +76,6 @@ bool NixUtils::isDarkMode() const
 	}
 
 	return qApp->style()->standardPalette().color(QPalette::Window).toHsl().lightness() < 110;
-}
-
-bool NixUtils::isCapslockEnabled()
-{
-#ifdef WITH_XC_X11
-	QPlatformNativeInterface *native = QGuiApplication::platformNativeInterface();
-	auto *display = native->nativeResourceForWindow("display", nullptr);
-	if (!display)
-	{
-		return false;
-	}
-
-	QString platform = QGuiApplication::platformName();
-	if (platform == "xcb")
-	{
-		unsigned state = 0;
-		if (XkbGetIndicatorState(reinterpret_cast<Display *>(display), XkbUseCoreKbd, &state) == Success)
-		{
-			return ((state & 1u) != 0);
-		}
-	}
-#endif
-
-	// TODO: Wayland
-
-	return false;
-}
-
-void NixUtils::registerNativeEventFilter()
-{
-	qApp->installNativeEventFilter(this);
-}
-
-bool NixUtils::nativeEventFilter(const QByteArray &eventType, void *message, long *)
-{
-#ifdef WITH_XC_X11
-	if (eventType != QByteArrayLiteral("xcb_generic_event_t"))
-	{
-		return false;
-	}
-
-	auto *genericEvent = static_cast<xcb_generic_event_t *>(message);
-	quint8 type = genericEvent->response_type & 0x7f;
-
-	if (type == XCB_KEY_PRESS)
-	{
-		auto *keyPressEvent = static_cast<xcb_key_press_event_t *>(message);
-		auto modifierMask = ControlMask | ShiftMask | Mod1Mask | Mod4Mask;
-		return triggerGlobalShortcut(keyPressEvent->detail, keyPressEvent->state & modifierMask);
-	}
-#else
-	Q_UNUSED(eventType)
-	Q_UNUSED(message)
-#endif
-
-	return false;
-}
-
-bool NixUtils::triggerGlobalShortcut(uint keycode, uint modifiers)
-{
-#ifdef WITH_XC_X11
-	QHashIterator<QString, QSharedPointer<globalShortcut>> i(m_globalShortcuts);
-	while (i.hasNext())
-	{
-		i.next();
-		if (i.value()->nativeKeyCode == keycode && i.value()->nativeModifiers == modifiers)
-		{
-			emit globalShortcutTriggered(i.key());
-			return true;
-		}
-	}
-#else
-	Q_UNUSED(keycode)
-	Q_UNUSED(modifiers)
-#endif
-
-	return false;
-}
-
-bool NixUtils::registerGlobalShortcut(const QString &name, Qt::Key key, Qt::KeyboardModifiers modifiers, QString *error)
-{
-#ifdef WITH_XC_X11
-	auto keycode = XKeysymToKeycode(dpy, qcharToNativeKeyCode(key));
-	auto modifierscode = qtToNativeModifiers(modifiers);
-
-	// Check if this key combo is registered to another shortcut
-	QHashIterator<QString, QSharedPointer<globalShortcut>> i(m_globalShortcuts);
-	while (i.hasNext())
-	{
-		i.next();
-		if (i.value()->nativeKeyCode == keycode && i.value()->nativeModifiers == modifierscode && i.key() != name)
-		{
-			if (error)
-			{
-				*error = tr("Global shortcut already registered to %1").arg(i.key());
-			}
-			return false;
-		}
-	}
-
-	unregisterGlobalShortcut(name);
-
-	x11ErrorOccurred = false;
-	auto prevHandler = XSetErrorHandler(x11ErrorHandler);
-
-	XGrabKey(dpy, keycode, modifierscode, rootWindow, True, GrabModeAsync, GrabModeAsync);
-	XGrabKey(dpy, keycode, modifierscode | Mod2Mask, rootWindow, True, GrabModeAsync, GrabModeAsync);
-	XGrabKey(dpy, keycode, modifierscode | LockMask, rootWindow, True, GrabModeAsync, GrabModeAsync);
-	XGrabKey(dpy, keycode, modifierscode | Mod2Mask | LockMask, rootWindow, True, GrabModeAsync, GrabModeAsync);
-
-	XSync(dpy, False);
-	XSetErrorHandler(prevHandler);
-
-	if (x11ErrorOccurred)
-	{
-		x11ErrorOccurred = false;
-		if (error)
-		{
-			*error = tr("Could not register global shortcut");
-		}
-		return false;
-	}
-
-	auto gs = QSharedPointer<globalShortcut>::create();
-	gs->nativeKeyCode = keycode;
-	gs->nativeModifiers = modifierscode;
-	m_globalShortcuts.insert(name, gs);
-#else
-	Q_UNUSED(name)
-	Q_UNUSED(key)
-	Q_UNUSED(modifiers)
-	Q_UNUSED(error)
-#endif
-
-	return true;
-}
-
-bool NixUtils::unregisterGlobalShortcut(const QString &name)
-{
-#ifdef WITH_XC_X11
-	if (!m_globalShortcuts.contains(name))
-	{
-		return false;
-	}
-
-	auto gs = m_globalShortcuts.value(name);
-	XUngrabKey(dpy, gs->nativeKeyCode, gs->nativeModifiers, rootWindow);
-	XUngrabKey(dpy, gs->nativeKeyCode, gs->nativeModifiers | Mod2Mask, rootWindow);
-	XUngrabKey(dpy, gs->nativeKeyCode, gs->nativeModifiers | LockMask, rootWindow);
-	XUngrabKey(dpy, gs->nativeKeyCode, gs->nativeModifiers | Mod2Mask | LockMask, rootWindow);
-
-	m_globalShortcuts.remove(name);
-#else
-	Q_UNUSED(name)
-#endif
-
-	return true;
 }
 
 void NixUtils::handleColorSchemeRead(QDBusVariant value)

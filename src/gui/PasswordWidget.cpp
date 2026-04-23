@@ -78,13 +78,6 @@ PasswordWidget::PasswordWidget(QWidget *parent)
 	m_ui->passwordEdit->addAction(m_passwordGeneratorAction, QLineEdit::TrailingPosition);
 	m_passwordGeneratorAction->setVisible(false);
 
-	m_capslockAction = new QAction(icons()->icon("dialog-warning", true, StateColorPalette().color(StateColorPalette::Error)),
-		tr("Warning: Caps Lock enabled!"),
-		this);
-
-	m_ui->passwordEdit->addAction(m_capslockAction, QLineEdit::LeadingPosition);
-	m_capslockAction->setVisible(false);
-
 	// Reset the password strength bar, hidden by default
 	updatePasswordStrength(QString());
 	m_ui->qualityProgressBar->setVisible(false);
@@ -225,48 +218,6 @@ void PasswordWidget::updateRepeatStatus()
 		m_correctAction->setVisible(false);
 		m_errorAction->setVisible(false);
 		setStyleSheet(QString());
-	}
-}
-
-bool PasswordWidget::eventFilter(QObject *watched, QEvent *event)
-{
-	if (watched == m_ui->passwordEdit)
-	{
-		auto type = event->type();
-		if (isVisible() && (type == QEvent::KeyPress || type == QEvent::KeyRelease || type == QEvent::FocusIn))
-		{
-			checkCapslockState();
-		}
-	}
-
-	// Continue with normal operations
-	return false;
-}
-
-void PasswordWidget::checkCapslockState()
-{
-	if (m_parentPasswordWidget)
-	{
-		return;
-	}
-
-	bool newCapslockState = osUtils->isCapslockEnabled();
-	if (newCapslockState != m_capslockState)
-	{
-		m_capslockState = newCapslockState;
-		m_capslockAction->setVisible(newCapslockState);
-
-		// Force repaint to avoid rendering glitches of QLineEdit contents
-		repaint();
-
-		if (newCapslockState)
-		{
-			QTimer::singleShot(150, [this] { QToolTip::showText(mapToGlobal(rect().bottomLeft()), m_capslockAction->text()); });
-		}
-		else if (QToolTip::isVisible())
-		{
-			QToolTip::hideText();
-		}
 	}
 }
 

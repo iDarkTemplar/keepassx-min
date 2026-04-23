@@ -46,8 +46,6 @@ public:
 	bool isPasswordVisible() const;
 	QString text();
 
-	bool eventFilter(QObject *watched, QEvent *event) override;
-
 signals:
 	void textChanged(QString text);
 
@@ -67,7 +65,6 @@ private slots:
 	void updatePasswordStrength(const QString &password);
 
 private:
-	void checkCapslockState();
 	void setParentPasswordEdit(PasswordWidget *parent);
 
 	const QScopedPointer<Ui::PasswordWidget> m_ui;
@@ -76,11 +73,8 @@ private:
 	QPointer<QAction> m_correctAction;
 	QPointer<QAction> m_toggleVisibleAction;
 	QPointer<QAction> m_passwordGeneratorAction;
-	QPointer<QAction> m_capslockAction;
 	QPointer<PasswordWidget> m_repeatPasswordWidget;
 	QPointer<PasswordWidget> m_parentPasswordWidget;
-
-	bool m_capslockState = false;
 };
 
 #endif // KEEPASSX_PASSWORDWIDGET_H

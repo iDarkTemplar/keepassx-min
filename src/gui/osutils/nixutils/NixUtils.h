@@ -18,13 +18,13 @@
 #define KEEPASSXC_NIXUTILS_H
 
 #include "gui/osutils/OSUtilsBase.h"
-#include <QAbstractNativeEventFilter>
+
 #include <QSharedPointer>
 #include <QtDBus/QDBusVariant>
 
 #include <memory>
 
-class NixUtils: public OSUtilsBase, QAbstractNativeEventFilter
+class NixUtils: public OSUtilsBase
 {
 	Q_OBJECT
 
@@ -32,16 +32,6 @@ public:
 	static NixUtils *instance();
 
 	bool isDarkMode() const override;
-	bool isCapslockEnabled() override;
-
-	void registerNativeEventFilter() override;
-
-	bool registerGlobalShortcut(
-		const QString &name,
-		Qt::Key key,
-		Qt::KeyboardModifiers modifiers,
-		QString *error = nullptr) override;
-	bool unregisterGlobalShortcut(const QString &name) override;
 
 private slots:
 	void handleColorSchemeRead(QDBusVariant value);
@@ -50,19 +40,8 @@ private slots:
 private:
 	explicit NixUtils(QObject *parent = nullptr);
 
-	bool nativeEventFilter(const QByteArray &eventType, void *message, long *) override;
-
-	bool triggerGlobalShortcut(uint keycode, uint modifiers);
 
 	static std::unique_ptr<NixUtils> m_instance;
-
-	struct globalShortcut
-	{
-		uint nativeKeyCode;
-		uint nativeModifiers;
-	};
-
-	QHash<QString, QSharedPointer<globalShortcut>> m_globalShortcuts;
 
 	// defined as per "org.freedesktop.appearance color-scheme" spec in
 	// https://github.com/flatpak/xdg-desktop-portal/blob/d7a304a00697d7d608821253cd013f3b97ac0fb6/data/org.freedesktop.impl.portal.Settings.xml#L33-L45

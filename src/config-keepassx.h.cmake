@@ -7,7 +7,6 @@
 #define GIT_HASH "@GIT_HASH@"
 
 #cmakedefine WITH_XC_FDOSECRETS
-#cmakedefine WITH_XC_X11
 
 #cmakedefine HAVE_PR_SET_DUMPABLE 1
 #cmakedefine HAVE_RLIMIT_CORE 1

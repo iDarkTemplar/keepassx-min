@@ -378,16 +378,6 @@ list(APPEND keepassx_QT_HEADERS
 	gui/osutils/nixutils/ScreenLockListenerDBus.h
 	)
 
-if(WITH_XC_X11)
-	list(APPEND keepassx_SOURCES
-		gui/osutils/nixutils/X11Funcs.cpp
-		)
-
-	list(APPEND keepassx_HEADERS
-		gui/osutils/nixutils/X11Funcs.h
-		)
-endif()
-
 list(APPEND keepassx_HEADERS ${keepassx_QT_HEADERS})
 
 set(keepassx_UI
@@ -574,9 +564,6 @@ target_link_libraries(keepassx_core
 	)
 
 target_link_libraries(keepassx_core Qt5::DBus)
-if (WITH_XC_X11)
-	target_link_libraries(keepassx_core Qt5::X11Extras X11)
-endif()
 include_directories(${Qt5Gui_PRIVATE_INCLUDE_DIRS})
 
 # Main Executable Definition

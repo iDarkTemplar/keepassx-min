@@ -35,24 +35,7 @@ public:
 	 */
 	virtual bool isDarkMode() const = 0;
 
-	/**
-	 * @return OS caps lock enabled.
-	 */
-	virtual bool isCapslockEnabled() = 0;
-
-	virtual void registerNativeEventFilter() = 0;
-
-	virtual bool registerGlobalShortcut(
-		const QString &name,
-		Qt::Key key,
-		Qt::KeyboardModifiers modifiers,
-		QString *error = nullptr) = 0;
-
-	virtual bool unregisterGlobalShortcut(const QString &name) = 0;
-
 signals:
-	void globalShortcutTriggered(const QString &name, const QString &search = {});
-
 	/**
 	 * Indicates platform UI theme change (light mode to dark mode).
 	 */
