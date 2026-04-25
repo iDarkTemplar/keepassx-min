@@ -53,16 +53,6 @@
      </widget>
     </item>
     <item>
-     <widget class="Line" name="toolbarSeparator">
-      <property name="frameShadow">
-       <enum>QFrame::Shadow::Plain</enum>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -358,10 +348,6 @@
      <property name="title">
       <string>Theme</string>
      </property>
-     <addaction name="actionThemeAuto"/>
-     <addaction name="actionThemeLight"/>
-     <addaction name="actionThemeDark"/>
-     <addaction name="actionThemeClassic"/>
     </widget>
     <addaction name="menuTheme"/>
     <addaction name="actionCompactMode"/>
@@ -780,41 +766,6 @@
    </property>
    <property name="text">
     <string>Compact Mode</string>
-   </property>
-  </action>
-  <action name="actionThemeAuto">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Automatic</string>
-   </property>
-  </action>
-  <action name="actionThemeLight">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Light</string>
-   </property>
-  </action>
-  <action name="actionThemeDark">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Dark</string>
-   </property>
-  </action>
-  <action name="actionThemeClassic">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Classic (Platform-native)</string>
    </property>
   </action>
   <action name="actionShowMenubar">

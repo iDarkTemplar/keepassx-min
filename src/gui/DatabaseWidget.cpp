@@ -105,7 +105,7 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	tagsWidget->setLayout(tagsLayout);
 	tagsLayout->addWidget(tagsTitle);
 	tagsLayout->addWidget(m_tagView);
-	tagsLayout->setMargin(0);
+	tagsLayout->setContentsMargins(QMargins());
 
 	m_groupSplitter->setOrientation(Qt::Vertical);
 	m_groupSplitter->setChildrenCollapsible(true);
@@ -119,7 +119,7 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 
 	auto rightHandSideWidget = new QWidget(m_mainSplitter);
 	auto rightHandSideVBox = new QVBoxLayout();
-	rightHandSideVBox->setMargin(0);
+	rightHandSideVBox->setContentsMargins(QMargins());
 	rightHandSideVBox->addWidget(m_searchingLabel);
 	rightHandSideVBox->addWidget(m_previewSplitter);
 	rightHandSideWidget->setLayout(rightHandSideVBox);

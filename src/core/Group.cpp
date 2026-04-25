@@ -636,7 +636,7 @@ QList<Group*> Group::children()
 	return m_children;
 }
 
-const QList<Group*> &Group::children() const
+const QList<Group*>& Group::children() const
 {
 	return m_children;
 }
@@ -943,7 +943,7 @@ QSet<QUuid> Group::customIconsRecursive() const
 	return result;
 }
 
-QList<QString> Group::usernamesRecursive(int topN) const
+QList<QString> Group::usernamesRecursive(qsizetype topN) const
 {
 	// Collect all usernames and sort for easy counting
 	QHash<QString, int> countedUsernames;

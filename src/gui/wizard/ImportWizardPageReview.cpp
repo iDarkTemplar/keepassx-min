@@ -20,7 +20,6 @@
 #include "core/Database.h"
 #include "core/Group.h"
 #include "format/BitwardenReader.h"
-#include "format/KeePass1Reader.h"
 #include "format/OPUXReader.h"
 #include "format/OpVaultReader.h"
 #include "format/ProtonPassReader.h"
@@ -72,9 +71,6 @@ void ImportWizardPageReview::initializePage()
 		break;
 	case ImportWizard::IMPORT_OPUX:
 		m_db = importOPUX(filename);
-		break;
-	case ImportWizard::IMPORT_KEEPASS1:
-		m_db = importKeePass1(filename, field("ImportPassword").toString(), field("ImportKeyFile").toString());
 		break;
 	case ImportWizard::IMPORT_BITWARDEN:
 		m_db = importBitwarden(filename, field("ImportPassword").toString());
@@ -212,22 +208,6 @@ QSharedPointer<Database> ImportWizardPageReview::importOPVault(const QString &fi
 	{
 		m_ui->messageWidget->showMessage(reader.errorString(), KMessageWidget::Error, -1);
 	}
-	return db;
-}
-
-QSharedPointer<Database>
-	ImportWizardPageReview::importKeePass1(const QString &filename, const QString &password, const QString &keyfile)
-{
-	KeePass1Reader reader;
-
-	// TODO: Handle case of empty password?
-
-	auto db = reader.readDatabase(filename, password, keyfile);
-	if (reader.hasError())
-	{
-		m_ui->messageWidget->showMessage(reader.errorString(), KMessageWidget::Error, -1);
-	}
-
 	return db;
 }
 

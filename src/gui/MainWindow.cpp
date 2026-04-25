@@ -42,7 +42,6 @@
 #include "gui/MessageBox.h"
 #include "gui/SearchWidget.h"
 #include "gui/entry/EntryView.h"
-#include "gui/osutils/OSUtils.h"
 
 #ifdef WITH_XC_FDOSECRETS
 #include "fdosecrets/FdoSecretsPlugin.h"
@@ -163,40 +162,37 @@ MainWindow::MainWindow()
 	m_actionMultiplexer.connect(m_setTagsMenuActions, SIGNAL(triggered(QAction *)), SLOT(setTag(QAction *)));
 	connect(m_ui->menuTags, &QMenu::aboutToShow, this, &MainWindow::updateSetTagsMenu);
 
-	m_ui->toolbarSeparator->setVisible(false);
-	m_showToolbarSeparator = config()->get(Config::GUI_ApplicationTheme).toString() != "classic";
-
 	m_inactivityTimer = new InactivityTimer(this);
 	connect(m_inactivityTimer, SIGNAL(inactivityDetected()), this, SLOT(lockAllDatabases()));
 	applySettingsChanges();
 
-	m_ui->actionDatabaseNew->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_N);
-	setShortcut(m_ui->actionDatabaseOpen, QKeySequence::Open, Qt::CTRL + Qt::Key_O);
-	setShortcut(m_ui->actionDatabaseSave, QKeySequence::Save, Qt::CTRL + Qt::Key_S);
-	setShortcut(m_ui->actionDatabaseSaveAs, QKeySequence::SaveAs, Qt::CTRL + Qt::SHIFT + Qt::Key_S);
-	setShortcut(m_ui->actionDatabaseClose, QKeySequence::Close, Qt::CTRL + Qt::Key_W);
-	m_ui->actionDatabaseSettings->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_Comma);
-	m_ui->actionReports->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_R);
-	setShortcut(m_ui->actionSettings, QKeySequence::Preferences, Qt::CTRL + Qt::Key_Comma);
-	m_ui->actionLockDatabase->setShortcut(Qt::CTRL + Qt::Key_L);
-	m_ui->actionLockAllDatabases->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_L);
-	setShortcut(m_ui->actionQuit, QKeySequence::Quit, Qt::CTRL + Qt::Key_Q);
-	setShortcut(m_ui->actionEntryNew, QKeySequence::New, Qt::CTRL + Qt::Key_N);
-	m_ui->actionEntryEdit->setShortcut(Qt::CTRL + Qt::Key_E);
-	m_ui->actionEntryDelete->setShortcut(Qt::CTRL + Qt::Key_D);
+	m_ui->actionDatabaseNew->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_N);
+	setShortcut(m_ui->actionDatabaseOpen, QKeySequence::Open, Qt::CTRL | Qt::Key_O);
+	setShortcut(m_ui->actionDatabaseSave, QKeySequence::Save, Qt::CTRL | Qt::Key_S);
+	setShortcut(m_ui->actionDatabaseSaveAs, QKeySequence::SaveAs, Qt::CTRL | Qt::SHIFT | Qt::Key_S);
+	setShortcut(m_ui->actionDatabaseClose, QKeySequence::Close, Qt::CTRL | Qt::Key_W);
+	m_ui->actionDatabaseSettings->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_Comma);
+	m_ui->actionReports->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_R);
+	setShortcut(m_ui->actionSettings, QKeySequence::Preferences, Qt::CTRL | Qt::Key_Comma);
+	m_ui->actionLockDatabase->setShortcut(Qt::CTRL | Qt::Key_L);
+	m_ui->actionLockAllDatabases->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_L);
+	setShortcut(m_ui->actionQuit, QKeySequence::Quit, Qt::CTRL | Qt::Key_Q);
+	setShortcut(m_ui->actionEntryNew, QKeySequence::New, Qt::CTRL | Qt::Key_N);
+	m_ui->actionEntryEdit->setShortcut(Qt::CTRL | Qt::Key_E);
+	m_ui->actionEntryDelete->setShortcut(Qt::CTRL | Qt::Key_D);
 	m_ui->actionEntryDelete->setShortcut(Qt::Key_Delete);
-	m_ui->actionEntryClone->setShortcut(Qt::CTRL + Qt::Key_K);
-	m_ui->actionEntryTotp->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_T);
-	m_ui->actionEntryCopyTotp->setShortcut(Qt::CTRL + Qt::Key_T);
-	m_ui->actionEntryCopyPasswordTotp->setShortcut(Qt::CTRL + Qt::Key_Y);
-	m_ui->actionEntryMoveUp->setShortcut(Qt::CTRL + Qt::ALT + Qt::Key_Up);
-	m_ui->actionEntryMoveDown->setShortcut(Qt::CTRL + Qt::ALT + Qt::Key_Down);
-	m_ui->actionEntryCopyUsername->setShortcut(Qt::CTRL + Qt::Key_B);
-	m_ui->actionEntryCopyPassword->setShortcut(Qt::CTRL + Qt::Key_C);
-	m_ui->actionEntryCopyTitle->setShortcut(Qt::CTRL + Qt::Key_I);
-	m_ui->actionEntryOpenUrl->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_U);
-	m_ui->actionEntryCopyURL->setShortcut(Qt::CTRL + Qt::Key_U);
-	m_ui->actionEntryRestore->setShortcut(Qt::CTRL + Qt::Key_R);
+	m_ui->actionEntryClone->setShortcut(Qt::CTRL | Qt::Key_K);
+	m_ui->actionEntryTotp->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_T);
+	m_ui->actionEntryCopyTotp->setShortcut(Qt::CTRL | Qt::Key_T);
+	m_ui->actionEntryCopyPasswordTotp->setShortcut(Qt::CTRL | Qt::Key_Y);
+	m_ui->actionEntryMoveUp->setShortcut(Qt::CTRL | Qt::ALT | Qt::Key_Up);
+	m_ui->actionEntryMoveDown->setShortcut(Qt::CTRL | Qt::ALT | Qt::Key_Down);
+	m_ui->actionEntryCopyUsername->setShortcut(Qt::CTRL | Qt::Key_B);
+	m_ui->actionEntryCopyPassword->setShortcut(Qt::CTRL | Qt::Key_C);
+	m_ui->actionEntryCopyTitle->setShortcut(Qt::CTRL | Qt::Key_I);
+	m_ui->actionEntryOpenUrl->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_U);
+	m_ui->actionEntryCopyURL->setShortcut(Qt::CTRL | Qt::Key_U);
+	m_ui->actionEntryRestore->setShortcut(Qt::CTRL | Qt::Key_R);
 
 	// Qt 5.10 introduced a new "feature" to hide shortcuts in context menus
 	// Unfortunately, Qt::AA_DontShowShortcutsInContextMenus is broken, have to manually enable them
@@ -227,36 +223,31 @@ MainWindow::MainWindow()
 	connect(m_ui->menuGroups, SIGNAL(aboutToHide()), SLOT(releaseContextFocusLock()));
 
 	// Control window state
-	new QShortcut(Qt::CTRL + Qt::Key_M, this, SLOT(minimizeOrHide()));
-	new QShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_M, this, SLOT(hideWindow()));
+	new QShortcut(Qt::CTRL | Qt::Key_M, this, SLOT(minimizeOrHide()));
+	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_M, this, SLOT(hideWindow()));
 	// Control database tabs
-	// Ctrl+Tab is broken on Mac, so use Alt (i.e. the Option key) - https://bugreports.qt.io/browse/QTBUG-8596
-	auto dbTabModifier2 = Qt::CTRL;
-	new QShortcut(dbTabModifier2 + Qt::Key_Tab, this, SLOT(selectNextDatabaseTab()));
-	new QShortcut(Qt::CTRL + Qt::Key_PageDown, this, SLOT(selectNextDatabaseTab()));
-	new QShortcut(dbTabModifier2 + Qt::SHIFT + Qt::Key_Tab, this, SLOT(selectPreviousDatabaseTab()));
-	new QShortcut(Qt::CTRL + Qt::Key_PageUp, this, SLOT(selectPreviousDatabaseTab()));
+	new QShortcut(Qt::CTRL | Qt::Key_Tab, this, SLOT(selectNextDatabaseTab()));
+	new QShortcut(Qt::CTRL | Qt::Key_PageDown, this, SLOT(selectNextDatabaseTab()));
+	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_Tab, this, SLOT(selectPreviousDatabaseTab()));
+	new QShortcut(Qt::CTRL | Qt::Key_PageUp, this, SLOT(selectPreviousDatabaseTab()));
 
-	// Tab selection by number, Windows uses Ctrl, macOS uses Command,
-	// and Linux uses Alt to emulate a browser-like experience
-	auto dbTabModifier = Qt::ALT;
-	auto shortcut = new QShortcut(dbTabModifier + Qt::Key_1, this);
+	auto shortcut = new QShortcut(Qt::ALT | Qt::Key_1, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(0); });
-	shortcut = new QShortcut(dbTabModifier + Qt::Key_2, this);
+	shortcut = new QShortcut(Qt::ALT | Qt::Key_2, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(1); });
-	shortcut = new QShortcut(dbTabModifier + Qt::Key_3, this);
+	shortcut = new QShortcut(Qt::ALT | Qt::Key_3, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(2); });
-	shortcut = new QShortcut(dbTabModifier + Qt::Key_4, this);
+	shortcut = new QShortcut(Qt::ALT | Qt::Key_4, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(3); });
-	shortcut = new QShortcut(dbTabModifier + Qt::Key_5, this);
+	shortcut = new QShortcut(Qt::ALT | Qt::Key_5, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(4); });
-	shortcut = new QShortcut(dbTabModifier + Qt::Key_6, this);
+	shortcut = new QShortcut(Qt::ALT | Qt::Key_6, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(5); });
-	shortcut = new QShortcut(dbTabModifier + Qt::Key_7, this);
+	shortcut = new QShortcut(Qt::ALT | Qt::Key_7, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(6); });
-	shortcut = new QShortcut(dbTabModifier + Qt::Key_8, this);
+	shortcut = new QShortcut(Qt::ALT | Qt::Key_8, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(7); });
-	shortcut = new QShortcut(dbTabModifier + Qt::Key_9, this);
+	shortcut = new QShortcut(Qt::ALT | Qt::Key_9, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(m_ui->tabWidget->count() - 1); });
 
 	m_ui->actionDatabaseNew->setIcon(icons()->icon("document-new"));
@@ -338,10 +329,8 @@ MainWindow::MainWindow()
 	connect(m_ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(updateMenuActionState()));
 	connect(m_ui->tabWidget, SIGNAL(databaseLocked(DatabaseWidget *)), SLOT(databaseStatusChanged(DatabaseWidget *)));
 	connect(m_ui->tabWidget, SIGNAL(databaseUnlocked(DatabaseWidget *)), SLOT(databaseStatusChanged(DatabaseWidget *)));
-	connect(m_ui->tabWidget, SIGNAL(tabVisibilityChanged(bool)), SLOT(updateToolbarSeparatorVisibility()));
 	connect(m_ui->stackedWidget, SIGNAL(currentChanged(int)), SLOT(updateMenuActionState()));
 	connect(m_ui->stackedWidget, SIGNAL(currentChanged(int)), SLOT(updateWindowTitle()));
-	connect(m_ui->stackedWidget, SIGNAL(currentChanged(int)), SLOT(updateToolbarSeparatorVisibility()));
 	connect(m_ui->settingsWidget, SIGNAL(accepted()), SLOT(applySettingsChanges()));
 	connect(m_ui->settingsWidget, SIGNAL(settingsReset()), SLOT(applySettingsChanges()));
 	connect(m_ui->settingsWidget, SIGNAL(accepted()), SLOT(switchToDatabases()));
@@ -411,8 +400,6 @@ MainWindow::MainWindow()
 	connect(m_ui->actionDonate, SIGNAL(triggered()), SLOT(openDonateUrl()));
 	connect(m_ui->actionBugReport, SIGNAL(triggered()), SLOT(openBugReportUrl()));
 	connect(m_ui->actionOnlineHelp, SIGNAL(triggered()), SLOT(openOnlineHelp()));
-
-	connect(osUtils, &OSUtilsBase::statusbarThemeChanged, this, &MainWindow::updateTrayIcon);
 
 	// Install event filter for empty-area drag and menubar toggle
 	auto *eventFilter = new MainWindowEventFilter(this);
@@ -789,27 +776,6 @@ void MainWindow::updateMenuActionState()
 	m_ui->actionDatabaseMerge->setEnabled(inDatabase);
 
 	m_searchWidgetAction->setEnabled(inDatabase);
-}
-
-void MainWindow::updateToolbarSeparatorVisibility()
-{
-	if (!m_showToolbarSeparator)
-	{
-		m_ui->toolbarSeparator->setVisible(false);
-		return;
-	}
-
-	switch (m_ui->stackedWidget->currentIndex())
-	{
-	case DatabaseTabScreen:
-		m_ui->toolbarSeparator->setVisible(!m_ui->tabWidget->tabBar()->isVisible() && m_ui->tabWidget->tabBar()->count() == 1);
-		break;
-	case SettingsScreen:
-		m_ui->toolbarSeparator->setVisible(true);
-		break;
-	default:
-		m_ui->toolbarSeparator->setVisible(false);
-	}
 }
 
 void MainWindow::updateWindowTitle()
@@ -1690,40 +1656,6 @@ void MainWindow::restartApp(const QString &message)
 
 void MainWindow::initViewMenu()
 {
-	m_ui->actionThemeAuto->setData("auto");
-	m_ui->actionThemeLight->setData("light");
-	m_ui->actionThemeDark->setData("dark");
-	m_ui->actionThemeClassic->setData("classic");
-
-	auto themeActions = new QActionGroup(this);
-	themeActions->addAction(m_ui->actionThemeAuto);
-	themeActions->addAction(m_ui->actionThemeLight);
-	themeActions->addAction(m_ui->actionThemeDark);
-	themeActions->addAction(m_ui->actionThemeClassic);
-
-	auto theme = config()->get(Config::GUI_ApplicationTheme).toString();
-	for (auto action: themeActions->actions())
-	{
-		if (action->data() == theme)
-		{
-			action->setChecked(true);
-			break;
-		}
-	}
-
-	connect(themeActions, &QActionGroup::triggered, this, [this, theme](QAction *action) {
-		config()->set(Config::GUI_ApplicationTheme, action->data());
-		if ((action->data() == "classic" || theme == "classic") && action->data() != theme)
-		{
-			restartApp(tr("You must restart the application to apply this setting. Would you like to restart now?"));
-		}
-		else
-		{
-			kpxcApp->applyTheme();
-			kpxcApp->applyFontSize();
-		}
-	});
-
 	bool compact = config()->get(Config::GUI_CompactMode).toBool();
 	m_ui->actionCompactMode->setChecked(compact);
 	connect(m_ui->actionCompactMode, &QAction::toggled, this, [this, compact](bool checked) {

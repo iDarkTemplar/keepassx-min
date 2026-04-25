@@ -20,7 +20,7 @@
 #include "core/Tools.h"
 #include "core/UrlTools.h"
 #include "gui/Icons.h"
-#include "gui/styles/StateColorPalette.h"
+#include "gui/ColorPalette.h"
 
 URLEdit::URLEdit(QWidget *parent)
 	: QLineEdit(parent)
@@ -42,13 +42,9 @@ void URLEdit::enableVerifyMode()
 
 void URLEdit::updateStylesheet()
 {
-	const QString stylesheetTemplate("QLineEdit { background: %1; }");
-
 	if (!urlTools()->isUrlValid(text()))
 	{
-		StateColorPalette statePalette;
-		QColor color = statePalette.color(StateColorPalette::ColorRole::Error);
-		setStyleSheet(stylesheetTemplate.arg(color.name()));
+		setStyleSheet(QStringLiteral("QLineEdit { background: %1; }").arg(ColorRole::Error));
 		m_errorAction->setVisible(true);
 	}
 	else

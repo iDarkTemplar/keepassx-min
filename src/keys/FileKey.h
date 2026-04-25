@@ -55,7 +55,7 @@ public:
 	void deserialize(const QByteArray &data) override;
 
 private:
-	static constexpr int SHA256_SIZE = 32;
+	static constexpr qsizetype SHA256_SIZE = 32;
 
 	bool loadXml(QIODevice *device, QString *errorMsg = nullptr);
 	bool loadBinary(QIODevice *device);

@@ -39,11 +39,11 @@ QDateTime resolveDate(const QString &kind, const QJsonValue &value)
 	}
 	else if (value.isString())
 	{
-		date = QDateTime::fromTime_t(value.toString().toUInt(), Qt::UTC);
+		date = QDateTime::fromSecsSinceEpoch(value.toString().toUInt(), QTimeZone::utc());
 	}
 	else
 	{
-		date = QDateTime::fromTime_t(value.toInt(), Qt::UTC);
+		date = QDateTime::fromSecsSinceEpoch(value.toInt(), QTimeZone::utc());
 	}
 
 	return date;

@@ -37,7 +37,6 @@ public:
 	bool isFileLoaded();
 	// reparse the same buffer (device is not opened again)
 	bool reparse();
-	void setCodec(const QString &s);
 	void setComment(const QChar &c);
 	void setFieldSeparator(const QChar &c);
 	void setTextQualifier(const QChar &c);

@@ -175,14 +175,14 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 	if (bandEntry.contains("created"))
 	{
 		auto createdTime = static_cast<uint>(bandEntry["created"].toInt());
-		ti.setCreationTime(QDateTime::fromTime_t(createdTime, Qt::UTC));
+		ti.setCreationTime(QDateTime::fromSecsSinceEpoch(createdTime, QTimeZone::utc()));
 		timeInfoOk = true;
 	}
 
 	if (bandEntry.contains("updated"))
 	{
 		auto updateTime = static_cast<uint>(bandEntry["updated"].toInt());
-		ti.setLastModificationTime(QDateTime::fromTime_t(updateTime, Qt::UTC));
+		ti.setLastModificationTime(QDateTime::fromSecsSinceEpoch(updateTime, QTimeZone::utc()));
 		timeInfoOk = true;
 	}
 
@@ -229,6 +229,7 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 		auto field = fieldValue.toObject();
 		auto designation = field["designation"].toString();
 		auto value = field["value"].toString();
+
 		if (designation == "password")
 		{
 			entry->setPassword(value);

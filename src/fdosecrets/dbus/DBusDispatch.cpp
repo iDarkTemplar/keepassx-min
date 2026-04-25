@@ -46,24 +46,24 @@ bool prepareInputParams(const QVector<int> &inputTypes,
 		if (arg.userType() == id)
 		{
 			// shortcut for no conversion
-			params.append(const_cast<void *>(arg.constData()));
+			params.append(const_cast<void*>(arg.constData()));
 			continue;
 		}
 
 		// we need at least one conversion, allocate a slot in auxParams
-		auxParams.append(QVariant(id, nullptr));
+		auxParams.append(QVariant(id));
 		auto &out = auxParams.last();
 		// first handle QDBusArgument to wire types
 		if (arg.userType() == qMetaTypeId<QDBusArgument>())
 		{
 			auto wireId = typeToWireType(id).dbusTypeId;
-			out = QVariant(wireId, nullptr);
+			out = QVariant(wireId);
 
 			const auto &in = arg.value<QDBusArgument>();
 			if (!QDBusMetaType::demarshall(in, wireId, out.data()))
 			{
 				qDebug() << "Internal error: failed QDBusArgument conversion from" << arg << "to type"
-						 << QMetaType::typeName(wireId) << wireId;
+					<< QMetaType::typeName(wireId) << wireId;
 				return false;
 			}
 		}
@@ -77,12 +77,14 @@ bool prepareInputParams(const QVector<int> &inputTypes,
 		if (!out.convert(id))
 		{
 			qDebug() << "Internal error: failed conversion from" << arg << "to type" << QMetaType::typeName(id)
-					 << id;
+				<< id;
 			return false;
 		}
+
 		// good to go
-		params.append(const_cast<void *>(out.constData()));
+		params.append(const_cast<void*>(out.constData()));
 	}
+
 	return true;
 }
 

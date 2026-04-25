@@ -22,9 +22,6 @@
 #include "core/Tools.h"
 #include "gui/MainWindow.h"
 #include "gui/MessageBox.h"
-#include "gui/osutils/OSUtils.h"
-#include "gui/styles/dark/DarkStyle.h"
-#include "gui/styles/light/LightStyle.h"
 
 #include <QFileInfo>
 #include <QFileOpenEvent>
@@ -116,13 +113,6 @@ Application::Application(int &argc, char **argv)
 	default:
 		qWarning() << QObject::tr("The lock file could not be created. Single-instance mode disabled.");
 	}
-
-	connect(osUtils, &OSUtilsBase::interfaceThemeChanged, this, [this]() {
-		if (config()->get(Config::GUI_ApplicationTheme).toString() != "classic")
-		{
-			applyTheme();
-		}
-	});
 }
 
 Application::~Application()
@@ -147,42 +137,6 @@ void Application::bootstrap(const QString &uiLanguage)
 	applyFontSize();
 
 	MessageBox::initializeButtonDefs();
-}
-
-void Application::applyTheme()
-{
-	auto appTheme = config()->get(Config::GUI_ApplicationTheme).toString();
-	if (appTheme == "auto")
-	{
-		appTheme = osUtils->isDarkMode() ? "dark" : "light";
-	}
-
-	QPixmapCache::clear();
-	if (appTheme == "light")
-	{
-		auto *s = new LightStyle;
-		setPalette(s->standardPalette());
-		setStyle(s);
-		m_darkTheme = false;
-	}
-	else if (appTheme == "dark")
-	{
-		auto *s = new DarkStyle;
-		setPalette(s->standardPalette());
-		setStyle(s);
-		m_darkTheme = true;
-	}
-	else
-	{
-		m_darkTheme = osUtils->isDarkMode();
-
-		QFile stylesheetFile(":/styles/base/classicstyle.qss");
-		if (stylesheetFile.open(QIODevice::ReadOnly | QIODevice::Text))
-		{
-			setStyleSheet(stylesheetFile.readAll());
-			stylesheetFile.close();
-		}
-	}
 }
 
 void Application::applyFontSize()

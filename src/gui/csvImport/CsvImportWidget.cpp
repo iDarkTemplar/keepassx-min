@@ -103,7 +103,6 @@ CsvImportWidget::CsvImportWidget(QWidget *parent)
 	m_ui->tableViewFields->setModel(m_parserModel);
 
 	connect(m_ui->spinBoxSkip, SIGNAL(valueChanged(int)), SLOT(skippedChanged(int)));
-	connect(m_ui->comboBoxCodec, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
 	connect(m_ui->comboBoxTextQualifier, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
 	connect(m_ui->comboBoxComment, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
 	connect(m_ui->comboBoxFieldSeparator, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
@@ -134,7 +133,6 @@ void CsvImportWidget::configParser()
 	parser->setBackslashSyntax(m_ui->checkBoxBackslash->isChecked());
 	parser->setComment(m_ui->comboBoxComment->currentText().at(0));
 	parser->setTextQualifier(m_ui->comboBoxTextQualifier->currentText().at(0));
-	parser->setCodec(m_ui->comboBoxCodec->currentText());
 	parser->setFieldSeparator(m_fieldSeparatorList.at(m_ui->comboBoxFieldSeparator->currentIndex()).at(0));
 }
 

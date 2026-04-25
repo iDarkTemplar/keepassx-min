@@ -21,9 +21,9 @@
 #include "core/Group.h"
 #include "core/Metadata.h"
 #include "core/PasswordHealth.h"
+#include "gui/ColorPalette.h"
 #include "gui/GuiTools.h"
 #include "gui/Icons.h"
-#include "gui/styles/StateColorPalette.h"
 
 #include <QMenu>
 #include <QShortcut>
@@ -181,32 +181,31 @@ void ReportsWidgetHealthcheck::addHealthRow(
 	QString tip;
 	QString iconName = "lock-question";
 	QColor qualityColor;
-	StateColorPalette statePalette;
 	const auto quality = health->quality();
 	switch (quality)
 	{
 	case PasswordHealth::Quality::Bad:
 		tip = tr("Bad — password must be changed");
 		iconName = "lock-open-alert";
-		qualityColor = statePalette.color(StateColorPalette::HealthCritical);
+		qualityColor = QColor::fromString(ColorRole::HealthCritical);
 		break;
 
 	case PasswordHealth::Quality::Poor:
 		tip = tr("Poor — password should be changed");
 		iconName = "lock-open-alert";
-		qualityColor = statePalette.color(StateColorPalette::HealthBad);
+		qualityColor = QColor::fromString(ColorRole::HealthBad);
 		break;
 
 	case PasswordHealth::Quality::Weak:
 		tip = tr("Weak — consider changing the password");
 		iconName = "lock-open";
-		qualityColor = statePalette.color(StateColorPalette::HealthWeak);
+		qualityColor = QColor::fromString(ColorRole::HealthWeak);
 		break;
 
 	case PasswordHealth::Quality::Good:
 	case PasswordHealth::Quality::Excellent:
 		iconName = "lock";
-		qualityColor = statePalette.color(StateColorPalette::HealthOk);
+		qualityColor = QColor::fromString(ColorRole::HealthOk);
 		break;
 	}
 

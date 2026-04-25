@@ -89,9 +89,9 @@ private:
 
 	bool m_backgroundColorVisible = true;
 	Group *m_group;
-	QList<Entry *> m_entries;
-	QList<Entry *> m_orgEntries;
-	QSet<const Group *> m_allGroups;
+	QList<Entry*> m_entries;
+	QList<Entry*> m_orgEntries;
+	QSet<const Group*> m_allGroups;
 
 	const QString HiddenContentDisplay;
 };

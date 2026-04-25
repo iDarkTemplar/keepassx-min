@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>820</width>
-    <height>523</height>
+    <height>649</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,6 @@
       <widget class="QGroupBox" name="ColumnAssociation">
        <property name="font">
         <font>
-         <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
@@ -49,7 +48,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -62,7 +61,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -70,7 +69,6 @@
          <widget class="QLabel" name="groupLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -78,7 +76,7 @@
            <string>Group</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="indent">
            <number>2</number>
@@ -89,7 +87,6 @@
          <widget class="QLabel" name="notesLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -97,7 +94,7 @@
            <string>Notes</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="indent">
            <number>2</number>
@@ -108,7 +105,6 @@
          <widget class="QLabel" name="usernameLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -116,7 +112,7 @@
            <string>Username</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="indent">
            <number>2</number>
@@ -132,7 +128,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -145,7 +141,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -158,7 +154,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -166,7 +162,6 @@
          <widget class="QLabel" name="lastModifiedLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -174,7 +169,7 @@
            <string>Last Modified</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="indent">
            <number>2</number>
@@ -190,7 +185,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -203,7 +198,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -211,7 +206,6 @@
          <widget class="QLabel" name="passwordLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -219,7 +213,7 @@
            <string>Password</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="indent">
            <number>2</number>
@@ -229,10 +223,10 @@
         <item row="0" column="2">
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Orientation::Horizontal</enum>
           </property>
           <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
+           <enum>QSizePolicy::Policy::Fixed</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -246,7 +240,6 @@
          <widget class="QLabel" name="createdLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -254,7 +247,7 @@
            <string>Created</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="indent">
            <number>2</number>
@@ -270,7 +263,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -278,7 +271,6 @@
          <widget class="QLabel" name="urlLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -286,7 +278,7 @@
            <string>URL</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="indent">
            <number>2</number>
@@ -297,7 +289,6 @@
          <widget class="QLabel" name="totpLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -305,7 +296,7 @@
            <string>TOTP</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="indent">
            <number>2</number>
@@ -321,7 +312,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -329,7 +320,6 @@
          <widget class="QLabel" name="iconLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -337,7 +327,7 @@
            <string>Icon</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="indent">
            <number>2</number>
@@ -348,7 +338,6 @@
          <widget class="QLabel" name="titleLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -356,7 +345,7 @@
            <string>Title</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="indent">
            <number>2</number>
@@ -372,7 +361,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -380,7 +369,6 @@
          <widget class="QLabel" name="tagsLabel">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -401,7 +389,7 @@
            </size>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QComboBox::AdjustToContents</enum>
+           <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
           </property>
          </widget>
         </item>
@@ -412,7 +400,6 @@
       <widget class="QGroupBox" name="Encoding">
        <property name="font">
         <font>
-         <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
@@ -421,65 +408,9 @@
        </property>
        <layout class="QFormLayout" name="formLayout">
         <item row="0" column="0">
-         <widget class="QLabel" name="labelCodec">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Codec</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="comboBoxCodec">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="accessibleName">
-           <string>Codec</string>
-          </property>
-          <property name="editable">
-           <bool>false</bool>
-          </property>
-          <property name="currentText">
-           <string notr="true">UTF-8</string>
-          </property>
-          <item>
-           <property name="text">
-            <string notr="true">UTF-8</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">Windows-1252</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">UTF-16</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">UTF-16LE</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="1" column="0">
          <widget class="QLabel" name="labelTextQualifier">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -487,15 +418,14 @@
            <string>Text is qualified by</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="0" column="1">
          <widget class="QComboBox" name="comboBoxTextQualifier">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -535,11 +465,10 @@
           </item>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="1" column="0">
          <widget class="QLabel" name="labelFieldSeparator">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -547,15 +476,14 @@
            <string>Fields are separated by</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="1" column="1">
          <widget class="QComboBox" name="comboBoxFieldSeparator">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -600,11 +528,10 @@
           </item>
          </widget>
         </item>
-        <item row="3" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="labelComments">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -612,15 +539,14 @@
            <string>Comments start with</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="2" column="1">
          <widget class="QComboBox" name="comboBoxComment">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -655,11 +581,10 @@
           </item>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="3" column="0">
          <widget class="QLabel" name="labelSkipRows">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -667,15 +592,14 @@
            <string>Header lines skipped</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="3" column="1">
          <widget class="QSpinBox" name="spinBoxSkip">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -684,11 +608,10 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0" colspan="2">
+        <item row="4" column="0" colspan="2">
          <widget class="QCheckBox" name="checkBoxBackslash">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -697,11 +620,10 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="0" colspan="2">
+        <item row="5" column="0" colspan="2">
          <widget class="QCheckBox" name="checkBoxFieldNames">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -719,7 +641,7 @@
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -735,7 +657,6 @@
     <widget class="QGroupBox" name="previewLayout">
      <property name="font">
       <font>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -756,7 +677,6 @@
        <widget class="QLabel" name="labelSizeRowsCols">
         <property name="font">
          <font>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -781,7 +701,6 @@
         </property>
         <property name="font">
          <font>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -802,7 +721,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>comboBoxCodec</tabstop>
   <tabstop>comboBoxTextQualifier</tabstop>
   <tabstop>comboBoxFieldSeparator</tabstop>
   <tabstop>comboBoxComment</tabstop>

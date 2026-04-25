@@ -27,7 +27,6 @@
 #include "gui/GuiTools.h"
 #include "gui/Icons.h"
 #include "gui/MainWindow.h"
-#include "gui/osutils/OSUtils.h"
 
 #include "FileDialog.h"
 #include "MessageBox.h"

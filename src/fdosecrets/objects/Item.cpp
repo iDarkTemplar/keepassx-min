@@ -27,7 +27,6 @@
 
 #include <QMimeDatabase>
 #include <QSet>
-#include <QTextCodec>
 
 namespace FdoSecrets {
 
@@ -59,7 +58,7 @@ constexpr auto FDO_SECRETS_CONTENT_TYPE = "FDO_SECRETS_CONTENT_TYPE";
 
 } // namespace
 
-Item *Item::Create(Collection *parent, Entry *backend)
+Item* Item::Create(Collection *parent, Entry *backend)
 {
 	QScopedPointer<Item> res{new Item(parent, backend)};
 	if (!res->dbus()->registerObject(res.data()))
@@ -443,7 +442,7 @@ QString Item::path() const
 	Q_ASSERT(group);
 
 	// root group is represented by a single slash, thus adding an empty component.
-	pathComponents.prepend(QLatin1Literal(""));
+	pathComponents.prepend(QString());
 
 	return pathComponents.join('/');
 }
@@ -456,19 +455,6 @@ DBusResult setEntrySecret(Entry *entry, const QByteArray &data, const QString &c
 	QMimeDatabase db;
 	auto mimeType = db.mimeTypeForName(mimeName);
 
-	// find a suitable codec
-	QTextCodec *codec = nullptr;
-	static const QRegularExpression charsetPattern(QStringLiteral(R"re(charset=(?<encode>.+)$)re"));
-	auto match = charsetPattern.match(contentType);
-	if (match.hasMatch())
-	{
-		codec = QTextCodec::codecForName(match.captured(QStringLiteral("encode")).toLatin1());
-	}
-	else
-	{
-		codec = QTextCodec::codecForName(QByteArrayLiteral("utf-8"));
-	}
-
 	if (!mimeType.isValid() || !mimeType.inherits(QStringLiteral("text/plain")) || !codec)
 	{
 		if (EntryAttributes::matchReference(contentType).hasMatch())
@@ -476,13 +462,13 @@ DBusResult setEntrySecret(Entry *entry, const QByteArray &data, const QString &c
 			return QDBusError::InvalidArgs;
 		}
 		// we can't handle this content type, save the data as attachment, and clear the password field
-		entry->setPassword("");
+		entry->setPassword(QString());
 		entry->attachments()->set(FDO_SECRETS_DATA, data);
 		entry->attributes()->set(FDO_SECRETS_CONTENT_TYPE, contentType);
 	}
 	else
 	{
-		auto password = codec->toUnicode(data);
+		auto password = QString::fromLocal8Bit(data);
 		if (EntryAttributes::matchReference(password).hasMatch())
 		{
 			return QDBusError::InvalidArgs;

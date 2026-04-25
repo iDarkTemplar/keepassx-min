@@ -17,13 +17,16 @@
 #ifndef KEEPASSX_SIGNALMULTIPLEXER_H
 #define KEEPASSX_SIGNALMULTIPLEXER_H
 
+#include <QObject>
 #include <QPointer>
+#include <QList>
 
 class SignalMultiplexer
 {
 public:
 	SignalMultiplexer();
 	~SignalMultiplexer();
+
 	QObject* currentObject() const;
 	void setCurrentObject(QObject *object);
 

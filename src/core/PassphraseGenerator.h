@@ -17,7 +17,7 @@
 #ifndef KEEPASSX_PASSPHRASEGENERATOR_H
 #define KEEPASSX_PASSPHRASEGENERATOR_H
 
-#include <QList>
+#include <QStringList>
 
 class PassphraseGenerator
 {
@@ -52,7 +52,7 @@ private:
 	int m_minWordListSize = 1296;
 	PassphraseWordCase m_wordCase;
 	QString m_separator;
-	QList<QString> m_wordlist;
+	QStringList m_wordlist;
 
 	friend class TestPassphraseGenerator;
 };

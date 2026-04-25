@@ -1118,12 +1118,13 @@ QString Entry::resolveMultiplePlaceholdersRecursive(const QString &str, int maxD
 	while (matches.hasNext())
 	{
 		const auto match = matches.next();
-		result += str.midRef(capEnd, match.capturedStart() - capEnd);
+		result += str.mid(capEnd, match.capturedStart() - capEnd);
 		result += resolvePlaceholderRecursive(match.captured(), maxDepth);
 		capEnd = match.capturedEnd();
 	}
 
-	result += str.rightRef(str.length() - capEnd);
+	result += str.right(str.length() - capEnd);
+
 	return result;
 }
 

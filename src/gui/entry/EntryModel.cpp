@@ -19,15 +19,16 @@
 #include <QFont>
 #include <QMimeData>
 #include <QPalette>
+#include <QIODevice>
 
 #include "core/Clock.h"
 #include "core/Entry.h"
 #include "core/Group.h"
 #include "core/Metadata.h"
 #include "core/PasswordHealth.h"
+#include "gui/ColorPalette.h"
 #include "gui/DatabaseIcons.h"
 #include "gui/Icons.h"
-#include "gui/styles/StateColorPalette.h"
 
 EntryModel::EntryModel(QObject *parent)
 	: QAbstractTableModel(parent)
@@ -352,24 +353,24 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			if (!entry->password().isEmpty() && !entry->excludeFromReports())
 			{
 				QString iconName = "lock-question";
-				StateColorPalette statePalette;
-				QColor color = statePalette.color(StateColorPalette::Error);
+
+				QColor color = QColor::fromString(ColorRole::Error);
 
 				switch (entry->passwordHealth()->quality())
 				{
 				case PasswordHealth::Quality::Bad:
 				case PasswordHealth::Quality::Poor:
 					iconName = "lock-open-alert";
-					color = statePalette.color(StateColorPalette::HealthCritical);
+					color = QColor::fromString(ColorRole::HealthCritical);
 					break;
 				case PasswordHealth::Quality::Weak:
 					iconName = "lock-open";
-					color = statePalette.color(StateColorPalette::HealthBad);
+					color = QColor::fromString(ColorRole::HealthBad);
 					break;
 				case PasswordHealth::Quality::Good:
 				case PasswordHealth::Quality::Excellent:
 					iconName = "lock";
-					color = statePalette.color(StateColorPalette::HealthExcellent);
+					color = QColor::fromString(ColorRole::HealthExcellent);
 					break;
 				}
 

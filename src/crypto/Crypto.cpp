@@ -19,6 +19,8 @@
 
 #include "config-keepassx.h"
 
+#include <QObject>
+
 #include "crypto/CryptoHash.h"
 #include "crypto/SymmetricCipher.h"
 

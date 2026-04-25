@@ -93,7 +93,6 @@ static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
 	{Config::GUI_HidePasswords, {QS("GUI/HidePasswords"), Roaming, true}},
 	{Config::GUI_ColorPasswords, {QS("GUI/ColorPasswords"), Roaming, false}},
 	{Config::GUI_MonospaceNotes, {QS("GUI/MonospaceNotes"), Roaming, false}},
-	{Config::GUI_ApplicationTheme, {QS("GUI/ApplicationTheme"), Roaming, QS("auto")}},
 	{Config::GUI_CompactMode, {QS("GUI/CompactMode"), Roaming, false}},
 	{Config::GUI_SearchWaitForEnter, {QS("GUI/SearchWaitForEnter"), Roaming, false}},
 	{Config::GUI_ShowExpiredEntriesOnDatabaseUnlock, {QS("GUI/ShowExpiredEntriesOnDatabaseUnlock"), Roaming, true}},
@@ -527,7 +526,7 @@ Config* Config::instance()
 {
 	if (!m_instance)
 	{
-		m_instance.reset(new Config(qApp));
+		m_instance.reset(new Config);
 	}
 
 	return m_instance.get();
@@ -536,10 +535,9 @@ Config* Config::instance()
 void Config::createConfigFromFile(const QString &configFileName, const QString &localConfigFileName)
 {
 	auto defaultFiles = defaultConfigFiles();
-	m_instance .reset(new Config(
+	m_instance.reset(new Config(
 		configFileName.isEmpty() ? defaultFiles.first : configFileName,
-		localConfigFileName.isEmpty() ? defaultFiles.second : localConfigFileName,
-		qApp));
+		localConfigFileName.isEmpty() ? defaultFiles.second : localConfigFileName));
 }
 
 void Config::createTempFileInstance()
@@ -548,7 +546,7 @@ void Config::createTempFileInstance()
 	bool openResult = tmpFile->open();
 	Q_ASSERT(openResult);
 	Q_UNUSED(openResult);
-	m_instance.reset(new Config(tmpFile->fileName(), QString(), qApp));
+	m_instance.reset(new Config(tmpFile->fileName(), QString()));
 	tmpFile->setParent(m_instance.get());
 	tmpFile.release();
 }

@@ -121,9 +121,6 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
-	// Apply the configured theme before creating any GUI elements
-	app.applyTheme();
-
 	QGuiApplication::setDesktopFileName(QStringLiteral("keepassx-min.desktop"));
 
 	Application::bootstrap(config()->get(Config::GUI_Language).toString());

@@ -40,8 +40,6 @@ public:
 	static void bootstrap(const QString &uiLanguage = "system");
 	static void applyFontSize();
 
-	void applyTheme();
-
 	bool event(QEvent *event) override;
 	bool isAlreadyRunning() const;
 	bool isDarkTheme() const;

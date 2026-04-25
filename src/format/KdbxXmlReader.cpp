@@ -25,6 +25,7 @@
 
 #include <QBuffer>
 #include <QFile>
+#include <QString>
 
 #define UUID_LENGTH 16
 
@@ -199,9 +200,9 @@ QString KdbxXmlReader::errorString() const
 	return QString();
 }
 
-bool KdbxXmlReader::isTrueValue(const QStringRef &value)
+bool KdbxXmlReader::isTrueValue(QAnyStringView value)
 {
-	return value.compare(QLatin1String("true"), Qt::CaseInsensitive) == 0 || value == "1";
+	return QAnyStringView::compare(value, QStringLiteral("true"), Qt::CaseInsensitive) == 0 || value == QStringLiteral("1");
 }
 
 void KdbxXmlReader::raiseError(const QString &errorMessage)

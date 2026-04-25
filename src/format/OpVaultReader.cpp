@@ -182,9 +182,9 @@ bool OpVaultReader::processProfileJson(QJsonObject &profileJson, const QString &
 
 	auto rootGroupTime = rootGroup->timeInfo();
 	auto createdAt = static_cast<uint>(profileJson["createdAt"].toInt());
-	rootGroupTime.setCreationTime(QDateTime::fromTime_t(createdAt, Qt::UTC));
+	rootGroupTime.setCreationTime(QDateTime::fromSecsSinceEpoch(createdAt, QTimeZone::utc()));
 	auto updatedAt = static_cast<uint>(profileJson["updatedAt"].toInt());
-	rootGroupTime.setLastModificationTime(QDateTime::fromTime_t(updatedAt, Qt::UTC));
+	rootGroupTime.setLastModificationTime(QDateTime::fromSecsSinceEpoch(updatedAt, QTimeZone::utc()));
 	rootGroup->setUuid(Tools::hexToUuid(profileJson["uuid"].toString()));
 
 	QScopedPointer derivedKeys(deriveKeysFromPassPhrase(salt, password, iterations));
@@ -277,14 +277,14 @@ bool OpVaultReader::processFolderJson(QJsonObject &foldersJson, Group *rootGroup
 		if (folder.contains("created"))
 		{
 			auto createdTime = static_cast<uint>(folder["created"].toInt());
-			ti.setCreationTime(QDateTime::fromTime_t(createdTime, Qt::UTC));
+			ti.setCreationTime(QDateTime::fromSecsSinceEpoch(createdTime, QTimeZone::utc()));
 			timeInfoOk = true;
 		}
 
 		if (folder.contains("updated"))
 		{
 			auto updateTime = static_cast<uint>(folder["updated"].toInt());
-			ti.setLastModificationTime(QDateTime::fromTime_t(updateTime, Qt::UTC));
+			ti.setLastModificationTime(QDateTime::fromSecsSinceEpoch(updateTime, QTimeZone::utc()));
 			timeInfoOk = true;
 		}
 

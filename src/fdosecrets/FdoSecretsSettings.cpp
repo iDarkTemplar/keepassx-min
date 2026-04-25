@@ -96,7 +96,7 @@ void FdoSecretsSettings::setExposedGroup(const QSharedPointer<Database> &db, con
 
 QUuid FdoSecretsSettings::exposedGroup(Database *db) const
 {
-	return {db->metadata()->customData()->value(CustomData::FdoSecretsExposedGroup)};
+	return QUuid{db->metadata()->customData()->value(CustomData::FdoSecretsExposedGroup)};
 }
 
 void FdoSecretsSettings::setExposedGroup(Database *db, const QUuid &group)

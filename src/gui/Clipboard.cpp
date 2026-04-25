@@ -131,7 +131,7 @@ Clipboard* Clipboard::instance()
 {
 	if (!m_instance)
 	{
-		m_instance.reset(new Clipboard(qApp));
+		m_instance.reset(new Clipboard);
 	}
 
 	return m_instance.get();

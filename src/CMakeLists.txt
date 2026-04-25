@@ -65,7 +65,6 @@ set(keepassx_SOURCES
 	format/KdbxWriter.cpp
 	format/KdbxXmlReader.cpp
 	format/KdbxXmlWriter.cpp
-	format/KeePass1Reader.cpp
 	format/KeePass2.cpp
 	format/KeePass2RandomStream.cpp
 	format/KeePass2Reader.cpp
@@ -136,7 +135,6 @@ set(keepassx_SOURCES
 	gui/MergeDialog.cpp
 	gui/MessageBox.cpp
 	gui/MessageWidget.cpp
-	gui/osutils/OSUtilsBase.cpp
 	gui/osutils/ScreenLockListener.cpp
 	gui/osutils/ScreenLockListenerPrivate.cpp
 	gui/PasswordGeneratorWidget.cpp
@@ -151,11 +149,6 @@ set(keepassx_SOURCES
 	gui/SettingsWidget.cpp
 	gui/SortFilterHideProxyModel.cpp
 	gui/SquareSvgWidget.cpp
-	gui/styles/base/BaseStyle.cpp
-	gui/styles/base/phantomcolor.cpp
-	gui/styles/dark/DarkStyle.cpp
-	gui/styles/light/LightStyle.cpp
-	gui/styles/StateColorPalette.cpp
 	gui/tag/TagModel.cpp
 	gui/tag/TagsEdit.cpp
 	gui/tag/TagView.cpp
@@ -228,14 +221,13 @@ set(keepassx_HEADERS
 	format/KdbxWriter.h
 	format/KdbxXmlReader.h
 	format/KdbxXmlWriter.h
-	format/KeePass1.h
-	format/KeePass1Reader.h
 	format/KeePass2.h
 	format/KeePass2RandomStream.h
 	format/KeePass2Reader.h
 	format/KeePass2Writer.h
 	format/OPUXReader.h
 	format/ProtonPassReader.h
+	gui/ColorPalette.h
 	gui/DatabaseIcons.h
 	gui/entry/attachments/AttachmentTypes.h
 	gui/entry/EditEntryWidget_p.h
@@ -245,11 +237,9 @@ set(keepassx_HEADERS
 	gui/HtmlGuiExporter.h
 	gui/Icons.h
 	gui/MessageBox.h
-	gui/osutils/OSUtils.h
 	gui/reports/ReportsPageHealthcheck.h
 	gui/reports/ReportsPageStatistics.h
 	gui/SquareSvgWidget.h
-	gui/styles/base/phantomcolor.h
 	keys/CompositeKey.h
 	keys/FileKey.h
 	keys/PasswordKey.h
@@ -324,7 +314,6 @@ set(keepassx_QT_HEADERS
 	gui/MainWindow.h
 	gui/MergeDialog.h
 	gui/MessageWidget.h
-	gui/osutils/OSUtilsBase.h
 	gui/osutils/ScreenLockListener.h
 	gui/osutils/ScreenLockListenerPrivate.h
 	gui/PasswordGeneratorWidget.h
@@ -336,10 +325,6 @@ set(keepassx_QT_HEADERS
 	gui/SearchWidget.h
 	gui/SettingsWidget.h
 	gui/SortFilterHideProxyModel.h
-	gui/styles/base/BaseStyle.h
-	gui/styles/dark/DarkStyle.h
-	gui/styles/light/LightStyle.h
-	gui/styles/StateColorPalette.h
 	gui/tag/TagModel.h
 	gui/tag/TagsEdit.h
 	gui/tag/TagView.h
@@ -369,12 +354,10 @@ set(keepassx_QT_HEADERS
 	)
 
 list(APPEND keepassx_SOURCES
-	gui/osutils/nixutils/NixUtils.cpp
 	gui/osutils/nixutils/ScreenLockListenerDBus.cpp
 	)
 
 list(APPEND keepassx_QT_HEADERS
-	gui/osutils/nixutils/NixUtils.h
 	gui/osutils/nixutils/ScreenLockListenerDBus.h
 	)
 
@@ -428,7 +411,6 @@ set(keepassx_UI
 	)
 
 set(keepassx_RESOURCES
-	gui/styles/styles.qrc
 	../share/icons/icons.qrc
 	../share/wizard/wizard.qrc
 	)
@@ -449,7 +431,7 @@ set(qrcode_HEADERS
 
 add_library(qrcode STATIC ${qrcode_SOURCES} ${qrcode_HEADERS})
 target_include_directories(qrcode PRIVATE ${QRENCODE_INCLUDE_DIR})
-target_link_libraries(qrcode PUBLIC Qt5::Core Qt5::Svg ${QRENCODE_LIBRARY})
+target_link_libraries(qrcode PUBLIC Qt6::Core Qt6::Svg ${QRENCODE_LIBRARY})
 
 set(qrcode_LIB qrcode)
 
@@ -536,7 +518,7 @@ if (WITH_XC_FDOSECRETS)
 	qt_wrap_ui(fdo_UI_CPP ${fdo_UI})
 
 	add_library(fdosecrets STATIC ${fdo_SOURCES} ${fdo_HEADERS} ${MOC_fdo_HEADERS} ${fdo_UI_CPP})
-	target_link_libraries(fdosecrets Qt5::Core Qt5::Widgets Qt5::DBus ${BOTAN_LIBRARIES})
+	target_link_libraries(fdosecrets Qt6::Core Qt6::Widgets Qt6::DBus ${BOTAN_LIBRARIES})
 
 	set(fdosecrets_LIB fdosecrets)
 endif()
@@ -552,10 +534,11 @@ set_target_properties(keepassx_core PROPERTIES COMPILE_DEFINITIONS KEEPASSX_BUIL
 target_link_libraries(keepassx_core
 	${qrcode_LIB}
 	${fdosecrets_LIB}
-	Qt5::Core
-	Qt5::Concurrent
-	Qt5::Network
-	Qt5::Widgets
+	Qt6::Core
+	Qt6::Concurrent
+	Qt6::Network
+	Qt6::Widgets
+	Qt6::SvgWidgets
 	${BOTAN_LIBRARIES}
 	${ZXCVBN_LIBRARY}
 	${ZLIB_LIBRARIES}
@@ -563,8 +546,8 @@ target_link_libraries(keepassx_core
 	${ARGON2_LIBRARIES}
 	)
 
-target_link_libraries(keepassx_core Qt5::DBus)
-include_directories(${Qt5Gui_PRIVATE_INCLUDE_DIRS})
+target_link_libraries(keepassx_core Qt6::DBus)
+include_directories(${Qt6Gui_PRIVATE_INCLUDE_DIRS})
 
 # Main Executable Definition
 add_executable(keepassx-min main.cpp)

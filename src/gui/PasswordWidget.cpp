@@ -20,11 +20,10 @@
 
 #include "core/Config.h"
 #include "core/PasswordHealth.h"
+#include "gui/ColorPalette.h"
 #include "gui/Font.h"
 #include "gui/Icons.h"
 #include "gui/PasswordGeneratorWidget.h"
-#include "gui/osutils/OSUtils.h"
-#include "gui/styles/StateColorPalette.h"
 
 #include <QEvent>
 #include <QLineEdit>
@@ -56,24 +55,22 @@ PasswordWidget::PasswordWidget(QWidget *parent)
 	passwordFont.setLetterSpacing(QFont::PercentageSpacing, 110);
 	m_ui->passwordEdit->setFont(passwordFont);
 
-	// Prevent conflicts with global Mac shortcuts (force Control on all platforms)
-	constexpr auto modifier = Qt::ControlModifier;
-
 	m_toggleVisibleAction = new QAction(
 		icons()->onOffIcon("password-show", false),
-		tr("Toggle Password (%1)").arg(QKeySequence(modifier + Qt::Key_H).toString(QKeySequence::NativeText)),
+		tr("Toggle Password (%1)").arg(QKeySequence(Qt::ControlModifier | Qt::Key_H).toString(QKeySequence::NativeText)),
 		this);
 	m_toggleVisibleAction->setCheckable(true);
-	m_toggleVisibleAction->setShortcut(modifier + Qt::Key_H);
+	m_toggleVisibleAction->setShortcut(Qt::ControlModifier | Qt::Key_H);
 	m_toggleVisibleAction->setShortcutContext(Qt::WidgetShortcut);
 	m_ui->passwordEdit->addAction(m_toggleVisibleAction, QLineEdit::TrailingPosition);
 	connect(m_toggleVisibleAction, &QAction::triggered, this, &PasswordWidget::setShowPassword);
 
 	m_passwordGeneratorAction = new QAction(
 		icons()->icon("password-generator"),
-		tr("Generate Password (%1)").arg(QKeySequence(modifier + Qt::Key_G).toString(QKeySequence::NativeText)),
+		tr("Generate Password (%1)").arg(QKeySequence(Qt::ControlModifier | Qt::Key_G).toString(QKeySequence::NativeText)),
 		this);
-	m_passwordGeneratorAction->setShortcut(modifier + Qt::Key_G);
+
+	m_passwordGeneratorAction->setShortcut(Qt::ControlModifier | Qt::Key_G);
 	m_passwordGeneratorAction->setShortcutContext(Qt::WidgetShortcut);
 	m_ui->passwordEdit->addAction(m_passwordGeneratorAction, QLineEdit::TrailingPosition);
 	m_passwordGeneratorAction->setVisible(false);
@@ -201,11 +198,10 @@ void PasswordWidget::updateRepeatStatus()
 	if (otherPassword != password)
 	{
 		bool isCorrect = false;
-		StateColorPalette statePalette;
-		QColor color = statePalette.color(StateColorPalette::ColorRole::Error);
+		QColor color = QColor::fromString(ColorRole::Error);
 		if (!password.isEmpty() && otherPassword.startsWith(password))
 		{
-			color = statePalette.color(StateColorPalette::ColorRole::Incomplete);
+			color = QColor::fromString(ColorRole::Incomplete);
 			isCorrect = true;
 		}
 
@@ -240,28 +236,26 @@ void PasswordWidget::updatePasswordStrength(const QString &password)
 
 	style.replace(re, "\\1 %1;");
 
-	StateColorPalette qualityPalette;
-
 	switch (health.quality())
 	{
 	case PasswordHealth::Quality::Bad:
 	case PasswordHealth::Quality::Poor:
-		m_ui->qualityProgressBar->setStyleSheet(style.arg(qualityPalette.color(StateColorPalette::HealthCritical).name()));
+		m_ui->qualityProgressBar->setStyleSheet(style.arg(ColorRole::HealthCritical));
 		m_ui->qualityProgressBar->setToolTip(tr("Quality: %1").arg(tr("Poor", "Password quality")));
 		break;
 
 	case PasswordHealth::Quality::Weak:
-		m_ui->qualityProgressBar->setStyleSheet(style.arg(qualityPalette.color(StateColorPalette::HealthBad).name()));
+		m_ui->qualityProgressBar->setStyleSheet(style.arg(ColorRole::HealthBad));
 		m_ui->qualityProgressBar->setToolTip(tr("Quality: %1").arg(tr("Weak", "Password quality")));
 		break;
 
 	case PasswordHealth::Quality::Good:
-		m_ui->qualityProgressBar->setStyleSheet(style.arg(qualityPalette.color(StateColorPalette::HealthOk).name()));
+		m_ui->qualityProgressBar->setStyleSheet(style.arg(ColorRole::HealthOk));
 		m_ui->qualityProgressBar->setToolTip(tr("Quality: %1").arg(tr("Good", "Password quality")));
 		break;
 
 	case PasswordHealth::Quality::Excellent:
-		m_ui->qualityProgressBar->setStyleSheet(style.arg(qualityPalette.color(StateColorPalette::HealthExcellent).name()));
+		m_ui->qualityProgressBar->setStyleSheet(style.arg(ColorRole::HealthExcellent));
 		m_ui->qualityProgressBar->setToolTip(tr("Quality: %1").arg(tr("Excellent", "Password quality")));
 		break;
 	}

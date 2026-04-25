@@ -24,8 +24,7 @@
 #include <QMap>
 #include <QObject>
 #include <QSharedPointer>
-
-class QStringList;
+#include <QStringList>
 
 class EntryAttachments: public ModifiableObject
 {

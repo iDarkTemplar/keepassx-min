@@ -65,7 +65,7 @@ bool SymmetricCipher::init(Mode mode, Direction direction, const QByteArray &key
 
 bool SymmetricCipher::isInitalized() const
 {
-	return m_cipher;
+	return static_cast<bool>(m_cipher);
 }
 
 bool SymmetricCipher::process(char *data, int len)

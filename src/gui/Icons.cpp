@@ -28,7 +28,6 @@
 #include "core/Database.h"
 #include "gui/DatabaseIcons.h"
 #include "gui/MainWindow.h"
-#include "gui/osutils/OSUtils.h"
 
 class AdaptiveIconEngine: public QIconEngine
 {

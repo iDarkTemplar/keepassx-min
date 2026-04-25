@@ -42,7 +42,6 @@ ImportWizardPageSelect::ImportWizardPageSelect(QWidget *parent)
 	m_ui->importTypeList->item(2)->setData(Qt::UserRole, ImportWizard::IMPORT_OPVAULT);
 	m_ui->importTypeList->item(3)->setData(Qt::UserRole, ImportWizard::IMPORT_BITWARDEN);
 	m_ui->importTypeList->item(4)->setData(Qt::UserRole, ImportWizard::IMPORT_PROTONPASS);
-	m_ui->importTypeList->item(5)->setData(Qt::UserRole, ImportWizard::IMPORT_KEEPASS1);
 
 	connect(m_ui->importTypeList, &QListWidget::currentItemChanged, this, &ImportWizardPageSelect::itemSelected);
 	m_ui->importTypeList->setCurrentRow(0);
@@ -119,10 +118,6 @@ void ImportWizardPageSelect::itemSelected(QListWidgetItem *current, QListWidgetI
 	case ImportWizard::IMPORT_BITWARDEN:
 	case ImportWizard::IMPORT_OPVAULT:
 		setCredentialState(true);
-		break;
-	// Password and/or Key File may be required
-	case ImportWizard::IMPORT_KEEPASS1:
-		setCredentialState(true, true);
 		break;
 	default:
 		Q_ASSERT(false);
@@ -265,8 +260,6 @@ QString ImportWizardPageSelect::importFileFilter()
 		return QString("%1 (*.json)").arg(tr("Proton Pass JSON Export"));
 	case ImportWizard::IMPORT_OPVAULT:
 		return QString("%1 (*.opvault)").arg(tr("1Password Vault"));
-	case ImportWizard::IMPORT_KEEPASS1:
-		return QString("%1 (*.kdb)").arg(tr("KeePass1 Database"));
 	default:
 		return {};
 	}

@@ -18,7 +18,6 @@
 #include "CsvParser.h"
 
 #include <QFile>
-#include <QTextCodec>
 
 #include "core/Tools.h"
 
@@ -33,7 +32,6 @@ CsvParser::CsvParser()
 	m_csv.setBuffer(&m_array);
 	m_ts.setDevice(&m_csv);
 	m_csv.open(QIODevice::ReadOnly);
-	m_ts.setCodec("UTF-8");
 }
 
 CsvParser::~CsvParser()
@@ -102,7 +100,7 @@ bool CsvParser::readFile(QIODevice *device)
 
 void CsvParser::reset()
 {
-	m_ch = 0;
+	m_ch = QChar(0);
 	m_currCol = 1;
 	m_currRow = 1;
 	m_isEof = false;
@@ -130,13 +128,15 @@ void CsvParser::clear()
 bool CsvParser::parseFile()
 {
 	parseRecord();
+
 	while (!m_isEof)
 	{
 		if (!skipEndline())
 		{
 			appendStatusMsg(QObject::tr("malformed string, possible unescaped delimiter"), true);
 		}
-		m_currRow++;
+
+		++m_currRow;
 		m_currCol = 1;
 		parseRecord();
 	}
@@ -405,11 +405,6 @@ void CsvParser::setBackslashSyntax(bool set)
 void CsvParser::setComment(const QChar &c)
 {
 	m_comment = c.unicode();
-}
-
-void CsvParser::setCodec(const QString &s)
-{
-	m_ts.setCodec(QTextCodec::codecForName(s.toLocal8Bit()));
 }
 
 void CsvParser::setFieldSeparator(const QChar &c)

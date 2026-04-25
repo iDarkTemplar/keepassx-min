@@ -18,7 +18,7 @@ message(STATUS "Including translations...")
 
 file(GLOB TRANSLATION_FILES *.ts)
 
-qt5_add_translation(QM_FILES ${TRANSLATION_FILES})
+qt_add_translation(QM_FILES ${TRANSLATION_FILES})
 
 install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/keepassxm/translations)
 

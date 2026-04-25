@@ -102,7 +102,6 @@ protected:
 
 private slots:
 	void updateMenuActionState();
-	void updateToolbarSeparatorVisibility();
 	void updateWindowTitle();
 	void showAboutDialog();
 	void focusWindowChanged(QWindow *focusWindow);
@@ -182,7 +181,6 @@ private:
 	bool m_appExiting = false;
 	bool m_restartRequested = false;
 	bool m_contextMenuFocusLock = false;
-	bool m_showToolbarSeparator = false;
 	bool m_allowScreenCapture = false;
 	qint64 m_lastFocusOutTime = 0;
 	qint64 m_lastShowTime = 0;

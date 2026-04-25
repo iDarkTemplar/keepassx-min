@@ -273,11 +273,11 @@ find_package(ZXCVBN REQUIRED)
 
 find_package(QREncode REQUIRED)
 
-set(QT_COMPONENTS Core DBus Network Concurrent Gui Svg Widgets LinguistTools)
+set(QT_COMPONENTS Core DBus Network Concurrent Gui Svg SvgWidgets Widgets LinguistTools)
 if (WITH_TESTS)
 	list(APPEND QT_COMPONENTS Test)
 endif()
-find_package(Qt5 5.12.0 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+find_package(Qt6 6.10.0 COMPONENTS ${QT_COMPONENTS} REQUIRED)
 
 include(GNUInstallDirs)
 

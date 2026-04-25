@@ -19,6 +19,8 @@
 #include <QFile>
 #include <QSet>
 #include <QTextStream>
+#include <QRegularExpression>
+
 #include <cmath>
 
 #include "core/Resources.h"
@@ -75,7 +77,6 @@ void PassphraseGenerator::setWordList(const QString &path)
 	}
 
 	QTextStream in(&file);
-	in.setCodec("UTF-8");
 	QString line = in.readLine();
 	bool isSigned = line.startsWith("-----BEGIN PGP SIGNED MESSAGE-----");
 	if (isSigned)
@@ -86,7 +87,7 @@ void PassphraseGenerator::setWordList(const QString &path)
 		}
 	}
 
-	QRegExp rx("^[0-9]+(-[0-9]+)*\\s+([^\\s]+)$");
+	QRegularExpression rx("^[0-9]+(-[0-9]+)*\\s+([^\\s]+)$");
 	while (!line.isNull())
 	{
 		if (isSigned && line.startsWith("-----BEGIN PGP SIGNATURE-----"))
@@ -110,7 +111,7 @@ void PassphraseGenerator::setWordList(const QString &path)
 		line = in.readLine();
 	}
 
-	m_wordlist = wordset.toList();
+	m_wordlist = QStringList{wordset.begin(), wordset.end()};
 
 	if (!isWordListValid())
 	{

@@ -80,7 +80,6 @@ public:
 		GUI_HidePasswords,
 		GUI_ColorPasswords,
 		GUI_MonospaceNotes,
-		GUI_ApplicationTheme,
 		GUI_CompactMode,
 		GUI_SearchWaitForEnter,
 		GUI_ShowExpiredEntriesOnDatabaseUnlock,
@@ -170,8 +169,8 @@ signals:
 	void changed(ConfigKey key);
 
 private:
-	Config(const QString &configFileName, const QString &localConfigFileName, QObject *parent);
-	explicit Config(QObject *parent);
+	Config(const QString &configFileName, const QString &localConfigFileName, QObject *parent = nullptr);
+	explicit Config(QObject *parent = nullptr);
 
 	void init(const QString &configFileName, const QString &localConfigFileName);
 	void migrate();
@@ -181,7 +180,6 @@ private:
 
 	QScopedPointer<QSettings> m_settings;
 	QScopedPointer<QSettings> m_localSettings;
-	QHash<QString, QVariant> m_defaults;
 };
 
 inline Config* config()

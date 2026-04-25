@@ -28,6 +28,7 @@
 #include <QShortcut>
 #include <QStyledItemDelegate>
 #include <QWindow>
+#include <QActionGroup>
 
 #include "gui/Icons.h"
 #include "gui/SortFilterHideProxyModel.h"
@@ -98,8 +99,8 @@ EntryView::EntryView(QWidget *parent)
 		emit entrySelectionChanged(currentEntry());
 	});
 
-	new QShortcut(Qt::CTRL + Qt::Key_F10, this, SLOT(contextMenuShortcutPressed()), nullptr, Qt::WidgetShortcut);
-	new QShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_J, this, SLOT(jumpToGroupShortcut()), nullptr, Qt::WidgetShortcut);
+	new QShortcut(Qt::CTRL | Qt::Key_F10, this, SLOT(contextMenuShortcutPressed()), nullptr, Qt::WidgetShortcut);
+	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_J, this, SLOT(jumpToGroupShortcut()), nullptr, Qt::WidgetShortcut);
 
 	resetViewToDefaults();
 
@@ -486,15 +487,7 @@ void EntryView::resetFixedColumns()
 		if (!isColumnHidden(col))
 		{
 			header()->setSectionResizeMode(col, QHeaderView::Fixed);
-
-			// Increase column width, if sorting, to accommodate icon and arrow
-			auto width = ICON_ONLY_SECTION_SIZE;
-			if (header()->sortIndicatorSection() == col && config()->get(Config::GUI_ApplicationTheme).toString() != "classic")
-			{
-				width += 18;
-			}
-
-			header()->resizeSection(col, width);
+			header()->resizeSection(col, ICON_ONLY_SECTION_SIZE);
 		}
 	}
 

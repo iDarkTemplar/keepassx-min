@@ -18,6 +18,7 @@
 #define KEEPASSX_DATABASEICONS_H
 
 #include <QIcon>
+#include <QHash>
 
 #include <memory>
 

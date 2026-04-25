@@ -101,7 +101,7 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 				const auto credentialIdValue = passkey.value("credentialId").toString();
 				if (!credentialIdValue.isEmpty())
 				{
-					const auto credentialUuid = Tools::uuidToHex(credentialIdValue);
+					const auto credentialUuid = Tools::uuidToHex(QUuid(credentialIdValue));
 					const auto credentialIdArray = QByteArray::fromHex(credentialUuid.toUtf8());
 					const auto credentialId = credentialIdArray.toBase64(QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
 					entry->attributes()->set(EntryAttributes::KPEX_PASSKEY_CREDENTIAL_ID, credentialId, true);

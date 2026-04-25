@@ -19,6 +19,7 @@
 #include "crypto/CryptoHash.h"
 
 #include <QDataStream>
+#include <QIODevice>
 #include <QSharedPointer>
 
 QUuid PasswordKey::UUID("77e90411-303a-43f2-b773-853b05635ead");

@@ -24,6 +24,7 @@
 #include "keys/PasswordKey.h"
 
 #include <QDataStream>
+#include <QIODevice>
 #include <QDebug>
 
 QUuid CompositeKey::UUID("76a7ae25-a542-4add-9849-7c06be945b94");
