@@ -16,13 +16,14 @@
 
 message(STATUS "Including translations...")
 
+add_custom_target(translations)
+
 file(GLOB TRANSLATION_FILES *.ts)
 
-qt_add_translation(QM_FILES ${TRANSLATION_FILES})
+qt_add_translations(translations
+	TS_FILES ${TRANSLATION_FILES}
+	QM_FILES_OUTPUT_VARIABLE QM_FILES
+	QM_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/share/keepassxmin/translations
+	)
 
-install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/keepassxm/translations)
-
-add_custom_target(translations
-	SOURCES ${TRANSLATION_FILES}
-	DEPENDS ${QM_FILES})
-add_dependencies(keepassx-min translations)
+install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/keepassxmin/translations)

@@ -552,7 +552,7 @@ include_directories(${Qt6Gui_PRIVATE_INCLUDE_DIRS})
 # Main Executable Definition
 add_executable(keepassx-min main.cpp)
 target_link_libraries(keepassx-min keepassx_core)
-set_target_properties(keepassx-min PROPERTIES ENABLE_EXPORTS ON)
+set_target_properties(keepassx-min PROPERTIES ENABLE_EXPORTS ON RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 install(TARGETS keepassx-min
 	BUNDLE DESTINATION . COMPONENT Runtime

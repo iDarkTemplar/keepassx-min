@@ -16,33 +16,44 @@
 
 add_subdirectory(translations)
 
-file(GLOB wordlists_files "wordlists/*.wordlist")
-install(FILES ${wordlists_files} DESTINATION ${CMAKE_INSTALL_DATADIR}/keepassxm/wordlists)
-
 # Copy wordlists to build dir for use in tests
-file(COPY "wordlists" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_target(wordlists)
 
-set(APP_ICON_NAME "keepassxm")
-set(MIME_ICON "application-x-keepassxm")
-configure_file(linux/keepassx-min.xml.in ${CMAKE_CURRENT_BINARY_DIR}/linux/keepassxm.xml @ONLY)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/linux/keepassxm.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/packages)
+file(GLOB filelist RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/wordlists ${CMAKE_CURRENT_SOURCE_DIR}/wordlists/*.wordlist)
+foreach(filename ${filelist})
+	if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/wordlists/${filename}")
+		list(APPEND WORDLISTS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/wordlists/${filename}")
+		list(APPEND WORDLISTS_CLEAN_FILES "${CMAKE_BINARY_DIR}/share/keepassxmin/${filename}")
+
+		add_custom_command(OUTPUT "${CMAKE_BINARY_DIR}/share/keepassxmin/wordlists/${filename}"
+			COMMAND ${CMAKE_COMMAND} -E echo Copying wordlists ${filename}
+			COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/share/keepassxmin/wordlists"
+			COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/wordlists/${filename}" "${CMAKE_BINARY_DIR}/share/keepassxmin/wordlists/${filename}"
+			DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/wordlists/${filename}")
+		target_sources(wordlists PRIVATE "${CMAKE_BINARY_DIR}/share/keepassxmin/wordlists/${filename}")
+	endif()
+endforeach()
+
+target_sources(wordlists PRIVATE ${WORDLISTS_SOURCES})
+set_target_properties(wordlists PROPERTIES ADDITIONAL_CLEAN_FILES "${WORDLISTS_CLEAN_FILES}")
+
+add_dependencies(keepassx-min wordlists)
+
+file(GLOB wordlists_files "wordlists/*.wordlist")
+install(FILES ${wordlists_files} DESTINATION ${CMAKE_INSTALL_DATADIR}/keepassxmin/wordlists)
+
+set(APP_ICON_NAME "keepassxmin")
+set(MIME_ICON "application-x-keepassxmin")
+configure_file(linux/keepassx-min.xml.in ${CMAKE_CURRENT_BINARY_DIR}/linux/keepassxmin.xml @ONLY)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/linux/keepassxmin.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/packages)
 
 install(DIRECTORY icons/application/ DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor
 	FILES_MATCHING PATTERN "keepassx*.png" PATTERN "keepassx*.svg"
 	PATTERN "status" EXCLUDE PATTERN "actions" EXCLUDE PATTERN "categories" EXCLUDE)
 
 install(DIRECTORY icons/application/ DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor
-	FILES_MATCHING PATTERN "application-x-keepassxm.svg" PATTERN "status"
+	FILES_MATCHING PATTERN "application-x-keepassxmin.svg" PATTERN "status"
 	EXCLUDE PATTERN "actions" EXCLUDE PATTERN "categories" EXCLUDE)
 
 configure_file(linux/${APP_ID}.desktop.in ${CMAKE_CURRENT_BINARY_DIR}/linux/${APP_ID}.desktop @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/linux/${APP_ID}.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
-install(FILES linux/${APP_ID}.appdata.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo)
-
-install(FILES icons/application/256x256/apps/keepassxm.png DESTINATION ${CMAKE_INSTALL_DATADIR}/keepassxm/icons/application/256x256/apps)
-
-add_custom_target(icons)
-add_custom_command(TARGET icons
-	POST_BUILD
-	COMMAND bash ./icons/minify.sh
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
