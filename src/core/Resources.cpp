@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2020 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2011 Felix Geyer <debfx@fobos.de>
  *
@@ -54,8 +55,7 @@ Resources::Resources()
 	if (m_dataPath.isEmpty())
 	{
 		// Last ditch check if we are running from inside the src or test build directory
-		trySetResourceDir(appDirPath + QStringLiteral("/../share"))
-			|| trySetResourceDir(appDirPath + QStringLiteral("/../../share"));
+		trySetResourceDir(appDirPath + QStringLiteral("/../share/keepassxmin"));
 	}
 
 	if (m_dataPath.isEmpty())
