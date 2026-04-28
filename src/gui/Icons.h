@@ -31,7 +31,6 @@ public:
 	QString applicationIconName();
 	QIcon applicationIcon();
 	QIcon trayIcon(bool unlocked = true);
-	QString trayIconAppearance() const;
 	QIcon icon(const QString &name, bool recolor = true, const QColor &overrideColor = QColor::Invalid);
 	QIcon onOffIcon(const QString &name, bool on, bool recolor = true);
 

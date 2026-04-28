@@ -105,7 +105,6 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
 	auto mouseWheelFilter = new MouseWheelEventFilter(this);
 	m_generalUi->toolButtonStyleComboBox->installEventFilter(mouseWheelFilter);
 	m_generalUi->languageComboBox->installEventFilter(mouseWheelFilter);
-	m_generalUi->trayIconAppearance->installEventFilter(mouseWheelFilter);
 	m_generalUi->fontSizeComboBox->installEventFilter(mouseWheelFilter);
 }
 
@@ -219,16 +218,6 @@ void ApplicationSettingsWidget::loadSettings()
 		config()->get(Config::GUI_ShowExpiredEntriesOnDatabaseUnlockOffsetDays).toInt());
 	showExpiredEntriesOnDatabaseUnlockToggled(m_generalUi->showExpiredEntriesOnDatabaseUnlockCheckBox->isChecked());
 
-	m_generalUi->trayIconAppearance->clear();
-	m_generalUi->trayIconAppearance->addItem(tr("Monochrome (light)"), "monochrome-light");
-	m_generalUi->trayIconAppearance->addItem(tr("Monochrome (dark)"), "monochrome-dark");
-	m_generalUi->trayIconAppearance->addItem(tr("Colorful"), "colorful");
-	int trayIconIndex = m_generalUi->trayIconAppearance->findData(icons()->trayIconAppearance());
-	if (trayIconIndex > 0)
-	{
-		m_generalUi->trayIconAppearance->setCurrentIndex(trayIconIndex);
-	}
-
 	m_secUi->clearClipboardCheckBox->setChecked(config()->get(Config::Security_ClearClipboard).toBool());
 	m_secUi->clearClipboardSpinBox->setValue(config()->get(Config::Security_ClearClipboardTimeout).toInt());
 
@@ -311,7 +300,6 @@ void ApplicationSettingsWidget::saveSettings()
 	config()->set(Config::GUI_FontSizeOffset, m_generalUi->fontSizeComboBox->currentData().toInt());
 
 	config()->set(Config::GUI_ShowTrayIcon, m_generalUi->systrayShowCheckBox->isChecked());
-	config()->set(Config::GUI_TrayIconAppearance, m_generalUi->trayIconAppearance->currentData().toString());
 	config()->set(Config::GUI_MinimizeToTray, m_generalUi->systrayMinimizeToTrayCheckBox->isChecked());
 	config()->set(Config::GUI_MinimizeOnClose, m_generalUi->minimizeOnCloseCheckBox->isChecked());
 	config()->set(Config::GUI_MinimizeOnStartup, m_generalUi->systrayMinimizeOnStartup->isChecked());
@@ -455,8 +443,6 @@ void ApplicationSettingsWidget::hideWindowOnCopyCheckBoxToggled(bool checked)
 
 void ApplicationSettingsWidget::systrayToggled(bool checked)
 {
-	m_generalUi->trayIconAppearance->setEnabled(checked);
-	m_generalUi->trayIconAppearanceLabel->setEnabled(checked);
 	m_generalUi->systrayMinimizeToTrayCheckBox->setEnabled(checked);
 }
 

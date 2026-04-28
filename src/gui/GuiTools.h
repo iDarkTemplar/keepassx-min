@@ -46,7 +46,7 @@ public:
 protected:
 	bool eventFilter(QObject *obj, QEvent *event) override
 	{
-		const auto *widget = qobject_cast<QWidget *>(obj);
+		const auto *widget = qobject_cast<QWidget*>(obj);
 		if (event->type() == QEvent::Wheel && widget && !widget->hasFocus())
 		{
 			event->ignore();
