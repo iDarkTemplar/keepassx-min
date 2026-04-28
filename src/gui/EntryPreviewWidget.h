@@ -17,7 +17,6 @@
 #ifndef KEEPASSX_DETAILSWIDGET_H
 #define KEEPASSX_DETAILSWIDGET_H
 
-#include "config-keepassx.h"
 #include "gui/DatabaseWidget.h"
 
 namespace Ui {

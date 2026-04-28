@@ -22,8 +22,6 @@
 #include <QDesktopServices>
 #include <QDir>
 
-#include "config-keepassx.h"
-
 #include "core/Translator.h"
 #include "gui/GuiTools.h"
 #include "gui/Icons.h"

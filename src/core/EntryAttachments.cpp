@@ -16,7 +16,6 @@
 
 #include "EntryAttachments.h"
 
-#include "config-keepassx.h"
 #include "core/Global.h"
 #include "core/Tools.h"
 #include "crypto/Random.h"

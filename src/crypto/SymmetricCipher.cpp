@@ -16,7 +16,6 @@
 
 #include "SymmetricCipher.h"
 
-#include "config-keepassx.h"
 #include "format/KeePass2.h"
 
 #include <botan/block_cipher.h>

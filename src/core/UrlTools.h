@@ -17,7 +17,6 @@
 #ifndef KEEPASSXC_URLTOOLS_H
 #define KEEPASSXC_URLTOOLS_H
 
-#include "config-keepassx.h"
 #include <QObject>
 #include <QUrl>
 #include <QVariant>

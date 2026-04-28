@@ -18,7 +18,6 @@
 
 #include <QBuffer>
 
-#include "config-keepassx.h"
 #include "crypto/CryptoHash.h"
 #include "crypto/Random.h"
 #include "format/KeePass2RandomStream.h"

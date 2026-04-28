@@ -18,7 +18,6 @@
 #define KEEPASSXC_DATABASESETTINGSWIDGETDATABASEKEY_H
 
 #include "DatabaseSettingsWidget.h"
-#include "config-keepassx.h"
 
 #include <QPointer>
 

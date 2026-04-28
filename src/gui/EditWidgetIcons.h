@@ -21,7 +21,6 @@
 #include <QMenu>
 #include <QUuid>
 
-#include "config-keepassx.h"
 #include "gui/MessageWidget.h"
 
 class Database;

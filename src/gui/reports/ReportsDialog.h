@@ -17,7 +17,6 @@
 #ifndef KEEPASSX_REPORTSWIDGET_H
 #define KEEPASSX_REPORTSWIDGET_H
 
-#include "config-keepassx.h"
 #include "gui/DialogyWidget.h"
 #include "gui/entry/EditEntryWidget.h"
 

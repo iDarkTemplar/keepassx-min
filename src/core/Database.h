@@ -25,7 +25,6 @@
 #include <QPointer>
 #include <QTimer>
 
-#include "config-keepassx.h"
 #include "core/ModifiableObject.h"
 #include "crypto/kdf/AesKdf.h"
 #include "format/KeePass2.h"

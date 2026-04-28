@@ -25,7 +25,6 @@
 #include <QPointer>
 #include <QTimer>
 
-#include "config-keepassx.h"
 #include "gui/EditWidget.h"
 
 class AutoTypeAssociations;
