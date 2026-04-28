@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2021 KeePassXC Team <team@keepassxc.org>
  *
@@ -50,7 +51,7 @@ Metadata::Metadata(QObject *parent)
 
 void Metadata::init()
 {
-	m_data.generator = QStringLiteral("KeePassXC");
+	m_data.generator = QStringLiteral("KeePassX-min");
 	m_data.maintenanceHistoryDays = 365;
 	m_data.masterKeyChangeRec = -1;
 	m_data.masterKeyChangeForce = -1;

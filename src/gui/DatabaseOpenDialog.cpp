@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2018 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -29,7 +30,7 @@ DatabaseOpenDialog::DatabaseOpenDialog(QWidget *parent)
 	, m_view(new DatabaseOpenWidget(this))
 	, m_tabBar(new QTabBar(this))
 {
-	setWindowTitle(tr("Unlock Database - KeePassXC"));
+	setWindowTitle(tr("Unlock Database - KeePassX-min"));
 	setWindowFlags(Qt::Dialog);
 	setWindowFlag(Qt::WindowContextHelpButtonHint, false);
 

@@ -20,7 +20,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string notr="true">KeePassXC</string>
+   <string notr="true">KeePassX-min</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="enabled">
@@ -254,11 +254,6 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
-    <addaction name="separator"/>
-    <addaction name="actionOnlineHelp"/>
-    <addaction name="separator"/>
-    <addaction name="actionDonate"/>
-    <addaction name="actionBugReport"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuEntries">
@@ -344,12 +339,6 @@
     <property name="title">
      <string>View</string>
     </property>
-    <widget class="QMenu" name="menuTheme">
-     <property name="title">
-      <string>Theme</string>
-     </property>
-    </widget>
-    <addaction name="menuTheme"/>
     <addaction name="actionCompactMode"/>
     <addaction name="actionAlwaysOnTop"/>
     <addaction name="separator"/>
@@ -729,30 +718,12 @@
     <string>Empty Recycle Bin</string>
    </property>
   </action>
-  <action name="actionDonate">
-   <property name="text">
-    <string>&amp;Donate</string>
-   </property>
-  </action>
-  <action name="actionBugReport">
-   <property name="text">
-    <string>Report a &amp;Bug</string>
-   </property>
-  </action>
   <action name="actionGettingStarted">
    <property name="text">
     <string>&amp;Getting Started</string>
    </property>
    <property name="toolTip">
     <string>Open Getting Started Guide</string>
-   </property>
-  </action>
-  <action name="actionOnlineHelp">
-   <property name="text">
-    <string>&amp;Online Help</string>
-   </property>
-   <property name="toolTip">
-    <string>Go to online documentation</string>
    </property>
   </action>
   <action name="actionDatabaseSaveBackup">

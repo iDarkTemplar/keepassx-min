@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2024 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2011 Felix Geyer <debfx@fobos.de>
  *
@@ -473,7 +474,7 @@ Config::~Config()
 
 void Config::init(const QString &configFileName, const QString &localConfigFileName)
 {
-	// Upgrade from previous KeePassXC version which stores its config
+	// Upgrade from previous KeePassX-min version which stores its config
 	// in AppData/Local on Windows instead of AppData/Roaming.
 	// Move file to correct location before continuing.
 	if (!localConfigFileName.isEmpty() && QFile::exists(localConfigFileName) && !QFile::exists(configFileName))
@@ -499,25 +500,25 @@ QPair<QString, QString> Config::defaultConfigFiles()
 	// Check if we are running in portable mode, if so store the config files local to the app
 	if (isPortable())
 	{
-		return {portableConfigDir().append("/keepassxc.ini"), portableConfigDir().append("/keepassxc_local.ini")};
+		return {portableConfigDir().append("/keepassxmin.ini"), portableConfigDir().append("/keepassxmin_local.ini")};
 	}
 
 	QString configPath;
 	QString localConfigPath;
 
 	// On case-sensitive Operating Systems, force use of lowercase app directories
-	configPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/keepassxc";
-	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/keepassxc";
+	configPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/keepassxmin";
+	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/keepassxmin";
 
 	QString suffix;
 
-	configPath += QString("/keepassxc.ini");
-	localConfigPath += QString("/keepassxc.ini");
+	configPath += QString("/keepassxmin.ini");
+	localConfigPath += QString("/keepassxmin.ini");
 
 	// Allow overriding the default location with env vars
 	const auto &env = QProcessEnvironment::systemEnvironment();
-	configPath = env.value("KPXC_CONFIG", configPath);
-	localConfigPath = env.value("KPXC_CONFIG_LOCAL", localConfigPath);
+	configPath = env.value("KPXM_CONFIG", configPath);
+	localConfigPath = env.value("KPXM_CONFIG_LOCAL", localConfigPath);
 
 	return {QDir::toNativeSeparators(configPath), QDir::toNativeSeparators(localConfigPath)};
 }

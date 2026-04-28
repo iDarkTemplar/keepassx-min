@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2019 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -25,7 +26,7 @@
 #endif
 
 #if defined(NDEBUG) && !defined(__cpp_sized_deallocation)
-#warning "KeePassXC is being compiled without sized deallocation support. Deletes may be slow."
+#warning "KeePassX-min is being compiled without sized deallocation support. Deletes may be slow."
 #endif
 
 void* operator new(std::size_t size)

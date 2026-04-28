@@ -408,7 +408,7 @@ void ApplicationSettingsWidget::resetSettings()
 
 void ApplicationSettingsWidget::importSettings()
 {
-	auto file = fileDialog()->getOpenFileName(this, tr("Import KeePassXC Settings"), {}, "*.ini");
+	auto file = fileDialog()->getOpenFileName(this, tr("Import KeePassX-min Settings"), {}, "*.ini");
 	if (file.isEmpty())
 	{
 		return;
@@ -427,7 +427,7 @@ void ApplicationSettingsWidget::importSettings()
 
 void ApplicationSettingsWidget::exportSettings()
 {
-	auto file = fileDialog()->getSaveFileName(this, tr("Export KeePassXC Settings"), {}, "*.ini");
+	auto file = fileDialog()->getSaveFileName(this, tr("Export KeePassX-min Settings"), {}, "*.ini");
 	if (file.isEmpty())
 	{
 		return;

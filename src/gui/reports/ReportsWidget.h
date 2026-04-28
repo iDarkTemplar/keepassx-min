@@ -22,7 +22,7 @@
 class Database;
 
 /**
- * Pure-virtual base class for KeePassXC database settings widgets.
+ * Pure-virtual base class for KeePassX-min database settings widgets.
  */
 class ReportsWidget: public SettingsWidget
 {

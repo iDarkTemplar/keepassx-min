@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2018 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -42,7 +43,7 @@ NewDatabaseWizard::NewDatabaseWizard(QWidget *parent)
 		addPage(page);
 	}
 
-	setWindowTitle(tr("Create a new KeePassXC database…"));
+	setWindowTitle(tr("Create a new KeePassX-min database…"));
 
 	Q_INIT_RESOURCE(wizard);
 	setPixmap(QWizard::BackgroundPixmap, QPixmap(":/wizard/background-pixmap.png"));

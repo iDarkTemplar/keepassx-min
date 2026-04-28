@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2013 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2018 KeePassXC Team <team@keepassxc.org>
  *
@@ -54,7 +55,7 @@ void MessageBox::initializeButtonDefs()
 		{Retry, {stdButtonText(QMessageBox::Retry), QMessageBox::ButtonRole::AcceptRole}},
 		{Ignore, {stdButtonText(QMessageBox::Ignore), QMessageBox::ButtonRole::AcceptRole}},
 
-		// KeePassXC Buttons
+		// KeePassX-min Buttons
 		{Overwrite, {QMessageBox::tr("Overwrite"), QMessageBox::ButtonRole::AcceptRole}},
 		{Delete, {QMessageBox::tr("Delete"), QMessageBox::ButtonRole::AcceptRole}},
 		{Move, {QMessageBox::tr("Move"), QMessageBox::ButtonRole::AcceptRole}},

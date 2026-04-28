@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2017 Weslly Honorato <﻿weslly@protonmail.com>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
@@ -221,7 +222,7 @@ QString Totp::writeSettings(
 	if (settings->format == StorageFormat::OTPURL || forceOtp)
 	{
 		auto urlstring = QStringLiteral("otpauth://totp/%1:%2?secret=%3&period=%4&digits=%5&issuer=%1")
-			.arg(title.isEmpty() ? "KeePassXC" : QString(QUrl::toPercentEncoding(title)),
+			.arg(title.isEmpty() ? "KeePassX-min" : QString(QUrl::toPercentEncoding(title)),
 				username.isEmpty() ? "none" : QString(QUrl::toPercentEncoding(username)),
 				QString(QUrl::toPercentEncoding(Base32::sanitizeInput(settings->key.toLatin1()))),
 				QString::number(settings->step),

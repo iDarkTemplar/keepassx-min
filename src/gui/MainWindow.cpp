@@ -48,7 +48,7 @@
 #include "fdosecrets/FdoSecretsPlugin.h"
 #endif
 
-const QString MainWindow::BaseWindowTitle = "KeePassXC";
+const QString MainWindow::BaseWindowTitle = "KeePassX-min";
 
 MainWindow* g_MainWindow = nullptr;
 
@@ -301,9 +301,6 @@ MainWindow::MainWindow()
 	m_ui->actionPasswordGenerator->setIcon(icons()->icon("password-generator"));
 
 	m_ui->actionAbout->setIcon(icons()->icon("help-about"));
-	m_ui->actionDonate->setIcon(icons()->icon("donate"));
-	m_ui->actionBugReport->setIcon(icons()->icon("bugreport"));
-	m_ui->actionOnlineHelp->setIcon(icons()->icon("system-help"));
 
 	m_actionMultiplexer.connect(SIGNAL(currentModeChanged(DatabaseWidget::Mode)), this, SLOT(updateMenuActionState()));
 	m_actionMultiplexer.connect(SIGNAL(groupChanged()), this, SLOT(updateMenuActionState()));
@@ -393,9 +390,6 @@ MainWindow::MainWindow()
 	connect(m_ui->welcomeWidget, &WelcomeWidget::importFile, m_ui->tabWidget, &DatabaseTabWidget::importFile);
 
 	connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::showAboutDialog);
-	connect(m_ui->actionDonate, &QAction::triggered, this, &MainWindow::openDonateUrl);
-	connect(m_ui->actionBugReport, &QAction::triggered, this, &MainWindow::openBugReportUrl);
-	connect(m_ui->actionOnlineHelp, &QAction::triggered, this, &MainWindow::openOnlineHelp);
 
 	// Install event filter for empty-area drag and menubar toggle
 	auto *eventFilter = new MainWindowEventFilter(this);
@@ -833,21 +827,6 @@ void MainWindow::customOpenUrl(QString url)
 	QDesktopServices::openUrl(QUrl(url));
 }
 
-void MainWindow::openDonateUrl()
-{
-	customOpenUrl("https://keepassxc.org/donate");
-}
-
-void MainWindow::openBugReportUrl()
-{
-	customOpenUrl("https://github.com/keepassxreboot/keepassxc/issues");
-}
-
-void MainWindow::openOnlineHelp()
-{
-	customOpenUrl("https://keepassxc.org/docs/");
-}
-
 void MainWindow::switchToDatabases()
 {
 	if (m_ui->tabWidget->currentIndex() == -1)
@@ -1239,7 +1218,7 @@ void MainWindow::updateTrayIcon()
 
 			auto *actionToggle = new QAction(tr("Toggle window"), menu);
 			menu->addAction(actionToggle);
-			actionToggle->setIcon(icons()->icon("keepassxc-monochrome-dark"));
+			actionToggle->setIcon(icons()->icon("keepassxmin"));
 
 			menu->addAction(m_ui->actionLockAllDatabases);
 			menu->addAction(m_ui->actionQuit);
@@ -1258,7 +1237,7 @@ void MainWindow::updateTrayIcon()
 		if (!isTrayIconEnabled() || !QSystemTrayIcon::isSystemTrayAvailable())
 		{
 			// Try to show tray icon after 5 seconds, try 5 times
-			// This can happen if KeePassXC starts before the system tray is available
+			// This can happen if KeePassX-min starts before the system tray is available
 			static int trayIconAttempts = 0;
 			if (trayIconAttempts < 5)
 			{

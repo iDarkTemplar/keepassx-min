@@ -104,9 +104,6 @@ private slots:
 	void updateWindowTitle();
 	void showAboutDialog();
 	void focusWindowChanged(QWindow *focusWindow);
-	void openDonateUrl();
-	void openBugReportUrl();
-	void openOnlineHelp();
 	void switchToDatabases();
 	void switchToSettings(bool enabled);
 	void togglePasswordGenerator(bool enabled);

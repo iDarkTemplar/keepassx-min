@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2018 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -104,7 +105,7 @@ void PasswordEditWidget::initComponent()
 	m_ui->changeOrRemoveLabel->setText(tr("Password set, click to change or remove"));
 
 	m_ui->componentDescription->setText(tr("<p>A password is the primary method for securing your database.</p>"
-		"<p>Good passwords are long and unique. KeePassXC can generate one for you.</p>"));
+		"<p>Good passwords are long and unique. KeePassX-min can generate one for you.</p>"));
 }
 
 bool PasswordEditWidget::validate(QString &errorMessage) const

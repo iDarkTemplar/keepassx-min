@@ -50,7 +50,7 @@ bool KeyFileEditWidget::addToCompositeKey(QSharedPointer<CompositeKey> key)
 	{
 		QMessageBox::warning(getMainWindow(),
 			tr("Old key file format"),
-			tr("You selected a key file in an old format which KeePassXC<br>"
+			tr("You selected a key file in an old format which KeePassX-min<br>"
 				"may stop supporting in the future.<br><br>"
 				"Please consider generating a new key file instead."),
 			QMessageBox::Ok);

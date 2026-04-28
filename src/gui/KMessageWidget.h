@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
  *
+ * Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  * Copyright (c) 2011 Aurélien Gâteau <agateau@kde.org>
  * Copyright (c) 2014 Dominik Haumann <dhaumann@kde.org>
  *
@@ -18,6 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301  USA
  */
+
 #ifndef KMESSAGEWIDGET_H
 #define KMESSAGEWIDGET_H
 

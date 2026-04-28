@@ -32,14 +32,14 @@ install(DIRECTORY icons/application/ DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/
 	PATTERN "status" EXCLUDE PATTERN "actions" EXCLUDE PATTERN "categories" EXCLUDE)
 
 install(DIRECTORY icons/application/ DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor
-	FILES_MATCHING PATTERN "application-x-keepassxc.svg" PATTERN "status"
+	FILES_MATCHING PATTERN "application-x-keepassxm.svg" PATTERN "status"
 	EXCLUDE PATTERN "actions" EXCLUDE PATTERN "categories" EXCLUDE)
 
 configure_file(linux/${APP_ID}.desktop.in ${CMAKE_CURRENT_BINARY_DIR}/linux/${APP_ID}.desktop @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/linux/${APP_ID}.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 install(FILES linux/${APP_ID}.appdata.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo)
 
-install(FILES icons/application/256x256/apps/keepassxc.png DESTINATION ${CMAKE_INSTALL_DATADIR}/keepassxm/icons/application/256x256/apps)
+install(FILES icons/application/256x256/apps/keepassxm.png DESTINATION ${CMAKE_INSTALL_DATADIR}/keepassxm/icons/application/256x256/apps)
 
 add_custom_target(icons)
 add_custom_command(TARGET icons

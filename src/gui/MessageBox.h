@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2013 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2018 KeePassXC Team <team@keepassxc.org>
  *
@@ -47,7 +48,7 @@ public:
 		Retry = 1 << 17,
 		Ignore = 1 << 18,
 
-		// KeePassXC Buttons
+		// KeePassX-min Buttons
 		Overwrite = 1 << 19,
 		Delete = 1 << 20,
 		Move = 1 << 21,
@@ -59,7 +60,7 @@ public:
 		Continue = 1 << 27,
 		ContinueWithWeakPass = 1 << 28,
 
-		// Internal loop markers. Update Last when new KeePassXC button is added
+		// Internal loop markers. Update Last when new KeePassX-min button is added
 		First = Ok,
 		Last = ContinueWithWeakPass,
 	};

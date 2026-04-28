@@ -108,7 +108,7 @@ int main(int argc, char **argv)
 	// Process single instance and early exit if already running
 	if (app.isAlreadyRunning())
 	{
-		qWarning() << QObject::tr("Another instance of KeePassXC is already running.").toUtf8().constData();
+		qWarning() << QObject::tr("Another instance of KeePassX-min is already running.").toUtf8().constData();
 		return EXIT_SUCCESS;
 	}
 
@@ -117,7 +117,7 @@ int main(int argc, char **argv)
 		QString error = QObject::tr("Fatal error while testing the cryptographic functions.");
 		error.append("\n");
 		error.append(Crypto::errorString());
-		MessageBox::critical(nullptr, QObject::tr("KeePassXC - Error"), error);
+		MessageBox::critical(nullptr, QObject::tr("KeePassX-min - Error"), error);
 		return EXIT_FAILURE;
 	}
 

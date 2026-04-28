@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2014 Felix Geyer <debfx@fobos.de>
  *
@@ -27,7 +28,7 @@
 #include "core/Resources.h"
 
 /**
- * Install all KeePassXC and Qt translators.
+ * Install all KeePassX-min and Qt translators.
  */
 void Translator::installTranslators(const QString &uiLanguage)
 {
@@ -58,7 +59,7 @@ void Translator::installTranslators(const QString &uiLanguage)
 }
 
 /**
- * Install KeePassXC translator.
+ * Install KeePassX-min translator.
  *
  * @param languages priority-ordered list of languages
  * @param path absolute search path
@@ -70,11 +71,11 @@ bool Translator::installTranslator(const QStringList &languages, const QString &
 	{
 		QLocale locale(language);
 		QScopedPointer<QTranslator> translator(new QTranslator(qApp));
-		if (translator->load(locale, "keepassxc_", "", path))
+		if (translator->load(locale, "keepassxmin_", "", path))
 		{
 			return QCoreApplication::installTranslator(translator.take());
 		}
-		else if (translator->load(locale, "keepassxc_", "", QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+		else if (translator->load(locale, "keepassxmin_", "", QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
 		{
 			return QCoreApplication::installTranslator(translator.take());
 		}
@@ -118,7 +119,7 @@ QList<QPair<QString, QString>> Translator::availableLanguages()
 	QList<QPair<QString, QString>> languages;
 	languages.append(QPair<QString, QString>("system", "System default"));
 
-	QRegularExpression regExp("^keepassxc_([a-zA-Z_]+)\\.qm$", QRegularExpression::CaseInsensitiveOption);
+	QRegularExpression regExp("^keepassxmin_([a-zA-Z_]+)\\.qm$", QRegularExpression::CaseInsensitiveOption);
 	const QStringList fileList = QDir(resources()->dataPath("translations")).entryList();
 	for (const QString &filename: fileList)
 	{

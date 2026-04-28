@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2023 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -22,7 +23,7 @@
 class Database;
 
 /**
- * Pure-virtual base class for KeePassXC settings widgets.
+ * Pure-virtual base class for KeePassX-min settings widgets.
  */
 class SettingsWidget: public QWidget
 {

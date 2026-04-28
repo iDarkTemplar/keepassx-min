@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2017 Lennart Glauer <mail@lennart-glauer.de>
  *  Copyright (C) 2020 Giuseppe D'Angelo <dangelog@gmail.com>.
@@ -44,7 +45,7 @@ namespace Tools {
 
 QString debugInfo()
 {
-	QString debugInfo = "KeePassXC - ";
+	QString debugInfo = "KeePassX-min - ";
 	debugInfo.append(QObject::tr("Version %1").arg(KEEPASSXM_VERSION).append("\n"));
 
 	QString commitHash;

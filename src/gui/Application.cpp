@@ -54,7 +54,7 @@ Application::Application(int &argc, char **argv)
 	registerUnixSignals();
 
 	// Build identifier
-	auto identifier = QStringLiteral("keepassxc");
+	auto identifier = QStringLiteral("keepassxmin");
 	auto username = Tools::cleanUsername();
 	if (!username.isEmpty())
 	{
