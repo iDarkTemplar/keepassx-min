@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  * Copyright (C) 2017 KeePassXC Team
  *
  * This program is free software: you can redistribute it and/or modify
@@ -32,12 +33,12 @@ CategoryListWidget::CategoryListWidget(QWidget *parent)
 	m_itemDelegate = new CategoryListWidgetDelegate(m_ui->categoryList);
 	m_ui->categoryList->setItemDelegate(m_itemDelegate);
 
-	connect(m_ui->categoryList, SIGNAL(currentRowChanged(int)), SLOT(emitCategoryChanged(int)));
+	connect(m_ui->categoryList, &QListWidget::currentRowChanged, this, &CategoryListWidget::emitCategoryChanged);
 
-	connect(m_ui->scrollUp, SIGNAL(clicked()), SLOT(scrollCategoriesUp()));
-	connect(m_ui->scrollDown, SIGNAL(clicked()), SLOT(scrollCategoriesDown()));
-	connect(m_ui->categoryList->verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(updateCategoryScrollButtons()));
-	connect(m_ui->categoryList->verticalScrollBar(), SIGNAL(rangeChanged(int,int)), SLOT(updateCategoryScrollButtons()));
+	connect(m_ui->scrollUp, &QToolButton::clicked, this, &CategoryListWidget::scrollCategoriesUp);
+	connect(m_ui->scrollDown, &QToolButton::clicked, this, &CategoryListWidget::scrollCategoriesDown);
+	connect(m_ui->categoryList->verticalScrollBar(), &QScrollBar::valueChanged, this, &CategoryListWidget::updateCategoryScrollButtons);
+	connect(m_ui->categoryList->verticalScrollBar(), &QScrollBar::rangeChanged, this, &CategoryListWidget::updateCategoryScrollButtons);
 }
 
 CategoryListWidget::~CategoryListWidget()

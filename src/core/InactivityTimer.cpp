@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2014 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -31,7 +32,7 @@ InactivityTimer::InactivityTimer(QObject *parent)
 	, m_timer(new QTimer(this))
 {
 	m_timer->setSingleShot(false);
-	connect(m_timer, SIGNAL(timeout()), SLOT(timeout()));
+	connect(m_timer, &QTimer::timeout, this, &InactivityTimer::timeout);
 }
 
 void InactivityTimer::activate(int inactivityTimeout)

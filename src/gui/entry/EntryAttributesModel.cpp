@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -41,17 +42,15 @@ void EntryAttributesModel::setEntryAttributes(EntryAttributes *entryAttributes)
 	{
 		updateAttributes();
 
-		connect(m_entryAttributes, SIGNAL(customKeyModified(QString)), SLOT(attributeChange(QString)));
-		connect(m_entryAttributes, SIGNAL(aboutToBeAdded(QString)), SLOT(attributeAboutToAdd(QString)));
-		connect(m_entryAttributes, SIGNAL(added(QString)), SLOT(attributeAdd()));
-		connect(m_entryAttributes, SIGNAL(aboutToBeRemoved(QString)), SLOT(attributeAboutToRemove(QString)));
-		connect(m_entryAttributes, SIGNAL(removed(QString)), SLOT(attributeRemove()));
-		connect(m_entryAttributes, SIGNAL(aboutToRename(QString,QString)), SLOT(attributeAboutToRename(QString,QString)));
-
-		connect(m_entryAttributes, SIGNAL(renamed(QString,QString)), SLOT(attributeRename(QString,QString)));
-
-		connect(m_entryAttributes, SIGNAL(aboutToBeReset()), SLOT(aboutToReset()));
-		connect(m_entryAttributes, SIGNAL(reset()), SLOT(reset()));
+		connect(m_entryAttributes, &EntryAttributes::customKeyModified, this, &EntryAttributesModel::attributeChange);
+		connect(m_entryAttributes, &EntryAttributes::aboutToBeAdded, this, &EntryAttributesModel::attributeAboutToAdd);
+		connect(m_entryAttributes, &EntryAttributes::added, this, &EntryAttributesModel::attributeAdd);
+		connect(m_entryAttributes, &EntryAttributes::aboutToBeRemoved, this, &EntryAttributesModel::attributeAboutToRemove);
+		connect(m_entryAttributes, &EntryAttributes::removed, this, &EntryAttributesModel::attributeRemove);
+		connect(m_entryAttributes, &EntryAttributes::aboutToRename, this, &EntryAttributesModel::attributeAboutToRename);
+		connect(m_entryAttributes, &EntryAttributes::renamed, this, &EntryAttributesModel::attributeRename);
+		connect(m_entryAttributes, &EntryAttributes::aboutToBeReset, this, &EntryAttributesModel::aboutToReset);
+		connect(m_entryAttributes, &EntryAttributes::reset, this, &EntryAttributesModel::reset);
 	}
 
 	endResetModel();

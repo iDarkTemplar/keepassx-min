@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -55,11 +56,11 @@ TotpExportSettingsDialog::TotpExportSettingsDialog(DatabaseWidget *parent, Entry
 	setLayout(m_verticalLayout);
 	setAttribute(Qt::WA_DeleteOnClose);
 
-	connect(m_buttonBox, SIGNAL(rejected()), SLOT(close()));
-	connect(m_buttonBox, SIGNAL(accepted()), SLOT(copyToClipboard()));
-	connect(m_timer, SIGNAL(timeout()), SLOT(autoClose()));
+	connect(m_buttonBox, &QDialogButtonBox::rejected, this, &TotpExportSettingsDialog::close);
+	connect(m_buttonBox, &QDialogButtonBox::accepted, this, &TotpExportSettingsDialog::copyToClipboard);
+	connect(m_timer, &QTimer::timeout, this, &TotpExportSettingsDialog::autoClose);
 
-	new QShortcut(QKeySequence(QKeySequence::Copy), this, SLOT(copyToClipboard()));
+	new QShortcut(QKeySequence(QKeySequence::Copy), this, this, &TotpExportSettingsDialog::copyToClipboard);
 
 	m_buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Copy"));
 	m_buttonBox->setFocus();

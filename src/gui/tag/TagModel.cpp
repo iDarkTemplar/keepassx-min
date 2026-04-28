@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2018 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -49,8 +50,8 @@ void TagModel::setDatabase(QSharedPointer<Database> db)
 		return;
 	}
 
-	connect(m_db.data(), SIGNAL(tagListUpdated()), SLOT(updateTagList()));
-	connect(m_db->metadata()->customData(), SIGNAL(modified()), SLOT(updateTagList()));
+	connect(m_db.data(), &Database::tagListUpdated, this, &TagModel::updateTagList);
+	connect(m_db->metadata()->customData(), &CustomData::modified, this, &TagModel::updateTagList);
 
 	updateTagList();
 }

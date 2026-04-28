@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  * Copyright (C) 2024 KeePassXC Team <team@keepassxc.org>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -60,7 +61,7 @@ public slots:
 	bool closeAllDatabaseTabs();
 	bool closeCurrentDatabaseTab();
 	bool closeDatabaseTabFromSender();
-	void updateTabName(int index = -1);
+	void updateTabName(int index);
 
 	DatabaseWidget* newDatabase();
 	void openDatabase();

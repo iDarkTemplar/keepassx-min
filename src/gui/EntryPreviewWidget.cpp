@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2023 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *
@@ -67,20 +68,20 @@ EntryPreviewWidget::EntryPreviewWidget(QWidget *parent)
 
 	m_ui->entryTotpLabel->installEventFilter(this);
 
-	connect(m_ui->entryTotpButton, SIGNAL(toggled(bool)), m_ui->entryTotp, SLOT(setVisible(bool)));
-	connect(m_ui->entryCloseButton, SIGNAL(clicked()), SLOT(hide()));
-	connect(m_ui->toggleUsernameButton, SIGNAL(clicked(bool)), SLOT(setUsernameVisible(bool)));
-	connect(m_ui->togglePasswordButton, SIGNAL(clicked(bool)), SLOT(setPasswordVisible(bool)));
-	connect(m_ui->toggleEntryNotesButton, SIGNAL(clicked(bool)), SLOT(setEntryNotesVisible(bool)));
-	connect(m_ui->toggleGroupNotesButton, SIGNAL(clicked(bool)), SLOT(setGroupNotesVisible(bool)));
-	connect(m_ui->entryTabWidget, SIGNAL(tabBarClicked(int)), SLOT(updateTabIndexes()), Qt::QueuedConnection);
+	connect(m_ui->entryTotpButton, &QToolButton::toggled, m_ui->entryTotp, &QWidget::setVisible);
+	connect(m_ui->entryCloseButton, &QToolButton::clicked, this, &EntryPreviewWidget::hide);
+	connect(m_ui->toggleUsernameButton, &QToolButton::clicked, this, &EntryPreviewWidget::setUsernameVisible);
+	connect(m_ui->togglePasswordButton, &QToolButton::clicked, this, &EntryPreviewWidget::setPasswordVisible);
+	connect(m_ui->toggleEntryNotesButton, &QToolButton::clicked, this, &EntryPreviewWidget::setEntryNotesVisible);
+	connect(m_ui->toggleGroupNotesButton, &QToolButton::clicked, this, &EntryPreviewWidget::setGroupNotesVisible);
+	connect(m_ui->entryTabWidget, &QTabWidget::tabBarClicked, this, &EntryPreviewWidget::updateTabIndexes, Qt::QueuedConnection);
 	// Prevent the url from being focused after clicked to allow the Copy Password button to work properly
 	connect(m_ui->entryUrlLabel, &QLabel::linkActivated, this, [this] {
 		openEntryUrl();
 		m_ui->entryTabWidget->setFocus();
 	});
 
-	connect(&m_totpTimer, SIGNAL(timeout()), SLOT(updateTotpLabel()));
+	connect(&m_totpTimer, &QTimer::timeout, this, &EntryPreviewWidget::updateTotpLabel);
 
 	connect(m_ui->entryAttributesTable, &QTableWidget::itemDoubleClicked, this, [this](QTableWidgetItem *item) {
 		auto userData = item->data(Qt::UserRole);
@@ -104,8 +105,8 @@ EntryPreviewWidget::EntryPreviewWidget(QWidget *parent)
 
 	// Group
 	m_ui->groupCloseButton->setIcon(icons()->icon("dialog-close"));
-	connect(m_ui->groupCloseButton, SIGNAL(clicked()), SLOT(hide()));
-	connect(m_ui->groupTabWidget, SIGNAL(tabBarClicked(int)), SLOT(updateTabIndexes()), Qt::QueuedConnection);
+	connect(m_ui->groupCloseButton, &QToolButton::clicked, this, &EntryPreviewWidget::hide);
+	connect(m_ui->groupTabWidget, &QTabWidget::tabBarClicked, this, &EntryPreviewWidget::updateTabIndexes, Qt::QueuedConnection);
 
 	setFocusProxy(m_ui->entryTabWidget);
 }

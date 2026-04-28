@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2011 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2022 KeePassXC Team <team@keepassxc.org>
  *
@@ -66,9 +67,9 @@ signals:
 	void messageEditEntryDismiss();
 
 private slots:
-	void apply();
-	void save();
-	void cancel();
+	void doApply();
+	void doSave();
+	void doCancel();
 
 private:
 	void addTriStateItems(QComboBox *comboBox, bool inheritValue);

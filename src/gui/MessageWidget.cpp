@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2015 Pedro Alves <devel@pgalves.com>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
@@ -31,8 +32,8 @@ MessageWidget::MessageWidget(QWidget *parent)
 	, m_autoHideTimeout(DefaultAutoHideTimeout)
 {
 	m_autoHideTimer->setSingleShot(true);
-	connect(m_autoHideTimer, SIGNAL(timeout()), this, SLOT(animatedHide()));
-	connect(this, SIGNAL(hideAnimationFinished()), m_autoHideTimer, SLOT(stop()));
+	connect(m_autoHideTimer, &QTimer::timeout, this, &MessageWidget::animatedHide);
+	connect(this, &MessageWidget::hideAnimationFinished, m_autoHideTimer, &QTimer::stop);
 }
 
 void MessageWidget::setAnimate(bool state)

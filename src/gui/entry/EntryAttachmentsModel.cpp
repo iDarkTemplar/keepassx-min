@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -39,13 +40,13 @@ void EntryAttachmentsModel::setEntryAttachments(EntryAttachments *entryAttachmen
 
 	if (m_entryAttachments)
 	{
-		connect(m_entryAttachments, SIGNAL(keyModified(QString)), SLOT(attachmentChange(QString)));
-		connect(m_entryAttachments, SIGNAL(aboutToBeAdded(QString)), SLOT(attachmentAboutToAdd(QString)));
-		connect(m_entryAttachments, SIGNAL(added(QString)), SLOT(attachmentAdd()));
-		connect(m_entryAttachments, SIGNAL(aboutToBeRemoved(QString)), SLOT(attachmentAboutToRemove(QString)));
-		connect(m_entryAttachments, SIGNAL(removed(QString)), SLOT(attachmentRemove()));
-		connect(m_entryAttachments, SIGNAL(aboutToBeReset()), SLOT(aboutToReset()));
-		connect(m_entryAttachments, SIGNAL(reset()), SLOT(reset()));
+		connect(m_entryAttachments, &EntryAttachments::keyModified, this, &EntryAttachmentsModel::attachmentChange);
+		connect(m_entryAttachments, &EntryAttachments::aboutToBeAdded, this, &EntryAttachmentsModel::attachmentAboutToAdd);
+		connect(m_entryAttachments, &EntryAttachments::added, this, &EntryAttachmentsModel::attachmentAdd);
+		connect(m_entryAttachments, &EntryAttachments::aboutToBeRemoved, this, &EntryAttachmentsModel::attachmentAboutToRemove);
+		connect(m_entryAttachments, &EntryAttachments::removed, this, &EntryAttachmentsModel::attachmentRemove);
+		connect(m_entryAttachments, &EntryAttachments::aboutToBeReset, this, &EntryAttachmentsModel::aboutToReset);
+		connect(m_entryAttachments, &EntryAttachments::reset, this, &EntryAttachmentsModel::reset);
 	}
 
 	endResetModel();

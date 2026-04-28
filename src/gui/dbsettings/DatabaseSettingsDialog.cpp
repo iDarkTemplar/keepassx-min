@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2023 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *
@@ -41,8 +42,8 @@ DatabaseSettingsDialog::DatabaseSettingsDialog(QWidget *parent)
 #endif
 	, m_maintenanceWidget(new DatabaseSettingsWidgetMaintenance(this))
 {
-	connect(this, SIGNAL(accepted()), SLOT(save()));
-	connect(this, SIGNAL(rejected()), SLOT(reject()));
+	connect(this, &DatabaseSettingsDialog::accepted, this, &DatabaseSettingsDialog::save);
+	connect(this, &DatabaseSettingsDialog::rejected, this, &DatabaseSettingsDialog::reject);
 
 	addPage(tr("General"), icons()->icon("preferences-other"), m_generalWidget);
 	addPage(tr("Security"), icons()->icon("security-high"), m_securityTabWidget);

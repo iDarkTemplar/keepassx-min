@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2018 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -25,17 +26,17 @@ KeyComponentWidget::KeyComponentWidget(QWidget *parent)
 {
 	m_ui->setupUi(this);
 
-	connect(m_ui->addButton, SIGNAL(clicked(bool)), SIGNAL(componentAddRequested()));
-	connect(m_ui->changeButton, SIGNAL(clicked(bool)), SIGNAL(componentEditRequested()));
-	connect(m_ui->removeButton, SIGNAL(clicked(bool)), SIGNAL(componentRemovalRequested()));
-	connect(m_ui->cancelButton, SIGNAL(clicked(bool)), SLOT(cancelEdit()));
+	connect(m_ui->addButton, &QPushButton::clicked, this, &KeyComponentWidget::componentAddRequested);
+	connect(m_ui->changeButton, &QPushButton::clicked, this, &KeyComponentWidget::componentEditRequested);
+	connect(m_ui->removeButton, &QPushButton::clicked, this, &KeyComponentWidget::componentRemovalRequested);
+	connect(m_ui->cancelButton, &QPushButton::clicked, this, &KeyComponentWidget::cancelEdit);
 
-	connect(m_ui->stackedWidget, SIGNAL(currentChanged(int)), SLOT(resetComponentEditWidget()));
+	connect(m_ui->stackedWidget, &QStackedWidget::currentChanged, this, &KeyComponentWidget::resetComponentEditWidget);
 
-	connect(this, SIGNAL(componentAddRequested()), SLOT(doAdd()));
-	connect(this, SIGNAL(componentEditRequested()), SLOT(doEdit()));
-	connect(this, SIGNAL(componentRemovalRequested()), SLOT(doRemove()));
-	connect(this, SIGNAL(componentAddChanged(bool)), SLOT(updateAddStatus(bool)));
+	connect(this, &KeyComponentWidget::componentAddRequested, this, &KeyComponentWidget::doAdd);
+	connect(this, &KeyComponentWidget::componentEditRequested, this, &KeyComponentWidget::doEdit);
+	connect(this, &KeyComponentWidget::componentRemovalRequested, this, &KeyComponentWidget::doRemove);
+	connect(this, &KeyComponentWidget::componentAddChanged, this, &KeyComponentWidget::updateAddStatus);
 
 	bool prev = m_ui->stackedWidget->blockSignals(true);
 	m_ui->stackedWidget->setCurrentIndex(Page::AddNew);
@@ -125,7 +126,7 @@ void KeyComponentWidget::resetComponentEditWidget()
 		initComponentEditWidget(m_componentWidget);
 	}
 
-	QTimer::singleShot(0, this, SLOT(updateSize()));
+	QTimer::singleShot(0, this, &KeyComponentWidget::updateSize);
 }
 
 void KeyComponentWidget::updateSize()

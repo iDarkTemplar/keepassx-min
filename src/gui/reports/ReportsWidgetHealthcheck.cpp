@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2019 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -160,12 +161,12 @@ ReportsWidgetHealthcheck::ReportsWidgetHealthcheck(QWidget *parent)
 	m_ui->healthcheckTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
 	m_ui->healthcheckTableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-	connect(m_ui->healthcheckTableView, SIGNAL(customContextMenuRequested(QPoint)), SLOT(customMenuRequested(QPoint)));
-	connect(m_ui->healthcheckTableView, SIGNAL(doubleClicked(QModelIndex)), SLOT(emitEntryActivated(QModelIndex)));
-	connect(m_ui->showExcluded, SIGNAL(stateChanged(int)), this, SLOT(calculateHealth()));
-	connect(m_ui->showExpired, SIGNAL(stateChanged(int)), this, SLOT(calculateHealth()));
+	connect(m_ui->healthcheckTableView, &QTableView::customContextMenuRequested, this, &ReportsWidgetHealthcheck::customMenuRequested);
+	connect(m_ui->healthcheckTableView, &QTableView::doubleClicked, this, &ReportsWidgetHealthcheck::emitEntryActivated);
+	connect(m_ui->showExcluded, &QCheckBox::stateChanged, this, &ReportsWidgetHealthcheck::calculateHealth);
+	connect(m_ui->showExpired, &QCheckBox::stateChanged, this, &ReportsWidgetHealthcheck::calculateHealth);
 
-	new QShortcut(Qt::Key_Delete, this, SLOT(deleteSelectedEntries()));
+	new QShortcut(Qt::Key_Delete, this, [this]() { this->deleteSelectedEntries(); });
 }
 
 ReportsWidgetHealthcheck::~ReportsWidgetHealthcheck()
@@ -270,7 +271,7 @@ void ReportsWidgetHealthcheck::showEvent(QShowEvent *event)
 	{
 		// Perform stats calculation on next event loop to allow widget to appear
 		m_healthCalculated = true;
-		QTimer::singleShot(0, this, SLOT(calculateHealth()));
+		QTimer::singleShot(0, this, &ReportsWidgetHealthcheck::calculateHealth);
 	}
 }
 

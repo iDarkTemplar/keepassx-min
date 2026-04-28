@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -26,9 +27,9 @@ ElidedLabel::ElidedLabel(QWidget *parent, Qt::WindowFlags f)
 	: QLabel(parent, f)
 	, m_elideMode(Qt::ElideMiddle)
 {
-	connect(this, SIGNAL(elideModeChanged(Qt::TextElideMode)), this, SLOT(updateElidedText()));
-	connect(this, SIGNAL(rawTextChanged(QString)), this, SLOT(updateElidedText()));
-	connect(this, SIGNAL(urlChanged(QString)), this, SLOT(updateElidedText()));
+	connect(this, &ElidedLabel::elideModeChanged, this, &ElidedLabel::updateElidedText);
+	connect(this, &ElidedLabel::rawTextChanged, this, &ElidedLabel::updateElidedText);
+	connect(this, &ElidedLabel::urlChanged, this, &ElidedLabel::updateElidedText);
 }
 
 ElidedLabel::ElidedLabel(const QString &text, QWidget *parent, Qt::WindowFlags f)

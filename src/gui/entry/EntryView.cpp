@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  * Copyright (C) 2018 KeePassXC Team <team@keepassxc.org>
  * Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
@@ -94,13 +95,11 @@ EntryView::EntryView(QWidget *parent)
 	// QAbstractItemView::startDrag() uses this property as the default drag action
 	setDefaultDropAction(Qt::MoveAction);
 
-	connect(this, SIGNAL(doubleClicked(QModelIndex)), SLOT(emitEntryActivated(QModelIndex)));
-	connect(selectionModel(), &QItemSelectionModel::selectionChanged, this, [this] {
-		emit entrySelectionChanged(currentEntry());
-	});
+	connect(this, &EntryView::doubleClicked, this, &EntryView::emitEntryActivated);
+	connect(selectionModel(), &QItemSelectionModel::selectionChanged, this, [this] { emit entrySelectionChanged(currentEntry()); });
 
-	new QShortcut(Qt::CTRL | Qt::Key_F10, this, SLOT(contextMenuShortcutPressed()), nullptr, Qt::WidgetShortcut);
-	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_J, this, SLOT(jumpToGroupShortcut()), nullptr, Qt::WidgetShortcut);
+	new QShortcut(Qt::CTRL | Qt::Key_F10, this, this, &EntryView::contextMenuShortcutPressed, Qt::WidgetShortcut);
+	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_J, this, this, &EntryView::jumpToGroupShortcut, Qt::WidgetShortcut);
 
 	resetViewToDefaults();
 
@@ -128,23 +127,23 @@ EntryView::EntryView(QWidget *parent)
 		m_columnActions->addAction(action);
 	}
 
-	connect(m_columnActions, SIGNAL(triggered(QAction *)), this, SLOT(toggleColumnVisibility(QAction *)));
+	connect(m_columnActions, &QActionGroup::triggered, this, &EntryView::toggleColumnVisibility);
 
 	m_headerMenu->addSeparator();
-	m_headerMenu->addAction(tr("Fit to window"), this, SLOT(fitColumnsToWindow()));
-	m_headerMenu->addAction(tr("Fit to contents"), this, SLOT(fitColumnsToContents()));
+	m_headerMenu->addAction(tr("Fit to window"), this, &EntryView::fitColumnsToWindow);
+	m_headerMenu->addAction(tr("Fit to contents"), this, &EntryView::fitColumnsToContents);
 	m_headerMenu->addSeparator();
-	m_headerMenu->addAction(tr("Reset to defaults"), this, SLOT(resetViewToDefaults()));
+	m_headerMenu->addAction(tr("Reset to defaults"), this, &EntryView::resetViewToDefaults);
 
 	header()->setDefaultSectionSize(100);
 	header()->setStretchLastSection(false);
 	header()->setContextMenuPolicy(Qt::CustomContextMenu);
 
-	connect(header(), SIGNAL(customContextMenuRequested(QPoint)), SLOT(showHeaderMenu(QPoint)));
-	connect(header(), SIGNAL(sectionCountChanged(int, int)), SIGNAL(viewStateChanged()));
-	connect(header(), SIGNAL(sectionMoved(int, int, int)), SIGNAL(viewStateChanged()));
-	connect(header(), SIGNAL(sectionResized(int, int, int)), SIGNAL(viewStateChanged()));
-	connect(header(), SIGNAL(sortIndicatorChanged(int, Qt::SortOrder)), SLOT(sortIndicatorChanged(int, Qt::SortOrder)));
+	connect(header(), &QHeaderView::customContextMenuRequested, this, &EntryView::showHeaderMenu);
+	connect(header(), &QHeaderView::sectionCountChanged, this, &EntryView::viewStateChanged);
+	connect(header(), &QHeaderView::sectionMoved, this, &EntryView::viewStateChanged);
+	connect(header(), &QHeaderView::sectionResized, this, &EntryView::viewStateChanged);
+	connect(header(), &QHeaderView::sortIndicatorChanged, this, &EntryView::sortIndicatorChanged);
 }
 
 void EntryView::contextMenuShortcutPressed()

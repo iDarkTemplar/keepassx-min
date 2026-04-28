@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2023 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2014 Felix Geyer <debfx@fobos.de>
  *
@@ -37,7 +38,7 @@ void URLEdit::enableVerifyMode()
 {
 	updateStylesheet();
 
-	connect(this, SIGNAL(textChanged(QString)), SLOT(updateStylesheet()));
+	connect(this, &URLEdit::textChanged, this, &URLEdit::updateStylesheet);
 }
 
 void URLEdit::updateStylesheet()

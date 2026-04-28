@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -21,5 +22,5 @@ ScreenLockListener::ScreenLockListener(QWidget *parent)
 	: QObject(parent)
 {
 	m_listener = ScreenLockListenerPrivate::instance(parent);
-	connect(m_listener, SIGNAL(screenLocked()), this, SIGNAL(screenLocked()));
+	connect(m_listener, &ScreenLockListenerPrivate::screenLocked, this, &ScreenLockListener::screenLocked);
 }

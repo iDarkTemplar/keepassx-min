@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2019 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -31,9 +32,9 @@ TotpSetupDialog::TotpSetupDialog(QWidget *parent, Entry *entry)
 	setWindowFlag(Qt::WindowContextHelpButtonHint, false);
 	setFixedSize(sizeHint());
 
-	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
-	connect(m_ui->buttonBox, SIGNAL(accepted()), SLOT(saveSettings()));
-	connect(m_ui->radioCustom, SIGNAL(toggled(bool)), SLOT(toggleCustom(bool)));
+	connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &TotpSetupDialog::close);
+	connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &TotpSetupDialog::saveSettings);
+	connect(m_ui->radioCustom, &QRadioButton::toggled, this, &TotpSetupDialog::toggleCustom);
 
 	init();
 }

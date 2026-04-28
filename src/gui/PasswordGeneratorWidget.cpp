@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2013 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2022 KeePassXC Team <team@keepassxc.org>
  *
@@ -53,31 +54,31 @@ PasswordGeneratorWidget::PasswordGeneratorWidget(QWidget *parent)
 	shortcut = new QShortcut(Qt::CTRL | Qt::Key_S, this);
 	connect(shortcut, &QShortcut::activated, this, [this] { applyPassword(); });
 
-	connect(m_ui->editNewPassword, SIGNAL(textChanged(QString)), SLOT(updateButtonsEnabled(QString)));
-	connect(m_ui->editNewPassword, SIGNAL(textChanged(QString)), SLOT(updatePasswordStrength()));
-	connect(m_ui->editNewPassword, SIGNAL(textChanged(QString)), SLOT(updatePasswordLengthLabel(QString)));
-	connect(m_ui->buttonAdvancedMode, SIGNAL(toggled(bool)), SLOT(setAdvancedMode(bool)));
-	connect(m_ui->buttonAddHex, SIGNAL(clicked()), SLOT(excludeHexChars()));
-	connect(m_ui->editAdditionalChars, SIGNAL(textChanged(QString)), SLOT(updateGenerator()));
-	connect(m_ui->editExcludedChars, SIGNAL(textChanged(QString)), SLOT(updateGenerator()));
-	connect(m_ui->buttonApply, SIGNAL(clicked()), SLOT(applyPassword()));
-	connect(m_ui->buttonCopy, SIGNAL(clicked()), SLOT(copyPassword()));
-	connect(m_ui->buttonGenerate, SIGNAL(clicked()), SLOT(regeneratePassword()));
-	connect(m_ui->buttonDeleteWordList, SIGNAL(clicked()), SLOT(removeCustomWordList()));
-	connect(m_ui->buttonAddWordList, SIGNAL(clicked()), SLOT(addWordList()));
-	connect(m_ui->buttonClose, SIGNAL(clicked()), SIGNAL(closed()));
+	connect(m_ui->editNewPassword, &PasswordWidget::textChanged, this, &PasswordGeneratorWidget::updateButtonsEnabled);
+	connect(m_ui->editNewPassword, &PasswordWidget::textChanged, this, &PasswordGeneratorWidget::updatePasswordStrength);
+	connect(m_ui->editNewPassword, &PasswordWidget::textChanged, this, &PasswordGeneratorWidget::updatePasswordLengthLabel);
+	connect(m_ui->buttonAdvancedMode, &QPushButton::toggled, this, &PasswordGeneratorWidget::setAdvancedMode);
+	connect(m_ui->buttonAddHex, &QPushButton::clicked, this, &PasswordGeneratorWidget::excludeHexChars);
+	connect(m_ui->editAdditionalChars, &QLineEdit::textChanged, this, &PasswordGeneratorWidget::updateGenerator);
+	connect(m_ui->editExcludedChars, &QLineEdit::textChanged, this, &PasswordGeneratorWidget::updateGenerator);
+	connect(m_ui->buttonApply, &QPushButton::clicked, this, &PasswordGeneratorWidget::applyPassword);
+	connect(m_ui->buttonCopy, &QPushButton::clicked, this, &PasswordGeneratorWidget::copyPassword);
+	connect(m_ui->buttonGenerate, &QPushButton::clicked, this, &PasswordGeneratorWidget::regeneratePassword);
+	connect(m_ui->buttonDeleteWordList, &QPushButton::clicked, this, &PasswordGeneratorWidget::removeCustomWordList);
+	connect(m_ui->buttonAddWordList, &QPushButton::clicked, this, &PasswordGeneratorWidget::addWordList);
+	connect(m_ui->buttonClose, &QPushButton::clicked, this, &PasswordGeneratorWidget::closed);
 
-	connect(m_ui->sliderLength, SIGNAL(valueChanged(int)), SLOT(passwordLengthChanged(int)));
-	connect(m_ui->spinBoxLength, SIGNAL(valueChanged(int)), SLOT(passwordLengthChanged(int)));
+	connect(m_ui->sliderLength, &QSlider::valueChanged, this, &PasswordGeneratorWidget::passwordLengthChanged);
+	connect(m_ui->spinBoxLength, &QSpinBox::valueChanged, this, &PasswordGeneratorWidget::passwordLengthChanged);
 
-	connect(m_ui->sliderWordCount, SIGNAL(valueChanged(int)), SLOT(passphraseLengthChanged(int)));
-	connect(m_ui->spinBoxWordCount, SIGNAL(valueChanged(int)), SLOT(passphraseLengthChanged(int)));
+	connect(m_ui->sliderWordCount, &QSlider::valueChanged, this, &PasswordGeneratorWidget::passphraseLengthChanged);
+	connect(m_ui->spinBoxWordCount, &QSpinBox::valueChanged, this, &PasswordGeneratorWidget::passphraseLengthChanged);
 
-	connect(m_ui->editWordSeparator, SIGNAL(textChanged(QString)), SLOT(updateGenerator()));
-	connect(m_ui->comboBoxWordList, SIGNAL(currentIndexChanged(int)), SLOT(updateGenerator()));
-	connect(m_ui->optionButtons, SIGNAL(buttonClicked(int)), SLOT(updateGenerator()));
-	connect(m_ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(updateGenerator()));
-	connect(m_ui->wordCaseComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateGenerator()));
+	connect(m_ui->editWordSeparator, &QLineEdit::textChanged, this, &PasswordGeneratorWidget::updateGenerator);
+	connect(m_ui->comboBoxWordList, &QComboBox::currentIndexChanged, this, &PasswordGeneratorWidget::updateGenerator);
+	connect(m_ui->optionButtons, &QButtonGroup::buttonClicked, this, &PasswordGeneratorWidget::updateGenerator);
+	connect(m_ui->tabWidget, &QTabWidget::currentChanged, this, &PasswordGeneratorWidget::updateGenerator);
+	connect(m_ui->wordCaseComboBox, &QComboBox::currentIndexChanged, this, &PasswordGeneratorWidget::updateGenerator);
 
 	// set font size of password quality, characters, and entropy labels dynamically to 80% of
 	// the default font size, but make it no smaller than 8pt
@@ -140,7 +141,7 @@ PasswordGeneratorWidget *PasswordGeneratorWidget::popupGenerator(QWidget *parent
 	pwGenerator->setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 	pwGenerator->setStandaloneMode(false);
 
-	connect(pwGenerator, SIGNAL(closed()), pwGenerator, SLOT(deleteLater()));
+	connect(pwGenerator, &PasswordGeneratorWidget::closed, pwGenerator, &PasswordGeneratorWidget::deleteLater);
 
 	pwGenerator->show();
 	pwGenerator->raise();

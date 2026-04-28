@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2021 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -33,12 +34,9 @@ DatabaseSettingsWidgetMaintenance::DatabaseSettingsWidgetMaintenance(QWidget *pa
 
 	m_ui->customIconsView->setModel(m_customIconModel);
 
-	connect(m_ui->deleteButton, SIGNAL(clicked()), SLOT(removeCustomIcon()));
-	connect(m_ui->purgeButton, SIGNAL(clicked()), SLOT(purgeUnusedCustomIcons()));
-	connect(m_ui->customIconsView->selectionModel(),
-		SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-		this,
-		SLOT(selectionChanged()));
+	connect(m_ui->deleteButton, &QPushButton::clicked, this, &DatabaseSettingsWidgetMaintenance::removeCustomIcon);
+	connect(m_ui->purgeButton, &QPushButton::clicked, this, &DatabaseSettingsWidgetMaintenance::purgeUnusedCustomIcons);
+	connect(m_ui->customIconsView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &DatabaseSettingsWidgetMaintenance::selectionChanged);
 }
 
 DatabaseSettingsWidgetMaintenance::~DatabaseSettingsWidgetMaintenance()

@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2020 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -23,8 +24,8 @@
 FileWatcher::FileWatcher(QObject *parent)
 	: QObject(parent)
 {
-	connect(&m_fileWatcher, SIGNAL(fileChanged(QString)), SLOT(checkFileChanged()));
-	connect(&m_fileChecksumTimer, SIGNAL(timeout()), SLOT(checkFileChanged()));
+	connect(&m_fileWatcher, &QFileSystemWatcher::fileChanged,this, &FileWatcher::checkFileChanged);
+	connect(&m_fileChecksumTimer, &QTimer::timeout, this, &FileWatcher::checkFileChanged);
 	connect(&m_fileChangeDelayTimer, &QTimer::timeout, this, [this] { emit fileChanged(m_filePath); });
 	m_fileChangeDelayTimer.setSingleShot(true);
 	m_fileIgnoreDelayTimer.setSingleShot(true);

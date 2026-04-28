@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2011 Felix Geyer <debfx@fobos.de>
  *
@@ -69,21 +70,15 @@ EditGroupWidget::EditGroupWidget(QWidget *parent)
 	addPage(tr("Icon"), icons()->icon("preferences-desktop-icons"), m_editGroupWidgetIcons);
 	addPage(tr("Properties"), icons()->icon("document-properties"), m_editWidgetProperties);
 
-	connect(m_mainUi->expireCheck, SIGNAL(toggled(bool)), m_mainUi->expireDatePicker, SLOT(setEnabled(bool)));
-	connect(m_mainUi->autoTypeSequenceCustomRadio,
-		SIGNAL(toggled(bool)),
-		m_mainUi->autoTypeSequenceCustomEdit,
-		SLOT(setEnabled(bool)));
+	connect(m_mainUi->expireCheck, &QCheckBox::toggled, m_mainUi->expireDatePicker, &QDateTimeEdit::setEnabled);
+	connect(m_mainUi->autoTypeSequenceCustomRadio, &QRadioButton::toggled, m_mainUi->autoTypeSequenceCustomEdit, &QLineEdit::setEnabled);
 
-	connect(this, SIGNAL(apply()), SLOT(apply()));
-	connect(this, SIGNAL(accepted()), SLOT(save()));
-	connect(this, SIGNAL(rejected()), SLOT(cancel()));
+	connect(this, &EditGroupWidget::apply, this, &EditGroupWidget::doApply);
+	connect(this, &EditGroupWidget::accepted,this, &EditGroupWidget::doSave);
+	connect(this, &EditGroupWidget::rejected, this, &EditGroupWidget::doCancel);
 
-	connect(m_editGroupWidgetIcons,
-		SIGNAL(messageEditEntry(QString,MessageWidget::MessageType)),
-		SLOT(showMessage(QString,MessageWidget::MessageType)));
-
-	connect(m_editGroupWidgetIcons, SIGNAL(messageEditEntryDismiss()), SLOT(hideMessage()));
+	connect(m_editGroupWidgetIcons, &EditWidgetIcons::messageEditEntry, this, &EditGroupWidget::showMessage);
+	connect(m_editGroupWidgetIcons, &EditWidgetIcons::messageEditEntryDismiss, this, &EditGroupWidget::hideMessage);
 
 	setupModifiedTracking();
 }
@@ -95,18 +90,18 @@ EditGroupWidget::~EditGroupWidget()
 void EditGroupWidget::setupModifiedTracking()
 {
 	// Group tab
-	connect(m_mainUi->editName, SIGNAL(textChanged(QString)), SLOT(setModified()));
-	connect(m_mainUi->editNotes, SIGNAL(textChanged()), SLOT(setModified()));
-	connect(m_mainUi->expireCheck, SIGNAL(stateChanged(int)), SLOT(setModified()));
-	connect(m_mainUi->expireDatePicker, SIGNAL(dateTimeChanged(QDateTime)), SLOT(setModified()));
-	connect(m_mainUi->searchComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setModified()));
-	connect(m_mainUi->autotypeComboBox, SIGNAL(currentIndexChanged(int)), SLOT(setModified()));
-	connect(m_mainUi->autoTypeSequenceInherit, SIGNAL(toggled(bool)), SLOT(setModified()));
-	connect(m_mainUi->autoTypeSequenceCustomRadio, SIGNAL(toggled(bool)), SLOT(setModified()));
-	connect(m_mainUi->autoTypeSequenceCustomEdit, SIGNAL(textChanged(QString)), SLOT(setModified()));
+	connect(m_mainUi->editName, &QLineEdit::textChanged, this, [this] () { setModified(); });
+	connect(m_mainUi->editNotes, &QPlainTextEdit::textChanged, [this] () { setModified(); });
+	connect(m_mainUi->expireCheck, &QCheckBox::stateChanged, [this] () { setModified(); });
+	connect(m_mainUi->expireDatePicker, &QDateTimeEdit::dateTimeChanged, [this] () { setModified(); });
+	connect(m_mainUi->searchComboBox, &QComboBox::currentIndexChanged, [this] () { setModified(); });
+	connect(m_mainUi->autotypeComboBox, &QComboBox::currentIndexChanged, [this] () { setModified(); });
+	connect(m_mainUi->autoTypeSequenceInherit, &QRadioButton::toggled, [this] () { setModified(); });
+	connect(m_mainUi->autoTypeSequenceCustomRadio, &QRadioButton::toggled, [this] () { setModified(); });
+	connect(m_mainUi->autoTypeSequenceCustomEdit, &QLineEdit::textChanged, [this] () { setModified(); });
 
 	// Icon tab
-	connect(m_editGroupWidgetIcons, SIGNAL(widgetUpdated()), SLOT(setModified()));
+	connect(m_editGroupWidgetIcons, &EditWidgetIcons::widgetUpdated, [this] () { setModified(); });
 }
 
 void EditGroupWidget::loadGroup(Group *group, bool create, const QSharedPointer<Database> &database)
@@ -186,14 +181,14 @@ void EditGroupWidget::loadGroup(Group *group, bool create, const QSharedPointer<
 	setModified(false);
 }
 
-void EditGroupWidget::save()
+void EditGroupWidget::doSave()
 {
-	apply();
+	doApply();
 	clear();
 	emit editFinished(true);
 }
 
-void EditGroupWidget::apply()
+void EditGroupWidget::doApply()
 {
 	m_temporaryGroup->setName(m_mainUi->editName->text());
 	m_temporaryGroup->setNotes(m_mainUi->editNotes->toPlainText());
@@ -251,7 +246,7 @@ void EditGroupWidget::apply()
 	setModified(false);
 }
 
-void EditGroupWidget::cancel()
+void EditGroupWidget::doCancel()
 {
 	if (!m_group->iconUuid().isNull() && !m_db->metadata()->hasCustomIcon(m_group->iconUuid()))
 	{
@@ -273,7 +268,7 @@ void EditGroupWidget::cancel()
 
 		if (result == MessageBox::Save)
 		{
-			save();
+			doSave();
 			return;
 		}
 	}

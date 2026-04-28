@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -724,15 +725,15 @@ void EntryModel::severConnections()
 
 void EntryModel::makeConnections(const Group *group)
 {
-	connect(group, SIGNAL(entryAboutToAdd(Entry *)), SLOT(entryAboutToAdd(Entry *)));
-	connect(group, SIGNAL(entryAdded(Entry *)), SLOT(entryAdded(Entry *)));
-	connect(group, SIGNAL(entryAboutToRemove(Entry *)), SLOT(entryAboutToRemove(Entry *)));
-	connect(group, SIGNAL(entryRemoved(Entry *)), SLOT(entryRemoved()));
-	connect(group, SIGNAL(entryAboutToMoveUp(int)), SLOT(entryAboutToMoveUp(int)));
-	connect(group, SIGNAL(entryMovedUp()), SLOT(entryMovedUp()));
-	connect(group, SIGNAL(entryAboutToMoveDown(int)), SLOT(entryAboutToMoveDown(int)));
-	connect(group, SIGNAL(entryMovedDown()), SLOT(entryMovedDown()));
-	connect(group, SIGNAL(entryDataChanged(Entry *)), SLOT(entryDataChanged(Entry *)));
+	connect(group, &Group::entryAboutToAdd, this, &EntryModel::entryAboutToAdd);
+	connect(group, &Group::entryAdded, this, &EntryModel::entryAdded);
+	connect(group, &Group::entryAboutToRemove, this, &EntryModel::entryAboutToRemove);
+	connect(group, &Group::entryRemoved, this, &EntryModel::entryRemoved);
+	connect(group, &Group::entryAboutToMoveUp, this, &EntryModel::entryAboutToMoveUp);
+	connect(group, &Group::entryMovedUp, this, &EntryModel::entryMovedUp);
+	connect(group, &Group::entryAboutToMoveDown, this, &EntryModel::entryAboutToMoveDown);
+	connect(group, &Group::entryMovedDown, this, &EntryModel::entryMovedDown);
+	connect(group, &Group::entryDataChanged, this, &EntryModel::entryDataChanged);
 }
 void EntryModel::setBackgroundColorVisible(bool visible)
 {

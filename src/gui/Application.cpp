@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Tobias Tangemann
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2020 KeePassXC Team <team@keepassxc.org>
@@ -70,8 +71,8 @@ Application::Application(int &argc, char **argv)
 	m_lockFile->tryLock();
 
 	m_lockServer.setSocketOptions(QLocalServer::UserAccessOption);
-	connect(&m_lockServer, SIGNAL(newConnection()), this, SIGNAL(anotherInstanceStarted()));
-	connect(&m_lockServer, SIGNAL(newConnection()), this, SLOT(processIncomingConnection()));
+	connect(&m_lockServer, &QLocalServer::newConnection, this, &Application::anotherInstanceStarted);
+	connect(&m_lockServer, &QLocalServer::newConnection, this, &Application::processIncomingConnection);
 
 	switch (m_lockFile->error())
 	{
@@ -193,7 +194,7 @@ void Application::registerUnixSignals()
 	}
 
 	m_unixSignalNotifier = new QSocketNotifier(unixSignalSocket[1], QSocketNotifier::Read, this);
-	connect(m_unixSignalNotifier, SIGNAL(activated(int)), this, SLOT(quitBySignal()));
+	connect(m_unixSignalNotifier, &QSocketNotifier::activated, this, &Application::quitBySignal);
 }
 
 void Application::handleUnixSignal(int sig)
@@ -226,7 +227,7 @@ void Application::processIncomingConnection()
 	{
 		QLocalSocket *socket = m_lockServer.nextPendingConnection();
 		socket->setProperty(BlockSizeProperty, 0);
-		connect(socket, SIGNAL(readyRead()), this, SLOT(socketReadyRead()));
+		connect(socket, &QLocalSocket::readyRead, this, &Application::socketReadyRead);
 	}
 }
 

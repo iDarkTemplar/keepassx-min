@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -34,16 +35,16 @@ GroupView::GroupView(Database *db, QWidget *parent)
 	setUniformRowHeights(true);
 	setTextElideMode(Qt::ElideNone);
 
-	connect(this, SIGNAL(expanded(QModelIndex)), SLOT(expandedChanged(QModelIndex)));
-	connect(this, SIGNAL(collapsed(QModelIndex)), SLOT(expandedChanged(QModelIndex)));
-	connect(this, SIGNAL(clicked(QModelIndex)), SIGNAL(groupSelectionChanged()));
-	connect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(syncExpandedState(QModelIndex,int,int)));
-	connect(m_model, SIGNAL(modelReset()), SLOT(modelReset()));
-	connect(selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), SIGNAL(groupSelectionChanged()));
+	connect(this, &GroupView::expanded, this, &GroupView::expandedChanged);
+	connect(this, &GroupView::collapsed, this, &GroupView::expandedChanged);
+	connect(this, &GroupView::clicked, this, &GroupView::groupSelectionChanged);
+	connect(m_model, &GroupModel::rowsInserted, this, &GroupView::syncExpandedState);
+	connect(m_model, &GroupModel::modelReset, this, &GroupView::modelReset);
+	connect(selectionModel(), &QItemSelectionModel::currentChanged, this, &GroupView::groupSelectionChanged);
 
-	new QShortcut(Qt::CTRL | Qt::Key_F10, this, SLOT(contextMenuShortcutPressed()), nullptr, Qt::WidgetShortcut);
-	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_PageUp, this, SLOT(selectPreviousGroup()), nullptr, Qt::WindowShortcut);
-	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_PageDown, this, SLOT(selectNextGroup()), nullptr, Qt::WindowShortcut);
+	new QShortcut(Qt::CTRL | Qt::Key_F10, this, [this] () { contextMenuShortcutPressed(); }, Qt::WidgetShortcut);
+	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_PageUp, this, [this] () { selectPreviousGroup(); }, Qt::WindowShortcut);
+	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_PageDown, this, [this] () { selectNextGroup(); }, Qt::WindowShortcut);
 
 	// keyboard shortcuts to sort children of a group
 	auto shortcut = new QShortcut(Qt::CTRL | Qt::Key_Down, this, nullptr, nullptr, Qt::WidgetShortcut);

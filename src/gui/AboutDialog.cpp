@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
@@ -338,8 +339,8 @@ AboutDialog::AboutDialog(QWidget *parent)
 	m_ui->contributors->setText(aboutContributors);
 
 	setAttribute(Qt::WA_DeleteOnClose);
-	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
-	connect(m_ui->copyToClipboard, SIGNAL(clicked()), SLOT(copyToClipboard()));
+	connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &AboutDialog::close);
+	connect(m_ui->copyToClipboard, &QPushButton::clicked, this, &AboutDialog::copyToClipboard);
 
 	m_ui->buttonBox->button(QDialogButtonBox::Close)->setDefault(true);
 }

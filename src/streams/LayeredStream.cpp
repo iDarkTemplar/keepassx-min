@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -20,7 +21,7 @@ LayeredStream::LayeredStream(QIODevice *baseDevice)
 	: QIODevice(baseDevice)
 	, m_baseDevice(baseDevice)
 {
-	connect(baseDevice, SIGNAL(aboutToClose()), SLOT(closeStream()));
+	connect(baseDevice, &QIODevice::aboutToClose, this, &LayeredStream::closeStream);
 }
 
 LayeredStream::~LayeredStream()

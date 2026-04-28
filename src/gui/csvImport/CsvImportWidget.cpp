@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2016 Enrico Mariotti <enricomariotti@yahoo.it>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
@@ -96,18 +97,18 @@ CsvImportWidget::CsvImportWidget(QWidget *parent)
 	for (auto combo: m_combos)
 	{
 		combo->setModel(m_comboModel);
-		connect(combo, SIGNAL(currentIndexChanged(int)), SLOT(comboChanged(int)));
+		connect(combo, &QComboBox::currentIndexChanged, this, &CsvImportWidget::comboChanged);
 	}
 
 	m_parserModel->setHeaderLabels(m_columnHeader);
 	m_ui->tableViewFields->setModel(m_parserModel);
 
-	connect(m_ui->spinBoxSkip, SIGNAL(valueChanged(int)), SLOT(skippedChanged(int)));
-	connect(m_ui->comboBoxTextQualifier, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
-	connect(m_ui->comboBoxComment, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
-	connect(m_ui->comboBoxFieldSeparator, SIGNAL(currentIndexChanged(int)), SLOT(parse()));
-	connect(m_ui->checkBoxBackslash, SIGNAL(toggled(bool)), SLOT(parse()));
-	connect(m_ui->checkBoxFieldNames, SIGNAL(toggled(bool)), SLOT(updatePreview()));
+	connect(m_ui->spinBoxSkip, &QSpinBox::valueChanged, this, &CsvImportWidget::skippedChanged);
+	connect(m_ui->comboBoxTextQualifier, &QComboBox::currentIndexChanged, this, &CsvImportWidget::parse);
+	connect(m_ui->comboBoxComment, &QComboBox::currentIndexChanged, this, &CsvImportWidget::parse);
+	connect(m_ui->comboBoxFieldSeparator, &QComboBox::currentIndexChanged, this, &CsvImportWidget::parse);
+	connect(m_ui->checkBoxBackslash, &QCheckBox::toggled, this, &CsvImportWidget::parse);
+	connect(m_ui->checkBoxFieldNames, &QCheckBox::toggled, this, &CsvImportWidget::updatePreview);
 }
 
 CsvImportWidget::~CsvImportWidget()

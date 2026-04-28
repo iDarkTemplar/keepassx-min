@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2024 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
@@ -76,7 +77,7 @@ MainWindow::MainWindow()
 	m_searchWidgetAction = m_ui->toolBar->addWidget(m_searchWidget);
 	m_searchWidgetAction->setEnabled(false);
 
-	new QShortcut(QKeySequence::Find, this, SLOT(focusSearchWidget()));
+	new QShortcut(QKeySequence::Find, this, [this]() { focusSearchWidget(); });
 
 	connect(m_searchWidget, &SearchWidget::searchCanceled, this, [this] {
 		m_ui->toolBar->setExpanded(false);
@@ -149,13 +150,13 @@ MainWindow::MainWindow()
 
 	m_clearHistoryAction = new QAction(tr("Clear history"), m_ui->menuFile);
 	m_lastDatabasesActions = new QActionGroup(m_ui->menuRecentDatabases);
-	connect(m_clearHistoryAction, SIGNAL(triggered()), this, SLOT(clearLastDatabases()));
-	connect(m_lastDatabasesActions, SIGNAL(triggered(QAction *)), this, SLOT(openRecentDatabase(QAction *)));
-	connect(m_ui->menuRecentDatabases, SIGNAL(aboutToShow()), this, SLOT(updateLastDatabasesMenu()));
+	connect(m_clearHistoryAction, &QAction::triggered, this, &MainWindow::clearLastDatabases);
+	connect(m_lastDatabasesActions, &QActionGroup::triggered, this, &MainWindow::openRecentDatabase);
+	connect(m_ui->menuRecentDatabases, &QMenu::aboutToShow, this, &MainWindow::updateLastDatabasesMenu);
 
 	m_copyAdditionalAttributeActions = new QActionGroup(m_ui->menuEntryCopyAttribute);
 	m_actionMultiplexer.connect(m_copyAdditionalAttributeActions, SIGNAL(triggered(QAction *)), SLOT(copyAttribute(QAction *)));
-	connect(m_ui->menuEntryCopyAttribute, SIGNAL(aboutToShow()), this, SLOT(updateCopyAttributesMenu()));
+	connect(m_ui->menuEntryCopyAttribute, &QMenu::aboutToShow, this, &MainWindow::updateCopyAttributesMenu);
 
 	m_setTagsMenuActions = new QActionGroup(m_ui->menuTags);
 	m_setTagsMenuActions->setExclusive(false);
@@ -163,7 +164,7 @@ MainWindow::MainWindow()
 	connect(m_ui->menuTags, &QMenu::aboutToShow, this, &MainWindow::updateSetTagsMenu);
 
 	m_inactivityTimer = new InactivityTimer(this);
-	connect(m_inactivityTimer, SIGNAL(inactivityDetected()), this, SLOT(lockAllDatabases()));
+	connect(m_inactivityTimer, &InactivityTimer::inactivityDetected, this, &MainWindow::lockAllDatabases);
 	applySettingsChanges();
 
 	m_ui->actionDatabaseNew->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_N);
@@ -213,23 +214,23 @@ MainWindow::MainWindow()
 	m_ui->actionEntryCopyURL->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyTitle->setShortcutVisibleInContextMenu(true);
 
-	connect(m_ui->menuEntries, SIGNAL(aboutToShow()), SLOT(obtainContextFocusLock()));
-	connect(m_ui->menuEntries, SIGNAL(aboutToHide()), SLOT(releaseContextFocusLock()));
-	connect(m_entryContextMenu, SIGNAL(aboutToShow()), SLOT(obtainContextFocusLock()));
-	connect(m_entryContextMenu, SIGNAL(aboutToHide()), SLOT(releaseContextFocusLock()));
-	connect(m_entryNewContextMenu, SIGNAL(aboutToShow()), SLOT(obtainContextFocusLock()));
-	connect(m_entryNewContextMenu, SIGNAL(aboutToHide()), SLOT(releaseContextFocusLock()));
-	connect(m_ui->menuGroups, SIGNAL(aboutToShow()), SLOT(obtainContextFocusLock()));
-	connect(m_ui->menuGroups, SIGNAL(aboutToHide()), SLOT(releaseContextFocusLock()));
+	connect(m_ui->menuEntries, &QMenu::aboutToShow, this, &MainWindow::obtainContextFocusLock);
+	connect(m_ui->menuEntries, &QMenu::aboutToHide, this, &MainWindow::releaseContextFocusLock);
+	connect(m_entryContextMenu, &QMenu::aboutToShow, this, &MainWindow::obtainContextFocusLock);
+	connect(m_entryContextMenu, &QMenu::aboutToHide, this, &MainWindow::releaseContextFocusLock);
+	connect(m_entryNewContextMenu, &QMenu::aboutToShow, this, &MainWindow::obtainContextFocusLock);
+	connect(m_entryNewContextMenu, &QMenu::aboutToHide, this, &MainWindow::releaseContextFocusLock);
+	connect(m_ui->menuGroups, &QMenu::aboutToShow, this, &MainWindow::obtainContextFocusLock);
+	connect(m_ui->menuGroups, &QMenu::aboutToHide, this, &MainWindow::releaseContextFocusLock);
 
 	// Control window state
-	new QShortcut(Qt::CTRL | Qt::Key_M, this, SLOT(minimizeOrHide()));
-	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_M, this, SLOT(hideWindow()));
+	new QShortcut(Qt::CTRL | Qt::Key_M, this, [this] () { minimizeOrHide(); });
+	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_M, this, [this] () { hideWindow(); });
 	// Control database tabs
-	new QShortcut(Qt::CTRL | Qt::Key_Tab, this, SLOT(selectNextDatabaseTab()));
-	new QShortcut(Qt::CTRL | Qt::Key_PageDown, this, SLOT(selectNextDatabaseTab()));
-	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_Tab, this, SLOT(selectPreviousDatabaseTab()));
-	new QShortcut(Qt::CTRL | Qt::Key_PageUp, this, SLOT(selectPreviousDatabaseTab()));
+	new QShortcut(Qt::CTRL | Qt::Key_Tab, this, [this] () { selectNextDatabaseTab(); });
+	new QShortcut(Qt::CTRL | Qt::Key_PageDown, this, [this] () { selectNextDatabaseTab(); });
+	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_Tab, this, [this] () { selectPreviousDatabaseTab(); });
+	new QShortcut(Qt::CTRL | Qt::Key_PageUp, this, [this] () { selectPreviousDatabaseTab(); });
 
 	auto shortcut = new QShortcut(Qt::ALT | Qt::Key_1, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(0); });
@@ -317,43 +318,40 @@ MainWindow::MainWindow()
 	m_actionMultiplexer.connect(SIGNAL(listModeActivated()), this, SLOT(updateEntryCountLabel()));
 
 	// Notify search when the active database changes or gets locked
-	connect(m_ui->tabWidget,
-		SIGNAL(activeDatabaseChanged(DatabaseWidget *)),
-		m_searchWidget,
-		SLOT(databaseChanged(DatabaseWidget *)));
-	connect(m_ui->tabWidget, SIGNAL(databaseLocked(DatabaseWidget *)), m_searchWidget, SLOT(databaseChanged()));
+	connect(m_ui->tabWidget, &DatabaseTabWidget::activeDatabaseChanged, m_searchWidget, &SearchWidget::databaseChanged);
+	connect(m_ui->tabWidget, &DatabaseTabWidget::databaseLocked, m_searchWidget, &SearchWidget::databaseChanged);
 
-	connect(m_ui->tabWidget, SIGNAL(tabNameChanged()), SLOT(updateWindowTitle()));
-	connect(m_ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(updateWindowTitle()));
-	connect(m_ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(databaseTabChanged(int)));
-	connect(m_ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(updateMenuActionState()));
-	connect(m_ui->tabWidget, SIGNAL(databaseLocked(DatabaseWidget *)), SLOT(databaseStatusChanged(DatabaseWidget *)));
-	connect(m_ui->tabWidget, SIGNAL(databaseUnlocked(DatabaseWidget *)), SLOT(databaseStatusChanged(DatabaseWidget *)));
-	connect(m_ui->stackedWidget, SIGNAL(currentChanged(int)), SLOT(updateMenuActionState()));
-	connect(m_ui->stackedWidget, SIGNAL(currentChanged(int)), SLOT(updateWindowTitle()));
-	connect(m_ui->settingsWidget, SIGNAL(accepted()), SLOT(applySettingsChanges()));
-	connect(m_ui->settingsWidget, SIGNAL(settingsReset()), SLOT(applySettingsChanges()));
-	connect(m_ui->settingsWidget, SIGNAL(accepted()), SLOT(switchToDatabases()));
-	connect(m_ui->settingsWidget, SIGNAL(rejected()), SLOT(switchToDatabases()));
+	connect(m_ui->tabWidget, &DatabaseTabWidget::tabNameChanged, this, &MainWindow::updateWindowTitle);
+	connect(m_ui->tabWidget, &DatabaseTabWidget::currentChanged, this, &MainWindow::updateWindowTitle);
+	connect(m_ui->tabWidget, &DatabaseTabWidget::currentChanged, this, &MainWindow::databaseTabChanged);
+	connect(m_ui->tabWidget, &DatabaseTabWidget::currentChanged, this, &MainWindow::updateMenuActionState);
+	connect(m_ui->tabWidget, &DatabaseTabWidget::databaseLocked, this, &MainWindow::databaseStatusChanged);
+	connect(m_ui->tabWidget, &DatabaseTabWidget::databaseUnlocked, this, &MainWindow::databaseStatusChanged);
+	connect(m_ui->stackedWidget, &QStackedWidget::currentChanged, this, &MainWindow::updateMenuActionState);
+	connect(m_ui->stackedWidget, &QStackedWidget::currentChanged, this, &MainWindow::updateWindowTitle);
+	connect(m_ui->settingsWidget, &ApplicationSettingsWidget::accepted, this, &MainWindow::applySettingsChanges);
+	connect(m_ui->settingsWidget, &ApplicationSettingsWidget::settingsReset, this, &MainWindow::applySettingsChanges);
+	connect(m_ui->settingsWidget, &ApplicationSettingsWidget::accepted, this, &MainWindow::switchToDatabases);
+	connect(m_ui->settingsWidget, &ApplicationSettingsWidget::rejected, this, &MainWindow::switchToDatabases);
 
-	connect(m_ui->actionDatabaseNew, SIGNAL(triggered()), m_ui->tabWidget, SLOT(newDatabase()));
-	connect(m_ui->actionDatabaseOpen, SIGNAL(triggered()), m_ui->tabWidget, SLOT(openDatabase()));
-	connect(m_ui->actionDatabaseSave, SIGNAL(triggered()), m_ui->tabWidget, SLOT(saveDatabase()));
-	connect(m_ui->actionDatabaseSaveAs, SIGNAL(triggered()), m_ui->tabWidget, SLOT(saveDatabaseAs()));
-	connect(m_ui->actionDatabaseSaveBackup, SIGNAL(triggered()), m_ui->tabWidget, SLOT(saveDatabaseBackup()));
-	connect(m_ui->actionDatabaseClose, SIGNAL(triggered()), m_ui->tabWidget, SLOT(closeCurrentDatabaseTab()));
-	connect(m_ui->actionDatabaseMerge, SIGNAL(triggered()), m_ui->tabWidget, SLOT(mergeDatabase()));
-	connect(m_ui->actionDatabaseSettings, SIGNAL(toggled(bool)), m_ui->tabWidget, SLOT(showDatabaseSettings(bool)));
-	connect(m_ui->actionDatabaseSecurity, SIGNAL(triggered()), m_ui->tabWidget, SLOT(showDatabaseSecurity()));
-	connect(m_ui->actionReports, SIGNAL(toggled(bool)), m_ui->tabWidget, SLOT(showDatabaseReports(bool)));
-	connect(m_ui->actionImport, SIGNAL(triggered()), m_ui->tabWidget, SLOT(importFile()));
-	connect(m_ui->actionExportCsv, SIGNAL(triggered()), m_ui->tabWidget, SLOT(exportToCsv()));
-	connect(m_ui->actionExportHtml, SIGNAL(triggered()), m_ui->tabWidget, SLOT(exportToHtml()));
-	connect(m_ui->actionExportXML, SIGNAL(triggered()), m_ui->tabWidget, SLOT(exportToXML()));
-	connect(m_ui->actionLockDatabase, SIGNAL(triggered()), m_ui->tabWidget, SLOT(lockAndSwitchToFirstUnlockedDatabase()));
-	connect(m_ui->actionLockDatabaseToolbar, SIGNAL(triggered()), m_ui->actionLockDatabase, SIGNAL(triggered()));
-	connect(m_ui->actionLockAllDatabases, SIGNAL(triggered()), m_ui->tabWidget, SLOT(lockDatabases()));
-	connect(m_ui->actionQuit, SIGNAL(triggered()), SLOT(appExit()));
+	connect(m_ui->actionDatabaseNew, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::newDatabase);
+	connect(m_ui->actionDatabaseOpen, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::openDatabase);
+	connect(m_ui->actionDatabaseSave, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::saveDatabase);
+	connect(m_ui->actionDatabaseSaveAs, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::saveDatabaseAs);
+	connect(m_ui->actionDatabaseSaveBackup, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::saveDatabaseBackup);
+	connect(m_ui->actionDatabaseClose, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::closeCurrentDatabaseTab);
+	connect(m_ui->actionDatabaseMerge, &QAction::triggered, m_ui->tabWidget, qOverload<>(&DatabaseTabWidget::mergeDatabase));
+	connect(m_ui->actionDatabaseSettings, &QAction::toggled, m_ui->tabWidget, &DatabaseTabWidget::showDatabaseSettings);
+	connect(m_ui->actionDatabaseSecurity, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::showDatabaseSecurity);
+	connect(m_ui->actionReports, &QAction::toggled, m_ui->tabWidget, &DatabaseTabWidget::showDatabaseReports);
+	connect(m_ui->actionImport, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::importFile);
+	connect(m_ui->actionExportCsv, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::exportToCsv);
+	connect(m_ui->actionExportHtml, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::exportToHtml);
+	connect(m_ui->actionExportXML, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::exportToXML);
+	connect(m_ui->actionLockDatabase, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::lockAndSwitchToFirstUnlockedDatabase);
+	connect(m_ui->actionLockDatabaseToolbar, &QAction::triggered, m_ui->actionLockDatabase, &QAction::triggered);
+	connect(m_ui->actionLockAllDatabases, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::lockDatabases);
+	connect(m_ui->actionQuit, &QAction::triggered, this, &MainWindow::appExit);
 
 	m_actionMultiplexer.connect(m_ui->actionEntryNew, SIGNAL(triggered()), SLOT(createEntry()));
 	m_actionMultiplexer.connect(m_ui->actionEntryEdit, SIGNAL(triggered()), SLOT(switchToEntryEdit()));
@@ -384,22 +382,20 @@ MainWindow::MainWindow()
 	m_actionMultiplexer.connect(m_ui->actionGroupSortAsc, SIGNAL(triggered()), SLOT(sortGroupsAsc()));
 	m_actionMultiplexer.connect(m_ui->actionGroupSortDesc, SIGNAL(triggered()), SLOT(sortGroupsDesc()));
 
-	connect(m_ui->actionSettings, SIGNAL(toggled(bool)), SLOT(switchToSettings(bool)));
-	connect(m_ui->actionPasswordGenerator, SIGNAL(toggled(bool)), SLOT(togglePasswordGenerator(bool)));
-	connect(m_ui->passwordGeneratorWidget, &PasswordGeneratorWidget::closed, this, [this] {
-		togglePasswordGenerator(false);
-	});
+	connect(m_ui->actionSettings, &QAction::toggled, this, &MainWindow::switchToSettings);
+	connect(m_ui->actionPasswordGenerator, &QAction::toggled, this, &MainWindow::togglePasswordGenerator);
+	connect(m_ui->passwordGeneratorWidget, &PasswordGeneratorWidget::closed, this, [this] () { togglePasswordGenerator(false); });
 	m_ui->passwordGeneratorWidget->setStandaloneMode(true);
 
-	connect(m_ui->welcomeWidget, SIGNAL(newDatabase()), SLOT(switchToNewDatabase()));
-	connect(m_ui->welcomeWidget, SIGNAL(openDatabase()), SLOT(switchToOpenDatabase()));
-	connect(m_ui->welcomeWidget, SIGNAL(openDatabaseFile(QString)), SLOT(switchToDatabaseFile(QString)));
-	connect(m_ui->welcomeWidget, SIGNAL(importFile()), m_ui->tabWidget, SLOT(importFile()));
+	connect(m_ui->welcomeWidget, &WelcomeWidget::newDatabase, this, &MainWindow::switchToNewDatabase);
+	connect(m_ui->welcomeWidget, &WelcomeWidget::openDatabase, this, &MainWindow::switchToOpenDatabase);
+	connect(m_ui->welcomeWidget, &WelcomeWidget::openDatabaseFile, this, &MainWindow::switchToDatabaseFile);
+	connect(m_ui->welcomeWidget, &WelcomeWidget::importFile, m_ui->tabWidget, &DatabaseTabWidget::importFile);
 
-	connect(m_ui->actionAbout, SIGNAL(triggered()), SLOT(showAboutDialog()));
-	connect(m_ui->actionDonate, SIGNAL(triggered()), SLOT(openDonateUrl()));
-	connect(m_ui->actionBugReport, SIGNAL(triggered()), SLOT(openBugReportUrl()));
-	connect(m_ui->actionOnlineHelp, SIGNAL(triggered()), SLOT(openOnlineHelp()));
+	connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::showAboutDialog);
+	connect(m_ui->actionDonate, &QAction::triggered, this, &MainWindow::openDonateUrl);
+	connect(m_ui->actionBugReport, &QAction::triggered, this, &MainWindow::openBugReportUrl);
+	connect(m_ui->actionOnlineHelp, &QAction::triggered, this, &MainWindow::openOnlineHelp);
 
 	// Install event filter for empty-area drag and menubar toggle
 	auto *eventFilter = new MainWindowEventFilter(this);
@@ -408,33 +404,30 @@ MainWindow::MainWindow()
 	m_ui->tabWidget->tabBar()->installEventFilter(eventFilter);
 	installEventFilter(eventFilter);
 
-	connect(m_ui->tabWidget, SIGNAL(messageGlobal(QString,MessageWidget::MessageType)),
-		SLOT(displayGlobalMessage(QString,MessageWidget::MessageType)));
-
-	connect(m_ui->tabWidget, SIGNAL(messageDismissGlobal()), this, SLOT(hideGlobalMessage()));
+	connect(m_ui->tabWidget, &DatabaseTabWidget::messageGlobal, this, &MainWindow::displayGlobalMessage);
+	connect(m_ui->tabWidget, &DatabaseTabWidget::messageDismissGlobal, this, &MainWindow::hideGlobalMessage);
 
 	m_screenLockListener = new ScreenLockListener(this);
-	connect(m_screenLockListener, SIGNAL(screenLocked()), SLOT(handleScreenLock()));
+	connect(m_screenLockListener, &ScreenLockListener::screenLocked, this, &MainWindow::handleScreenLock);
 
 	// Tray Icon setup
-	connect(Application::instance(), SIGNAL(focusWindowChanged(QWindow *)), SLOT(focusWindowChanged(QWindow *)));
+	connect(kpxcApp, &Application::focusWindowChanged, this, &MainWindow::focusWindowChanged);
 	m_trayIconTriggerReason = QSystemTrayIcon::Unknown;
 	m_trayIconTriggerTimer.setSingleShot(true);
-	connect(&m_trayIconTriggerTimer, SIGNAL(timeout()), SLOT(processTrayIconTrigger()));
+	connect(&m_trayIconTriggerTimer, &QTimer::timeout, this, &MainWindow::processTrayIconTrigger);
 
 	if (config()->hasAccessError())
 	{
-		m_ui->globalMessageWidget->showMessage(tr("Access error for config file %1").arg(config()->getFileName()),
-			MessageWidget::Error);
+		m_ui->globalMessageWidget->showMessage(tr("Access error for config file %1").arg(config()->getFileName()), MessageWidget::Error);
 	}
 
 	// Properly shutdown on logoff, restart, and shutdown
-	connect(qApp, &QGuiApplication::commitDataRequest, this, [this] { m_appExitCalled = true; });
+	connect(kpxcApp, &QGuiApplication::commitDataRequest, this, [this] { m_appExitCalled = true; });
 
-	connect(qApp, SIGNAL(anotherInstanceStarted()), this, SLOT(bringToFront()));
-	connect(qApp, SIGNAL(applicationActivated()), this, SLOT(bringToFront()));
-	connect(qApp, SIGNAL(openFile(QString)), this, SLOT(openDatabase(QString)));
-	connect(qApp, SIGNAL(quitSignalReceived()), this, SLOT(appExit()), Qt::DirectConnection);
+	connect(kpxcApp, &Application::anotherInstanceStarted, this, &MainWindow::bringToFront);
+	connect(kpxcApp, &Application::applicationActivated, this, &MainWindow::bringToFront);
+	connect(kpxcApp, &Application::openFile, this, [this] (const QString &filename) { openDatabase(filename); });
+	connect(kpxcApp, &Application::quitSignalReceived, this, &MainWindow::appExit, Qt::DirectConnection);
 
 	// Setup the status bar
 	statusBar()->setFixedHeight(24);
@@ -448,7 +441,7 @@ MainWindow::MainWindow()
 	m_progressBar->setFixedHeight(15);
 	m_progressBar->setMaximum(100);
 	statusBar()->addPermanentWidget(m_progressBar);
-	connect(clipboard(), SIGNAL(updateCountdown(int, QString)), this, SLOT(updateProgressBar(int, QString)));
+	connect(clipboard(), &Clipboard::updateCountdown, this, &MainWindow::updateProgressBar);
 	m_actionMultiplexer.connect(SIGNAL(updateSyncProgress(int, QString)), this, SLOT(updateProgressBar(int, QString)));
 	m_statusBarLabel = new QLabel(statusBar());
 	m_statusBarLabel->setObjectName("statusBarLabel");
@@ -1253,10 +1246,8 @@ void MainWindow::updateTrayIcon()
 
 			m_trayIcon->setContextMenu(menu);
 
-			connect(m_trayIcon,
-				SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-				SLOT(trayIconTriggered(QSystemTrayIcon::ActivationReason)));
-			connect(actionToggle, SIGNAL(triggered()), SLOT(toggleWindow()));
+			connect(m_trayIcon, &QSystemTrayIcon::activated, this, &MainWindow::trayIconTriggered);
+			connect(actionToggle, &QAction::triggered, this, &MainWindow::toggleWindow);
 		}
 
 		bool showUnlocked = m_ui->tabWidget->hasLockableDatabases();
@@ -1528,12 +1519,10 @@ bool MainWindow::isTrayIconEnabled() const
 
 void MainWindow::displayGlobalMessage(
 	const QString &text,
-	MessageWidget::MessageType type,
-	bool showClosebutton,
-	int autoHideTimeout)
+	MessageWidget::MessageType type)
 {
-	m_ui->globalMessageWidget->setCloseButtonVisible(showClosebutton);
-	m_ui->globalMessageWidget->showMessage(text, type, autoHideTimeout);
+	m_ui->globalMessageWidget->setCloseButtonVisible(true);
+	m_ui->globalMessageWidget->showMessage(text, type, MessageWidget::DefaultAutoHideTimeout);
 }
 
 void MainWindow::displayTabMessage(

@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -45,7 +46,10 @@ public:
 	QString keyByIndex(const QModelIndex &index) const;
 	int rowByKey(const QString &key) const;
 
-private slots:
+public Q_SLOTS:
+	void setReadOnly(bool readOnly);
+
+private Q_SLOTS:
 	void attachmentChange(const QString &key);
 	void attachmentAboutToAdd(const QString &key);
 	void attachmentAdd();
@@ -53,7 +57,6 @@ private slots:
 	void attachmentRemove();
 	void aboutToReset();
 	void reset();
-	void setReadOnly(bool readOnly);
 
 private:
 	QPointer<EntryAttachments> m_entryAttachments;

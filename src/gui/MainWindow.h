@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2024 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
@@ -69,9 +70,7 @@ public slots:
 	void appExit();
 	void displayGlobalMessage(
 		const QString &text,
-		MessageWidget::MessageType type,
-		bool showClosebutton = true,
-		int autoHideTimeout = MessageWidget::DefaultAutoHideTimeout);
+		MessageWidget::MessageType type);
 
 	void displayTabMessage(
 		const QString &text,

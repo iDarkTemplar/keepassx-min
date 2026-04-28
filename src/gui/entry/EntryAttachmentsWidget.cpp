@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2021 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -74,14 +75,12 @@ EntryAttachmentsWidget::EntryAttachmentsWidget(QWidget *parent)
 		QHeaderView::ResizeToContents);
 	m_ui->attachmentsView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-	connect(this, SIGNAL(buttonsVisibleChanged(bool)), this, SLOT(updateButtonsVisible()));
-	connect(this, SIGNAL(readOnlyChanged(bool)), SLOT(updateButtonsEnabled()));
-	connect(m_attachmentsModel, SIGNAL(modelReset()), SLOT(updateButtonsEnabled()));
+	connect(this, &EntryAttachmentsWidget::buttonsVisibleChanged, this, &EntryAttachmentsWidget::updateButtonsVisible);
+	connect(this, &EntryAttachmentsWidget::readOnlyChanged, this, &EntryAttachmentsWidget::updateButtonsEnabled);
+	connect(m_attachmentsModel, &EntryAttachmentsModel::modelReset, this, &EntryAttachmentsWidget::updateButtonsEnabled);
 
-	connect(m_ui->attachmentsView->selectionModel(),
-		SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-		SLOT(updateButtonsEnabled()));
-	connect(this, SIGNAL(readOnlyChanged(bool)), m_attachmentsModel, SLOT(setReadOnly(bool)));
+	connect(m_ui->attachmentsView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &EntryAttachmentsWidget::updateButtonsEnabled);
+	connect(this, &EntryAttachmentsWidget::readOnlyChanged, m_attachmentsModel, &EntryAttachmentsModel::setReadOnly);
 
 	connect(m_ui->attachmentsView, &QAbstractItemView::doubleClicked, [this](const QModelIndex &) {
 		m_readOnly ? previewSelectedAttachment() : editSelectedAttachment();
@@ -95,12 +94,12 @@ EntryAttachmentsWidget::EntryAttachmentsWidget(QWidget *parent)
 		}
 	});
 
-	connect(m_ui->saveAttachmentButton, SIGNAL(clicked()), SLOT(saveSelectedAttachments()));
-	connect(m_ui->openAttachmentButton, SIGNAL(clicked()), SLOT(openSelectedAttachments()));
-	connect(m_ui->addAttachmentButton, SIGNAL(clicked()), SLOT(insertAttachments()));
-	connect(m_ui->editAttachmentButton, SIGNAL(clicked()), SLOT(editSelectedAttachment()));
-	connect(m_ui->previewAttachmentButton, SIGNAL(clicked()), SLOT(previewSelectedAttachment()));
-	connect(m_ui->removeAttachmentButton, SIGNAL(clicked()), SLOT(removeSelectedAttachments()));
+	connect(m_ui->saveAttachmentButton, &QPushButton::clicked, this, &EntryAttachmentsWidget::saveSelectedAttachments);
+	connect(m_ui->openAttachmentButton, &QPushButton::clicked, this, &EntryAttachmentsWidget::openSelectedAttachments);
+	connect(m_ui->addAttachmentButton, &QPushButton::clicked, this, qOverload<>(&EntryAttachmentsWidget::insertAttachments));
+	connect(m_ui->editAttachmentButton, &QPushButton::clicked, this, &EntryAttachmentsWidget::editSelectedAttachment);
+	connect(m_ui->previewAttachmentButton, &QPushButton::clicked, this, &EntryAttachmentsWidget::previewSelectedAttachment);
+	connect(m_ui->removeAttachmentButton, &QPushButton::clicked, this, &EntryAttachmentsWidget::removeSelectedAttachments);
 
 	auto addButtonMenu = new QMenu(this);
 	addButtonMenu->addAction(tr("New Text Document"), this, &EntryAttachmentsWidget::newAttachments);
@@ -140,11 +139,8 @@ void EntryAttachmentsWidget::linkAttachments(EntryAttachments *attachments)
 
 	if (m_entryAttachments)
 	{
-		connect(m_entryAttachments,
-			SIGNAL(valueModifiedExternally(QString, QString)),
-			this,
-			SLOT(attachmentModifiedExternally(QString, QString)));
-		connect(m_entryAttachments, SIGNAL(modified()), this, SIGNAL(widgetUpdated()));
+		connect(m_entryAttachments, &EntryAttachments::valueModifiedExternally, this, &EntryAttachmentsWidget::attachmentModifiedExternally);
+		connect(m_entryAttachments, &EntryAttachments::modified, this, &EntryAttachmentsWidget::widgetUpdated);
 	}
 }
 
@@ -265,8 +261,8 @@ void EntryAttachmentsWidget::previewSelectedAttachment()
 	PreviewEntryAttachmentsDialog previewDialog(this);
 	previewDialog.setAttachment({name, data});
 
-	connect(&previewDialog, SIGNAL(openAttachment(QString)), SLOT(openSelectedAttachments()));
-	connect(&previewDialog, SIGNAL(saveAttachment(QString)), SLOT(saveSelectedAttachments()));
+	connect(&previewDialog, &PreviewEntryAttachmentsDialog::openAttachment, this, &EntryAttachmentsWidget::openSelectedAttachments);
+	connect(&previewDialog, &PreviewEntryAttachmentsDialog::saveAttachment, this, &EntryAttachmentsWidget::saveSelectedAttachments);
 	// Refresh the preview if the attachment changes
 	connect(m_entryAttachments,
 		&EntryAttachments::keyModified,

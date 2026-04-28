@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2023 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *
@@ -72,31 +73,24 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
 	addPage(tr("General"), icons()->icon("preferences-other"), m_generalWidget);
 	addPage(tr("Security"), icons()->icon("security-high"), m_secWidget);
 
-	connect(this, SIGNAL(accepted()), SLOT(saveSettings()));
-	connect(this, SIGNAL(rejected()), SLOT(reject()));
+	connect(this, &ApplicationSettingsWidget::accepted, this, &ApplicationSettingsWidget::saveSettings);
 
-	connect(m_generalUi->autoSaveAfterEveryChangeCheckBox, SIGNAL(toggled(bool)), SLOT(autoSaveToggled(bool)));
-	connect(m_generalUi->hideWindowOnCopyCheckBox, SIGNAL(toggled(bool)), SLOT(hideWindowOnCopyCheckBoxToggled(bool)));
-	connect(m_generalUi->systrayShowCheckBox, SIGNAL(toggled(bool)), SLOT(systrayToggled(bool)));
-	connect(m_generalUi->rememberLastDatabasesCheckBox, SIGNAL(toggled(bool)), SLOT(rememberDatabasesToggled(bool)));
-	connect(m_generalUi->resetSettingsButton, SIGNAL(clicked()), SLOT(resetSettings()));
-	connect(m_generalUi->importSettingsButton, SIGNAL(clicked()), SLOT(importSettings()));
-	connect(m_generalUi->exportSettingsButton, SIGNAL(clicked()), SLOT(exportSettings()));
+	connect(m_generalUi->autoSaveAfterEveryChangeCheckBox, &QCheckBox::toggled, this, &ApplicationSettingsWidget::autoSaveToggled);
+	connect(m_generalUi->hideWindowOnCopyCheckBox, &QCheckBox::toggled, this, &ApplicationSettingsWidget::hideWindowOnCopyCheckBoxToggled);
+	connect(m_generalUi->systrayShowCheckBox, &QCheckBox::toggled, this, &ApplicationSettingsWidget::systrayToggled);
+	connect(m_generalUi->rememberLastDatabasesCheckBox, &QCheckBox::toggled, this, &ApplicationSettingsWidget::rememberDatabasesToggled);
+	connect(m_generalUi->resetSettingsButton, &QPushButton::clicked, this, &ApplicationSettingsWidget::resetSettings);
+	connect(m_generalUi->importSettingsButton, &QPushButton::clicked, this, &ApplicationSettingsWidget::importSettings);
+	connect(m_generalUi->exportSettingsButton, &QPushButton::clicked, this, &ApplicationSettingsWidget::exportSettings);
 
-	connect(m_generalUi->backupBeforeSaveCheckBox, SIGNAL(toggled(bool)),
-		m_generalUi->backupFilePath, SLOT(setEnabled(bool)));
-	connect(m_generalUi->backupBeforeSaveCheckBox, SIGNAL(toggled(bool)),
-		m_generalUi->backupFilePathPicker, SLOT(setEnabled(bool)));
-	connect(m_generalUi->backupFilePathPicker, SIGNAL(pressed()), SLOT(selectBackupDirectory()));
-	connect(m_generalUi->showExpiredEntriesOnDatabaseUnlockCheckBox, SIGNAL(toggled(bool)),
-		SLOT(showExpiredEntriesOnDatabaseUnlockToggled(bool)));
+	connect(m_generalUi->backupBeforeSaveCheckBox, &QCheckBox::toggled, m_generalUi->backupFilePath, &QLineEdit::setEnabled);
+	connect(m_generalUi->backupBeforeSaveCheckBox, &QCheckBox::toggled, m_generalUi->backupFilePathPicker, &QPushButton::setEnabled);
+	connect(m_generalUi->backupFilePathPicker, &QPushButton::pressed, this, &ApplicationSettingsWidget::selectBackupDirectory);
+	connect(m_generalUi->showExpiredEntriesOnDatabaseUnlockCheckBox, &QCheckBox::toggled, this, &ApplicationSettingsWidget::showExpiredEntriesOnDatabaseUnlockToggled);
 
-	connect(m_secUi->clearClipboardCheckBox, SIGNAL(toggled(bool)),
-		m_secUi->clearClipboardSpinBox, SLOT(setEnabled(bool)));
-	connect(m_secUi->clearSearchCheckBox, SIGNAL(toggled(bool)),
-		m_secUi->clearSearchSpinBox, SLOT(setEnabled(bool)));
-	connect(m_secUi->lockDatabaseIdleCheckBox, SIGNAL(toggled(bool)),
-		m_secUi->lockDatabaseIdleSpinBox, SLOT(setEnabled(bool)));
+	connect(m_secUi->clearClipboardCheckBox, &QCheckBox::toggled, m_secUi->clearClipboardSpinBox, &QSpinBox::setEnabled);
+	connect(m_secUi->clearSearchCheckBox, &QCheckBox::toggled, m_secUi->clearSearchSpinBox, &QSpinBox::setEnabled);
+	connect(m_secUi->lockDatabaseIdleCheckBox, &QCheckBox::toggled, m_secUi->lockDatabaseIdleSpinBox, &QSpinBox::setEnabled);
 
 	connect(m_generalUi->minimizeAfterUnlockCheckBox, &QCheckBox::toggled, this, [this](bool state) {
 		if (state)

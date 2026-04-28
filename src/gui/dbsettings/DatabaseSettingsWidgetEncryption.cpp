@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2023 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -53,13 +54,13 @@ DatabaseSettingsWidgetEncryption::DatabaseSettingsWidgetEncryption(QWidget *pare
 {
 	m_ui->setupUi(this);
 
-	connect(m_ui->transformBenchmarkButton, SIGNAL(clicked()), SLOT(benchmarkTransformRounds()));
-	connect(m_ui->kdfComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateKdfFields()));
-	connect(m_ui->compatibilitySelection, SIGNAL(currentIndexChanged(int)), SLOT(loadKdfAlgorithms()));
+	connect(m_ui->transformBenchmarkButton, &QToolButton::clicked, this, &DatabaseSettingsWidgetEncryption::benchmarkTransformRounds);
+	connect(m_ui->kdfComboBox, &QComboBox::currentIndexChanged, this, &DatabaseSettingsWidgetEncryption::updateKdfFields);
+	connect(m_ui->compatibilitySelection, &QComboBox::currentIndexChanged, this, &DatabaseSettingsWidgetEncryption::loadKdfAlgorithms);
 	m_ui->formatCannotBeChanged->setVisible(false);
 
-	connect(m_ui->memorySpinBox, SIGNAL(valueChanged(int)), this, SLOT(memoryChanged(int)));
-	connect(m_ui->parallelismSpinBox, SIGNAL(valueChanged(int)), this, SLOT(parallelismChanged(int)));
+	connect(m_ui->memorySpinBox, &QSpinBox::valueChanged, this, &DatabaseSettingsWidgetEncryption::memoryChanged);
+	connect(m_ui->parallelismSpinBox, &QSpinBox::valueChanged, this, &DatabaseSettingsWidgetEncryption::parallelismChanged);
 
 	m_ui->compatibilitySelection->addItem(tr("KDBX 4 (recommended)"), KeePass2::KDF_ARGON2D);
 	m_ui->compatibilitySelection->addItem(tr("KDBX 3"), KeePass2::KDF_AES_KDBX3);
@@ -72,16 +73,16 @@ DatabaseSettingsWidgetEncryption::DatabaseSettingsWidgetEncryption(QWidget *pare
 	m_ui->minTimeLabel->setText(getTextualEncryptionTime(Kdf::MIN_ENCRYPTION_TIME));
 	m_ui->maxTimeLabel->setText(getTextualEncryptionTime(Kdf::MAX_ENCRYPTION_TIME));
 
-	connect(m_ui->decryptionTimeSlider, SIGNAL(valueChanged(int)), SLOT(updateDecryptionTime(int)));
+	connect(m_ui->decryptionTimeSlider, &QSlider::valueChanged, this, &DatabaseSettingsWidgetEncryption::updateDecryptionTime);
 
 	// Conditions under which a key re-transformation is needed
-	connect(m_ui->decryptionTimeSlider, SIGNAL(valueChanged(int)), SLOT(markDirty()));
-	connect(m_ui->compatibilitySelection, SIGNAL(currentIndexChanged(int)), SLOT(markDirty()));
-	connect(m_ui->algorithmComboBox, SIGNAL(currentIndexChanged(int)), SLOT(markDirty()));
-	connect(m_ui->kdfComboBox, SIGNAL(currentIndexChanged(int)), SLOT(markDirty()));
-	connect(m_ui->transformRoundsSpinBox, SIGNAL(valueChanged(int)), SLOT(markDirty()));
-	connect(m_ui->memorySpinBox, SIGNAL(valueChanged(int)), SLOT(markDirty()));
-	connect(m_ui->parallelismSpinBox, SIGNAL(valueChanged(int)), SLOT(markDirty()));
+	connect(m_ui->decryptionTimeSlider, &QSlider::valueChanged, this, &DatabaseSettingsWidgetEncryption::markDirty);
+	connect(m_ui->compatibilitySelection, &QComboBox::currentIndexChanged, this, &DatabaseSettingsWidgetEncryption::markDirty);
+	connect(m_ui->algorithmComboBox, &QComboBox::currentIndexChanged, this, &DatabaseSettingsWidgetEncryption::markDirty);
+	connect(m_ui->kdfComboBox, &QComboBox::currentIndexChanged, this, &DatabaseSettingsWidgetEncryption::markDirty);
+	connect(m_ui->transformRoundsSpinBox, &QSpinBox::valueChanged, this, &DatabaseSettingsWidgetEncryption::markDirty);
+	connect(m_ui->memorySpinBox, &QSpinBox::valueChanged, this, &DatabaseSettingsWidgetEncryption::markDirty);
+	connect(m_ui->parallelismSpinBox, &QSpinBox::valueChanged, this, &DatabaseSettingsWidgetEncryption::markDirty);
 }
 
 DatabaseSettingsWidgetEncryption::~DatabaseSettingsWidgetEncryption()

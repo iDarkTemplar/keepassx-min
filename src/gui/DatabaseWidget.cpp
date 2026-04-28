@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  * Copyright (C) 2024 KeePassXC Team <team@keepassxc.org>
  * Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
@@ -94,8 +95,8 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	// Setup searches and tags view and place under groups
 	m_tagView->setObjectName("tagView");
 	m_tagView->setDatabase(m_db);
-	connect(m_tagView, SIGNAL(activated(QModelIndex)), this, SLOT(filterByTag()));
-	connect(m_tagView, SIGNAL(clicked(QModelIndex)), this, SLOT(filterByTag()));
+	connect(m_tagView, &TagView::activated, this, &DatabaseWidget::filterByTag);
+	connect(m_tagView, &TagView::clicked, this, &DatabaseWidget::filterByTag);
 
 	auto tagsWidget = new QWidget();
 	auto tagsLayout = new QVBoxLayout();
@@ -137,12 +138,12 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 
 	m_groupView->setObjectName("groupView");
 	m_groupView->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(m_groupView, SIGNAL(customContextMenuRequested(QPoint)), SLOT(emitGroupContextMenuRequested(QPoint)));
+	connect(m_groupView, &GroupView::customContextMenuRequested, this, &DatabaseWidget::emitGroupContextMenuRequested);
 
 	m_entryView->setObjectName("entryView");
 	m_entryView->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_entryView->displayGroup(m_db->rootGroup());
-	connect(m_entryView, SIGNAL(customContextMenuRequested(QPoint)), SLOT(emitEntryContextMenuRequested(QPoint)));
+	connect(m_entryView, &EntryView::customContextMenuRequested, this, &DatabaseWidget::emitEntryContextMenuRequested);
 
 	// Add a notification for when we are searching
 	m_searchingLabel->setObjectName("SearchBanner");
@@ -173,26 +174,25 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	addChildWidget(m_historyEditEntryWidget);
 	addChildWidget(m_databaseOpenWidget);
 
-	connect(m_mainSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
-	connect(m_groupSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
-	connect(m_previewSplitter, SIGNAL(splitterMoved(int,int)), SIGNAL(splitterSizesChanged()));
-	connect(this, SIGNAL(currentModeChanged(DatabaseWidget::Mode)), m_previewView, SLOT(setDatabaseMode(DatabaseWidget::Mode)));
-	connect(m_previewView, SIGNAL(entryUrlActivated(Entry*)), SLOT(openUrlForEntry(Entry*)));
-	connect(m_previewView, SIGNAL(copyTextRequested(const QString&)), SLOT(setClipboardTextAndMinimize(const QString&)));
-	connect(m_entryView, SIGNAL(viewStateChanged()), SIGNAL(entryViewStateChanged()));
-	connect(m_groupView, SIGNAL(groupSelectionChanged()), SLOT(onGroupChanged()));
+	connect(m_mainSplitter, &QSplitter::splitterMoved, this, &DatabaseWidget::splitterSizesChanged);
+	connect(m_groupSplitter, &QSplitter::splitterMoved, this, &DatabaseWidget::splitterSizesChanged);
+	connect(m_previewSplitter, &QSplitter::splitterMoved, this, &DatabaseWidget::splitterSizesChanged);
+	connect(this, &DatabaseWidget::currentModeChanged, m_previewView, &EntryPreviewWidget::setDatabaseMode);
+	connect(m_previewView, &EntryPreviewWidget::entryUrlActivated, this, &DatabaseWidget::openUrlForEntry);
+	connect(m_previewView, &EntryPreviewWidget::copyTextRequested, this, &DatabaseWidget::setClipboardTextAndMinimize);
+	connect(m_entryView, &EntryView::viewStateChanged, this, &DatabaseWidget::entryViewStateChanged);
+	connect(m_groupView, &GroupView::groupSelectionChanged, this, &DatabaseWidget::onGroupChanged);
 	connect(m_groupView, &GroupView::groupFocused, this, [this] { m_previewView->setGroup(currentGroup()); });
-	connect(m_entryView, SIGNAL(entryActivated(Entry*,EntryModel::ModelColumn)),
-		SLOT(entryActivationSignalReceived(Entry*,EntryModel::ModelColumn)));
-	connect(m_entryView, SIGNAL(entrySelectionChanged(Entry*)), SLOT(onEntryChanged(Entry*)));
-	connect(m_editEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
-	connect(m_editEntryWidget, SIGNAL(historyEntryActivated(Entry*)), SLOT(switchToHistoryView(Entry*)));
-	connect(m_historyEditEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchBackToEntryEdit()));
-	connect(m_editGroupWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
-	connect(m_reportsDialog, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
-	connect(m_databaseSettingDialog, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
-	connect(m_databaseOpenWidget, SIGNAL(dialogFinished(bool)), SLOT(loadDatabase(bool)));
-	connect(this, SIGNAL(currentChanged(int)), SLOT(emitCurrentModeChanged()));
+	connect(m_entryView, &EntryView::entryActivated, this, &DatabaseWidget::entryActivationSignalReceived);
+	connect(m_entryView, &EntryView::entrySelectionChanged, this, &DatabaseWidget::onEntryChanged);
+	connect(m_editEntryWidget, &EditEntryWidget::editFinished, this, &DatabaseWidget::switchToMainView);
+	connect(m_editEntryWidget, &EditEntryWidget::historyEntryActivated, this, &DatabaseWidget::switchToHistoryView);
+	connect(m_historyEditEntryWidget, &EditEntryWidget::editFinished, this, &DatabaseWidget::switchBackToEntryEdit);
+	connect(m_editGroupWidget, &EditGroupWidget::editFinished, this, &DatabaseWidget::switchToMainView);
+	connect(m_reportsDialog, &ReportsDialog::editFinished, this, &DatabaseWidget::switchToMainView);
+	connect(m_databaseSettingDialog, &DatabaseSettingsDialog::editFinished, this, &DatabaseWidget::switchToMainView);
+	connect(m_databaseOpenWidget, &DatabaseOpenWidget::dialogFinished, this, &DatabaseWidget::loadDatabase);
+	connect(this, &DatabaseWidget::currentChanged, this, &DatabaseWidget::emitCurrentModeChanged);
 	connect(config(), &Config::changed, this, &DatabaseWidget::onConfigChanged);
 
 	connectDatabaseSignals();
@@ -202,7 +202,7 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 
 	m_autosaveTimer = new QTimer(this);
 	m_autosaveTimer->setSingleShot(true);
-	connect(m_autosaveTimer, SIGNAL(timeout()), this, SLOT(onAutosaveDelayTimeout()));
+	connect(m_autosaveTimer, &QTimer::timeout, this, &DatabaseWidget::onAutosaveDelayTimeout);
 
 	m_searchLimitGroup = config()->get(Config::SearchLimitGroup).toBool();
 
@@ -574,11 +574,11 @@ void DatabaseWidget::setupTotp()
 	}
 
 	auto setupTotpDialog = new TotpSetupDialog(this, currentEntry);
-	connect(setupTotpDialog, SIGNAL(totpUpdated()), SIGNAL(entrySelectionChanged()));
+	connect(setupTotpDialog, &TotpSetupDialog::totpUpdated, this, &DatabaseWidget::entrySelectionChanged);
 	if (currentWidget() == m_editEntryWidget)
 	{
 		// Entry is being edited, tell it when we are finished updating TOTP
-		connect(setupTotpDialog, SIGNAL(totpUpdated()), m_editEntryWidget, SLOT(updateTotp()));
+		connect(setupTotpDialog, &TotpSetupDialog::totpUpdated, m_editEntryWidget, &EditEntryWidget::updateTotp);
 	}
 
 	connect(this, &DatabaseWidget::databaseLockRequested, setupTotpDialog, &TotpSetupDialog::close);
@@ -1801,7 +1801,7 @@ bool DatabaseWidget::lock()
 	// Don't try to lock the database while saving, this will cause a deadlock
 	if (m_db->isSaving())
 	{
-		QTimer::singleShot(200, this, SLOT(lock()));
+		QTimer::singleShot(200, this, [this] () { this->lock(); } );
 		return false;
 	}
 

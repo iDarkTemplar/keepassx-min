@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2023 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -53,7 +54,7 @@ DatabaseSettingsWidgetDatabaseKey::DatabaseSettingsWidgetDatabaseKey(QWidget *pa
 	m_additionalKeyOptions->layout()->addWidget(m_keyFileEditWidget);
 	m_additionalKeyOptions->setVisible(false);
 
-	connect(m_additionalKeyOptionsToggle, SIGNAL(clicked()), SLOT(showAdditionalKeyOptions()));
+	connect(m_additionalKeyOptionsToggle, &QPushButton::clicked, this, &DatabaseSettingsWidgetDatabaseKey::showAdditionalKeyOptions);
 
 	vbox->addStretch();
 	setLayout(vbox);
@@ -68,7 +69,7 @@ void DatabaseSettingsWidgetDatabaseKey::loadSettings(QSharedPointer<Database> db
 		// Database has no key, we are about to add a new one
 		m_passwordEditWidget->changeVisiblePage(KeyComponentWidget::Page::Edit);
 		// Focus won't work until the UI settles
-		QTimer::singleShot(0, m_passwordEditWidget, SLOT(setFocus()));
+		QTimer::singleShot(0, m_passwordEditWidget, qOverload<>(&PasswordEditWidget::setFocus));
 	}
 	else
 	{
@@ -89,8 +90,8 @@ void DatabaseSettingsWidgetDatabaseKey::loadSettings(QSharedPointer<Database> db
 		setAdditionalKeyOptionsVisible(hasAdditionalKeys);
 	}
 
-	connect(m_passwordEditWidget->findChild<QPushButton *>("removeButton"), SIGNAL(clicked()), SLOT(markDirty()));
-	connect(m_keyFileEditWidget->findChild<QPushButton *>("removeButton"), SIGNAL(clicked()), SLOT(markDirty()));
+	connect(m_passwordEditWidget->findChild<QPushButton*>("removeButton"), &QPushButton::clicked, this, &DatabaseSettingsWidgetDatabaseKey::markDirty);
+	connect(m_keyFileEditWidget->findChild<QPushButton*>("removeButton"), &QPushButton::clicked, this, &DatabaseSettingsWidgetDatabaseKey::markDirty);
 }
 
 void DatabaseSettingsWidgetDatabaseKey::initialize()

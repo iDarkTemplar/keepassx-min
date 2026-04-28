@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  * Copyright (C) 2018 KeePassXC Team <team@keepassxc.org>
  * Copyright (C) 2014 Felix Geyer <debfx@fobos.de>
  * Copyright (C) 2014 Florian Geyer <blueice@fobos.de>
@@ -75,16 +76,16 @@ void DatabaseWidgetStateSync::setActive(DatabaseWidget *dbWidget)
 			applyViewState();
 		}
 
-		connect(m_activeDbWidget, SIGNAL(databaseAboutToUnlock()), SLOT(blockUpdates()));
-		connect(m_activeDbWidget, SIGNAL(databaseUnlocked()), SLOT(applySplitterSizes()));
-		connect(m_activeDbWidget, SIGNAL(databaseUnlocked()), SLOT(applyViewState()));
+		connect(m_activeDbWidget, &DatabaseWidget::databaseAboutToUnlock, this, &DatabaseWidgetStateSync::blockUpdates);
+		connect(m_activeDbWidget, &DatabaseWidget::databaseUnlocked, this, &DatabaseWidgetStateSync::applySplitterSizes);
+		connect(m_activeDbWidget, &DatabaseWidget::databaseUnlocked, this, &DatabaseWidgetStateSync::applyViewState);
 		connect(m_activeDbWidget, &DatabaseWidget::databaseLocked, this, [this] { updateAll(true); });
-		connect(m_activeDbWidget, SIGNAL(splitterSizesChanged()), SLOT(updateSplitterSizes()));
-		connect(m_activeDbWidget, SIGNAL(entryViewStateChanged()), SLOT(updateViewState()));
-		connect(m_activeDbWidget, SIGNAL(listModeActivated()), SLOT(applyViewState()));
-		connect(m_activeDbWidget, SIGNAL(searchModeActivated()), SLOT(applyViewState()));
-		connect(m_activeDbWidget, SIGNAL(listModeAboutToActivate()), SLOT(blockUpdates()));
-		connect(m_activeDbWidget, SIGNAL(searchModeAboutToActivate()), SLOT(blockUpdates()));
+		connect(m_activeDbWidget, &DatabaseWidget::splitterSizesChanged, this, &DatabaseWidgetStateSync::updateSplitterSizes);
+		connect(m_activeDbWidget, &DatabaseWidget::entryViewStateChanged, this, &DatabaseWidgetStateSync::updateViewState);
+		connect(m_activeDbWidget, &DatabaseWidget::listModeActivated, this, &DatabaseWidgetStateSync::applyViewState);
+		connect(m_activeDbWidget, &DatabaseWidget::searchModeActivated, this, &DatabaseWidgetStateSync::applyViewState);
+		connect(m_activeDbWidget, &DatabaseWidget::listModeAboutToActivate, this, &DatabaseWidgetStateSync::blockUpdates);
+		connect(m_activeDbWidget, &DatabaseWidget::searchModeAboutToActivate, this, &DatabaseWidgetStateSync::blockUpdates);
 	}
 }
 

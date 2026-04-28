@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *
@@ -31,8 +32,8 @@ Clipboard::Clipboard(QObject *parent)
 	: QObject(parent)
 	, m_timer(new QTimer(this))
 {
-	connect(m_timer, SIGNAL(timeout()), SLOT(countdownTick()));
-	connect(qApp, SIGNAL(aboutToQuit()), SLOT(clearCopiedText()));
+	connect(m_timer, &QTimer::timeout, this, &Clipboard::countdownTick);
+	connect(qApp, &QApplication::aboutToQuit, this, &Clipboard::clearCopiedText);
 }
 
 void Clipboard::setText(const QString &text, bool clear)

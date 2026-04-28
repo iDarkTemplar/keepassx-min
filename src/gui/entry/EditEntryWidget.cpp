@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2023 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
@@ -74,7 +75,7 @@ EditEntryWidget::EditEntryWidget(QWidget *parent)
 
 	m_entryModifiedTimer.setSingleShot(true);
 	m_entryModifiedTimer.setInterval(0);
-	connect(&m_entryModifiedTimer, &QTimer::timeout, this, [this] {
+	connect(&m_entryModifiedTimer, &QTimer::timeout, this, [this]() {
 		// TODO: Upon refactor of this widget, this needs to merge unsaved changes in the UI
 		if (isVisible() && m_entry)
 		{
@@ -82,14 +83,12 @@ EditEntryWidget::EditEntryWidget(QWidget *parent)
 		}
 	});
 
-	connect(this, SIGNAL(accepted()), SLOT(acceptEntry()));
-	connect(this, SIGNAL(rejected()), SLOT(cancel()));
-	connect(this, SIGNAL(apply()), SLOT(commitEntry()));
-	connect(m_iconsWidget,
-		SIGNAL(messageEditEntry(QString,MessageWidget::MessageType)),
-		SLOT(showMessage(QString,MessageWidget::MessageType)));
+	connect(this, &EditEntryWidget::accepted, this, &EditEntryWidget::acceptEntry);
+	connect(this, &EditEntryWidget::rejected, this, &EditEntryWidget::cancel);
+	connect(this, &EditEntryWidget::apply, this, &EditEntryWidget::commitEntry);
+	connect(m_iconsWidget, &EditWidgetIcons::messageEditEntry, this, &EditEntryWidget::showMessage);
 
-	connect(m_iconsWidget, SIGNAL(messageEditEntryDismiss()), SLOT(hideMessage()));
+	connect(m_iconsWidget, &EditWidgetIcons::messageEditEntryDismiss, this, &EditEntryWidget::hideMessage);
 
 	m_editWidgetProperties->setCustomData(m_customData.data());
 
@@ -156,7 +155,7 @@ void EditEntryWidget::setupMain()
 	connect(m_mainUi->revealNotesButton, &QToolButton::clicked, this, &EditEntryWidget::toggleHideNotes);
 
 	m_mainUi->expirePresets->setMenu(createPresetsMenu());
-	connect(m_mainUi->expirePresets->menu(), SIGNAL(triggered(QAction *)), this, SLOT(useExpiryPreset(QAction *)));
+	connect(m_mainUi->expirePresets->menu(), &QMenu::triggered, this, &EditEntryWidget::useExpiryPreset);
 }
 
 void EditEntryWidget::setupAdvanced()
@@ -175,25 +174,21 @@ void EditEntryWidget::setupAdvanced()
 	m_attributesModel->setEntryAttributes(m_entryAttributes);
 	m_advancedUi->attributesView->setModel(m_attributesModel);
 
-	connect(m_advancedUi->addAttributeButton, SIGNAL(clicked()), SLOT(insertAttribute()));
-	connect(m_advancedUi->editAttributeButton, SIGNAL(clicked()), SLOT(editCurrentAttribute()));
-	connect(m_advancedUi->removeAttributeButton, SIGNAL(clicked()), SLOT(removeCurrentAttribute()));
-	connect(m_advancedUi->protectAttributeButton, SIGNAL(toggled(bool)), SLOT(protectCurrentAttribute(bool)));
-	connect(m_advancedUi->revealAttributeButton, SIGNAL(clicked(bool)), SLOT(toggleCurrentAttributeVisibility()));
-	connect(m_advancedUi->attributesView->selectionModel(),
-		SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-		SLOT(updateCurrentAttribute()));
+	connect(m_advancedUi->addAttributeButton, &QPushButton::clicked, this, &EditEntryWidget::insertAttribute);
+	connect(m_advancedUi->editAttributeButton, &QPushButton::clicked, this, &EditEntryWidget::editCurrentAttribute);
+	connect(m_advancedUi->removeAttributeButton, &QPushButton::clicked, this, &EditEntryWidget::removeCurrentAttribute);
+	connect(m_advancedUi->protectAttributeButton, &QCheckBox::toggled, this, &EditEntryWidget::protectCurrentAttribute);
+	connect(m_advancedUi->revealAttributeButton, &QPushButton::clicked, this, &EditEntryWidget::toggleCurrentAttributeVisibility);
+	connect(m_advancedUi->attributesView->selectionModel(), &QItemSelectionModel::currentChanged, this, &EditEntryWidget::updateCurrentAttribute);
 
-	connect(m_advancedUi->fgColorButton, SIGNAL(clicked()), SLOT(pickColor()));
-	connect(m_advancedUi->bgColorButton, SIGNAL(clicked()), SLOT(pickColor()));
+	connect(m_advancedUi->fgColorButton, &QPushButton::clicked, this, &EditEntryWidget::pickColor);
+	connect(m_advancedUi->bgColorButton, &QPushButton::clicked, this, &EditEntryWidget::pickColor);
 }
 
 void EditEntryWidget::setupIcon()
 {
 	m_iconsWidget->setShowApplyIconToButton(false);
 	addPage(tr("Icon"), icons()->icon("preferences-desktop-icons"), m_iconsWidget);
-	connect(this, SIGNAL(accepted()), m_iconsWidget, SLOT(abortRequests()));
-	connect(this, SIGNAL(rejected()), m_iconsWidget, SLOT(abortRequests()));
 }
 
 void EditEntryWidget::setupProperties()
@@ -215,39 +210,37 @@ void EditEntryWidget::setupHistory()
 	m_historyUi->historyView->setModel(m_sortModel);
 	m_historyUi->historyView->setRootIsDecorated(false);
 
-	connect(m_historyUi->historyView, SIGNAL(activated(QModelIndex)), SLOT(histEntryActivated(QModelIndex)));
-	connect(m_historyUi->historyView->selectionModel(),
-		SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-		SLOT(updateHistoryButtons(QModelIndex,QModelIndex)));
+	connect(m_historyUi->historyView, &QTreeView::activated, this, &EditEntryWidget::histEntryActivated);
+	connect(m_historyUi->historyView->selectionModel(), &QItemSelectionModel::currentChanged, this, &EditEntryWidget::updateHistoryButtons);
 
-	connect(m_historyUi->showButton, SIGNAL(clicked()), SLOT(showHistoryEntry()));
-	connect(m_historyUi->restoreButton, SIGNAL(clicked()), SLOT(restoreHistoryEntry()));
-	connect(m_historyUi->deleteButton, SIGNAL(clicked()), SLOT(deleteHistoryEntry()));
-	connect(m_historyUi->deleteAllButton, SIGNAL(clicked()), SLOT(deleteAllHistoryEntries()));
+	connect(m_historyUi->showButton, &QPushButton::clicked, this, &EditEntryWidget::showHistoryEntry);
+	connect(m_historyUi->restoreButton, &QPushButton::clicked, this, &EditEntryWidget::restoreHistoryEntry);
+	connect(m_historyUi->deleteButton, &QPushButton::clicked, this, &EditEntryWidget::deleteHistoryEntry);
+	connect(m_historyUi->deleteAllButton, &QPushButton::clicked, this, &EditEntryWidget::deleteAllHistoryEntries);
 }
 
 void EditEntryWidget::setupEntryUpdate()
 {
 	// Entry tab
-	connect(m_mainUi->titleEdit, SIGNAL(textChanged(QString)), this, SLOT(setModified()));
-	connect(m_mainUi->usernameComboBox->lineEdit(), SIGNAL(textChanged(QString)), this, SLOT(setModified()));
-	connect(m_mainUi->passwordEdit, SIGNAL(textChanged(QString)), this, SLOT(setModified()));
-	connect(m_mainUi->urlEdit, SIGNAL(textChanged(QString)), this, SLOT(setModified()));
-	connect(m_mainUi->tagsList, SIGNAL(tagsEdited()), this, SLOT(setModified()));
-	connect(m_mainUi->expireCheck, SIGNAL(stateChanged(int)), this, SLOT(setModified()));
-	connect(m_mainUi->expireDatePicker, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(setModified()));
-	connect(m_mainUi->notesEdit, SIGNAL(textChanged()), this, SLOT(setModified()));
+	connect(m_mainUi->titleEdit, &QLineEdit::textChanged, this, [this] () { setModified(); });
+	connect(m_mainUi->usernameComboBox->lineEdit(), &QLineEdit::textChanged, this, [this] () { setModified(); });
+	connect(m_mainUi->passwordEdit, &PasswordWidget::textChanged, this, [this] () { setModified(); });
+	connect(m_mainUi->urlEdit, &URLEdit::textChanged, this, [this] () { setModified(); });
+	connect(m_mainUi->tagsList, &TagsEdit::tagsEdited, this, [this] () { setModified(); });
+	connect(m_mainUi->expireCheck, &QCheckBox::stateChanged, this, [this] () { setModified(); });
+	connect(m_mainUi->expireDatePicker, &QDateTimeEdit::dateTimeChanged, this, [this] () { setModified(); });
+	connect(m_mainUi->notesEdit, &QPlainTextEdit::textChanged, this, [this] () { setModified(); });
 
 	// Advanced tab
-	connect(m_advancedUi->attributesEdit, SIGNAL(textChanged()), this, SLOT(setModified()));
-	connect(m_advancedUi->protectAttributeButton, SIGNAL(stateChanged(int)), this, SLOT(setModified()));
-	connect(m_advancedUi->excludeReportsCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setModified()));
-	connect(m_advancedUi->fgColorCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setModified()));
-	connect(m_advancedUi->bgColorCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setModified()));
-	connect(m_advancedUi->attachmentsWidget, SIGNAL(widgetUpdated()), this, SLOT(setModified()));
+	connect(m_advancedUi->attributesEdit, &QPlainTextEdit::textChanged, this, [this] () { setModified(); });
+	connect(m_advancedUi->protectAttributeButton, &QCheckBox::stateChanged, this, [this] () { setModified(); });
+	connect(m_advancedUi->excludeReportsCheckBox, &QCheckBox::stateChanged, this, [this] () { setModified(); });
+	connect(m_advancedUi->fgColorCheckBox, &QCheckBox::stateChanged, this, [this] () { setModified(); });
+	connect(m_advancedUi->bgColorCheckBox, &QCheckBox::stateChanged, this, [this] () { setModified(); });
+	connect(m_advancedUi->attachmentsWidget, &EntryAttachmentsWidget::widgetUpdated, this, [this] () { setModified(); });
 
 	// Icon tab
-	connect(m_iconsWidget, SIGNAL(widgetUpdated()), this, SLOT(setModified()));
+	connect(m_iconsWidget, &EditWidgetIcons::widgetUpdated, this, [this] () { setModified(); });
 
 	// Properties and History tabs don't need extra connections
 }
@@ -953,5 +946,13 @@ void EditEntryWidget::pickColor()
 	{
 		setupColorButton(isForeground, newColor);
 		setModified(true);
+	}
+}
+
+void EditEntryWidget::updateTotp()
+{
+	if (m_entry)
+	{
+		m_attributesModel->setEntryAttributes(m_entry->attributes());
 	}
 }

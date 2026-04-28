@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2017 Weslly Honorato <weslly@protonmail.com>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
@@ -40,17 +41,17 @@ TotpDialog::TotpDialog(QWidget *parent, Entry *entry)
 	updateProgressBar();
 	updateSeconds();
 
-	connect(&m_totpUpdateTimer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
-	connect(&m_totpUpdateTimer, SIGNAL(timeout()), this, SLOT(updateSeconds()));
+	connect(&m_totpUpdateTimer, &QTimer::timeout, this, &TotpDialog::updateProgressBar);
+	connect(&m_totpUpdateTimer, &QTimer::timeout, this, &TotpDialog::updateSeconds);
 	m_totpUpdateTimer.start(m_step * 10);
 	updateTotp();
 
-	new QShortcut(QKeySequence(QKeySequence::Copy), this, SLOT(copyToClipboard()));
+	new QShortcut(QKeySequence(QKeySequence::Copy), this, this, &TotpDialog::copyToClipboard);
 
 	m_ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Copy"));
 
-	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
-	connect(m_ui->buttonBox, SIGNAL(accepted()), SLOT(copyToClipboard()));
+	connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &TotpDialog::close);
+	connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &TotpDialog::copyToClipboard);
 }
 
 TotpDialog::~TotpDialog()

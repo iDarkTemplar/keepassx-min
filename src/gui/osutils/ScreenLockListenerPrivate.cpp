@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -25,7 +26,7 @@ ScreenLockListenerPrivate::ScreenLockListenerPrivate(QWidget *parent)
 {
 }
 
-ScreenLockListenerPrivate *ScreenLockListenerPrivate::instance(QWidget *parent)
+ScreenLockListenerPrivate* ScreenLockListenerPrivate::instance(QWidget *parent)
 {
 	return new ScreenLockListenerDBus(parent);
 }

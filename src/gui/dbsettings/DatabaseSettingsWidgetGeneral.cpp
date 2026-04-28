@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2023 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -40,9 +41,9 @@ DatabaseSettingsWidgetGeneral::DatabaseSettingsWidgetGeneral(QWidget *parent)
 	connect(m_ui->dbPublicIconButton, &QPushButton::clicked, this, &DatabaseSettingsWidgetGeneral::pickPublicIcon);
 	connect(m_ui->dbPublicIconClearButton, &QPushButton::clicked, this, [this] { setupPublicIconButton(-1); });
 
-	connect(m_ui->historyMaxItemsCheckBox, SIGNAL(toggled(bool)), m_ui->historyMaxItemsSpinBox, SLOT(setEnabled(bool)));
-	connect(m_ui->historyMaxSizeCheckBox, SIGNAL(toggled(bool)), m_ui->historyMaxSizeSpinBox, SLOT(setEnabled(bool)));
-	connect(m_ui->autosaveDelayCheckBox, SIGNAL(toggled(bool)), m_ui->autosaveDelaySpinBox, SLOT(setEnabled(bool)));
+	connect(m_ui->historyMaxItemsCheckBox, &QCheckBox::toggled, m_ui->historyMaxItemsSpinBox, &QSpinBox::setEnabled);
+	connect(m_ui->historyMaxSizeCheckBox, &QCheckBox::toggled, m_ui->historyMaxSizeSpinBox, &QSpinBox::setEnabled);
+	connect(m_ui->autosaveDelayCheckBox, &QCheckBox::toggled, m_ui->autosaveDelaySpinBox, &QSpinBox::setEnabled);
 }
 
 DatabaseSettingsWidgetGeneral::~DatabaseSettingsWidgetGeneral()

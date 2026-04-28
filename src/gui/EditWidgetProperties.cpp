@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -32,11 +33,9 @@ EditWidgetProperties::EditWidgetProperties(QWidget *parent)
 	m_ui->removeCustomDataButton->setEnabled(false);
 	m_ui->customDataTable->setModel(m_customDataModel);
 
-	connect(m_ui->customDataTable->selectionModel(),
-		SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-		SLOT(toggleRemoveButton(QItemSelection)));
+	connect(m_ui->customDataTable->selectionModel(), &QItemSelectionModel::selectionChanged, this, &EditWidgetProperties::toggleRemoveButton);
 
-	connect(m_ui->removeCustomDataButton, SIGNAL(clicked()), SLOT(removeSelectedPluginData()));
+	connect(m_ui->removeCustomDataButton, &QPushButton::clicked, this, &EditWidgetProperties::removeSelectedPluginData);
 }
 
 EditWidgetProperties::~EditWidgetProperties()

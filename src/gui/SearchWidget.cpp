@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2020 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -44,16 +45,16 @@ SearchWidget::SearchWidget(QWidget *parent)
 	m_searchTimer->setSingleShot(true);
 	m_clearSearchTimer->setSingleShot(true);
 
-	new QShortcut(Qt::CTRL | Qt::Key_J, this, SLOT(toggleHelp()), nullptr, Qt::WidgetWithChildrenShortcut);
+	new QShortcut(Qt::CTRL | Qt::Key_J, this, this, &SearchWidget::toggleHelp, Qt::WidgetWithChildrenShortcut);
 
-	connect(m_ui->searchEdit, SIGNAL(textChanged(QString)), SLOT(startSearchTimer()));
-	connect(m_ui->searchEdit, SIGNAL(textChanged(QString)), SLOT(updateSaveButtonVisibility()));
-	connect(m_ui->helpIcon, SIGNAL(triggered()), SLOT(toggleHelp()));
-	connect(m_ui->searchIcon, SIGNAL(triggered()), SLOT(showSearchMenu()));
+	connect(m_ui->searchEdit, &QLineEdit::textChanged, this, &SearchWidget::startSearchTimer);
+	connect(m_ui->searchEdit, &QLineEdit::textChanged, this, &SearchWidget::updateSaveButtonVisibility);
+	connect(m_ui->helpIcon, &QAction::triggered, this, &SearchWidget::toggleHelp);
+	connect(m_ui->searchIcon, &QAction::triggered, this, &SearchWidget::showSearchMenu);
 	connect(m_ui->saveIcon, &QAction::triggered, this, [this] { emit saveSearch(m_ui->searchEdit->text()); });
-	connect(m_searchTimer, SIGNAL(timeout()), SLOT(startSearch()));
-	connect(m_clearSearchTimer, SIGNAL(timeout()), SLOT(clearSearch()));
-	connect(this, SIGNAL(escapePressed()), SLOT(clearSearch()));
+	connect(m_searchTimer, &QTimer::timeout, this, &SearchWidget::startSearch);
+	connect(m_clearSearchTimer, &QTimer::timeout, this, &SearchWidget::clearSearch);
+	connect(this, &SearchWidget::escapePressed, this, &SearchWidget::clearSearch);
 	connect(m_ui->searchEdit, &QLineEdit::returnPressed, this, &SearchWidget::onReturnPressed);
 
 	m_ui->searchEdit->setPlaceholderText(tr("Search (%1)…", "Search placeholder text, %1 is the keyboard shortcut")
@@ -61,11 +62,11 @@ SearchWidget::SearchWidget(QWidget *parent)
 	m_ui->searchEdit->installEventFilter(this);
 
 	m_searchMenu = new QMenu(this);
-	m_actionCaseSensitive = m_searchMenu->addAction(tr("Case sensitive"), this, SLOT(updateCaseSensitive()));
+	m_actionCaseSensitive = m_searchMenu->addAction(tr("Case sensitive"), this, &SearchWidget::updateCaseSensitive);
 	m_actionCaseSensitive->setObjectName("actionSearchCaseSensitive");
 	m_actionCaseSensitive->setCheckable(true);
 
-	m_actionLimitGroup = m_searchMenu->addAction(tr("Limit search to selected group"), this, SLOT(updateLimitGroup()));
+	m_actionLimitGroup = m_searchMenu->addAction(tr("Limit search to selected group"), this, &SearchWidget::updateLimitGroup);
 	m_actionLimitGroup->setObjectName("actionSearchLimitGroup");
 	m_actionLimitGroup->setCheckable(true);
 	m_actionLimitGroup->setChecked(config()->get(Config::SearchLimitGroup).toBool());

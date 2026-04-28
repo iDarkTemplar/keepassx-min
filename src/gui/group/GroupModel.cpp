@@ -40,13 +40,13 @@ void GroupModel::changeDatabase(Database *newDb)
 
 	m_db = newDb;
 
-	connect(m_db, SIGNAL(groupDataChanged(Group*)), SLOT(groupDataChanged(Group*)));
-	connect(m_db, SIGNAL(groupAboutToAdd(Group*,int)), SLOT(groupAboutToAdd(Group*,int)));
-	connect(m_db, SIGNAL(groupAdded()), SLOT(groupAdded()));
-	connect(m_db, SIGNAL(groupAboutToRemove(Group*)), SLOT(groupAboutToRemove(Group*)));
-	connect(m_db, SIGNAL(groupRemoved()), SLOT(groupRemoved()));
-	connect(m_db, SIGNAL(groupAboutToMove(Group*,Group*,int)), SLOT(groupAboutToMove(Group*,Group*,int)));
-	connect(m_db, SIGNAL(groupMoved()), SLOT(groupMoved()));
+	connect(m_db, &Database::groupDataChanged, this, &GroupModel::groupDataChanged);
+	connect(m_db, &Database::groupAboutToAdd, this, &GroupModel::groupAboutToAdd);
+	connect(m_db, &Database::groupAdded, this, &GroupModel::groupAdded);
+	connect(m_db, &Database::groupAboutToRemove, this, &GroupModel::groupAboutToRemove);
+	connect(m_db, &Database::groupRemoved, this, &GroupModel::groupRemoved);
+	connect(m_db, &Database::groupAboutToMove, this, &GroupModel::groupAboutToMove);
+	connect(m_db, &Database::groupMoved, this, &GroupModel::groupMoved);
 
 	endResetModel();
 }

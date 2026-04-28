@@ -41,8 +41,8 @@ void KMessageWidgetPrivate::init(KMessageWidget *q_ptr)
 	q->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
 
 	timeLine = new QTimeLine(500, q);
-	QObject::connect(timeLine, SIGNAL(valueChanged(qreal)), q, SLOT(slotTimeLineChanged(qreal)));
-	QObject::connect(timeLine, SIGNAL(finished()), q, SLOT(slotTimeLineFinished()));
+	QObject::connect(timeLine, &QTimeLine::valueChanged, this, &KMessageWidgetPrivate::slotTimeLineChanged);
+	QObject::connect(timeLine, &QTimeLine::finished, this, &KMessageWidgetPrivate::slotTimeLineFinished);
 
 	content = new QFrame(q);
 	content->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -56,15 +56,15 @@ void KMessageWidgetPrivate::init(KMessageWidget *q_ptr)
 	textLabel = new QLabel(content);
 	textLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	textLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-	QObject::connect(textLabel, SIGNAL(linkActivated(QString)), q, SIGNAL(linkActivated(QString)));
-	QObject::connect(textLabel, SIGNAL(linkHovered(QString)), q, SIGNAL(linkHovered(QString)));
+	QObject::connect(textLabel, &QLabel::linkActivated, q, &KMessageWidget::linkActivated);
+	QObject::connect(textLabel, &QLabel::linkHovered, q, &KMessageWidget::linkHovered);
 
 	QAction *closeAction = new QAction(q);
 	closeAction->setText(KMessageWidget::tr("&Close"));
 	closeAction->setToolTip(KMessageWidget::tr("Close message"));
 	closeAction->setIcon(icons()->icon("message-close"));
 
-	QObject::connect(closeAction, SIGNAL(triggered(bool)), q, SLOT(animatedHide()));
+	QObject::connect(closeAction,&QAction::triggered, q, &KMessageWidget::animatedHide);
 
 	closeButton = new QToolButton(content);
 	closeButton->setAutoRaise(true);

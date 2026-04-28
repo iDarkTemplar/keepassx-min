@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2024 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -45,15 +46,13 @@ DatabaseTabWidget::DatabaseTabWidget(QWidget *parent)
 	setTabBar(tabBar);
 	setDocumentMode(true);
 
-	connect(this, SIGNAL(tabCloseRequested(int)), SLOT(closeDatabaseTab(int)));
-	connect(this, SIGNAL(currentChanged(int)), SLOT(emitActiveDatabaseChanged()));
-	connect(this, SIGNAL(activeDatabaseChanged(DatabaseWidget*)),
-		m_dbWidgetStateSync, SLOT(setActive(DatabaseWidget*)));
-	connect(m_databaseOpenDialog.data(), &DatabaseOpenDialog::dialogFinished,
-		this, &DatabaseTabWidget::handleDatabaseUnlockDialogFinished);
+	connect(this, &DatabaseTabWidget::tabCloseRequested, this, qOverload<int>(&DatabaseTabWidget::closeDatabaseTab));
+	connect(this, &DatabaseTabWidget::currentChanged, this, &DatabaseTabWidget::emitActiveDatabaseChanged);
+	connect(this, &DatabaseTabWidget::activeDatabaseChanged, m_dbWidgetStateSync, &DatabaseWidgetStateSync::setActive);
+	connect(m_databaseOpenDialog.data(), &DatabaseOpenDialog::dialogFinished, this, &DatabaseTabWidget::handleDatabaseUnlockDialogFinished);
 
 	m_lockDelayTimer.setSingleShot(true);
-	connect(&m_lockDelayTimer, &QTimer::timeout, this, [this] { lockDatabases(); });
+	connect(&m_lockDelayTimer, &QTimer::timeout, this, [this] { this->lockDatabases(); });
 }
 
 void DatabaseTabWidget::toggleTabbar()
@@ -242,21 +241,17 @@ void DatabaseTabWidget::addDatabaseTab(DatabaseWidget *dbWidget, bool inBackgrou
 		setCurrentIndex(index);
 	}
 
-	connect(dbWidget,
-		SIGNAL(requestOpenDatabase(QString, bool, QString, QString)),
-		SLOT(addDatabaseTab(QString, bool, QString, QString)));
-	connect(dbWidget, SIGNAL(databaseFilePathChanged(QString, QString)), SLOT(updateTabName()));
-	connect(dbWidget, SIGNAL(closeRequest()), SLOT(closeDatabaseTabFromSender()));
-	connect(dbWidget,
-		SIGNAL(databaseReplaced(const QSharedPointer<Database> &, const QSharedPointer<Database> &)),
-		SLOT(updateTabName()));
-	connect(dbWidget, SIGNAL(databaseModified()), SLOT(updateTabName()));
-	connect(dbWidget, SIGNAL(databaseSaved()), SLOT(updateTabName()));
-	connect(dbWidget, SIGNAL(databaseSaved()), SLOT(updateLastDatabases()));
-	connect(dbWidget, SIGNAL(databaseUnlocked()), SLOT(updateTabName()));
-	connect(dbWidget, SIGNAL(databaseUnlocked()), SLOT(emitDatabaseLockChanged()));
-	connect(dbWidget, SIGNAL(databaseLocked()), SLOT(updateTabName()));
-	connect(dbWidget, SIGNAL(databaseLocked()), SLOT(emitDatabaseLockChanged()));
+	connect(dbWidget, &DatabaseWidget::requestOpenDatabase, this, qOverload<const QString &, bool, const QString &, const QString &>(&DatabaseTabWidget::addDatabaseTab));
+	connect(dbWidget, &DatabaseWidget::databaseFilePathChanged, this, [this] () { this->updateTabName(-1); } );
+	connect(dbWidget, &DatabaseWidget::closeRequest, this, &DatabaseTabWidget::closeDatabaseTabFromSender);
+	connect(dbWidget, &DatabaseWidget::databaseReplaced, this, [this] () { this->updateTabName(-1); } );
+	connect(dbWidget, &DatabaseWidget::databaseModified, this, [this] () { this->updateTabName(-1); } );
+	connect(dbWidget, &DatabaseWidget::databaseSaved, this, [this] () { this->updateTabName(-1); } );
+	connect(dbWidget, &DatabaseWidget::databaseSaved, this, qOverload<>(&DatabaseTabWidget::updateLastDatabases));
+	connect(dbWidget, &DatabaseWidget::databaseUnlocked, this, [this] () { this->updateTabName(-1); } );
+	connect(dbWidget, &DatabaseWidget::databaseUnlocked, this, &DatabaseTabWidget::emitDatabaseLockChanged);
+	connect(dbWidget, &DatabaseWidget::databaseLocked, this, [this] () { this->updateTabName(-1); } );
+	connect(dbWidget, &DatabaseWidget::databaseLocked, this, &DatabaseTabWidget::emitDatabaseLockChanged);
 }
 
 DatabaseWidget* DatabaseTabWidget::importFile()
@@ -522,7 +517,7 @@ void DatabaseTabWidget::exportToHtml()
 	}
 
 	auto exportDialog = new ExportDialog(db, this);
-	connect(exportDialog, SIGNAL(exportFailed(QString)), SLOT(handleExportError(const QString &)));
+	connect(exportDialog, &ExportDialog::exportFailed, this, &DatabaseTabWidget::handleExportError);
 	exportDialog->exec();
 }
 
@@ -679,7 +674,7 @@ void DatabaseTabWidget::updateTabName(int index)
 	auto *dbWidget = databaseWidgetFromIndex(index);
 	if (!dbWidget)
 	{
-		dbWidget = qobject_cast<DatabaseWidget *>(sender());
+		dbWidget = qobject_cast<DatabaseWidget*>(sender());
 	}
 
 	Q_ASSERT(dbWidget);
@@ -851,7 +846,12 @@ void DatabaseTabWidget::updateLastDatabases(const QString &filename)
 	else
 	{
 		QStringList lastDatabases = config()->get(Config::LastDatabases).toStringList();
-		lastDatabases.prepend(QDir::toNativeSeparators(filename));
+
+		if (!filename.isEmpty())
+		{
+			lastDatabases.prepend(QDir::toNativeSeparators(filename));
+		}
+
 		lastDatabases.removeDuplicates();
 
 		while (lastDatabases.count() > config()->get(Config::NumberOfRememberedLastDatabases).toInt())

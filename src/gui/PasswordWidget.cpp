@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2014 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2020 KeePassXC Team <team@keepassxc.org>
  *
@@ -134,7 +135,7 @@ void PasswordWidget::setRepeatPartner(PasswordWidget *repeatPartner)
 	m_repeatPasswordWidget = repeatPartner;
 	m_repeatPasswordWidget->setParentPasswordEdit(this);
 
-	connect(m_ui->passwordEdit, SIGNAL(textChanged(QString)), m_repeatPasswordWidget, SLOT(updateRepeatStatus()));
+	connect(m_ui->passwordEdit, &QLineEdit::textChanged, m_repeatPasswordWidget, &PasswordWidget::updateRepeatStatus);
 }
 
 void PasswordWidget::setParentPasswordEdit(PasswordWidget *parent)
@@ -143,7 +144,7 @@ void PasswordWidget::setParentPasswordEdit(PasswordWidget *parent)
 	// Hide actions
 	m_toggleVisibleAction->setVisible(false);
 	m_passwordGeneratorAction->setVisible(false);
-	connect(m_ui->passwordEdit, SIGNAL(textChanged(QString)), this, SLOT(updateRepeatStatus()));
+	connect(m_ui->passwordEdit, &QLineEdit::textChanged, this, &PasswordWidget::updateRepeatStatus);
 }
 
 void PasswordWidget::enablePasswordGenerator()
@@ -178,10 +179,10 @@ void PasswordWidget::popupPasswordGenerator()
 	generator->setPasswordVisible(isPasswordVisible());
 	generator->setPasswordLength(text().length());
 
-	connect(generator, SIGNAL(appliedPassword(QString)), SLOT(setText(QString)));
+	connect(generator, &PasswordGeneratorWidget::appliedPassword, this, &PasswordWidget::setText);
 	if (m_repeatPasswordWidget)
 	{
-		connect(generator, SIGNAL(appliedPassword(QString)), m_repeatPasswordWidget, SLOT(setText(QString)));
+		connect(generator, &PasswordGeneratorWidget::appliedPassword, m_repeatPasswordWidget, &PasswordWidget::setText);
 	}
 }
 

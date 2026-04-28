@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
@@ -38,11 +39,11 @@ EditWidget::EditWidget(QWidget *parent)
 	headlineLabel()->setFont(headerLabelFont);
 	headlineLabel()->setTextFormat(Qt::PlainText);
 
-	connect(m_ui->categoryList, SIGNAL(categoryChanged(int)), m_ui->stackedWidget, SLOT(setCurrentIndex(int)));
+	connect(m_ui->categoryList, &CategoryListWidget::categoryChanged, m_ui->stackedWidget, &QStackedWidget::setCurrentIndex);
 
-	connect(m_ui->buttonBox, SIGNAL(accepted()), SIGNAL(accepted()));
-	connect(m_ui->buttonBox, SIGNAL(rejected()), SIGNAL(rejected()));
-	connect(m_ui->buttonBox, SIGNAL(clicked(QAbstractButton *)), SLOT(buttonClicked(QAbstractButton *)));
+	connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &EditWidget::accepted);
+	connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &EditWidget::rejected);
+	connect(m_ui->buttonBox, &QDialogButtonBox::clicked, this, &EditWidget::buttonClicked);
 }
 
 EditWidget::~EditWidget()

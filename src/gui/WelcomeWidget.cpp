@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2020 KeePassXC Team <team@keepassxc.org>
  *
@@ -45,13 +46,10 @@ WelcomeWidget::WelcomeWidget(QWidget *parent)
 
 	refreshLastDatabases();
 
-	connect(m_ui->buttonNewDatabase, SIGNAL(clicked()), SIGNAL(newDatabase()));
-	connect(m_ui->buttonOpenDatabase, SIGNAL(clicked()), SIGNAL(openDatabase()));
-	connect(m_ui->buttonImport, SIGNAL(clicked()), SIGNAL(importFile()));
-	connect(m_ui->recentListWidget,
-		SIGNAL(itemActivated(QListWidgetItem*)),
-		this,
-		SLOT(openDatabaseFromFile(QListWidgetItem*)));
+	connect(m_ui->buttonNewDatabase, &QPushButton::clicked, this, &WelcomeWidget::newDatabase);
+	connect(m_ui->buttonOpenDatabase, &QPushButton::clicked, this, &WelcomeWidget::openDatabase);
+	connect(m_ui->buttonImport, &QPushButton::clicked, this, &WelcomeWidget::importFile);
+	connect(m_ui->recentListWidget, &QListWidget::itemActivated, this, &WelcomeWidget::openDatabaseFromFile);
 }
 
 WelcomeWidget::~WelcomeWidget()

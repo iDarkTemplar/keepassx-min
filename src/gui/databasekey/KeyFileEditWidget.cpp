@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2018 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -78,8 +79,8 @@ QWidget* KeyFileEditWidget::componentEditWidget()
 	m_compEditWidget = new QWidget();
 	m_compUi->setupUi(m_compEditWidget);
 
-	connect(m_compUi->createKeyFileButton, SIGNAL(clicked()), SLOT(createKeyFile()));
-	connect(m_compUi->browseKeyFileButton, SIGNAL(clicked()), SLOT(browseKeyFile()));
+	connect(m_compUi->createKeyFileButton, &QPushButton::clicked, this, &KeyFileEditWidget::createKeyFile);
+	connect(m_compUi->browseKeyFileButton, &QPushButton::clicked, this, &KeyFileEditWidget::browseKeyFile);
 
 	return m_compEditWidget;
 }

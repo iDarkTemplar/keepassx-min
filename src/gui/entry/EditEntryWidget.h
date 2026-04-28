@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2021 KeePassXC Team <team@keepassxc.org>
  *
@@ -88,6 +89,9 @@ public:
 signals:
 	void editFinished(bool accepted);
 	void historyEntryActivated(Entry *entry);
+
+public slots:
+	void updateTotp();
 
 private slots:
 	void acceptEntry();

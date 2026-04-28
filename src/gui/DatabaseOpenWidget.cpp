@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2011 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
@@ -57,13 +58,13 @@ DatabaseOpenWidget::DatabaseOpenWidget(QWidget *parent)
 	font.setBold(true);
 	m_ui->labelHeadline->setFont(font);
 
-	connect(m_ui->buttonBrowseFile, SIGNAL(clicked()), SLOT(browseKeyFile()));
+	connect(m_ui->buttonBrowseFile, &QPushButton::clicked, this, &DatabaseOpenWidget::browseKeyFile);
 
 	auto okBtn = m_ui->buttonBox->button(QDialogButtonBox::Ok);
 	okBtn->setText(tr("Unlock"));
 	okBtn->setDefault(true);
-	connect(m_ui->buttonBox, SIGNAL(accepted()), SLOT(openDatabase()));
-	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(reject()));
+	connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &DatabaseOpenWidget::openDatabase);
+	connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &DatabaseOpenWidget::reject);
 
 	connect(m_ui->addKeyFileLinkLabel, &QLabel::linkActivated, this, &DatabaseOpenWidget::browseKeyFile);
 	connect(m_ui->keyFileLineEdit, &PasswordWidget::textChanged, this, [&](const QString &text) {

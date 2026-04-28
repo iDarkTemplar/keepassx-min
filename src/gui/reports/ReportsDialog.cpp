@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2023 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -57,7 +58,8 @@ ReportsDialog::ReportsDialog(QWidget *parent)
 {
 	m_ui->setupUi(this);
 
-	connect(m_ui->buttonBox, SIGNAL(rejected()), SLOT(reject()));
+	connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &ReportsDialog::reject);
+
 	addPage(m_statPage);
 	addPage(m_healthPage);
 
@@ -68,9 +70,9 @@ ReportsDialog::ReportsDialog(QWidget *parent)
 	m_ui->stackedWidget->addWidget(m_editEntryWidget);
 	adjustSize();
 
-	connect(m_ui->categoryList, SIGNAL(categoryChanged(int)), m_ui->stackedWidget, SLOT(setCurrentIndex(int)));
-	connect(m_healthPage->m_healthWidget, SIGNAL(entryActivated(Entry*)), SLOT(entryActivationSignalReceived(Entry*)));
-	connect(m_editEntryWidget, SIGNAL(editFinished(bool)), SLOT(switchToMainView(bool)));
+	connect(m_ui->categoryList, &CategoryListWidget::categoryChanged, m_ui->stackedWidget, &QStackedWidget::setCurrentIndex);
+	connect(m_healthPage->m_healthWidget, &ReportsWidgetHealthcheck::entryActivated, this, &ReportsDialog::entryActivationSignalReceived);
+	connect(m_editEntryWidget, &EditEntryWidget::editFinished, this, &ReportsDialog::switchToMainView);
 }
 
 ReportsDialog::~ReportsDialog()

@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
  *
@@ -52,16 +53,16 @@ EditWidgetIcons::EditWidgetIcons(QWidget *parent)
 
 	m_ui->applyIconToPushButton->setMenu(createApplyIconToMenu());
 
-	connect(m_ui->defaultIconsView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateRadioButtonDefaultIcons()));
-	connect(m_ui->customIconsView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateRadioButtonCustomIcons()));
-	connect(m_ui->defaultIconsRadio, SIGNAL(toggled(bool)), this, SLOT(updateWidgetsDefaultIcons(bool)));
-	connect(m_ui->customIconsRadio, SIGNAL(toggled(bool)), this, SLOT(updateWidgetsCustomIcons(bool)));
-	connect(m_ui->addButton, SIGNAL(clicked()), SLOT(addCustomIconFromFile()));
-	connect(m_ui->applyIconToPushButton->menu(), SIGNAL(triggered(QAction*)), SLOT(confirmApplyIconTo(QAction*)));
+	connect(m_ui->defaultIconsView, &QListView::clicked, this, &EditWidgetIcons::updateRadioButtonDefaultIcons);
+	connect(m_ui->customIconsView, &QListView::clicked, this, &EditWidgetIcons::updateRadioButtonCustomIcons);
+	connect(m_ui->defaultIconsRadio, &QRadioButton::toggled, this, &EditWidgetIcons::updateWidgetsDefaultIcons);
+	connect(m_ui->customIconsRadio, &QRadioButton::toggled, this, &EditWidgetIcons::updateWidgetsCustomIcons);
+	connect(m_ui->addButton, &QPushButton::clicked, this, &EditWidgetIcons::addCustomIconFromFile);
+	connect(m_ui->applyIconToPushButton->menu(), &QMenu::triggered, this, &EditWidgetIcons::confirmApplyIconTo);
 
-	connect(m_ui->defaultIconsRadio, SIGNAL(toggled(bool)), this, SIGNAL(widgetUpdated()));
-	connect(m_ui->defaultIconsView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SIGNAL(widgetUpdated()));
-	connect(m_ui->customIconsView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SIGNAL(widgetUpdated()));
+	connect(m_ui->defaultIconsRadio, &QRadioButton::toggled, this, &EditWidgetIcons::widgetUpdated);
+	connect(m_ui->defaultIconsView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &EditWidgetIcons::widgetUpdated);
+	connect(m_ui->customIconsView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &EditWidgetIcons::widgetUpdated);
 }
 
 EditWidgetIcons::~EditWidgetIcons()
