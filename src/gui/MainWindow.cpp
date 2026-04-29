@@ -1262,7 +1262,7 @@ void MainWindow::updateTrayIcon()
 	QApplication::setQuitOnLastWindowClosed(!isTrayIconEnabled());
 }
 
-void MainWindow::updateProgressBar(int percentage, QString message)
+void MainWindow::updateProgressBar(int percentage, const QString &message)
 {
 	if (percentage < 0)
 	{

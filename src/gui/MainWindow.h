@@ -130,7 +130,7 @@ private slots:
 	void obtainContextFocusLock();
 	void releaseContextFocusLock();
 	void updateTrayIcon();
-	void updateProgressBar(int percentage, QString message);
+	void updateProgressBar(int percentage, const QString &message);
 	void updateEntryCountLabel();
 	void focusSearchWidget();
 
