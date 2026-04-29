@@ -50,6 +50,8 @@
 
 const QString MainWindow::BaseWindowTitle = "KeePassX-min";
 
+static constexpr QSize TrayIconSize = { 256, 256 };
+
 MainWindow* g_MainWindow = nullptr;
 
 MainWindow* getMainWindow()
@@ -1230,7 +1232,9 @@ void MainWindow::updateTrayIcon()
 		}
 
 		bool showUnlocked = m_ui->tabWidget->hasLockableDatabases();
-		m_trayIcon->setIcon(icons()->trayIcon(showUnlocked));
+		// There is a bug in KDE that prevents tray icon to render an icon by name if it's not a file on disk.
+		// Convert it to pixmap and create icon from that pixmap to circumvent that bug.
+		m_trayIcon->setIcon(QIcon(icons()->trayIcon(showUnlocked).pixmap(TrayIconSize)));
 		m_trayIcon->setToolTip(windowTitle().replace("[*]", isWindowModified() ? "*" : ""));
 		m_trayIcon->show();
 
