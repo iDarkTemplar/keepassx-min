@@ -701,36 +701,6 @@ Group* KdbxXmlReader::parseGroup()
 			continue;
 		}
 
-		if (m_xml.name() == "DefaultAutoTypeSequence")
-		{
-			group->setDefaultAutoTypeSequence(readString());
-			continue;
-		}
-
-		if (m_xml.name() == "EnableAutoType")
-		{
-			QString str = readString();
-
-			if (str.compare("null", Qt::CaseInsensitive) == 0)
-			{
-				group->setAutoTypeEnabled(Group::Inherit);
-			}
-			else if (str.compare("true", Qt::CaseInsensitive) == 0)
-			{
-				group->setAutoTypeEnabled(Group::Enable);
-			}
-			else if (str.compare("false", Qt::CaseInsensitive) == 0)
-			{
-				group->setAutoTypeEnabled(Group::Disable);
-			}
-			else
-			{
-				raiseError(tr("Invalid EnableAutoType value"));
-			}
-
-			continue;
-		}
-
 		if (m_xml.name() == "EnableSearching")
 		{
 			QString str = readString();

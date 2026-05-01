@@ -425,11 +425,6 @@ void DatabaseWidget::onConfigChanged(Config::ConfigKey key)
 	}
 }
 
-void DatabaseWidget::setSearchStringForAutoType(const QString &search)
-{
-	m_searchStringForAutoType = search;
-}
-
 /**
  * Get current view state of entry view
  */

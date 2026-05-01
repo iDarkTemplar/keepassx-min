@@ -69,8 +69,6 @@ private:
 	QWidget *const m_generalWidget;
 	const QScopedPointer<Ui::ApplicationSettingsWidgetSecurity> m_secUi;
 	const QScopedPointer<Ui::ApplicationSettingsWidgetGeneral> m_generalUi;
-	Qt::Key m_globalAutoTypeKey;
-	Qt::KeyboardModifiers m_globalAutoTypeModifiers;
 	class ExtraPage;
 	QList<ExtraPage> m_extraPages;
 };

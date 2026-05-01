@@ -32,7 +32,6 @@ class EditWidgetProperties;
 namespace Ui {
 
 class EditGroupWidgetMain;
-class EditGroupWidgetBrowser;
 class EditWidget;
 
 } // namespace Ui

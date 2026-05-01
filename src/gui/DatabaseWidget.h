@@ -120,7 +120,6 @@ public:
 	bool setEntryViewState(const QByteArray &state) const;
 	QHash<Config::ConfigKey, QList<int>> splitterSizes() const;
 	void setSplitterSizes(const QHash<Config::ConfigKey, QList<int>> &sizes);
-	void setSearchStringForAutoType(const QString &search);
 
 signals:
 	// relayed Database signals
@@ -156,7 +155,6 @@ signals:
 	void splitterSizesChanged();
 	void entryViewStateChanged();
 	void clearSearch();
-	void requestGlobalAutoType(const QString &search);
 	void requestSearch(const QString &search);
 	void reloadBegin();
 	void reloadEnd();
@@ -302,9 +300,6 @@ private:
 
 	// Autosave delay
 	QPointer<QTimer> m_autosaveTimer;
-
-	// Auto-Type related
-	QString m_searchStringForAutoType;
 };
 
 #endif // KEEPASSX_DATABASEWIDGET_H

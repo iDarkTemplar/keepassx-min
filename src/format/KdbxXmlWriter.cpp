@@ -345,9 +345,6 @@ void KdbxXmlWriter::writeGroup(const Group *group)
 
 	writeTimes(group->timeInfo());
 	writeBool("IsExpanded", group->isExpanded());
-	writeString("DefaultAutoTypeSequence", group->defaultAutoTypeSequence());
-
-	writeTriState("EnableAutoType", group->autoTypeEnabled());
 
 	writeTriState("EnableSearching", group->searchingEnabled());
 

@@ -27,8 +27,6 @@
 
 #include "gui/EditWidget.h"
 
-class AutoTypeAssociations;
-class AutoTypeAssociationsModel;
 class CustomData;
 class Database;
 class EditWidgetIcons;
@@ -47,9 +45,6 @@ class QStringListModel;
 namespace Ui {
 
 class EditEntryWidgetAdvanced;
-class EditEntryWidgetAutoType;
-class EditEntryWidgetBrowser;
-class EditEntryWidgetSSHAgent;
 class EditEntryWidgetMain;
 class EditEntryWidgetHistory;
 class EditWidget;

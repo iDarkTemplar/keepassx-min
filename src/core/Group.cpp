@@ -29,7 +29,6 @@
 const int Group::DefaultIconNumber = 48;
 const int Group::OpenFolderIconNumber = 49;
 const int Group::RecycleBinIconNumber = 43;
-const QString Group::RootAutoTypeSequence = "{USERNAME}{TAB}{PASSWORD}{ENTER}";
 
 Group::Group()
 	: m_customData(new CustomData(this))
@@ -37,7 +36,6 @@ Group::Group()
 {
 	m_data.iconNumber = DefaultIconNumber;
 	m_data.isExpanded = true;
-	m_data.autoTypeEnabled = Inherit;
 	m_data.searchingEnabled = Inherit;
 	m_data.mergeMode = Default;
 
@@ -166,44 +164,6 @@ const TimeInfo& Group::timeInfo() const
 bool Group::isExpanded() const
 {
 	return m_data.isExpanded;
-}
-
-QString Group::defaultAutoTypeSequence() const
-{
-	return m_data.defaultAutoTypeSequence;
-}
-
-/**
- * Determine the effective sequence that will be injected
- * This function return an empty string if the current group or any parent has autotype disabled
- */
-QString Group::effectiveAutoTypeSequence() const
-{
-	QString sequence;
-
-	const Group *group = this;
-	do
-	{
-		if (group->autoTypeEnabled() == Group::Disable)
-		{
-			return QString();
-		}
-
-		sequence = group->defaultAutoTypeSequence();
-		group = group->parentGroup();
-	} while (group && sequence.isEmpty());
-
-	if (sequence.isEmpty())
-	{
-		sequence = RootAutoTypeSequence;
-	}
-
-	return sequence;
-}
-
-Group::TriState Group::autoTypeEnabled() const
-{
-	return m_data.autoTypeEnabled;
 }
 
 Group::TriState Group::searchingEnabled() const
@@ -433,16 +393,6 @@ void Group::setExpanded(bool expanded)
 		m_data.isExpanded = expanded;
 		emit groupNonDataChange();
 	}
-}
-
-void Group::setDefaultAutoTypeSequence(const QString &sequence)
-{
-	set(m_data.defaultAutoTypeSequence, sequence);
-}
-
-void Group::setAutoTypeEnabled(TriState enable)
-{
-	set(m_data.autoTypeEnabled, enable);
 }
 
 void Group::setSearchingEnabled(TriState enable)
@@ -1260,49 +1210,6 @@ bool Group::resolveSearchingEnabled() const
 	}
 }
 
-bool Group::resolveAutoTypeEnabled() const
-{
-	switch (m_data.autoTypeEnabled)
-	{
-	case Inherit:
-		if (!m_parent)
-		{
-			return true;
-		}
-		else
-		{
-			return m_parent->resolveAutoTypeEnabled();
-		}
-	case Enable:
-		return true;
-	case Disable:
-		return false;
-	default:
-		Q_ASSERT(false);
-		return false;
-	}
-}
-
-bool Group::resolveBrowserOptionEnabled(const QString &option) const
-{
-	switch (resolveCustomDataTriState(option, true))
-	{
-	case Inherit:
-		if (!m_parent)
-		{
-			return false;
-		}
-		return m_parent->resolveBrowserOptionEnabled(option);
-	case Enable:
-		return true;
-	case Disable:
-		return false;
-	default:
-		Q_ASSERT(false);
-		return false;
-	}
-}
-
 Entry* Group::addEntryWithPath(const QString &entryPath)
 {
 	if (entryPath.isEmpty() || findEntryByPath(entryPath))
@@ -1487,16 +1394,6 @@ bool Group::GroupData::equals(const Group::GroupData &other, CompareItemOptions 
 
 	// TODO HNH: Some properties are configurable - should they be ignored?
 	if (::compare(isExpanded, other.isExpanded, options) != 0)
-	{
-		return false;
-	}
-
-	if (::compare(defaultAutoTypeSequence, other.defaultAutoTypeSequence, options) != 0)
-	{
-		return false;
-	}
-
-	if (::compare(autoTypeEnabled, other.autoTypeEnabled, options) != 0)
 	{
 		return false;
 	}

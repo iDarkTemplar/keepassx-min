@@ -116,7 +116,7 @@ void ElidedLabel::updateElidedText()
 
 	bool hasUrl = !m_url.isEmpty();
 	setText(hasUrl ? htmlLinkTemplate.arg(m_url.toHtmlEscaped(), displayText) : displayText);
-	setOpenExternalLinks(!hasUrl);
+	setOpenExternalLinks(false);
 }
 
 void ElidedLabel::resizeEvent(QResizeEvent *event)

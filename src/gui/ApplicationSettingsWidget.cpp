@@ -60,8 +60,6 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
 	, m_generalWidget(new QWidget())
 	, m_secUi(new Ui::ApplicationSettingsWidgetSecurity())
 	, m_generalUi(new Ui::ApplicationSettingsWidgetGeneral())
-	, m_globalAutoTypeKey(static_cast<Qt::Key>(0))
-	, m_globalAutoTypeModifiers(Qt::NoModifier)
 {
 	setHeadline(tr("Application Settings"));
 	showApplyButton(false);

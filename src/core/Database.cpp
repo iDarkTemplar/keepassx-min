@@ -1082,7 +1082,6 @@ void Database::createRecycleBin()
 	recycleBin->setName(tr("Recycle Bin"));
 	recycleBin->setIcon(Group::RecycleBinIconNumber);
 	recycleBin->setSearchingEnabled(Group::Disable);
-	recycleBin->setAutoTypeEnabled(Group::Disable);
 
 	m_metadata->setRecycleBin(recycleBin);
 }

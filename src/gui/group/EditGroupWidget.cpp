@@ -71,7 +71,6 @@ EditGroupWidget::EditGroupWidget(QWidget *parent)
 	addPage(tr("Properties"), icons()->icon("document-properties"), m_editWidgetProperties);
 
 	connect(m_mainUi->expireCheck, &QCheckBox::toggled, m_mainUi->expireDatePicker, &QDateTimeEdit::setEnabled);
-	connect(m_mainUi->autoTypeSequenceCustomRadio, &QRadioButton::toggled, m_mainUi->autoTypeSequenceCustomEdit, &QLineEdit::setEnabled);
 
 	connect(this, &EditGroupWidget::apply, this, &EditGroupWidget::doApply);
 	connect(this, &EditGroupWidget::accepted,this, &EditGroupWidget::doSave);
@@ -95,10 +94,6 @@ void EditGroupWidget::setupModifiedTracking()
 	connect(m_mainUi->expireCheck, &QCheckBox::stateChanged, [this] () { setModified(); });
 	connect(m_mainUi->expireDatePicker, &QDateTimeEdit::dateTimeChanged, [this] () { setModified(); });
 	connect(m_mainUi->searchComboBox, &QComboBox::currentIndexChanged, [this] () { setModified(); });
-	connect(m_mainUi->autotypeComboBox, &QComboBox::currentIndexChanged, [this] () { setModified(); });
-	connect(m_mainUi->autoTypeSequenceInherit, &QRadioButton::toggled, [this] () { setModified(); });
-	connect(m_mainUi->autoTypeSequenceCustomRadio, &QRadioButton::toggled, [this] () { setModified(); });
-	connect(m_mainUi->autoTypeSequenceCustomEdit, &QLineEdit::textChanged, [this] () { setModified(); });
 
 	// Icon tab
 	connect(m_editGroupWidgetIcons, &EditWidgetIcons::widgetUpdated, [this] () { setModified(); });
@@ -124,12 +119,10 @@ void EditGroupWidget::loadGroup(Group *group, bool create, const QSharedPointer<
 	if (m_group->parentGroup())
 	{
 		addTriStateItems(m_mainUi->searchComboBox, m_group->parentGroup()->resolveSearchingEnabled());
-		addTriStateItems(m_mainUi->autotypeComboBox, m_group->parentGroup()->resolveAutoTypeEnabled());
 	}
 	else
 	{
 		addTriStateItems(m_mainUi->searchComboBox, true);
-		addTriStateItems(m_mainUi->autotypeComboBox, true);
 	}
 
 	m_mainUi->editName->setText(m_group->name());
@@ -137,18 +130,6 @@ void EditGroupWidget::loadGroup(Group *group, bool create, const QSharedPointer<
 	m_mainUi->expireCheck->setChecked(group->timeInfo().expires());
 	m_mainUi->expireDatePicker->setDateTime(group->timeInfo().expiryTime().toLocalTime());
 	m_mainUi->searchComboBox->setCurrentIndex(indexFromTriState(group->searchingEnabled()));
-	m_mainUi->autotypeComboBox->setCurrentIndex(indexFromTriState(group->autoTypeEnabled()));
-
-	if (group->defaultAutoTypeSequence().isEmpty())
-	{
-		m_mainUi->autoTypeSequenceInherit->setChecked(true);
-	}
-	else
-	{
-		m_mainUi->autoTypeSequenceCustomRadio->setChecked(true);
-	}
-
-	m_mainUi->autoTypeSequenceCustomEdit->setText(group->effectiveAutoTypeSequence());
 
 	if (config()->get(Config::GUI_MonospaceNotes).toBool())
 	{
@@ -196,16 +177,6 @@ void EditGroupWidget::doApply()
 	m_temporaryGroup->setExpiryTime(m_mainUi->expireDatePicker->dateTime().toUTC());
 
 	m_temporaryGroup->setSearchingEnabled(triStateFromIndex(m_mainUi->searchComboBox->currentIndex()));
-	m_temporaryGroup->setAutoTypeEnabled(triStateFromIndex(m_mainUi->autotypeComboBox->currentIndex()));
-
-	if (m_mainUi->autoTypeSequenceInherit->isChecked())
-	{
-		m_temporaryGroup->setDefaultAutoTypeSequence(QString());
-	}
-	else
-	{
-		m_temporaryGroup->setDefaultAutoTypeSequence(m_mainUi->autoTypeSequenceCustomEdit->text());
-	}
 
 	IconStruct iconStruct = m_editGroupWidgetIcons->state();
 

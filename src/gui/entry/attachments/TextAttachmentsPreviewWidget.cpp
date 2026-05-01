@@ -99,8 +99,7 @@ void TextAttachmentsPreviewWidget::initTypeCombobox()
 		onTypeChanged(index);
 	});
 
-	// Configure text browser to open external links
-	m_ui->previewTextBrowser->setOpenExternalLinks(true);
+	m_ui->previewTextBrowser->setOpenExternalLinks(false);
 
 	m_ui->typeComboBox->setCurrentIndex(m_ui->typeComboBox->findData(PlainText));
 

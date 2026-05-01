@@ -63,8 +63,6 @@ public:
 		QUuid customIcon;
 		TimeInfo timeInfo;
 		bool isExpanded;
-		QString defaultAutoTypeSequence;
-		Group::TriState autoTypeEnabled;
 		Group::TriState searchingEnabled;
 		Group::MergeMode mergeMode;
 		QString tags;
@@ -88,14 +86,9 @@ public:
 	const QUuid& iconUuid() const;
 	const TimeInfo& timeInfo() const;
 	bool isExpanded() const;
-	QString defaultAutoTypeSequence() const;
-	QString effectiveAutoTypeSequence() const;
-	Group::TriState autoTypeEnabled() const;
 	Group::TriState searchingEnabled() const;
 	Group::MergeMode mergeMode() const;
 	bool resolveSearchingEnabled() const;
-	bool resolveAutoTypeEnabled() const;
-	bool resolveBrowserOptionEnabled(const QString &option) const;
 	Entry* lastTopVisibleEntry() const;
 	bool isExpired() const;
 	bool isRecycled() const;
@@ -113,7 +106,6 @@ public:
 	static const int DefaultIconNumber;
 	static const int OpenFolderIconNumber;
 	static const int RecycleBinIconNumber;
-	static const QString RootAutoTypeSequence;
 
 	Group* findChildByName(const QString &name);
 	Entry* findEntryByUuid(const QUuid &uuid, bool recursive = true) const;
@@ -131,8 +123,6 @@ public:
 	void setIcon(const QUuid &uuid);
 	void setTimeInfo(const TimeInfo &timeInfo);
 	void setExpanded(bool expanded);
-	void setDefaultAutoTypeSequence(const QString &sequence);
-	void setAutoTypeEnabled(TriState enable);
 	void setSearchingEnabled(TriState enable);
 	void setLastTopVisibleEntry(Entry *entry);
 	void setExpires(bool value);
