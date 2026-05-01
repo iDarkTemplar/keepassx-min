@@ -111,8 +111,6 @@ MainWindow::MainWindow()
 	m_entryContextMenu->addSeparator();
 	m_entryContextMenu->addAction(m_ui->actionEntryMoveUp);
 	m_entryContextMenu->addAction(m_ui->actionEntryMoveDown);
-	m_entryContextMenu->addSeparator();
-	m_entryContextMenu->addAction(m_ui->actionEntryOpenUrl);
 
 	m_entryNewContextMenu = new QMenu(this);
 	m_entryNewContextMenu->addAction(m_ui->actionEntryNew);
@@ -148,7 +146,6 @@ MainWindow::MainWindow()
 
 	setWindowIcon(icons()->applicationIcon());
 	m_ui->globalMessageWidget->hideMessage();
-	connect(m_ui->globalMessageWidget, &MessageWidget::linkActivated, &MessageWidget::openHttpUrl);
 
 	m_clearHistoryAction = new QAction(tr("Clear history"), m_ui->menuFile);
 	m_lastDatabasesActions = new QActionGroup(m_ui->menuRecentDatabases);
@@ -193,7 +190,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryCopyUsername->setShortcut(Qt::CTRL | Qt::Key_B);
 	m_ui->actionEntryCopyPassword->setShortcut(Qt::CTRL | Qt::Key_C);
 	m_ui->actionEntryCopyTitle->setShortcut(Qt::CTRL | Qt::Key_I);
-	m_ui->actionEntryOpenUrl->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_U);
 	m_ui->actionEntryCopyURL->setShortcut(Qt::CTRL | Qt::Key_U);
 	m_ui->actionEntryRestore->setShortcut(Qt::CTRL | Qt::Key_R);
 
@@ -212,7 +208,6 @@ MainWindow::MainWindow()
 	m_ui->actionEntryMoveDown->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyUsername->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyPassword->setShortcutVisibleInContextMenu(true);
-	m_ui->actionEntryOpenUrl->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyURL->setShortcutVisibleInContextMenu(true);
 	m_ui->actionEntryCopyTitle->setShortcutVisibleInContextMenu(true);
 
@@ -297,7 +292,6 @@ MainWindow::MainWindow()
 	m_ui->actionGroupClone->setIcon(icons()->icon("group-clone"));
 	m_ui->actionGroupDelete->setIcon(icons()->icon("group-delete"));
 	m_ui->actionGroupEmptyRecycleBin->setIcon(icons()->icon("group-empty-trash"));
-	m_ui->actionEntryOpenUrl->setIcon(icons()->icon("web"));
 
 	m_ui->actionSettings->setIcon(icons()->icon("configure"));
 	m_ui->actionPasswordGenerator->setIcon(icons()->icon("password-generator"));
@@ -372,7 +366,6 @@ MainWindow::MainWindow()
 	m_actionMultiplexer.connect(m_ui->actionEntryCopyPassword, SIGNAL(triggered()), SLOT(copyPassword()));
 	m_actionMultiplexer.connect(m_ui->actionEntryCopyURL, SIGNAL(triggered()), SLOT(copyURL()));
 	m_actionMultiplexer.connect(m_ui->actionEntryCopyNotes, SIGNAL(triggered()), SLOT(copyNotes()));
-	m_actionMultiplexer.connect(m_ui->actionEntryOpenUrl, SIGNAL(triggered()), SLOT(openUrl()));
 	m_actionMultiplexer.connect(m_ui->actionGroupNew, SIGNAL(triggered()), SLOT(createGroup()));
 	m_actionMultiplexer.connect(m_ui->actionGroupEdit, SIGNAL(triggered()), SLOT(switchToGroupEdit()));
 	m_actionMultiplexer.connect(m_ui->actionGroupClone, SIGNAL(triggered()), SLOT(cloneGroup()));
@@ -733,7 +726,6 @@ void MainWindow::updateMenuActionState()
 		}
 	}
 
-	m_ui->actionEntryOpenUrl->setEnabled(singleEntryOrEditing && dbWidget->currentEntryHasUrl());
 	m_ui->actionEntryTotp->setEnabled(singleEntrySelected && dbWidget->currentEntryHasTotp());
 	m_ui->actionEntryCopyTotp->setEnabled(singleEntrySelected);
 	m_ui->actionEntryCopyPasswordTotp->setEnabled(singleEntrySelected && dbWidget->currentEntryHasTotp());
@@ -822,11 +814,6 @@ void MainWindow::showAboutDialog()
 	}
 
 	aboutDialog->open();
-}
-
-void MainWindow::customOpenUrl(QString url)
-{
-	QDesktopServices::openUrl(QUrl(url));
 }
 
 void MainWindow::switchToDatabases()

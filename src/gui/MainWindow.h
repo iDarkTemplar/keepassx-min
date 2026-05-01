@@ -143,7 +143,6 @@ private:
 	void restoreWindowInformation();
 	bool saveLastDatabases();
 	bool isTrayIconEnabled() const;
-	void customOpenUrl(QString url);
 
 	static QStringList kdbxFilesFromUrls(const QList<QUrl> &urls);
 	void dragEnterEvent(QDragEnterEvent *event) override;

@@ -178,7 +178,6 @@ DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	connect(m_groupSplitter, &QSplitter::splitterMoved, this, &DatabaseWidget::splitterSizesChanged);
 	connect(m_previewSplitter, &QSplitter::splitterMoved, this, &DatabaseWidget::splitterSizesChanged);
 	connect(this, &DatabaseWidget::currentModeChanged, m_previewView, &EntryPreviewWidget::setDatabaseMode);
-	connect(m_previewView, &EntryPreviewWidget::entryUrlActivated, this, &DatabaseWidget::openUrlForEntry);
 	connect(m_previewView, &EntryPreviewWidget::copyTextRequested, this, &DatabaseWidget::setClipboardTextAndMinimize);
 	connect(m_entryView, &EntryView::viewStateChanged, this, &DatabaseWidget::entryViewStateChanged);
 	connect(m_groupView, &GroupView::groupSelectionChanged, this, &DatabaseWidget::onGroupChanged);
@@ -869,90 +868,6 @@ void DatabaseWidget::setClipboardTextAndMinimize(const QString &text)
 		else if (config()->get(Config::DropToBackgroundOnCopy).toBool())
 		{
 			window()->lower();
-		}
-	}
-}
-
-void DatabaseWidget::openUrl()
-{
-	auto currentEntry = currentSelectedEntry();
-	if (currentEntry)
-	{
-		openUrlForEntry(currentEntry);
-	}
-}
-
-void DatabaseWidget::openUrlForEntry(Entry *entry)
-{
-	Q_ASSERT(entry);
-	if (!entry)
-	{
-		return;
-	}
-
-	QString cmdString = entry->resolveMultiplePlaceholders(entry->url());
-	if (cmdString.startsWith("cmd://"))
-	{
-		// check if decision to execute command was stored
-		bool launch = (entry->attributes()->value(EntryAttributes::RememberCmdExecAttr) == "1");
-
-		// otherwise ask user
-		if (!launch && cmdString.length() > 6)
-		{
-			QString cmdTruncated = entry->resolveMultiplePlaceholders(entry->maskPasswordPlaceholders(entry->url()));
-			cmdTruncated = cmdTruncated.mid(6);
-			if (cmdTruncated.length() > 400)
-			{
-				cmdTruncated = cmdTruncated.left(400) + " […]";
-			}
-			QMessageBox msgbox(QMessageBox::Icon::Question,
-				tr("Execute command?"),
-				tr("Do you really want to execute the following command?<br><br>%1<br>")
-					.arg(cmdTruncated.toHtmlEscaped()),
-				QMessageBox::Yes | QMessageBox::No,
-				this);
-			msgbox.setDefaultButton(QMessageBox::No);
-
-			QCheckBox *checkbox = new QCheckBox(tr("Remember my choice"), &msgbox);
-			msgbox.setCheckBox(checkbox);
-			bool remember = false;
-			QObject::connect(checkbox, &QCheckBox::stateChanged, [&](int state) {
-				if (static_cast<Qt::CheckState>(state) == Qt::CheckState::Checked)
-				{
-					remember = true;
-				}
-			});
-
-			int result = msgbox.exec();
-			launch = (result == QMessageBox::Yes);
-
-			if (remember)
-			{
-				entry->attributes()->set(EntryAttributes::RememberCmdExecAttr, result == QMessageBox::Yes ? "1" : "0");
-			}
-		}
-
-		if (launch)
-		{
-			const QString cmd = cmdString.mid(6);
-			QStringList cmdList = QProcess::splitCommand(cmd);
-			if (!cmdList.isEmpty())
-			{
-				const QString program = cmdList.takeFirst();
-				QProcess::startDetached(program, cmdList);
-			}
-		}
-	}
-	else if (cmdString.startsWith("kdbx://"))
-	{
-		openDatabaseFromEntry(entry, false);
-	}
-	else
-	{
-		QUrl url = QUrl::fromUserInput(entry->resolveMultiplePlaceholders(entry->url()));
-		if (!url.isEmpty())
-		{
-			QDesktopServices::openUrl(url);
 		}
 	}
 }

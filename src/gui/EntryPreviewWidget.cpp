@@ -76,10 +76,7 @@ EntryPreviewWidget::EntryPreviewWidget(QWidget *parent)
 	connect(m_ui->toggleGroupNotesButton, &QToolButton::clicked, this, &EntryPreviewWidget::setGroupNotesVisible);
 	connect(m_ui->entryTabWidget, &QTabWidget::tabBarClicked, this, &EntryPreviewWidget::updateTabIndexes, Qt::QueuedConnection);
 	// Prevent the url from being focused after clicked to allow the Copy Password button to work properly
-	connect(m_ui->entryUrlLabel, &QLabel::linkActivated, this, [this] {
-		openEntryUrl();
-		m_ui->entryTabWidget->setFocus();
-	});
+	connect(m_ui->entryUrlLabel, &QLabel::linkActivated, this, [this] { m_ui->entryTabWidget->setFocus(); });
 
 	connect(&m_totpTimer, &QTimer::timeout, this, &EntryPreviewWidget::updateTotpLabel);
 
@@ -612,14 +609,6 @@ void EntryPreviewWidget::updateTabIndexes()
 {
 	m_selectedTabEntry = m_ui->entryTabWidget->currentIndex();
 	m_selectedTabGroup = m_ui->groupTabWidget->currentIndex();
-}
-
-void EntryPreviewWidget::openEntryUrl()
-{
-	if (m_currentEntry)
-	{
-		emit entryUrlActivated(m_currentEntry);
-	}
 }
 
 void EntryPreviewWidget::removeTab(QTabWidget *tabWidget, QWidget *widget)

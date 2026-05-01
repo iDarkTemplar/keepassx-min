@@ -118,10 +118,10 @@
           <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::Policy::MinimumExpanding</enum>
+             <enum>QSizePolicy::MinimumExpanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -137,10 +137,10 @@
           <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::Policy::MinimumExpanding</enum>
+             <enum>QSizePolicy::MinimumExpanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -168,7 +168,7 @@
         <item>
          <spacer name="verticalSpacer_2">
           <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -184,7 +184,7 @@
         <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -210,7 +210,7 @@
     </rect>
    </property>
    <property name="contextMenuPolicy">
-    <enum>Qt::ContextMenuPolicy::PreventContextMenu</enum>
+    <enum>Qt::PreventContextMenu</enum>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -309,8 +309,6 @@
     <addaction name="menuEntryTotp"/>
     <addaction name="menuTags"/>
     <addaction name="separator"/>
-    <addaction name="actionEntryOpenUrl"/>
-    <addaction name="separator"/>
     <addaction name="actionEntryRestore"/>
    </widget>
    <widget class="QMenu" name="menuGroups">
@@ -360,7 +358,7 @@
   </widget>
   <widget class="KPToolBar" name="toolBar">
    <property name="contextMenuPolicy">
-    <enum>Qt::ContextMenuPolicy::PreventContextMenu</enum>
+    <enum>Qt::PreventContextMenu</enum>
    </property>
    <property name="movable">
     <bool>false</bool>
@@ -401,7 +399,7 @@
     <string>&amp;Quit</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::MenuRole::QuitRole</enum>
+    <enum>QAction::QuitRole</enum>
    </property>
   </action>
   <action name="actionAbout">
@@ -409,7 +407,7 @@
     <string>&amp;About</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::MenuRole::AboutRole</enum>
+    <enum>QAction::AboutRole</enum>
    </property>
   </action>
   <action name="actionDatabaseOpen">
@@ -539,7 +537,7 @@
     <string>Statistics, health check, etc.</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::MenuRole::NoRole</enum>
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionDatabaseSettings">
@@ -553,7 +551,7 @@
     <string>Database settings</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::MenuRole::NoRole</enum>
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionEntryClone">
@@ -601,7 +599,7 @@
     <string>&amp;Settings</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::MenuRole::PreferencesRole</enum>
+    <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
   <action name="actionPasswordGenerator">
@@ -610,11 +608,6 @@
    </property>
    <property name="text">
     <string>&amp;Password Generator</string>
-   </property>
-  </action>
-  <action name="actionEntryOpenUrl">
-   <property name="text">
-    <string>Open &amp;URL</string>
    </property>
   </action>
   <action name="actionLockDatabase">

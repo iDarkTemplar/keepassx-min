@@ -101,17 +101,3 @@ void MessageWidget::setAutoHideTimeout(int autoHideTimeout)
 		m_autoHideTimer->stop();
 	}
 }
-
-/**
- * Open a link using the system's default handler.
- * Links that are not HTTP(S) links are ignored.
- *
- * @param link link URL
- */
-void MessageWidget::openHttpUrl(const QString &link)
-{
-	if (link.startsWith("http://") || link.startsWith("https://"))
-	{
-		QDesktopServices::openUrl(QUrl(link));
-	}
-}

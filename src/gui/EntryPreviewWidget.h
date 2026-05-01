@@ -44,7 +44,6 @@ public slots:
 	void clear();
 
 signals:
-	void entryUrlActivated(Entry *entry);
 	void copyTextRequested(const QString &text);
 
 protected:
@@ -66,7 +65,6 @@ private slots:
 
 	void updateTotpLabel();
 	void updateTabIndexes();
-	void openEntryUrl();
 
 private:
 	void removeTab(QTabWidget *tabWidget, QWidget *widget);

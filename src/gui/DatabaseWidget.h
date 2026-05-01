@@ -193,8 +193,6 @@ public slots:
 	void copyPasswordTotp();
 	void setupTotp();
 	void setClipboardTextAndMinimize(const QString &text);
-	void openUrl();
-	void openUrlForEntry(Entry *entry);
 	void createGroup();
 	void cloneGroup();
 	void deleteGroup();
