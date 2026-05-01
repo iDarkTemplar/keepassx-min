@@ -93,7 +93,6 @@ static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
 	{Config::GUI_HidePasswords, {QS("GUI/HidePasswords"), Roaming, true}},
 	{Config::GUI_ColorPasswords, {QS("GUI/ColorPasswords"), Roaming, false}},
 	{Config::GUI_MonospaceNotes, {QS("GUI/MonospaceNotes"), Roaming, false}},
-	{Config::GUI_CompactMode, {QS("GUI/CompactMode"), Roaming, false}},
 	{Config::GUI_SearchWaitForEnter, {QS("GUI/SearchWaitForEnter"), Roaming, false}},
 	{Config::GUI_ShowExpiredEntriesOnDatabaseUnlock, {QS("GUI/ShowExpiredEntriesOnDatabaseUnlock"), Roaming, true}},
 	{Config::GUI_ShowExpiredEntriesOnDatabaseUnlockOffsetDays, {QS("GUI/ShowExpiredEntriesOnDatabaseUnlockOffsetDays"), Roaming, 3}},

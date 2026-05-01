@@ -79,7 +79,6 @@ public:
 		GUI_HidePasswords,
 		GUI_ColorPasswords,
 		GUI_MonospaceNotes,
-		GUI_CompactMode,
 		GUI_SearchWaitForEnter,
 		GUI_ShowExpiredEntriesOnDatabaseUnlock,
 		GUI_ShowExpiredEntriesOnDatabaseUnlockOffsetDays,

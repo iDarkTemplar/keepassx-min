@@ -54,7 +54,6 @@ private:
 
 	static std::unique_ptr<DatabaseIcons> m_instance;
 	QHash<QString, QIcon> m_iconCache;
-	bool m_compactMode;
 
 	Q_DISABLE_COPY(DatabaseIcons)
 };
