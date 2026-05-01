@@ -45,7 +45,6 @@ set(keepassx_SOURCES
 	core/Tools.cpp
 	core/Totp.cpp
 	core/Translator.cpp
-	core/UrlTools.cpp
 	crypto/Crypto.cpp
 	crypto/CryptoHash.cpp
 	crypto/kdf/AesKdf.cpp
@@ -258,7 +257,6 @@ set(keepassx_QT_HEADERS
 	core/Merger.h
 	core/Metadata.h
 	core/ModifiableObject.h
-	core/UrlTools.h
 	format/OpData01.h
 	format/OpVaultReader.h
 	gui/AboutDialog.h

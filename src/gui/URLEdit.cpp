@@ -19,9 +19,10 @@
 #include "URLEdit.h"
 
 #include "core/Tools.h"
-#include "core/UrlTools.h"
 #include "gui/Icons.h"
 #include "gui/ColorPalette.h"
+
+#include <QUrl>
 
 URLEdit::URLEdit(QWidget *parent)
 	: QLineEdit(parent)
@@ -43,7 +44,7 @@ void URLEdit::enableVerifyMode()
 
 void URLEdit::updateStylesheet()
 {
-	if (!urlTools()->isUrlValid(text()))
+	if (!QUrl(text()).isValid())
 	{
 		setStyleSheet(QStringLiteral("QLineEdit { background: %1; }").arg(ColorRole::Error));
 		m_errorAction->setVisible(true);
