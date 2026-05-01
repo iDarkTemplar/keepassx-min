@@ -2292,8 +2292,6 @@ bool DatabaseWidget::performSave(QString &errorMessage, const QString &fileName)
 
 	QApplication::processEvents();
 
-	Database::SaveAction saveAction = Database::Atomic;
-
 	QString backupFilePath;
 	if (config()->get(Config::BackupBeforeSave).toBool())
 	{
@@ -2321,11 +2319,11 @@ bool DatabaseWidget::performSave(QString &errorMessage, const QString &fileName)
 	bool ok;
 	if (fileName.isEmpty())
 	{
-		ok = m_db->save(saveAction, backupFilePath, &errorMessage);
+		ok = m_db->save(backupFilePath, &errorMessage);
 	}
 	else
 	{
-		ok = m_db->saveAs(fileName, saveAction, backupFilePath, &errorMessage);
+		ok = m_db->saveAs(fileName, backupFilePath, &errorMessage);
 	}
 
 	// Return control
@@ -2372,7 +2370,7 @@ bool DatabaseWidget::saveBackup()
 	bool modified = m_db->isModified();
 
 	QString error;
-	bool ok = m_db->saveAs(newFilePath, Database::DirectWrite, {}, &error);
+	bool ok = m_db->saveAs(newFilePath, {}, &error);
 
 	// Restore database to original state
 	m_db->setFilePath(oldFilePath);

@@ -245,7 +245,7 @@ bool Database::isSaving()
  * @param backupFilePath Absolute file path to write the backup file to. Pass an empty QString to disable backup.
  * @return true on success
  */
-bool Database::save(SaveAction action, const QString &backupFilePath, QString *error)
+bool Database::save(const QString &backupFilePath, QString *error)
 {
 	Q_ASSERT(!m_data.filePath.isEmpty());
 	if (m_data.filePath.isEmpty())
@@ -258,7 +258,7 @@ bool Database::save(SaveAction action, const QString &backupFilePath, QString *e
 		return false;
 	}
 
-	return saveAs(m_data.filePath, action, backupFilePath, error);
+	return saveAs(m_data.filePath, backupFilePath, error);
 }
 
 /**
@@ -280,7 +280,7 @@ bool Database::save(SaveAction action, const QString &backupFilePath, QString *e
  * disables backup.
  * @return true on success
  */
-bool Database::saveAs(const QString &filePath, SaveAction action, const QString &backupFilePath, QString *error)
+bool Database::saveAs(const QString &filePath, const QString &backupFilePath, QString *error)
 {
 	// Disallow overlapping save operations
 	if (isSaving())
@@ -362,7 +362,7 @@ bool Database::saveAs(const QString &filePath, SaveAction action, const QString 
 	auto realFilePath = fileInfo.exists() ? fileInfo.canonicalFilePath() : fileInfo.absoluteFilePath();
 	bool isNewFile = !QFile::exists(realFilePath);
 
-	bool ok = AsyncTask::runAndWaitForFuture([&] { return performSave(realFilePath, action, backupFilePath, error); });
+	bool ok = AsyncTask::runAndWaitForFuture([&] { return performSave(realFilePath, backupFilePath, error); });
 	if (ok)
 	{
 		setFilePath(filePath);
@@ -384,7 +384,7 @@ bool Database::saveAs(const QString &filePath, SaveAction action, const QString 
 	return ok;
 }
 
-bool Database::performSave(const QString &filePath, SaveAction action, const QString &backupFilePath, QString *error)
+bool Database::performSave(const QString &filePath, const QString &backupFilePath, QString *error)
 {
 	if (!backupFilePath.isNull())
 	{
@@ -394,141 +394,47 @@ bool Database::performSave(const QString &filePath, SaveAction action, const QSt
 	QFileInfo info(filePath);
 	auto createTime = info.exists() ? info.birthTime() : QDateTime::currentDateTime();
 
-	switch (action)
+	QSaveFile saveFile(filePath);
+	if (!saveFile.open(QIODevice::WriteOnly))
 	{
-	case Atomic:
+		if (error)
 		{
-			QSaveFile saveFile(filePath);
-			if (saveFile.open(QIODevice::WriteOnly))
-			{
-				HashingStream hashingStream(&saveFile, QCryptographicHash::Md5, kFileBlockToHashSizeBytes);
-				if (!hashingStream.open(QIODevice::WriteOnly))
-				{
-					return false;
-				}
-
-				// write the database to the file
-				if (!writeDatabase(&hashingStream, error))
-				{
-					return false;
-				}
-
-				// Retain original creation time
-				saveFile.setFileTime(createTime, QFile::FileBirthTime);
-
-				if (saveFile.commit())
-				{
-					// store the new hash
-					m_fileBlockHash = hashingStream.hashingResult();
-
-					// successfully saved database file
-					return true;
-				}
-			}
-
-			if (error)
-			{
-				*error = saveFile.errorString();
-			}
-			break;
-		}
-	case TempFile:
-		{
-			QTemporaryFile tempFile;
-			if (tempFile.open())
-			{
-				HashingStream hashingStream(&tempFile, QCryptographicHash::Md5, kFileBlockToHashSizeBytes);
-				if (!hashingStream.open(QIODevice::WriteOnly))
-				{
-					return false;
-				}
-				// write the database to the file
-				if (!writeDatabase(&hashingStream, error))
-				{
-					return false;
-				}
-				tempFile.close(); // flush to disk
-
-				// Delete the original db and move the temp file in place
-				auto perms = QFile::permissions(filePath);
-				QFile::remove(filePath);
-
-				// Note: call into the QFile rename instead of QTemporaryFile
-				// due to an undocumented difference in how the function handles
-				// errors. This prevents errors when saving across file systems.
-				if (tempFile.QFile::rename(filePath))
-				{
-					// successfully saved the database
-					tempFile.setAutoRemove(false);
-					QFile::setPermissions(filePath, perms);
-					// Retain original creation time
-					tempFile.setFileTime(createTime, QFile::FileBirthTime);
-					// store the new hash
-					m_fileBlockHash = hashingStream.hashingResult();
-					return true;
-				}
-				else if (backupFilePath.isEmpty() || !restoreDatabase(filePath, backupFilePath))
-				{
-					// Failed to copy new database in place, and
-					// failed to restore from backup or backups disabled
-					tempFile.setAutoRemove(false);
-					if (error)
-					{
-						*error = tr("%1\nBackup database located at %2").arg(tempFile.errorString(), tempFile.fileName());
-					}
-					return false;
-				}
-			}
-
-			if (error)
-			{
-				*error = tempFile.errorString();
-			}
-			break;
+			*error = saveFile.errorString();
 		}
 
-	case DirectWrite:
-		{
-			QBuffer dbBuffer;
-			dbBuffer.open(QIODevice::WriteOnly);
-			HashingStream hashingStream(&dbBuffer, QCryptographicHash::Md5, kFileBlockToHashSizeBytes);
-
-			if (!hashingStream.open(QIODevice::WriteOnly))
-			{
-				if (error)
-				{
-					*error = hashingStream.errorString();
-				}
-
-				return false;
-			}
-
-			if (!writeDatabase(&hashingStream, error))
-			{
-				return false;
-			}
-
-			// Open the original database file for direct-write
-			QFile dbFile(filePath);
-			if (dbFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
-			{
-				dbFile.write(dbBuffer.data());
-				dbFile.close();
-				// store the new hash
-				m_fileBlockHash = hashingStream.hashingResult();
-				return true;
-			}
-
-			if (error)
-			{
-				*error = dbFile.errorString();
-			}
-			break;
-		}
+		return false;
 	}
 
-	// Saving failed
-	return false;
+	HashingStream hashingStream(&saveFile, QCryptographicHash::Md5, kFileBlockToHashSizeBytes);
+	if (!hashingStream.open(QIODevice::WriteOnly))
+	{
+		return false;
+	}
+
+	// write the database to the file
+	if (!writeDatabase(&hashingStream, error))
+	{
+		return false;
+	}
+
+	// Retain original creation time
+	saveFile.setFileTime(createTime, QFile::FileBirthTime);
+
+	if (!saveFile.commit())
+	{
+		if (error)
+		{
+			*error = saveFile.errorString();
+		}
+
+		return false;
+	}
+
+	// store the new hash
+	m_fileBlockHash = hashingStream.hashingResult();
+
+	// successfully saved database file
+	return true;
 }
 
 bool Database::writeDatabase(QIODevice *device, QString *error)

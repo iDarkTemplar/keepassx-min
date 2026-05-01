@@ -64,13 +64,6 @@ public:
 
 	static const quint32 CompressionAlgorithmMax = CompressionGZip;
 
-	enum SaveAction
-	{
-		Atomic, // Saves are transactional and atomic
-		TempFile, // Write to a temporary location then move into place, may be non-atomic
-		DirectWrite, // Directly write to the destination file (dangerous)
-	};
-
 	Database();
 	explicit Database(const QString &filePath);
 	~Database() override;
@@ -82,17 +75,13 @@ private:
 	bool writeDatabase(QIODevice *device, QString *error = nullptr);
 	bool backupDatabase(const QString &filePath, const QString &destinationFilePath);
 	bool restoreDatabase(const QString &filePath, const QString &fromBackupFilePath);
-	bool performSave(const QString &filePath, SaveAction flags, const QString &backupFilePath, QString *error);
+	bool performSave(const QString &filePath, const QString &backupFilePath, QString *error);
 
 public:
 	bool open(QSharedPointer<const CompositeKey> key, QString *error = nullptr);
 	bool open(const QString &filePath, QSharedPointer<const CompositeKey> key, QString *error = nullptr);
-	bool save(SaveAction action = Atomic, const QString &backupFilePath = QString(), QString *error = nullptr);
-	bool saveAs(
-		const QString &filePath,
-		SaveAction action = Atomic,
-		const QString &backupFilePath = QString(),
-		QString *error = nullptr);
+	bool save(const QString &backupFilePath = QString(), QString *error = nullptr);
+	bool saveAs(const QString &filePath, const QString &backupFilePath = QString(), QString *error = nullptr);
 	bool extract(QByteArray &, QString *error = nullptr);
 	bool import(const QString &xmlExportPath, QString *error = nullptr);
 
