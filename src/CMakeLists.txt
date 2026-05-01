@@ -412,7 +412,6 @@ set(keepassx_UI
 
 set(keepassx_RESOURCES
 	../share/icons/icons.qrc
-	../share/wizard/wizard.qrc
 	)
 
 qt_wrap_cpp(MOC_keepassx_HEADERS ${keepassx_QT_HEADERS})

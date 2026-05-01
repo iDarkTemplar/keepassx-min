@@ -38,9 +38,6 @@ ImportWizard::ImportWizard(QWidget *parent)
 
 	setWindowTitle(tr("Import Wizard"));
 
-	Q_INIT_RESOURCE(wizard);
-	setPixmap(BackgroundPixmap, QPixmap(":/wizard/background-pixmap.png"));
-
 	// Fix MacStyle QWizard page frame too bright in dark mode (QTBUG-70346, QTBUG-71696)
 	QPalette defaultPalette;
 	auto windowColor = defaultPalette.color(QPalette::Window);
