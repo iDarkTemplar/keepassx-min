@@ -717,12 +717,12 @@ qint64 QtIOCompressor::writeData(const char *data, qint64 maxSize)
 */
 bool QtIOCompressor::checkGzipSupport(const char *const versionString)
 {
-	if (strlen(versionString) < 3)
+	if (strlen(versionString) < 5)
 	{
 		return false;
 	}
 
-	if (std::tie(versionString[0], versionString[1], versionString[2]) < std::make_tuple('1', '2', '0'))
+	if (std::tie(versionString[0], versionString[2], versionString[4]) < std::make_tuple('1', '2', '0'))
 	{
 		return false;
 	}
