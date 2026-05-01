@@ -14,7 +14,24 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+add_feature_info(FdoSecrets WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API.")
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+
+set(qrcode_SOURCES
+	qrcode/QrCode.cpp
+	)
+
+set(qrcode_HEADERS
+	qrcode/QrCode.h
+	qrcode/QrCode_p.h
+	)
+
+add_library(qrcode STATIC ${qrcode_SOURCES} ${qrcode_HEADERS})
+target_include_directories(qrcode PRIVATE ${QRENCODE_INCLUDE_DIR})
+target_link_libraries(qrcode PUBLIC Qt6::Core Qt6::Svg ${QRENCODE_LIBRARY})
+
+set(qrcode_LIB qrcode)
 
 set(keepassx_SOURCES
 	core/Alloc.cpp
@@ -136,6 +153,7 @@ set(keepassx_SOURCES
 	gui/MessageWidget.cpp
 	gui/osutils/ScreenLockListener.cpp
 	gui/osutils/ScreenLockListenerPrivate.cpp
+	gui/osutils/nixutils/ScreenLockListenerDBus.cpp
 	gui/PasswordGeneratorWidget.cpp
 	gui/PasswordWidget.cpp
 	gui/reports/ReportsDialog.cpp
@@ -314,6 +332,7 @@ set(keepassx_QT_HEADERS
 	gui/MessageWidget.h
 	gui/osutils/ScreenLockListener.h
 	gui/osutils/ScreenLockListenerPrivate.h
+	gui/osutils/nixutils/ScreenLockListenerDBus.h
 	gui/PasswordGeneratorWidget.h
 	gui/PasswordWidget.h
 	gui/reports/ReportsDialog.h
@@ -350,16 +369,6 @@ set(keepassx_QT_HEADERS
 	streams/StoreDataStream.h
 	streams/SymmetricCipherStream.h
 	)
-
-list(APPEND keepassx_SOURCES
-	gui/osutils/nixutils/ScreenLockListenerDBus.cpp
-	)
-
-list(APPEND keepassx_QT_HEADERS
-	gui/osutils/nixutils/ScreenLockListenerDBus.h
-	)
-
-list(APPEND keepassx_HEADERS ${keepassx_QT_HEADERS})
 
 set(keepassx_UI
 	gui/AboutDialog.ui
@@ -413,26 +422,8 @@ set(keepassx_RESOURCES
 	)
 
 qt_wrap_cpp(MOC_keepassx_HEADERS ${keepassx_QT_HEADERS})
+qt_wrap_ui(keepassx_UI_CPP ${keepassx_UI})
 qt_add_resources(COMPILED_keepassx_RESOURCES ${keepassx_RESOURCES})
-
-set(keepassx_SOURCES_MAINEXE main.cpp)
-
-set(qrcode_SOURCES
-	qrcode/QrCode.cpp
-	)
-
-set(qrcode_HEADERS
-	qrcode/QrCode.h
-	qrcode/QrCode_p.h
-	)
-
-add_library(qrcode STATIC ${qrcode_SOURCES} ${qrcode_HEADERS})
-target_include_directories(qrcode PRIVATE ${QRENCODE_INCLUDE_DIR})
-target_link_libraries(qrcode PUBLIC Qt6::Core Qt6::Svg ${QRENCODE_LIBRARY})
-
-set(qrcode_LIB qrcode)
-
-add_feature_info(FdoSecrets WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API.")
 
 if (WITH_XC_FDOSECRETS)
 	set(fdo_SOURCES
@@ -522,9 +513,7 @@ endif()
 
 configure_file(config-keepassx.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-keepassx.h)
 
-qt_wrap_ui(keepassx_UI_CPP ${keepassx_UI})
-
-add_library(keepassx_core STATIC ${keepassx_SOURCES} ${keepassx_HEADERS} ${MOC_keepassx_HEADERS} ${COMPILED_keepassx_RESOURCES} ${keepassx_UI_CPP})
+add_library(keepassx_core STATIC ${keepassx_SOURCES} ${keepassx_HEADERS} ${keepassx_QT_HEADERS} ${MOC_keepassx_HEADERS} ${COMPILED_keepassx_RESOURCES} ${keepassx_UI_CPP})
 
 target_include_directories(keepassx_core SYSTEM PRIVATE ${ZXCVBN_INCLUDE_DIR})
 set_target_properties(keepassx_core PROPERTIES COMPILE_DEFINITIONS KEEPASSX_BUILDING_CORE)
@@ -533,6 +522,7 @@ target_link_libraries(keepassx_core
 	${fdosecrets_LIB}
 	Qt6::Core
 	Qt6::Concurrent
+	Qt6::DBus
 	Qt6::Network
 	Qt6::Widgets
 	Qt6::SvgWidgets
@@ -542,9 +532,6 @@ target_link_libraries(keepassx_core
 	${MINIZIP_LIBRARIES}
 	${ARGON2_LIBRARIES}
 	)
-
-target_link_libraries(keepassx_core Qt6::DBus)
-include_directories(${Qt6Gui_PRIVATE_INCLUDE_DIRS})
 
 # Main Executable Definition
 add_executable(keepassx-min main.cpp)
