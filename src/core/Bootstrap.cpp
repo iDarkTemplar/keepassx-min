@@ -64,5 +64,6 @@ void disableCoreDumps()
 		qWarning("Unable to disable core dumps.");
 	}
 }
+// LCOV_EXCL_STOP
 
 } // namespace Bootstrap
