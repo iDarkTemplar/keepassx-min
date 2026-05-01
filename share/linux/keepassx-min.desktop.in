@@ -36,7 +36,6 @@ Comment[da]=Fællesskabsdrevet port af Windows-programmet “KeePass Password Sa
 Comment[et]=Kogukonna arendatav port Windowsi programmist KeePass Password Safe
 Comment[ru]=Разработанный сообществом порт Windows-приложения KeePass Password Safe
 Exec=keepassx-min %f
-TryExec=keepassx-min
 Icon=@APP_ICON_NAME@
 StartupWMClass=keepassx-min
 StartupNotify=false
