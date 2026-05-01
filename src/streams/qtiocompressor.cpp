@@ -46,7 +46,7 @@
 
 #include "qtiocompressor.h"
 
-#include <tuple>
+#include <vector>
 
 #include <zlib.h>
 
@@ -717,12 +717,45 @@ qint64 QtIOCompressor::writeData(const char *data, qint64 maxSize)
 */
 bool QtIOCompressor::checkGzipSupport(const char *const versionString)
 {
-	if (strlen(versionString) < 5)
+	QStringList versionList = QString::fromLocal8Bit(versionString).split(QStringLiteral("."));
+	if (versionList.isEmpty())
 	{
 		return false;
 	}
 
-	if (std::tie(versionString[0], versionString[2], versionString[4]) < std::make_tuple('1', '2', '0'))
+	std::vector<size_t> versList;
+	versList.reserve(versionList.size());
+
+	for (const auto &iter: versionList)
+	{
+		bool ok = false;
+		size_t val = iter.toUInt(&ok);
+
+		if (!ok)
+		{
+			return false;
+		}
+
+		versList.push_back(val);
+	}
+
+	std::vector<size_t> minVersion = { 1, 2, 0 };
+
+	size_t depth = std::min(versList.size(), minVersion.size());
+
+	for (size_t i = 0; i < depth; ++i)
+	{
+		if (versList[i] < minVersion[i])
+		{
+			return false;
+		}
+		else if (versList[i] > minVersion[i])
+		{
+			return true;
+		}
+	}
+
+	if (versList.size() < minVersion.size())
 	{
 		return false;
 	}
