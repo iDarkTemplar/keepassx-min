@@ -31,8 +31,6 @@
 #include <QToolButton>
 #include <QWindow>
 
-#include "config-keepassx.h"
-
 #include "Application.h"
 #include "Clipboard.h"
 #include "core/InactivityTimer.h"
@@ -43,10 +41,6 @@
 #include "gui/MessageBox.h"
 #include "gui/SearchWidget.h"
 #include "gui/entry/EntryView.h"
-
-#ifdef WITH_XC_FDOSECRETS
-#include "fdosecrets/FdoSecretsPlugin.h"
-#endif
 
 const QString MainWindow::BaseWindowTitle = "KeePassX-min";
 
@@ -129,15 +123,6 @@ MainWindow::MainWindow()
 		&MainWindow::databaseUnlockDialogFinished);
 
 	initViewMenu();
-
-#ifdef WITH_XC_FDOSECRETS
-	auto fdoSS = new FdoSecretsPlugin(m_ui->tabWidget);
-	connect(fdoSS, &FdoSecretsPlugin::error, this, &MainWindow::showErrorMessage);
-	connect(fdoSS, &FdoSecretsPlugin::requestSwitchToDatabases, this, &MainWindow::switchToDatabases);
-	connect(fdoSS, &FdoSecretsPlugin::requestShowNotification, this, &MainWindow::displayDesktopNotification);
-	fdoSS->updateServiceState();
-	m_ui->settingsWidget->addSettingsPage(fdoSS);
-#endif
 
 	setWindowIcon(icons()->applicationIcon());
 	m_ui->globalMessageWidget->hideMessage();

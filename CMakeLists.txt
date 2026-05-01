@@ -37,7 +37,6 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 
-include(FeatureSummary)
 include(CheckCCompilerFlag)
 include(CheckCXXCompilerFlag)
 include(CheckCXXSourceCompiles)
@@ -46,8 +45,6 @@ option(WITH_TESTS "Enable building of unit tests" OFF)
 option(WITH_GUI_TESTS "Enable building of GUI tests" OFF)
 option(WITH_ASAN "Enable address sanitizer checks (Linux / macOS only)" OFF)
 option(WITH_COVERAGE "Use to build with coverage tests (GCC only)." OFF)
-
-option(WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API." OFF)
 
 # Retrieve git info
 file(READ ${CMAKE_SOURCE_DIR}/VERSION GIT_VERSION)
@@ -288,7 +285,3 @@ if (WITH_TESTS)
 	enable_testing()
 	add_subdirectory(tests)
 endif(WITH_TESTS)
-
-# This will only print ENABLED and DISABLED feature
-feature_summary(WHAT ENABLED_FEATURES DESCRIPTION "Enabled features:")
-feature_summary(WHAT DISABLED_FEATURES DESCRIPTION "Disabled features:")

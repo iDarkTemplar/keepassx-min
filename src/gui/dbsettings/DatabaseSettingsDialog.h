@@ -18,7 +18,6 @@
 #ifndef KEEPASSXC_DATABASESETTINGSDIALOG_H
 #define KEEPASSXC_DATABASESETTINGSDIALOG_H
 
-#include "config-keepassx.h"
 #include "gui/EditWidget.h"
 
 #include <QPointer>
@@ -27,9 +26,6 @@ class Database;
 class DatabaseSettingsWidgetGeneral;
 class DatabaseSettingsWidgetEncryption;
 class DatabaseSettingsWidgetDatabaseKey;
-#ifdef WITH_XC_FDOSECRETS
-class DatabaseSettingsWidgetFdoSecrets;
-#endif
 class DatabaseSettingsWidgetMaintenance;
 class QTabWidget;
 
@@ -57,9 +53,6 @@ private:
 	QPointer<QTabWidget> m_securityTabWidget;
 	QPointer<DatabaseSettingsWidgetDatabaseKey> m_databaseKeyWidget;
 	QPointer<DatabaseSettingsWidgetEncryption> m_encryptionWidget;
-#ifdef WITH_XC_FDOSECRETS
-	QPointer<DatabaseSettingsWidgetFdoSecrets> m_fdoSecretsWidget;
-#endif
 	QPointer<DatabaseSettingsWidgetMaintenance> m_maintenanceWidget;
 };
 

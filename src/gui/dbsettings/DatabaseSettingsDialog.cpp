@@ -21,9 +21,6 @@
 #include "DatabaseSettingsWidgetEncryption.h"
 #include "DatabaseSettingsWidgetGeneral.h"
 #include "DatabaseSettingsWidgetMaintenance.h"
-#ifdef WITH_XC_FDOSECRETS
-#include "fdosecrets/widgets/DatabaseSettingsWidgetFdoSecrets.h"
-#endif
 
 #include "core/Database.h"
 #include "core/Global.h"
@@ -37,9 +34,6 @@ DatabaseSettingsDialog::DatabaseSettingsDialog(QWidget *parent)
 	, m_securityTabWidget(new QTabWidget(this))
 	, m_databaseKeyWidget(new DatabaseSettingsWidgetDatabaseKey(this))
 	, m_encryptionWidget(new DatabaseSettingsWidgetEncryption(this))
-#ifdef WITH_XC_FDOSECRETS
-	, m_fdoSecretsWidget(new DatabaseSettingsWidgetFdoSecrets(this))
-#endif
 	, m_maintenanceWidget(new DatabaseSettingsWidgetMaintenance(this))
 {
 	connect(this, &DatabaseSettingsDialog::accepted, this, &DatabaseSettingsDialog::save);
@@ -62,10 +56,6 @@ DatabaseSettingsDialog::DatabaseSettingsDialog(QWidget *parent)
 
 	m_securityTabWidget->setCurrentIndex(0);
 
-#ifdef WITH_XC_FDOSECRETS
-	addPage(tr("Secret Service Integration"), icons()->icon(QStringLiteral("freedesktop")), m_fdoSecretsWidget);
-#endif
-
 	addPage(tr("Maintenance"), icons()->icon("hammer-wrench"), m_maintenanceWidget);
 
 	setCurrentPage(0);
@@ -80,9 +70,6 @@ void DatabaseSettingsDialog::load(const QSharedPointer<Database> &db)
 	m_generalWidget->loadSettings(db);
 	m_databaseKeyWidget->loadSettings(db);
 	m_encryptionWidget->loadSettings(db);
-#ifdef WITH_XC_FDOSECRETS
-	m_fdoSecretsWidget->loadSettings(db);
-#endif
 	m_maintenanceWidget->loadSettings(db);
 
 	m_db = db;
@@ -118,10 +105,6 @@ void DatabaseSettingsDialog::save()
 		m_securityTabWidget->setCurrentIndex(1);
 		return;
 	}
-
-#ifdef WITH_XC_FDOSECRETS
-	m_fdoSecretsWidget->saveSettings();
-#endif
 
 	emit editFinished(true);
 }

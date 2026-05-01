@@ -76,20 +76,6 @@ QString debugInfo()
 			QSysInfo::kernelType(),
 			QSysInfo::kernelVersion()));
 
-	debugInfo.append("\n\n");
-
-	QString extensions;
-
-#ifdef WITH_XC_FDOSECRETS
-	extensions += "\n- " + QObject::tr("Secret Service Integration");
-#endif
-
-	if (extensions.isEmpty())
-	{
-		extensions = " " + QObject::tr("None");
-	}
-
-	debugInfo.append(QObject::tr("Enabled extensions:").append(extensions).append("\n"));
 	return debugInfo;
 }
 

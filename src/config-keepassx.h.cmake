@@ -6,8 +6,6 @@
 #define KEEPASSXM_VERSION "@GIT_VERSION@"
 #define GIT_HASH "@GIT_HASH@"
 
-#cmakedefine WITH_XC_FDOSECRETS
-
 #cmakedefine HAVE_PR_SET_DUMPABLE 1
 #cmakedefine HAVE_RLIMIT_CORE 1
 

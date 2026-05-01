@@ -14,8 +14,6 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-add_feature_info(FdoSecrets WITH_XC_FDOSECRETS "Implement freedesktop.org Secret Storage Spec server side API.")
-
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
 set(qrcode_SOURCES
@@ -425,92 +423,6 @@ qt_wrap_cpp(MOC_keepassx_HEADERS ${keepassx_QT_HEADERS})
 qt_wrap_ui(keepassx_UI_CPP ${keepassx_UI})
 qt_add_resources(COMPILED_keepassx_RESOURCES ${keepassx_RESOURCES})
 
-if (WITH_XC_FDOSECRETS)
-	set(fdo_SOURCES
-		# app settings page
-		fdosecrets/FdoSecretsPlugin.cpp
-		fdosecrets/widgets/SettingsModels.cpp
-		fdosecrets/widgets/SettingsWidgetFdoSecrets.cpp
-		fdosecrets/widgets/RowButtonHelper.cpp
-
-		# per database settings page
-		fdosecrets/widgets/DatabaseSettingsWidgetFdoSecrets.cpp
-
-		# prompt dialog
-		fdosecrets/widgets/AccessControlDialog.cpp
-
-		# setting storage
-		fdosecrets/FdoSecretsSettings.cpp
-
-		# dbus objects
-		fdosecrets/dbus/DBusClient.cpp
-		fdosecrets/dbus/DBusMgr.cpp
-		fdosecrets/dbus/DBusDispatch.cpp
-		fdosecrets/dbus/DBusObject.cpp
-		fdosecrets/objects/Service.cpp
-		fdosecrets/objects/Session.cpp
-		fdosecrets/objects/SessionCipher.cpp
-		fdosecrets/objects/Collection.cpp
-		fdosecrets/objects/Item.cpp
-		fdosecrets/objects/Prompt.cpp
-		fdosecrets/dbus/DBusTypes.cpp
-		)
-
-	set(fdo_HEADERS
-		# app settings page
-		fdosecrets/widgets/RowButtonHelper.h
-
-		# setting storage
-		fdosecrets/FdoSecretsSettings.h
-
-		# dbus objects
-		fdosecrets/dbus/DBusConstants.h
-		fdosecrets/dbus/DBusClient.h
-		fdosecrets/dbus/DBusTypes.h
-		fdosecrets/objects/SessionCipher.h
-		)
-
-	set(fdo_QT_HEADERS
-		# app settings page
-		fdosecrets/FdoSecretsPlugin.h
-		fdosecrets/widgets/SettingsModels.h
-		fdosecrets/widgets/SettingsWidgetFdoSecrets.h
-		fdosecrets/widgets/SettingsWidgetFdoSecrets_p.h
-
-		# per database settings page
-		fdosecrets/widgets/DatabaseSettingsWidgetFdoSecrets.h
-		fdosecrets/widgets/DatabaseSettingsWidgetFdoSecrets_p.h
-
-		# prompt dialog
-		fdosecrets/widgets/AccessControlDialog.h
-
-		# dbus objects
-		fdosecrets/dbus/DBusMgr.h
-		fdosecrets/dbus/DBusObject.h
-		fdosecrets/objects/Service.h
-		fdosecrets/objects/Session.h
-		fdosecrets/objects/Collection.h
-		fdosecrets/objects/Item.h
-		fdosecrets/objects/Prompt.h
-		)
-
-	list(APPEND fdo_HEADERS ${fdo_QT_HEADERS})
-
-	set(fdo_UI
-		fdosecrets/widgets/AccessControlDialog.ui
-		fdosecrets/widgets/DatabaseSettingsWidgetFdoSecrets.ui
-		fdosecrets/widgets/SettingsWidgetFdoSecrets.ui
-		)
-
-	qt_wrap_cpp(MOC_fdo_HEADERS ${fdo_QT_HEADERS})
-	qt_wrap_ui(fdo_UI_CPP ${fdo_UI})
-
-	add_library(fdosecrets STATIC ${fdo_SOURCES} ${fdo_HEADERS} ${MOC_fdo_HEADERS} ${fdo_UI_CPP})
-	target_link_libraries(fdosecrets Qt6::Core Qt6::Widgets Qt6::DBus ${BOTAN_LIBRARIES})
-
-	set(fdosecrets_LIB fdosecrets)
-endif()
-
 configure_file(config-keepassx.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-keepassx.h)
 
 add_library(keepassx_core STATIC ${keepassx_SOURCES} ${keepassx_HEADERS} ${keepassx_QT_HEADERS} ${MOC_keepassx_HEADERS} ${COMPILED_keepassx_RESOURCES} ${keepassx_UI_CPP})
@@ -519,7 +431,6 @@ target_include_directories(keepassx_core SYSTEM PRIVATE ${ZXCVBN_INCLUDE_DIR})
 set_target_properties(keepassx_core PROPERTIES COMPILE_DEFINITIONS KEEPASSX_BUILDING_CORE)
 target_link_libraries(keepassx_core
 	${qrcode_LIB}
-	${fdosecrets_LIB}
 	Qt6::Core
 	Qt6::Concurrent
 	Qt6::DBus
