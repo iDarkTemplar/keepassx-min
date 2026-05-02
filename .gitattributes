@@ -5,9 +5,6 @@
 # Line endings harmony
 * text=auto eol=lf
 
-# binary files
-*.ai binary
-
 # Export
 VERSION export-subst
 HASH export-subst
