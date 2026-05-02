@@ -105,13 +105,6 @@ int main(int argc, char **argv)
 		}
 	}
 
-	// Process single instance and early exit if already running
-	if (app.isAlreadyRunning())
-	{
-		qWarning() << QObject::tr("Another instance of KeePassX-min is already running.").toUtf8().constData();
-		return EXIT_SUCCESS;
-	}
-
 	if (!Crypto::init())
 	{
 		QString error = QObject::tr("Fatal error while testing the cryptographic functions.");
@@ -139,12 +132,6 @@ int main(int argc, char **argv)
 	}
 
 	int exitCode = Application::exec();
-
-	// Check if restart was requested
-	if (exitCode == RESTART_EXITCODE)
-	{
-		QProcess::startDetached(QCoreApplication::applicationFilePath(), {});
-	}
 
 #if defined(WITH_ASAN) && defined(WITH_LSAN)
 	// do leak check here to prevent massive tail of end-of-process leak errors from third-party libraries

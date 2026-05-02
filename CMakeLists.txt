@@ -270,7 +270,7 @@ find_package(ZXCVBN REQUIRED)
 
 find_package(QREncode REQUIRED)
 
-set(QT_COMPONENTS Core DBus Network Concurrent Gui Svg SvgWidgets Widgets LinguistTools)
+set(QT_COMPONENTS Core DBus Concurrent Gui Svg SvgWidgets Widgets LinguistTools)
 if (WITH_TESTS)
 	list(APPEND QT_COMPONENTS Test)
 endif()

@@ -256,7 +256,6 @@ private slots:
 
 private:
 	int addChildWidget(QWidget *w);
-	void processAutoOpen();
 	void openDatabaseFromEntry(const Entry *entry, bool inBackground = true);
 	bool performSave(QString &errorMessage, const QString &fileName = {});
 

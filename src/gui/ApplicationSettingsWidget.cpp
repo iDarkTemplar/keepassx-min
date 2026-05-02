@@ -125,7 +125,6 @@ void ApplicationSettingsWidget::loadSettings()
 		showMessage(tr("Access error for config file %1").arg(config()->getFileName()), MessageWidget::Error);
 	}
 
-	m_generalUi->singleInstanceCheckBox->setChecked(config()->get(Config::SingleInstance).toBool());
 	m_generalUi->rememberLastDatabasesCheckBox->setChecked(config()->get(Config::RememberLastDatabases).toBool());
 	m_generalUi->rememberLastDatabasesSpinbox->setValue(config()->get(Config::NumberOfRememberedLastDatabases).toInt());
 	m_generalUi->rememberLastKeyFilesCheckBox->setChecked(config()->get(Config::RememberLastKeyFiles).toBool());
@@ -254,7 +253,6 @@ void ApplicationSettingsWidget::saveSettings()
 		return;
 	}
 
-	config()->set(Config::SingleInstance, m_generalUi->singleInstanceCheckBox->isChecked());
 	config()->set(Config::RememberLastDatabases, m_generalUi->rememberLastDatabasesCheckBox->isChecked());
 	config()->set(Config::NumberOfRememberedLastDatabases, m_generalUi->rememberLastDatabasesSpinbox->value());
 	config()->set(Config::RememberLastKeyFiles, m_generalUi->rememberLastKeyFilesCheckBox->isChecked());
@@ -280,10 +278,7 @@ void ApplicationSettingsWidget::saveSettings()
 	auto language = m_generalUi->languageComboBox->currentData().toString();
 	if (config()->get(Config::GUI_Language) != language)
 	{
-		QTimer::singleShot(200, [] {
-			getMainWindow()->restartApp(
-				tr("You must restart the application to set the new language. Would you like to restart now?"));
-		});
+		// TODO: trigger language change
 	}
 
 	config()->set(Config::GUI_Language, language);

@@ -434,7 +434,6 @@ target_link_libraries(keepassx_core
 	Qt6::Core
 	Qt6::Concurrent
 	Qt6::DBus
-	Qt6::Network
 	Qt6::Widgets
 	Qt6::SvgWidgets
 	${BOTAN_LIBRARIES}

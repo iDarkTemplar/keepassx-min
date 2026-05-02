@@ -89,7 +89,6 @@ public slots:
 	void lockAllDatabases();
 	void closeModalWindow();
 	void displayDesktopNotification(const QString &msg, QString title = "", int msTimeoutHint = 10000);
-	void restartApp(const QString &message);
 
 protected:
 	bool event(QEvent *event) override;
@@ -174,9 +173,7 @@ private:
 	bool m_windowInformationRestored = false;
 	bool m_appExitCalled = false;
 	bool m_appExiting = false;
-	bool m_restartRequested = false;
 	bool m_contextMenuFocusLock = false;
-	bool m_allowScreenCapture = false;
 	qint64 m_lastFocusOutTime = 0;
 	qint64 m_lastShowTime = 0;
 	QTimer m_updateCheckTimer;

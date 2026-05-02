@@ -42,14 +42,7 @@ public:
 		{
 			QRect bounds = option.rect;
 			bounds.setY(bounds.bottom());
-			if (kpxcApp->isDarkTheme())
-			{
-				painter->fillRect(bounds, option.palette.mid().color().lighter(185));
-			}
-			else
-			{
-				painter->fillRect(bounds, option.palette.mid());
-			}
+			painter->fillRect(bounds, option.palette.mid());
 		}
 	}
 };

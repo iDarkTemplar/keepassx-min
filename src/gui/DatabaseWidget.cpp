@@ -21,8 +21,6 @@
 #include <QApplication>
 #include <QBoxLayout>
 #include <QCheckBox>
-#include <QDesktopServices>
-#include <QHostInfo>
 #include <QInputDialog>
 #include <QKeyEvent>
 #include <QPlainTextEdit>
@@ -1071,7 +1069,6 @@ void DatabaseWidget::loadDatabase(bool accepted)
 		emit databaseAboutToUnlock();
 		replaceDatabase(openWidget->database());
 		switchToMainView();
-		processAutoOpen();
 
 		restoreGroupEntryFocus(m_groupBeforeLock, m_entryBeforeLock);
 
@@ -1200,7 +1197,6 @@ void DatabaseWidget::unlockDatabase(bool accepted)
 	m_entryBeforeLock = QUuid();
 
 	switchToMainView();
-	processAutoOpen();
 	emit databaseUnlocked();
 
 	if (config()->get(Config::MinimizeAfterUnlock).toBool())
@@ -1931,7 +1927,6 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 		}
 
 		replaceDatabase(db);
-		processAutoOpen();
 		restoreGroupEntryFocus(groupBeforeReload, entryBeforeReload);
 		m_blockAutoSave = false;
 
@@ -2456,65 +2451,6 @@ void DatabaseWidget::emptyRecycleBin()
 	if (result == MessageBox::Empty)
 	{
 		m_db->emptyRecycleBin();
-	}
-}
-
-void DatabaseWidget::processAutoOpen()
-{
-	Q_ASSERT(m_db);
-
-	auto *autoopenGroup = m_db->rootGroup()->findGroupByPath("/AutoOpen");
-	if (!autoopenGroup)
-	{
-		return;
-	}
-
-	for (const auto *entry: autoopenGroup->entries())
-	{
-		if (entry->url().isEmpty() || (entry->password().isEmpty() && entry->username().isEmpty()))
-		{
-			continue;
-		}
-
-		// Support ifDevice advanced entry, a comma separated list of computer names
-		// that control whether to perform AutoOpen on this entry or not. Can be
-		// negated using '!'
-		auto ifDevice = entry->attribute("IfDevice");
-		if (!ifDevice.isEmpty())
-		{
-			bool loadDb = false;
-			auto hostName = QHostInfo::localHostName();
-			for (auto &device: ifDevice.split(","))
-			{
-				device = device.trimmed();
-				if (device.startsWith("!"))
-				{
-					if (device.mid(1).compare(hostName, Qt::CaseInsensitive) == 0)
-					{
-						// Machine name matched an exclusion, don't load this database
-						loadDb = false;
-						break;
-					}
-					else
-					{
-						// Not matching an exclusion allows loading on all machines
-						loadDb = true;
-					}
-				}
-				else if (device.compare(hostName, Qt::CaseInsensitive) == 0)
-				{
-					// Explicitly named for loading
-					loadDb = true;
-				}
-			}
-
-			if (!loadDb)
-			{
-				continue;
-			}
-		}
-
-		openDatabaseFromEntry(entry);
 	}
 }
 

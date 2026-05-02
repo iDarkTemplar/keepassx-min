@@ -35,7 +35,6 @@ public:
 
 	enum ConfigKey
 	{
-		SingleInstance,
 		RememberLastDatabases,
 		NumberOfRememberedLastDatabases,
 		RememberLastKeyFiles,

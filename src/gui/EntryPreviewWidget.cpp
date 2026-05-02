@@ -318,13 +318,12 @@ void EntryPreviewWidget::setPasswordVisible(bool state)
 		{
 			// Show the password in color
 			QString html;
-			const auto dark = kpxcApp->isDarkTheme();
 			for (const auto c : password)
 			{
-				const auto color = c.isDigit() ? (dark ? "lightblue" : "blue")
-					: c.isUpper() ? (dark ? "lightgreen" : "darkgreen")
-					: c.isLower() ? (dark ? "yellow" : "red")
-					: (dark ? "white" : "black");
+				const auto color = c.isDigit() ? "blue"
+					: c.isUpper() ? "darkgreen"
+					: c.isLower() ? "red"
+					: "black";
 				html += "<span style=\"color: " + QString(color) + ";\">" + QString(c).toHtmlEscaped() + "</span>";
 			}
 

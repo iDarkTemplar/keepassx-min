@@ -392,11 +392,7 @@ MainWindow::MainWindow()
 
 	// Properly shutdown on logoff, restart, and shutdown
 	connect(kpxcApp, &QGuiApplication::commitDataRequest, this, [this] { m_appExitCalled = true; });
-
-	connect(kpxcApp, &Application::anotherInstanceStarted, this, &MainWindow::bringToFront);
-	connect(kpxcApp, &Application::applicationActivated, this, &MainWindow::bringToFront);
 	connect(kpxcApp, &Application::openFile, this, [this] (const QString &filename) { openDatabase(filename); });
-	connect(kpxcApp, &Application::quitSignalReceived, this, &MainWindow::appExit, Qt::DirectConnection);
 
 	// Setup the status bar
 	statusBar()->setFixedHeight(24);
@@ -996,12 +992,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
 	{
 		saveWindowInformation();
 		event->accept();
-		m_restartRequested ? kpxcApp->restart() : QApplication::quit();
+		QApplication::quit();
 		return;
 	}
 
 	m_appExitCalled = false;
-	m_restartRequested = false;
 	event->ignore();
 }
 
@@ -1576,21 +1571,6 @@ void MainWindow::displayDesktopNotification(const QString &msg, QString title, i
 	}
 
 	m_trayIcon->showMessage(title, msg, icons()->applicationIcon(), msTimeoutHint);
-}
-
-void MainWindow::restartApp(const QString &message)
-{
-	auto ans = MessageBox::question(this, tr("Restart Application?"), message, MessageBox::Yes | MessageBox::No, MessageBox::Yes);
-	if (ans == MessageBox::Yes)
-	{
-		m_appExitCalled = true;
-		m_restartRequested = true;
-		close();
-	}
-	else
-	{
-		m_restartRequested = false;
-	}
 }
 
 void MainWindow::initViewMenu()

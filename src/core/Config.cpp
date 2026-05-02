@@ -49,7 +49,6 @@ struct ConfigDirective
  */
 static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
 	// General
-	{Config::SingleInstance,{QS("SingleInstance"), Roaming, true}},
 	{Config::RememberLastDatabases,{QS("RememberLastDatabases"), Roaming, true}},
 	{Config::NumberOfRememberedLastDatabases,{QS("NumberOfRememberedLastDatabases"), Roaming, 5}},
 	{Config::RememberLastKeyFiles,{QS("RememberLastKeyFiles"), Roaming, true}},

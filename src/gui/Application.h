@@ -23,12 +23,6 @@
 #include <QString>
 #include <QtNetwork/qlocalserver.h>
 
-class OSEventFilter;
-class QLockFile;
-class QSocketNotifier;
-
-constexpr int RESTART_EXITCODE = -1;
-
 class Application: public QApplication
 {
 	Q_OBJECT
@@ -41,38 +35,9 @@ public:
 	static void applyFontSize();
 
 	bool event(QEvent *event) override;
-	bool isAlreadyRunning() const;
-	bool isDarkTheme() const;
-
-	bool sendFileNamesToRunningInstance(const QStringList &fileNames);
-	bool sendLockToInstance();
-
-	void restart();
 
 signals:
 	void openFile(const QString &filename);
-	void anotherInstanceStarted();
-	void applicationActivated();
-	void quitSignalReceived();
-
-private slots:
-	void quitBySignal();
-	void processIncomingConnection();
-	void socketReadyRead();
-
-private:
-	/**
-	 * Register Unix signals such as SIGINT and SIGTERM for clean shutdown.
-	 */
-	void registerUnixSignals();
-	QSocketNotifier *m_unixSignalNotifier;
-	static void handleUnixSignal(int sig);
-	static int unixSignalSocket[2];
-	bool m_alreadyRunning;
-	bool m_darkTheme = false;
-	QLockFile *m_lockFile;
-	QLocalServer m_lockServer;
-	QString m_socketName;
 };
 
 #define kpxcApp qobject_cast<Application *>(Application::instance())
