@@ -92,7 +92,7 @@ public:
 	bool protectPassword() const;
 	bool protectUrl() const;
 	bool protectNotes() const;
-	const CustomIconData &customIcon(const QUuid &uuid) const;
+	const CustomIconData& customIcon(const QUuid &uuid) const;
 	bool hasCustomIcon(const QUuid &uuid) const;
 	QList<QUuid> customIconsOrder() const;
 	bool recycleBinEnabled() const;
