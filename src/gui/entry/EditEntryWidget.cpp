@@ -225,7 +225,7 @@ void EditEntryWidget::setupEntryUpdate()
 	connect(m_mainUi->titleEdit, &QLineEdit::textChanged, this, [this] () { setModified(); });
 	connect(m_mainUi->usernameComboBox->lineEdit(), &QLineEdit::textChanged, this, [this] () { setModified(); });
 	connect(m_mainUi->passwordEdit, &PasswordWidget::textChanged, this, [this] () { setModified(); });
-	connect(m_mainUi->urlEdit, &URLEdit::textChanged, this, [this] () { setModified(); });
+	connect(m_mainUi->urlEdit, &QLineEdit::textChanged, this, [this] () { setModified(); });
 	connect(m_mainUi->tagsList, &TagsEdit::tagsEdited, this, [this] () { setModified(); });
 	connect(m_mainUi->expireCheck, &QCheckBox::stateChanged, this, [this] () { setModified(); });
 	connect(m_mainUi->expireDatePicker, &QDateTimeEdit::dateTimeChanged, this, [this] () { setModified(); });

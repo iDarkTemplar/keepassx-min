@@ -169,7 +169,6 @@ set(keepassx_SOURCES
 	gui/TotpDialog.cpp
 	gui/TotpExportSettingsDialog.cpp
 	gui/TotpSetupDialog.cpp
-	gui/URLEdit.cpp
 	gui/WelcomeWidget.cpp
 	gui/widgets/ElidedLabel.cpp
 	gui/widgets/KPToolBar.cpp
@@ -344,7 +343,6 @@ set(keepassx_QT_HEADERS
 	gui/TotpDialog.h
 	gui/TotpExportSettingsDialog.h
 	gui/TotpSetupDialog.h
-	gui/URLEdit.h
 	gui/WelcomeWidget.h
 	gui/widgets/ElidedLabel.h
 	gui/widgets/KPToolBar.h
