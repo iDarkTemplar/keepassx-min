@@ -35,7 +35,6 @@ ImportWizardPageSelect::ImportWizardPageSelect(QWidget *parent)
 	new QListWidgetItem(icons()->icon("onepassword"), tr("1Password Vault (.opvault)"), m_ui->importTypeList);
 	new QListWidgetItem(icons()->icon("bitwarden"), tr("Bitwarden (.json)"), m_ui->importTypeList);
 	new QListWidgetItem(icons()->icon("proton"), tr("Proton Pass (.json)"), m_ui->importTypeList);
-	new QListWidgetItem(icons()->icon("object-locked"), tr("KeePass 1 Database (.kdb)"), m_ui->importTypeList);
 
 	m_ui->importTypeList->item(0)->setData(Qt::UserRole, ImportWizard::IMPORT_CSV);
 	m_ui->importTypeList->item(1)->setData(Qt::UserRole, ImportWizard::IMPORT_OPUX);
@@ -106,6 +105,7 @@ void ImportWizardPageSelect::itemSelected(QListWidgetItem *current, QListWidgetI
 
 	auto type = current->data(Qt::UserRole).toInt();
 	setField("ImportType", type);
+
 	switch (type)
 	{
 	// Unencrypted types
