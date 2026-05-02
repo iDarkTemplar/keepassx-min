@@ -70,7 +70,7 @@ QString debugInfo()
 	debugInfo.append("\n");
 
 	debugInfo.append(
-		QObject::tr("Operating system: %1\nCPU architecture: %2\nKernel: %3 %4")
+		QObject::tr("Operating system: %1\nCPU architecture: %2\nKernel: %3 %4\n")
 		.arg(QSysInfo::prettyProductName(),
 			QSysInfo::currentCpuArchitecture(),
 			QSysInfo::kernelType(),
