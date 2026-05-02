@@ -77,7 +77,6 @@ static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
 	{Config::LastDir, {QS("LastDir"), Local, QDir::homePath()}},
 
 	// GUI
-	{Config::GUI_Language, {QS("GUI/Language"), Roaming, QS("system")}},
 	{Config::GUI_HideMenubar, {QS("GUI/HideMenubar"), Roaming, false}},
 	{Config::GUI_HideToolbar, {QS("GUI/HideToolbar"), Roaming, false}},
 	{Config::GUI_MovableToolbar, {QS("GUI/MovableToolbar"), Roaming, false}},

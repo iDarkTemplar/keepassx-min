@@ -20,24 +20,20 @@
 #include "Application.h"
 
 #include "core/Bootstrap.h"
+#include "core/Resources.h"
 #include "core/Tools.h"
 #include "gui/MainWindow.h"
 #include "gui/MessageBox.h"
 
+#include <QDir>
 #include <QFileInfo>
 #include <QFileOpenEvent>
 #include <QPixmapCache>
 #include <QRegularExpression>
 #include <QStandardPaths>
 
-#include <signal.h>
-#include <sys/socket.h>
-#include <unistd.h>
-
 namespace {
 
-constexpr int WaitTimeoutMSec = 150;
-const char BlockSizeProperty[] = "blockSize";
 int g_OriginalFontSize = 0;
 
 } // namespace
@@ -58,7 +54,9 @@ Application::~Application()
  */
 void Application::bootstrap(const QString &uiLanguage)
 {
-	Bootstrap::bootstrap(uiLanguage);
+	Bootstrap::bootstrap();
+
+	kpxcApp->installTranslator(uiLanguage);
 
 	applyFontSize();
 
@@ -92,4 +90,85 @@ bool Application::event(QEvent *event)
 	}
 
 	return QApplication::event(event);
+}
+
+void Application::installTranslator(const QString &uiLanguage)
+{
+	QStringList languages;
+	if (uiLanguage.isEmpty() || uiLanguage == "system")
+	{
+		// NOTE: this is a workaround for the terrible way Qt loads languages
+		// using the QLocale::uiLanguages() approach. Instead, we search each
+		// language and all country variants in order before moving to the next.
+		QLocale locale = QLocale::system();
+		languages = locale.uiLanguages();
+	}
+	else
+	{
+		languages << uiLanguage;
+	}
+
+	QPointer<QTranslator> old_translator = m_translator;
+
+	const auto path = resources()->dataPath("translations");
+
+	for (const auto &language: languages)
+	{
+		QLocale locale(language);
+		QScopedPointer<QTranslator> translator(new QTranslator(qApp));
+		if (translator->load(locale, "keepassxmin_", "", path))
+		{
+			m_translator = translator.take();
+			QCoreApplication::installTranslator(m_translator);
+			break;
+		}
+	}
+
+	if (old_translator)
+	{
+		QCoreApplication::removeTranslator(old_translator);
+		delete old_translator;
+	}
+}
+
+/**
+ * @return list of pairs of available language codes and names
+ */
+QList<QPair<QString, QString>> Application::availableLanguages()
+{
+	QList<QPair<QString, QString>> languages;
+	languages.append(QPair<QString, QString>("system", "System default"));
+
+	QRegularExpression regExp("^keepassxmin_([a-zA-Z_]+)\\.qm$", QRegularExpression::CaseInsensitiveOption);
+	const QStringList fileList = QDir(resources()->dataPath("translations")).entryList();
+	for (const QString &filename: fileList)
+	{
+		QRegularExpressionMatch match = regExp.match(filename);
+		if (match.hasMatch())
+		{
+			QString langcode = match.captured(1);
+			if (langcode == "en")
+			{
+				continue;
+			}
+
+			QLocale locale(langcode);
+			QString languageStr = QLocale::languageToString(locale.language());
+			if (langcode == "la")
+			{
+				// langcode "la" (Latin) is translated into "C" by QLocale::languageToString()
+				languageStr = "Latin";
+			}
+
+			if (langcode.contains("_"))
+			{
+				languageStr += QString(" (%1)").arg(QLocale::countryToString(locale.country()));
+			}
+
+			QPair<QString, QString> language(langcode, languageStr);
+			languages.append(language);
+		}
+	}
+
+	return languages;
 }

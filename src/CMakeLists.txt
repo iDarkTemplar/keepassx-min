@@ -59,7 +59,6 @@ set(keepassx_SOURCES
 	core/TimeInfo.cpp
 	core/Tools.cpp
 	core/Totp.cpp
-	core/Translator.cpp
 	crypto/Crypto.cpp
 	crypto/CryptoHash.cpp
 	crypto/kdf/AesKdf.cpp
@@ -216,7 +215,6 @@ set(keepassx_HEADERS
 	core/TimeInfo.h
 	core/Tools.h
 	core/Totp.h
-	core/Translator.h
 	crypto/Crypto.h
 	crypto/CryptoHash.h
 	crypto/kdf/AesKdf.h

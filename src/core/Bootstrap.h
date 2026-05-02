@@ -21,7 +21,7 @@
 
 namespace Bootstrap {
 
-void bootstrap(const QString &uiLanguage = "system");
+void bootstrap();
 void disableCoreDumps();
 
 } // namespace Bootstrap

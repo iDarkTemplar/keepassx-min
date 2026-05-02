@@ -22,7 +22,7 @@
 #include <QDesktopServices>
 #include <QDir>
 
-#include "core/Translator.h"
+#include "gui/Application.h"
 #include "gui/GuiTools.h"
 #include "gui/Icons.h"
 #include "gui/MainWindow.h"
@@ -102,7 +102,6 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
 	// This prevents combo box and spinner values from changing without explicit focus
 	auto mouseWheelFilter = new MouseWheelEventFilter(this);
 	m_generalUi->toolButtonStyleComboBox->installEventFilter(mouseWheelFilter);
-	m_generalUi->languageComboBox->installEventFilter(mouseWheelFilter);
 	m_generalUi->fontSizeComboBox->installEventFilter(mouseWheelFilter);
 }
 
@@ -152,19 +151,6 @@ void ApplicationSettingsWidget::loadSettings()
 		config()->get(Config::Security_EnableCopyOnDoubleClick).toBool());
 	m_generalUi->autoGeneratePasswordForNewEntriesCheckBox->setChecked(
 		config()->get(Config::AutoGeneratePasswordForNewEntries).toBool());
-
-	m_generalUi->languageComboBox->clear();
-	QList<QPair<QString, QString>> languages = Translator::availableLanguages();
-	for (const auto &language: languages)
-	{
-		m_generalUi->languageComboBox->addItem(language.second, language.first);
-	}
-
-	int defaultIndex = m_generalUi->languageComboBox->findData(config()->get(Config::GUI_Language));
-	if (defaultIndex > 0)
-	{
-		m_generalUi->languageComboBox->setCurrentIndex(defaultIndex);
-	}
 
 	m_generalUi->menubarShowCheckBox->setChecked(!config()->get(Config::GUI_HideMenubar).toBool());
 	m_generalUi->toolbarShowCheckBox->setChecked(!config()->get(Config::GUI_HideToolbar).toBool());
@@ -274,14 +260,6 @@ void ApplicationSettingsWidget::saveSettings()
 	config()->set(Config::Security_NoConfirmMoveEntryToRecycleBin, !m_generalUi->ConfirmMoveEntryToRecycleBinCheckBox->isChecked());
 	config()->set(Config::Security_EnableCopyOnDoubleClick, m_generalUi->EnableCopyOnDoubleClickCheckBox->isChecked());
 	config()->set(Config::AutoGeneratePasswordForNewEntries, m_generalUi->autoGeneratePasswordForNewEntriesCheckBox->isChecked());
-
-	auto language = m_generalUi->languageComboBox->currentData().toString();
-	if (config()->get(Config::GUI_Language) != language)
-	{
-		// TODO: trigger language change
-	}
-
-	config()->set(Config::GUI_Language, language);
 
 	config()->set(Config::GUI_HideMenubar, !m_generalUi->menubarShowCheckBox->isChecked());
 	config()->set(Config::GUI_HideToolbar, !m_generalUi->toolbarShowCheckBox->isChecked());

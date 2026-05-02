@@ -16,7 +16,6 @@
 
 #include "Bootstrap.h"
 #include "config-keepassx.h"
-#include "core/Translator.h"
 
 #if defined(HAVE_RLIMIT_CORE)
 #include <sys/resource.h>
@@ -32,13 +31,11 @@ namespace Bootstrap {
  * Perform early application bootstrapping that does not rely on a QApplication
  * being present.
  */
-void bootstrap(const QString &uiLanguage)
+void bootstrap()
 {
 #ifdef QT_NO_DEBUG
 	disableCoreDumps();
 #endif
-
-	Translator::installTranslators(uiLanguage);
 }
 
 // LCOV_EXCL_START

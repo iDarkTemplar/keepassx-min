@@ -1014,11 +1014,12 @@ void MainWindow::changeEvent(QEvent *event)
 		{
 			m_ui->tabWidget->lockDatabasesDelayed();
 		}
+
+		return;
 	}
-	else
-	{
-		QMainWindow::changeEvent(event);
-	}
+
+	QMainWindow::changeEvent(event);
+
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
