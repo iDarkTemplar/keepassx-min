@@ -35,12 +35,14 @@ ImportWizardPageSelect::ImportWizardPageSelect(QWidget *parent)
 	new QListWidgetItem(icons()->icon("onepassword"), tr("1Password Vault (.opvault)"), m_ui->importTypeList);
 	new QListWidgetItem(icons()->icon("bitwarden"), tr("Bitwarden (.json)"), m_ui->importTypeList);
 	new QListWidgetItem(icons()->icon("proton"), tr("Proton Pass (.json)"), m_ui->importTypeList);
+	new QListWidgetItem(icons()->icon("keepassxc", false), tr("KeepassXC (.kdbx)"), m_ui->importTypeList);
 
 	m_ui->importTypeList->item(0)->setData(Qt::UserRole, ImportWizard::IMPORT_CSV);
 	m_ui->importTypeList->item(1)->setData(Qt::UserRole, ImportWizard::IMPORT_OPUX);
 	m_ui->importTypeList->item(2)->setData(Qt::UserRole, ImportWizard::IMPORT_OPVAULT);
 	m_ui->importTypeList->item(3)->setData(Qt::UserRole, ImportWizard::IMPORT_BITWARDEN);
 	m_ui->importTypeList->item(4)->setData(Qt::UserRole, ImportWizard::IMPORT_PROTONPASS);
+	m_ui->importTypeList->item(5)->setData(Qt::UserRole, ImportWizard::IMPORT_KEEPASSXC2);
 
 	connect(m_ui->importTypeList, &QListWidget::currentItemChanged, this, &ImportWizardPageSelect::itemSelected);
 	m_ui->importTypeList->setCurrentRow(0);
@@ -118,6 +120,9 @@ void ImportWizardPageSelect::itemSelected(QListWidgetItem *current, QListWidgetI
 	case ImportWizard::IMPORT_BITWARDEN:
 	case ImportWizard::IMPORT_OPVAULT:
 		setCredentialState(true);
+		break;
+	case ImportWizard::IMPORT_KEEPASSXC2:
+		setCredentialState(true, true);
 		break;
 	default:
 		Q_ASSERT(false);
@@ -260,6 +265,8 @@ QString ImportWizardPageSelect::importFileFilter()
 		return QString("%1 (*.json)").arg(tr("Proton Pass JSON Export"));
 	case ImportWizard::IMPORT_OPVAULT:
 		return QString("%1 (*.opvault)").arg(tr("1Password Vault"));
+	case ImportWizard::IMPORT_KEEPASSXC2:
+		return QString("%1 (*.kdbx)").arg(tr("KeepassXC database"));
 	default:
 		return {};
 	}

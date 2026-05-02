@@ -2185,7 +2185,6 @@ EntryView* DatabaseWidget::entryView()
 bool DatabaseWidget::save()
 {
 	// Never allow saving a locked database; it causes corruption
-	Q_ASSERT(!isLocked());
 	// Release build interlock
 	if (isLocked())
 	{
@@ -2252,11 +2251,11 @@ bool DatabaseWidget::saveAs()
 	{
 		QString defaultFileName = config()->get(Config::DefaultDatabaseFileName).toString();
 		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir("db") + "/"
-			+ (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbx") : defaultFileName));
+			+ (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbxm") : defaultFileName));
 	}
 
 	const QString newFilePath = fileDialog()->getSaveFileName(
-		this, tr("Save database as"), oldFilePath, tr("KeePass 2 Database").append(" (*.kdbx)"));
+		this, tr("Save database as"), oldFilePath, tr("KeePassX-min Database").append(" (*.kdbxm)"));
 
 	bool ok = false;
 	if (!newFilePath.isEmpty())
@@ -2347,13 +2346,13 @@ bool DatabaseWidget::saveBackup()
 	{
 		QString defaultFileName = config()->get(Config::DefaultDatabaseFileName).toString();
 		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir("db") + "/"
-			+ (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbx") : defaultFileName));
+			+ (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbxm") : defaultFileName));
 	}
 
 	const QString newFilePath = fileDialog()->getSaveFileName(this,
 		tr("Save Database Backup"),
 		FileDialog::getLastDir("backup", oldFilePath),
-		tr("KeePass 2 Database").append(" (*.kdbx)"));
+		tr("KeePassX-min Database").append(" (*.kdbxm)"));
 
 	// Early out if we canceled the file selection
 	if (newFilePath.isEmpty())
@@ -2460,7 +2459,7 @@ void DatabaseWidget::openDatabaseFromEntry(const Entry *entry, bool inBackground
 	auto password = entry->resolveMultiplePlaceholders(entry->password());
 	auto databaseUrl = entry->resolveMultiplePlaceholders(entry->url());
 
-	if (databaseUrl.startsWith("kdbx://"))
+	if (databaseUrl.startsWith("kdbxm://"))
 	{
 		databaseUrl = databaseUrl.mid(7);
 	}

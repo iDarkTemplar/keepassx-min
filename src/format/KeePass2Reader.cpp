@@ -18,8 +18,82 @@
 #include "format/Kdbx3Reader.h"
 #include "format/Kdbx4Reader.h"
 #include "keys/CompositeKey.h"
+#include "keys/FileKey.h"
+#include "keys/PasswordKey.h"
+#include "core/Database.h"
 
 #include <QFile>
+
+QSharedPointer<Database> KeePass2Reader::importDatabase(const QString &filename, const QString &key, const QString &keyfile)
+{
+	QSharedPointer<CompositeKey> composite_key;
+
+	composite_key.reset(new CompositeKey);
+
+	if (!key.isEmpty())
+	{
+		composite_key->addKey(QSharedPointer<PasswordKey>::create(key));
+	}
+
+	if (!keyfile.isEmpty())
+	{
+		auto fileKey = QSharedPointer<FileKey>::create();
+		QString errorMsg;
+
+		if (!fileKey->load(keyfile, &errorMsg))
+		{
+			raiseError(errorMsg);
+			return {};
+		}
+
+		composite_key->addKey(fileKey);
+	}
+
+	return importDatabase(filename, composite_key);
+}
+
+QSharedPointer<Database> KeePass2Reader::importDatabase(const QString &filename, QSharedPointer<const CompositeKey> key)
+{
+	// TODO: open database
+
+	auto db = QSharedPointer<Database>::create();
+
+	if (filename.isEmpty())
+	{
+		raiseError(tr("No file path was provided."));
+		return {};
+	}
+
+	QFile dbFile(filename);
+	if (!dbFile.exists())
+	{
+		raiseError(tr("File %1 does not exist.").arg(filename));
+		return {};
+	}
+
+	// Don't autodetect read-only mode, as it triggers an upstream bug.
+	// See https://github.com/keepassxreboot/keepassxc/issues/803
+	// if (!readOnly && !dbFile.open(QIODevice::ReadWrite)) {
+	//     readOnly = true;
+	// }
+	//
+	// if (!dbFile.isOpen() && !dbFile.open(QIODevice::ReadOnly)) {
+	if (!dbFile.open(QIODevice::ReadOnly))
+	{
+		raiseError(tr("Unable to open file %1.").arg(filename));
+		return {};
+	}
+
+	if (!readDatabase(&dbFile, std::move(key), db.get()))
+	{
+		raiseError(tr("Error while reading the database: %1").arg(errorString()));
+		return {};
+	}
+
+	dbFile.close();
+
+	return db;
+}
 
 /**
  * Read database from file and detect correct file format.

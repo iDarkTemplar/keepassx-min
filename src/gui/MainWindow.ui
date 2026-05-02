@@ -437,7 +437,7 @@
     <string>&amp;Merge From Database…</string>
    </property>
    <property name="toolTip">
-    <string>Merge from another KDBX database</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Merge from another KDBXM database&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </action>
   <action name="actionEntryNew">

@@ -420,7 +420,7 @@ bool DatabaseOpenWidget::browseKeyFile()
 		return false;
 	}
 
-	if (filename.endsWith(".kdbx") && MessageBox::warning(this,
+	if (filename.endsWith(".kdbxm") && MessageBox::warning(this,
 		tr("KeePassX-min database file selected"),
 		tr("The file you selected looks like a database file.\nA database file is NOT a key "
 			"file!\n\nAre you sure you want to continue with this file?."),

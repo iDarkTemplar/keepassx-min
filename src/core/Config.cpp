@@ -58,7 +58,7 @@ static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
 	{Config::AutoSaveOnExit,{QS("AutoSaveOnExit"), Roaming, true}},
 	{Config::AutoSaveNonDataChanges,{QS("AutoSaveNonDataChanges"), Roaming, true}},
 	{Config::BackupBeforeSave,{QS("BackupBeforeSave"), Roaming, false}},
-	{Config::BackupFilePathPattern,{QS("BackupFilePathPattern"), Roaming, QString("{DB_FILENAME}.old.kdbx")}},
+	{Config::BackupFilePathPattern,{QS("BackupFilePathPattern"), Roaming, QString("{DB_FILENAME}.old.kdbxm")}},
 	{Config::SearchLimitGroup,{QS("SearchLimitGroup"), Roaming, false}},
 	{Config::URLDoubleClickAction, {QS("URLDoubleClickAction"), Roaming, 0}},
 	{Config::HideWindowOnCopy,{QS("HideWindowOnCopy"), Roaming, false}},

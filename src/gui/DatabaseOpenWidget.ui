@@ -25,10 +25,10 @@
      <item>
       <spacer name="horizontalSpacer_3">
        <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
+        <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Policy::MinimumExpanding</enum>
+        <enum>QSizePolicy::MinimumExpanding</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -44,7 +44,7 @@
         <item>
          <spacer name="verticalSpacer_2">
           <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -91,7 +91,7 @@
           <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -106,17 +106,17 @@
         <item>
          <widget class="ElidedLabel" name="fileNameLabel">
           <property name="text">
-           <string notr="true">filename.kdbx</string>
+           <string notr="true">filename.kdbxm</string>
           </property>
          </widget>
         </item>
         <item>
          <spacer name="verticalSpacer_3">
           <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeType">
-           <enum>QSizePolicy::Policy::Fixed</enum>
+           <enum>QSizePolicy::Fixed</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -135,7 +135,7 @@
            </size>
           </property>
           <property name="frameShape">
-           <enum>QFrame::Shape::StyledPanel</enum>
+           <enum>QFrame::StyledPanel</enum>
           </property>
           <property name="lineWidth">
            <number>1</number>
@@ -196,7 +196,7 @@
                  <item>
                   <widget class="PasswordWidget" name="editPassword" native="true">
                    <property name="focusPolicy">
-                    <enum>Qt::FocusPolicy::StrongFocus</enum>
+                    <enum>Qt::StrongFocus</enum>
                    </property>
                    <property name="accessibleName">
                     <string>Password field</string>
@@ -211,10 +211,10 @@
             <item>
              <widget class="QFrame" name="selectKeyFileComponent">
               <property name="frameShape">
-               <enum>QFrame::Shape::NoFrame</enum>
+               <enum>QFrame::NoFrame</enum>
               </property>
               <property name="frameShadow">
-               <enum>QFrame::Shadow::Plain</enum>
+               <enum>QFrame::Plain</enum>
               </property>
               <property name="lineWidth">
                <number>0</number>
@@ -253,7 +253,7 @@
                     </sizepolicy>
                    </property>
                    <property name="focusPolicy">
-                    <enum>Qt::FocusPolicy::StrongFocus</enum>
+                    <enum>Qt::StrongFocus</enum>
                    </property>
                    <property name="accessibleName">
                     <string>Key file to unlock the database</string>
@@ -285,7 +285,7 @@
               </property>
               <layout class="QHBoxLayout" name="addAdditionalKeysComponentLayout">
                <property name="sizeConstraint">
-                <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
+                <enum>QLayout::SetMinimumSize</enum>
                </property>
                <property name="leftMargin">
                 <number>0</number>
@@ -302,7 +302,7 @@
                <item>
                 <spacer name="horizontalSpacer">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Horizontal</enum>
+                  <enum>Qt::Horizontal</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -318,10 +318,10 @@
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
                  <property name="focusPolicy">
-                  <enum>Qt::FocusPolicy::TabFocus</enum>
+                  <enum>Qt::TabFocus</enum>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;p&gt;In addition to a password, you can use a secret file to enhance the security of your database. This file can be generated in your database's security settings.&lt;/p&gt;&lt;p&gt;This is &lt;strong&gt;not&lt;/strong&gt; your *.kdbx database file!&lt;/p&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In addition to a password, you can use a secret file to enhance the security of your database. This file can be generated in your database's security settings.&lt;/p&gt;&lt;p&gt;This is &lt;span style=&quot; font-weight:700;&quot;&gt;not&lt;/span&gt; your *.kdbxm database file!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="accessibleDescription">
                   <string>Click to add a key file.</string>
@@ -330,13 +330,13 @@
                   <string>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</string>
                  </property>
                  <property name="alignment">
-                  <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                  </property>
                  <property name="margin">
                   <number>1</number>
                  </property>
                  <property name="textInteractionFlags">
-                  <set>Qt::TextInteractionFlag::LinksAccessibleByKeyboard|Qt::TextInteractionFlag::LinksAccessibleByMouse</set>
+                  <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
                  </property>
                 </widget>
                </item>
@@ -354,13 +354,13 @@
               <property name="bottomMargin">
                <number>5</number>
               </property>
-              <item alignment="Qt::AlignmentFlag::AlignRight">
+              <item alignment="Qt::AlignRight">
                <widget class="QDialogButtonBox" name="buttonBox">
                 <property name="focusPolicy">
-                 <enum>Qt::FocusPolicy::StrongFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="standardButtons">
-                 <set>QDialogButtonBox::StandardButton::Close|QDialogButtonBox::StandardButton::Ok</set>
+                 <set>QDialogButtonBox::Close|QDialogButtonBox::Ok</set>
                 </property>
                </widget>
               </item>
@@ -373,10 +373,10 @@
         <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeType">
-           <enum>QSizePolicy::Policy::MinimumExpanding</enum>
+           <enum>QSizePolicy::MinimumExpanding</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -392,10 +392,10 @@
      <item>
       <spacer name="horizontalSpacer_4">
        <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
+        <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Policy::MinimumExpanding</enum>
+        <enum>QSizePolicy::MinimumExpanding</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>

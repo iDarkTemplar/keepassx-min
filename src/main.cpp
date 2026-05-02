@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 
 	QCommandLineParser parser;
 	parser.setApplicationDescription(QObject::tr("KeePassX-min - password manager"));
-	parser.addPositionalArgument("filename(s)", QObject::tr("filenames of the password databases to open (*.kdbx)"), "[filename(s)]");
+	parser.addPositionalArgument("filename(s)", QObject::tr("filenames of the password databases to open (*.kdbxm)"), "[filename(s)]");
 
 	QCommandLineOption configOption("config", QObject::tr("path to a custom config file"), "config");
 	QCommandLineOption localConfigOption("localconfig", QObject::tr("path to a custom local config file"), "localconfig");

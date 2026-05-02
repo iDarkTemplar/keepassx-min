@@ -82,7 +82,7 @@ void Application::applyFontSize()
 
 bool Application::event(QEvent *event)
 {
-	// Handle Apple QFileOpenEvent from finder (double click on .kdbx file)
+	// Handle Apple QFileOpenEvent from finder (double click on .kdbxm file)
 	if (event->type() == QEvent::FileOpen)
 	{
 		emit openFile(static_cast<QFileOpenEvent*>(event)->file());

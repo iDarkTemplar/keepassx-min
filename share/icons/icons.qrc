@@ -181,5 +181,6 @@
         <file>badges/0_ShareActive.svg</file>
         <file>badges/1_ShareInactive.svg</file>
         <file>badges/2_Expired.svg</file>
+        <file>application/scalable/apps/keepassxc.svg</file>
     </qresource>
 </RCC>

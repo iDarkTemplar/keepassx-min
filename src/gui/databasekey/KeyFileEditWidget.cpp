@@ -160,7 +160,7 @@ void KeyFileEditWidget::browseKeyFile()
 				"file or generate a new key file."));
 		return;
 	}
-	else if (fileName.endsWith(".kdbx", Qt::CaseInsensitive))
+	else if (fileName.endsWith(".kdbxm", Qt::CaseInsensitive))
 	{
 		auto response = MessageBox::warning(getMainWindow(),
 			tr("Suspicious Key File"),

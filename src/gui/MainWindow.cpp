@@ -1508,7 +1508,7 @@ QStringList MainWindow::kdbxFilesFromUrls(const QList<QUrl> &urls)
 	for (const QUrl &url: urls)
 	{
 		const QFileInfo fInfo(url.toLocalFile());
-		const bool isKdbxFile = fInfo.isFile() && fInfo.suffix().toLower() == "kdbx";
+		const bool isKdbxFile = fInfo.isFile() && fInfo.suffix().toLower() == "kdbxm";
 		if (isKdbxFile)
 		{
 			kdbxFiles.append(fInfo.absoluteFilePath());

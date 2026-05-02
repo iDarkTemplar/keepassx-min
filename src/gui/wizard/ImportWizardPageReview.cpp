@@ -23,6 +23,7 @@
 #include "format/OPUXReader.h"
 #include "format/OpVaultReader.h"
 #include "format/ProtonPassReader.h"
+#include "format/KeePass2Reader.h"
 #include "gui/csvImport/CsvImportWidget.h"
 #include "gui/wizard/ImportWizard.h"
 
@@ -77,6 +78,9 @@ void ImportWizardPageReview::initializePage()
 		break;
 	case ImportWizard::IMPORT_PROTONPASS:
 		m_db = importProtonPass(filename);
+		break;
+	case ImportWizard::IMPORT_KEEPASSXC2:
+		m_db = importKeepassxc2(filename, field("ImportPassword").toString(), field("ImportKeyFile").toString());
 		break;
 	default:
 		break;
@@ -219,6 +223,18 @@ QSharedPointer<Database> ImportWizardPageReview::importProtonPass(const QString 
 	{
 		m_ui->messageWidget->showMessage(reader.errorString(), KMessageWidget::Error, -1);
 	}
+	return db;
+}
+
+QSharedPointer<Database> ImportWizardPageReview::importKeepassxc2(const QString &filename, const QString &password, const QString &keyfile)
+{
+	KeePass2Reader reader;
+	auto db = reader.importDatabase(filename, password, keyfile);
+	if (reader.hasError())
+	{
+		m_ui->messageWidget->showMessage(reader.errorString(), KMessageWidget::Error, -1);
+	}
+
 	return db;
 }
 

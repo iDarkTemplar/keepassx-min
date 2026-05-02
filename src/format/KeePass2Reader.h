@@ -26,6 +26,9 @@ class KeePass2Reader
 	Q_DECLARE_TR_FUNCTIONS(KdbxReader)
 
 public:
+	QSharedPointer<Database> importDatabase(const QString &filename, const QString &key = QString(), const QString &keyfile = QString());
+	QSharedPointer<Database> importDatabase(const QString &filename, QSharedPointer<const CompositeKey> key);
+
 	bool readDatabase(const QString &filename, QSharedPointer<const CompositeKey> key, Database *db);
 	bool readDatabase(QIODevice *device, QSharedPointer<const CompositeKey> key, Database *db);
 

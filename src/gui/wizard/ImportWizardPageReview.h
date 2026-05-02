@@ -50,6 +50,7 @@ private:
 	QSharedPointer<Database> importBitwarden(const QString &filename, const QString &password);
 	QSharedPointer<Database> importOPVault(const QString &filename, const QString &password);
 	QSharedPointer<Database> importProtonPass(const QString &filename);
+	QSharedPointer<Database> importKeepassxc2(const QString &filename, const QString &password, const QString &keyfile);
 
 	void setupDatabasePreview();
 
