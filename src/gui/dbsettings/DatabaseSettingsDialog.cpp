@@ -106,7 +106,7 @@ void DatabaseSettingsDialog::save()
 		return;
 	}
 
-	emit editFinished(true);
+	Q_EMIT editFinished(true);
 }
 
 void DatabaseSettingsDialog::reject()
@@ -115,5 +115,5 @@ void DatabaseSettingsDialog::reject()
 	m_databaseKeyWidget->discard();
 	m_encryptionWidget->discard();
 
-	emit editFinished(false);
+	Q_EMIT editFinished(false);
 }

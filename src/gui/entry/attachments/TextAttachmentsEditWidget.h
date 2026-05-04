@@ -37,7 +37,7 @@ public:
 	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
 	attachments::Attachment getAttachment() const;
 
-signals:
+Q_SIGNALS:
 	void textChanged();
 	void scrollChanged(double percent);
 	void previewButtonClicked(bool isChecked);

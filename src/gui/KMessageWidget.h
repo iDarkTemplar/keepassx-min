@@ -230,7 +230,7 @@ public:
 	 */
 	bool isShowAnimationRunning() const;
 
-public slots:
+public Q_SLOTS:
 	/**
 	 * Set the text of the message widget to @p text.
 	 * If the message widget is already visible, the text changes on the fly.
@@ -283,7 +283,7 @@ public slots:
 	 */
 	void setIcon(const QIcon &icon);
 
-signals:
+Q_SIGNALS:
 	/**
 	 * This signal is emitted when the user clicks a link in the text label.
 	 * The URL referred to by the href anchor is passed in contents.

@@ -43,10 +43,10 @@ public:
 	void load(const QString &filename);
 	QSharedPointer<Database> buildDatabase();
 
-signals:
+Q_SIGNALS:
 	void message(QString msg);
 
-private slots:
+private Q_SLOTS:
 	void parse();
 	void comboChanged(int index);
 	void skippedChanged(int rows);

@@ -159,7 +159,7 @@ void EntryAttributes::set(const QString &key, const QString &value, bool protect
 
 	if (addAttribute && (!defaultAttribute))
 	{
-		emit aboutToBeAdded(key);
+		Q_EMIT aboutToBeAdded(key);
 	}
 
 	if (addAttribute || changeValue)
@@ -189,15 +189,15 @@ void EntryAttributes::set(const QString &key, const QString &value, bool protect
 
 	if (defaultAttribute && changeValue)
 	{
-		emit defaultKeyModified();
+		Q_EMIT defaultKeyModified();
 	}
 	else if (addAttribute)
 	{
-		emit added(key);
+		Q_EMIT added(key);
 	}
 	else if (shouldEmitModified)
 	{
-		emit customKeyModified(key);
+		Q_EMIT customKeyModified(key);
 	}
 }
 
@@ -210,12 +210,12 @@ void EntryAttributes::remove(const QString &key)
 		return;
 	}
 
-	emit aboutToBeRemoved(key);
+	Q_EMIT aboutToBeRemoved(key);
 
 	m_attributes.remove(key);
 	m_protectedAttributes.remove(key);
 
-	emit removed(key);
+	Q_EMIT removed(key);
 	emitModified();
 }
 
@@ -239,7 +239,7 @@ void EntryAttributes::rename(const QString &oldKey, const QString &newKey)
 	QString data = value(oldKey);
 	bool protect = isProtected(oldKey);
 
-	emit aboutToRename(oldKey, newKey);
+	Q_EMIT aboutToRename(oldKey, newKey);
 
 	m_attributes.remove(oldKey);
 	m_attributes.insert(newKey, data);
@@ -250,7 +250,7 @@ void EntryAttributes::rename(const QString &oldKey, const QString &newKey)
 	}
 
 	emitModified();
-	emit renamed(oldKey, newKey);
+	Q_EMIT renamed(oldKey, newKey);
 }
 
 void EntryAttributes::copyCustomKeysFrom(const EntryAttributes *other)
@@ -260,7 +260,7 @@ void EntryAttributes::copyCustomKeysFrom(const EntryAttributes *other)
 		return;
 	}
 
-	emit aboutToBeReset();
+	Q_EMIT aboutToBeReset();
 
 	// remove all non-default keys
 	const QList<QString> keyList = keys();
@@ -286,7 +286,7 @@ void EntryAttributes::copyCustomKeysFrom(const EntryAttributes *other)
 		}
 	}
 
-	emit reset();
+	Q_EMIT reset();
 	emitModified();
 }
 
@@ -319,12 +319,12 @@ void EntryAttributes::copyDataFrom(const EntryAttributes *other)
 {
 	if (*this != *other)
 	{
-		emit aboutToBeReset();
+		Q_EMIT aboutToBeReset();
 
 		m_attributes = other->m_attributes;
 		m_protectedAttributes = other->m_protectedAttributes;
 
-		emit reset();
+		Q_EMIT reset();
 		emitModified();
 	}
 }
@@ -372,7 +372,7 @@ QRegularExpressionMatch EntryAttributes::matchReference(const QString &text)
 
 void EntryAttributes::clear()
 {
-	emit aboutToBeReset();
+	Q_EMIT aboutToBeReset();
 
 	m_attributes.clear();
 	m_protectedAttributes.clear();
@@ -382,7 +382,7 @@ void EntryAttributes::clear()
 		m_attributes.insert(key, "");
 	}
 
-	emit reset();
+	Q_EMIT reset();
 	emitModified();
 }
 

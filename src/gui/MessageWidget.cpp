@@ -56,7 +56,7 @@ void MessageWidget::showMessage(const QString &text, KMessageWidget::MessageType
 	setMessageType(type);
 	setText(text);
 
-	emit showAnimationStarted();
+	Q_EMIT showAnimationStarted();
 	if (m_animate)
 	{
 		animatedShow();
@@ -64,7 +64,7 @@ void MessageWidget::showMessage(const QString &text, KMessageWidget::MessageType
 	else
 	{
 		show();
-		emit showAnimationFinished();
+		Q_EMIT showAnimationFinished();
 	}
 
 	if (autoHideTimeout > 0)
@@ -79,7 +79,7 @@ void MessageWidget::showMessage(const QString &text, KMessageWidget::MessageType
 
 void MessageWidget::hideMessage()
 {
-	emit hideAnimationStarted();
+	Q_EMIT hideAnimationStarted();
 	if (m_animate)
 	{
 		animatedHide();
@@ -87,7 +87,7 @@ void MessageWidget::hideMessage()
 	else
 	{
 		hide();
-		emit hideAnimationFinished();
+		Q_EMIT hideAnimationFinished();
 	}
 
 	m_autoHideTimer->stop();

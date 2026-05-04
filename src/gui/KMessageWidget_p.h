@@ -64,7 +64,7 @@ public:
 
 	int bestContentHeight() const;
 
-public slots:
+public Q_SLOTS:
 	void slotTimeLineChanged(qreal);
 	void slotTimeLineFinished();
 };

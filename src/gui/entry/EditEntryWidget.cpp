@@ -252,7 +252,7 @@ void EditEntryWidget::emitHistoryEntryActivated(const QModelIndex &index)
 	Entry *entry = m_historyModel->entryFromIndex(index);
 	if (entry)
 	{
-		emit historyEntryActivated(entry);
+		Q_EMIT historyEntryActivated(entry);
 	}
 }
 
@@ -485,7 +485,7 @@ bool EditEntryWidget::commitEntry()
 	{
 		clear();
 		hideMessage();
-		emit editFinished(false);
+		Q_EMIT editFinished(false);
 		return true;
 	}
 
@@ -544,7 +544,7 @@ void EditEntryWidget::acceptEntry()
 	if (commitEntry())
 	{
 		clear();
-		emit editFinished(true);
+		Q_EMIT editFinished(true);
 	}
 }
 
@@ -613,7 +613,7 @@ void EditEntryWidget::cancel()
 	{
 		clear();
 		hideMessage();
-		emit editFinished(false);
+		Q_EMIT editFinished(false);
 		return;
 	}
 
@@ -646,7 +646,7 @@ void EditEntryWidget::cancel()
 	}
 
 	clear();
-	emit editFinished(accepted);
+	Q_EMIT editFinished(accepted);
 }
 
 void EditEntryWidget::clear()

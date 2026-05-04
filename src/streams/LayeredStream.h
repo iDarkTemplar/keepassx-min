@@ -36,7 +36,7 @@ protected:
 
 	QIODevice *const m_baseDevice;
 
-private slots:
+private Q_SLOTS:
 	void closeStream();
 };
 

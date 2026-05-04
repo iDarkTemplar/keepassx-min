@@ -162,7 +162,7 @@ void EntryAttachmentsWidget::setReadOnly(bool readOnly)
 	}
 
 	m_readOnly = readOnly;
-	emit readOnlyChanged(m_readOnly);
+	Q_EMIT readOnlyChanged(m_readOnly);
 }
 
 void EntryAttachmentsWidget::setButtonsVisible(bool buttonsVisible)
@@ -173,7 +173,7 @@ void EntryAttachmentsWidget::setButtonsVisible(bool buttonsVisible)
 	}
 
 	m_buttonsVisible = buttonsVisible;
-	emit buttonsVisibleChanged(m_buttonsVisible);
+	Q_EMIT buttonsVisibleChanged(m_buttonsVisible);
 }
 
 void EntryAttachmentsWidget::insertAttachments()
@@ -206,7 +206,7 @@ void EntryAttachmentsWidget::insertAttachments()
 		errorOccurred(errorMessage);
 	}
 
-	emit widgetUpdated();
+	Q_EMIT widgetUpdated();
 }
 
 void EntryAttachmentsWidget::newAttachments()
@@ -360,7 +360,7 @@ void EntryAttachmentsWidget::removeSelectedAttachments()
 		}
 
 		m_entryAttachments->remove(keys);
-		emit widgetUpdated();
+		Q_EMIT widgetUpdated();
 	}
 }
 
@@ -668,7 +668,7 @@ void EntryAttachmentsWidget::attachmentModifiedExternally(const QString &key, co
 		{
 			m_entryAttachments->set(key, f.readAll());
 			f.close();
-			emit widgetUpdated();
+			Q_EMIT widgetUpdated();
 		}
 		else
 		{

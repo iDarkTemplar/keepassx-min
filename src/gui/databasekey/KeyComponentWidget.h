@@ -98,14 +98,14 @@ protected:
 
 	const QScopedPointer<Ui::KeyComponentWidget> m_ui;
 
-signals:
+Q_SIGNALS:
 	void componentAddChanged(bool added);
 	void componentAddRequested();
 	void componentEditRequested();
 	void editCanceled();
 	void componentRemovalRequested();
 
-private slots:
+private Q_SLOTS:
 	void updateAddStatus(bool added);
 	void doAdd();
 	void doEdit();

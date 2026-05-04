@@ -36,18 +36,18 @@ public:
 	QString rawText() const;
 	QString url() const;
 
-public slots:
+public Q_SLOTS:
 	void setElideMode(Qt::TextElideMode elideMode);
 	void setRawText(const QString &rawText);
 	void setUrl(const QString &url);
 	void clear();
 
-signals:
+Q_SIGNALS:
 	void elideModeChanged(Qt::TextElideMode elideMode);
 	void rawTextChanged(QString rawText);
 	void urlChanged(QString url);
 
-private slots:
+private Q_SLOTS:
 	void updateElidedText();
 
 private:

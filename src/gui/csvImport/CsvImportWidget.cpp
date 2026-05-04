@@ -237,7 +237,7 @@ void CsvImportWidget::load(const QString &filename)
 void CsvImportWidget::parse()
 {
 	// Hide any previous messages
-	emit message(QString());
+	Q_EMIT message(QString());
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	QApplication::processEvents();
@@ -245,7 +245,7 @@ void CsvImportWidget::parse()
 	configParser();
 	if (!m_parserModel->parse())
 	{
-		emit message(tr("Failed to parse CSV file: %1").arg(formatStatusText()));
+		Q_EMIT message(tr("Failed to parse CSV file: %1").arg(formatStatusText()));
 	}
 
 	updatePreview();

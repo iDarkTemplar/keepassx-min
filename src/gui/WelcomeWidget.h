@@ -36,7 +36,7 @@ public:
 
 	void refreshLastDatabases();
 
-signals:
+Q_SIGNALS:
 	void newDatabase();
 	void openDatabase();
 	void openDatabaseFile(QString);
@@ -46,7 +46,7 @@ protected:
 	void keyPressEvent(QKeyEvent *event) override;
 	void showEvent(QShowEvent *event) override;
 
-private slots:
+private Q_SLOTS:
 	void openDatabaseFromFile(QListWidgetItem *item);
 
 private:

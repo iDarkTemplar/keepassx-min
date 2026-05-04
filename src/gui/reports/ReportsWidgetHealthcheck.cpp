@@ -335,7 +335,7 @@ void ReportsWidgetHealthcheck::emitEntryActivated(const QModelIndex &index)
 	const auto entry = row.second;
 	if (group && entry)
 	{
-		emit entryActivated(const_cast<Entry *>(entry));
+		Q_EMIT entryActivated(const_cast<Entry*>(entry));
 	}
 }
 
@@ -358,7 +358,7 @@ void ReportsWidgetHealthcheck::customMenuRequested(QPoint pos)
 		connect(edit, &QAction::triggered, edit, [this, selected] {
 			auto row = m_modelProxy->mapToSource(selected[0]).row();
 			auto entry = m_rowToEntry[row].second;
-			emit entryActivated(entry);
+			Q_EMIT entryActivated(entry);
 		});
 	}
 

@@ -426,7 +426,7 @@ QMimeData* GroupModel::mimeData(const QModelIndexList &indexes) const
 void GroupModel::groupDataChanged(Group *group)
 {
 	QModelIndex ix = index(group);
-	emit dataChanged(ix, ix);
+	Q_EMIT dataChanged(ix, ix);
 }
 
 void GroupModel::groupAboutToRemove(Group *group)
@@ -486,7 +486,7 @@ void GroupModel::groupMoved()
 
 void GroupModel::sortChildren(Group *rootGroup, bool reverse)
 {
-	emit layoutAboutToBeChanged();
+	Q_EMIT layoutAboutToBeChanged();
 
 	QList<QModelIndex> oldIndexes;
 	collectIndexesRecursively(oldIndexes, rootGroup->children());
@@ -501,7 +501,7 @@ void GroupModel::sortChildren(Group *rootGroup, bool reverse)
 		changePersistentIndex(oldIndexes[i], newIndexes[i]);
 	}
 
-	emit layoutChanged();
+	Q_EMIT layoutChanged();
 }
 
 void GroupModel::collectIndexesRecursively(QList<QModelIndex> &indexes, QList<Group *> groups)

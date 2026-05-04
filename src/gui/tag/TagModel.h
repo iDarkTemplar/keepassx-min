@@ -43,7 +43,7 @@ public:
 
 	TagType itemType(const QModelIndex &index);
 
-private slots:
+private Q_SLOTS:
 	void updateTagList();
 
 private:

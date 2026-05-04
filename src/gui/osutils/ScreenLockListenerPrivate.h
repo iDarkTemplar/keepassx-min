@@ -29,7 +29,7 @@ public:
 protected:
 	explicit ScreenLockListenerPrivate(QWidget *parent = nullptr);
 
-signals:
+Q_SIGNALS:
 	void screenLocked();
 };
 

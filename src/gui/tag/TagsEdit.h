@@ -55,7 +55,7 @@ public:
 
 	void setReadOnly(bool readOnly);
 
-signals:
+Q_SIGNALS:
 	void tagsEdited();
 
 protected:

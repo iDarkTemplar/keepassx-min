@@ -51,7 +51,7 @@ public:
 	void displayGroup(Group *group);
 	void displaySearch(const QList<Entry *> &entries);
 
-signals:
+Q_SIGNALS:
 	void entryActivated(Entry *entry, EntryModel::ModelColumn column);
 	void entrySelectionChanged(Entry *entry);
 	void viewStateChanged();
@@ -62,7 +62,7 @@ protected:
 	void showEvent(QShowEvent *event) override;
 	void startDrag(Qt::DropActions supportedActions) override;
 
-private slots:
+private Q_SLOTS:
 	void emitEntryActivated(const QModelIndex &index);
 	void showHeaderMenu(const QPoint &position);
 	void toggleColumnVisibility(QAction *action);

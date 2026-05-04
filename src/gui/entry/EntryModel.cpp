@@ -692,7 +692,7 @@ void EntryModel::entryMovedDown()
 void EntryModel::entryDataChanged(Entry *entry)
 {
 	int row = m_entries.indexOf(entry);
-	emit dataChanged(index(row, 0), index(row, columnCount() - 1));
+	Q_EMIT dataChanged(index(row, 0), index(row, columnCount() - 1));
 }
 
 void EntryModel::onConfigChanged(Config::ConfigKey key)
@@ -700,10 +700,10 @@ void EntryModel::onConfigChanged(Config::ConfigKey key)
 	switch (key)
 	{
 	case Config::GUI_HideUsernames:
-		emit dataChanged(index(0, Username), index(rowCount() - 1, Username), {Qt::DisplayRole});
+		Q_EMIT dataChanged(index(0, Username), index(rowCount() - 1, Username), {Qt::DisplayRole});
 		break;
 	case Config::GUI_HidePasswords:
-		emit dataChanged(index(0, Password), index(rowCount() - 1, Password), {Qt::DisplayRole});
+		Q_EMIT dataChanged(index(0, Password), index(rowCount() - 1, Password), {Qt::DisplayRole});
 		break;
 	default:
 		break;

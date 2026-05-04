@@ -36,7 +36,7 @@ public:
 	Q_DISABLE_COPY(DatabaseSettingWidgetMetaData);
 	~DatabaseSettingWidgetMetaData();
 
-public slots:
+public Q_SLOTS:
 	void initialize() override;
 	void uninitialize() override;
 	bool saveSettings() override;

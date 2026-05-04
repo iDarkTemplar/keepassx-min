@@ -204,7 +204,7 @@ void DatabaseOpenDialog::done(int result)
 {
 	hide();
 
-	emit dialogFinished(result == QDialog::Accepted, m_currentDbWidget);
+	Q_EMIT dialogFinished(result == QDialog::Accepted, m_currentDbWidget);
 	clearForms();
 
 	QDialog::done(result);

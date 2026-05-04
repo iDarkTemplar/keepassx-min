@@ -66,7 +66,7 @@ void ElidedLabel::setElideMode(Qt::TextElideMode elideMode)
 	}
 
 	m_elideMode = elideMode;
-	emit elideModeChanged(m_elideMode);
+	Q_EMIT elideModeChanged(m_elideMode);
 }
 
 void ElidedLabel::setRawText(const QString &elidedText)
@@ -77,7 +77,7 @@ void ElidedLabel::setRawText(const QString &elidedText)
 	}
 
 	m_rawText = elidedText;
-	emit rawTextChanged(m_rawText);
+	Q_EMIT rawTextChanged(m_rawText);
 }
 
 void ElidedLabel::setUrl(const QString &url)
@@ -88,7 +88,7 @@ void ElidedLabel::setUrl(const QString &url)
 	}
 
 	m_url = url;
-	emit urlChanged(m_url);
+	Q_EMIT urlChanged(m_url);
 }
 
 void ElidedLabel::clear()

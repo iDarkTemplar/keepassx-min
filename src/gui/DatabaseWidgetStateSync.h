@@ -28,12 +28,12 @@ class DatabaseWidgetStateSync: public QObject
 public:
 	explicit DatabaseWidgetStateSync(QObject *parent = nullptr);
 
-public slots:
+public Q_SLOTS:
 	void setActive(DatabaseWidget *dbWidget);
 	void applySplitterSizes();
 	void applyViewState();
 
-private slots:
+private Q_SLOTS:
 	void blockUpdates();
 	void updateSplitterSizes();
 	void updateViewState();

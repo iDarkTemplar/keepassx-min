@@ -345,7 +345,7 @@ void Group::setName(const QString &name)
 {
 	if (set(m_data.name, name))
 	{
-		emit groupDataChanged(this);
+		Q_EMIT groupDataChanged(this);
 	}
 }
 
@@ -366,7 +366,7 @@ void Group::setIcon(int iconNumber)
 		m_data.iconNumber = iconNumber;
 		m_data.customIcon = QUuid();
 		emitModified();
-		emit groupDataChanged(this);
+		Q_EMIT groupDataChanged(this);
 	}
 }
 
@@ -377,7 +377,7 @@ void Group::setIcon(const QUuid &uuid)
 		m_data.customIcon = uuid;
 		m_data.iconNumber = 0;
 		emitModified();
-		emit groupDataChanged(this);
+		Q_EMIT groupDataChanged(this);
 	}
 }
 
@@ -391,7 +391,7 @@ void Group::setExpanded(bool expanded)
 	if (m_data.isExpanded != expanded)
 	{
 		m_data.isExpanded = expanded;
-		emit groupNonDataChange();
+		Q_EMIT groupNonDataChange();
 	}
 }
 
@@ -488,13 +488,13 @@ void Group::setParent(Group *parent, int index, bool trackPrevious)
 		}
 
 		QObject::setParent(parent);
-		emit groupAboutToAdd(this, index);
+		Q_EMIT groupAboutToAdd(this, index);
 		Q_ASSERT(index <= parent->m_children.size());
 		parent->m_children.insert(index, this);
 	}
 	else
 	{
-		emit aboutToMove(this, parent, index);
+		Q_EMIT aboutToMove(this, parent, index);
 		if (trackPrevious && m_parent != parent)
 		{
 			setPreviousParentGroup(m_parent);
@@ -516,11 +516,11 @@ void Group::setParent(Group *parent, int index, bool trackPrevious)
 
 	if (!moveWithinDatabase)
 	{
-		emit groupAdded();
+		Q_EMIT groupAdded();
 	}
 	else
 	{
-		emit groupMoved();
+		Q_EMIT groupMoved();
 	}
 }
 
@@ -1046,7 +1046,7 @@ void Group::copyDataFrom(const Group *other)
 {
 	if (set(m_data, other->m_data))
 	{
-		emit groupDataChanged(this);
+		Q_EMIT groupDataChanged(this);
 	}
 
 	m_customData->copyDataFrom(other->m_customData);
@@ -1058,7 +1058,7 @@ void Group::addEntry(Entry *entry)
 	Q_ASSERT(entry);
 	Q_ASSERT(!m_entries.contains(entry));
 
-	emit entryAboutToAdd(entry);
+	Q_EMIT entryAboutToAdd(entry);
 
 	m_entries << entry;
 	connect(entry, &Entry::entryDataChanged, this, &Group::entryDataChanged);
@@ -1068,7 +1068,7 @@ void Group::addEntry(Entry *entry)
 	}
 
 	emitModified();
-	emit entryAdded(entry);
+	Q_EMIT entryAdded(entry);
 }
 
 void Group::removeEntry(Entry *entry)
@@ -1077,7 +1077,7 @@ void Group::removeEntry(Entry *entry)
 		Q_FUNC_INFO,
 		QString("Group %1 does not contain %2").arg(this->name(), entry->title()).toLatin1());
 
-	emit entryAboutToRemove(entry);
+	Q_EMIT entryAboutToRemove(entry);
 
 	entry->disconnect(this);
 	if (m_db)
@@ -1087,7 +1087,7 @@ void Group::removeEntry(Entry *entry)
 
 	m_entries.removeAll(entry);
 	emitModified();
-	emit entryRemoved(entry);
+	Q_EMIT entryRemoved(entry);
 }
 
 void Group::moveEntryUp(Entry *entry)
@@ -1098,10 +1098,10 @@ void Group::moveEntryUp(Entry *entry)
 		return;
 	}
 
-	emit entryAboutToMoveUp(row);
+	Q_EMIT entryAboutToMoveUp(row);
 	m_entries.move(row, row - 1);
-	emit entryMovedUp();
-	emit groupNonDataChange();
+	Q_EMIT entryMovedUp();
+	Q_EMIT groupNonDataChange();
 }
 
 void Group::moveEntryDown(Entry *entry)
@@ -1112,10 +1112,10 @@ void Group::moveEntryDown(Entry *entry)
 		return;
 	}
 
-	emit entryAboutToMoveDown(row);
+	Q_EMIT entryAboutToMoveDown(row);
 	m_entries.move(row, row + 1);
-	emit entryMovedDown();
-	emit groupNonDataChange();
+	Q_EMIT entryMovedDown();
+	Q_EMIT groupNonDataChange();
 }
 
 void Group::connectDatabaseSignalsRecursive(Database *db)
@@ -1162,10 +1162,10 @@ void Group::cleanupParent()
 {
 	if (m_parent)
 	{
-		emit groupAboutToRemove(this);
+		Q_EMIT groupAboutToRemove(this);
 		m_parent->m_children.removeAll(this);
 		emitModified();
-		emit groupRemoved();
+		Q_EMIT groupRemoved();
 	}
 }
 

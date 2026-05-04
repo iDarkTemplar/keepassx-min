@@ -266,13 +266,13 @@ public:
 	bool canUpdateTimeinfo() const;
 	void setUpdateTimeinfo(bool value);
 
-signals:
+Q_SIGNALS:
 	/**
 	 * Emitted when a default attribute has been changed.
 	 */
 	void entryDataChanged(Entry *entry);
 
-private slots:
+private Q_SLOTS:
 	void emitDataChanged();
 	void updateTimeinfo();
 	void updateModifiedSinceBegin();

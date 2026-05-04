@@ -63,7 +63,7 @@ void WelcomeWidget::openDatabaseFromFile(QListWidgetItem *item)
 		return;
 	}
 
-	emit openDatabaseFile(item->text());
+	Q_EMIT openDatabaseFile(item->text());
 }
 
 void WelcomeWidget::removeFromLastDatabases(QListWidgetItem *item)

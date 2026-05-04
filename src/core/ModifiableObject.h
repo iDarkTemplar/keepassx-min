@@ -34,7 +34,7 @@ public:
 	 */
 	bool modifiedSignalEnabled() const;
 
-public slots:
+public Q_SLOTS:
 	/**
 	 * @brief set whether the modified signal should be emitted from this object and all its children.
 	 *
@@ -48,7 +48,7 @@ public slots:
 protected:
 	void emitModified();
 
-signals:
+Q_SIGNALS:
 	void modified();
 	void emitModifiedChanged(bool value);
 

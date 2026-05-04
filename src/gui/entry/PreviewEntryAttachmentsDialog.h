@@ -39,7 +39,7 @@ public:
 
 	void setAttachment(attachments::Attachment attachment);
 
-signals:
+Q_SIGNALS:
 	void openAttachment(const QString &name);
 	void saveAttachment(const QString &name);
 

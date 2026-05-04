@@ -31,7 +31,7 @@ public:
 
 	double calculateFitInViewFactor() const;
 
-signals:
+Q_SIGNALS:
 	void ctrlWheelEvent(QWheelEvent *event);
 
 protected:

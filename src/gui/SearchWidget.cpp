@@ -51,7 +51,7 @@ SearchWidget::SearchWidget(QWidget *parent)
 	connect(m_ui->searchEdit, &QLineEdit::textChanged, this, &SearchWidget::updateSaveButtonVisibility);
 	connect(m_ui->helpIcon, &QAction::triggered, this, &SearchWidget::toggleHelp);
 	connect(m_ui->searchIcon, &QAction::triggered, this, &SearchWidget::showSearchMenu);
-	connect(m_ui->saveIcon, &QAction::triggered, this, [this] { emit saveSearch(m_ui->searchEdit->text()); });
+	connect(m_ui->saveIcon, &QAction::triggered, this, [this] { Q_EMIT saveSearch(m_ui->searchEdit->text()); });
 	connect(m_searchTimer, &QTimer::timeout, this, &SearchWidget::startSearch);
 	connect(m_clearSearchTimer, &QTimer::timeout, this, &SearchWidget::clearSearch);
 	connect(this, &SearchWidget::escapePressed, this, &SearchWidget::clearSearch);
@@ -104,7 +104,7 @@ bool SearchWidget::eventFilter(QObject *obj, QEvent *event)
 		QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
 		if (keyEvent->key() == Qt::Key_Escape)
 		{
-			emit escapePressed();
+			Q_EMIT escapePressed();
 			return true;
 		}
 		else if (keyEvent->matches(QKeySequence::Copy))
@@ -135,7 +135,7 @@ bool SearchWidget::eventFilter(QObject *obj, QEvent *event)
 			if (m_ui->searchEdit->cursorPosition() == m_ui->searchEdit->text().length())
 			{
 				// If down is pressed at EOL, move the focus to the entry view
-				emit downPressed();
+				Q_EMIT downPressed();
 				return true;
 			}
 			else
@@ -158,7 +158,7 @@ bool SearchWidget::eventFilter(QObject *obj, QEvent *event)
 			}
 		}
 
-		emit lostFocus();
+		Q_EMIT lostFocus();
 	}
 	else if (event->type() == QEvent::FocusIn)
 	{
@@ -193,8 +193,8 @@ void SearchWidget::databaseChanged(DatabaseWidget *dbWidget)
 		// Set current search text from this database
 		m_ui->searchEdit->setText(dbWidget->getCurrentSearch());
 		// Enforce search policy
-		emit caseSensitiveChanged(m_actionCaseSensitive->isChecked());
-		emit limitGroupChanged(m_actionLimitGroup->isChecked());
+		Q_EMIT caseSensitiveChanged(m_actionCaseSensitive->isChecked());
+		Q_EMIT limitGroupChanged(m_actionLimitGroup->isChecked());
 	}
 	else
 	{
@@ -231,13 +231,13 @@ void SearchWidget::resetSearchClearTimer()
 
 void SearchWidget::updateCaseSensitive()
 {
-	emit caseSensitiveChanged(m_actionCaseSensitive->isChecked());
+	Q_EMIT caseSensitiveChanged(m_actionCaseSensitive->isChecked());
 }
 
 void SearchWidget::updateLimitGroup()
 {
 	config()->set(Config::SearchLimitGroup, m_actionLimitGroup->isChecked());
-	emit limitGroupChanged(m_actionLimitGroup->isChecked());
+	Q_EMIT limitGroupChanged(m_actionLimitGroup->isChecked());
 }
 
 void SearchWidget::setCaseSensitive(bool state)
@@ -262,7 +262,7 @@ void SearchWidget::clearSearch()
 {
 	m_ui->searchEdit->clear();
 	m_ui->saveIcon->setVisible(false);
-	emit searchCanceled();
+	Q_EMIT searchCanceled();
 }
 
 void SearchWidget::toggleHelp()
@@ -287,11 +287,11 @@ void SearchWidget::onReturnPressed()
 	if (m_actionWaitForEnter->isChecked())
 	{
 		m_ui->saveIcon->setVisible(true);
-		emit search(m_ui->searchEdit->text());
+		Q_EMIT search(m_ui->searchEdit->text());
 	}
 	else
 	{
-		emit enterPressed();
+		Q_EMIT enterPressed();
 	}
 }
 
@@ -301,7 +301,7 @@ void SearchWidget::performRequestedSearch(const QString &text)
 	// without any delay, regardless of the "Press Enter to search" setting
 	m_ui->searchEdit->setText(text);
 	m_ui->saveIcon->setVisible(!text.isEmpty());
-	emit search(text);
+	Q_EMIT search(text);
 }
 
 void SearchWidget::updateSaveButtonVisibility()

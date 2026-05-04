@@ -38,7 +38,7 @@ public:
 	Q_DISABLE_COPY(DatabaseSettingsWidgetEncryption);
 	~DatabaseSettingsWidgetEncryption();
 
-public slots:
+public Q_SLOTS:
 	void initialize() override;
 	void uninitialize() override;
 	bool saveSettings() override;
@@ -46,7 +46,7 @@ public slots:
 protected:
 	void showEvent(QShowEvent *event) override;
 
-private slots:
+private Q_SLOTS:
 	void benchmarkTransformRounds(int millisecs = Kdf::DEFAULT_ENCRYPTION_TIME);
 	void memoryChanged(int value);
 	void parallelismChanged(int value);

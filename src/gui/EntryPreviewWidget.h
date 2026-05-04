@@ -36,20 +36,20 @@ public:
 	explicit EntryPreviewWidget(QWidget *parent = nullptr);
 	~EntryPreviewWidget();
 
-public slots:
+public Q_SLOTS:
 	void setEntry(Entry *selectedEntry);
 	void setGroup(Group *selectedGroup);
 	void setDatabaseMode(DatabaseWidget::Mode mode);
 	void refresh();
 	void clear();
 
-signals:
+Q_SIGNALS:
 	void copyTextRequested(const QString &text);
 
 protected:
 	bool eventFilter(QObject *object, QEvent *event) override;
 
-private slots:
+private Q_SLOTS:
 	void updateEntryHeaderLine();
 	void updateEntryTotp();
 	void updateEntryGeneralTab();

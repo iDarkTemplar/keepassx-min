@@ -44,19 +44,19 @@ public:
 	bool isReadOnly() const;
 	bool isButtonsVisible() const;
 
-public slots:
+public Q_SLOTS:
 	void linkAttachments(EntryAttachments *attachments);
 	void unlinkAttachments();
 	void setReadOnly(bool readOnly);
 	void setButtonsVisible(bool isButtonsVisible);
 
-signals:
+Q_SIGNALS:
 	void errorOccurred(const QString &error);
 	void readOnlyChanged(bool readOnly);
 	void buttonsVisibleChanged(bool isButtonsVisible);
 	void widgetUpdated();
 
-private slots:
+private Q_SLOTS:
 	void insertAttachments();
 	void newAttachments();
 	void editSelectedAttachment();

@@ -65,7 +65,7 @@ void EntryAttachments::set(const QString &key, const QByteArray &value)
 
 	if (addAttachment)
 	{
-		emit aboutToBeAdded(key);
+		Q_EMIT aboutToBeAdded(key);
 	}
 
 	if (addAttachment || (m_attachments.value(key) != value))
@@ -76,11 +76,11 @@ void EntryAttachments::set(const QString &key, const QByteArray &value)
 
 	if (addAttachment)
 	{
-		emit added(key);
+		Q_EMIT added(key);
 	}
 	else
 	{
-		emit keyModified(key);
+		Q_EMIT keyModified(key);
 	}
 
 	if (shouldEmitModified)
@@ -97,7 +97,7 @@ void EntryAttachments::remove(const QString &key)
 		return;
 	}
 
-	emit aboutToBeRemoved(key);
+	Q_EMIT aboutToBeRemoved(key);
 
 	m_attachments.remove(key);
 
@@ -106,7 +106,7 @@ void EntryAttachments::remove(const QString &key)
 		disconnectAndEraseExternalFile(m_openedAttachments.value(key));
 	}
 
-	emit removed(key);
+	Q_EMIT removed(key);
 	emitModified();
 }
 
@@ -154,7 +154,7 @@ void EntryAttachments::clear()
 		return;
 	}
 
-	emit aboutToBeReset();
+	Q_EMIT aboutToBeReset();
 
 	m_attachments.clear();
 
@@ -164,7 +164,7 @@ void EntryAttachments::clear()
 		disconnectAndEraseExternalFile(path);
 	}
 
-	emit reset();
+	Q_EMIT reset();
 	emitModified();
 }
 
@@ -198,7 +198,7 @@ void EntryAttachments::copyDataFrom(const EntryAttachments *other)
 {
 	if (*this != *other)
 	{
-		emit aboutToBeReset();
+		Q_EMIT aboutToBeReset();
 
 		// Reset all externally opened files
 		const auto externalPath = m_openedAttachments.values();
@@ -209,7 +209,7 @@ void EntryAttachments::copyDataFrom(const EntryAttachments *other)
 
 		m_attachments = other->m_attachments;
 
-		emit reset();
+		Q_EMIT reset();
 		emitModified();
 	}
 }
@@ -315,6 +315,6 @@ void EntryAttachments::attachmentFileModified(const QString &path)
 	auto it = m_openedAttachmentsInverse.find(path);
 	if (it != m_openedAttachmentsInverse.end())
 	{
-		emit valueModifiedExternally(it.value(), path);
+		Q_EMIT valueModifiedExternally(it.value(), path);
 	}
 }

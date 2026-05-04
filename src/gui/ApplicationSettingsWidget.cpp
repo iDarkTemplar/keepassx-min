@@ -360,7 +360,7 @@ void ApplicationSettingsWidget::resetSettings()
 
 	// Refresh the settings widget and notify listeners
 	loadSettings();
-	emit settingsReset();
+	Q_EMIT settingsReset();
 }
 
 void ApplicationSettingsWidget::importSettings()
@@ -379,7 +379,7 @@ void ApplicationSettingsWidget::importSettings()
 	}
 
 	loadSettings();
-	emit settingsReset();
+	Q_EMIT settingsReset();
 }
 
 void ApplicationSettingsWidget::exportSettings()

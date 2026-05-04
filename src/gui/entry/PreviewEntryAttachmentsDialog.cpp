@@ -46,11 +46,11 @@ PreviewEntryAttachmentsDialog::PreviewEntryAttachmentsDialog(QWidget *parent)
 		const auto attachment = m_ui->attachmentWidget->getAttachment();
 		if (pressedButton == QDialogButtonBox::Open)
 		{
-			emit openAttachment(attachment.name);
+			Q_EMIT openAttachment(attachment.name);
 		}
 		else if (pressedButton == QDialogButtonBox::Save)
 		{
-			emit saveAttachment(attachment.name);
+			Q_EMIT saveAttachment(attachment.name);
 		}
 	});
 }

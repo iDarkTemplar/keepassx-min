@@ -36,7 +36,7 @@ public:
 
 	const QSharedPointer<Database> getDatabase() const;
 
-signals:
+Q_SIGNALS:
 	/**
 	 * Can be emitted to indicate size changes and allow parents widgets to adjust properly.
 	 */

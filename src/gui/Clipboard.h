@@ -35,13 +35,13 @@ public:
 
 	static Clipboard* instance();
 
-public slots:
+public Q_SLOTS:
 	void clearCopiedText();
 
-signals:
+Q_SIGNALS:
 	void updateCountdown(int percentage, QString message);
 
-private slots:
+private Q_SLOTS:
 	void countdownTick();
 
 private:

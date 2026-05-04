@@ -41,13 +41,13 @@ public:
 
 	void loadSettings(QSharedPointer<Database> db) override;
 
-public slots:
+public Q_SLOTS:
 	void initialize() override;
 	void uninitialize() override;
 	bool saveSettings() override;
 	void discard() override;
 
-private slots:
+private Q_SLOTS:
 	void showAdditionalKeyOptions();
 	void markDirty();
 

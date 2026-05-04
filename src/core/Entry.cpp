@@ -1503,7 +1503,7 @@ void Entry::setGroup(Group *group, bool trackPrevious)
 
 void Entry::emitDataChanged()
 {
-	emit entryDataChanged(this);
+	Q_EMIT entryDataChanged(this);
 }
 
 const Database* Entry::database() const

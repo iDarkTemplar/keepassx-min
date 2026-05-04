@@ -121,7 +121,7 @@ public:
 	QHash<Config::ConfigKey, QList<int>> splitterSizes() const;
 	void setSplitterSizes(const QHash<Config::ConfigKey, QList<int>> &sizes);
 
-signals:
+Q_SIGNALS:
 	// relayed Database signals
 	void databaseFilePathChanged(const QString &oldPath, const QString &newPath);
 	void databaseModified();
@@ -159,7 +159,7 @@ signals:
 	void reloadBegin();
 	void reloadEnd();
 
-public slots:
+public Q_SLOTS:
 	bool lock();
 	bool save();
 	bool saveAs();
@@ -230,7 +230,7 @@ protected:
 	void showEvent(QShowEvent *event) override;
 	bool focusNextPrevChild(bool next) override;
 
-private slots:
+private Q_SLOTS:
 	void entryActivationSignalReceived(Entry *entry, EntryModel::ModelColumn column);
 	void switchBackToEntryEdit();
 	void switchToHistoryView(Entry *entry);

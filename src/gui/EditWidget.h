@@ -54,12 +54,12 @@ public:
 	void showApplyButton(bool state);
 	virtual bool isModified() const;
 
-signals:
+Q_SIGNALS:
 	void apply();
 	void accepted();
 	void rejected();
 
-protected slots:
+protected Q_SLOTS:
 	void showMessage(const QString &text, MessageWidget::MessageType type);
 	void hideMessage();
 	void setModified(bool state = true);

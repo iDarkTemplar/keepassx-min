@@ -51,10 +51,10 @@ public:
 	void clearForms();
 	void showMessage(const QString &text, MessageWidget::MessageType type, int autoHideTimeout);
 
-signals:
+Q_SIGNALS:
 	void dialogFinished(bool accepted, DatabaseWidget *dbWidget);
 
-public slots:
+public Q_SLOTS:
 	void done(int result) override;
 	void complete(bool accepted);
 	void tabChanged(int index);

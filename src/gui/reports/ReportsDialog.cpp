@@ -103,7 +103,7 @@ void ReportsDialog::addPage(QSharedPointer<IReportsPage> page)
 
 void ReportsDialog::reject()
 {
-	emit editFinished(true);
+	Q_EMIT editFinished(true);
 }
 
 void ReportsDialog::entryActivationSignalReceived(Entry *entry)

@@ -161,7 +161,7 @@ public:
 	static bool isPortable();
 	static QString portableConfigDir();
 
-signals:
+Q_SIGNALS:
 	void changed(ConfigKey key);
 
 private:

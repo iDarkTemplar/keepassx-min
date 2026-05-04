@@ -40,10 +40,10 @@ public:
 	void load(const QSharedPointer<Database> &db);
 	void showDatabaseKeySettings(int index = 0);
 
-signals:
+Q_SIGNALS:
 	void editFinished(bool accepted);
 
-private slots:
+private Q_SLOTS:
 	void save();
 	void reject();
 

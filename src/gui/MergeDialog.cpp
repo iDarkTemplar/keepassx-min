@@ -201,7 +201,7 @@ void MergeDialog::performMerge()
 			changes.size());
 	}
 
-	emit databaseMerged(!changes.isEmpty());
+	Q_EMIT databaseMerged(!changes.isEmpty());
 	done(QDialog::Accepted);
 }
 

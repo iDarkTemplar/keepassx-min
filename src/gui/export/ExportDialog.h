@@ -42,10 +42,10 @@ public:
 		BY_NAME_DESC = 2
 	};
 
-signals:
+Q_SIGNALS:
 	void exportFailed(QString reason);
 
-private slots:
+private Q_SLOTS:
 	void exportDatabase();
 
 private:

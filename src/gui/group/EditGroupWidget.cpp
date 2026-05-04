@@ -166,7 +166,7 @@ void EditGroupWidget::doSave()
 {
 	doApply();
 	clear();
-	emit editFinished(true);
+	Q_EMIT editFinished(true);
 }
 
 void EditGroupWidget::doApply()
@@ -245,7 +245,7 @@ void EditGroupWidget::doCancel()
 	}
 
 	clear();
-	emit editFinished(false);
+	Q_EMIT editFinished(false);
 }
 
 void EditGroupWidget::clear()

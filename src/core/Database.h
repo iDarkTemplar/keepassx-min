@@ -155,14 +155,14 @@ public:
 
 	static Database* databaseByUuid(const QUuid &uuid);
 
-public slots:
+public Q_SLOTS:
 	void markAsModified();
 	void markAsClean();
 	void updateCommonUsernames(int topN = 10);
 	void updateTagList();
 	void markNonDataChange();
 
-signals:
+Q_SIGNALS:
 	void filePathChanged(const QString &oldPath, const QString &newPath);
 	void groupDataChanged(Group *group);
 	void groupAboutToAdd(Group *group, int index);

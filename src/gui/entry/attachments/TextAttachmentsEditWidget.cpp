@@ -32,7 +32,7 @@ TextAttachmentsEditWidget::TextAttachmentsEditWidget(QWidget *parent)
 	connect(m_ui->attachmentsTextEdit->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int value) {
 		// Return a percentage of document scroll
 		auto percent = static_cast<double>(value) / m_ui->attachmentsTextEdit->verticalScrollBar()->maximum();
-		emit scrollChanged(percent);
+		Q_EMIT scrollChanged(percent);
 	});
 }
 

@@ -56,10 +56,10 @@ public:
 	void load(const QSharedPointer<Database> &db);
 	void addPage(QSharedPointer<IReportsPage> page);
 
-signals:
+Q_SIGNALS:
 	void editFinished(bool accepted);
 
-private slots:
+private Q_SLOTS:
 	void reject();
 	void entryActivationSignalReceived(Entry *entry);
 	void switchToMainView(bool previousDialogAccepted);

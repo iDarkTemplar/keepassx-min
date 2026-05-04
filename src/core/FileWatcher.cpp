@@ -26,7 +26,7 @@ FileWatcher::FileWatcher(QObject *parent)
 {
 	connect(&m_fileWatcher, &QFileSystemWatcher::fileChanged,this, &FileWatcher::checkFileChanged);
 	connect(&m_fileChecksumTimer, &QTimer::timeout, this, &FileWatcher::checkFileChanged);
-	connect(&m_fileChangeDelayTimer, &QTimer::timeout, this, [this] { emit fileChanged(m_filePath); });
+	connect(&m_fileChangeDelayTimer, &QTimer::timeout, this, [this] { Q_EMIT fileChanged(m_filePath); });
 	m_fileChangeDelayTimer.setSingleShot(true);
 	m_fileIgnoreDelayTimer.setSingleShot(true);
 }

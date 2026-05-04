@@ -33,7 +33,7 @@ public:
 
 	void setCurrentDatabaseWidget(DatabaseWidget *object);
 
-signals:
+Q_SIGNALS:
 	// Direction: from object to database
 
 	// SearchWidget

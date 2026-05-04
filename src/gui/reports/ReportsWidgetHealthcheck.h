@@ -47,10 +47,10 @@ public:
 protected:
 	void showEvent(QShowEvent *event) override;
 
-signals:
+Q_SIGNALS:
 	void entryActivated(Entry *);
 
-public slots:
+public Q_SLOTS:
 	void calculateHealth();
 	void emitEntryActivated(const QModelIndex &index);
 	void customMenuRequested(QPoint);

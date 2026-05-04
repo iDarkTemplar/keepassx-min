@@ -159,7 +159,7 @@ void EntryAttributesModel::attributeChange(const QString &key)
 {
 	int row = m_attributes.indexOf(key);
 	Q_ASSERT(row != -1);
-	emit dataChanged(index(row, 0), index(row, columnCount() - 1));
+	Q_EMIT dataChanged(index(row, 0), index(row, columnCount() - 1));
 }
 
 void EntryAttributesModel::attributeAboutToAdd(const QString &key)
@@ -230,7 +230,7 @@ void EntryAttributesModel::attributeRename(const QString &oldKey, const QString 
 		m_nextRenameDataChange = false;
 
 		QModelIndex keyIndex = index(m_attributes.indexOf(newKey), 0);
-		emit dataChanged(keyIndex, keyIndex);
+		Q_EMIT dataChanged(keyIndex, keyIndex);
 	}
 }
 

@@ -174,7 +174,7 @@ public:
 
 	void sortChildrenRecursively(bool reverse = false);
 
-signals:
+Q_SIGNALS:
 	void groupDataChanged(Group *group);
 	void groupAboutToAdd(Group *group, int index);
 	void groupAdded();
@@ -193,7 +193,7 @@ signals:
 	void entryMovedDown();
 	void entryDataChanged(Entry *entry);
 
-private slots:
+private Q_SLOTS:
 	void updateTimeinfo();
 
 private:

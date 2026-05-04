@@ -58,11 +58,11 @@ public:
 
 	static PasswordGeneratorWidget *popupGenerator(QWidget *parent = nullptr);
 
-signals:
+Q_SIGNALS:
 	void appliedPassword(const QString &password);
 	void closed();
 
-public slots:
+public Q_SLOTS:
 	void regeneratePassword();
 	void applyPassword();
 	void copyPassword();
@@ -73,7 +73,7 @@ public slots:
 protected:
 	void closeEvent(QCloseEvent *event) override;
 
-private slots:
+private Q_SLOTS:
 	void updateButtonsEnabled(const QString &password);
 	void updatePasswordStrength();
 	void updatePasswordLengthLabel(const QString &password);

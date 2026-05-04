@@ -32,7 +32,7 @@ class SettingsWidget: public QWidget
 public:
 	explicit SettingsWidget(QWidget *parent = nullptr);
 
-public slots:
+public Q_SLOTS:
 	/**
 	 * Initialize settings widget.
 	 */
@@ -55,7 +55,7 @@ public slots:
 	 */
 	virtual void discard();
 
-signals:
+Q_SIGNALS:
 	void editFinished(bool saved);
 
 private:

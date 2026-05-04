@@ -55,7 +55,7 @@ void KeyComponentWidget::setComponentAdded(bool added)
 	}
 
 	m_isComponentAdded = added;
-	emit componentAddChanged(added);
+	Q_EMIT componentAddChanged(added);
 }
 
 bool KeyComponentWidget::componentAdded() const
@@ -83,7 +83,7 @@ void KeyComponentWidget::updateAddStatus(bool added)
 {
 	if (m_ui->stackedWidget->currentIndex() == Page::Edit)
 	{
-		emit editCanceled();
+		Q_EMIT editCanceled();
 	}
 
 	if (added)
@@ -114,7 +114,7 @@ void KeyComponentWidget::doRemove()
 void KeyComponentWidget::cancelEdit()
 {
 	m_ui->stackedWidget->setCurrentIndex(m_previousPage);
-	emit editCanceled();
+	Q_EMIT editCanceled();
 }
 
 void KeyComponentWidget::resetComponentEditWidget()

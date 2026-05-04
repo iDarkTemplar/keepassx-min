@@ -39,10 +39,10 @@ public:
 
 	void init();
 
-signals:
+Q_SIGNALS:
 	void totpUpdated();
 
-private slots:
+private Q_SLOTS:
 	void toggleCustom(bool status);
 	void saveSettings();
 

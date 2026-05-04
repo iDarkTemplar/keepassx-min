@@ -289,7 +289,7 @@ void DatabaseOpenWidget::openDatabase()
 			}
 		}
 
-		emit dialogFinished(true);
+		Q_EMIT dialogFinished(true);
 		clearForms();
 	}
 	else
@@ -388,7 +388,7 @@ QSharedPointer<CompositeKey> DatabaseOpenWidget::buildDatabaseKey()
 
 void DatabaseOpenWidget::reject()
 {
-	emit dialogFinished(false);
+	Q_EMIT dialogFinished(false);
 }
 
 bool DatabaseOpenWidget::browseKeyFile()

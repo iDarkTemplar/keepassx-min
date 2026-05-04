@@ -101,8 +101,8 @@ void CsvParserModel::setSkippedRows(int skipped)
 	m_skipped = skipped;
 	QModelIndex topLeft = createIndex(skipped, 0);
 	QModelIndex bottomRight = createIndex(m_skipped + rowCount(), columnCount());
-	emit dataChanged(topLeft, bottomRight);
-	emit layoutChanged();
+	Q_EMIT dataChanged(topLeft, bottomRight);
+	Q_EMIT layoutChanged();
 }
 
 int CsvParserModel::skippedRows() const

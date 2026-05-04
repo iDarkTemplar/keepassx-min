@@ -84,7 +84,7 @@ int Clipboard::secondsToClear()
 void Clipboard::clearCopiedText()
 {
 	m_timer->stop();
-	emit updateCountdown(-1, "");
+	Q_EMIT updateCountdown(-1, "");
 
 	auto *clipboard = QApplication::clipboard();
 	if (!clipboard)
@@ -123,7 +123,7 @@ void Clipboard::countdownTick()
 
 void Clipboard::sendCountdownStatus()
 {
-	emit updateCountdown(
+	Q_EMIT updateCountdown(
 		100 * m_secondsToClear / config()->get(Config::Security_ClearClipboardTimeout).toInt(),
 		QObject::tr("Clearing the clipboard in %1 second(s)…", "", m_secondsToClear).arg(m_secondsToClear));
 }

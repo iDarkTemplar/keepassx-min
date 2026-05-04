@@ -46,10 +46,10 @@ public:
 
 	Q_ENUM(PreviewTextType)
 
-public slots:
+public Q_SLOTS:
 	void matchScroll(double percent);
 
-private slots:
+private Q_SLOTS:
 	void onTypeChanged(int index);
 
 private:

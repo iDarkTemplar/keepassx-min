@@ -80,14 +80,14 @@ public:
 
 	bool switchToPage(Page page);
 
-signals:
+Q_SIGNALS:
 	void editFinished(bool accepted);
 	void historyEntryActivated(Entry *entry);
 
-public slots:
+public Q_SLOTS:
 	void updateTotp();
 
-private slots:
+private Q_SLOTS:
 	void acceptEntry();
 	bool commitEntry();
 	void cancel();

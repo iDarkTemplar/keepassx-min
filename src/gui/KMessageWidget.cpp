@@ -177,13 +177,13 @@ void KMessageWidgetPrivate::slotTimeLineFinished()
 		content->setGeometry(0, 0, q->width(), bestContentHeight());
 
 		// notify about finished animation
-		emit q->showAnimationFinished();
+		Q_EMIT q->showAnimationFinished();
 	}
 	else
 	{
 		// hide and notify about finished animation
 		q->hide();
-		emit q->hideAnimationFinished();
+		Q_EMIT q->hideAnimationFinished();
 	}
 }
 
@@ -402,7 +402,7 @@ void KMessageWidget::animatedShow()
 	if (!style()->styleHint(QStyle::SH_Widget_Animate, nullptr, this))
 	{
 		show();
-		emit showAnimationFinished();
+		Q_EMIT showAnimationFinished();
 		return;
 	}
 
@@ -430,7 +430,7 @@ void KMessageWidget::animatedHide()
 	if (!style()->styleHint(QStyle::SH_Widget_Animate, nullptr, this))
 	{
 		hide();
-		emit hideAnimationFinished();
+		Q_EMIT hideAnimationFinished();
 		return;
 	}
 

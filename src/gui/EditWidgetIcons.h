@@ -69,12 +69,12 @@ public:
 		const QString &url = QString());
 	void setShowApplyIconToButton(bool state);
 
-signals:
+Q_SIGNALS:
 	void messageEditEntry(QString, MessageWidget::MessageType);
 	void messageEditEntryDismiss();
 	void widgetUpdated();
 
-private slots:
+private Q_SLOTS:
 	void addCustomIconFromFile();
 	bool addCustomIcon(const QImage &icon, const QString &name = QString());
 	void updateWidgetsDefaultIcons(bool checked);

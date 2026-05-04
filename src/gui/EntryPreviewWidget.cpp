@@ -84,7 +84,7 @@ EntryPreviewWidget::EntryPreviewWidget(QWidget *parent)
 		auto userData = item->data(Qt::UserRole);
 		if (userData.isValid())
 		{
-			emit copyTextRequested(userData.toString());
+			Q_EMIT copyTextRequested(userData.toString());
 		}
 	});
 
@@ -118,7 +118,7 @@ bool EntryPreviewWidget::eventFilter(QObject *object, QEvent *event)
 	{
 		if (m_currentEntry && m_currentEntry->hasTotp())
 		{
-			emit copyTextRequested(m_currentEntry->totp());
+			Q_EMIT copyTextRequested(m_currentEntry->totp());
 			m_ui->entryTotpLabel->clearFocus();
 			return true;
 		}

@@ -96,7 +96,7 @@ EntryView::EntryView(QWidget *parent)
 	setDefaultDropAction(Qt::MoveAction);
 
 	connect(this, &EntryView::doubleClicked, this, &EntryView::emitEntryActivated);
-	connect(selectionModel(), &QItemSelectionModel::selectionChanged, this, [this] { emit entrySelectionChanged(currentEntry()); });
+	connect(selectionModel(), &QItemSelectionModel::selectionChanged, this, [this] { Q_EMIT entrySelectionChanged(currentEntry()); });
 
 	new QShortcut(Qt::CTRL | Qt::Key_F10, this, this, &EntryView::contextMenuShortcutPressed, Qt::WidgetShortcut);
 	new QShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_J, this, this, &EntryView::jumpToGroupShortcut, Qt::WidgetShortcut);
@@ -151,7 +151,7 @@ void EntryView::contextMenuShortcutPressed()
 	auto index = currentIndex();
 	if (hasFocus() && index.isValid())
 	{
-		emit customContextMenuRequested(visualRect(index).bottomLeft());
+		Q_EMIT customContextMenuRequested(visualRect(index).bottomLeft());
 	}
 }
 
@@ -177,8 +177,8 @@ void EntryView::sortIndicatorChanged(int logicalIndex, Qt::SortOrder order)
 		// emit entrySelectionChanged even though the selection did not really change
 		// this triggers the evaluation of the menu activation and anyway, the position
 		// of the selected entry within the widget did change
-		emit entrySelectionChanged(currentEntry());
-		emit viewStateChanged();
+		Q_EMIT entrySelectionChanged(currentEntry());
+		Q_EMIT viewStateChanged();
 	}
 
 	header()->setSortIndicatorShown(true);
@@ -218,7 +218,7 @@ void EntryView::keyPressEvent(QKeyEvent *event)
 
 void EntryView::focusInEvent(QFocusEvent *event)
 {
-	emit entrySelectionChanged(currentEntry());
+	Q_EMIT entrySelectionChanged(currentEntry());
 	QTreeView::focusInEvent(event);
 }
 
@@ -253,7 +253,7 @@ void EntryView::setFirstEntryActive()
 	}
 	else
 	{
-		emit entrySelectionChanged(currentEntry());
+		Q_EMIT entrySelectionChanged(currentEntry());
 	}
 }
 
@@ -270,7 +270,7 @@ bool EntryView::isSorted()
 void EntryView::emitEntryActivated(const QModelIndex &index)
 {
 	Entry *entry = entryFromIndex(index);
-	emit entryActivated(entry, static_cast<EntryModel::ModelColumn>(m_sortModel->mapToSource(index).column()));
+	Q_EMIT entryActivated(entry, static_cast<EntryModel::ModelColumn>(m_sortModel->mapToSource(index).column()));
 }
 
 void EntryView::setModel(QAbstractItemModel *model)
@@ -459,7 +459,7 @@ void EntryView::fitColumnsToWindow()
 	QCoreApplication::processEvents();
 	header()->setSectionResizeMode(QHeaderView::Interactive);
 	resetFixedColumns();
-	emit viewStateChanged();
+	Q_EMIT viewStateChanged();
 }
 
 /**
@@ -473,7 +473,7 @@ void EntryView::fitColumnsToContents()
 	QCoreApplication::processEvents();
 	header()->setSectionResizeMode(QHeaderView::Interactive);
 	resetFixedColumns();
-	emit viewStateChanged();
+	Q_EMIT viewStateChanged();
 }
 
 /**
@@ -661,6 +661,6 @@ void EntryView::jumpToGroupShortcut()
 	if (entry)
 	{
 		// Emit the entryActivated signal with ParentGroup column to trigger jump to group
-		emit entryActivated(entry, EntryModel::ParentGroup);
+		Q_EMIT entryActivated(entry, EntryModel::ParentGroup);
 	}
 }

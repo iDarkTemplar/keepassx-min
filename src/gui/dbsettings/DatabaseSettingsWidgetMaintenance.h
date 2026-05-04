@@ -38,7 +38,7 @@ public:
 	Q_DISABLE_COPY(DatabaseSettingsWidgetMaintenance);
 	~DatabaseSettingsWidgetMaintenance();
 
-public slots:
+public Q_SLOTS:
 	void initialize() override;
 	void uninitialize() override {};
 	inline bool saveSettings() override
@@ -46,7 +46,7 @@ public slots:
 		return true;
 	};
 
-private slots:
+private Q_SLOTS:
 	void selectionChanged();
 	void removeCustomIcon();
 	void purgeUnusedCustomIcons();

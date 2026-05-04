@@ -33,9 +33,7 @@ public:
 	explicit TagView(QWidget *parent = nullptr);
 	void setDatabase(QSharedPointer<Database> db);
 
-signals:
-
-private slots:
+private Q_SLOTS:
 	void contextMenuRequested(const QPoint &pos);
 
 private:

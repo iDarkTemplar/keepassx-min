@@ -51,7 +51,7 @@ public:
 	bool unlockingDatabase();
 	void showMessage(const QString &text, MessageWidget::MessageType type, int autoHideTimeout);
 
-signals:
+Q_SIGNALS:
 	void dialogFinished(bool accepted);
 
 protected:
@@ -65,11 +65,11 @@ protected:
 	QString m_filename;
 	bool m_retryUnlockWithEmptyPassword = false;
 
-protected slots:
+protected Q_SLOTS:
 	virtual void openDatabase();
 	void reject();
 
-private slots:
+private Q_SLOTS:
 	bool browseKeyFile();
 	void closeDatabase();
 

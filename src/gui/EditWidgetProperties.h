@@ -43,7 +43,7 @@ public:
 	void setFields(const TimeInfo &timeInfo, const QUuid &uuid);
 	void setCustomData(CustomData *customData);
 
-private slots:
+private Q_SLOTS:
 	void update();
 	void removeSelectedPluginData();
 	void toggleRemoveButton(const QItemSelection &selected);

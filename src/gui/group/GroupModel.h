@@ -54,7 +54,7 @@ private:
 	QModelIndex parent(Group *group) const;
 	void collectIndexesRecursively(QList<QModelIndex> &indexes, QList<Group*> groups);
 
-private slots:
+private Q_SLOTS:
 	void groupDataChanged(Group *group);
 	void groupAboutToRemove(Group *group);
 	void groupRemoved();

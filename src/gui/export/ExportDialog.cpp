@@ -81,7 +81,7 @@ void ExportDialog::exportDatabase()
 	HtmlGuiExporter htmlExporter;
 	if (!htmlExporter.exportDatabase(fileName, m_db, sortBy != ExportSortingStrategy::BY_DATABASE_ORDER, ascendingOrder))
 	{
-		emit exportFailed(htmlExporter.errorString());
+		Q_EMIT exportFailed(htmlExporter.errorString());
 		reject();
 	}
 

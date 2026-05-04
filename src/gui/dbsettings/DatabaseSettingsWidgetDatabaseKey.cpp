@@ -213,7 +213,7 @@ bool DatabaseSettingsWidgetDatabaseKey::saveSettings()
 
 	m_db->setKey(newKey, true, false, false);
 
-	emit editFinished(true);
+	Q_EMIT editFinished(true);
 	if (m_isDirty)
 	{
 		m_db->markAsModified();
@@ -229,7 +229,7 @@ void DatabaseSettingsWidgetDatabaseKey::discard()
 {
 	// Reset fields
 	initialize();
-	emit editFinished(false);
+	Q_EMIT editFinished(false);
 }
 
 void DatabaseSettingsWidgetDatabaseKey::showAdditionalKeyOptions()

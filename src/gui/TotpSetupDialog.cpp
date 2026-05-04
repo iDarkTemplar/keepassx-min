@@ -103,7 +103,7 @@ void TotpSetupDialog::saveSettings()
 	}
 
 	m_entry->setTotp(Totp::createSettings(key, digits, step, format, encShortName, algorithm));
-	emit totpUpdated();
+	Q_EMIT totpUpdated();
 	close();
 }
 

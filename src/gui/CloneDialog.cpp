@@ -63,6 +63,6 @@ void CloneDialog::cloneEntry()
 	auto entry = m_entry->clone(flags);
 	entry->setGroup(m_entry->group());
 
-	emit entryCloned(entry);
+	Q_EMIT entryCloned(entry);
 	close();
 }

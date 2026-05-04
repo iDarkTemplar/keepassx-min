@@ -34,7 +34,7 @@ public:
 	explicit AboutDialog(QWidget *parent = nullptr);
 	~AboutDialog();
 
-protected slots:
+protected Q_SLOTS:
 	void copyToClipboard();
 
 private:

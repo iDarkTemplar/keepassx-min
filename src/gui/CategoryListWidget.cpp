@@ -140,7 +140,7 @@ void CategoryListWidget::scrollCategoriesDown()
 
 void CategoryListWidget::emitCategoryChanged(int index)
 {
-	emit categoryChanged(index);
+	Q_EMIT categoryChanged(index);
 }
 
 /* =============================================================================================== */

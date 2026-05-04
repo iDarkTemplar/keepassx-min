@@ -49,10 +49,10 @@ public:
 	void addSettingsPage(ISettingsPage *page);
 	void loadSettings();
 
-signals:
+Q_SIGNALS:
 	void settingsReset();
 
-private slots:
+private Q_SLOTS:
 	void saveSettings();
 	void resetSettings();
 	void importSettings();

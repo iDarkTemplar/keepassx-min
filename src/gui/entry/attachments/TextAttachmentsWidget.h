@@ -42,7 +42,7 @@ public:
 	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
 	attachments::Attachment getAttachment() const;
 
-private slots:
+private Q_SLOTS:
 	void updatePreviewWidget();
 
 private:

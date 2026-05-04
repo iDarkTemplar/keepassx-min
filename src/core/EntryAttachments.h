@@ -51,7 +51,7 @@ public:
 	bool operator==(const EntryAttachments &other) const;
 	bool operator!=(const EntryAttachments &other) const;
 
-signals:
+Q_SIGNALS:
 	void keyModified(const QString &key);
 	void valueModifiedExternally(const QString &key, const QString &path);
 	void aboutToBeAdded(const QString &key);
@@ -61,7 +61,7 @@ signals:
 	void aboutToBeReset();
 	void reset();
 
-private slots:
+private Q_SLOTS:
 	void attachmentFileModified(const QString &path);
 
 private:

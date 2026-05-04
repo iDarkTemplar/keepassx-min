@@ -60,12 +60,12 @@ public:
 
 	void addEditPage(IEditGroupPage *page);
 
-signals:
+Q_SIGNALS:
 	void editFinished(bool accepted);
 	void messageEditEntry(QString, MessageWidget::MessageType);
 	void messageEditEntryDismiss();
 
-private slots:
+private Q_SLOTS:
 	void doApply();
 	void doSave();
 	void doCancel();

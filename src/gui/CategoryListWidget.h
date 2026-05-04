@@ -44,7 +44,7 @@ public:
 	bool isCategoryHidden(int index);
 	void removeCategory(int index);
 
-signals:
+Q_SIGNALS:
 	void categoryChanged(int index);
 
 protected:
@@ -53,7 +53,7 @@ protected:
 	QSize sizeHint() const override;
 	QSize minimumSizeHint() const override;
 
-protected slots:
+protected Q_SLOTS:
 	void updateCategoryScrollButtons();
 	void scrollCategoriesDown();
 	void scrollCategoriesUp();

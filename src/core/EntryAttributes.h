@@ -84,7 +84,7 @@ public:
 	static const QString SearchInGroupName;
 	static const QString SearchTextGroupName;
 
-signals:
+Q_SIGNALS:
 	void defaultKeyModified();
 	void customKeyModified(const QString &key);
 	void aboutToBeAdded(const QString &key);

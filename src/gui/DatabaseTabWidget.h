@@ -47,7 +47,7 @@ public:
 	bool isModified(int index = -1) const;
 	bool hasLockableDatabases() const;
 
-public slots:
+public Q_SLOTS:
 	void lockAndSwitchToFirstUnlockedDatabase(int index = -1);
 	void addDatabaseTab(
 		const QString &filePath,
@@ -85,7 +85,7 @@ public slots:
 	void showDatabaseSettings(bool state);
 	void showDatabaseSecurity();
 
-signals:
+Q_SIGNALS:
 	void databaseOpened(DatabaseWidget *dbWidget);
 	void databaseClosed(const QString &filePath);
 	void databaseUnlocked(DatabaseWidget *dbWidget);
@@ -97,7 +97,7 @@ signals:
 	void messageDismissGlobal();
 	void databaseUnlockDialogFinished(bool accepted, DatabaseWidget *dbWidget);
 
-private slots:
+private Q_SLOTS:
 	void toggleTabbar();
 	void emitActiveDatabaseChanged();
 	void emitDatabaseLockChanged();

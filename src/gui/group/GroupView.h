@@ -37,11 +37,11 @@ public:
 	void expandGroup(Group *group, bool expand = true);
 	void sortGroups(bool reverse = false);
 
-signals:
+Q_SIGNALS:
 	void groupSelectionChanged();
 	void groupFocused();
 
-private slots:
+private Q_SLOTS:
 	void expandedChanged(const QModelIndex &index);
 	void syncExpandedState(const QModelIndex &parent, int start, int end);
 	void modelReset();

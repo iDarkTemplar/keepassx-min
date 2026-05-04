@@ -64,7 +64,7 @@ void ModifiableObject::setEmitModified(bool value)
 	if (m_emitModified != value)
 	{
 		m_emitModified = value;
-		emit emitModifiedChanged(m_emitModified);
+		Q_EMIT emitModifiedChanged(m_emitModified);
 	}
 }
 
@@ -72,6 +72,6 @@ void ModifiableObject::emitModified()
 {
 	if (modifiedSignalEnabled())
 	{
-		emit modified();
+		Q_EMIT modified();
 	}
 }

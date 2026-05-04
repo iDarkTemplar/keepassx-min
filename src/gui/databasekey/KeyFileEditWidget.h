@@ -44,7 +44,7 @@ protected:
 	void initComponentEditWidget(QWidget *widget) override;
 	void initComponent() override;
 
-private slots:
+private Q_SLOTS:
 	void createKeyFile();
 	void browseKeyFile();
 

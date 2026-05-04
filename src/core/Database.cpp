@@ -63,7 +63,7 @@ Database::Database()
 
 	connect(this, &Database::modified, this, [this] { updateTagList(); });
 	connect(this, &Database::databaseSaved, this, [this] { updateCommonUsernames(); });
-	connect(m_fileWatcher, &FileWatcher::fileChanged, this, [this] { emit databaseFileChanged(false); });
+	connect(m_fileWatcher, &FileWatcher::fileChanged, this, [this] { Q_EMIT databaseFileChanged(false); });
 
 	// static uuid map
 	s_uuidMap.insert(m_uuid, this);
@@ -197,7 +197,7 @@ bool Database::open(const QString &filePath, QSharedPointer<const CompositeKey> 
 
 	markAsClean();
 
-	emit databaseOpened();
+	Q_EMIT databaseOpened();
 	m_fileWatcher->start(canonicalFilePath(), 30, 1);
 	setEmitModified(true);
 
@@ -534,7 +534,7 @@ void Database::releaseData()
 
 	if (m_modified)
 	{
-		emit databaseDiscarded();
+		Q_EMIT databaseDiscarded();
 	}
 
 	setEmitModified(false);
@@ -647,7 +647,7 @@ Group* Database::setRootGroup(Group *group)
 
 	if (isInitialized() && isModified())
 	{
-		emit databaseDiscarded();
+		Q_EMIT databaseDiscarded();
 	}
 
 	std::unique_ptr<Group> oldRoot { m_rootGroup };
@@ -708,7 +708,7 @@ void Database::setFilePath(const QString &filePath)
 		// Don't watch for changes until the next open or save operation
 		m_fileWatcher->stop();
 		m_ignoreFileChangesUntilSaved = false;
-		emit filePathChanged(oldPath, filePath);
+		Q_EMIT filePathChanged(oldPath, filePath);
 	}
 }
 
@@ -819,7 +819,7 @@ void Database::updateTagList()
 	m_tagList.clear();
 	if (!m_rootGroup)
 	{
-		emit tagListUpdated();
+		Q_EMIT tagListUpdated();
 		return;
 	}
 
@@ -844,7 +844,7 @@ void Database::updateTagList()
 	collator.setCaseSensitivity(Qt::CaseInsensitive);
 	std::sort(m_tagList.begin(), m_tagList.end(), collator);
 
-	emit tagListUpdated();
+	Q_EMIT tagListUpdated();
 }
 
 void Database::removeTag(const QString &tag)
@@ -1075,14 +1075,14 @@ void Database::markAsClean()
 
 	if (emitSignal)
 	{
-		emit databaseSaved();
+		Q_EMIT databaseSaved();
 	}
 }
 
 void Database::markNonDataChange()
 {
 	m_hasNonDataChange = true;
-	emit databaseNonDataChanged();
+	Q_EMIT databaseNonDataChanged();
 }
 
 /**

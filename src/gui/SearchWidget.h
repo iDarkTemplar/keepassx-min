@@ -51,7 +51,7 @@ protected:
 	// Filter key presses in the search field
 	bool eventFilter(QObject *obj, QEvent *event) override;
 
-signals:
+Q_SIGNALS:
 	void search(const QString &text);
 	void searchCanceled();
 	void caseSensitiveChanged(bool state);
@@ -62,12 +62,12 @@ signals:
 	void lostFocus();
 	void saveSearch(const QString &text);
 
-public slots:
+public Q_SLOTS:
 	void databaseChanged(DatabaseWidget *dbWidget = nullptr);
 	void focusSearch();
 	void clearSearch();
 
-private slots:
+private Q_SLOTS:
 	void onReturnPressed();
 	void startSearchTimer();
 	void startSearch();

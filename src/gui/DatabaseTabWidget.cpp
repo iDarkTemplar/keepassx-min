@@ -61,13 +61,13 @@ void DatabaseTabWidget::toggleTabbar()
 	{
 		tabBar()->show();
 		setFocusPolicy(Qt::StrongFocus);
-		emit tabVisibilityChanged(true);
+		Q_EMIT tabVisibilityChanged(true);
 	}
 	else
 	{
 		tabBar()->hide();
 		setFocusPolicy(Qt::NoFocus);
-		emit tabVisibilityChanged(false);
+		Q_EMIT tabVisibilityChanged(false);
 	}
 }
 
@@ -157,7 +157,7 @@ void DatabaseTabWidget::addDatabaseTab(
 
 	if (canonicalFilePath.isEmpty())
 	{
-		emit messageGlobal(tr("Failed to open %1. It either does not exist or is not accessible.").arg(cleanFilePath),
+		Q_EMIT messageGlobal(tr("Failed to open %1. It either does not exist or is not accessible.").arg(cleanFilePath),
 			MessageWidget::Error);
 		return;
 	}
@@ -231,7 +231,7 @@ void DatabaseTabWidget::addDatabaseTab(DatabaseWidget *dbWidget, bool inBackgrou
 	Q_ASSERT(dbWidget->database());
 
 	// emit before index change
-	emit databaseOpened(dbWidget);
+	Q_EMIT databaseOpened(dbWidget);
 
 	int index = addTab(dbWidget, "");
 	updateTabName(index);
@@ -391,7 +391,7 @@ bool DatabaseTabWidget::closeDatabaseTab(DatabaseWidget *dbWidget)
 	removeTab(tabIndex);
 	dbWidget->deleteLater();
 	toggleTabbar();
-	emit databaseClosed(filePath);
+	Q_EMIT databaseClosed(filePath);
 
 	return true;
 }
@@ -497,14 +497,14 @@ void DatabaseTabWidget::exportToCsv()
 	CsvExporter csvExporter;
 	if (!csvExporter.exportDatabase(fileName, db))
 	{
-		emit messageGlobal(tr("Writing the CSV file failed.").append("\n").append(csvExporter.errorString()),
+		Q_EMIT messageGlobal(tr("Writing the CSV file failed.").append("\n").append(csvExporter.errorString()),
 			MessageWidget::Error);
 	}
 }
 
 void DatabaseTabWidget::handleExportError(const QString &reason)
 {
-	emit messageGlobal(tr("Writing the HTML file failed.").append("\n").append(reason), MessageWidget::Error);
+	Q_EMIT messageGlobal(tr("Writing the HTML file failed.").append("\n").append(reason), MessageWidget::Error);
 }
 
 void DatabaseTabWidget::exportToHtml()
@@ -547,13 +547,13 @@ void DatabaseTabWidget::exportToXML()
 	QString err;
 	if (!db->extract(xmlData, &err))
 	{
-		emit messageGlobal(tr("Writing the XML file failed").append("\n").append(err), MessageWidget::Error);
+		Q_EMIT messageGlobal(tr("Writing the XML file failed").append("\n").append(err), MessageWidget::Error);
 	}
 
 	QFile file(fileName);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
 	{
-		emit messageGlobal(tr("Writing the XML file failed").append("\n").append(file.errorString()),
+		Q_EMIT messageGlobal(tr("Writing the XML file failed").append("\n").append(file.errorString()),
 			MessageWidget::Error);
 	}
 
@@ -696,7 +696,7 @@ void DatabaseTabWidget::updateTabName(int index)
 		setTabIcon(index, {});
 	}
 
-	emit tabNameChanged();
+	Q_EMIT tabNameChanged();
 }
 
 DatabaseWidget* DatabaseTabWidget::databaseWidgetFromIndex(int index) const
@@ -834,7 +834,7 @@ void DatabaseTabWidget::handleDatabaseUnlockDialogFinished(bool accepted, Databa
 	m_databaseOpenInProgress = false;
 
 	// signal other objects that the dialog finished
-	emit databaseUnlockDialogFinished(accepted, dbWidget);
+	Q_EMIT databaseUnlockDialogFinished(accepted, dbWidget);
 }
 
 void DatabaseTabWidget::updateLastDatabases(const QString &filename)
@@ -879,7 +879,7 @@ void DatabaseTabWidget::updateLastDatabases()
 
 void DatabaseTabWidget::emitActiveDatabaseChanged()
 {
-	emit activeDatabaseChanged(currentDatabaseWidget());
+	Q_EMIT activeDatabaseChanged(currentDatabaseWidget());
 }
 
 void DatabaseTabWidget::emitDatabaseLockChanged()
@@ -893,11 +893,11 @@ void DatabaseTabWidget::emitDatabaseLockChanged()
 
 	if (dbWidget->isLocked())
 	{
-		emit databaseLocked(dbWidget);
+		Q_EMIT databaseLocked(dbWidget);
 	}
 	else
 	{
-		emit databaseUnlocked(dbWidget);
+		Q_EMIT databaseUnlocked(dbWidget);
 		m_databaseOpenInProgress = false;
 	}
 }

@@ -48,11 +48,11 @@ public:
 
 	~MergeDialog();
 
-signals:
+Q_SIGNALS:
 	// Signal will be emitted when a normal merge operation has been performed.
 	void databaseMerged(bool databaseChanged);
 
-private slots:
+private Q_SLOTS:
 	void performMerge();
 	void cancelMerge();
 

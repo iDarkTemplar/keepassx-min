@@ -82,7 +82,7 @@ PasswordWidget::PasswordWidget(QWidget *parent)
 
 	connect(m_ui->passwordEdit, &QLineEdit::textChanged, this, [this](const QString &pwd) {
 		updatePasswordStrength(pwd);
-		emit textChanged(pwd);
+		Q_EMIT textChanged(pwd);
 	});
 }
 

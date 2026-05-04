@@ -46,10 +46,10 @@ public:
 	bool isPasswordVisible() const;
 	QString text();
 
-signals:
+Q_SIGNALS:
 	void textChanged(QString text);
 
-public slots:
+public Q_SLOTS:
 	void setText(const QString &text);
 	void setShowPassword(bool show);
 
@@ -59,7 +59,7 @@ public slots:
 	void setEchoMode(QLineEdit::EchoMode mode);
 	void setClearButtonEnabled(bool enabled);
 
-private slots:
+private Q_SLOTS:
 	void popupPasswordGenerator();
 	void updateRepeatStatus();
 	void updatePasswordStrength(const QString &password);

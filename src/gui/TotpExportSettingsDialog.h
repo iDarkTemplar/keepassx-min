@@ -34,7 +34,7 @@ class TotpExportSettingsDialog: public QDialog
 public:
 	explicit TotpExportSettingsDialog(DatabaseWidget *parent = nullptr, Entry *entry = nullptr);
 
-private slots:
+private Q_SLOTS:
 	void copyToClipboard();
 	void autoClose();
 

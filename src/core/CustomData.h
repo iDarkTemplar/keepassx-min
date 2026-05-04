@@ -73,7 +73,7 @@ public:
 	// Pre-KDBX 4.1
 	static const QString ExcludeFromReportsLegacy;
 
-signals:
+Q_SIGNALS:
 	void aboutToBeAdded(const QString &key);
 	void added(const QString &key);
 	void aboutToBeRemoved(const QString &key);
@@ -83,7 +83,7 @@ signals:
 	void aboutToBeReset();
 	void reset();
 
-private slots:
+private Q_SLOTS:
 	void updateLastModified(QDateTime lastModified = {});
 
 private:

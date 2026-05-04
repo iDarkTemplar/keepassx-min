@@ -30,7 +30,7 @@ void ImageAttachmentsView::wheelEvent(QWheelEvent *event)
 {
 	if (event->modifiers() == Qt::ControlModifier)
 	{
-		emit ctrlWheelEvent(event);
+		Q_EMIT ctrlWheelEvent(event);
 		return;
 	}
 

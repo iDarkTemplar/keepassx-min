@@ -204,7 +204,7 @@ void Config::set(ConfigKey key, const QVariant &value)
 		m_settings->setValue(cfg.name, value);
 	}
 
-	emit changed(key);
+	Q_EMIT changed(key);
 }
 
 void Config::remove(ConfigKey key)
@@ -219,7 +219,7 @@ void Config::remove(ConfigKey key)
 		m_settings->remove(cfg.name);
 	}
 
-	emit changed(key);
+	Q_EMIT changed(key);
 }
 
 /**

@@ -37,11 +37,11 @@ public:
 
 	void setAnimate(bool state);
 
-signals:
+Q_SIGNALS:
 	void showAnimationStarted();
 	void hideAnimationStarted();
 
-public slots:
+public Q_SLOTS:
 	void showMessage(const QString &text, MessageWidget::MessageType type);
 	void showMessage(const QString &text, MessageWidget::MessageType type, int autoHideTimeout);
 	void hideMessage();

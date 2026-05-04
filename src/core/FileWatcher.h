@@ -33,14 +33,14 @@ public:
 
 	bool hasSameFileChecksum();
 
-signals:
+Q_SIGNALS:
 	void fileChanged(const QString &path);
 
-public slots:
+public Q_SLOTS:
 	void pause();
 	void resume();
 
-private slots:
+private Q_SLOTS:
 	void checkFileChanged();
 
 private:

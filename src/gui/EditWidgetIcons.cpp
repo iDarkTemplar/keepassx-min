@@ -226,17 +226,17 @@ void EditWidgetIcons::addCustomIconFromFile()
 		{
 			// Show the first 8 icons that failed to load
 			errornames = errornames.mid(0, 8);
-			emit messageEditEntry(msg + "\n" + tr("The following icon(s) failed:", "", errornames.size()) + "\n"
+			Q_EMIT messageEditEntry(msg + "\n" + tr("The following icon(s) failed:", "", errornames.size()) + "\n"
 					+ errornames.join("\n"),
 				MessageWidget::Error);
 		}
 		else if (numloaded > 0)
 		{
-			emit messageEditEntry(msg, MessageWidget::Positive);
+			Q_EMIT messageEditEntry(msg, MessageWidget::Positive);
 		}
 		else
 		{
-			emit messageEditEntry(msg, MessageWidget::Information);
+			Q_EMIT messageEditEntry(msg, MessageWidget::Information);
 		}
 	}
 }
@@ -269,7 +269,7 @@ bool EditWidgetIcons::addCustomIcon(const QImage &icon, const QString &name)
 		QModelIndex index = m_customIconModel->indexFromUuid(uuid);
 		m_ui->customIconsView->setCurrentIndex(index);
 
-		emit widgetUpdated();
+		Q_EMIT widgetUpdated();
 	}
 
 	return added;

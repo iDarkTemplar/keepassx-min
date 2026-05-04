@@ -40,7 +40,7 @@ public:
 	void initializePage() override;
 	bool validatePage() override;
 
-private slots:
+private Q_SLOTS:
 	void itemSelected(QListWidgetItem *current, QListWidgetItem *previous);
 	void chooseImportFile();
 	void chooseKeyFile();

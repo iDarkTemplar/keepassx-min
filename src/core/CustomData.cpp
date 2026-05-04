@@ -86,7 +86,7 @@ void CustomData::set(const QString &key, CustomDataItem item)
 
 	if (addAttribute)
 	{
-		emit aboutToBeAdded(key);
+		Q_EMIT aboutToBeAdded(key);
 	}
 
 	if (!item.lastModified.isValid())
@@ -103,7 +103,7 @@ void CustomData::set(const QString &key, CustomDataItem item)
 
 	if (addAttribute)
 	{
-		emit added(key);
+		Q_EMIT added(key);
 	}
 }
 
@@ -114,7 +114,7 @@ void CustomData::set(const QString &key, const QString &value, const QDateTime &
 
 void CustomData::remove(const QString &key)
 {
-	emit aboutToBeRemoved(key);
+	Q_EMIT aboutToBeRemoved(key);
 
 	if (m_data.contains(key))
 	{
@@ -123,7 +123,7 @@ void CustomData::remove(const QString &key)
 		emitModified();
 	}
 
-	emit removed(key);
+	Q_EMIT removed(key);
 }
 
 void CustomData::rename(const QString &oldKey, const QString &newKey)
@@ -139,7 +139,7 @@ void CustomData::rename(const QString &oldKey, const QString &newKey)
 
 	CustomDataItem data = m_data.value(oldKey);
 
-	emit aboutToRename(oldKey, newKey);
+	Q_EMIT aboutToRename(oldKey, newKey);
 
 	m_data.remove(oldKey);
 	data.lastModified = Clock::currentDateTimeUtc();
@@ -147,7 +147,7 @@ void CustomData::rename(const QString &oldKey, const QString &newKey)
 
 	updateLastModified();
 	emitModified();
-	emit renamed(oldKey, newKey);
+	Q_EMIT renamed(oldKey, newKey);
 }
 
 void CustomData::copyDataFrom(const CustomData *other)
@@ -157,12 +157,12 @@ void CustomData::copyDataFrom(const CustomData *other)
 		return;
 	}
 
-	emit aboutToBeReset();
+	Q_EMIT aboutToBeReset();
 
 	m_data = other->m_data;
 
 	updateLastModified();
-	emit reset();
+	Q_EMIT reset();
 	emitModified();
 }
 
@@ -229,11 +229,11 @@ bool CustomData::operator!=(const CustomData &other) const
 
 void CustomData::clear()
 {
-	emit aboutToBeReset();
+	Q_EMIT aboutToBeReset();
 
 	m_data.clear();
 
-	emit reset();
+	Q_EMIT reset();
 	emitModified();
 }
 

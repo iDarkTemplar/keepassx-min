@@ -213,7 +213,7 @@ void EditWidget::buttonClicked(QAbstractButton *button)
 	auto stdButton = m_ui->buttonBox->standardButton(button);
 	if (stdButton == QDialogButtonBox::Apply)
 	{
-		emit apply();
+		Q_EMIT apply();
 	}
 }
 

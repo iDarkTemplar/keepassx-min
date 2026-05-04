@@ -36,13 +36,13 @@ public:
 	explicit CloneDialog(DatabaseWidget *parent = nullptr, Database *db = nullptr, Entry *entry = nullptr);
 	~CloneDialog();
 
-signals:
+Q_SIGNALS:
 	void entryCloned(Entry *clone);
 
 private:
 	QScopedPointer<Ui::CloneDialog> m_ui;
 
-private slots:
+private Q_SLOTS:
 	void cloneEntry();
 
 protected:

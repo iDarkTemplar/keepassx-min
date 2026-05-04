@@ -59,13 +59,13 @@ public:
 		PasswordGeneratorScreen = 3
 	};
 
-signals:
+Q_SIGNALS:
 	void databaseUnlocked(DatabaseWidget *dbWidget);
 	void databaseLocked(DatabaseWidget *dbWidget);
 	void activeDatabaseChanged(DatabaseWidget *dbWidget);
 	void databaseUnlockDialogFinished(bool accepted, DatabaseWidget *dbWidget);
 
-public slots:
+public Q_SLOTS:
 	void openDatabase(const QString &filePath, const QString &password = {}, const QString &keyfile = {});
 	void appExit();
 	void displayGlobalMessage(
@@ -98,7 +98,7 @@ protected:
 	void keyPressEvent(QKeyEvent *event) override;
 	bool focusNextPrevChild(bool next) override;
 
-private slots:
+private Q_SLOTS:
 	void updateMenuActionState();
 	void updateWindowTitle();
 	void showAboutDialog();

@@ -130,7 +130,7 @@ PasswordGeneratorWidget::~PasswordGeneratorWidget()
 void PasswordGeneratorWidget::closeEvent(QCloseEvent *event)
 {
 	// Emits closed signal when clicking X from title bar
-	emit closed();
+	Q_EMIT closed();
 	QWidget::closeEvent(event);
 }
 
@@ -355,8 +355,8 @@ void PasswordGeneratorWidget::applyPassword()
 {
 	saveSettings();
 	m_passwordGenerated = true;
-	emit appliedPassword(m_ui->editNewPassword->text());
-	emit closed();
+	Q_EMIT appliedPassword(m_ui->editNewPassword->text());
+	Q_EMIT closed();
 }
 
 void PasswordGeneratorWidget::copyPassword()

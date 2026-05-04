@@ -755,7 +755,7 @@ void TagsEdit::mousePressEvent(QMouseEvent *event)
 				--impl->editing_index;
 			}
 
-			emit tagsEdited();
+			Q_EMIT tagsEdited();
 			found = true;
 			break;
 		}
@@ -983,7 +983,7 @@ void TagsEdit::keyPressEvent(QKeyEvent *event)
 
 		viewport()->update();
 
-		emit tagsEdited();
+		Q_EMIT tagsEdited();
 	}
 }
 

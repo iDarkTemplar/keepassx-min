@@ -449,7 +449,7 @@ void DatabaseWidget::clearAllWidgets()
 
 void DatabaseWidget::emitCurrentModeChanged()
 {
-	emit currentModeChanged(currentMode());
+	Q_EMIT currentModeChanged(currentMode());
 }
 
 void DatabaseWidget::createEntry()
@@ -500,7 +500,7 @@ void DatabaseWidget::replaceDatabase(QSharedPointer<Database> db)
 		}
 	}
 
-	emit databaseReplaced(oldDb, m_db);
+	Q_EMIT databaseReplaced(oldDb, m_db);
 
 	oldDb->releaseData();
 }
@@ -825,7 +825,7 @@ void DatabaseWidget::filterByTag()
 	{
 		searchTerms << index.data(Qt::UserRole).toString();
 	}
-	emit requestSearch(searchTerms.join(" "));
+	Q_EMIT requestSearch(searchTerms.join(" "));
 }
 
 void DatabaseWidget::setTag(QAction *action)
@@ -1066,7 +1066,7 @@ void DatabaseWidget::loadDatabase(bool accepted)
 
 	if (accepted)
 	{
-		emit databaseAboutToUnlock();
+		Q_EMIT databaseAboutToUnlock();
 		replaceDatabase(openWidget->database());
 		switchToMainView();
 
@@ -1091,7 +1091,7 @@ void DatabaseWidget::loadDatabase(bool accepted)
 
 		m_groupBeforeLock = QUuid();
 		m_entryBeforeLock = QUuid();
-		emit databaseUnlocked();
+		Q_EMIT databaseUnlocked();
 
 		if (config()->get(Config::MinimizeAfterUnlock).toBool())
 		{
@@ -1105,7 +1105,7 @@ void DatabaseWidget::loadDatabase(bool accepted)
 			m_databaseOpenWidget->database().reset();
 		}
 
-		emit closeRequest();
+		Q_EMIT closeRequest();
 	}
 }
 
@@ -1138,7 +1138,7 @@ void DatabaseWidget::mergeDatabase(bool accepted)
 			if (changed)
 			{
 				showMessage(tr("Successfully merged the selected database."), MessageWidget::Positive);
-				emit databaseMerged(m_db);
+				Q_EMIT databaseMerged(m_db);
 			}
 			else
 			{
@@ -1168,7 +1168,7 @@ void DatabaseWidget::unlockDatabase(bool accepted)
 	{
 		if (!senderDialog && (!m_db || !m_db->isInitialized()))
 		{
-			emit closeRequest();
+			Q_EMIT closeRequest();
 		}
 		return;
 	}
@@ -1179,7 +1179,7 @@ void DatabaseWidget::unlockDatabase(bool accepted)
 		return;
 	}
 
-	emit databaseAboutToUnlock();
+	Q_EMIT databaseAboutToUnlock();
 	QSharedPointer<Database> db;
 	if (senderDialog)
 	{
@@ -1197,7 +1197,7 @@ void DatabaseWidget::unlockDatabase(bool accepted)
 	m_entryBeforeLock = QUuid();
 
 	switchToMainView();
-	emit databaseUnlocked();
+	Q_EMIT databaseUnlocked();
 
 	if (config()->get(Config::MinimizeAfterUnlock).toBool())
 	{
@@ -1417,14 +1417,14 @@ void DatabaseWidget::search(const QString &searchtext)
 		m_searchingLabel->setText(tr("No Results"));
 	}
 
-	emit searchModeAboutToActivate();
+	Q_EMIT searchModeAboutToActivate();
 
 	m_entryView->displaySearch(results);
 	m_lastSearchText = searchtext;
 
 	m_searchingLabel->setVisible(true);
 
-	emit searchModeActivated();
+	Q_EMIT searchModeActivated();
 }
 
 void DatabaseWidget::saveSearch(const QString &searchtext)
@@ -1493,7 +1493,7 @@ void DatabaseWidget::onGroupChanged()
 
 	m_previewView->setGroup(group);
 
-	emit groupChanged();
+	Q_EMIT groupChanged();
 }
 
 void DatabaseWidget::onDatabaseModified()
@@ -1564,9 +1564,9 @@ void DatabaseWidget::endSearch()
 	if (isSearchActive())
 	{
 		// Show the normal entry view of the current group
-		emit listModeAboutToActivate();
+		Q_EMIT listModeAboutToActivate();
 		m_entryView->displayGroup(currentGroup());
-		emit listModeActivated();
+		Q_EMIT listModeActivated();
 		m_entryView->setFirstEntryActive();
 		// Enforce preview view update (prevents stale information if focus group is empty)
 		m_previewView->setEntry(currentSelectedEntry());
@@ -1581,17 +1581,17 @@ void DatabaseWidget::endSearch()
 	m_nextSearchLabelText.clear();
 
 	// Tell the search widget to clear
-	emit clearSearch();
+	Q_EMIT clearSearch();
 }
 
 void DatabaseWidget::emitGroupContextMenuRequested(const QPoint &pos)
 {
-	emit groupContextMenuRequested(m_groupView->viewport()->mapToGlobal(pos));
+	Q_EMIT groupContextMenuRequested(m_groupView->viewport()->mapToGlobal(pos));
 }
 
 void DatabaseWidget::emitEntryContextMenuRequested(const QPoint &pos)
 {
-	emit entryContextMenuRequested(m_entryView->viewport()->mapToGlobal(pos));
+	Q_EMIT entryContextMenuRequested(m_entryView->viewport()->mapToGlobal(pos));
 }
 
 void DatabaseWidget::onEntryChanged(Entry *entry)
@@ -1605,7 +1605,7 @@ void DatabaseWidget::onEntryChanged(Entry *entry)
 		m_previewView->setGroup(groupView()->currentGroup());
 	}
 
-	emit entrySelectionChanged();
+	Q_EMIT entrySelectionChanged();
 }
 
 bool DatabaseWidget::canCloneCurrentGroup() const
@@ -1713,7 +1713,7 @@ bool DatabaseWidget::lock()
 
 	m_attemptingLock = true;
 
-	emit databaseLockRequested();
+	Q_EMIT databaseLockRequested();
 
 	// Force close any modal widgets associated with this widget
 	auto modalWidget = QApplication::activeModalWidget();
@@ -1835,7 +1835,7 @@ bool DatabaseWidget::lock()
 	replaceDatabase(newDb);
 
 	m_attemptingLock = false;
-	emit databaseLocked();
+	Q_EMIT databaseLocked();
 
 	return true;
 }
@@ -1851,7 +1851,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 	m_blockAutoSave = true;
 	m_reloading = true;
 
-	emit reloadBegin();
+	Q_EMIT reloadBegin();
 
 	if (!triggeredBySave && !config()->get(Config::AutoReloadOnChange).toBool())
 	{
@@ -1869,14 +1869,14 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 			m_db->markAsModified();
 			m_reloading = false;
 
-			emit reloadEnd();
+			Q_EMIT reloadEnd();
 			return;
 		}
 	}
 
 	// Remove any latent error messages and switch to progress updates
 	hideMessage();
-	emit updateSyncProgress(0, tr("Reloading database…"));
+	Q_EMIT updateSyncProgress(0, tr("Reloading database…"));
 
 	// Lock out interactions
 	m_entryView->setDisabled(true);
@@ -1893,16 +1893,16 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 		m_reloading = false;
 
 		// Keep the previous message visible for 2 seconds if not hiding
-		QTimer::singleShot(hideMsg ? 0 : 2000, this, [this] { emit updateSyncProgress(-1, ""); });
+		QTimer::singleShot(hideMsg ? 0 : 2000, this, [this] { Q_EMIT updateSyncProgress(-1, ""); });
 
-		emit reloadEnd();
+		Q_EMIT reloadEnd();
 	};
 
 	auto reloadCanceled = [this, reloadFinish] {
 		// Mark db as modified since existing data may differ from file or file was deleted
 		m_db->markAsModified();
 
-		emit updateSyncProgress(100, tr("Reload canceled"));
+		Q_EMIT updateSyncProgress(100, tr("Reload canceled"));
 		reloadFinish(false);
 	};
 
@@ -1930,7 +1930,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 		restoreGroupEntryFocus(groupBeforeReload, entryBeforeReload);
 		m_blockAutoSave = false;
 
-		emit updateSyncProgress(100, tr("Reload successful"));
+		Q_EMIT updateSyncProgress(100, tr("Reload successful"));
 		reloadFinish(false);
 
 		// If triggered by save, attempt another save
@@ -1960,7 +1960,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 	QString changesActionStr;
 	if (triggeredBySave || m_db->isModified() || m_db->hasNonDataChanges())
 	{
-		emit updateSyncProgress(50, tr("Reload pending user action…"));
+		Q_EMIT updateSyncProgress(50, tr("Reload pending user action…"));
 
 		// Ask how to proceed
 		auto message = tr("The database file \"%1\" was modified externally.<br>"
@@ -1999,7 +1999,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 			if (triggeredBySave)
 			{
 				save();
-				emit updateSyncProgress(100, tr("Database file overwritten."));
+				Q_EMIT updateSyncProgress(100, tr("Database file overwritten."));
 			}
 			return;
 		case MessageBox::Merge:
@@ -2506,5 +2506,5 @@ void DatabaseWidget::openDatabaseFromEntry(const Entry *entry, bool inBackground
 	}
 
 	// Request to open the database file in the background with a password and keyfile
-	emit requestOpenDatabase(dbFileInfo.canonicalFilePath(), inBackground, password, keyFileInfo.canonicalFilePath());
+	Q_EMIT requestOpenDatabase(dbFileInfo.canonicalFilePath(), inBackground, password, keyFileInfo.canonicalFilePath());
 }

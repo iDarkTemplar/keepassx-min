@@ -119,7 +119,7 @@ void ScreenLockListenerDBus::gnomeSessionStatusChanged(uint status)
 {
 	if (status != 0)
 	{
-		emit screenLocked();
+		Q_EMIT screenLocked();
 	}
 }
 
@@ -127,19 +127,19 @@ void ScreenLockListenerDBus::logindPrepareForSleep(bool beforeSleep)
 {
 	if (beforeSleep)
 	{
-		emit screenLocked();
+		Q_EMIT screenLocked();
 	}
 }
 
 void ScreenLockListenerDBus::unityLocked()
 {
-	emit screenLocked();
+	Q_EMIT screenLocked();
 }
 
 void ScreenLockListenerDBus::freedesktopScreenSaver(bool status)
 {
 	if (status)
 	{
-		emit screenLocked();
+		Q_EMIT screenLocked();
 	}
 }

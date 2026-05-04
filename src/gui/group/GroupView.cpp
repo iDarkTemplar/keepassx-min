@@ -86,7 +86,7 @@ void GroupView::contextMenuShortcutPressed()
 	auto index = currentIndex();
 	if (hasFocus() && index.isValid())
 	{
-		emit customContextMenuRequested(visualRect(index).bottomLeft());
+		Q_EMIT customContextMenuRequested(visualRect(index).bottomLeft());
 	}
 }
 
@@ -121,7 +121,7 @@ void GroupView::dragMoveEvent(QDragMoveEvent *event)
 
 void GroupView::focusInEvent(QFocusEvent *event)
 {
-	emit groupFocused();
+	Q_EMIT groupFocused();
 	QTreeView::focusInEvent(event);
 }
 

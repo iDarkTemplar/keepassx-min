@@ -42,7 +42,7 @@ public:
 
 	static QList<QPair<QString, QString>> availableLanguages();
 
-signals:
+Q_SIGNALS:
 	void openFile(const QString &filename);
 
 private:

@@ -70,7 +70,7 @@ public:
 	void setEntries(const QList<Entry *> &entries);
 	void setBackgroundColorVisible(bool visible);
 
-private slots:
+private Q_SLOTS:
 	void entryAboutToAdd(Entry *entry);
 	void entryAdded(Entry *entry);
 	void entryAboutToRemove(Entry *entry);

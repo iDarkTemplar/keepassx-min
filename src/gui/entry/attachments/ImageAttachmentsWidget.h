@@ -46,7 +46,7 @@ public:
 	void setMinZoomOutFactor(double zoomFactor);
 	void setMaxZoomInFactor(double zoomFactor);
 
-signals:
+Q_SIGNALS:
 	void zoomChanged(double zoomFactor);
 
 private:
@@ -67,7 +67,7 @@ public:
 	void openAttachment(attachments::Attachment attachment, attachments::OpenMode mode);
 	attachments::Attachment getAttachment() const;
 
-private slots:
+private Q_SLOTS:
 	void onZoomChanged(const QString &zoomText);
 	void onWheelZoomEvent(QWheelEvent *event);
 	void onZoomFactorChanged(double zoomFactor);
