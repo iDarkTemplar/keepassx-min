@@ -45,6 +45,11 @@ Application::Application(int &argc, char **argv)
 
 Application::~Application()
 {
+	if (m_translator)
+	{
+		QCoreApplication::removeTranslator(m_translator.get());
+		delete m_translator;
+	}
 }
 
 /**
