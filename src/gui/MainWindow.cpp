@@ -134,12 +134,12 @@ MainWindow::MainWindow()
 	connect(m_ui->menuRecentDatabases, &QMenu::aboutToShow, this, &MainWindow::updateLastDatabasesMenu);
 
 	m_copyAdditionalAttributeActions = new QActionGroup(m_ui->menuEntryCopyAttribute);
-	m_actionMultiplexer.connect(m_copyAdditionalAttributeActions, SIGNAL(triggered(QAction *)), SLOT(copyAttribute(QAction *)));
+	connect(m_copyAdditionalAttributeActions.get(), &QActionGroup::triggered, &m_actionMultiplexer, &SignalMultiplexer::copyAdditionalAttributeActionsTriggered);
 	connect(m_ui->menuEntryCopyAttribute, &QMenu::aboutToShow, this, &MainWindow::updateCopyAttributesMenu);
 
 	m_setTagsMenuActions = new QActionGroup(m_ui->menuTags);
 	m_setTagsMenuActions->setExclusive(false);
-	m_actionMultiplexer.connect(m_setTagsMenuActions, SIGNAL(triggered(QAction *)), SLOT(setTag(QAction *)));
+	connect(m_setTagsMenuActions.get(), &QActionGroup::triggered, &m_actionMultiplexer, &SignalMultiplexer::setTagsMenuActionsTriggered);
 	connect(m_ui->menuTags, &QMenu::aboutToShow, this, &MainWindow::updateSetTagsMenu);
 
 	m_inactivityTimer = new InactivityTimer(this);
@@ -278,17 +278,17 @@ MainWindow::MainWindow()
 
 	m_ui->actionAbout->setIcon(icons()->icon("help-about"));
 
-	m_actionMultiplexer.connect(SIGNAL(currentModeChanged(DatabaseWidget::Mode)), this, SLOT(updateMenuActionState()));
-	m_actionMultiplexer.connect(SIGNAL(groupChanged()), this, SLOT(updateMenuActionState()));
-	m_actionMultiplexer.connect(SIGNAL(entrySelectionChanged()), this, SLOT(updateMenuActionState()));
-	m_actionMultiplexer.connect(SIGNAL(databaseNonDataChanged()), this, SLOT(updateMenuActionState()));
-	m_actionMultiplexer.connect(SIGNAL(groupContextMenuRequested(QPoint)), this, SLOT(showGroupContextMenu(QPoint)));
-	m_actionMultiplexer.connect(SIGNAL(entryContextMenuRequested(QPoint)), this, SLOT(showEntryContextMenu(QPoint)));
-	m_actionMultiplexer.connect(SIGNAL(groupChanged()), this, SLOT(updateEntryCountLabel()));
-	m_actionMultiplexer.connect(SIGNAL(databaseUnlocked()), this, SLOT(updateEntryCountLabel()));
-	m_actionMultiplexer.connect(SIGNAL(databaseModified()), this, SLOT(updateEntryCountLabel()));
-	m_actionMultiplexer.connect(SIGNAL(searchModeActivated()), this, SLOT(updateEntryCountLabel()));
-	m_actionMultiplexer.connect(SIGNAL(listModeActivated()), this, SLOT(updateEntryCountLabel()));
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseCurrentModeChanged,        this, &MainWindow::updateMenuActionState);
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseGroupChanged,              this, &MainWindow::updateMenuActionState);
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseEntrySelectionChanged,     this, &MainWindow::updateMenuActionState);
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseNonDataChanged,            this, &MainWindow::updateMenuActionState);
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseGroupContextMenuRequested, this, &MainWindow::showGroupContextMenu);
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseEntryContextMenuRequested, this, &MainWindow::showEntryContextMenu);
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseGroupChanged,              this, &MainWindow::updateEntryCountLabel);
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseUnlocked,                  this, &MainWindow::updateEntryCountLabel);
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseModified,                  this, &MainWindow::updateEntryCountLabel);
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseSearchModeActivated,       this, &MainWindow::updateEntryCountLabel);
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseListModeActivated,         this, &MainWindow::updateEntryCountLabel);
 
 	// Notify search when the active database changes or gets locked
 	connect(m_ui->tabWidget, &DatabaseTabWidget::activeDatabaseChanged, m_searchWidget, &SearchWidget::databaseChanged);
@@ -326,33 +326,31 @@ MainWindow::MainWindow()
 	connect(m_ui->actionLockAllDatabases, &QAction::triggered, m_ui->tabWidget, &DatabaseTabWidget::lockDatabases);
 	connect(m_ui->actionQuit, &QAction::triggered, this, &MainWindow::appExit);
 
-	m_actionMultiplexer.connect(m_ui->actionEntryNew, SIGNAL(triggered()), SLOT(createEntry()));
-	m_actionMultiplexer.connect(m_ui->actionEntryEdit, SIGNAL(triggered()), SLOT(switchToEntryEdit()));
-	m_actionMultiplexer.connect(m_ui->actionEntryExpire, SIGNAL(triggered()), SLOT(expireSelectedEntries()));
-	m_actionMultiplexer.connect(m_ui->actionEntryClone, SIGNAL(triggered()), SLOT(cloneEntry()));
-	m_actionMultiplexer.connect(m_ui->actionEntryDelete, SIGNAL(triggered()), SLOT(deleteSelectedEntries()));
-	m_actionMultiplexer.connect(m_ui->actionEntryRestore, SIGNAL(triggered()), SLOT(restoreSelectedEntries()));
-
-	m_actionMultiplexer.connect(m_ui->actionEntryTotp, SIGNAL(triggered()), SLOT(showTotp()));
-	m_actionMultiplexer.connect(m_ui->actionEntrySetupTotp, SIGNAL(triggered()), SLOT(setupTotp()));
-
-	m_actionMultiplexer.connect(m_ui->actionEntryCopyTotp, SIGNAL(triggered()), SLOT(copyTotp()));
-	m_actionMultiplexer.connect(m_ui->actionEntryCopyPasswordTotp, SIGNAL(triggered()), SLOT(copyPasswordTotp()));
-	m_actionMultiplexer.connect(m_ui->actionEntryTotpQRCode, SIGNAL(triggered()), SLOT(showTotpKeyQrCode()));
-	m_actionMultiplexer.connect(m_ui->actionEntryCopyTitle, SIGNAL(triggered()), SLOT(copyTitle()));
-	m_actionMultiplexer.connect(m_ui->actionEntryMoveUp, SIGNAL(triggered()), SLOT(moveEntryUp()));
-	m_actionMultiplexer.connect(m_ui->actionEntryMoveDown, SIGNAL(triggered()), SLOT(moveEntryDown()));
-	m_actionMultiplexer.connect(m_ui->actionEntryCopyUsername, SIGNAL(triggered()), SLOT(copyUsername()));
-	m_actionMultiplexer.connect(m_ui->actionEntryCopyPassword, SIGNAL(triggered()), SLOT(copyPassword()));
-	m_actionMultiplexer.connect(m_ui->actionEntryCopyURL, SIGNAL(triggered()), SLOT(copyURL()));
-	m_actionMultiplexer.connect(m_ui->actionEntryCopyNotes, SIGNAL(triggered()), SLOT(copyNotes()));
-	m_actionMultiplexer.connect(m_ui->actionGroupNew, SIGNAL(triggered()), SLOT(createGroup()));
-	m_actionMultiplexer.connect(m_ui->actionGroupEdit, SIGNAL(triggered()), SLOT(switchToGroupEdit()));
-	m_actionMultiplexer.connect(m_ui->actionGroupClone, SIGNAL(triggered()), SLOT(cloneGroup()));
-	m_actionMultiplexer.connect(m_ui->actionGroupDelete, SIGNAL(triggered()), SLOT(deleteGroup()));
-	m_actionMultiplexer.connect(m_ui->actionGroupEmptyRecycleBin, SIGNAL(triggered()), SLOT(emptyRecycleBin()));
-	m_actionMultiplexer.connect(m_ui->actionGroupSortAsc, SIGNAL(triggered()), SLOT(sortGroupsAsc()));
-	m_actionMultiplexer.connect(m_ui->actionGroupSortDesc, SIGNAL(triggered()), SLOT(sortGroupsDesc()));
+	connect(m_ui->actionEntryNew,              &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryNewTriggered);
+	connect(m_ui->actionEntryEdit,             &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryEditTriggered);
+	connect(m_ui->actionEntryExpire,           &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryExpireTriggered);
+	connect(m_ui->actionEntryClone,            &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryCloneTriggered);
+	connect(m_ui->actionEntryDelete,           &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryDeleteTriggered);
+	connect(m_ui->actionEntryRestore,          &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryRestoreTriggered);
+	connect(m_ui->actionEntryTotp,             &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryTotpTriggered);
+	connect(m_ui->actionEntrySetupTotp,        &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntrySetupTotpTriggered);
+	connect(m_ui->actionEntryCopyTotp,         &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryCopyTotpTriggered);
+	connect(m_ui->actionEntryCopyPasswordTotp, &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryCopyPasswordTotpTriggered);
+	connect(m_ui->actionEntryTotpQRCode,       &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryTotpQRCodeTriggered);
+	connect(m_ui->actionEntryCopyTitle,        &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryCopyTitleTriggered);
+	connect(m_ui->actionEntryMoveUp,           &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryMoveUpTriggered);
+	connect(m_ui->actionEntryMoveDown,         &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryMoveDownTriggered);
+	connect(m_ui->actionEntryCopyUsername,     &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryCopyUsernameTriggered);
+	connect(m_ui->actionEntryCopyPassword,     &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryCopyPasswordTriggered);
+	connect(m_ui->actionEntryCopyURL,          &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryCopyURLTriggered);
+	connect(m_ui->actionEntryCopyNotes,        &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionEntryCopyNotesTriggered);
+	connect(m_ui->actionGroupNew,              &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionGroupNewTriggered);
+	connect(m_ui->actionGroupEdit,             &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionGroupEditTriggered);
+	connect(m_ui->actionGroupClone,            &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionGroupCloneTriggered);
+	connect(m_ui->actionGroupDelete,           &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionGroupDeleteTriggered);
+	connect(m_ui->actionGroupEmptyRecycleBin,  &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionGroupEmptyRecycleBinTriggered);
+	connect(m_ui->actionGroupSortAsc,          &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionGroupSortAscTriggered);
+	connect(m_ui->actionGroupSortDesc,         &QAction::triggered, &m_actionMultiplexer, &SignalMultiplexer::actionGroupSortDescTriggered);
 
 	connect(m_ui->actionSettings, &QAction::toggled, this, &MainWindow::switchToSettings);
 	connect(m_ui->actionPasswordGenerator, &QAction::toggled, this, &MainWindow::togglePasswordGenerator);
@@ -407,7 +405,7 @@ MainWindow::MainWindow()
 	m_progressBar->setMaximum(100);
 	statusBar()->addPermanentWidget(m_progressBar);
 	connect(clipboard(), &Clipboard::updateCountdown, this, &MainWindow::updateProgressBar);
-	m_actionMultiplexer.connect(SIGNAL(updateSyncProgress(int, QString)), this, SLOT(updateProgressBar(int, QString)));
+	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseUpdateSyncProgress, this, &MainWindow::updateProgressBar);
 	m_statusBarLabel = new QLabel(statusBar());
 	m_statusBarLabel->setObjectName("statusBarLabel");
 	statusBar()->addPermanentWidget(m_statusBarLabel);
@@ -914,7 +912,7 @@ void MainWindow::databaseTabChanged(int tabIndex)
 		statusBar()->setAutoFillBackground(false);
 	}
 
-	m_actionMultiplexer.setCurrentObject(m_ui->tabWidget->currentDatabaseWidget());
+	m_actionMultiplexer.setCurrentDatabaseWidget(m_ui->tabWidget->currentDatabaseWidget());
 	updateEntryCountLabel();
 
 	// Clear the tags menu to prevent re-use between databases

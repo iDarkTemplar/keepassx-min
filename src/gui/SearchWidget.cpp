@@ -87,7 +87,7 @@ SearchWidget::SearchWidget(QWidget *parent)
 	m_ui->saveIcon->setVisible(false);
 
 	// Fix initial visibility of actions (bug in Qt)
-	for (QToolButton *toolButton: m_ui->searchEdit->findChildren<QToolButton *>())
+	for (QToolButton *toolButton: m_ui->searchEdit->findChildren<QToolButton*>())
 	{
 		toolButton->setVisible(toolButton->defaultAction()->isVisible());
 	}
@@ -172,17 +172,18 @@ bool SearchWidget::eventFilter(QObject *obj, QEvent *event)
 void SearchWidget::connectSignals(SignalMultiplexer &mx)
 {
 	// Connects basically only to the current DatabaseWidget, but allows to switch between instances!
-	mx.connect(this, SIGNAL(search(QString)), SLOT(search(QString)));
-	mx.connect(this, SIGNAL(saveSearch(QString)), SLOT(saveSearch(QString)));
-	mx.connect(this, SIGNAL(caseSensitiveChanged(bool)), SLOT(setSearchCaseSensitive(bool)));
-	mx.connect(this, SIGNAL(limitGroupChanged(bool)), SLOT(setSearchLimitGroup(bool)));
-	mx.connect(this, SIGNAL(downPressed()), SLOT(focusOnEntries()));
-	mx.connect(SIGNAL(requestSearch(QString)), this, SLOT(performRequestedSearch(QString)));
-	mx.connect(SIGNAL(clearSearch()), this, SLOT(clearSearch()));
-	mx.connect(SIGNAL(entrySelectionChanged()), this, SLOT(resetSearchClearTimer()));
-	mx.connect(SIGNAL(currentModeChanged(DatabaseWidget::Mode)), this, SLOT(resetSearchClearTimer()));
-	mx.connect(SIGNAL(databaseUnlocked()), this, SLOT(focusSearch()));
-	mx.connect(this, SIGNAL(enterPressed()), SLOT(switchToEntryEdit()));
+	connect(this, &SearchWidget::search,               &mx, &SignalMultiplexer::search);
+	connect(this, &SearchWidget::saveSearch,           &mx, &SignalMultiplexer::saveSearch);
+	connect(this, &SearchWidget::caseSensitiveChanged, &mx, &SignalMultiplexer::caseSensitiveChanged);
+	connect(this, &SearchWidget::limitGroupChanged,    &mx, &SignalMultiplexer::limitGroupChanged);
+	connect(this, &SearchWidget::downPressed,          &mx, &SignalMultiplexer::downPressed);
+	connect(this, &SearchWidget::enterPressed,         &mx, &SignalMultiplexer::enterPressed);
+
+	connect(&mx, &SignalMultiplexer::databaseRequestSearch,         this, &SearchWidget::performRequestedSearch);
+	connect(&mx, &SignalMultiplexer::databaseClearSearch,           this, &SearchWidget::clearSearch);
+	connect(&mx, &SignalMultiplexer::databaseEntrySelectionChanged, this, &SearchWidget::resetSearchClearTimer);
+	connect(&mx, &SignalMultiplexer::databaseCurrentModeChanged,    this, &SearchWidget::resetSearchClearTimer);
+	connect(&mx, &SignalMultiplexer::databaseUnlocked,              this, &SearchWidget::focusSearch);
 }
 
 void SearchWidget::databaseChanged(DatabaseWidget *dbWidget)

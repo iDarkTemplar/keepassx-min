@@ -73,7 +73,7 @@ bool DialogyWidget::clickButton(QDialogButtonBox::StandardButton standardButton)
 		}
 	}
 
-	QList<QDialogButtonBox*> buttonBoxes = findChildren<QDialogButtonBox *>();
+	QList<QDialogButtonBox*> buttonBoxes = findChildren<QDialogButtonBox*>();
 	for (auto buttonBox: buttonBoxes)
 	{
 		pb = buttonBox->button(standardButton);

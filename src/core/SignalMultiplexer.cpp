@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -18,152 +19,77 @@
 
 #include "core/Global.h"
 
+#include "gui/MainWindow.h"
+#include "gui/SearchWidget.h"
+
 SignalMultiplexer::SignalMultiplexer()
+	: QObject()
 {
 }
 
 SignalMultiplexer::~SignalMultiplexer()
 {
-	// disconnect all connections
-	setCurrentObject(nullptr);
 }
 
-QObject* SignalMultiplexer::currentObject() const
+void SignalMultiplexer::setCurrentDatabaseWidget(DatabaseWidget *object)
 {
-	return m_currentObject;
-}
-
-void SignalMultiplexer::setCurrentObject(QObject *object)
-{
-	// remove all Connections from the list whose senders/receivers have been deleted
-	QMutableListIterator<Connection> i = m_connections;
-	while (i.hasNext())
+	if (m_currentDatabaseWidget)
 	{
-		const Connection &con = i.next();
-
-		if (!con.sender && !con.receiver)
-		{
-			i.remove();
-		}
+		disconnect(this, nullptr, m_currentDatabaseWidget.get(), nullptr);
+		disconnect(m_currentDatabaseWidget.get(), nullptr, this, nullptr);
+		disconnect(this, nullptr, this, nullptr);
 	}
 
-	if (m_currentObject)
+	m_currentDatabaseWidget = object;
+
+	if (m_currentDatabaseWidget)
 	{
-		for (const Connection &con: asConst(m_connections))
-		{
-			disconnect(con);
-		}
-	}
+		connect(this, &SignalMultiplexer::search,                                  m_currentDatabaseWidget.get(), &DatabaseWidget::search);
+		connect(this, &SignalMultiplexer::saveSearch,                              m_currentDatabaseWidget.get(), &DatabaseWidget::saveSearch);
+		connect(this, &SignalMultiplexer::caseSensitiveChanged,                    m_currentDatabaseWidget.get(), &DatabaseWidget::setSearchCaseSensitive);
+		connect(this, &SignalMultiplexer::limitGroupChanged,                       m_currentDatabaseWidget.get(), &DatabaseWidget::setSearchLimitGroup);
+		connect(this, &SignalMultiplexer::downPressed,                             m_currentDatabaseWidget.get(), [this]() { if (m_currentDatabaseWidget) { m_currentDatabaseWidget->focusOnEntries(); }; });
+		connect(this, &SignalMultiplexer::enterPressed,                            m_currentDatabaseWidget.get(), qOverload<>(&DatabaseWidget::switchToEntryEdit));
+		connect(this, &SignalMultiplexer::copyAdditionalAttributeActionsTriggered, m_currentDatabaseWidget.get(), &DatabaseWidget::copyAttribute);
+		connect(this, &SignalMultiplexer::setTagsMenuActionsTriggered,             m_currentDatabaseWidget.get(), &DatabaseWidget::setTag);
+		connect(this, &SignalMultiplexer::actionEntryNewTriggered,                 m_currentDatabaseWidget.get(), &DatabaseWidget::createEntry);
+		connect(this, &SignalMultiplexer::actionEntryEditTriggered,                m_currentDatabaseWidget.get(), qOverload<>(&DatabaseWidget::switchToEntryEdit));
+		connect(this, &SignalMultiplexer::actionEntryExpireTriggered,              m_currentDatabaseWidget.get(), &DatabaseWidget::expireSelectedEntries);
+		connect(this, &SignalMultiplexer::actionEntryCloneTriggered,               m_currentDatabaseWidget.get(), &DatabaseWidget::cloneEntry);
+		connect(this, &SignalMultiplexer::actionEntryDeleteTriggered,              m_currentDatabaseWidget.get(), &DatabaseWidget::deleteSelectedEntries);
+		connect(this, &SignalMultiplexer::actionEntryRestoreTriggered,             m_currentDatabaseWidget.get(), &DatabaseWidget::restoreSelectedEntries);
+		connect(this, &SignalMultiplexer::actionEntryTotpTriggered,                m_currentDatabaseWidget.get(), &DatabaseWidget::showTotp);
+		connect(this, &SignalMultiplexer::actionEntrySetupTotpTriggered,           m_currentDatabaseWidget.get(), &DatabaseWidget::setupTotp);
+		connect(this, &SignalMultiplexer::actionEntryCopyTotpTriggered,            m_currentDatabaseWidget.get(), &DatabaseWidget::copyTotp);
+		connect(this, &SignalMultiplexer::actionEntryCopyPasswordTotpTriggered,    m_currentDatabaseWidget.get(), &DatabaseWidget::copyPasswordTotp);
+		connect(this, &SignalMultiplexer::actionEntryTotpQRCodeTriggered,          m_currentDatabaseWidget.get(), &DatabaseWidget::showTotpKeyQrCode);
+		connect(this, &SignalMultiplexer::actionEntryCopyTitleTriggered,           m_currentDatabaseWidget.get(), &DatabaseWidget::copyTitle);
+		connect(this, &SignalMultiplexer::actionEntryMoveUpTriggered,              m_currentDatabaseWidget.get(), &DatabaseWidget::moveEntryUp);
+		connect(this, &SignalMultiplexer::actionEntryMoveDownTriggered,            m_currentDatabaseWidget.get(), &DatabaseWidget::moveEntryDown);
+		connect(this, &SignalMultiplexer::actionEntryCopyUsernameTriggered,        m_currentDatabaseWidget.get(), &DatabaseWidget::copyUsername);
+		connect(this, &SignalMultiplexer::actionEntryCopyPasswordTriggered,        m_currentDatabaseWidget.get(), &DatabaseWidget::copyPassword);
+		connect(this, &SignalMultiplexer::actionEntryCopyURLTriggered,             m_currentDatabaseWidget.get(), &DatabaseWidget::copyURL);
+		connect(this, &SignalMultiplexer::actionEntryCopyNotesTriggered,           m_currentDatabaseWidget.get(), &DatabaseWidget::copyNotes);
+		connect(this, &SignalMultiplexer::actionGroupNewTriggered,                 m_currentDatabaseWidget.get(), &DatabaseWidget::createGroup);
+		connect(this, &SignalMultiplexer::actionGroupEditTriggered,                m_currentDatabaseWidget.get(), qOverload<>(&DatabaseWidget::switchToGroupEdit));
+		connect(this, &SignalMultiplexer::actionGroupCloneTriggered,               m_currentDatabaseWidget.get(), &DatabaseWidget::cloneGroup);
+		connect(this, &SignalMultiplexer::actionGroupDeleteTriggered,              m_currentDatabaseWidget.get(), &DatabaseWidget::deleteGroup);
+		connect(this, &SignalMultiplexer::actionGroupEmptyRecycleBinTriggered,     m_currentDatabaseWidget.get(), &DatabaseWidget::emptyRecycleBin);
+		connect(this, &SignalMultiplexer::actionGroupSortAscTriggered,             m_currentDatabaseWidget.get(), &DatabaseWidget::sortGroupsAsc);
+		connect(this, &SignalMultiplexer::actionGroupSortDescTriggered,            m_currentDatabaseWidget.get(), &DatabaseWidget::sortGroupsDesc);
 
-	m_currentObject = object;
-
-	if (object)
-	{
-		for (const Connection &con: asConst(m_connections))
-		{
-			connect(con);
-		}
-	}
-}
-
-void SignalMultiplexer::connect(QObject *sender, const char *signal, const char *slot)
-{
-	Q_ASSERT(sender);
-
-	Connection con;
-	con.slot = slot;
-	con.sender = sender;
-	con.signal = signal;
-	m_connections << con;
-
-	if (m_currentObject)
-	{
-		connect(con);
-	}
-}
-
-void SignalMultiplexer::connect(const char *signal, QObject *receiver, const char *slot)
-{
-	Q_ASSERT(receiver);
-
-	Connection con;
-	con.receiver = receiver;
-	con.signal = signal;
-	con.slot = slot;
-	m_connections << con;
-
-	if (m_currentObject)
-	{
-		connect(con);
-	}
-}
-
-void SignalMultiplexer::disconnect(QObject *sender, const char *signal, const char *slot)
-{
-	Q_ASSERT(sender);
-
-	QMutableListIterator<Connection> i = m_connections;
-	while (i.hasNext())
-	{
-		const Connection &con = i.next();
-
-		if ((con.sender == sender) && (qstrcmp(con.signal, signal) == 0) && (qstrcmp(con.slot, slot) == 0))
-		{
-			if (m_currentObject)
-			{
-				disconnect(con);
-			}
-
-			i.remove();
-		}
-	}
-}
-
-void SignalMultiplexer::disconnect(const char *signal, QObject *receiver, const char *slot)
-{
-	Q_ASSERT(receiver);
-
-	QMutableListIterator<Connection> i = m_connections;
-	while (i.hasNext())
-	{
-		const Connection &con = i.next();
-
-		if ((con.receiver == receiver) && (qstrcmp(con.signal, signal) == 0) && (qstrcmp(con.slot, slot) == 0))
-		{
-			if (m_currentObject)
-			{
-				disconnect(con);
-			}
-
-			i.remove();
-		}
-	}
-}
-
-void SignalMultiplexer::connect(const Connection &con)
-{
-	Q_ASSERT(con.sender || con.receiver);
-
-	if (con.sender)
-	{
-		QObject::connect(con.sender, con.signal, m_currentObject, con.slot);
-	}
-	else
-	{
-		QObject::connect(m_currentObject, con.signal, con.receiver, con.slot);
-	}
-}
-
-void SignalMultiplexer::disconnect(const Connection &con)
-{
-	Q_ASSERT(con.sender || con.receiver);
-
-	if (con.sender)
-	{
-		QObject::disconnect(con.sender, con.signal, m_currentObject, con.slot);
-	}
-	else
-	{
-		QObject::disconnect(m_currentObject, con.signal, con.receiver, con.slot);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::currentModeChanged,        this, &SignalMultiplexer::databaseCurrentModeChanged);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::groupChanged,              this, &SignalMultiplexer::databaseGroupChanged);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::entrySelectionChanged,     this, &SignalMultiplexer::databaseEntrySelectionChanged);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::databaseNonDataChanged,    this, &SignalMultiplexer::databaseNonDataChanged);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::groupContextMenuRequested, this, &SignalMultiplexer::databaseGroupContextMenuRequested);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::entryContextMenuRequested, this, &SignalMultiplexer::databaseEntryContextMenuRequested);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::databaseUnlocked,          this, &SignalMultiplexer::databaseUnlocked);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::databaseModified,          this, &SignalMultiplexer::databaseModified);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::searchModeActivated,       this, &SignalMultiplexer::databaseSearchModeActivated);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::listModeActivated,         this, &SignalMultiplexer::databaseListModeActivated);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::updateSyncProgress,        this, &SignalMultiplexer::databaseUpdateSyncProgress);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::requestSearch,             this, &SignalMultiplexer::databaseRequestSearch);
+		connect(m_currentDatabaseWidget.get(), &DatabaseWidget::clearSearch,               this, &SignalMultiplexer::databaseClearSearch);
 	}
 }

@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2026 i.Dark_Templar <darktemplar@dark-templar-archives.net>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -19,37 +20,76 @@
 
 #include <QObject>
 #include <QPointer>
-#include <QList>
 
-class SignalMultiplexer
+#include "gui/DatabaseWidget.h"
+
+class SignalMultiplexer: public QObject
 {
+	Q_OBJECT
+
 public:
 	SignalMultiplexer();
 	~SignalMultiplexer();
 
-	QObject* currentObject() const;
-	void setCurrentObject(QObject *object);
+	void setCurrentDatabaseWidget(DatabaseWidget *object);
 
-	void connect(QObject *sender, const char *signal, const char *slot);
-	void disconnect(QObject *sender, const char *signal, const char *slot);
+signals:
+	// Direction: from object to database
 
-	void connect(const char *signal, QObject *receiver, const char *slot);
-	void disconnect(const char *signal, QObject *receiver, const char *slot);
+	// SearchWidget
+	void search(const QString &searchtext);
+	void saveSearch(const QString &searchtext);
+	void caseSensitiveChanged(bool state);
+	void limitGroupChanged(bool state);
+	void downPressed();
+	void enterPressed();
+
+	// action groups and actions
+	void copyAdditionalAttributeActionsTriggered(QAction *action);
+	void setTagsMenuActionsTriggered(QAction *action);
+	void actionEntryNewTriggered();
+	void actionEntryEditTriggered();
+	void actionEntryExpireTriggered();
+	void actionEntryCloneTriggered();
+	void actionEntryDeleteTriggered();
+	void actionEntryRestoreTriggered();
+	void actionEntryTotpTriggered();
+	void actionEntrySetupTotpTriggered();
+	void actionEntryCopyTotpTriggered();
+	void actionEntryCopyPasswordTotpTriggered();
+	void actionEntryTotpQRCodeTriggered();
+	void actionEntryCopyTitleTriggered();
+	void actionEntryMoveUpTriggered();
+	void actionEntryMoveDownTriggered();
+	void actionEntryCopyUsernameTriggered();
+	void actionEntryCopyPasswordTriggered();
+	void actionEntryCopyURLTriggered();
+	void actionEntryCopyNotesTriggered();
+	void actionGroupNewTriggered();
+	void actionGroupEditTriggered();
+	void actionGroupCloneTriggered();
+	void actionGroupDeleteTriggered();
+	void actionGroupEmptyRecycleBinTriggered();
+	void actionGroupSortAscTriggered();
+	void actionGroupSortDescTriggered();
+
+	// Direction: from database to object
+	void databaseCurrentModeChanged(DatabaseWidget::Mode mode);
+	void databaseGroupChanged();
+	void databaseEntrySelectionChanged();
+	void databaseNonDataChanged();
+	void databaseGroupContextMenuRequested(const QPoint &globalPos);
+	void databaseEntryContextMenuRequested(const QPoint &globalPos);
+	void databaseUnlocked();
+	void databaseModified();
+	void databaseSearchModeActivated();
+	void databaseListModeActivated();
+	void databaseUpdateSyncProgress(int progress, const QString &message);
+	void databaseRequestSearch(const QString &search);
+	void databaseClearSearch();
 
 private:
-	struct Connection
-	{
-		QPointer<QObject> sender;
-		QPointer<QObject> receiver;
-		const char *signal;
-		const char *slot;
-	};
-
-	void connect(const Connection &con);
-	void disconnect(const Connection &con);
-
-	QPointer<QObject> m_currentObject;
-	QList<Connection> m_connections;
+	QPointer<DatabaseWidget> m_currentDatabaseWidget;
 
 	Q_DISABLE_COPY(SignalMultiplexer)
 };

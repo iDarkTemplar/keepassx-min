@@ -34,7 +34,7 @@ KPToolBar::KPToolBar(QWidget *parent)
 
 void KPToolBar::init()
 {
-	m_expandButton = findChild<QAbstractButton *>("qt_toolbar_ext_button");
+	m_expandButton = findChild<QAbstractButton*>("qt_toolbar_ext_button");
 	m_expandTimer.setSingleShot(true);
 	connect(&m_expandTimer, &QTimer::timeout, this, [this] { setExpanded(false); });
 }

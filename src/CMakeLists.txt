@@ -209,7 +209,6 @@ set(keepassx_HEADERS
 	core/PasswordGenerator.h
 	core/PasswordHealth.h
 	core/Resources.h
-	core/SignalMultiplexer.h
 	core/TimeDelta.h
 	core/TimeInfo.h
 	core/Tools.h
@@ -270,6 +269,7 @@ set(keepassx_QT_HEADERS
 	core/Merger.h
 	core/Metadata.h
 	core/ModifiableObject.h
+	core/SignalMultiplexer.h
 	format/OpData01.h
 	format/OpVaultReader.h
 	gui/AboutDialog.h
