@@ -74,6 +74,11 @@ KeyComponentWidget::Page KeyComponentWidget::visiblePage() const
 	return static_cast<Page>(m_ui->stackedWidget->currentIndex());
 }
 
+QPushButton* KeyComponentWidget::getRemoveButton()
+{
+	return m_ui->removeButton;
+}
+
 void KeyComponentWidget::updateAddStatus(bool added)
 {
 	if (m_ui->stackedWidget->currentIndex() == Page::Edit)

@@ -90,8 +90,8 @@ void DatabaseSettingsWidgetDatabaseKey::loadSettings(QSharedPointer<Database> db
 		setAdditionalKeyOptionsVisible(hasAdditionalKeys);
 	}
 
-	connect(m_passwordEditWidget->findChild<QPushButton*>("removeButton"), &QPushButton::clicked, this, &DatabaseSettingsWidgetDatabaseKey::markDirty);
-	connect(m_keyFileEditWidget->findChild<QPushButton*>("removeButton"), &QPushButton::clicked, this, &DatabaseSettingsWidgetDatabaseKey::markDirty);
+	connect(m_passwordEditWidget->getRemoveButton(), &QPushButton::clicked, this, &DatabaseSettingsWidgetDatabaseKey::markDirty);
+	connect(m_keyFileEditWidget->getRemoveButton(), &QPushButton::clicked, this, &DatabaseSettingsWidgetDatabaseKey::markDirty);
 }
 
 void DatabaseSettingsWidgetDatabaseKey::initialize()

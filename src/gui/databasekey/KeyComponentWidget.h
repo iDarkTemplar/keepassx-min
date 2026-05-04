@@ -19,6 +19,7 @@
 
 #include <QPointer>
 #include <QWidget>
+#include <QPushButton>
 
 namespace Ui {
 
@@ -68,6 +69,8 @@ public:
 	bool componentAdded() const;
 	void changeVisiblePage(Page page);
 	Page visiblePage() const;
+
+	QPushButton* getRemoveButton();
 
 protected:
 	/**

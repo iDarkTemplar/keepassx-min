@@ -52,7 +52,7 @@ NewDatabaseWizard::NewDatabaseWizard(QWidget *parent)
 	auto baseColor = defaultPalette.color(QPalette::Base);
 	baseColor.setAlpha(153);
 
-	auto *pageFrame = findChildren<QFrame *>()[0];
+	auto *pageFrame = findChildren<QFrame*>()[0];
 	auto framePalette = pageFrame->palette();
 	framePalette.setBrush(QPalette::Window, windowColor.lighter(120));
 	framePalette.setBrush(QPalette::Base, baseColor.lighter(120));
