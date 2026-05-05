@@ -1,282 +1,144 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ru">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ru">
 <context>
     <name>AboutDialog</name>
     <message>
+        <location filename="../../src/gui/AboutDialog.ui" line="14"/>
         <source>About KeePassXC</source>
         <translation>О KeePassXC</translation>
     </message>
     <message>
-        <source>About</source>
-        <translation>О программе</translation>
-    </message>
-    <message>
-        <source>Report bugs at: &lt;a href=&quot;https://github.com/keepassxreboot/keepassxc/issues&quot; style=&quot;text-decoration: underline;&quot;&gt;https://github.com&lt;/a&gt;</source>
-        <translation>Сообщить об ошибках на: &lt;a href=&quot;https://github.com/keepassxreboot/keepassxc/issues&quot; style=&quot;text-decoration: underline;&quot;&gt;https://github.com&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>KeePassXC is distributed under the terms of the GNU General Public License (GPL) version 2 or (at your option) version 3.</source>
-        <translation>KeePassXC распространяется на условиях лицензии GNU GPL версии 2 или 3 (по вашему выбору).</translation>
-    </message>
-    <message>
-        <source>Project Maintainers:</source>
-        <translation>Проект сопровождают:</translation>
-    </message>
-    <message>
-        <source>Special thanks from the KeePassXC team go to debfx for creating the original KeePassX.</source>
-        <translation>Команда KeePassXC выражает особую благодарность debfx за создание изначального KeePassX.</translation>
-    </message>
-    <message>
-        <source>Contributors</source>
-        <translation>Соавторы</translation>
-    </message>
-    <message>
-        <source>&lt;a href=&quot;https://github.com/keepassxreboot/keepassxc/graphs/contributors&quot;&gt;See Contributions on GitHub&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;https://github.com/keepassxreboot/keepassxc/graphs/contributors&quot;&gt;См. соавторов на GitHub&lt;/a&gt;</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/AboutDialog.ui" line="80"/>
         <source>Debug Info</source>
         <translation>Отладочная информация</translation>
     </message>
     <message>
+        <location filename="../../src/gui/AboutDialog.ui" line="92"/>
         <source>Include the following information whenever you report a bug:</source>
         <translation>Добавьте в сообщение об ошибке следующую информацию:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/AboutDialog.ui" line="112"/>
         <source>Copy to clipboard</source>
         <translation>Скопировать в буфер обмена</translation>
     </message>
 </context>
 <context>
-    <name>AccessControlDialog</name>
+    <name>Application</name>
     <message>
-        <source>KeePassXC -  Access Request</source>
-        <translation>KeePassXC — запрос доступа</translation>
-    </message>
-    <message>
-        <source>Non-existing/inaccessible executable path. Please double-check the client is legit.</source>
-        <translation>Несуществующий/недоступный путь к исполняемому файлу. Перепроверьте подлинность клиента.</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;%1 &lt;/span&gt;is requesting access to the following entries:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;%1 &lt;/span&gt;запрашивает доступ к следующим записям:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>Имя</translation>
-    </message>
-    <message>
-        <source>PID</source>
-        <translation>PID</translation>
-    </message>
-    <message>
-        <source>Executable</source>
-        <translation>Исполняемый</translation>
-    </message>
-    <message>
-        <source>Command Line</source>
-        <translation>Командная строка</translation>
-    </message>
-    <message>
-        <source>Details</source>
-        <translation>Подробности</translation>
-    </message>
-    <message>
-        <source>Remember</source>
-        <translation>Запомнить</translation>
-    </message>
-    <message>
-        <source>Allow Selected</source>
-        <translation>Разрешить выбранные</translation>
-    </message>
-    <message>
-        <source>Your decision will be remembered for the duration while both the requesting client AND KeePassXC are running.</source>
-        <translation>Ваше решение будет сохранено на всё время, пока запущены и запрашивающий клиент, и KeePassXC.</translation>
-    </message>
-    <message>
-        <source>Deny All &amp;&amp; Future</source>
-        <translation>Запретить все и будущие</translation>
-    </message>
-    <message>
-        <source>Allow All &amp;&amp; &amp;Future</source>
-        <translation>Разрешить все и будущие</translation>
-    </message>
-</context>
-<context>
-    <name>AccessControlDialog::DenyButton</name>
-    <message>
-        <source>Deny for this program</source>
-        <translation>Запретить для этой программы</translation>
-    </message>
-</context>
-<context>
-    <name>AgentSettingsWidget</name>
-    <message>
-        <source>Enable SSH Agent integration</source>
-        <translation>Включить интеграцию SSH-агента</translation>
-    </message>
-    <message>
-        <source>Use Pageant</source>
-        <translation>Использовать Pageant</translation>
-    </message>
-    <message>
-        <source>Use OpenSSH</source>
-        <translation>Использовать OpenSSH</translation>
-    </message>
-    <message>
-        <source>SSH_AUTH_SOCK override</source>
-        <translation>Переопределить SSH_AUTH_SOCK</translation>
-    </message>
-    <message>
-        <source>SSH_AUTH_SOCK value</source>
-        <translation>Значение SSH_AUTH_SOCK</translation>
-    </message>
-    <message>
-        <source>(empty)</source>
-        <translation>(пусто)</translation>
-    </message>
-    <message>
-        <source>SSH_SK_PROVIDER value</source>
-        <translation>Значение SSH_SK_PROVIDER</translation>
-    </message>
-    <message>
-        <source>SSH_SK_PROVIDER override</source>
-        <translation>Переопределить SSH_SK_PROVIDER</translation>
-    </message>
-    <message>
-        <source>No SSH Agent socket available. Either make sure SSH_AUTH_SOCK environment variable exists or set an override.</source>
-        <translation>Отсутствуют сокеты SSH-агента. Убедитесь, что переменная SSL_AUTH_SOCK определена, или переопределите её значение.</translation>
-    </message>
-    <message>
-        <source>SSH Agent connection is working!</source>
-        <translation>Соединение с SSH-агентом активно!</translation>
-    </message>
-    <message>
-        <source>Use both agents</source>
-        <translation>Использовать оба агента</translation>
-    </message>
-</context>
-<context>
-    <name>AppKit</name>
-    <message>
-        <source>Window</source>
-        <translation>Окно</translation>
-    </message>
-    <message>
-        <source>Minimize</source>
-        <translation>Свернуть</translation>
-    </message>
-    <message>
-        <source>Zoom</source>
-        <translation>Масштаб</translation>
-    </message>
-    <message>
-        <source>Bring All to Front</source>
-        <translation>Вывести всё на передний план</translation>
+        <location filename="../../src/gui/Application.cpp" line="145"/>
+        <source>System default</source>
+        <comment>Language selection</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ApplicationSettingsWidget</name>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="64"/>
         <source>Application Settings</source>
         <translation>Настройки приложения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="69"/>
         <source>General</source>
         <translation>Общие</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="70"/>
         <source>Security</source>
         <translation>Безопасность</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="124"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="236"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="338"/>
         <source>Access error for config file %1</source>
         <translation>Ошибка доступа к файлу конфигурации %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="162"/>
         <source>Icon only</source>
         <translation>Только значок</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="163"/>
         <source>Text only</source>
         <translation>Только текст</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="164"/>
         <source>Text beside icon</source>
         <translation>Текст рядом со значком</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="165"/>
         <source>Text under icon</source>
         <translation>Текст под значком</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="166"/>
         <source>Follow style</source>
         <translation>Следовать стилю</translation>
     </message>
     <message>
-        <source>Monochrome</source>
-        <translation>Монохромный</translation>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="368"/>
+        <source>Import KeePassX-min Settings</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Monochrome (light)</source>
-        <translation>Монохромный (светлый)</translation>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="386"/>
+        <source>Export KeePassX-min Settings</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Monochrome (dark)</source>
-        <translation>Монохромный (тёмный)</translation>
-    </message>
-    <message>
-        <source>Colorful</source>
-        <translation>Цветной</translation>
-    </message>
-    <message>
-        <source>You must restart the application to set the new language. Would you like to restart now?</source>
-        <translation>Необходимо перезапустить приложение, чтобы установить новый язык. Перезапустить сейчас?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="439"/>
         <source>Select backup storage directory</source>
         <translation>Выбрать папку для резервной копии</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="326"/>
         <source>Confirm Reset</source>
         <translation>Подтвердить сброс</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="327"/>
         <source>Are you sure you want to reset all settings to default?</source>
         <translation>Сбросить все настройки по умолчанию?</translation>
     </message>
     <message>
-        <source>Import KeePassXC Settings</source>
-        <translation>Импортировать настройки KeePassXC</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="376"/>
         <source>Failed to import settings from %1, not a valid settings file.</source>
         <translation>Не удалось импортировать настройки из %1, не корректный файл настроек.</translation>
     </message>
     <message>
-        <source>Export KeePassXC Settings</source>
-        <translation>Экспортировать настройки KeePassXC</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="175"/>
         <source>Small</source>
         <translation>Маленький</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="176"/>
         <source>Normal</source>
         <translation>Обычный</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="177"/>
         <source>Medium</source>
         <translation>Средний</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="178"/>
         <source>Large</source>
         <translation>Большой</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="188"/>
         <source>Custom</source>
         <translation>Пользовательский</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="97"/>
         <source>This setting cannot be enabled when minimize on unlock is enabled.</source>
         <translation>Эту настройку нельзя включить, если выбрано сворачивание при разблокировке.</translation>
     </message>
@@ -284,333 +146,253 @@
 <context>
     <name>ApplicationSettingsWidgetGeneral</name>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="33"/>
         <source>Basic Settings</source>
         <translation>Основные настройки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="81"/>
         <source>Startup</source>
         <translation>Запуск</translation>
     </message>
     <message>
-        <source>Start only a single instance of KeePassXC</source>
-        <translation>Запускать только один экземпляр KeePassXC</translation>
-    </message>
-    <message>
-        <source>Automatically launch KeePassXC at system startup</source>
-        <translation>Автоматически запускать KeePassXC при загрузке системы</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="87"/>
         <source>Minimize window at application startup</source>
         <translation>Запускать приложение в свёрнутом виде</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="94"/>
         <source>Minimize window after unlocking database</source>
         <translation>Сворачивать окно после разблокировки базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="103"/>
         <source>Remember previously used databases</source>
         <translation>Запоминать ранее использованные базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="168"/>
         <source>Load previously open databases on startup</source>
         <translation>Загрузка ранее открытых баз данных при запуске</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="204"/>
         <source>Remember database key files and security dongles</source>
         <translation>Запоминать ключевые файлы баз данных и аппаратные ключи безопасности</translation>
     </message>
     <message>
-        <source>Check for updates at application startup once per week</source>
-        <translation>Проверять обновления при запуске раз в неделю</translation>
-    </message>
-    <message>
-        <source>Include beta releases when checking for updates</source>
-        <translation>Включить в проверку обновлений бета-версии</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="274"/>
         <source>File Management</source>
         <translation>Управление файлами</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="280"/>
         <source>Automatically save after every change</source>
         <translation>Автоматически сохранять после каждого изменения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="287"/>
         <source>Automatically save when locking database</source>
         <translation>Автоматически сохранять при блокировке базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="294"/>
         <source>Automatically save non-data changes when locking database</source>
         <translation>Автоматически сохранять изменения, не связанные с данными, при блокировке БД</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="301"/>
         <source>Automatically reload the database when modified externally</source>
         <translation>Автоматически перезагружать базу данных при её изменении извне</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="308"/>
         <source>Backup database file before saving</source>
         <translation>Создавать резервную копию базы данных перед сохранением</translation>
     </message>
     <message>
-        <source>{DB_FILENAME}.old.kdbx</source>
-        <translation>{DB_FILENAME}.old.kdbx</translation>
-    </message>
-    <message>
-        <source>Use alternative saving method (may solve problems with Dropbox, Google Drive, GVFS, etc.)</source>
-        <translation>Использовать альтернативный метод хранения (может решить проблемы с Dropbox, Google Drive, GVFS и т.д.)</translation>
-    </message>
-    <message>
-        <source>Temporary file moved into place</source>
-        <translation>Временный файл перемещён на место</translation>
-    </message>
-    <message>
-        <source>Directly write to database file (dangerous)</source>
-        <translation>Прямая запись в файл базы данных (опасно)</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="412"/>
         <source>Entry Management</source>
         <translation>Управление записями</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="489"/>
         <source>Use group icon on entry creation</source>
         <translation>Использовать значок группы для новых записей</translation>
     </message>
     <message>
-        <source>Minimize when opening a URL</source>
-        <translation>Сворачивать при открытии URL-адреса</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="499"/>
         <source>Hide window when copying to clipboard</source>
         <translation>Скрывать окно после копирования в буфер обмена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="530"/>
         <source>Minimize</source>
         <translation>Сворачивать</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="563"/>
         <source>Drop to background</source>
         <translation>Убирать на задний план</translation>
     </message>
     <message>
-        <source>Favicon download timeout:</source>
-        <translation>Таймаут загрузки значка сайта:</translation>
-    </message>
-    <message>
-        <source>Website icon download timeout in seconds</source>
-        <translation>Таймаут загрузки значка сайта в секундах</translation>
-    </message>
-    <message>
-        <source> sec</source>
-        <comment>Seconds</comment>
-        <translation> сек</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="575"/>
         <source>User Interface</source>
         <translation>Пользовательский интерфейс</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="643"/>
         <source>Toolbar button style</source>
         <translation>Внешний вид кнопок панели инструментов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="662"/>
         <source>Movable toolbar</source>
         <translation>Перемещаемая панель инструментов</translation>
     </message>
     <message>
-        <source>Language selection</source>
-        <translation>Выбор языка</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation>Язык:</translation>
-    </message>
-    <message>
-        <source>(restart program to activate)</source>
-        <translation>(перезапустить программу для активации)</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="595"/>
         <source>Toolbar button style:</source>
         <translation>Вид кнопок панели инструментов:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="695"/>
         <source>Use monospaced font for notes</source>
         <translation>Использовать моноширинный шрифт для заметок</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="702"/>
         <source>Minimize instead of app exit</source>
         <translation>Сворачивать вместо закрытия программы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="709"/>
         <source>Show a system tray icon</source>
         <translation>Показывать значок в области уведомлений</translation>
     </message>
     <message>
-        <source>Tray icon type</source>
-        <translation>Тип значка в области уведомлений</translation>
-    </message>
-    <message>
-        <source>Tray icon type:</source>
-        <translation>Тип значка в области уведомлений:</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="764"/>
         <source>Hide window to system tray when minimized</source>
         <translation>Скрывать окно в область уведомлений при сворачивании</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="787"/>
         <source>Reset settings to default…</source>
         <translation>Сбросить настройки по умолчанию...</translation>
     </message>
     <message>
-        <source>Auto-Type</source>
-        <translation>Автонабор</translation>
-    </message>
-    <message>
-        <source>Use entry title to match windows for global Auto-Type</source>
-        <translation>Использовать название записи для глобального автонабора</translation>
-    </message>
-    <message>
-        <source>Use entry URL to match windows for global Auto-Type</source>
-        <translation>Использовать URL-адрес для глобального автонабора</translation>
-    </message>
-    <message>
-        <source>Always ask before performing Auto-Type</source>
-        <translation>Всегда спрашивать перед автонабором</translation>
-    </message>
-    <message>
-        <source>Hide expired entries from Auto-Type</source>
-        <translation>Скрыть истекшие записи из автонабора</translation>
-    </message>
-    <message>
-        <source>Re-lock previously locked database after performing Auto-Type</source>
-        <translation>Блокировать ранее заблокированную БД после автонабора</translation>
-    </message>
-    <message>
-        <source>Auto-Type start delay:</source>
-        <translation>Задержка начала автонабора:</translation>
-    </message>
-    <message>
-        <source>Global Auto-Type shortcut:</source>
-        <translation>Комбинация клавиш для глобального автонабора:</translation>
-    </message>
-    <message>
-        <source>Auto-type start delay milliseconds</source>
-        <translation>Задержка начала автонабора в миллисекундах</translation>
-    </message>
-    <message>
-        <source> ms</source>
-        <comment>Milliseconds</comment>
-        <translation> мс</translation>
-    </message>
-    <message>
-        <source>Auto-Type typing delay:</source>
-        <translation>Задержка ввода автонабора:</translation>
-    </message>
-    <message>
-        <source>Global auto-type shortcut</source>
-        <translation>Комбинация клавиш для глобального автонабора</translation>
-    </message>
-    <message>
-        <source>Auto-type character typing delay milliseconds</source>
-        <translation>Задержка ввода символов в миллисекундах</translation>
-    </message>
-    <message>
-        <source>Remember last typed entry for:</source>
-        <translation>Помнить последнюю введённую запись в течение:</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="224"/>
         <source>On database unlock, show entries that will expire within</source>
         <translation>При разблокировке БД показать записи, срок действия которых истекает в течение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="237"/>
         <source>On database unlock, show entries that will expire within </source>
         <translation>При разблокировке БД показать записи, срок действия которых истекает в течение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="240"/>
         <source> days</source>
         <comment>number of days warning for password expiration</comment>
         <translation> дн.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="342"/>
         <source>Destination format:</source>
         <translation>Формат назначения:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="371"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{DB_FILENAME}&lt;/span&gt; is replaced with the filename of the saved database without extension&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{TIME:&amp;lt;format&amp;gt;}&lt;/span&gt; is replaced with the specified time format (default: dd_MM_yyyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;See the User Guide for more details&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{DB_FILENAME}&lt;/span&gt; заменяется на имя файла сохраненной базы данных без расширения&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{TIME:&amp;lt;format&amp;gt;}&lt;/span&gt; заменяется на указанный формат времени (по умолчанию: dd_MM_yyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;Подробнее см. в руководстве пользователя&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="374"/>
+        <source>{DB_FILENAME}.old.kdbxm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="400"/>
         <source>Choose folder...</source>
         <translation>Выбрать папку...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="418"/>
         <source>Show confirmation before moving entries to recycle bin</source>
         <translation>Запрашивать подтверждение перед перемещением записей в корзину</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="432"/>
         <source>Copy data on double clicking field in entry view</source>
         <translation>Копировать данные из столбцов по двойному щелчку в режиме просмотра записей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="671"/>
         <source>Show toolbar</source>
         <translation>Отображать панель инструментов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="678"/>
         <source>Show the menu bar by pressing the Alt key</source>
         <translation>Отобразить меню при нажатии клавиши Alt</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="681"/>
         <source>Show menubar</source>
         <translation>Отображать меню</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="807"/>
         <source>Import settings…</source>
         <translation>Импорт настроек...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="814"/>
         <source>Export settings…</source>
         <translation>Экспорт настроек...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="608"/>
         <source>Font size:</source>
         <translation>Размер шрифта:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="624"/>
         <source>Font size selection</source>
         <translation>Выбор размера шрифта</translation>
     </message>
     <message>
-        <source>Skip confirmation for main window Auto-Type actions</source>
-        <translation>Пропустить подтверждение для автонабора из главного окна</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="441"/>
         <source>Double-click action for URL:</source>
         <translation>Действие при двойном щелчке по URL:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="454"/>
         <source>Double-click action for URL field</source>
         <translation>Действие при двойном щелчке по полю URL</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="466"/>
         <source>Edit entry</source>
         <translation>Изменить запись</translation>
     </message>
     <message>
-        <source>Open entry URL in browser</source>
-        <translation>Открыть URL-адрес в браузере</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="461"/>
         <source>Copy entry URL to clipboard</source>
         <translation>Скопировать URL-адрес в буфер обмена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="425"/>
         <source>Auto-generate password for new entries</source>
         <translation>Автосоздание пароля для новых записей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="113"/>
         <source> recent files</source>
         <translation> недавние файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="688"/>
         <source>Show passwords in color</source>
         <translation>Показывать пароли в цвете</translation>
     </message>
@@ -618,88 +400,90 @@
 <context>
     <name>ApplicationSettingsWidgetSecurity</name>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="32"/>
         <source>Timeouts</source>
         <translation>Таймауты</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="47"/>
         <source>Database lock timeout seconds</source>
         <translation>Задержка блокировки базы данных в секундах</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="50"/>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="120"/>
         <source> sec</source>
         <comment>Seconds</comment>
         <translation> сек</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="66"/>
         <source>Clear clipboard after</source>
         <translation>Очищать буфер обмена через</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="73"/>
         <source>Clear search query after</source>
         <translation>Задержка очистки поискового запроса:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="89"/>
         <source> min</source>
         <comment>Minutes</comment>
         <translation> мин</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="117"/>
         <source>Clipboard clear seconds</source>
         <translation>Очистка буфера обмена в секундах</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="155"/>
         <source>Lock databases after inactivity of</source>
         <translation>Блокировать базы данных при неактивности в течение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="188"/>
         <source>Convenience</source>
         <translation>Удобство</translation>
     </message>
     <message>
-        <source>Enable database quick unlock (Touch ID / Windows Hello)</source>
-        <translation>Включить быструю разблокировку базы данных (Touch ID / Windows Hello)</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="171"/>
         <source>Lock databases when session is locked or lid is closed</source>
         <translation>Блокировать базы данных при блокировке сеанса или закрытии крышки ноутбука</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="178"/>
         <source>Lock databases after minimizing the window</source>
         <translation>Блокировать базы данных при сворачивании окна</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="201"/>
         <source>Hide passwords when editing them</source>
         <translation>Скрывать пароли при их редактировании</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="194"/>
         <source>Use placeholder for empty password fields</source>
         <translation>Использовать заполнитель для полей с пустым паролем</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="208"/>
         <source>Hide passwords in the entry preview panel</source>
         <translation>Скрыть пароли на панели предпросмотра</translation>
     </message>
     <message>
-        <source>Privacy</source>
-        <translation>Конфиденциальность</translation>
-    </message>
-    <message>
-        <source>Use DuckDuckGo service to download website icons</source>
-        <translation>Использовать DuckDuckGo для загрузки значков</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="215"/>
         <source>Hide TOTP in the entry preview panel</source>
         <translation>Скрыть TOTP на панели предпросмотра</translation>
     </message>
     <message>
-        <source>Lock databases when switching user</source>
-        <translation>Блокировать базы данных при переключении пользователя</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="165"/>
         <source>Lock Options</source>
         <translation>Параметры блокировки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="222"/>
         <source>Hide notes in the entry preview panel</source>
         <translation>Скрыть заметки на панели предпросмотра</translation>
     </message>
@@ -707,748 +491,44 @@
 <context>
     <name>AttachmentWidget</name>
     <message>
+        <location filename="../../src/gui/entry/attachments/AttachmentWidget.cpp" line="30"/>
         <source>Attachment Viewer</source>
         <translation>Просмотр вложений</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/attachments/AttachmentWidget.cpp" line="73"/>
         <source>Unknown attachment type</source>
         <translation>Неизвестный тип вложения</translation>
     </message>
 </context>
 <context>
-    <name>AutoType</name>
-    <message>
-        <source>The requested Auto-Type sequence cannot be used due to an error:</source>
-        <translation>Запрашиваемая последовательность автонабора не может быть использована из-за ошибки:</translation>
-    </message>
-    <message>
-        <source>Auto-Type Error</source>
-        <translation>Ошибка автонабора</translation>
-    </message>
-    <message>
-        <source>Permission Required</source>
-        <translation>Требуется разрешение</translation>
-    </message>
-    <message>
-        <source>KeePassXC requires the Accessibility permission in order to perform entry level Auto-Type. If you already granted permission, you may have to restart KeePassXC.</source>
-        <translation>KeePassXC для автонабора требуется разрешение на доступ к специальным возможностям. Если такое разрешение уже предоставлено, перезапустите KeePassXC.</translation>
-    </message>
-    <message>
-        <source>KeePassXC requires the Accessibility and Screen Recorder permission in order to perform global Auto-Type. Screen Recording is necessary to use the window title to find entries. If you already granted permission, you may have to restart KeePassXC.</source>
-        <translation>KeePassXC для глобального автонабора требуется разрешение на доступ к специальным возможностям и записи экрана. Запись экрана необходима для поиска полей ввода по заголовкам окон. Если такие разрешения уже предоставлены, перезапустите KeePassXC.</translation>
-    </message>
-    <message>
-        <source>Invalid entry provided</source>
-        <translation>Указана недопустимая запись</translation>
-    </message>
-    <message>
-        <source>Bracket imbalance detected, found extra { or }</source>
-        <translation>Обнаружено несоответствие количества скобок: имеется лишняя { или }</translation>
-    </message>
-    <message>
-        <source>Too many repetitions detected, max is %1: %2</source>
-        <translation>Обнаружено слишком большое количество повторов, допускается не более %1: %2</translation>
-    </message>
-    <message>
-        <source>Very slow key press detected, max is %1: %2</source>
-        <translation>Обнаружено слишком медленное нажатие клавиш, допускается не более %1: %2</translation>
-    </message>
-    <message>
-        <source>Very long delay detected, max is %1: %2</source>
-        <translation>Обнаружена слишком большая задержка, допускается не более %1: %2</translation>
-    </message>
-    <message>
-        <source>Invalid placeholder: %1</source>
-        <translation>Недопустимый заполнитель: %1</translation>
-    </message>
-    <message>
-        <source>Entry does not have attribute for PICKCHARS: %1</source>
-        <translation>Запись не имеет атрибута PICKCHARS: %1</translation>
-    </message>
-    <message>
-        <source>Entry has invalid TOTP settings</source>
-        <translation>Запись имеет неверные настройки TOTP</translation>
-    </message>
-</context>
-<context>
-    <name>AutoTypeAssociationsModel</name>
-    <message>
-        <source>Window</source>
-        <translation>Окно</translation>
-    </message>
-    <message>
-        <source>Sequence</source>
-        <translation>Последовательность</translation>
-    </message>
-    <message>
-        <source>(empty)</source>
-        <translation>(пусто)</translation>
-    </message>
-    <message>
-        <source>Default sequence</source>
-        <translation>Стандартная последовательность</translation>
-    </message>
-</context>
-<context>
-    <name>AutoTypeMatchModel</name>
-    <message>
-        <source>Group</source>
-        <translation>Группа</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation>Название</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>Логин</translation>
-    </message>
-    <message>
-        <source>Sequence</source>
-        <translation>Последовательность</translation>
-    </message>
-</context>
-<context>
-    <name>AutoTypePlatformX11</name>
-    <message>
-        <source>Sequence aborted: Caps Lock is on</source>
-        <translation>Последовательность прервана: включён CAPS LOCK</translation>
-    </message>
-    <message>
-        <source>Sequence aborted: Modifier keys held by user</source>
-        <translation>Последовательность прервана: пользователь удерживал клавиши-модификаторы</translation>
-    </message>
-    <message>
-        <source>Unable to get valid keycode for key: </source>
-        <translation>Не удалось получить корректный код клавиши для клавиши: </translation>
-    </message>
-    <message>
-        <source>Trying to send invalid keyboard symbol.</source>
-        <translation>Попытка отправить неверный символ клавиши.</translation>
-    </message>
-</context>
-<context>
-    <name>AutoTypeSelectDialog</name>
-    <message>
-        <source>Auto-Type - KeePassXC</source>
-        <translation>Автонабор - KeePassXC</translation>
-    </message>
-    <message>
-        <source>Double click a row to perform Auto-Type or find an entry using the search:</source>
-        <translation>Сделайте двойной щелчок по строке для выполнения автонабора или найдите запись с помощью поиска:</translation>
-    </message>
-    <message>
-        <source>Search all open databases</source>
-        <translation>Поиск во всех открытых базах данных</translation>
-    </message>
-    <message>
-        <source>Search…</source>
-        <translation>Поиск...</translation>
-    </message>
-    <message>
-        <source>Type Sequence</source>
-        <translation>Последовательность ввода</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
-    </message>
-    <message>
-        <source>Type {USERNAME}</source>
-        <translation>Ввести {ЛОГИН}</translation>
-    </message>
-    <message>
-        <source>Type {PASSWORD}</source>
-        <translation>Ввести {ПАРОЛЬ}</translation>
-    </message>
-    <message>
-        <source>Type {TOTP}</source>
-        <translation>Ввести {TOTP}</translation>
-    </message>
-    <message>
-        <source>Copy Username</source>
-        <translation>Скопировать логин</translation>
-    </message>
-    <message>
-        <source>Copy Password</source>
-        <translation>Скопировать пароль</translation>
-    </message>
-    <message>
-        <source>Copy TOTP</source>
-        <translation>Скопировать TOTP</translation>
-    </message>
-    <message>
-        <source>Use Virtual Keyboard</source>
-        <translation>Использовать виртуальную клавиатуру</translation>
-    </message>
-    <message>
-        <source>Type {URL}</source>
-        <translation>Ввести {URL}</translation>
-    </message>
-    <message>
-        <source>Copy URL</source>
-        <translation>Скопировать URL</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;The following shortcuts are available:&lt;br/&gt;
-Ctrl+F - Focus search&lt;br/&gt;
-Ctrl+1 - Type username&lt;br/&gt;
-Ctrl+2 - Type password&lt;br/&gt;
-Ctrl+3 - Type TOTP&lt;br/&gt;
-Ctrl+4 - Type URL&lt;br/&gt;
-Ctrl+5 - Use Virtual Keyboard (Windows Only)&lt;br/&gt;
-Ctrl+Shift+1 - Copy username&lt;br/&gt;
-Ctrl+Shift+2 - Copy password&lt;br/&gt;
-Ctrl+Shift+3 - Copy TOTP&lt;br/&gt;
-Ctrl+Shift+4 - Copy URL&lt;br/&gt;
-&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Доступны следующие комбинации клавиш:&lt;br/&gt;
-Ctrl+F - Сфокусироваться на поиске&lt;br/&gt;
-Ctrl+1 - Ввести логин&lt;br/&gt;
-Ctrl+2 - Ввести пароль&lt;br/&gt;
-Ctrl+3 - Ввести TOTP&lt;br/&gt;
-Ctrl+4 - Ввести URL-адрес&lt;br/&gt;
-Ctrl+5 - Использовать виртуальную клавиатуру (только для Windows)&lt;br/&gt;
-Ctrl+Shift+1 - Скопировать логин&lt;br/&gt;
-Ctrl+Shift+2 - Скопировать пароль&lt;br/&gt;
-Ctrl+Shift+3 - Скопировать TOTP&lt;br/&gt;
-Ctrl+Shift+4 - Скопировать URL-адрес&lt;br/&gt;
-&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>You can use advanced search queries to find any entry in your open databases.</source>
-        <translation>Вы можете использовать расширенные поисковые запросы, чтобы найти любую запись в ваших открытых базах данных.</translation>
-    </message>
-</context>
-<context>
-    <name>BinaryStream</name>
-    <message>
-        <source>Failed to read string data: %1</source>
-        <translation>Не удалось прочитать строковые данные: %1</translation>
-    </message>
-    <message>
-        <source>String length exceeds 10 MiB limit (requested %1)</source>
-        <translation>Длина строки превышает лимит 10 МиБ (запрошено %1)</translation>
-    </message>
-</context>
-<context>
-    <name>BrowserAccessControlDialog</name>
-    <message>
-        <source>KeePassXC - Browser Access Request</source>
-        <translation>KeepassXC — запрос доступа браузером</translation>
-    </message>
-    <message>
-        <source>%1 is requesting access to the following entries:</source>
-        <translation>%1 запрашивает доступ к следующим записям:</translation>
-    </message>
-    <message>
-        <source>Remember access to checked entries</source>
-        <translation>Всегда разрешать доступ к отмеченным записям</translation>
-    </message>
-    <message>
-        <source>Remember</source>
-        <translation>Запомнить</translation>
-    </message>
-    <message>
-        <source>Allow access to entries</source>
-        <translation>Всегда разрешать доступ к записям</translation>
-    </message>
-    <message>
-        <source>Allow Selected</source>
-        <translation>Разрешить выбранные</translation>
-    </message>
-    <message>
-        <source>Deny All</source>
-        <translation>Запретить все</translation>
-    </message>
-    <message>
-        <source>Disable for this site</source>
-        <translation>Отключить для этого сайта</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation>Отменить</translation>
-    </message>
-</context>
-<context>
-    <name>BrowserEntrySaveDialog</name>
-    <message>
-        <source>Ok</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
-    </message>
-    <message>
-        <source>You have multiple databases open.
-Please select the correct database for saving credentials.</source>
-        <translation>У вас открыто несколько баз данных.
-Выберите нужную базу для сохранения учётных данных.</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Select Database</source>
-        <translation>KeePassXC - Выбрать базу данных</translation>
-    </message>
-</context>
-<context>
-    <name>BrowserPasskeysConfirmationDialog</name>
-    <message>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
-    </message>
-    <message>
-        <source>Update</source>
-        <translation>Обновить</translation>
-    </message>
-    <message>
-        <source>Authenticate</source>
-        <translation>Аутентификация</translation>
-    </message>
-    <message>
-        <source>Register new</source>
-        <translation>Зарегистрировать новый</translation>
-    </message>
-    <message>
-        <source>Register</source>
-        <translation>Зарегистрироваться</translation>
-    </message>
-    <message numerus="yes">
-        <source>Timeout in &lt;b&gt;%n&lt;/b&gt; seconds...</source>
-        <translation><numerusform>Тайм-аут через &lt;b&gt;%n&lt;/b&gt; секунду...</numerusform><numerusform>Тайм-аут через &lt;b&gt;%n&lt;/b&gt; секунды...</numerusform><numerusform>Тайм-аут через &lt;b&gt;%n&lt;/b&gt; секунд...</numerusform><numerusform>Таймаут через &lt;b&gt;%n&lt;/b&gt; сек...</numerusform></translation>
-    </message>
-    <message>
-        <source>Relying Party: %1</source>
-        <translation>Доверенная сторона: %1</translation>
-    </message>
-    <message>
-        <source>Username: %1</source>
-        <translation>Логин: %1</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Passkey credentials</source>
-        <translation>KeePassXC - учётные данные ключа доступа</translation>
-    </message>
-    <message>
-        <source>Add to existing entry</source>
-        <translation>Добавить к существующей записи</translation>
-    </message>
-    <message>
-        <source>Existing passkey found.
-Do you want to register a new passkey for:</source>
-        <translation>Существующий ключ доступа найден.
-Хотите зарегистрировать новый ключ для:</translation>
-    </message>
-    <message>
-        <source>Select the existing passkey and press Update to replace it.</source>
-        <translation>Выберите существующий ключ доступа и нажмите &apos;Обновить&apos;, чтобы заменить его.</translation>
-    </message>
-    <message>
-        <source>Authenticate passkey credentials for:</source>
-        <translation>Аутентификация учётных данных ключа доступа для:</translation>
-    </message>
-    <message>
-        <source>Do you want to register a passkey for:</source>
-        <translation>Вы хотите зарегистрировать ключ доступа для:</translation>
-    </message>
-</context>
-<context>
-    <name>BrowserService</name>
-    <message>
-        <source>A request for creating a new group &quot;%1&quot; has been received.
-Do you want to create this group?
-</source>
-        <translation>Получен запрос на создание новой группы &quot;%1&quot;.
-Создать эту группу?
-</translation>
-    </message>
-    <message>
-        <source>You have received an association request for the following database:
-%1
-
-Give the connection a unique name or ID, for example:
-chrome-laptop.</source>
-        <translation>Получен запрос на ассоциацию для следующей базы данных:
-%1
-
-Задайте для соединения уникальное имя или идентификатор, например: chrome-laptop.</translation>
-    </message>
-    <message>
-        <source>Save and allow access</source>
-        <translation>Сохранить и разрешить доступ</translation>
-    </message>
-    <message>
-        <source>A shared encryption key with the name &quot;%1&quot; already exists.
-Do you want to overwrite it?</source>
-        <translation>Общий ключ шифрования с именем &quot;%1&quot; уже существует.
-Хотите его перезаписать?</translation>
-    </message>
-    <message>
-        <source>Do you want to update the information in %1 - %2?</source>
-        <translation>Обновить информацию в %1 - %2?</translation>
-    </message>
-    <message>
-        <source>A request for deleting entry &quot;%1&quot; has been received.
-Do you want to delete the entry?
-</source>
-        <translation>Получен запрос на удаление записи &quot;%1&quot;.
-Удалить эту запись?
-</translation>
-    </message>
-    <message>
-        <source>%1 (Passkey)</source>
-        <translation>%1 (ключ доступа)</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Create a new group</source>
-        <translation>KeePassXC - Создать новую группу</translation>
-    </message>
-    <message>
-        <source>Disable</source>
-        <translation>Выключено</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Overwrite existing key?</source>
-        <translation>KeePassXC - Перезаписать существующий ключ?</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Update Entry</source>
-        <translation>KeePassXC - Обновить запись</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Delete entry</source>
-        <translation>KeePassXC - Удалить запись</translation>
-    </message>
-    <message>
-        <source>Converting attributes to custom data…</source>
-        <translation>Преобразование атрибутов в пользовательских данных...</translation>
-    </message>
-    <message>
-        <source>KeePassXC - New key association request</source>
-        <translation>KeePassXC - Запрос на ассоциацию нового ключа</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Passkey credentials</source>
-        <translation>KeePassXC - учётные данные ключа доступа</translation>
-    </message>
-    <message>
-        <source>Register a new passkey to this entry:</source>
-        <translation>Зарегистрируйте новый ключ доступа для этой записи:</translation>
-    </message>
-    <message>
-        <source>Register</source>
-        <translation>Зарегистрироваться</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Update passkey</source>
-        <translation>KeePassXC - Обновить ключ доступа</translation>
-    </message>
-    <message>
-        <source>Entry already has a passkey.
-Do you want to overwrite the passkey in %1 - %2?</source>
-        <translation>У записи уже есть ключ доступа. 
-Хотите перезаписать ключ в %1 - %2?</translation>
-    </message>
-    <message>
-        <source>Passkey</source>
-        <translation>Ключ доступа</translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation>Прервать</translation>
-    </message>
-    <message>
-        <source>KeePassXC: Converted KeePassHTTP attributes</source>
-        <translation>KeePassXC: Атрибуты KeePassHTTP преобразованы</translation>
-    </message>
-    <message>
-        <source>Successfully converted attributes from %1 entry(s).
-Moved %2 keys to custom data.</source>
-        <translation>Записей, из которых успешно преобразованы атрибуты: %1.
-Перемещено ключей в пользовательские данные: %2.</translation>
-    </message>
-    <message numerus="yes">
-        <source>Successfully moved %n keys to custom data.</source>
-        <translation><numerusform>Успешно перемещен %n ключ в пользовательские данные.</numerusform><numerusform>Успешно перемещено %n ключа в пользовательские данные.</numerusform><numerusform>Успешно перемещено %n ключей в пользовательские данные.</numerusform><numerusform>Успешно перемещено ключей в пользовательские данные: %n.</numerusform></translation>
-    </message>
-    <message>
-        <source>KeePassXC: No entry with KeePassHTTP attributes found!</source>
-        <translation>KeePassXC: Нет записи с атрибутами KeePassHTTP!</translation>
-    </message>
-    <message>
-        <source>The active database does not contain an entry with KeePassHTTP attributes.</source>
-        <translation>В активной базе данных нет записи с атрибутами KeePassHTTP.</translation>
-    </message>
-    <message>
-        <source>Don&apos;t show this warning again</source>
-        <translation>Не показывать это предупреждение</translation>
-    </message>
-    <message>
-        <source>KeePassXC: Legacy browser integration settings detected</source>
-        <translation>KeePassXC: Обнаружена устаревшая интеграция с браузером</translation>
-    </message>
-    <message>
-        <source>Your KeePassXC-Browser settings need to be moved into the database settings.
-This is necessary to maintain your current browser connections.
-Would you like to migrate your existing settings now?</source>
-        <translation>Ваши настройки KeePassXC-Browser требуется переместить в настройки базы данных.
-Это необходимо, чтобы поддерживать текущие подключения браузера.
-Переместить настройки?</translation>
-    </message>
-</context>
-<context>
-    <name>BrowserSettingsWidget</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Диалог</translation>
-    </message>
-    <message>
-        <source>This is required for accessing your databases with KeePassXC-Browser</source>
-        <translation>Это требуется для доступа к базам данных с помощью KeePassXC-Browser</translation>
-    </message>
-    <message>
-        <source>Enable browser integration</source>
-        <translation>Включить интеграцию с браузерами</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation>Общие</translation>
-    </message>
-    <message>
-        <source>Enable integration for these browsers:</source>
-        <translation>Включить интеграцию для браузеров:</translation>
-    </message>
-    <message>
-        <source>Vivaldi</source>
-        <translation>Vivaldi</translation>
-    </message>
-    <message>
-        <source>&amp;Edge</source>
-        <translation>&amp;Edge</translation>
-    </message>
-    <message>
-        <source>Firefox</source>
-        <translation>Firefox</translation>
-    </message>
-    <message>
-        <source>Tor Browser</source>
-        <translation>Tor Browser</translation>
-    </message>
-    <message>
-        <source>Brave</source>
-        <translation>Brave</translation>
-    </message>
-    <message>
-        <source>Google Chrome</source>
-        <translation>Google Chrome</translation>
-    </message>
-    <message>
-        <source>Chromium</source>
-        <translation>Chromium</translation>
-    </message>
-    <message>
-        <source>Show a notification when credentials are requested</source>
-        <extracomment>Credentials mean login data requested via browser extension</extracomment>
-        <translation>Показывать уведомление при запросе учётных данных</translation>
-    </message>
-    <message>
-        <source>Request to unlock the database if it is locked</source>
-        <translation>Запрашивать разблокировку базы данных, если она заблокирована</translation>
-    </message>
-    <message>
-        <source>Only entries with the same scheme (http://, https://, …) are returned.</source>
-        <translation>Будут отобраны только записи с совпадающим протоколом  (http://, https://, ...).</translation>
-    </message>
-    <message>
-        <source>Match URL scheme (e.g., https://example.com)</source>
-        <translation>Проверять совпадение протокола для URL-адресов (например: https://example.com)</translation>
-    </message>
-    <message>
-        <source>Only returns the best matches for a specific URL instead of all entries for the whole domain.</source>
-        <translation>При поиске по URL-адресам возвращать только лучшие совпадения, а не все записи для домена.</translation>
-    </message>
-    <message>
-        <source>Return only best-matching credentials</source>
-        <translation>Возвращать только наиболее подходящие совпадения</translation>
-    </message>
-    <message>
-        <source>Returns expired credentials. String [expired] is added to the title.</source>
-        <translation>Возвращать записи с истекшим сроком действия. К названию таких записей будет добавлено [истекшая].</translation>
-    </message>
-    <message>
-        <source>Allow returning expired credentials</source>
-        <translation>Возвращать истекшие записи</translation>
-    </message>
-    <message>
-        <source>All databases connected to the extension will return matching credentials.</source>
-        <translation>Получать результаты поиска из всех подключённых баз данных.</translation>
-    </message>
-    <message>
-        <source>Search in all opened databases for matching credentials</source>
-        <extracomment>Credentials mean login data requested via browser extension</extracomment>
-        <translation>Искать во всех открытых базах</translation>
-    </message>
-    <message>
-        <source>Advanced</source>
-        <translation>Дополнительно</translation>
-    </message>
-    <message>
-        <source>Never ask before accessing credentials</source>
-        <extracomment>Credentials mean login data requested via browser extension</extracomment>
-        <translation>Не подтверждать доступ к записям</translation>
-    </message>
-    <message>
-        <source>Never ask before updating credentials</source>
-        <extracomment>Credentials mean login data requested via browser extension</extracomment>
-        <translation>Не подтверждать обновление записей</translation>
-    </message>
-    <message>
-        <source>Do not ask permission for HTTP Basic Auth</source>
-        <extracomment>An extra HTTP Basic Auth setting</extracomment>
-        <translation>Не спрашивать разрешения для обычной проверки подлинности HTTP</translation>
-    </message>
-    <message>
-        <source>Automatically creating or updating string fields is not supported.</source>
-        <translation>Автоматическое создание или обновление строковых полей не поддерживается.</translation>
-    </message>
-    <message>
-        <source>Return advanced string fields which start with &quot;KPH: &quot;</source>
-        <translation>Возвращать дополнительные строковые поля, начинающиеся с &quot;KPH: &quot;</translation>
-    </message>
-    <message>
-        <source>Don&apos;t display the popup suggesting migration of legacy KeePassHTTP settings.</source>
-        <translation>Не напоминать о переносе устаревших параметров KeePassHTTP.</translation>
-    </message>
-    <message>
-        <source>Do not prompt for KeePassHTTP settings migration.</source>
-        <translation>Не запрашивать перенос настроек KeePassHTTP.</translation>
-    </message>
-    <message>
-        <source>Updates KeePassXC or keepassxc-proxy binary path automatically to native messaging scripts on startup.</source>
-        <translation>Автоматически обновлять пути к сценариям механизма native messaging при запуске  KeePassXC или keepassxc-proxy.</translation>
-    </message>
-    <message>
-        <source>Update native messaging manifest files at startup</source>
-        <translation>Обновлять файлы манифеста механизма native messaging при запуске</translation>
-    </message>
-    <message>
-        <source>Use a custom proxy location if you installed a proxy manually.</source>
-        <translation>Использовать пользовательский путь к прокси при установке прокси вручную.</translation>
-    </message>
-    <message>
-        <source>Use a custom proxy location:</source>
-        <comment>Meant is the proxy for KeePassXC-Browser</comment>
-        <translation>Задать своё расположение прокси:</translation>
-    </message>
-    <message>
-        <source>Custom proxy location field</source>
-        <translation>Поле расположения пользовательского прокси сервера</translation>
-    </message>
-    <message>
-        <source>Browser for custom proxy file</source>
-        <translation>Выбрать файл пользовательского прокси сервера</translation>
-    </message>
-    <message>
-        <source>Browse…</source>
-        <extracomment>Button for opening file dialog</extracomment>
-        <translation>Обзор...</translation>
-    </message>
-    <message>
-        <source>Use a custom browser configuration location:</source>
-        <translation>Задать своё расположение файла конфигурации браузера:</translation>
-    </message>
-    <message>
-        <source>Browser type:</source>
-        <translation>Тип браузера:</translation>
-    </message>
-    <message>
-        <source>Toolbar button style</source>
-        <translation>Стиль кнопок на панели инструментов</translation>
-    </message>
-    <message>
-        <source>Config Location:</source>
-        <translation>Расположение файла конфигурации:</translation>
-    </message>
-    <message>
-        <source>Custom browser location field</source>
-        <translation>Поле расположения пользовательского браузера</translation>
-    </message>
-    <message>
-        <source>Browse for custom browser path</source>
-        <translation>Выбрать расположение браузера</translation>
-    </message>
-    <message>
-        <source>Custom extension ID:</source>
-        <translation>Пользовательский ID расширения:</translation>
-    </message>
-    <message>
-        <source>Custom extension ID</source>
-        <translation>Пользовательский идентификатор расширения</translation>
-    </message>
-    <message>
-        <source>Executable Files</source>
-        <translation>Исполняемые файлы</translation>
-    </message>
-    <message>
-        <source>All Files</source>
-        <translation>Все файлы</translation>
-    </message>
-    <message>
-        <source>Select custom proxy location</source>
-        <translation>Выбрать другое расположение прокси</translation>
-    </message>
-    <message>
-        <source>Select native messaging host folder location</source>
-        <translation>Выбрать расположение папки native messaging</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Warning:&lt;/b&gt; Only adjust these settings if necessary.</source>
-        <translation>&lt;b&gt;Внимание:&lt;/b&gt; изменяйте эти настройки только при необходимости.</translation>
-    </message>
-    <message>
-        <source>The custom proxy location does not exist.</source>
-        <translation>Пользовательское расположение прокси-сервера не существует.</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Error:&lt;/b&gt; The custom proxy location does not exist. Correct this in the advanced settings tab.</source>
-        <translation>&lt;b&gt;Ошибка:&lt;/b&gt; пользовательское расположение прокси-сервера не существует. Исправьте это во вкладке дополнительных настроек.</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Error:&lt;/b&gt; The installed proxy executable is missing from the expected location: %1&lt;br/&gt;Please set a custom proxy location in the advanced settings or reinstall the application.</source>
-        <translation>&lt;b&gt;Ошибка:&lt;/b&gt; Установленный исполняемый файл прокси отсутствует в ожидаемом месте: %1&lt;br/&gt; Укажите собственное расположение прокси-сервера в дополнительных настройках или переустановите приложение.</translation>
-    </message>
-    <message>
-        <source>Allows using insecure http://localhost with passkeys for testing purposes.</source>
-        <translation>Позволяет использовать небезопасный http://localhost с ключами доступа для тестирования.</translation>
-    </message>
-    <message>
-        <source>Allow using localhost with passkeys</source>
-        <translation>Разрешить использование localhost с ключами доступа</translation>
-    </message>
-    <message>
-        <source>KeePassXC-Browser is needed for the browser integration to work. &lt;br /&gt;Download it for %1 and %2 and %3.</source>
-        <translation>Для интеграции с браузерами требуется KeePassXC-Browser. &lt;br /&gt;Загрузите его для %1, а также для %2 и %3.</translation>
-    </message>
-    <message>
-        <source>Browsers installed using Snap or Flatpak are not supported with exception to Firefox installed using Snap.</source>
-        <translation>Браузеры, установленные с помощью Snap или Flatpak, не поддерживаются, за исключением Firefox, установленного с помощью Snap.</translation>
+    <name>Clipboard</name>
+    <message>
+        <location filename="../../src/gui/Clipboard.cpp" line="44"/>
+        <location filename="../../src/gui/Clipboard.cpp" line="92"/>
+        <source>Unable to access the clipboard.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CloneDialog</name>
     <message>
+        <location filename="../../src/gui/CloneDialog.ui" line="14"/>
         <source>Clone Entry Options</source>
         <translation>Настройки дублирования</translation>
     </message>
     <message>
+        <location filename="../../src/gui/CloneDialog.ui" line="23"/>
         <source>Append &apos; - Clone&apos; to title</source>
         <translation>Добавить к названию &apos; - Копия&apos;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/CloneDialog.ui" line="33"/>
         <source>Replace username and password with references</source>
         <translation>Использовать ссылки для логина и пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/CloneDialog.ui" line="40"/>
         <source>Copy history</source>
         <translation>История копирования</translation>
     </message>
@@ -1456,136 +536,170 @@ Would you like to migrate your existing settings now?</source>
 <context>
     <name>CsvImportWidget</name>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="684"/>
         <source>size, rows, columns</source>
         <translation>размер, строк, столбцов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="39"/>
         <source>Column Association</source>
         <translation>Связывание столбцов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="213"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="112"/>
         <source>Username</source>
         <translation>Логин</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="345"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="76"/>
         <source>Group</source>
         <translation>Группа</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="278"/>
         <source>URL</source>
         <translation>URL-адрес</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="94"/>
         <source>Notes</source>
         <translation>Заметки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="296"/>
         <source>TOTP</source>
         <translation>TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="247"/>
         <source>Created</source>
         <translation>Создано</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="169"/>
         <source>Last Modified</source>
         <translation>Изменено</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="327"/>
         <source>Icon</source>
         <translation>Значок</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="407"/>
         <source>Encoding</source>
         <translation>Кодирование</translation>
     </message>
     <message>
-        <source>Codec</source>
-        <translation>Кодек</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="418"/>
         <source>Text is qualified by</source>
         <translation>Текст соответствует</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="433"/>
         <source>Text qualification</source>
         <translation>Текстовая квалификация</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="476"/>
         <source>Fields are separated by</source>
         <translation>Разделитель полей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="491"/>
         <source>Field separation</source>
         <translation>Разделитель полей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="539"/>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="554"/>
         <source>Comments start with</source>
         <translation>Символ начала комментария</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="592"/>
         <source>Header lines skipped</source>
         <translation>Пропуск начальных строк</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="607"/>
         <source>Number of header lines to discard</source>
         <translation>Количество пропускаемых строк заголовка</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="631"/>
         <source>First line has field names</source>
         <translation>Первая запись содержит имена полей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="619"/>
         <source>Consider &apos;\&apos; an escape character</source>
         <translation>Считать символ &apos;\&apos; экранирующим</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="664"/>
         <source>Preview</source>
         <translation>Просмотр</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="708"/>
         <source>CSV import preview</source>
         <translation>Предварительный просмотр импорта из CSV</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="171"/>
         <source>Not Present</source>
         <translation>Отсутствует</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="180"/>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="189"/>
         <source>Column %1</source>
         <translation>Столбец %1</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="403"/>
         <source>[%n more message(s) skipped]</source>
-        <translation><numerusform>[пропущено сообщение: %n]</numerusform><numerusform>[пропущено сообщений: %n]</numerusform><numerusform>[пропущено сообщений: %n]</numerusform><numerusform>[пропущено сообщений: %n]</numerusform></translation>
+        <translation>
+            <numerusform>[пропущено сообщение: %n]</numerusform>
+            <numerusform>[пропущено сообщений: %n]</numerusform>
+            <numerusform>[пропущено сообщений: %n]</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="248"/>
         <source>Failed to parse CSV file: %1</source>
         <translation>Ошибка при разборе CSV-файла: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="274"/>
         <source>Imported from CSV file: %1</source>
         <translation>Импортировано из CSV-файла: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="263"/>
         <source>No Title Selected</source>
         <translation>Не выбрано название</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="264"/>
         <source>No title column was selected, entries will be hard to tell apart.
 Are you sure you want to import?</source>
         <translation>Не выбрано название столбца, записи будет трудно различить.
 Хотите импортировать?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="376"/>
         <source>Tags</source>
         <translation>Теги</translation>
     </message>
@@ -1593,70 +707,88 @@ Are you sure you want to import?</source>
 <context>
     <name>CsvParserModel</name>
     <message numerus="yes">
+        <location filename="../../src/gui/csvImport/CsvParserModel.cpp" line="46"/>
         <source>%n row(s)</source>
         <comment>CSV row count</comment>
-        <translation><numerusform>%n строка</numerusform><numerusform>%n строк</numerusform><numerusform>%n строк</numerusform><numerusform>%n строк</numerusform></translation>
+        <translation>
+            <numerusform>%n строка</numerusform>
+            <numerusform>%n строк</numerusform>
+            <numerusform>%n строк</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/csvImport/CsvParserModel.cpp" line="47"/>
         <source>%n column(s)</source>
         <comment>CSV column count</comment>
-        <translation><numerusform>%n столбец</numerusform><numerusform>%n столбца</numerusform><numerusform>%n столбцов</numerusform><numerusform>%n столб.</numerusform></translation>
+        <translation>
+            <numerusform>%n столбец</numerusform>
+            <numerusform>%n столбца</numerusform>
+            <numerusform>%n столбцов</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>Database</name>
     <message>
+        <location filename="../../src/core/Database.cpp" line="661"/>
         <source>Passwords</source>
         <comment>Root group name</comment>
         <translation>Пароли</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="139"/>
         <source>File %1 does not exist.</source>
         <translation>Файл %1 не существует.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="156"/>
+        <location filename="../../src/core/Database.cpp" line="317"/>
         <source>Unable to open file %1.</source>
         <translation>Не удалось открыть файл %1.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="189"/>
         <source>Error while reading the database: %1</source>
         <translation>Ошибка при чтении базы данных: %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="255"/>
         <source>Could not save, database does not point to a valid file.</source>
         <translation>Не удалось сохранить, база данных не указывает на верный файл.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="290"/>
         <source>Database save is already in progress.</source>
         <translation>Сохранение базы данных уже выполняется.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="301"/>
         <source>Could not save, database has not been initialized!</source>
         <translation>Не удалось сохранить, база данных не была инициализирована.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="331"/>
         <source>Database file has unmerged changes.</source>
         <translation>Файл базы данных имеет несинхронизированные изменения.</translation>
     </message>
     <message>
-        <source>%1
-Backup database located at %2</source>
-        <translation>%1
-Расположение резервной копии базы данных: %2</translation>
-    </message>
-    <message>
+        <location filename="../../src/core/Database.cpp" line="473"/>
         <source>Key not transformed. This is a bug, please report it to the developers.</source>
         <translation>Ключ не преобразован. Это ошибка, сообщите о ней разработчикам.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="988"/>
         <source>Recycle Bin</source>
         <translation>Корзина</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="173"/>
+        <location filename="../../src/core/Database.cpp" line="343"/>
         <source>Database file read error.</source>
         <translation>Ошибка чтения файла базы данных.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="128"/>
         <source>No file path was provided.</source>
         <translation>Не указан путь к файлу.</translation>
     </message>
@@ -1664,89 +796,99 @@ Backup database located at %2</source>
 <context>
     <name>DatabaseOpenDialog</name>
     <message>
-        <source>Unlock Database - KeePassXC</source>
-        <translation>Разблокировать базу данных - KeePassXC</translation>
+        <location filename="../../src/gui/DatabaseOpenDialog.cpp" line="33"/>
+        <source>Unlock Database - KeePassX-min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseOpenDialog.cpp" line="137"/>
+        <source>DatabaseOpenDialog: mismatch between tab count %1 and DB count %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DatabaseOpenWidget</name>
     <message>
-        <source>Unlock KeePassXC Database</source>
-        <translation>Открытие базы данных KeePassXC</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="187"/>
         <source>Enter Password:</source>
         <translation>Введите пароль:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="202"/>
         <source>Password field</source>
         <translation>Поле пароля</translation>
     </message>
     <message>
-        <source>Hardware key slot selection</source>
-        <translation>Выбор слота аппаратного ключа</translation>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="14"/>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="87"/>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="164"/>
+        <source>Unlock KeePassX-min Database</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="259"/>
         <source>Key file to unlock the database</source>
         <translation>Ключевой файл для разблокировки базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="266"/>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="269"/>
         <source>Browse for key file</source>
         <translation>Выбрать ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="272"/>
         <source>Browse…</source>
         <translation>Обзор...</translation>
     </message>
     <message>
-        <source>Unlock Database</source>
-        <translation>Разблокировать базу данных</translation>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="324"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In addition to a password, you can use a secret file to enhance the security of your database. This file can be generated in your database&apos;s security settings.&lt;/p&gt;&lt;p&gt;This is &lt;span style=&quot; font-weight:700;&quot;&gt;not&lt;/span&gt; your *.kdbxm database file!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="64"/>
         <source>Unlock</source>
         <translation>Разблокировать</translation>
     </message>
     <message>
-        <source>Please present or touch your YubiKey to continue…</source>
-        <translation>Поднесите или коснитесь YubiKey, чтобы продолжить...</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="269"/>
         <source>Database Version Mismatch</source>
         <translation>Несоответствие версии базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="234"/>
+        <source>Ignoring unlock request for %1 because of running unlock action.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="270"/>
         <source>The database you are trying to open was most likely
-created by a newer version of KeePassXC.
+created by a newer version of KeePassX-min.
 
 You can try to open it anyway, but it may be incomplete
 and saving any changes may incur data loss.
 
-We recommend you update your KeePassXC installation.</source>
-        <translation>Открываемая база данных скорее всего
-создана в более новой версии KeePassXC.
-
-Вы можете попробовать открыть её, но полнота информации не гарантируется,
-а сохранение любых изменений может привести к потере данных.
-
-Рекомендуется обновить KeePassXC.</translation>
+We recommend you update your KeePassX-min installation.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="276"/>
         <source>Open database anyway</source>
         <translation>Всё равно открыть базу данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="286"/>
         <source>Database unlock canceled.</source>
         <translation>Разблокировка базы данных отменена.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="301"/>
         <source>Unlock failed and no password given</source>
         <translation>Ошибка при разблокировке, не указан пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="302"/>
         <source>Unlocking the database failed and you did not enter a password.
 Do you want to retry with an &quot;empty&quot; password instead?
 
@@ -1757,76 +899,69 @@ To prevent this error from appearing, you must go to &quot;Database Settings / S
 Чтобы отключить вывод этого сообщения об ошибке, выполните сброс пароля в меню &quot;Параметры базы данных&quot; → &quot;Безопасность&quot;.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="307"/>
         <source>Retry with empty password</source>
         <translation>Попробовать ещё раз с пустым паролем</translation>
     </message>
     <message>
-        <source>Failed to authenticate with Touch ID</source>
-        <translation>Не удалось пройти аутентификацию с помощью Touch ID</translation>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="361"/>
+        <source>You are using an old key file format which KeePassX-min may&lt;br&gt;stop supporting in the future.&lt;br&gt;&lt;br&gt;Please consider generating a new key file by going to:&lt;br&gt;&lt;strong&gt;Database &amp;gt; Database Security &amp;gt; Change Key File.&lt;/strong&gt;&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="424"/>
+        <source>KeePassX-min database file selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="351"/>
         <source>Failed to open key file: %1</source>
         <translation>Ошибка при открытии ключевого файла: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="360"/>
         <source>Old key file format</source>
         <translation>Старый формат ключевого файла</translation>
     </message>
     <message>
-        <source>You are using an old key file format which KeePassXC may&lt;br&gt;stop supporting in the future.&lt;br&gt;&lt;br&gt;Please consider generating a new key file by going to:&lt;br&gt;&lt;strong&gt;Database &amp;gt; Database Security &amp;gt; Change Key File.&lt;/strong&gt;&lt;br&gt;</source>
-        <translation>Используется ключевой файл устаревшего формата, поддержка которого в будущем может быть прекращена.&lt;br&gt;&lt;br&gt;Рекомендуется создать новый ключевой файл: перейдите в раздел&lt;br&gt;&lt;strong&gt;База данных &amp;gt; Безопасность базы данных &amp;gt; Изменить ключевой файл.&lt;/strong&gt;&lt;br&gt;</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="369"/>
         <source>Don&apos;t show this warning again</source>
         <translation>Не показывать это предупреждение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="396"/>
         <source>All files</source>
         <translation>Все файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="396"/>
         <source>Key files</source>
         <translation>Ключевые файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="397"/>
         <source>Select key file</source>
         <translation>Выберите ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="415"/>
         <source>Cannot use database file as key file</source>
         <translation>Файл базы данных не может быть ключевым файлом</translation>
     </message>
     <message>
-        <source>authenticate to access the database</source>
-        <translation>аутентифицироваться для доступа к базе данных</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="241"/>
         <source>Select Key File:</source>
         <translation>Выберите ключевой файл:</translation>
     </message>
     <message>
-        <source>&lt;p&gt;In addition to a password, you can use a secret file to enhance the security of your database. This file can be generated in your database&apos;s security settings.&lt;/p&gt;&lt;p&gt;This is &lt;strong&gt;not&lt;/strong&gt; your *.kdbx database file!&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Кроме пароля можно использовать секретный файл для усиления безопасности базы данных. Этот файл может быть сгенерирован в настройках безопасности базы данных. &lt;/p&gt;&lt;p&gt;Это &lt;strong&gt;не&lt;/strong&gt; файл базы данных *.kdbx!&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Use hardware key [Serial: %1]</source>
-        <translation>Использовать аппаратный ключ [серийный номер: %1]</translation>
-    </message>
-    <message>
-        <source>Use hardware key</source>
-        <translation>Выберите аппаратный ключ</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="416"/>
         <source>Your database file is NOT a key file!
 If you don&apos;t have a key file or don&apos;t know what that is, you don&apos;t have to select one.</source>
         <translation>Файл базы данных — НЕ ключевой файл!
 Если у вас нет ключевого файла или вы не знаете, что это такое, не выбирайте его.</translation>
     </message>
     <message>
-        <source>KeePassXC database file selected</source>
-        <translation>Выбран файл базы данных KeePassXC</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="425"/>
         <source>The file you selected looks like a database file.
 A database file is NOT a key file!
 
@@ -1837,41 +972,25 @@ Are you sure you want to continue with this file?.</source>
 Вы действительно хотите продолжить с этим файлом?</translation>
     </message>
     <message>
-        <source>No hardware keys found.</source>
-        <translation>Аппаратные ключи не найдены.</translation>
-    </message>
-    <message>
-        <source>Refresh Hardware Keys</source>
-        <translation>Обновить аппаратные ключи</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="327"/>
         <source>Click to add a key file.</source>
         <translation>Нажмите, чтобы добавить ключевой файл.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="330"/>
         <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;У меня есть ключевой файл&lt;/a&gt;</translation>
     </message>
     <message>
-        <source>Hardware keys found, but no slots are configured.</source>
-        <translation>Аппаратные ключи найдены, но ни один слот не настроен.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="91"/>
         <source>Press ESC again to close this database</source>
         <translation>Нажмите ESC еще раз, чтобы закрыть эту базу данных</translation>
-    </message>
-    <message>
-        <source>Windows Hello setup was canceled or failed. Quick unlock has not been enabled.</source>
-        <translation>Установка Windows Hello была отменена или не выполнена. Быстрая разблокировка не включена.</translation>
-    </message>
-    <message>
-        <source>Failed to authenticate with Windows Hello: %1</source>
-        <translation>Не удалось пройти аутентификацию с помощью Windows Hello: %1</translation>
     </message>
 </context>
 <context>
     <name>DatabaseSettingWidgetMetaData</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.cpp" line="38"/>
         <source>Passwords</source>
         <translation>Пароли</translation>
     </message>
@@ -1879,194 +998,50 @@ Are you sure you want to continue with this file?.</source>
 <context>
     <name>DatabaseSettingsDialog</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="42"/>
         <source>General</source>
         <translation>Общие</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="43"/>
         <source>Security</source>
         <translation>Безопасность</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="54"/>
         <source>Database Credentials</source>
         <translation>Доступ к базе данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="55"/>
         <source>Encryption Settings</source>
         <translation>Настройки шифрования</translation>
     </message>
     <message>
-        <source>Browser Integration</source>
-        <translation>Интеграция с браузерами</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="59"/>
         <source>Maintenance</source>
         <translation>Обслуживание</translation>
     </message>
     <message>
-        <source>KeeShare</source>
-        <translation>KeeShare</translation>
-    </message>
-    <message>
-        <source>Secret Service Integration</source>
-        <translation>Интеграция с секретной службой</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="68"/>
         <source>Database Settings: %1</source>
         <translation>Параметры базы данных: %1</translation>
     </message>
 </context>
 <context>
-    <name>DatabaseSettingsWidgetBrowser</name>
-    <message>
-        <source>KeePassXC-Browser settings</source>
-        <translation>Настройки KeePassXC-Browser</translation>
-    </message>
-    <message>
-        <source>Convert KeePassHTTP data</source>
-        <translation>Преобразование данных KeePassHTTP</translation>
-    </message>
-    <message>
-        <source>Convert legacy KeePassHTTP attributes to KeePassXC-Browser compatible custom data</source>
-        <translation>Преобразование устаревших атрибутов KeePassHTTP в пользовательские данные, совместимые с KeePassXC-Browser</translation>
-    </message>
-    <message>
-        <source>Refresh database root group ID</source>
-        <translation>Обновление идентификатора корневой записи базы данных</translation>
-    </message>
-    <message>
-        <source>Disconnect all browsers</source>
-        <translation>Отключить все браузеры</translation>
-    </message>
-    <message>
-        <source>Forget all site-specific settings on entries</source>
-        <translation>Забыть все настройки записей для конкретного сайта</translation>
-    </message>
-    <message>
-        <source>Stored keys</source>
-        <translation>Сохранённые ключи</translation>
-    </message>
-    <message>
-        <source>Stored browser keys</source>
-        <translation>Сохранённые ключи браузера</translation>
-    </message>
-    <message>
-        <source>Remove selected key</source>
-        <translation>Удалить выбранный ключ</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>Удалить</translation>
-    </message>
-    <message>
-        <source>Delete the selected key?</source>
-        <translation>Удалить выбранный ключ?</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete the selected key?
-This may prevent connection to the browser plugin.</source>
-        <translation>Вы действительно хотите удалить выбранный ключ?
-Это может помешать подключению к плагину браузера.</translation>
-    </message>
-    <message>
-        <source>Key</source>
-        <translation>Ключ</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation>Значение</translation>
-    </message>
-    <message>
-        <source>Created</source>
-        <translation>Создано</translation>
-    </message>
-    <message>
-        <source>Enable Browser Integration to access these settings.</source>
-        <translation>Для доступа к этим параметрам требуется включить интеграцию с браузером.</translation>
-    </message>
-    <message>
-        <source>Do you really want to disconnect all browsers?
-This may prevent connection to the browser plugin.</source>
-        <translation>Вы действительно хотите отключить все браузеры?
-Это может помешать подключению к плагину браузера.</translation>
-    </message>
-    <message>
-        <source>No shared encryption keys found in KeePassXC settings.</source>
-        <translation>В настройках KeePassXC нет общих ключей шифрования.</translation>
-    </message>
-    <message numerus="yes">
-        <source>Successfully removed %n encryption key(s) from KeePassXC settings.</source>
-        <translation><numerusform>Успешно удалён %n ключ шифрования из настроек KeePassXC.</numerusform><numerusform>Успешно удалено %n ключа шифрования из настроек KeePassXC.</numerusform><numerusform>Успешно удалено %n ключей шифрования из настроек KeePassXC.</numerusform><numerusform>Успешно удалено ключей шифрования из настроек KeePassXC: %n.</numerusform></translation>
-    </message>
-    <message>
-        <source>Do you really want forget all site-specific settings on every entry?
-Permissions to access entries will be revoked.</source>
-        <translation>Вы действительно хотите забыть все настройки сайта для каждой записи?
-Разрешения на доступ к записям будут отменены.</translation>
-    </message>
-    <message>
-        <source>Removing stored permissions…</source>
-        <translation>Удаление сохранённых разрешений...</translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation>Прервать</translation>
-    </message>
-    <message numerus="yes">
-        <source>Successfully removed permissions from %n entry(s).</source>
-        <translation><numerusform>Успешно удалено разрешение из %n записи.</numerusform><numerusform>Успешно удалены разрешения из %n записей.</numerusform><numerusform>Успешно удалены разрешения из %n записей.</numerusform><numerusform>Записей, из которых успешно удалены разрешения: %n.</numerusform></translation>
-    </message>
-    <message>
-        <source>The active database does not contain an entry with permissions.</source>
-        <translation>В активной базе данных нет записей с разрешениями.</translation>
-    </message>
-    <message>
-        <source>Move KeePassHTTP attributes to custom data</source>
-        <translation>Переместить атрибуты KeePassHTTP в пользовательские данные</translation>
-    </message>
-    <message>
-        <source>Do you really want to convert all legacy browser integration data to the latest standard?
-This is necessary to maintain compatibility with the browser plugin.</source>
-        <translation>Вы действительно преобразовать все устаревшие данные интеграции браузера в новый стандарт?
-Это необходимо для поддержания совместимости с подключаемым модулем браузера.</translation>
-    </message>
-    <message>
-        <source>Refresh database ID</source>
-        <translation>Обновление идентификатора базы данных</translation>
-    </message>
-    <message>
-        <source>Do you really want refresh the database ID?
-This is only necessary if your database is a copy of another and the browser extension cannot connect.</source>
-        <translation>Вы действительно хотите перезагрузить ID базы данных?
-Это необходимо, только если база является копией другой  базы, и расширение браузера не может подключиться.</translation>
-    </message>
-    <message>
-        <source>No keys found</source>
-        <translation>Ключи не найдены</translation>
-    </message>
-    <message>
-        <source>Removed keys from database</source>
-        <translation>Ключи удалены из базы данных</translation>
-    </message>
-    <message>
-        <source>Removed permissions</source>
-        <translation>Разрешения удалены</translation>
-    </message>
-    <message>
-        <source>No entry with permissions found!</source>
-        <translation>Записи с разрешениями не найдены!</translation>
-    </message>
-</context>
-<context>
     <name>DatabaseSettingsWidgetDatabaseKey</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="34"/>
         <source>Add additional protection…</source>
         <translation>Дополнительная защита...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="146"/>
         <source>No password set</source>
         <translation>Не задан пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="147"/>
         <source>WARNING! You have not set a password. Using a database without a password is strongly discouraged!
 
 Are you sure you want to continue without a password?</source>
@@ -2075,34 +1050,43 @@ Are you sure you want to continue without a password?</source>
 Вы действительно хотите продолжить без пароля?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="151"/>
         <source>Continue without password</source>
         <translation>Продолжить без пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="207"/>
         <source>No encryption key added</source>
         <translation>Не добавлен ключ шифрования</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="208"/>
         <source>You must add at least one encryption key to secure your database!</source>
         <translation>Нужно добавить хотя бы один ключ шифрования для защиты базы данных!</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="253"/>
         <source>Unknown error</source>
         <translation>Неизвестная ошибка</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="256"/>
         <source>Failed to change database credentials</source>
         <translation>Не удалось изменить учётные данные базы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="174"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="186"/>
         <source>Weak password</source>
         <translation>Слабый пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="187"/>
         <source>This is a weak password! For better protection of your secrets, you should choose a stronger password.</source>
         <translation>Это слабый пароль! Для надёжной защиты вашей информации выберите более сложный пароль.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="175"/>
         <source>The provided password does not meet the minimum quality requirement.</source>
         <translation>Указанный пароль не соответствует минимальным требованиям.</translation>
     </message>
@@ -2110,95 +1094,118 @@ Are you sure you want to continue without a password?</source>
 <context>
     <name>DatabaseSettingsWidgetEncryption</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="175"/>
         <source>Decryption Time:</source>
         <translation>Время расшифровки:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="225"/>
         <source>Decryption time in seconds</source>
         <translation>Время расшифровки в секундах</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="287"/>
         <source>Higher values offer more protection, but opening the database will take longer.</source>
         <translation>Больше значение — сильнее защита, но дольше открывается база данных.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="67"/>
         <source>Database format:</source>
         <translation>Формат базы данных:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="83"/>
         <source>Database format</source>
         <translation>Формат базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="95"/>
         <source>Format cannot be changed: Your database uses KDBX 4 features</source>
         <translation>Формат не может быть изменён: база данных использует функции KDBX 4</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="80"/>
         <source>Unless you need to open your database with other programs, always use the latest format.</source>
         <translation>Если вам не нужно открывать базу данных с помощью других программ, всегда используйте последний формат.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="505"/>
         <source>Encryption Algorithm:</source>
         <translation>Алгоритм шифрования:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="488"/>
         <source>Encryption algorithm</source>
         <translation>Алгоритм шифрования</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="492"/>
         <source>AES:  256 Bit   (default)</source>
         <translation>AES:  256 бит   (по умолчанию)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="497"/>
         <source>Twofish:  256 Bit</source>
         <translation>Twofish:  256 бит</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="475"/>
         <source>Key Derivation Function:</source>
         <translation>Функция формирования ключа:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="468"/>
         <source>Key derivation function</source>
         <translation>Функция формирования ключа</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="455"/>
         <source>Transform rounds:</source>
         <translation>Раундов преобразования:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="417"/>
         <source>Transform rounds</source>
         <translation>Раундов преобразования</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="396"/>
         <source>Memory Usage:</source>
         <translation>Использование памяти:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="383"/>
         <source>Memory usage</source>
         <translation>Использование памяти</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="364"/>
         <source>Parallelism:</source>
         <translation>Параллелизм:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="351"/>
         <source>Parallelism</source>
         <translation>Параллелизм</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="65"/>
         <source>KDBX 4 (recommended)</source>
         <translation>KDBX 4 (рекомендуется)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="66"/>
         <source>KDBX 3</source>
         <translation>KDBX 3</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="342"/>
         <source>Number of rounds too high</source>
         <comment>Key transformation rounds</comment>
         <translation>Слишком много раундов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="343"/>
         <source>You are using a very high number of key transform rounds with Argon2.
 
 If you keep this number, your database may take hours, days, or even longer to open.</source>
@@ -2207,19 +1214,25 @@ If you keep this number, your database may take hours, days, or even longer to o
 Если оставить это значение, то открытие базы данных может занять часы, дни или даже больше.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="345"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="363"/>
         <source>Understood, keep number</source>
         <translation>Понятно, сохранить значение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="346"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="364"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="360"/>
         <source>Number of rounds too low</source>
         <comment>Key transformation rounds</comment>
         <translation>Слишком мало раундов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="361"/>
         <source>You are using a very low number of key transform rounds with AES-KDF.
 
 If you keep this number, your database will not be protected from brute force attacks.</source>
@@ -2228,128 +1241,144 @@ If you keep this number, your database will not be protected from brute force at
 Если оставить это значение, базу данных будет легко взломать.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="400"/>
         <source>KDF unchanged</source>
         <translation>KDF не изменена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="401"/>
         <source>Failed to transform key with new KDF parameters; KDF unchanged.</source>
         <translation>Ошибка преобразования KDF с новыми параметрами; KDF не изменена.</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="450"/>
         <source> MiB</source>
         <comment>Abbreviation for Mebibytes (KDF settings)</comment>
-        <translation><numerusform> МиБ</numerusform><numerusform> МиБ</numerusform><numerusform> МиБ</numerusform><numerusform> МиБ</numerusform></translation>
+        <translation>
+            <numerusform> МиБ</numerusform>
+            <numerusform> МиБ</numerusform>
+            <numerusform> МиБ</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="458"/>
         <source> thread(s)</source>
         <comment>Threads for parallel execution (KDF settings)</comment>
-        <translation><numerusform> поток</numerusform><numerusform> потока</numerusform><numerusform> потоков</numerusform><numerusform> поток(-ов)</numerusform></translation>
+        <translation>
+            <numerusform> поток</numerusform>
+            <numerusform> потока</numerusform>
+            <numerusform> потоков</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="129"/>
         <source>Encryption Settings:</source>
         <translation>Настройки шифрования:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="146"/>
         <source>Basic</source>
         <translation>Основные</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="314"/>
         <source>Advanced</source>
         <translation>Дополнительные</translation>
     </message>
 </context>
 <context>
-    <name>DatabaseSettingsWidgetFdoSecrets</name>
-    <message>
-        <source>Exposed Entries</source>
-        <translation>Доступ к записям</translation>
-    </message>
-    <message>
-        <source>Don&apos;t expose this database</source>
-        <translation>Не публиковать эту базу данных</translation>
-    </message>
-    <message>
-        <source>Expose entries under this group:</source>
-        <translation>Показать записи внутри этой группы:</translation>
-    </message>
-    <message>
-        <source>Enable Secret Service to access these settings.</source>
-        <translation>Включите секретную службу, чтобы настроить эти параметры.</translation>
-    </message>
-</context>
-<context>
     <name>DatabaseSettingsWidgetGeneral</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="44"/>
         <source>Database Metadata</source>
         <translation>Метаданные базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="50"/>
         <source>Database name:</source>
         <translation>Имя базы данных:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="57"/>
         <source>Database name field</source>
         <translation>Поле имени базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="64"/>
         <source>Database description:</source>
         <translation>Описание базы данных:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="71"/>
         <source>Database description field</source>
         <translation>Поле описания базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="78"/>
         <source>Default username:</source>
         <translation>Логин по умолчанию:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="88"/>
         <source>Default username field</source>
         <translation>Поле логина по умолчанию</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="243"/>
         <source>History Settings</source>
         <translation>Настройки истории</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="309"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="312"/>
         <source>Maximum number of history items per entry</source>
         <translation>Максимум элементов истории для каждой записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="290"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="293"/>
         <source>Maximum size of history per entry</source>
         <translation>Максимальный размер истории для каждой записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="296"/>
         <source> MiB</source>
         <translation> МиБ</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="270"/>
         <source>Use recycle bin</source>
         <translation>Использовать корзину</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="340"/>
         <source>Additional Database Settings</source>
         <translation>Дополнительные параметры базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="346"/>
         <source>Enable compression (recommended)</source>
         <translation>Использовать сжатие (рекомендуется)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.cpp" line="124"/>
         <source>Delete Recycle Bin</source>
         <translation>Удалить корзину</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.cpp" line="125"/>
         <source>Do you want to delete the current recycle bin and all its contents?
 This action is not reversible.</source>
         <translation>Удалить корзину и всё её содержимое?
 Это необратимое действие.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.cpp" line="136"/>
         <source> (old)</source>
         <translation> (устар.)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="251"/>
         <source>When saving this setting or editing an entry
 the oldest history items of an entry will be
 removed such that only the specified amount
@@ -2360,10 +1389,12 @@ of entries remain at most.</source>
 указанное максимальное количество записей.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="257"/>
         <source>Limit the amount of history items per entry to:</source>
         <translation>Ограничение числа элементов истории на одну запись:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="277"/>
         <source>When saving this setting or editing an entry
 the oldest history items of an entry will be
 removed such that the remaining history items
@@ -2374,10 +1405,12 @@ add up to the specified amount at most.</source>
 истории не превысят указанное количество.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="283"/>
         <source>Limit the total size of history items per entry to:</source>
         <translation>Ограничение общего размера элементов истории на одну запись:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="264"/>
         <source>Move entries to a recycle bin group
 instead of deleting them from the database.
 Entries deleted from the recycle bin are
@@ -2388,160 +1421,165 @@ removed from the database.</source>
 также удаляются из базы данных.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="358"/>
         <source>Autosave delay since last change</source>
         <translation>Задержка автосохранения с последнего изменения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="364"/>
         <source>Autosave delay</source>
         <translation>Задержка автосохранения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="371"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="374"/>
         <source>Autosave delay since last change in minutes</source>
         <translation>Задержка автосохранения с последнего изменения в минутах</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="377"/>
         <source> min</source>
         <translation> мин</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="361"/>
         <source>Autosave delay since last change checkbox</source>
         <translation>Задержка автосохранения с последнего изменения опции</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="98"/>
         <source>Public Database Metadata</source>
         <translation>Публичные метаданные базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="109"/>
         <source>Warning: the following settings are not encrypted.</source>
         <translation>Внимание: следующие параметры не зашифрованы.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="121"/>
         <source>Display name:</source>
         <translation>Отображаемое имя:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="131"/>
         <source>Database public display name</source>
         <translation>Публичное имя базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="138"/>
         <source>Display color:</source>
         <translation>Отображаемый цвет:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="156"/>
         <source>Database public display color chooser</source>
         <translation>Выбор цвета для публичного отображения базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="166"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="216"/>
         <source>Clear</source>
         <translation>Очистить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="188"/>
         <source>Display icon:</source>
         <translation>Отображаемый значок:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.cpp" line="241"/>
         <source>Select Database Icon</source>
         <translation>Выбрать значок базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="128"/>
         <source>Publicly visible display name used on the unlock dialog</source>
         <translation>Отображаемое имя в диалоговом окне разблокировки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="153"/>
         <source>Publicly visible color used on the unlock dialog</source>
         <translation>Отображаемый цвет в диалоговом окне разблокировки</translation>
     </message>
 </context>
 <context>
-    <name>DatabaseSettingsWidgetKeeShare</name>
-    <message>
-        <source>Sharing</source>
-        <translation>Совместное использование</translation>
-    </message>
-    <message>
-        <source>Breadcrumb</source>
-        <translation>Цепочка</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Тип</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation>Путь</translation>
-    </message>
-    <message>
-        <source>Last Signer</source>
-        <translation>Последний подписант</translation>
-    </message>
-    <message>
-        <source>Certificates</source>
-        <translation>Сертификаты</translation>
-    </message>
-    <message>
-        <source> &gt; </source>
-        <comment>Breadcrumb separator</comment>
-        <translation> &gt; </translation>
-    </message>
-</context>
-<context>
     <name>DatabaseSettingsWidgetMaintenance</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui" line="44"/>
         <source>Manage Custom Icons</source>
         <translation>Настроить пользовательские значки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui" line="80"/>
         <source>Delete selected icon(s)</source>
         <translation>Удалить выбранные значки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui" line="87"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui" line="90"/>
         <source>Delete all custom icons not in use by any entry or group</source>
         <translation>Удалить все пользовательские значки, которые не используются записями или группами</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui" line="93"/>
         <source>Purge unused icons</source>
         <translation>Удалить неиспользуемые значки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="139"/>
         <source>Confirm Deletion</source>
         <translation>Подтверждение удаления</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="140"/>
         <source>At least one of the selected icons is currently in use by at least one entry or group. The icons of all affected entries and groups will be replaced by the default icon. Are you sure you want to delete icons that are currently in use?</source>
         <translation>Не менее одного из выбранных значков сейчас используется как минимум одной записью или группой. Значки всех соответствующих записей и групп будут заменены на стандартный значок. Вы действительно хотите удалить используемые сейчас значки?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="245"/>
         <source>Custom Icons Are In Use</source>
         <translation>Пользовательские значки используются</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="246"/>
         <source>All custom icons are in use by at least one entry or group.</source>
         <translation>Все пользовательские значки используются как минимум одной записью или группой.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="254"/>
         <source>Purged Unused Icons</source>
         <translation>Неиспользуемые значки удалены</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="254"/>
         <source>Purged %n icon(s) from the database.</source>
-        <translation><numerusform>Удален %n значок из базы данных.</numerusform><numerusform>Удалено %n значка из базы данных.</numerusform><numerusform>Удалено %n значков из базы данных.</numerusform><numerusform>Удалено значков из базы данных: %n.</numerusform></translation>
+        <translation>
+            <numerusform>Удален %n значок из базы данных.</numerusform>
+            <numerusform>Удалено %n значка из базы данных.</numerusform>
+            <numerusform>Удалено %n значков из базы данных.</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>DatabaseSettingsWidgetMetaDataSimple</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.ui" line="29"/>
         <source>Database Name:</source>
         <translation>Имя базы данных:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.ui" line="36"/>
         <source>Database name field</source>
         <translation>Поле имени базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.ui" line="43"/>
         <source>Description:</source>
         <translation>Описание:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.ui" line="50"/>
         <source>Database description field</source>
         <translation>Поле описания базы данных</translation>
     </message>
@@ -2549,73 +1587,93 @@ removed from the database.</source>
 <context>
     <name>DatabaseTabWidget</name>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="101"/>
         <source>Database creation error</source>
         <translation>Ошибка создания базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="102"/>
         <source>The created database has no key or KDF, refusing to save it.
 This is definitely a bug, please report it to the developers.</source>
         <translation>У созданной базы данных нет ключа или KDF, сохранение невозможно.
 Это ошибка, сообщите о ней разработчикам.</translation>
     </message>
     <message>
-        <source>KeePass 2 Database</source>
-        <translation>База данных KeePass 2</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="129"/>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="323"/>
         <source>All files</source>
         <translation>Все файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="130"/>
         <source>Open database</source>
         <translation>Открыть базу данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="160"/>
         <source>Failed to open %1. It either does not exist or is not accessible.</source>
         <translation>Не удалось открыть %1. Он отсутствует или недоступен.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="489"/>
         <source>CSV file</source>
         <translation>Файл CSV</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="324"/>
         <source>Merge database</source>
         <translation>Объединить базу данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="129"/>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="323"/>
+        <source>KeePassX-min Database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="489"/>
         <source>Export database to CSV file</source>
         <translation>Экспортировать базу данных в файл CSV</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="500"/>
         <source>Writing the CSV file failed.</source>
         <translation>Не удалось записать CSV-файл.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="506"/>
         <source>Writing the HTML file failed.</source>
         <translation>Ошибка записи HTML-файла.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="564"/>
         <source>Export Confirmation</source>
         <translation>Подтверждение экспорта</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="565"/>
         <source>You are about to export your database to an unencrypted file. This will leave your passwords and sensitive information vulnerable! Are you sure you want to continue?</source>
         <translation>Вы собираетесь экспортировать базу данных в незашифрованный файл. Это сделает общедоступными ваши пароли и другие конфиденциальные данные. Продолжить экспорт?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="655"/>
         <source>%1 [Locked]</source>
         <comment>Database tab name modifier</comment>
         <translation>%1 [Заблокировано]</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="537"/>
         <source>Export database to XML file</source>
         <translation>Экспорт базы данных в файл XML</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="537"/>
         <source>XML file</source>
         <translation>XML-файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="549"/>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="555"/>
         <source>Writing the XML file failed</source>
         <translation>Ошибка записи XML-файла</translation>
     </message>
@@ -2623,238 +1681,251 @@ This is definitely a bug, please report it to the developers.</source>
 <context>
     <name>DatabaseWidget</name>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="148"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1578"/>
         <source>Searching…</source>
         <translation>Поиск...</translation>
     </message>
     <message>
-        <source>Shared group…</source>
-        <translation>Общая группа...</translation>
-    </message>
-    <message>
-        <source>Confirm Auto-Type</source>
-        <translation>Подтверждение автонабора</translation>
-    </message>
-    <message>
-        <source>Perform Auto-Type into the previously active window?</source>
-        <translation>Выполнить автонабор в ранее активном окне?</translation>
-    </message>
-    <message>
-        <source>Execute command?</source>
-        <translation>Выполнить команду?</translation>
-    </message>
-    <message>
-        <source>Do you really want to execute the following command?&lt;br&gt;&lt;br&gt;%1&lt;br&gt;</source>
-        <translation>Выполнить следующую команду?&lt;br&gt;&lt;br&gt;%1&lt;br&gt;</translation>
-    </message>
-    <message>
-        <source>Remember my choice</source>
-        <translation>Запомнить выбор</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="937"/>
         <source>Do you really want to move the group &quot;%1&quot; to the recycle bin?</source>
         <translation>Переместить группу &quot;%1&quot; в корзину?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1081"/>
         <source>Expired entries</source>
         <translation>Истекшие записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1118"/>
         <source>No current database.</source>
         <translation>Нет текущей базы данных.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1132"/>
         <source>No source database, nothing to do.</source>
         <translation>Нет исходной базы данных, нечего обрабатывать.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1413"/>
         <source>Search Results (%1)</source>
         <translation>Результаты поиска (%1)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1417"/>
         <source>No Results</source>
         <translation>Нет результатов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1448"/>
         <source>Enter a unique name or overwrite an existing search from the list:</source>
         <translation>Введите уникальное имя или замените существующую поисковую строку из списка:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1449"/>
         <source>Save Search</source>
         <translation>Сохранить поиск</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1740"/>
         <source>Lock Database?</source>
         <translation>Заблокировать базу данных?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1741"/>
         <source>You are editing an entry. Discard changes and lock anyway?</source>
         <translation>Сейчас вы редактируете запись. Заблокировать базу, отказавшись от изменений?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1779"/>
         <source>&quot;%1&quot; was modified.
 Save changes?</source>
         <translation>&quot;%1&quot; была изменена. Сохранить изменения?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1783"/>
         <source>Database was modified.
 Save changes?</source>
         <translation>База данных была изменена. Сохранить изменения?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1787"/>
         <source>Save changes?</source>
         <translation>Сохранить изменения?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1861"/>
         <source>File has changed</source>
         <translation>Файл изменён</translation>
     </message>
     <message>
-        <source>Disable safe saves?</source>
-        <translation>Отключить безопасное сохранение?</translation>
-    </message>
-    <message>
-        <source>KeePassXC has failed to save the database multiple times. This is likely caused by file sync services holding a lock on the save file.
-Disable safe saves and try again?</source>
-        <translation>KeePassXC не смог несколько раз сохранить базу данных. Это могло быть вызвано службами синхронизации файлов, блокирующими файл при сохранении.
-Отключить безопасное сохранение и повторить попытку?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2219"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2266"/>
         <source>Writing the database failed: %1</source>
         <translation>Ошибка при записи базы данных: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2254"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2349"/>
         <source>Passwords</source>
         <translation>Пароли</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2258"/>
         <source>Save database as</source>
         <translation>Сохранить базу данных как</translation>
     </message>
     <message>
-        <source>KeePass 2 Database</source>
-        <translation>База данных KeePass 2</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2445"/>
         <source>Empty recycle bin?</source>
         <translation>Очистить корзину?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2446"/>
         <source>Are you sure you want to permanently delete everything from your recycle bin?</source>
         <translation>Удалить всё из корзины?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2485"/>
         <source>Could not find database file: %1</source>
         <translation>Не удалось найти файл базы данных: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="342"/>
         <source>New Database</source>
         <translation>Новая база данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="346"/>
         <source>%1 [New Database]</source>
         <comment>Database tab name modifier</comment>
         <translation>%1 [Новая база данных]</translation>
     </message>
     <message>
-        <source>Remove passkey from entry</source>
-        <translation>Удалить ключ доступа из записи</translation>
-    </message>
-    <message>
-        <source>Do you want to remove the passkey from this entry?</source>
-        <translation>Удалить ключ доступа из этой записи?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1862"/>
         <source>The database file &quot;%1&quot; was modified externally</source>
         <translation>Файл базы данных &quot;%1&quot; был изменен извне</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1863"/>
         <source>Do you want to load the changes?</source>
         <translation>Вы хотите загрузить изменения?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1879"/>
         <source>Reloading database…</source>
         <translation>Перезагрузка базы данных...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1905"/>
         <source>Reload canceled</source>
         <translation>Перезагрузка отменена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1933"/>
         <source>Reload successful</source>
         <translation>Перезагрузка завершена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1963"/>
         <source>Reload pending user action…</source>
         <translation>Перезагрузка в ожидании действия пользователя...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1966"/>
         <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes&lt;br&gt;Ignore the changes on disk until save&lt;br&gt;Discard unsaved changes</source>
         <translation>Файл базы данных &quot;%1&quot; был изменен извне.&lt;br&gt;Как вы хотите поступить?&lt;br&gt;&lt;br&gt;Объединить все изменения&lt;br&gt;Игнорировать изменения на диске до сохранения&lt;br&gt;Отменить несохраненные изменения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1977"/>
         <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes then save&lt;br&gt;Overwrite the changes on disk&lt;br&gt;Discard unsaved changes</source>
         <translation>Файл базы данных &quot;%1&quot; был изменен извне.&lt;br&gt;Как вы хотите поступить?&lt;br&gt;&lt;br&gt;Объединить все изменения и сохранить&lt;br&gt;Перезаписать изменения на диске&lt;br&gt;Отменить несохраненные изменения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1987"/>
         <source>Reload database</source>
         <translation>Перезагрузить базу данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2002"/>
         <source>Database file overwritten.</source>
         <translation>Файл базы данных перезаписан.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2038"/>
         <source>Database file on disk cannot be unlocked with current credentials.&lt;br&gt;Enter new credentials and/or present hardware key to continue.</source>
         <translation>Файл базы данных на диске не может быть разблокирован с текущими учетными данными.&lt;br&gt;Введите новые учетные данные и/или используйте аппаратный ключ для продолжения.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2258"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2355"/>
+        <source>KeePassX-min Database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2380"/>
         <source>Failed to save backup database: %1</source>
         <translation>Ошибка при сохранении резервной копии базы данных: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="923"/>
         <source>Confirm Delete Group</source>
         <translation>Подтвердить удаление группы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="924"/>
         <source>Do you really want to permanently delete the group &quot;%1&quot;?</source>
         <translation>Вы действительно хотите окончательно удалить группу &quot;%1&quot;?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="936"/>
         <source>Confirm Recycle Group</source>
         <translation>Подтвердить перемещение группы в корзину</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1447"/>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2353"/>
         <source>Save Database Backup</source>
         <translation>Сохранить резервную копию базы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1140"/>
         <source>Successfully merged the selected database.</source>
         <translation>Выбранная база данных успешно объединена.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1145"/>
         <source>No changes were made by the merge operation.</source>
         <translation>Операция объединения не внесла никаких изменений.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1151"/>
         <source>Merge canceled, no changes were made.</source>
         <translation>Объединение отменено, изменений не внесено.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="101"/>
         <source>Searches and Tags</source>
         <translation>Поиск и теги</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1086"/>
         <source>Entries expiring within %1 day(s)</source>
-        <translation><numerusform>Записи, истекающие в течение %1 дня</numerusform><numerusform>Записи, истекающие в течение %1 дней</numerusform><numerusform>Записи, истекающие в течение %1 дней</numerusform><numerusform>Записи, истекающие в течение %1 дн.</numerusform></translation>
+        <translation>
+            <numerusform>Записи, истекающие в течение %1 дня</numerusform>
+            <numerusform>Записи, истекающие в течение %1 дней</numerusform>
+            <numerusform>Записи, истекающие в течение %1 дней</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>EditEntryAttachmentsDialog</name>
     <message>
+        <location filename="../../src/gui/entry/EditEntryAttachmentsDialog.cpp" line="45"/>
         <source>Edit: %1</source>
         <translation>Изменить: %1</translation>
     </message>
@@ -2862,401 +1933,303 @@ Disable safe saves and try again?</source>
 <context>
     <name>EditEntryWidget</name>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="136"/>
         <source>Entry</source>
         <translation>Запись</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="164"/>
         <source>Advanced</source>
         <translation>Дополнительные</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="191"/>
         <source>Icon</source>
         <translation>Значок</translation>
     </message>
     <message>
-        <source>Auto-Type</source>
-        <translation>Автонабор</translation>
-    </message>
-    <message>
-        <source>Browser Integration</source>
-        <translation>Интеграция с браузерами</translation>
-    </message>
-    <message>
-        <source>&lt;empty URL&gt;</source>
-        <translation>&lt;empty URL&gt;</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="720"/>
         <source>Confirm Removal</source>
         <translation>Подтвердите удаление</translation>
     </message>
     <message>
-        <source>Are you sure you want to remove this URL?</source>
-        <translation>Удалить этот URL-адрес?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="196"/>
         <source>Properties</source>
         <translation>Свойства</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="202"/>
         <source>History</source>
         <translation>История</translation>
     </message>
     <message>
-        <source>SSH Agent</source>
-        <translation>SSH-агент</translation>
-    </message>
-    <message>
-        <source>n/a</source>
-        <translation>н/д</translation>
-    </message>
-    <message>
-        <source>Select private key</source>
-        <translation>Выберите приватный ключ</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="322"/>
         <source>Entry history</source>
         <translation>История записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="328"/>
         <source>Add entry</source>
         <translation>Добавить запись</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="332"/>
         <source>Edit entry</source>
         <translation>Изменить запись</translation>
     </message>
     <message>
-        <source>Some Browser Integration settings are overridden by group settings.</source>
-        <translation>Некоторые параметры интеграции c браузером могут быть переопределены настройками группы.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="496"/>
         <source>Invalid Entry</source>
         <translation>Недопустимая запись</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="497"/>
         <source>An external merge operation has invalidated this entry.
 Unfortunately, any changes made have been lost.</source>
         <translation>Операция по слиянию сделала эту запись недействительной. К сожалению, все изменения потеряны.</translation>
     </message>
     <message>
-        <source>Auto-Type Validation Error</source>
-        <translation>Ошибка проверки автонабора</translation>
-    </message>
-    <message>
-        <source>An error occurred while validating the custom Auto-Type sequence:
-%1
-Would you like to correct it?</source>
-        <translation>При проверке пользовательской последовательности автонабора произошла ошибка:
-%1
-Внести исправления?</translation>
-    </message>
-    <message>
-        <source>An error occurred while validating the Auto-Type sequence for &quot;%1&quot;:
-%2
-Would you like to correct it?</source>
-        <translation>При проверке последовательности автонабора для &quot;%1&quot; произошла ошибка:
-%2
-Внести исправления?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="534"/>
         <source>Entry updated successfully.</source>
         <translation>Запись успешно обновлена.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="629"/>
         <source>Unsaved Changes</source>
         <translation>Несохранённые изменения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="630"/>
         <source>Would you like to save changes to this entry?</source>
         <translation>Сохранить внесённые изменения?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="679"/>
         <source>New attribute</source>
         <translation>Новый атрибут</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="684"/>
         <source>New attribute %1</source>
         <translation>Новый атрибут %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="721"/>
         <source>Are you sure you want to remove this attribute?</source>
         <translation>Удалить этот атрибут?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="758"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="839"/>
         <source>Reveal</source>
         <translation>Показать</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="765"/>
         <source>[PROTECTED] Press Reveal to view or edit</source>
         <translation>[ЗАЩИЩЕНО] Нажмите для восстановления или изменения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="834"/>
         <source>Hide</source>
         <translation>Скрыть</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="895"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="896"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="897"/>
         <source>%n week(s)</source>
-        <translation><numerusform>%n неделя</numerusform><numerusform>%n недели</numerusform><numerusform>%n недель</numerusform><numerusform>%n нед.</numerusform></translation>
+        <translation>
+            <numerusform>%n неделя</numerusform>
+            <numerusform>%n недели</numerusform>
+            <numerusform>%n недель</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="899"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="900"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="901"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="902"/>
         <source>%n month(s)</source>
-        <translation><numerusform>%n месяц</numerusform><numerusform>%n месяца</numerusform><numerusform>%n месяцев</numerusform><numerusform>%n мес.</numerusform></translation>
+        <translation>
+            <numerusform>%n месяц</numerusform>
+            <numerusform>%n месяца</numerusform>
+            <numerusform>%n месяцев</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="904"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="905"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="906"/>
         <source>%n year(s)</source>
-        <translation><numerusform>%n год</numerusform><numerusform>%n года</numerusform><numerusform>%n лет</numerusform><numerusform>%n гг.</numerusform></translation>
+        <translation>
+            <numerusform>%n год</numerusform>
+            <numerusform>%n года</numerusform>
+            <numerusform>%n лет</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="892"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="893"/>
         <source>%n hour(s)</source>
-        <translation><numerusform>%n час</numerusform><numerusform>%n часа</numerusform><numerusform>%n часов</numerusform><numerusform>%n ч</numerusform></translation>
-    </message>
-    <message>
-        <source>Failed to decrypt SSH key, ensure password is correct.</source>
-        <translation>Не удалось расшифровать ключ SSH, проверьте правильность пароля.</translation>
+        <translation>
+            <numerusform>%n час</numerusform>
+            <numerusform>%n часа</numerusform>
+            <numerusform>%n часов</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>EditEntryWidgetAdvanced</name>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="29"/>
         <source>Additional attributes</source>
         <translation>Дополнительные атрибуты</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="48"/>
         <source>Attribute selection</source>
         <translation>Выбор атрибута</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="74"/>
         <source>Attribute value</source>
         <translation>Значение атрибута</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="84"/>
         <source>Add a new attribute</source>
         <translation>Добавить новый атрибут</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="87"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="97"/>
         <source>Remove selected attribute</source>
         <translation>Удалить выбранный атрибут</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="100"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="110"/>
         <source>Edit attribute name</source>
         <translation>Изменить имя атрибута</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="113"/>
         <source>Edit Name</source>
         <translation>Изменить имя</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="136"/>
         <source>Toggle attribute protection</source>
         <translation>Включить/отключить защиту атрибута</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="142"/>
         <source>Protect</source>
         <translation>Защитить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="155"/>
         <source>Show a protected attribute</source>
         <translation>Показать защищённый атрибут</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="158"/>
         <source>Reveal</source>
         <translation>Показать</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="173"/>
         <source>Attachments</source>
         <translation>Вложения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="185"/>
         <source>If checked, the entry will not appear in reports like Health Check and HIBP even if it doesn&apos;t match the quality requirements.</source>
         <translation>Если включено, запись не будет видна в отчётах &quot;Проверка безопасности&quot; и HIBP, даже если она не соответствует требованиям к качеству.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="188"/>
         <source>Exclude from database reports</source>
         <translation>Исключить из отчётов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="210"/>
         <source>Foreground Color:</source>
         <translation>Основной цвет:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="229"/>
         <source>Foreground color selection</source>
         <translation>Выбор основного цвета</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="255"/>
         <source>Background Color:</source>
         <translation>Цвет фона:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="274"/>
         <source>Background color selection</source>
         <translation>Выбор цвета фона</translation>
     </message>
 </context>
 <context>
-    <name>EditEntryWidgetAutoType</name>
-    <message>
-        <source>Enable Auto-Type for this entry</source>
-        <translation>Включить автонабор для этой записи</translation>
-    </message>
-    <message>
-        <source>Inherit default Auto-Type sequence from the group</source>
-        <translation>Наследовать стандартную последовательность автонабора от группы</translation>
-    </message>
-    <message>
-        <source>Use custom Auto-Type sequence:</source>
-        <translation>Использовать свою последовательность автонабора:</translation>
-    </message>
-    <message>
-        <source>Custom Auto-Type sequence</source>
-        <translation>Своя последовательность автонабора</translation>
-    </message>
-    <message>
-        <source>Open Auto-Type help webpage</source>
-        <translation>Открыть страницу справки по автонабору</translation>
-    </message>
-    <message>
-        <source>Window Associations</source>
-        <translation>Ассоциации окон</translation>
-    </message>
-    <message>
-        <source>Existing window associations</source>
-        <translation>Существующие ассоциации с окнами</translation>
-    </message>
-    <message>
-        <source>Add new window association</source>
-        <translation>Добавить ассоциацию с окном</translation>
-    </message>
-    <message>
-        <source>Remove selected window association</source>
-        <translation>Удалить выбранную ассоциацию с окном</translation>
-    </message>
-    <message>
-        <source>Window title:</source>
-        <translation>Заголовок окна:</translation>
-    </message>
-    <message>
-        <source>You can use an asterisk (*) to match everything</source>
-        <translation>Для выбора всех значений используйте звёздочку (*)</translation>
-    </message>
-    <message>
-        <source>Set the window association title</source>
-        <translation>Задайте заголовок окна для ассоциации</translation>
-    </message>
-    <message>
-        <source>You can use an asterisk to match everything</source>
-        <translation>Для выбора всех значений используйте звёздочку (*)</translation>
-    </message>
-    <message>
-        <source>Use a specific sequence for this association:</source>
-        <translation>Использовать специальную последовательность для этой ассоциации:</translation>
-    </message>
-    <message>
-        <source>Custom Auto-Type sequence for this window</source>
-        <translation>Своя последовательность автонабора для этого окна</translation>
-    </message>
-    <message>
-        <source>+</source>
-        <comment>Add item</comment>
-        <translation>+</translation>
-    </message>
-    <message>
-        <source>-</source>
-        <comment>Remove item</comment>
-        <translation>-</translation>
-    </message>
-</context>
-<context>
-    <name>EditEntryWidgetBrowser</name>
-    <message>
-        <source>General</source>
-        <translation>Общие</translation>
-    </message>
-    <message>
-        <source>Hide this entry from the browser extension</source>
-        <translation>Не показывать эту запись при запросе из расширения браузера</translation>
-    </message>
-    <message>
-        <source>Skip Auto-Submit for this entry</source>
-        <translation>Не использовать автоматическую отправку данных форм для этой записи</translation>
-    </message>
-    <message>
-        <source>Use this entry only with HTTP Basic Auth</source>
-        <translation>Использовать эту запись только при обычной проверке подлинности HTTP</translation>
-    </message>
-    <message>
-        <source>Do not use this entry with HTTP Basic Auth</source>
-        <translation>Не использовать эту запись для базовой HTTP-авторизации</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>Добавить</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>Удалить</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation>Изменить</translation>
-    </message>
-    <message>
-        <source>These settings affect the entry&apos;s behaviour with the browser extension.</source>
-        <translation>Эти параметры влияют на данные, возвращаемые при запросе из расширения браузера.</translation>
-    </message>
-    <message>
-        <source>Additional URLs</source>
-        <translation>Дополнительные URL-адреса</translation>
-    </message>
-    <message>
-        <source>Only send this entry to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
-        <translation>Отправлять эту запись только браузерным диалогам HTTP Auth. Если включено, обычные формы авторизации не покажут запись среди вариантов выбора.</translation>
-    </message>
-    <message>
-        <source>Do not send this entry to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
-        <translation>Не отправлять эту запись браузерным диалогам HTTP Auth. Если включено, в этих диалогах не будет выбора данной записи.</translation>
-    </message>
-</context>
-<context>
     <name>EditEntryWidgetHistory</name>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="29"/>
         <source>Entry history selection</source>
         <translation>Выбор истории записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="50"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="53"/>
         <source>Show entry at selected history state</source>
         <translation>Показать запись в состоянии на выбранный момент истории</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="56"/>
         <source>Show</source>
         <translation>Показать</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="66"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="69"/>
         <source>Restore entry to selected history state</source>
         <translation>Восстановить запись в состоянии на выбранный момент истории</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="72"/>
         <source>Restore</source>
         <translation>Восстановить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="82"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="85"/>
         <source>Delete selected history state</source>
         <translation>Удалить выбранное состояние записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="88"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="98"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="101"/>
         <source>Delete all history</source>
         <translation>Удалить всю историю</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="104"/>
         <source>Delete all</source>
         <translation>Удалить всё</translation>
     </message>
@@ -3264,453 +2237,207 @@ Would you like to correct it?</source>
 <context>
     <name>EditEntryWidgetMain</name>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="14"/>
         <source>Edit Entry</source>
         <translation>Редактировать запись</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="106"/>
         <source>Notes field</source>
         <translation>Поле заметок</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="147"/>
         <source>Username field</source>
         <translation>Поле логина</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="185"/>
         <source>Expiration field</source>
         <translation>Поле ввода окончания срока действия</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="201"/>
         <source>Expiration Presets</source>
         <translation>Предустановки сроков действия</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="204"/>
         <source>Expiration presets</source>
         <translation>Список предварительно заданных сроков действия</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="207"/>
         <source>Presets</source>
         <translation>Предустановки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="234"/>
         <source>Url field</source>
         <translation>Поле URL-адреса</translation>
     </message>
     <message>
-        <source>Download favicon for URL</source>
-        <translation>Загрузить значок сайта для URL-адреса</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="62"/>
         <source>Title field</source>
         <translation>Поле названия</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="85"/>
         <source>Password field</source>
         <translation>Поле пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="169"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="172"/>
         <source>Toggle expiration</source>
         <translation>Вкл./выкл. срок окончания действия</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="157"/>
         <source>Tags list</source>
         <translation>Список тегов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="69"/>
         <source>&amp;Username:</source>
         <translation>&amp;Логин:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="118"/>
         <source>&amp;Title:</source>
         <translation>&amp;Название:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="131"/>
         <source>&amp;Password:</source>
         <translation>&amp;Пароль:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="216"/>
         <source>UR&amp;L:</source>
         <translation>UR&amp;L:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="248"/>
         <source>&amp;Notes:</source>
         <translation>&amp;Заметки:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="279"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="282"/>
         <source>Toggle notes visibility</source>
         <translation>Видимость заметки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="315"/>
         <source>T&amp;ags:</source>
         <translation>Т&amp;еги:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="328"/>
         <source>&amp;Expires:</source>
         <translation>&amp;Истекает:</translation>
     </message>
 </context>
 <context>
-    <name>EditEntryWidgetSSHAgent</name>
-    <message>
-        <source>Form</source>
-        <translation>Форма</translation>
-    </message>
-    <message>
-        <source>Remove key from agent when database is closed/locked</source>
-        <translation>Убрать ключ из агента при закрытии/блокировке базы данных</translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation>Комментарий</translation>
-    </message>
-    <message>
-        <source>Add key to agent when database is opened/unlocked</source>
-        <translation>Добавить ключ в агент при открытии/разблокировке базы данных</translation>
-    </message>
-    <message>
-        <source>Decrypt</source>
-        <translation>Расшифровать</translation>
-    </message>
-    <message>
-        <source>Fingerprint</source>
-        <translation>Отпечаток</translation>
-    </message>
-    <message>
-        <source>Copy to clipboard</source>
-        <translation>Скопировать в буфер обмена</translation>
-    </message>
-    <message>
-        <source>Public key</source>
-        <translation>Публичный ключ</translation>
-    </message>
-    <message>
-        <source>Private key</source>
-        <translation>Приватный ключ</translation>
-    </message>
-    <message>
-        <source>External file</source>
-        <translation>Внешний файл</translation>
-    </message>
-    <message>
-        <source>Browser for key file</source>
-        <translation>Выбор ключевого файла</translation>
-    </message>
-    <message>
-        <source>Browse…</source>
-        <extracomment>Button for opening file dialog</extracomment>
-        <translation>Обзор...</translation>
-    </message>
-    <message>
-        <source>Attachment</source>
-        <translation>Вложение</translation>
-    </message>
-    <message>
-        <source>External key file</source>
-        <translation>Внешний ключевой файл</translation>
-    </message>
-    <message>
-        <source>Add to agent</source>
-        <translation>Добавить в агент</translation>
-    </message>
-    <message>
-        <source>Remove from agent</source>
-        <translation>Убрать из агента</translation>
-    </message>
-    <message>
-        <source>Select attachment file</source>
-        <translation>Выберите файл вложения</translation>
-    </message>
-    <message>
-        <source>Require user confirmation when this key is used</source>
-        <translation>Требовать подтверждения при использовании этого ключа</translation>
-    </message>
-    <message>
-        <source>n/a</source>
-        <translation>н/д</translation>
-    </message>
-    <message>
-        <source>Remove key from agent after</source>
-        <translation>Убрать ключ из агента через</translation>
-    </message>
-    <message>
-        <source>Remove key from agent after specified seconds</source>
-        <translation>Убрать ключ из агента по истечении заданного интервала времени</translation>
-    </message>
-    <message>
-        <source> seconds</source>
-        <translation> сек</translation>
-    </message>
-    <message>
-        <source>Clear agent</source>
-        <translation>Очистить агент</translation>
-    </message>
-</context>
-<context>
     <name>EditGroupWidget</name>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="69"/>
         <source>Group</source>
         <translation>Группа</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="70"/>
         <source>Icon</source>
         <translation>Значок</translation>
     </message>
     <message>
-        <source>Browser Integration</source>
-        <translation>Интеграция с браузерами</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="71"/>
         <source>Properties</source>
         <translation>Свойства</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="112"/>
         <source>Add group</source>
         <translation>Добавить группу</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="116"/>
         <source>Edit group</source>
         <translation>Править группу</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="231"/>
         <source>Group has unsaved changes</source>
         <translation>В группе есть несохранённые изменения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="273"/>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="282"/>
         <source>Enable</source>
         <translation>Включено</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="277"/>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="283"/>
         <source>Disable</source>
         <translation>Выключено</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="281"/>
         <source>Inherit from parent group (%1)</source>
         <translation>Наследовать от родительской группы (%1)</translation>
     </message>
 </context>
 <context>
-    <name>EditGroupWidgetBrowser</name>
-    <message>
-        <source>These settings affect to the group&apos;s behaviour with the browser extension.</source>
-        <translation>Эти параметры влияют на взаимодействие с расширением браузера.</translation>
-    </message>
-    <message>
-        <source>Hide entries from browser extension:</source>
-        <translation>Скрыть записи из расширения браузера:</translation>
-    </message>
-    <message>
-        <source>Hide entries from browser extension toggle for this and sub groups</source>
-        <translation>Скрыть записи этой группы и её подгрупп для расширений браузера</translation>
-    </message>
-    <message>
-        <source>Skip Auto-Submit for entries:</source>
-        <translation>Не использовать автоотправку для записей:</translation>
-    </message>
-    <message>
-        <source>Skip Auto-Submit toggle for this and sub groups</source>
-        <translation>Не использовать автоотправку для этой группы и её подгрупп</translation>
-    </message>
-    <message>
-        <source>Use entries only with HTTP Basic Auth:</source>
-        <translation>Используйте записи только с HTTP Basic Auth:</translation>
-    </message>
-    <message>
-        <source>Only HTTP Auth toggle for this and sub groups</source>
-        <translation>Включает HTTP Auth только для этой группы и её подгрупп</translation>
-    </message>
-    <message>
-        <source>Do not use entries with HTTP Basic Auth:</source>
-        <translation>Не использовать записи с HTTP Basic Auth:</translation>
-    </message>
-    <message>
-        <source>Do not use HTTP Auth toggle for this and sub groups</source>
-        <translation>Не использовать HTTP Auth для этой группы и её подгрупп</translation>
-    </message>
-    <message>
-        <source>Omit WWW subdomain from matching:</source>
-        <translation>Исключить субдомен WWW из сопоставления:</translation>
-    </message>
-    <message>
-        <source>Omit WWW subdomain from matching toggle for this and sub groups</source>
-        <translation>Исключить субдомен WWW из сопоставления для этой группы и подгрупп</translation>
-    </message>
-    <message>
-        <source>Restrict matching to given browser key:</source>
-        <translation>Ограничить сопоставление по заданному ключу браузера:</translation>
-    </message>
-    <message>
-        <source>Restrict matching to given browser key toggle for this and sub groups</source>
-        <translation>Ограничить сопоставление данным переключателем клавиши браузера для этой и подгрупп</translation>
-    </message>
-</context>
-<context>
-    <name>EditGroupWidgetKeeShare</name>
-    <message>
-        <source>Sharing mode field</source>
-        <translation>Поле режима общего доступа</translation>
-    </message>
-    <message>
-        <source>Password field</source>
-        <translation>Поле пароля</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation>Тип:</translation>
-    </message>
-    <message>
-        <source>Password:</source>
-        <translation>Пароль:</translation>
-    </message>
-    <message>
-        <source>Path:</source>
-        <translation>Путь:</translation>
-    </message>
-    <message>
-        <source>Path to share file field</source>
-        <translation>Поле пути к общему файлу</translation>
-    </message>
-    <message>
-        <source>Browse for share file</source>
-        <translation>Выбрать общий файл</translation>
-    </message>
-    <message>
-        <source>Browse…</source>
-        <translation>Обзор...</translation>
-    </message>
-    <message>
-        <source>Clear fields</source>
-        <translation>Очистить поля</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation>Очистить</translation>
-    </message>
-    <message>
-        <source>Inactive</source>
-        <translation>Неактивный</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation>Импорт</translation>
-    </message>
-    <message>
-        <source>Export</source>
-        <translation>Экспорт</translation>
-    </message>
-    <message>
-        <source>Synchronize</source>
-        <translation>Синхронизировать</translation>
-    </message>
-    <message>
-        <source>Your KeePassXC version does not support sharing this container type.
-Supported extensions are: %1.</source>
-        <translation>Ваша версия KeePassXC не поддерживает совместное использование контейнера такого типа.
-Поддерживаемые расширения: %1.</translation>
-    </message>
-    <message>
-        <source>%1 is already being exported by this database.</source>
-        <translation>%1 уже экспортируется из этой базы данных.</translation>
-    </message>
-    <message>
-        <source>%1 is already being imported by this database.</source>
-        <translation>%1 уже импортируется в эту базу данных.</translation>
-    </message>
-    <message>
-        <source>%1 is being imported and exported by different groups in this database.</source>
-        <translation>%1 уже экспортируется и импортируется различными группами этой базы данных.</translation>
-    </message>
-    <message>
-        <source>KeeShare is currently disabled. You can enable import/export in the application settings.</source>
-        <comment>KeeShare is a proper noun</comment>
-        <translation>Обмен записями KeeShare отключён. Включите возможность импорта и/или экспорта в настройках приложения.</translation>
-    </message>
-    <message>
-        <source>Database export is currently disabled by application settings.</source>
-        <translation>Экспорт базы данных запрещён параметрами приложения.</translation>
-    </message>
-    <message>
-        <source>Database import is currently disabled by application settings.</source>
-        <translation>Импорт в базу данных запрещён параметрами приложения.</translation>
-    </message>
-    <message>
-        <source>KeeShare container</source>
-        <translation>Контейнер KeeShare</translation>
-    </message>
-    <message>
-        <source>KeeShare signed container</source>
-        <translation>Подписанный контейнер KeeShare</translation>
-    </message>
-    <message>
-        <source>Select import source</source>
-        <translation>Выберите источник импорта</translation>
-    </message>
-    <message>
-        <source>Select export target</source>
-        <translation>Выберите место экспорта</translation>
-    </message>
-    <message>
-        <source>Select import/export file</source>
-        <translation>Выберите файл для импорта/экспорта</translation>
-    </message>
-</context>
-<context>
     <name>EditGroupWidgetMain</name>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="14"/>
         <source>Edit Group</source>
         <translation>Редактировать группу</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="85"/>
         <source>Toggle expiration</source>
         <translation>Использовать срок окончания действия</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="88"/>
         <source>Expires:</source>
         <translation>Истекает:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="131"/>
         <source>Name field</source>
         <translation>Поле имени</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="141"/>
         <source>Expiration field</source>
         <translation>Поле ввода окончания срока действия</translation>
     </message>
     <message>
-        <source>Use default Auto-Type sequence of parent group</source>
-        <translation>Использовать стандартный автонабор родительской группы</translation>
-    </message>
-    <message>
-        <source>Auto-Type:</source>
-        <translation>Автонабор:</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="121"/>
         <source>Search:</source>
         <translation>Поиск:</translation>
     </message>
     <message>
-        <source>Auto-Type toggle for this and sub groups</source>
-        <translation>Включение/отключение автонабора для этой и вложенных групп</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="153"/>
         <source>Notes:</source>
         <translation>Заметки:</translation>
     </message>
     <message>
-        <source>Default auto-type sequence field</source>
-        <translation>Поле последовательности автонабора по умолчанию</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="107"/>
         <source>Notes field</source>
         <translation>Поле заметок</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="75"/>
         <source>Name:</source>
         <translation>Имя:</translation>
     </message>
     <message>
-        <source>Set default Auto-Type sequence</source>
-        <translation>Задать последовательность автонабора по умолчанию</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="114"/>
         <source>Search toggle for this and sub groups</source>
         <translation>Включение/отключение поиска для этой и вложенных групп</translation>
     </message>
@@ -3718,155 +2445,170 @@ Supported extensions are: %1.</source>
 <context>
     <name>EditWidgetIcons</name>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="29"/>
         <source>Use default icon</source>
         <translation>Использовать стандартный значок</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="77"/>
         <source>Use custom icon</source>
         <translation>Использовать свой значок</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="111"/>
         <source>Choose icon…</source>
         <translation>Выбрать значок…</translation>
     </message>
     <message>
-        <source>Set the URL to use to search for a favicon</source>
-        <translation>Указать URL-адрес для поиска значка</translation>
-    </message>
-    <message>
-        <source>Favicon URL</source>
-        <translation>Значок сайта для URL-адреса</translation>
-    </message>
-    <message>
-        <source>Download favicon for URL</source>
-        <translation>Загрузить значок сайта для URL-адреса</translation>
-    </message>
-    <message>
-        <source>Download favicon</source>
-        <translation>Загрузить значок сайта</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="137"/>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="140"/>
         <source>Apply selected icon to subgroups and entries</source>
         <translation>Использовать выбранный значок для вложенных групп и записей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="146"/>
         <source>Apply icon to…</source>
         <translation>Использовать выбранный значок для…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="164"/>
         <source>Apply to this group only</source>
         <translation>Использовать только для этой группы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="168"/>
         <source>Also apply to child groups</source>
         <translation>Также применить к дочерним группам</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="169"/>
         <source>Also apply to child entries</source>
         <translation>Также применить к дочерним записям</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="170"/>
         <source>Also apply to all children</source>
         <translation>Также применить ко всем дочерним элементам</translation>
     </message>
     <message>
-        <source>Unable to fetch favicon.</source>
-        <translation>Не удалось получить значок.</translation>
-    </message>
-    <message>
-        <source>Existing icon selected.</source>
-        <translation>Выбран существующий значок.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="182"/>
         <source>Images</source>
         <translation>Изображения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="182"/>
         <source>All files</source>
         <translation>Все файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="183"/>
         <source>Select Image(s)</source>
         <translation>Выбор изображения</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="213"/>
         <source>Successfully loaded %1 of %n icon(s)</source>
-        <translation><numerusform>Успешно загружен %1 из %n значка</numerusform><numerusform>Успешно загружены %1 из %n значков</numerusform><numerusform>Успешно загружены %1 из %n значков</numerusform><numerusform>Успешно загружено значков: %1 из %n</numerusform></translation>
+        <translation>
+            <numerusform>Успешно загружен %1 из %n значка</numerusform>
+            <numerusform>Успешно загружены %1 из %n значков</numerusform>
+            <numerusform>Успешно загружены %1 из %n значков</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="217"/>
         <source>No icons were loaded</source>
         <translation>Не загружено ни одного значка</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="222"/>
         <source>%n icon(s) already exist in the database</source>
-        <translation><numerusform>%n значок уже существует в базе данных</numerusform><numerusform>%n значка уже существуют в базе данных</numerusform><numerusform>%n значков уже существуют в базе данных</numerusform><numerusform>Значков, уже существующих в базе данных: %n</numerusform></translation>
+        <translation>
+            <numerusform>%n значок уже существует в базе данных</numerusform>
+            <numerusform>%n значка уже существуют в базе данных</numerusform>
+            <numerusform>%n значков уже существуют в базе данных</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="229"/>
         <source>The following icon(s) failed:</source>
-        <translation><numerusform>Следующий значок потерпел неудачу:</numerusform><numerusform>Следующие значки потерпели неудачу:</numerusform><numerusform>Следующие значки потерпели неудачу:</numerusform><numerusform>Ошибки в следующих значках:</numerusform></translation>
-    </message>
-    <message>
-        <source>You can enable the DuckDuckGo website icon service under Application Settings -&gt; Security</source>
-        <translation>Вы можете включить службу значков сайтов DuckDuckGo в настройках приложения на странице &apos;Безопасность&apos;</translation>
+        <translation>
+            <numerusform>Следующий значок потерпел неудачу:</numerusform>
+            <numerusform>Следующие значки потерпели неудачу:</numerusform>
+            <numerusform>Следующие значки потерпели неудачу:</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>EditWidgetProperties</name>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="37"/>
         <source>Created:</source>
         <translation>Создано:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="53"/>
         <source>Datetime created</source>
         <translation>Дата и время создания</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="63"/>
         <source>Modified:</source>
         <translation>Изменено:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="79"/>
         <source>Datetime modified</source>
         <translation>Дата и время изменения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="89"/>
         <source>Uuid:</source>
         <translation>UUID:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="99"/>
         <source>Unique ID</source>
         <translation>Уникальный ID</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="127"/>
         <source>Plugin Data</source>
         <translation>Данные подключаемого модуля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="133"/>
         <source>Plugin data</source>
         <translation>Данные подключаемого модуля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="157"/>
         <source>Remove selected plugin data</source>
         <translation>Удаление выбранных данных подключаемого модуля браузера</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="160"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.cpp" line="79"/>
         <source>Delete plugin data?</source>
         <translation>Удалить данные модулей?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.cpp" line="80"/>
         <source>Do you really want to delete the selected plugin data?
 This may cause the affected plugins to malfunction.</source>
         <translation>Вы действительно хотите удалить выбранные данные модулей?
 Это может привести к сбоям модулей.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.cpp" line="114"/>
         <source>Key</source>
         <translation>Ключ</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.cpp" line="114"/>
         <source>Value</source>
         <translation>Значение</translation>
     </message>
@@ -3874,80 +2616,112 @@ This may cause the affected plugins to malfunction.</source>
 <context>
     <name>Entry</name>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="1043"/>
         <source>%1 - Clone</source>
         <translation>%1 - Копия</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="491"/>
         <source>Passkey</source>
         <translation>Ключ доступа</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="1101"/>
+        <location filename="../../src/core/Entry.cpp" line="1135"/>
+        <location filename="../../src/core/Entry.cpp" line="1374"/>
+        <source>Maximum depth of replacement has been reached. Entry uuid: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Entry.cpp" line="1250"/>
+        <source>Bad DateTime placeholder type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Entry.cpp" line="1306"/>
         <source>Invalid conversion type: %1</source>
         <translation>Недопустимый тип преобразования: %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="1318"/>
+        <location filename="../../src/core/Entry.cpp" line="1364"/>
         <source>Invalid conversion syntax: %1</source>
         <translation>Недопустимый синтаксис преобразования: %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="1352"/>
         <source>Invalid regular expression syntax %1
 %2</source>
         <translation>Недопустимый синтаксис регулярного выражения %1
 %2</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="913"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="919"/>
         <source>Username</source>
         <translation>Логин</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="925"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="931"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="937"/>
         <source>Notes</source>
         <translation>Заметки</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="943"/>
         <source>Custom Attributes</source>
         <translation>Пользовательские атрибуты</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="949"/>
         <source>Icon</source>
         <translation>Значок</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="954"/>
         <source>Color</source>
         <translation>Цвет</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="960"/>
         <source>Expiration</source>
         <translation>Срок действия</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="965"/>
         <source>TOTP</source>
         <translation>TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="970"/>
         <source>Custom Data</source>
         <translation>Пользовательские данные</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="975"/>
         <source>Attachments</source>
         <translation>Вложения</translation>
     </message>
     <message>
-        <source>Auto-Type</source>
-        <translation>Автонабор</translation>
+        <location filename="../../src/core/Entry.cpp" line="1591"/>
+        <source>Bad url placeholder type</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="980"/>
         <source>Tags</source>
         <translation>Теги</translation>
     </message>
@@ -3955,6 +2729,12 @@ This may cause the affected plugins to malfunction.</source>
 <context>
     <name>EntryAttachments</name>
     <message>
+        <location filename="../../src/core/EntryAttachments.cpp" line="96"/>
+        <source>Can&apos;t find attachment for key %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/EntryAttachments.cpp" line="307"/>
         <source>Cannot open file &quot;%1&quot;</source>
         <translation>Не удалось открыть файл &quot;%1&quot;</translation>
     </message>
@@ -3962,10 +2742,12 @@ This may cause the affected plugins to malfunction.</source>
 <context>
     <name>EntryAttachmentsModel</name>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsModel.cpp" line="27"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsModel.cpp" line="27"/>
         <source>Size</source>
         <translation>Размер</translation>
     </message>
@@ -3973,103 +2755,158 @@ This may cause the affected plugins to malfunction.</source>
 <context>
     <name>EntryAttachmentsWidget</name>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="14"/>
         <source>Form</source>
         <translation>Форма</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="32"/>
         <source>Attachments</source>
         <translation>Вложения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="69"/>
         <source>Add new attachment</source>
         <translation>Добавить вложение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="145"/>
         <source>Remove selected attachment</source>
         <translation>Удалить выбранное вложение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="148"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="109"/>
         <source>Open selected attachment</source>
         <translation>Открыть выбранное вложение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="112"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="122"/>
         <source>Save selected attachment to disk</source>
         <translation>Сохранить выбранное вложение на диск</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="189"/>
         <source>Select files</source>
         <translation>Выберите файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="237"/>
+        <source>Failed to preview an attachment: No selection model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="244"/>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="297"/>
+        <source>Failed to edit an attachment: No attachment selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="251"/>
+        <source>Failed to preview an attachment: Attachment not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="290"/>
+        <source>Failed to edit an attachment: No selection model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="305"/>
+        <source>Failed to edit an attachment: Attachment not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="349"/>
         <source>Confirm remove</source>
         <translation>Подтвердите удаление</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="350"/>
         <source>Are you sure you want to remove %n attachment(s)?</source>
-        <translation><numerusform>Вы уверены, что хотите удалить %n вложение?</numerusform><numerusform>Вы уверены, что хотите удалить %n вложения?</numerusform><numerusform>Вы уверены, что хотите удалить %n вложений?</numerusform><numerusform>Вы уверены, что хотите удалить %n вложений?</numerusform></translation>
+        <translation>
+            <numerusform>Вы уверены, что хотите удалить %n вложение?</numerusform>
+            <numerusform>Вы уверены, что хотите удалить %n вложения?</numerusform>
+            <numerusform>Вы уверены, что хотите удалить %n вложений?</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="378"/>
         <source>Save attachments</source>
         <translation>Сохранить вложения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="389"/>
         <source>Unable to create directory:
 %1</source>
         <translation>Невозможно создать папку:
 %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="411"/>
         <source>Are you sure you want to overwrite the existing file &quot;%1&quot; with the attachment?</source>
         <translation>Вы действительно хотите перезаписать имеющийся файл &quot;%1&quot; с вложением?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="413"/>
         <source>Confirm overwrite</source>
         <translation>Подтвердите перезапись</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="438"/>
         <source>Unable to save attachments:
 %1</source>
         <translation>Невозможно сохранить вложения:
 %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="453"/>
         <source>Unable to open attachment:
 %1</source>
         <translation>Невозможно открыть вложение:
 %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="478"/>
         <source>Unable to open attachments:
 %1</source>
         <translation>Невозможно открыть вложения:
 %1</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="546"/>
         <source>Unable to open file(s):
 %1</source>
-        <translation><numerusform>Не удалось открыть файл:
-%1</numerusform><numerusform>Не удалось открыть файлы:
-%1</numerusform><numerusform>Не удалось открыть файлы:
-%1</numerusform><numerusform>Не удалось открыть файлы:
-%1</numerusform></translation>
+        <translation>
+            <numerusform>Не удалось открыть файл:
+%1</numerusform>
+            <numerusform>Не удалось открыть файлы:
+%1</numerusform>
+            <numerusform>Не удалось открыть файлы:
+%1</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="564"/>
         <source>Confirm Overwrite Attachment</source>
         <translation>Подтвердить перезапись вложения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="582"/>
         <source>Confirm Attachment</source>
         <translation>Подтвердить вложение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="583"/>
         <source>%1 is a big file (%2 MB).
 Your database may get very large and reduce performance.
 
@@ -4080,56 +2917,68 @@ Are you sure to add this file?</source>
 Вы действительно хотите добавить этот файл?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="659"/>
         <source>Attachment modified</source>
         <translation>Вложение изменено</translation>
     </message>
     <message>
-        <source>The attachment '%1' was modified.
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="660"/>
+        <source>The attachment &apos;%1&apos; was modified.
 Do you want to save the changes to your database?</source>
         <translation>Вложение &apos;%1&apos; было изменено.
 Сохранить изменения в базе данных?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="676"/>
         <source>Saving attachment failed</source>
         <translation>Ошибка сохранения вложения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="677"/>
         <source>Saving updated attachment failed.
 Error: %1</source>
         <translation>Не удалось сохранить обновлённое вложение.
 Ошибка: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="565"/>
         <source>Attachment &quot;%1&quot; already exists. 
 Would you like to overwrite the existing attachment?</source>
         <translation>Вложение &quot;%1&quot; уже существует.
 Перезаписать существующее вложение?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="99"/>
         <source>Preview</source>
         <translation>Просмотр</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="82"/>
         <source>Edit</source>
         <translation>Изменить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="105"/>
         <source>New Text Document</source>
         <translation>Новый документ</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="72"/>
         <source>Add file…</source>
         <translation>Добавить файл...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="106"/>
         <source>Load from Disk…</source>
         <translation>Загрузить с диска...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="125"/>
         <source>Save…</source>
         <translation>Сохранить...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="222"/>
         <source>New Attachment</source>
         <translation>Новое вложение</translation>
     </message>
@@ -4137,6 +2986,7 @@ Would you like to overwrite the existing attachment?</source>
 <context>
     <name>EntryAttributesModel</name>
     <message>
+        <location filename="../../src/gui/entry/EntryAttributesModel.cpp" line="82"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
@@ -4144,22 +2994,27 @@ Would you like to overwrite the existing attachment?</source>
 <context>
     <name>EntryHistoryModel</name>
     <message>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="93"/>
         <source>Current (%1)</source>
         <translation>Текущий (%1)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="134"/>
         <source>Last modified</source>
         <translation>Последнее изменение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="136"/>
         <source>Age</source>
         <translation>Возраст</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="138"/>
         <source>Difference</source>
         <translation>Изменено</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="140"/>
         <source>Size</source>
         <translation>Размер</translation>
     </message>
@@ -4167,107 +3022,165 @@ Would you like to overwrite the existing attachment?</source>
 <context>
     <name>EntryModel</name>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="161"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="177"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="197"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="210"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="229"/>
         <source>Ref: </source>
         <comment>Reference abbreviation</comment>
         <translation>Ссылка: </translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="236"/>
         <source>Never</source>
         <translation>Никогда</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="265"/>
+        <source>B</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="266"/>
+        <source>KiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="267"/>
+        <source>MiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="268"/>
+        <source>GiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="461"/>
         <source>Group</source>
         <translation>Группа</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="465"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="467"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="509"/>
         <source>Username</source>
         <translation>Логин</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="469"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="511"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="471"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="515"/>
         <source>URL</source>
         <translation>URL-адрес</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="473"/>
         <source>Notes</source>
         <translation>Заметки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="475"/>
         <source>Expires</source>
         <translation>Истекает</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="477"/>
         <source>Created</source>
         <translation>Создано</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="479"/>
         <source>Modified</source>
         <translation>Изменено</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="481"/>
         <source>Attachments</source>
         <translation>Вложения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="483"/>
         <source>Size</source>
         <translation>Размер</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="503"/>
         <source>Group name</source>
         <translation>Имя группы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="507"/>
         <source>Entry title</source>
         <translation>Название записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="513"/>
         <source>Password Strength</source>
         <translation>Надёжность пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="517"/>
         <source>Entry notes</source>
         <translation>Заметки к записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="519"/>
         <source>Entry expires at</source>
         <translation>Истечение записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="521"/>
         <source>Creation date</source>
         <translation>Дата создания</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="523"/>
         <source>Last modification date</source>
         <translation>Дата последнего изменения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="525"/>
         <source>Attached files</source>
         <translation>Вложенные файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="527"/>
         <source>Entry size</source>
         <translation>Размер записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="529"/>
         <source>Has attachments</source>
         <translation>Имеются вложения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="531"/>
         <source>Has TOTP</source>
         <translation>Использует TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="533"/>
         <source>Background Color</source>
         <translation>Цвет фона</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="463"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="505"/>
         <source>Group Path</source>
         <translation>Путь группы</translation>
     </message>
@@ -4275,151 +3188,157 @@ Would you like to overwrite the existing attachment?</source>
 <context>
     <name>EntryPreviewWidget</name>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="177"/>
         <source>Display current TOTP value</source>
         <translation>Показать текущее значение TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="193"/>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="845"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="218"/>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="870"/>
         <source>General</source>
         <translation>Общие</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="589"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="610"/>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="1006"/>
         <source>Notes</source>
         <translation>Заметки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="631"/>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="985"/>
         <source>Expiration</source>
         <translation>Срок действия</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="460"/>
         <source>Tags</source>
         <translation>Теги</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="527"/>
         <source>Tags list</source>
         <translation>Список тегов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="388"/>
         <source>Username</source>
         <translation>Логин</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="652"/>
         <source>URL</source>
         <translation>URL-адрес</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="666"/>
         <source>Advanced</source>
         <translation>Расширенный режим</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="698"/>
         <source>Attachments</source>
         <translation>Вложения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="729"/>
         <source>Attributes</source>
         <translation>Атрибуты</translation>
     </message>
     <message>
-        <source>Autotype</source>
-        <translation>Автонабор</translation>
-    </message>
-    <message>
-        <source>Default Sequence</source>
-        <translation>Последовательность по умолчанию</translation>
-    </message>
-    <message>
-        <source>Window</source>
-        <translation>Окно</translation>
-    </message>
-    <message>
-        <source>Sequence</source>
-        <translation>Последовательность</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="922"/>
         <source>Searching</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <source>Share</source>
-        <translation>Предоставить общий доступ</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="1027"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="1032"/>
         <source>Clear</source>
         <translation>Очистить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.cpp" line="452"/>
+        <location filename="../../src/gui/EntryPreviewWidget.cpp" line="549"/>
         <source>Never</source>
         <translation>Никогда</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.cpp" line="545"/>
         <source>Enabled</source>
         <translation>Включено</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.cpp" line="545"/>
         <source>Disabled</source>
         <translation>Отключено</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.cpp" line="522"/>
         <source>Double click to copy value</source>
         <translation>Дважды щёлкните левой кнопкой мыши, чтобы скопировать значение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="145"/>
         <source>Double click to copy to clipboard</source>
         <translation>Дважды щёлкните, чтобы скопировать в буфер обмена</translation>
     </message>
 </context>
 <context>
-    <name>EntryURLModel</name>
-    <message>
-        <source>Invalid URL</source>
-        <translation>Неверный URL-адрес</translation>
-    </message>
-    <message>
-        <source>Duplicate URL</source>
-        <translation>Дубликат URL-адреса</translation>
-    </message>
-</context>
-<context>
     <name>EntryView</name>
     <message>
+        <location filename="../../src/gui/entry/EntryView.cpp" line="133"/>
         <source>Fit to window</source>
         <translation>По размеру окна</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryView.cpp" line="134"/>
         <source>Fit to contents</source>
         <translation>По размеру содержимого</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryView.cpp" line="136"/>
         <source>Reset to defaults</source>
         <translation>Восстановить значения по умолчанию</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EntryView.cpp" line="602"/>
         <source>+ %1 entry(s)...</source>
-        <translation><numerusform>+ %1 запись...</numerusform><numerusform>+ %1 записи..</numerusform><numerusform>+ %1 записей...</numerusform><numerusform>+ %1 зап.</numerusform></translation>
+        <translation>
+            <numerusform>+ %1 запись...</numerusform>
+            <numerusform>+ %1 записи..</numerusform>
+            <numerusform>+ %1 записей...</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>ExportDialog</name>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.ui" line="14"/>
         <source>Export options</source>
         <translation>Опции экспорта</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.ui" line="30"/>
         <source>Sort entries by...</source>
         <translation>Сортировать записи по...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="42"/>
         <source>You are about to export your database to an unencrypted file.
 This will leave your passwords and sensitive information vulnerable!
 </source>
@@ -4427,221 +3346,157 @@ This will leave your passwords and sensitive information vulnerable!
 Пароли и другие секретные данные будут незащищёнными!</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="56"/>
         <source>database order</source>
         <translation>порядок базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="58"/>
         <source>name (ascending)</source>
         <translation>имя (по возрастанию)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="60"/>
         <source>name (descending)</source>
         <translation>имя (по убыванию)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="73"/>
         <source>Export database to HTML file</source>
         <translation>Экспортировать базу данных в HTML-файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="73"/>
         <source>HTML file</source>
         <translation>HTML-файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="63"/>
         <source>invalid sort order</source>
         <translation>Неверный порядок сортировки</translation>
     </message>
 </context>
 <context>
-    <name>FdoSecrets::DBusMgr</name>
-    <message>
-        <source>Failed to deliver message</source>
-        <translation>Не удалось доставить сообщение</translation>
-    </message>
-    <message>
-        <source>Failed to send reply on DBus</source>
-        <translation>Не удалось отправить ответ в DBus</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <comment>Unknown PID</comment>
-        <translation>Неизвестен</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <comment>Unknown executable path</comment>
-        <translation>Неизвестен</translation>
-    </message>
-    <message>
-        <source>&lt;i&gt;PID: %1, Executable: %2&lt;/i&gt;</source>
-        <comment>&lt;i&gt;PID: 1234, Executable: /path/to/exe&lt;/i&gt;</comment>
-        <translation>&lt;i&gt;ID процесса: %1, исполняемый файл: %2&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <source>Another secret service is running (%1).&lt;br/&gt;Please stop/remove it before re-enabling the Secret Service Integration.</source>
-        <translation>Запущена другая секретная служба (%1)&lt;br/&gt;Отключите или удалите её, прежде чем включать интеграцию.</translation>
-    </message>
-    <message>
-        <source>Failed to register DBus service at %1.&lt;br/&gt;</source>
-        <translation>Не удалось зарегистрировать службу DBus на %1.&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <source>Failed to register service on DBus at path &apos;%1&apos;</source>
-        <translation>Ошибка при регистрации службы в DBus по пути &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>Failed to register database on DBus under the name &apos;%1&apos;</source>
-        <translation>Ошибка при регистрации базы в DBus под именем &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>Failed to register session on DBus at path &apos;%1&apos;</source>
-        <translation>Ошибка при регистрации сессии в DBus по пути &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>Failed to register item on DBus at path &apos;%1&apos;</source>
-        <translation>Ошибка при регистрации службы в DBus по пути &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>Failed to register prompt object on DBus at path &apos;%1&apos;</source>
-        <translation>Ошибка при регистрации объекта приглашения в DBus по пути &apos;%1&apos;</translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::Item</name>
-    <message>
-        <source>Entry &quot;%1&quot; from database &quot;%2&quot; was used by %3</source>
-        <translation>Запись &quot;%1&quot; из базы данных &quot;%2&quot; использована %3</translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::Service</name>
-    <message numerus="yes">
-        <source>%n Entry(s) was used by %1</source>
-        <comment>%1 is the name of an application</comment>
-        <translation><numerusform>%n запись была использована %1</numerusform><numerusform>%n записи были использованы %1</numerusform><numerusform>%n записей было использовано %1</numerusform><numerusform>Использованных %1 записей: %n</numerusform></translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::SettingsClientModel</name>
-    <message>
-        <source>Unknown</source>
-        <translation>Неизвестен</translation>
-    </message>
-    <message>
-        <source>Non-existing/inaccessible executable path. Please double-check the client is legit.</source>
-        <translation>Несуществующий/недоступный путь к исполняемому файлу. Перепроверьте подлинность клиента.</translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::SettingsDatabaseModel</name>
-    <message>
-        <source>Unlock to show</source>
-        <translation>Разблокируйте для просмотра</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Нет</translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::UnlockPrompt</name>
-    <message>
-        <source>%1 (PID: %2)</source>
-        <translation>%1 (ID процесса: %2)</translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecretsPlugin</name>
-    <message>
-        <source>&lt;b&gt;Fdo Secret Service:&lt;/b&gt; %1</source>
-        <translation>&lt;b&gt;Секретная служба FDO:&lt;/b&gt; %1</translation>
-    </message>
-</context>
-<context>
     <name>Group</name>
     <message>
+        <location filename="../../src/core/Group.cpp" line="679"/>
+        <source>Can&apos;t search entry with &quot;referenceType&quot; parameter equal to &quot;Unknown&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Group.cpp" line="816"/>
         <source>[empty]</source>
         <comment>group has no children</comment>
         <translation>[пусто]</translation>
     </message>
     <message>
+        <location filename="../../src/core/Group.cpp" line="1039"/>
         <source>%1 - Clone</source>
         <translation>%1 - Копия</translation>
     </message>
-</context>
-<context>
-    <name>HibpDownloader</name>
     <message>
-        <source>Online password validation failed</source>
-        <translation>Не удалось проверить пароль в Интернете</translation>
+        <location filename="../../src/core/Group.cpp" line="1078"/>
+        <source>Group %1 does not contain %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>IconDownloaderDialog</name>
+    <name>HashedBlockStream</name>
     <message>
-        <source>Download Favicons</source>
-        <translation>Получение значков сайтов</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="147"/>
+        <source>Invalid block index.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="155"/>
+        <source>Invalid hash size.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Having trouble downloading icons?
-You can enable the DuckDuckGo website icon service in the security section of the application settings.</source>
-        <translation>Не удалось получить значки сайтов?
-На вкладке &quot;Безопасность&quot; → &quot;Конфиденциальность&quot; в настройках приложения можно включить службу значков сайтов DuckDuckGo.</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="163"/>
+        <source>Invalid block size.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Close</source>
-        <translation>Закрыть</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="172"/>
+        <source>Invalid hash of final block.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>URL</source>
-        <translation>URL-адрес</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="184"/>
+        <source>Block too short.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Status</source>
-        <translation>Статус</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="191"/>
+        <source>Mismatch between hash and data.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HashingStream</name>
+    <message>
+        <location filename="../../src/streams/HashingStream.cpp" line="58"/>
+        <source>Not enough data to compute hash</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HmacBlockStream</name>
+    <message>
+        <location filename="../../src/streams/HmacBlockStream.cpp" line="146"/>
+        <source>Invalid HMAC size.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please wait, processing entry list…</source>
-        <translation>Дождитесь окончания обработки списка записей…</translation>
+        <location filename="../../src/streams/HmacBlockStream.cpp" line="154"/>
+        <source>Invalid block size size.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Downloading…</source>
-        <translation>Загрузка...</translation>
+        <location filename="../../src/streams/HmacBlockStream.cpp" line="162"/>
+        <source>Invalid block size.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation>OK</translation>
+        <location filename="../../src/streams/HmacBlockStream.cpp" line="170"/>
+        <source>Block too short.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Already Exists</source>
-        <translation>Уже существует</translation>
-    </message>
-    <message>
-        <source>Download Failed</source>
-        <translation>Ошибка загрузки</translation>
-    </message>
-    <message>
-        <source>Downloading favicons (%1/%2)…</source>
-        <translation>Загрузка значков (%1 из %2)…</translation>
+        <location filename="../../src/streams/HmacBlockStream.cpp" line="183"/>
+        <source>Mismatch between hash and data.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImageAttachmentsWidget</name>
     <message>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.ui" line="37"/>
         <source>Zoom:</source>
         <translation>Масштаб:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="97"/>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="155"/>
         <source>Fit</source>
         <translation>Вписать</translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="184"/>
+        <source>Read-write mode is not supported for image attachments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="196"/>
+        <source>Failed to load image from data</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportWizard</name>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizard.cpp" line="39"/>
         <source>Import Wizard</source>
         <translation>Мастер импорта</translation>
     </message>
@@ -4649,30 +3504,37 @@ You can enable the DuckDuckGo website icon service in the security section of th
 <context>
     <name>ImportWizardPageReview</name>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.ui" line="14"/>
         <source>WizardPage</source>
         <translation>Страница мастера</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="145"/>
         <source>Entry count: %1</source>
         <translation>Количество записей: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
         <source>Group</source>
         <translation>Группа</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
         <source>Username</source>
         <translation>Логин</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
         <source>Url</source>
         <translation>URL-адрес</translation>
     </message>
@@ -4680,110 +3542,139 @@ You can enable the DuckDuckGo website icon service in the security section of th
 <context>
     <name>ImportWizardPageSelect</name>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="14"/>
         <source>Form</source>
         <translation>Форма</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="17"/>
         <source>Import File Selection</source>
         <translation>Выберите файл для импорта</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="121"/>
         <source>Password:</source>
         <translation>Пароль:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="131"/>
         <source>Key File:</source>
         <translation>Ключевой файл:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="112"/>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="143"/>
         <source>Browse…</source>
         <translation>Обзор...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="168"/>
         <source>Import Into:</source>
         <translation>Импортировать в:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="211"/>
         <source>New Database</source>
         <translation>Новая база данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="226"/>
         <source>No unlocked databases available</source>
         <translation>Нет разблокированных баз данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="229"/>
         <source>Existing Database:</source>
         <translation>Существующая база данных:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="100"/>
         <source>Import File:</source>
         <translation>Импортировать файл:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="33"/>
         <source>Comma Separated Values (.csv)</source>
         <translation>Значения, разделённые запятыми (.csv)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="34"/>
         <source>1Password Export (.1pux)</source>
         <translation>Экспорт из 1Password (.1pux)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="35"/>
         <source>1Password Vault (.opvault)</source>
         <translation>Хранилище 1Password (.opvault)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="36"/>
         <source>Bitwarden (.json)</source>
         <translation>Bitwarden (.json)</translation>
     </message>
     <message>
-        <source>KeePass 1 Database (.kdb)</source>
-        <translation>База данных KeePass 1 (.kdb)</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="200"/>
         <source>Open OPVault</source>
         <translation>Открыть OPVault</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="204"/>
         <source>Select import file</source>
         <translation>Выберите файл для импорта</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="215"/>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="259"/>
         <source>All files</source>
         <translation>Все файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="215"/>
         <source>Key files</source>
         <translation>Ключевые файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="216"/>
         <source>Select key file</source>
         <translation>Выберите ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="259"/>
         <source>Comma Separated Values</source>
         <translation>Значения, разделённые запятыми</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="261"/>
         <source>1Password Export</source>
         <translation>Экспорт из 1Password</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="263"/>
         <source>Bitwarden JSON Export</source>
         <translation>Экспорт из Bitwarden в JSON</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="267"/>
         <source>1Password Vault</source>
         <translation>Хранилище 1Password</translation>
     </message>
     <message>
-        <source>KeePass1 Database</source>
-        <translation>База данных KeePass1</translation>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="269"/>
+        <source>KeepassXC database</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="37"/>
         <source>Proton Pass (.json)</source>
         <translation>Proton Pass (.json)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="38"/>
+        <source>KeepassXC (.kdbx)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="265"/>
         <source>Proton Pass JSON Export</source>
         <translation>Экспорт из Proton Pass в JSON</translation>
     </message>
@@ -4791,63 +3682,79 @@ You can enable the DuckDuckGo website icon service in the security section of th
 <context>
     <name>KMessageWidget</name>
     <message>
+        <location filename="../../src/gui/KMessageWidget.cpp" line="64"/>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
     </message>
     <message>
+        <location filename="../../src/gui/KMessageWidget.cpp" line="65"/>
         <source>Close message</source>
         <translation>Закрыть сообщение</translation>
     </message>
 </context>
 <context>
+    <name>KPToolBar</name>
+    <message>
+        <location filename="../../src/gui/widgets/KPToolBar.cpp" line="56"/>
+        <source>Toolbar: Cannot invoke setExpanded!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Kdbx3Reader</name>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="51"/>
         <source>Missing database headers</source>
         <translation>Отсутствуют заголовки базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="58"/>
         <source>Unable to calculate database key</source>
         <translation>Не удалось вычислить ключ базы данных</translation>
     </message>
     <message>
-        <source>Unable to issue challenge-response: %1</source>
-        <translation>Не удалось выполнить вызов-ответ: %1</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="85"/>
         <source>Invalid credentials were provided, please try again.
 If this reoccurs, then your database file may be corrupt.</source>
         <translation>Вероятно, для входа были указанные неверные данные.
 Попробуйте ввести данные ещё раз, если ошибка повторится, возможно, файл базы данных повреждён.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="143"/>
         <source>Header doesn&apos;t match hash</source>
         <translation>Заголовок не соответствует хешу</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="158"/>
         <source>Invalid header id size</source>
         <translation>Недопустимый размер идентификатора заголовка</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="168"/>
         <source>Invalid header field length: field %1</source>
         <translation>Недопустимая длина поля заголовка: поле %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="178"/>
         <source>Invalid header data length: field %1, %2 expected, %3 found</source>
         <translation>Недопустимая длина данных заголовка: поле %1, ожидается %2, найдено %3</translation>
+    </message>
+    <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="231"/>
+        <source>Unknown header field read: id=%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Kdbx3Writer</name>
     <message>
+        <location filename="../../src/format/Kdbx3Writer.cpp" line="39"/>
         <source>Invalid symmetric cipher IV size.</source>
         <comment>IV = Initialization Vector for symmetric cipher</comment>
         <translation>Недопустимый размер симметричного шифра IV.</translation>
     </message>
     <message>
-        <source>Unable to issue challenge-response: %1</source>
-        <translation>Не удалось выполнить вызов-ответ: %1</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/Kdbx3Writer.cpp" line="51"/>
         <source>Unable to calculate database key</source>
         <translation>Не удалось вычислить ключ базы данных</translation>
     </message>
@@ -4855,131 +3762,165 @@ If this reoccurs, then your database file may be corrupt.</source>
 <context>
     <name>Kdbx4Reader</name>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="51"/>
         <source>missing database headers</source>
         <translation>отсутствуют заголовки базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="58"/>
         <source>Unable to calculate database key: %1</source>
         <translation>Не удалось вычислить ключ базы данных: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="71"/>
         <source>Invalid header checksum size</source>
         <translation>Недопустимый размер контрольной суммы заголовка</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="77"/>
         <source>Header SHA256 mismatch</source>
         <translation>Несоответствие заголовка SHA256</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="84"/>
         <source>Invalid credentials were provided, please try again.
 If this reoccurs, then your database file may be corrupt.</source>
         <translation>Вероятно, для входа были указанные неверные данные.
 Попробуйте ввести данные ещё раз, если ошибка повторится, возможно, файл базы данных повреждён.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="85"/>
         <source>(HMAC mismatch)</source>
         <translation>(несоответствие HMAC)</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="100"/>
         <source>Unknown cipher</source>
         <translation>Неизвестный шифр</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="185"/>
         <source>Invalid header id size</source>
         <translation>Недопустимый размер идентификатора заголовка</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="195"/>
         <source>Invalid header field length: field %1</source>
         <translation>Недопустимая длина поля заголовка: поле %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="205"/>
         <source>Invalid header data length: field %1, %2 expected, %3 found</source>
         <translation>Недопустимая длина данных заголовка: поле %1, ожидается %2, найдено %3</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="240"/>
         <source>Failed to open buffer for KDF parameters in header</source>
         <translation>Не удалось открыть буфер для параметров KDF в заголовке</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="248"/>
         <source>Unsupported key derivation function (KDF) or invalid parameters</source>
         <translation>Функция формирования ключа (KDF) не поддерживается, либо параметры неверны</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="271"/>
         <source>Legacy header fields found in KDBX4 file.</source>
         <translation>В файле KDBX4 обнаружены устаревшие поля заголовков.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="275"/>
+        <source>Unknown header field read: id=%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="293"/>
         <source>Invalid inner header id size</source>
         <translation>Недопустимый внутренний идентификатор заголовка</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="303"/>
         <source>Invalid inner header field length: field %1</source>
         <translation>Недопустимая длина поля внутреннего заголовка: поле %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="313"/>
         <source>Invalid inner header data length: field %1, %2 expected, %3 found</source>
         <translation>Недопустимая длина данных внутреннего заголовка: поле %1, ожидается %2, найдено %3</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="339"/>
         <source>Invalid inner header binary size</source>
         <translation>Недопустимый двоичный размер внутреннего заголовка</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="366"/>
         <source>Unsupported KeePass variant map version.</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Неподдерживаемая версия структуры метаданных KeePass.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="380"/>
         <source>Invalid variant map entry name length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимая длина имени структуры метаданных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="391"/>
         <source>Invalid variant map entry name data</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимое имя для структуры метаданных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="402"/>
         <source>Invalid variant map entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимое значение длины записи в структуре метаданных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="413"/>
         <source>Invalid variant map entry value data</source>
         <extracomment>Translation comment: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимые значения структуры метаданных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="424"/>
         <source>Invalid variant map Bool entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимая длина логического значения в структуре метаданных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="435"/>
         <source>Invalid variant map Int32 entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимая длина значения Int32 в структуре метаданных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="446"/>
         <source>Invalid variant map UInt32 entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимая длина значения UInt32 в структуре метаданных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="457"/>
         <source>Invalid variant map Int64 entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимая длина значения Int64 в структуре метаданных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="468"/>
         <source>Invalid variant map UInt64 entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимая длина значения UInt64 в структуре метаданных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="485"/>
         <source>Invalid variant map entry type</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимый тип записи в структуре метаданных</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="493"/>
         <source>Invalid variant map field type size</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>Недопустимый размер поля поля в структуре метаданных</translation>
@@ -4988,104 +3929,133 @@ If this reoccurs, then your database file may be corrupt.</source>
 <context>
     <name>Kdbx4Writer</name>
     <message>
+        <location filename="../../src/format/Kdbx4Writer.cpp" line="36"/>
         <source>Invalid symmetric cipher algorithm.</source>
         <translation>Недопустимый симметричный алгоритм шифрования.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Writer.cpp" line="43"/>
         <source>Invalid symmetric cipher IV size.</source>
         <comment>IV = Initialization Vector for symmetric cipher</comment>
         <translation>Недопустимый размер симметричного шифра IV.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Writer.cpp" line="54"/>
         <source>Unable to calculate database key: %1</source>
         <translation>Не удалось вычислить ключ базы данных: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Writer.cpp" line="87"/>
         <source>Failed to serialize KDF parameters variant map</source>
         <extracomment>Translation comment: variant map = data structure for storing meta data</extracomment>
         <translation>Ошибка сериализации параметров KDF структуры метаданных</translation>
+    </message>
+    <message>
+        <location filename="../../src/format/Kdbx4Writer.cpp" line="320"/>
+        <source>Unknown object type %1 in QVariantMap</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>KdbxReader</name>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="133"/>
         <source>Invalid cipher uuid length: %1 (length=%2)</source>
         <translation>Неверная длина UUID шифра: %1 (длина=%2)</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="140"/>
         <source>Unable to parse UUID: %1</source>
         <translation>Невозможно выполнить разбор UUID: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="146"/>
         <source>Unsupported cipher</source>
         <translation>Неподдерживаемый шифр</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="160"/>
         <source>Invalid compression flags length</source>
         <translation>Недопустимая длина флагов сжатия</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="168"/>
         <source>Unsupported compression algorithm</source>
         <translation>Неподдерживаемый алгоритм сжатия</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="182"/>
         <source>Invalid master seed size</source>
         <translation>Недопустимый размер основного seed</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="196"/>
         <source>Invalid transform seed size</source>
         <translation>Недопустимый размер seed для преобразования</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="214"/>
         <source>Invalid transform rounds size</source>
         <translation>Недопустимый размер цикла преобразования</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="249"/>
         <source>Invalid start bytes size</source>
         <translation>Недопустимый размер начальных байтов</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="263"/>
         <source>Invalid random stream id size</source>
         <translation>Недопустимый размер идентификатора случайного потока</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="272"/>
         <source>Invalid inner random stream cipher</source>
         <translation>Недопустимый шифр случайного внутреннего потока</translation>
-    </message>
-    <message>
-        <source>Failed to read database file.</source>
-        <translation>Не удалось прочитать файл базы данных.</translation>
-    </message>
-    <message>
-        <source>The selected file is an old KeePass 1 database (.kdb).
-
-You can import it by clicking on Database &gt; 'Import KeePass 1 database…'.
-This is a one-way migration. You won&apos;t be able to open the imported database with the old KeePassX 0.4 version.</source>
-        <translation>Выбран файл старой базы данных KeePass 1 (.kdb).
-
-Его можно импортировать, нажав &quot;База данных&quot; → &quot;Импорт&quot; → &quot;Базы данных KeePass 1&quot;.
-Это необратимая процедура: импортированную базу нельзя будет открыть в старой версии KeePassX 0.4.</translation>
-    </message>
-    <message>
-        <source>Not a KeePass database.</source>
-        <translation>Это не база данных KeePass.</translation>
-    </message>
-    <message>
-        <source>Unsupported KeePass 2 database version.</source>
-        <translation>Неподдерживаемая версия базы данных KeePass 2.</translation>
     </message>
 </context>
 <context>
     <name>KdbxXmlReader</name>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="104"/>
         <source>XML parsing failure: %1</source>
         <translation>Ошибка разбора XML: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="115"/>
         <source>No root group</source>
         <translation>Нет корневой группы</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="121"/>
+        <source>KdbxXmlReader::readDatabase: found %1 invalid group reference(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="126"/>
+        <source>KdbxXmlReader::readDatabase: found %1 invalid entry reference(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="136"/>
+        <source>Unmapped keys left.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="141"/>
+        <source>KdbxXmlReader::readDatabase: found unused key &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="195"/>
         <source>XML error:
 %1
 Line %2, column %3</source>
@@ -5094,354 +4064,214 @@ Line %2, column %3</source>
 Строка %2, столбец %3</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="239"/>
+        <source>Multiple root elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="358"/>
+        <source>HistoryMaxItems invalid number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="370"/>
+        <source>HistoryMaxSize invalid number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="491"/>
         <source>Missing icon uuid or data</source>
         <translation>Нет UUID значка или данных</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="512"/>
+        <source>KdbxXmlReader::parseBinaries: overwriting binary item &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="572"/>
         <source>Missing custom data key or value</source>
         <translation>Нет ключа пользовательских данных или значения</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="589"/>
         <source>Multiple group elements</source>
         <translation>Несколько элементов группы</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="633"/>
         <source>Null group uuid</source>
         <translation>UUID для группы NULL</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="673"/>
         <source>Invalid group icon number</source>
         <translation>Недопустимый номер значка группы</translation>
     </message>
     <message>
-        <source>Invalid EnableAutoType value</source>
-        <translation>Недопустимое значение EnableAutoType</translation>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1480"/>
+        <source>KdbxXmlReader::skipCurrentElement: skip element &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="722"/>
         <source>Invalid EnableSearching value</source>
         <translation>Недопустимое значение EnableSearching</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="785"/>
         <source>No group uuid found</source>
         <translation>Нет UUID группы</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="833"/>
         <source>Null DeleteObject uuid</source>
         <translation>UUID DeleteObject Null</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="860"/>
         <source>Missing DeletedObject uuid or time</source>
         <translation>Нет UUID или времени для DeletedObject</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="882"/>
         <source>Null entry uuid</source>
         <translation>UUID для записи Null</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="904"/>
         <source>Invalid entry icon number</source>
         <translation>Недопустимый номер значка записи</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="981"/>
         <source>History element in history entry</source>
         <translation>Элемент истории в истории записи</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1036"/>
         <source>No entry uuid found</source>
         <translation>Нет UUID для записи</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1045"/>
         <source>History element with different uuid</source>
         <translation>Элемент истории с отличающимся UUID</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1102"/>
         <source>Duplicate custom attribute found</source>
         <translation>Обнаружен повторяющийся пользовательский атрибут</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1110"/>
         <source>Entry string key or value missing</source>
         <translation>Нет ключа или значения записи</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1162"/>
+        <source>Duplicate attachment name found, renamed to: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1169"/>
         <source>Entry binary key or value missing</source>
         <translation>Нет двоичного ключа или значения записи</translation>
     </message>
     <message>
-        <source>Auto-type association window or sequence missing</source>
-        <translation>Нет окна или последовательности для автонабора</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1292"/>
         <source>Invalid bool value</source>
         <translation>Недопустимое логическое значение</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1314"/>
         <source>Invalid date time value</source>
         <translation>Недопустимое значение даты/времени</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1333"/>
         <source>Invalid color value</source>
         <translation>Недопустимое значение цвета</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1348"/>
         <source>Invalid color rgb part</source>
         <translation>Недопустимое значение части цвета RGB</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1364"/>
         <source>Invalid number value</source>
         <translation>Недопустимое числовое значение</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1382"/>
         <source>Invalid uuid value</source>
         <translation>Недопустимое значение UUID</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1430"/>
         <source>Unable to decompress binary</source>
         <extracomment>Translator meant is a binary data inside an entry</extracomment>
         <translation>Невозможно распаковать двоичные данные</translation>
     </message>
 </context>
 <context>
-    <name>KeeAgentSettings</name>
+    <name>KeePass2Reader</name>
     <message>
-        <source>Invalid KeeAgent settings file structure.</source>
-        <translation>Неверная структура файла параметров KeeAgent.</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="63"/>
+        <source>No file path was provided.</source>
+        <translation type="unfinished">Не указан путь к файлу.</translation>
     </message>
     <message>
-        <source>Private key is an attachment but no attachments provided.</source>
-        <translation>Приватный ключ - это вложение, но вложенные файлы отсутствуют.</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="70"/>
+        <source>File %1 does not exist.</source>
+        <translation type="unfinished">Файл %1 не существует.</translation>
     </message>
     <message>
-        <source>Private key is empty</source>
-        <translation>Приватный ключ пуст</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="83"/>
+        <source>Unable to open file %1.</source>
+        <translation type="unfinished">Не удалось открыть файл %1.</translation>
     </message>
     <message>
-        <source>File too large to be a private key</source>
-        <translation>Слишком большой файл для приватного ключа</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="89"/>
+        <source>Error while reading the database: %1</source>
+        <translation type="unfinished">Ошибка при чтении базы данных: %1</translation>
     </message>
     <message>
-        <source>Failed to open private key</source>
-        <translation>Не удалось открыть приватный ключ</translation>
-    </message>
-</context>
-<context>
-    <name>KeePass1Reader</name>
-    <message>
-        <source>Unable to read keyfile.</source>
-        <translation>Невозможно прочитать ключевой файл.</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="144"/>
+        <source>Failed to read database file.</source>
+        <translation type="unfinished">Не удалось прочитать файл базы данных.</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="150"/>
         <source>Not a KeePass database.</source>
-        <translation>Не база данных KeePass.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unsupported encryption algorithm.</source>
-        <translation>Алгоритм шифрования не поддерживается.</translation>
-    </message>
-    <message>
-        <source>Unsupported KeePass database version.</source>
-        <translation>Версия базы данных KeePass не поддерживается.</translation>
-    </message>
-    <message>
-        <source>Unable to read encryption IV</source>
-        <comment>IV = Initialization Vector for symmetric cipher</comment>
-        <translation>Невозможно прочитать шифрование IV</translation>
-    </message>
-    <message>
-        <source>Invalid number of groups</source>
-        <translation>Недопустимое количество групп</translation>
-    </message>
-    <message>
-        <source>Invalid number of entries</source>
-        <translation>Недопустимое количество записей</translation>
-    </message>
-    <message>
-        <source>Invalid content hash size</source>
-        <translation>Недопустимый размер хеша содержимого</translation>
-    </message>
-    <message>
-        <source>Invalid transform seed size</source>
-        <translation>Недопустимый размер seed для преобразования</translation>
-    </message>
-    <message>
-        <source>Invalid number of transform rounds</source>
-        <translation>Недопустимое число раундов преобразования</translation>
-    </message>
-    <message>
-        <source>Unable to construct group tree</source>
-        <translation>Не удалось создать дерево групп</translation>
-    </message>
-    <message>
-        <source>Root</source>
-        <translation>Корень</translation>
-    </message>
-    <message>
-        <source>Unable to calculate database key</source>
-        <translation>Не удалось вычислить ключ базы данных</translation>
-    </message>
-    <message>
-        <source>unable to seek to content position</source>
-        <translation>не удалось переместиться к позиции содержимого</translation>
-    </message>
-    <message>
-        <source>Invalid credentials were provided, please try again.
-If this reoccurs, then your database file may be corrupt.</source>
-        <translation>Вероятно, для входа были указанные неверные данные.
-Попробуйте ввести данные ещё раз, если ошибка повторится, возможно, файл базы данных повреждён.</translation>
-    </message>
-    <message>
-        <source>Key transformation failed</source>
-        <translation>Не удалось выполнить преобразование ключа</translation>
-    </message>
-    <message>
-        <source>Invalid group field type number</source>
-        <translation>Недопустимый тип поля группы</translation>
-    </message>
-    <message>
-        <source>Invalid group field size</source>
-        <translation>Недопустимый размер поля группы</translation>
-    </message>
-    <message>
-        <source>Read group field data doesn&apos;t match size</source>
-        <translation>Не соответствует размер области данных группы</translation>
-    </message>
-    <message>
-        <source>Incorrect group id field size</source>
-        <translation>Неверный размер поля идентификатора группы</translation>
-    </message>
-    <message>
-        <source>Incorrect group creation time field size</source>
-        <translation>Неверный размер поля времени создания группы</translation>
-    </message>
-    <message>
-        <source>Incorrect group modification time field size</source>
-        <translation>Неверный размер поля времени изменения группы</translation>
-    </message>
-    <message>
-        <source>Incorrect group access time field size</source>
-        <translation>Неверный размер поля времени доступа к группе</translation>
-    </message>
-    <message>
-        <source>Incorrect group expiry time field size</source>
-        <translation>Неверный размер поля времени истечения срока действия группы</translation>
-    </message>
-    <message>
-        <source>Incorrect group icon field size</source>
-        <translation>Неверный размер поля значка группы</translation>
-    </message>
-    <message>
-        <source>Incorrect group level field size</source>
-        <translation>Неверный размер поля уровня группы</translation>
-    </message>
-    <message>
-        <source>Invalid group field type</source>
-        <translation>Недопустимый тип поля группы</translation>
-    </message>
-    <message>
-        <source>Missing group id or level</source>
-        <translation>Нет группового идентификатора или уровня</translation>
-    </message>
-    <message>
-        <source>Missing entry field type number</source>
-        <translation>Нет номера типа поля записи</translation>
-    </message>
-    <message>
-        <source>Invalid entry field size</source>
-        <translation>Неверный размер поля записи</translation>
-    </message>
-    <message>
-        <source>Read entry field data doesn&apos;t match size</source>
-        <translation>Поля данных записи не соответствуют размеру</translation>
-    </message>
-    <message>
-        <source>Invalid entry UUID field size</source>
-        <translation>Неверный размер поля UUID записи</translation>
-    </message>
-    <message>
-        <source>Invalid entry group id field size</source>
-        <translation>Недопустимый размер поля идентификатора записи группы</translation>
-    </message>
-    <message>
-        <source>Invalid entry icon field size</source>
-        <translation>Недопустимый размер поля значка записи</translation>
-    </message>
-    <message>
-        <source>Invalid entry creation time field size</source>
-        <translation>Недопустимый размер поля времени создания записи</translation>
-    </message>
-    <message>
-        <source>Invalid entry modification time field size</source>
-        <translation>Недопустимый размер поля изменения даты ввода</translation>
-    </message>
-    <message>
-        <source>Invalid entry expiry time field size</source>
-        <translation>Недопустимый размер поля времени срока действия</translation>
-    </message>
-    <message>
-        <source>Invalid entry field type</source>
-        <translation>Недопустимый тип поля записи</translation>
-    </message>
-</context>
-<context>
-    <name>KeeShare</name>
-    <message>
-        <source>Invalid sharing reference</source>
-        <translation>Неверная ссылка общего доступа</translation>
-    </message>
-    <message>
-        <source>Inactive share %1</source>
-        <translation>Неактивная общая база %1</translation>
-    </message>
-    <message>
-        <source>Imported from %1</source>
-        <translation>Импортировано из %1</translation>
-    </message>
-    <message>
-        <source>Exported to %1</source>
-        <translation>Экспортировано в %1</translation>
-    </message>
-    <message>
-        <source>Synchronized with %1</source>
-        <translation>Синхронизировано с %1</translation>
-    </message>
-    <message>
-        <source>Import is disabled in settings</source>
-        <translation>Импорт отключён в настройках программы</translation>
-    </message>
-    <message>
-        <source>Export is disabled in settings</source>
-        <translation>Экспорт отключён в настройках программы</translation>
-    </message>
-    <message>
-        <source>Inactive share</source>
-        <translation>Неактивная общая база</translation>
-    </message>
-    <message>
-        <source>Imported from</source>
-        <translation>Импортировано из</translation>
-    </message>
-    <message>
-        <source>Exported to</source>
-        <translation>Экспортировано в</translation>
-    </message>
-    <message>
-        <source>Synchronized with</source>
-        <translation>Синхронизировано с</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="157"/>
+        <source>Unsupported KeePass 2 database version.</source>
+        <translation type="unfinished">Неподдерживаемая версия базы данных KeePass 2.</translation>
     </message>
 </context>
 <context>
     <name>KeyComponentWidget</name>
     <message>
+        <location filename="../../src/gui/databasekey/KeyComponentWidget.ui" line="41"/>
         <source>Key Component</source>
         <translation>Ключевой компонент</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyComponentWidget.ui" line="78"/>
         <source>Key Component Description</source>
         <translation>Описание ключевого компонента</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyComponentWidget.ui" line="159"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyComponentWidget.ui" line="193"/>
         <source>Key Component set, click to change or remove</source>
         <translation>Ключевой компонент установлен, нажмите, чтобы изменить или удалить</translation>
     </message>
@@ -5449,105 +4279,131 @@ If this reoccurs, then your database file may be corrupt.</source>
 <context>
     <name>KeyFileEditWidget</name>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="29"/>
         <source>Generate a new key file</source>
         <translation>Создать новый ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="32"/>
         <source>Generate</source>
         <translation>Генерировать</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="39"/>
         <source>Generate a new key file or choose an existing one to protect your database.</source>
         <translation>Создать новый ключевой файл или выбрать существующий для защиты базы данных.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="54"/>
         <source>Note: Do NOT use a file that may change as that will prevent you from unlocking your database.</source>
         <translation>Внимание: НЕ используйте файл, который может измениться, так как это не позволит вам разблокировать базу данных.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="84"/>
         <source>Browse for key file</source>
         <translation>Выбрать ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="87"/>
         <source>Browse…</source>
         <translation>Обзор...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="52"/>
         <source>Old key file format</source>
         <translation>Устаревший формат ключевого файла</translation>
     </message>
     <message>
-        <source>You selected a key file in an old format which KeePassXC&lt;br&gt;may stop supporting in the future.&lt;br&gt;&lt;br&gt;Please consider generating a new key file instead.</source>
-        <translation>ВНИМАНИЕ: Используется ключевой файл устаревшего формата, поддержка которого в будущем может быть прекращена.
-По возможности создайте новый ключевой файл.</translation>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="53"/>
+        <source>You selected a key file in an old format which KeePassX-min&lt;br&gt;may stop supporting in the future.&lt;br&gt;&lt;br&gt;Please consider generating a new key file instead.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error loading the key file '%1'
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="70"/>
+        <source>Error loading the key file &apos;%1&apos;
 Message: %2</source>
         <translation>Ошибка загрузки ключевого файла &apos;%1&apos;
 Сообщение: %2</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="98"/>
         <source>Key File</source>
         <translation>Ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="99"/>
         <source>Add Key File</source>
         <translation>Добавить ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="100"/>
         <source>Change Key File</source>
         <translation>Изменить ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="101"/>
         <source>Remove Key File</source>
         <translation>Удалить ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="102"/>
         <source>Key File set, click to change or remove</source>
         <translation>Ключевой файл установлен, нажмите, чтобы изменить или удалить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="105"/>
         <source>&lt;p&gt;You can add a key file containing random bytes for additional security.&lt;/p&gt;&lt;p&gt;You must keep it secret and never lose it or you will be locked out.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Для большей безопасности можно добавить ключевой файл, содержащий случайные байты.&lt;/p&gt;&lt;p&gt;Храните его в надёжном месте и не теряйте, иначе доступ к данным будет заблокирован.&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="117"/>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="146"/>
         <source>Key files</source>
         <translation>Ключевые файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="117"/>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="146"/>
         <source>All files</source>
         <translation>Все файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="118"/>
         <source>Create Key File…</source>
         <translation>Создать ключевой файл…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="127"/>
         <source>Error creating key file</source>
         <translation>Ошибка создания ключевого файла</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="128"/>
         <source>Unable to create key file: %1</source>
         <translation>Невозможно создать ключевой файл: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="147"/>
         <source>Select a key file</source>
         <translation>Выберите ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="158"/>
         <source>Invalid Key File</source>
         <translation>Неверный ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="159"/>
         <source>You cannot use the current database as its own keyfile. Please choose a different file or generate a new key file.</source>
         <translation>Файл базы данных не может быть использован в качестве ключевого файла. Выберите другой файл или создайте ключевой файл.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="166"/>
         <source>Suspicious Key File</source>
         <translation>Подозрительный ключевой файл</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="167"/>
         <source>The chosen key file looks like a password database file. A key file must be a static file that never changes or you will lose access to your database forever.
 Are you sure you want to continue with this file?</source>
         <translation>Выбранный ключевой файл похож на файл базы данных. Ключевой файл должен быть неизменяемым, в противном случае доступ к базе данных будет безвозвратно утерян.
@@ -5555,658 +4411,616 @@ Are you sure you want to continue with this file?</source>
     </message>
 </context>
 <context>
-    <name>MacUtils</name>
+    <name>LayeredStream</name>
     <message>
-        <source>Invalid key code</source>
-        <translation>Неверный ключевой код</translation>
+        <location filename="../../src/streams/LayeredStream.cpp" line="43"/>
+        <source>LayeredStream::open: Device is already open.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Global shortcut already registered to %1</source>
-        <translation>Глобальная горячая клавиша уже зарегистрирована на %1</translation>
+        <location filename="../../src/streams/LayeredStream.cpp" line="52"/>
+        <source>LayeredStream::open: Reading and writing at the same time is not supported.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Could not register global shortcut</source>
-        <translation>Не удалось зарегистрировать глобальную горячую клавишу</translation>
+        <location filename="../../src/streams/LayeredStream.cpp" line="57"/>
+        <source>LayeredStream::open: Must be opened in read or write mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/LayeredStream.cpp" line="62"/>
+        <source>LayeredStream::open: Base device is not opened correctly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/LayeredStream.cpp" line="69"/>
+        <source>LayeredStream::open: QIODevice::Append is not supported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/LayeredStream.cpp" line="74"/>
+        <source>LayeredStream::open: QIODevice::Truncate is not supported.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="217"/>
         <source>&amp;Database</source>
         <translation>&amp;База данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="221"/>
         <source>&amp;Recent Databases</source>
         <translation>&amp;Недавние базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="226"/>
         <source>&amp;Export</source>
         <translation>&amp;Экспорт</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="255"/>
         <source>&amp;Help</source>
         <translation>&amp;Справка</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="261"/>
         <source>&amp;Entries</source>
         <translation>&amp;Записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="271"/>
         <source>Copy Att&amp;ribute</source>
         <translation>Скопировать ат&amp;рибут</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="279"/>
         <source>TOTP</source>
         <translation>TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="316"/>
         <source>&amp;Groups</source>
         <translation>&amp;Группы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="331"/>
         <source>&amp;Tools</source>
         <translation>Серв&amp;ис</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="338"/>
         <source>View</source>
         <translation>Вид</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>Тема</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="398"/>
         <source>&amp;Quit</source>
         <translation>В&amp;ыход</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="406"/>
         <source>&amp;About</source>
         <translation>&amp;О программе</translation>
     </message>
     <message>
-        <source>&amp;Check for Updates</source>
-        <translation>&amp;Проверить обновления</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="414"/>
         <source>&amp;Open Database…</source>
         <translation>&amp;Открыть базу данных…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="419"/>
         <source>&amp;Save Database</source>
         <translation>&amp;Сохранить базу данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="424"/>
         <source>&amp;Close Database</source>
         <translation>&amp;Закрыть базу данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="429"/>
         <source>&amp;New Database…</source>
         <translation>Со&amp;здать базу данных…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="432"/>
         <source>Create a new database</source>
         <translation>Создать новую базу данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="437"/>
         <source>&amp;Merge From Database…</source>
         <translation>Объе&amp;динить с другой базой данных...</translation>
     </message>
     <message>
-        <source>Merge from another KDBX database</source>
-        <translation>Объединить с другой базой данных KDBX</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="445"/>
         <source>&amp;New Entry…</source>
         <translation>&amp;Создать запись…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="453"/>
         <source>&amp;Edit Entry…</source>
         <translation>&amp;Изменить запись…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="492"/>
         <source>&amp;New Group…</source>
         <translation>&amp;Создать группу…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="495"/>
         <source>Add a new group</source>
         <translation>Добавить новую группу</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="500"/>
         <source>&amp;Edit Group…</source>
         <translation>&amp;Изменить группу…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="505"/>
         <source>&amp;Delete Group…</source>
         <translation>&amp;Удалить группу…</translation>
     </message>
     <message>
-        <source>Download All &amp;Favicons…</source>
-        <translation>Загрузить &amp;значки сайтов для всех записей…</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="510"/>
         <source>Sort &amp;A-Z</source>
         <translation>Сортировка &amp;А-Я</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="515"/>
         <source>Sort &amp;Z-A</source>
         <translation>Сортировка &amp;Я-А</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="520"/>
         <source>Sa&amp;ve Database As…</source>
         <translation>&amp;Сохранить базу данных как…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="525"/>
         <source>Database &amp;Security…</source>
         <translation>&amp;Безопасность базы данных…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="533"/>
         <source>Database &amp;Reports…</source>
         <translation>&amp;Отчёты по базе данных…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="536"/>
         <source>Statistics, health check, etc.</source>
         <translation>Статистика, проверка безопасности…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="547"/>
         <source>&amp;Database Settings…</source>
         <translation>&amp;Параметры базы данных…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="550"/>
         <source>Database settings</source>
         <translation>Параметры базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="558"/>
         <source>&amp;Clone Entry…</source>
         <translation>&amp;Дублировать запись…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="563"/>
         <source>Move u&amp;p</source>
         <translation>Переместить &amp;выше</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="566"/>
         <source>Move entry one step up</source>
         <translation>Переместить запись выше на одну позицию</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="571"/>
         <source>Move do&amp;wn</source>
         <translation>Переместить &amp;ниже</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="574"/>
         <source>Move entry one step down</source>
         <translation>Переместить запись ниже на одну позицию</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="579"/>
         <source>Copy &amp;Username</source>
         <translation>Скопировать &amp;логин</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="582"/>
         <source>Copy username to clipboard</source>
         <translation>Скопировать логин в буфер обмена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="587"/>
         <source>Copy &amp;Password</source>
         <translation>Скопировать п&amp;ароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="590"/>
         <source>Copy password to clipboard</source>
         <translation>Скопировать пароль в буфер обмена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="598"/>
         <source>&amp;Settings</source>
         <translation>&amp;Настройки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="609"/>
         <source>&amp;Password Generator</source>
         <translation>&amp;Генератор паролей</translation>
     </message>
     <message>
-        <source>Perform &amp;Auto-Type</source>
-        <translation>Выполнить &amp;автонабор</translation>
-    </message>
-    <message>
-        <source>Download &amp;Favicon</source>
-        <translation>Загрузить &amp;значок сайта</translation>
-    </message>
-    <message>
-        <source>Open &amp;URL</source>
-        <translation>Открыть &amp;URL-адрес</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="614"/>
+        <location filename="../../src/gui/MainWindow.ui" line="816"/>
         <source>&amp;Lock Database</source>
         <translation>&amp;Заблокировать базу</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="619"/>
         <source>Lock &amp;All Databases</source>
         <translation>Заблокировать &amp;все базы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="624"/>
         <source>&amp;Title</source>
         <translation>Назван&amp;ие</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="627"/>
         <source>Copy title to clipboard</source>
         <translation>Скопировать название в буфер обмена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="635"/>
         <source>Copy URL to clipboard</source>
         <translation>Скопировать URL-адрес в буфер обмена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="640"/>
         <source>&amp;Notes</source>
         <translation>&amp;Заметки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="643"/>
         <source>Copy notes to clipboard</source>
         <translation>Скопировать заметки в буфер обмена</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="648"/>
         <source>&amp;CSV File…</source>
         <translation>Файл &amp;CSV...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="653"/>
         <source>&amp;HTML File…</source>
         <translation>Файл &amp;HTML…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="658"/>
         <source>KeePass 1 Database…</source>
         <translation>База данных KeePass 1…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="661"/>
         <source>Import a KeePass 1 database</source>
         <translation>Импортировать базу данных KeePass 1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="666"/>
         <source>1Password Vault…</source>
         <translation>Хранилище 1Password…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="669"/>
         <source>Import a 1Password Vault</source>
         <translation>Импортировать хранилище 1Password</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="674"/>
         <source>CSV File…</source>
         <translation>Файл CSV...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="677"/>
         <source>Import a CSV file</source>
         <translation>Импортировать файл CSV</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="682"/>
         <source>Show TOTP</source>
         <translation>Показать TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="687"/>
         <source>Show QR Code</source>
         <translation>Показать QR-код</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="692"/>
         <source>Set up TOTP…</source>
         <translation>Настроить TOTP…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="697"/>
         <source>Copy &amp;TOTP</source>
         <translation>Скопировать &amp;TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="707"/>
         <source>E&amp;mpty recycle bin</source>
         <translation>О&amp;чистить корзину</translation>
     </message>
     <message>
-        <source>&amp;Donate</source>
-        <translation>&amp;Пожертвовать</translation>
-    </message>
-    <message>
-        <source>Report a &amp;Bug</source>
-        <translation>Сообщить об &amp;ошибке</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="715"/>
         <source>&amp;Getting Started</source>
         <translation>&amp;Начало работы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="718"/>
         <source>Open Getting Started Guide</source>
         <translation>Открыть руководство по началу работы</translation>
     </message>
     <message>
-        <source>&amp;Online Help</source>
-        <translation>Справка в &amp;Интернете</translation>
-    </message>
-    <message>
-        <source>Go to online documentation</source>
-        <translation>Перейти к онлайн-документации</translation>
-    </message>
-    <message>
-        <source>&amp;User Guide</source>
-        <translation>&amp;Руководство пользователя</translation>
-    </message>
-    <message>
-        <source>Open User Guide</source>
-        <translation>Открыть руководство пользователя</translation>
-    </message>
-    <message>
-        <source>&amp;Keyboard Shortcuts</source>
-        <translation>&amp;Комбинации клавиш</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="723"/>
         <source>Save Database Backup…</source>
         <translation>Сохранить резервную копию базы…</translation>
     </message>
     <message>
-        <source>Add key to SSH Agent</source>
-        <translation>Добавить ключ к SSH-агенту</translation>
-    </message>
-    <message>
-        <source>Remove key from SSH Agent</source>
-        <translation>Убрать ключ из SSH-агента</translation>
-    </message>
-    <message>
-        <source>Compact Mode</source>
-        <translation>Компактный режим</translation>
-    </message>
-    <message>
-        <source>Automatic</source>
-        <translation>Системная</translation>
-    </message>
-    <message>
-        <source>Light</source>
-        <translation>Светлая</translation>
-    </message>
-    <message>
-        <source>Dark</source>
-        <translation>Тёмная</translation>
-    </message>
-    <message>
-        <source>Classic (Platform-native)</source>
-        <translation>Классическая (зависит от платформы)</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="734"/>
         <source>Show Menubar</source>
         <translation>Отображать меню</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="748"/>
         <source>Show Toolbar</source>
         <translation>Отображать панель инструментов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="759"/>
         <source>Show Preview Panel</source>
         <translation>Отображать панель предпросмотра</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="767"/>
         <source>Always on Top</source>
         <translation>Всегда поверх других окон</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="778"/>
         <source>Hide Usernames</source>
         <translation>Скрыть логины</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="792"/>
         <source>Hide Passwords</source>
         <translation>Скрыть пароли</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="800"/>
         <source>Clone Group...</source>
         <translation>Дублировать группу...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="130"/>
         <source>Clear history</source>
         <translation>Очистить историю</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="388"/>
         <source>Access error for config file %1</source>
         <translation>Ошибка доступа к файлу конфигурации %1</translation>
     </message>
     <message>
-        <source>Don&apos;t show again for this version</source>
-        <translation>Больше не показывать для этой версии</translation>
-    </message>
-    <message>
-        <source>WARNING: You are using an unstable build of KeePassXC.
-There is a high risk of corruption, maintain a backup of your databases.
-This version is not meant for production use.</source>
-        <translation>ВНИМАНИЕ: Это нестабильная сборка KeePassXC.
-Весьма вероятно повреждение базы данных, сделайте её резервную копию.
-Эта версия не предназначена для повседневного использования.</translation>
-    </message>
-    <message>
-        <source>NOTE: You are using a pre-release version of KeePassXC.
-Expect some bugs and minor issues, this version is meant for testing purposes.</source>
-        <translation>ВНИМАНИЕ: Вы используете бета-версию KeePassXC!
-В ней возможны ошибки и небольшие проблемы, она предназначена для тестирования.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="569"/>
         <source>No Tags</source>
         <translation>Нет тегов</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/MainWindow.cpp" line="671"/>
+        <location filename="../../src/gui/MainWindow.cpp" line="672"/>
         <source>Restore Entry(s)</source>
-        <translation><numerusform>Восстановить запись</numerusform><numerusform>Восстановить записи</numerusform><numerusform>Восстановить записи</numerusform><numerusform>Восстановить записи</numerusform></translation>
+        <translation>
+            <numerusform>Восстановить запись</numerusform>
+            <numerusform>Восстановить записи</numerusform>
+            <numerusform>Восстановить записи</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="755"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <source>Check for updates on startup?</source>
-        <translation>Проверять обновления при запуске?</translation>
-    </message>
-    <message>
-        <source>Would you like KeePassXC to check for updates on startup?</source>
-        <translation>Хотите проверять обновления KeePassXC при запуске?</translation>
-    </message>
-    <message>
-        <source>You can always check for updates manually from the application menu.</source>
-        <translation>Проверять наличие обновлений можно вручную из меню приложения.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="1182"/>
         <source>Toggle window</source>
         <translation>Переключить окно</translation>
     </message>
     <message>
-        <source>Quit KeePassXC</source>
-        <translation>Закрыть KeePassXC</translation>
-    </message>
-    <message>
-        <source>Please present or touch your YubiKey to continue…</source>
-        <translation>Поднесите или коснитесь YubiKey, чтобы продолжить...</translation>
-    </message>
-    <message>
-        <source>Restart Application?</source>
-        <translation>Перезапустить приложение?</translation>
-    </message>
-    <message>
-        <source>You must restart the application to apply this setting. Would you like to restart now?</source>
-        <translation>Для применения этого параметра требуется перезапуск приложения. Выполнить перезапуск?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="292"/>
         <source>Tags</source>
         <translation>Теги</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="440"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Merge from another KDBXM database&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="829"/>
         <source>1Password 1PUX...</source>
         <translation>1Password 1PUX...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="832"/>
         <source>Import a 1Password 1PUX file</source>
         <translation>Импортировать файл 1PUX из 1Password</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="837"/>
         <source>Import…</source>
         <translation>Импорт…</translation>
     </message>
-    <message>
-        <source>Passkeys…</source>
-        <translation>Ключи доступа…</translation>
-    </message>
     <message numerus="yes">
+        <location filename="../../src/gui/MainWindow.cpp" line="1248"/>
         <source>%1 Entry(s)</source>
-        <translation><numerusform>%1 запись</numerusform><numerusform>%1 записи</numerusform><numerusform>%1 записей</numerusform><numerusform>%1 зап.</numerusform></translation>
+        <translation>
+            <numerusform>%1 запись</numerusform>
+            <numerusform>%1 записи</numerusform>
+            <numerusform>%1 записей</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="821"/>
         <source>&amp;XML File…</source>
         <translation>Файл &amp;XML…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="824"/>
         <source>XML File…</source>
         <translation>Файл XML...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="632"/>
         <source>Copy &amp;URL</source>
         <translation>Скопировать &amp;URL-адрес</translation>
     </message>
     <message>
-        <source>Allow Screen Capture</source>
-        <translation>Разрешить скриншоты</translation>
-    </message>
-    <message>
-        <source>Passkeys</source>
-        <translation>Ключи доступа</translation>
-    </message>
-    <message>
-        <source>Import Passkey</source>
-        <translation>Импорт ключа доступа</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="481"/>
+        <location filename="../../src/gui/MainWindow.ui" line="484"/>
+        <location filename="../../src/gui/MainWindow.cpp" line="663"/>
         <source>Delete Entry</source>
         <translation>Удалить запись</translation>
     </message>
     <message>
-        <source>Remove Passkey From Entry</source>
-        <translation>Удалить ключ доступа из записи</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="710"/>
         <source>Empty Recycle Bin</source>
         <translation>Очистить корзину</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="737"/>
         <source>Toggle Show Menubar</source>
         <translation>Отображать меню</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="848"/>
         <source>Show Group Panel</source>
         <translation>Отображать панель групп</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="851"/>
         <source>Toggle Show Group Panel</source>
         <translation>Отображать панель групп</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="759"/>
         <source>Password Generator</source>
         <translation>Генератор паролей</translation>
     </message>
     <message>
-        <source>Clear SSH Agent</source>
-        <translation>Очистить SSH-агент</translation>
-    </message>
-    <message>
-        <source>Clear all identities in ssh-agent</source>
-        <translation>Очистить все идентификаторы в ssh-агенте</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="448"/>
         <source>New Entry</source>
         <translation>Новая запись</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="456"/>
         <source>Edit Entry…</source>
         <translation>Изменить запись…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="467"/>
         <source>E&amp;xpire Entry</source>
         <translation>И&amp;стекает: сейчас</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="470"/>
+        <location filename="../../src/gui/MainWindow.ui" line="473"/>
         <source>Expire Entry</source>
         <translation>Истекает: сейчас</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="478"/>
         <source>&amp;Delete Entry</source>
         <translation>&amp;Удалить запись</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/MainWindow.cpp" line="653"/>
         <source>Move selected entry(s) to the recycle bin</source>
-        <translation><numerusform>Переместить выбранную запись в корзину?</numerusform><numerusform>Переместить выбранные записи в корзину?</numerusform><numerusform>Переместить выбранные записи в корзину?</numerusform><numerusform>Переместить выбранные записи в корзину?</numerusform></translation>
+        <translation>
+            <numerusform>Переместить выбранную запись в корзину?</numerusform>
+            <numerusform>Переместить выбранные записи в корзину?</numerusform>
+            <numerusform>Переместить выбранные записи в корзину?</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/MainWindow.cpp" line="658"/>
         <source>Permanently delete the selected entry(s)</source>
-        <translation><numerusform>Окончательно удалить выбранную запись</numerusform><numerusform>Окончательно удалить выбранные записи</numerusform><numerusform>Окончательно удалить выбранные записи</numerusform><numerusform>Окончательно удалить выбранные записи</numerusform></translation>
+        <translation>
+            <numerusform>Окончательно удалить выбранную запись</numerusform>
+            <numerusform>Окончательно удалить выбранные записи</numerusform>
+            <numerusform>Окончательно удалить выбранные записи</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="459"/>
         <source>View or edit entry</source>
         <translation>Показать/изменить запись</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="702"/>
         <source>Copy Password and TOTP</source>
         <translation>Скопировать пароль и TOTP</translation>
     </message>
 </context>
 <context>
-    <name>ManageDatabase</name>
-    <message>
-        <source>Database settings</source>
-        <translation>Параметры базы данных</translation>
-    </message>
-    <message>
-        <source>Edit database settings</source>
-        <translation>Редактирование параметров базы данных</translation>
-    </message>
-    <message>
-        <source>Unlock database</source>
-        <translation>Разблокировать базу данных</translation>
-    </message>
-    <message>
-        <source>Unlock database to show more information</source>
-        <translation>Разблокируйте базу данных для просмотра дополнительных сведений</translation>
-    </message>
-    <message>
-        <source>Lock database</source>
-        <translation>Заблокировать базу данных</translation>
-    </message>
-</context>
-<context>
-    <name>ManageSession</name>
-    <message>
-        <source>Disconnect</source>
-        <translation>Отключить</translation>
-    </message>
-    <message>
-        <source>Disconnect this application</source>
-        <translation>Отключить это приложение</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation>Сброс</translation>
-    </message>
-    <message>
-        <source>Reset any remembered decisions for this application</source>
-        <translation>Сбросить все сохранённые решения для этого приложения</translation>
-    </message>
-</context>
-<context>
     <name>MergeDialog</name>
     <message>
+        <location filename="../../src/gui/MergeDialog.ui" line="14"/>
         <source>Database Merge Confirmation</source>
         <translation>Подтверждение объединения базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="38"/>
         <source>Merge</source>
         <translation>Объединить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="89"/>
         <source>Group</source>
         <translation>Группа</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="91"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="93"/>
         <source>UUID</source>
         <translation>UUID</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="97"/>
         <source>Details</source>
         <translation>Подробности</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="199"/>
+        <source>Merge results differed from the expected changes. Expected: %1, Actual: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="95"/>
         <source>Change</source>
         <translation>Изменить</translation>
     </message>
@@ -6214,82 +5028,140 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>Merger</name>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="868"/>
         <source>Changed deleted objects</source>
         <translation>Удалённые объекты изменены</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="923"/>
         <source>Removed custom data %1 [%2]</source>
         <translation>Пользовательские данные %1 [%2] удалены</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="945"/>
         <source>Adding custom data %1 [%2]</source>
         <translation>Добавление пользовательских данных %1 [%2]</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="94"/>
         <source>Added</source>
         <translation>Добавлено</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="96"/>
         <source>Modified</source>
         <translation>Изменено</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="98"/>
         <source>Moved</source>
         <translation>Перемещено</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="100"/>
         <source>Deleted</source>
         <translation>Удалено</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="102"/>
+        <source>Metadata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="104"/>
+        <source>Unspecified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="238"/>
+        <location filename="../../src/core/Merger.cpp" line="278"/>
         <source>Previous location: %1</source>
         <translation>Предыдущее расположение: %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="260"/>
         <source>Number of entries in group: %1</source>
         <translation>Количество записей в группе: %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="345"/>
         <source>Group name</source>
         <translation>Имя группы</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="351"/>
         <source>Notes</source>
         <translation>Заметки</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="359"/>
         <source>Icon (UUID)</source>
         <translation>Значок (UUID)</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="367"/>
         <source>Icon (Number)</source>
         <translation>Значок (Номер)</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="374"/>
         <source>Expiry time</source>
         <translation>Срок действия</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="384"/>
         <source>Modification time</source>
         <translation>Дата изменения</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="556"/>
+        <source>Merge %1/%2 with alien on top under %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="564"/>
         <source>%1 (Add local modifications to new entry)</source>
         <translation>%1 (Добавить локальные изменения в новую запись)</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="572"/>
+        <source>Merge %1/%2 with local on top/under %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="583"/>
         <source>%1 (Add new modifications to existing entry)</source>
         <translation>%1 (Добавить новые изменения в существующую запись)</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="628"/>
+        <source>Inconsistent history entry of %1[%2] at %3 contains conflicting changes - conflict resolution may lose data!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="644"/>
+        <source>History entry of %1[%2] at %3 contains conflicting changes - conflict resolution may lose data!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="667"/>
+        <source>Entry of %1[%2] contains conflicting changes - conflict resolution may lose data!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="812"/>
+        <location filename="../../src/core/Merger.cpp" line="853"/>
         <source>Explicit deletion</source>
         <translation>Явное удаление</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="816"/>
+        <location filename="../../src/core/Merger.cpp" line="857"/>
         <source>Implicit deletion (e.g. removal of parent group)</source>
         <translation>Неявное удаление (например, при удалении родительской группы)</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="891"/>
         <source>Adding new icon %1</source>
         <translation>Добавление нового значка %1</translation>
     </message>
@@ -6297,10 +5169,12 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>NewDatabaseWizard</name>
     <message>
-        <source>Create a new KeePassXC database…</source>
-        <translation>Создать новую базу данных KeePassXC...</translation>
+        <location filename="../../src/gui/wizard/NewDatabaseWizard.cpp" line="46"/>
+        <source>Create a new KeePassX-min database…</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizard.cpp" line="84"/>
         <source>Root</source>
         <comment>Root group</comment>
         <translation>Корень</translation>
@@ -6309,14 +5183,17 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>NewDatabaseWizardPage</name>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPage.ui" line="20"/>
         <source>WizardPage</source>
         <translation>Страница мастера</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPage.ui" line="23"/>
         <source>Encryption Settings</source>
         <translation>Параметры шифрования</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPage.ui" line="26"/>
         <source>Here you can adjust the database encryption settings. Don&apos;t worry, you can change them later in the database settings.</source>
         <translation>Здесь можно настроить параметры шифрования базы данных. Их можно будет изменить позже в параметрах базы данных.</translation>
     </message>
@@ -6324,10 +5201,12 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>NewDatabaseWizardPageDatabaseKey</name>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageDatabaseKey.cpp" line="25"/>
         <source>Database Credentials</source>
         <translation>Доступ к базе данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageDatabaseKey.cpp" line="26"/>
         <source>A set of credentials known only to you that protects your database.</source>
         <translation>Известные только вам реквизиты для входа, защищающие базу данных.</translation>
     </message>
@@ -6335,10 +5214,12 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>NewDatabaseWizardPageEncryption</name>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageEncryption.cpp" line="25"/>
         <source>Encryption Settings</source>
         <translation>Параметры шифрования</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageEncryption.cpp" line="26"/>
         <source>Here you can adjust the database encryption settings. Don&apos;t worry, you can change them later in the database settings.</source>
         <translation>Здесь можно настроить параметры шифрования базы данных. Их можно будет изменить позже в параметрах базы данных.</translation>
     </message>
@@ -6346,56 +5227,50 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>NewDatabaseWizardPageMetaData</name>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageMetaData.cpp" line="25"/>
         <source>General Database Information</source>
         <translation>Общая информация о базе данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageMetaData.cpp" line="26"/>
         <source>Please fill in the display name and an optional description for your new database:</source>
         <translation>Укажите отображаемое имя и, при желании, описание новой базы данных:</translation>
     </message>
 </context>
 <context>
-    <name>NixUtils</name>
-    <message>
-        <source>Password Manager</source>
-        <translation>Менеджер паролей</translation>
-    </message>
-    <message>
-        <source>Global shortcut already registered to %1</source>
-        <translation>Глобальная горячая клавиша уже зарегистрирована на %1</translation>
-    </message>
-    <message>
-        <source>Could not register global shortcut</source>
-        <translation>Невозможно зарегистрировать глобальную горячую клавишу</translation>
-    </message>
-</context>
-<context>
     <name>OpData01</name>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="43"/>
         <source>Invalid OpData01, does not contain header</source>
         <translation>Данные OpData01 не содержат заголовка</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="64"/>
         <source>Unable to read all IV bytes, wanted 16 but got %1</source>
         <translation>Невозможно считать все данные вектора инициализации: ожидалось 16 байт, но получено %1 байт</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="71"/>
         <source>Unable to init cipher for opdata01: %1</source>
         <translation>Невозможно инициализировать шифрование для данных opdata01: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="103"/>
         <source>Unable to read all HMAC signature bytes</source>
         <translation>Не удалось полностью считать данные подписи HMAC</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="111"/>
         <source>Malformed OpData01 due to a failed HMAC</source>
         <translation>Повреждённые данные OpData01 из-за неверного HMAC</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="117"/>
         <source>Unable to process clearText in place</source>
         <translation>Невозможно обработать простой текст</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="125"/>
         <source>Expected %1 bytes of clear-text, found %2</source>
         <translation>Ожидалось %1 байт чистого текста, найдено %2</translation>
     </message>
@@ -6403,352 +5278,300 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>OpVaultReader</name>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="40"/>
         <source>Directory .opvault must exist</source>
         <translation>Папка .opvault должна существовать</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="46"/>
         <source>Directory .opvault must be readable</source>
         <translation>Папка .opvault должна быть доступна для чтения</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="54"/>
         <source>Directory .opvault/default must exist</source>
         <translation>Папка .opvault/default должна существовать</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="60"/>
         <source>Directory .opvault/default must be readable</source>
         <translation>Папка .opvault/default должна быть доступна для чтения</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="115"/>
+        <source>Mismatched Entry UUID, its JSON key &lt;&lt;%1&gt;&gt; and its UUID &lt;&lt;%2&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="126"/>
+        <source>Skipping malformed Entry UUID %1 without key %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="141"/>
+        <source>Unable to process Band Entry %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="232"/>
+        <source>Found non-Object folder with key &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="242"/>
+        <source>Unable to decipher folder UUID &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="264"/>
+        <source>Expected a predicate in smart folder [uuid=&quot;%1&quot;; title=&quot;%2&quot;]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="318"/>
+        <source>File &quot;%1&quot; must exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="324"/>
+        <source>File &quot;%1&quot; must be readable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="330"/>
+        <source>Unable to open &quot;%1&quot; readonly+text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="358"/>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="141"/>
+        <source>Expected %1 to be a JSON Object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="373"/>
         <source>Unable to decode masterKey: %1</source>
         <translation>Не удалось декодировать мастер-ключ: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="424"/>
         <source>Unable to derive master key: %1</source>
         <translation>Не удалось извлечь мастер-ключ: %1</translation>
     </message>
-</context>
-<context>
-    <name>OpenSSHKey</name>
     <message>
-        <source>Invalid key file, expecting an OpenSSH key</source>
-        <translation>Недопустимый ключевой файл, ожидается ключ OpenSSH</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="41"/>
+        <source>Unable to open &quot;%s&quot; for reading</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PEM boundary mismatch</source>
-        <translation>Несоответствие границ PEM</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="49"/>
+        <source>Expected OPCLDAT but found &lt;&lt; %1 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Base64 decoding failed</source>
-        <translation>Ошибка декодирования Base64</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="56"/>
+        <source>Unexpected version number; wanted 1 or 2, got &lt;&lt; %1 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Key file way too small.</source>
-        <translation>Ключевой файл слишком мал.</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="63"/>
+        <source>Unable to read all metadata length bytes; wanted 2 bytes, got %1: &lt;&lt; %2 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Key file magic header id invalid</source>
-        <translation>Недопустимый идентификатор заголовка ключевого файла</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="77"/>
+        <source>Unable to read all &quot;junk&quot; bytes; wanted 2 bytes, got %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Found zero keys</source>
-        <translation>Обнаружены пустые ключи</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="84"/>
+        <source>Unable to read all &quot;iconLen&quot; bytes; wanted 4 bytes, got %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Corrupted key file, reading private key failed</source>
-        <translation>Ключевой файл повреждён, ошибка чтения приватного (закрытого) ключа</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="99"/>
+        <source>Unable to read all bytes of metadata JSON; wanted %1 but read %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unsupported key type: %1</source>
-        <translation>Неподдерживаемый тип ключа: %1</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="108"/>
+        <source>Unable to read all icon bytes; wanted %1 but read %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No private key payload to decrypt</source>
-        <translation>Нет данных для расшифровки в приватном (закрытом) ключе</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="121"/>
+        <source>Unable to decipher attachment icon in %1: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknown cipher: %1</source>
-        <translation>Неизвестный шифр: %1</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="131"/>
+        <source>Found invalid attachment metadata JSON at offset %1: error(%2): %3
+&lt;&lt;%4&gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Passphrase is required to decrypt this key</source>
-        <translation>Для расшифровки этого ключа требуется пароль</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="155"/>
+        <source>Unable to decipher attachment payload: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Key derivation failed: %1</source>
-        <translation>Ошибка формирования ключа: %1</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="187"/>
+        <source>Attachment file &quot;%1&quot; is not readable</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cipher IV is too short for MD5 kdf</source>
-        <translation>Слишком короткий вектор инициализации (IV) для MD5 kdf</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="243"/>
+        <source>Unable to decode attach.overview for &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknown KDF: %1</source>
-        <translation>Неизвестная KDF: %1</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="38"/>
+        <source>Band entries must contain a &quot;d&quot; key: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to initialize cipher: %1</source>
-        <translation>Не удалось инициализировать шифрование: %1</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="44"/>
+        <source>Band entries must contain a &quot;k&quot; key: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Decryption failed: %1</source>
-        <translation>Ошибка расшифровки: %1</translation>
-    </message>
-    <message>
-        <source>Decryption failed, wrong passphrase?</source>
-        <translation>Ошибка расшифровки, неверный пароль?</translation>
-    </message>
-    <message>
-        <source>Unexpected EOF while reading key</source>
-        <translation>Неожиданный конец файла при чтении ключа</translation>
-    </message>
-    <message>
-        <source>Unsupported key part</source>
-        <translation>Неподдерживаемая часть ключа</translation>
-    </message>
-    <message>
-        <source>Unexpected EOF while reading public key</source>
-        <translation>Неожиданный конец файла при чтении публичного ключа</translation>
-    </message>
-    <message>
-        <source>Unknown key type: %1</source>
-        <translation>Неизвестный тип ключа: %1</translation>
-    </message>
-    <message>
-        <source>Unexpected EOF while reading private key</source>
-        <translation>Неожиданный конец файла при чтении приватного (закрытого) ключа</translation>
-    </message>
-    <message>
-        <source>Can&apos;t write public key as it is empty</source>
-        <translation>Невозможно записать публичный ключ, так как он пуст</translation>
-    </message>
-    <message>
-        <source>Unexpected EOF when writing public key</source>
-        <translation>Неожиданный конец файла при записи публичного ключа</translation>
-    </message>
-    <message>
-        <source>Can&apos;t write private key as it is empty</source>
-        <translation>Невозможно записать приватный ключ, так как он пуст</translation>
-    </message>
-    <message>
-        <source>Unexpected EOF when writing private key</source>
-        <translation>Неожиданный конец файла при записи приватного (закрытого) ключа</translation>
-    </message>
-    <message>
-        <source>(encrypted)</source>
-        <translation>(зашифровано)</translation>
-    </message>
-    <message>
-        <source>Failed to read key file: %1</source>
-        <translation>Не удалось прочитать ключевой файл: %1</translation>
-    </message>
-    <message>
-        <source>Failed to read public key: %1</source>
-        <translation>Не удалось прочитать публичный ключ: %1</translation>
-    </message>
-    <message>
-        <source>AES-256/GCM is currently not supported</source>
-        <translation>AES-256/GCM сейчас не поддерживается</translation>
-    </message>
-</context>
-<context>
-    <name>PasskeyExportDialog</name>
-    <message>
-        <source>KeePassXC - Passkey Export</source>
-        <translation>KeePassXC - Экспорт ключа доступа</translation>
-    </message>
-    <message>
-        <source>Filenames will be generated with title and .passkey file extension.</source>
-        <translation>Имена файлов будут сгенерированы с заголовком и расширением файла .passkey</translation>
-    </message>
-    <message>
-        <source>Export entries</source>
-        <translation>Экспорт записей</translation>
-    </message>
-    <message>
-        <source>Export Selected</source>
-        <translation>Экспорт выбранного</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
-    </message>
-    <message>
-        <source>Export to folder</source>
-        <translation>Экспортировать в папку</translation>
-    </message>
-    <message>
-        <source>Export the following passkey entries.</source>
-        <translation>Экспортировать следующие записи ключей доступа.</translation>
-    </message>
-</context>
-<context>
-    <name>PasskeyExporter</name>
-    <message>
-        <source>File &quot;%1.passkey&quot; already exists.
-Do you want to overwrite it?
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="68"/>
+        <source>Malformed &quot;k&quot; size; expected %1 got %2
 </source>
-        <translation>Файл &quot;%1.passkey&quot; уже существует.
-Перезаписать его?
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot open file</source>
-        <translation>Невозможно открыть файл</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="76"/>
+        <source>Entry &quot;k&quot; failed its HMAC in UUID &quot;%1&quot;, wanted &quot;%2&quot; got &quot;%3&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot open file &quot;%1&quot; for writing.</source>
-        <translation>Невозможно открыть файл &quot;%1&quot; для записи.</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="89"/>
+        <source>Unable to init cipher using masterKey in UUID %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot write to file</source>
-        <translation>Невозможно выполнить запись в файл</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="95"/>
+        <source>Unable to decipher &quot;k&quot;(key+hmac) in UUID %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Overwrite Existing File?</source>
-        <translation>Перезаписать существующий файл?</translation>
-    </message>
-</context>
-<context>
-    <name>PasskeyImportDialog</name>
-    <message>
-        <source>KeePassXC - Passkey Import</source>
-        <translation>KeePassXC - Импорт ключа доступа</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="106"/>
+        <source>Unable to decipher &quot;d&quot; in UUID &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Username: %1</source>
-        <translation>Логин: %1</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="121"/>
+        <source>Skipping suspicious band UUID &lt;&lt;%1&gt;&gt; with length %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Group</source>
-        <translation>Группа</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="152"/>
+        <source>Unable to place Entry.Category &quot;%1&quot; so using the Root instead</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Database</source>
-        <translation>База данных</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="158"/>
+        <source>Skipping non-String Category type &quot;%1&quot; in UUID &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import Passkey</source>
-        <translation>Импорт ключа доступа</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="167"/>
+        <source>Using the root group because the entry is category-less: &lt;&lt;
+%1
+&gt;&gt; in UUID %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import</source>
-        <translation>Импорт</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="247"/>
+        <source>Skipping non-Object in &quot;sections&quot; for UUID &quot;%1&quot; &lt;&lt; %2 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="267"/>
+        <source>Unable to decipher &quot;o&quot; in UUID &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Entry</source>
-        <translation>Запись</translation>
+        <location filename="../../src/format/OpVaultReaderSections.cpp" line="64"/>
+        <source>Skipping &quot;fields&quot;-less Section in UUID &quot;%1&quot;: &lt;&lt; %2 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Create new entry</source>
-        <translation>Создать новую запись</translation>
+        <location filename="../../src/format/OpVaultReaderSections.cpp" line="71"/>
+        <source>Skipping non-Array &quot;fields&quot; in UUID &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Relying Party: %1</source>
-        <translation>Доверенная сторона: %1</translation>
+        <location filename="../../src/format/OpVaultReaderSections.cpp" line="80"/>
+        <source>Skipping non-Object &quot;fields&quot; in UUID &quot;%1&quot;: &lt;&lt; %2 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import the following passkey:</source>
-        <translation>Импорт следующего ключа доступа:</translation>
+        <location filename="../../src/format/OpVaultReaderSections.cpp" line="149"/>
+        <source>[%1] Invalid expiration date found: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import the following passkey to this entry:</source>
-        <translation>Импорт следующего ключа доступа в эту запись:</translation>
-    </message>
-    <message>
-        <source>Default passkeys group (Imported Passkeys)</source>
-        <translation>Группа ключей доступа по умолчанию (импортированные ключи)</translation>
-    </message>
-</context>
-<context>
-    <name>PasskeyImporter</name>
-    <message>
-        <source>Passkey file</source>
-        <translation>Файл ключа доступа</translation>
-    </message>
-    <message>
-        <source>All files</source>
-        <translation>Все файлы</translation>
-    </message>
-    <message>
-        <source>Cannot open file</source>
-        <translation>Невозможно открыть файл</translation>
-    </message>
-    <message>
-        <source>Cannot open file &quot;%1&quot; for reading.</source>
-        <translation>Невозможно открыть файл &quot;%1&quot; для чтения.</translation>
-    </message>
-    <message>
-        <source>Cannot import passkey file &quot;%1&quot;. Data is missing.</source>
-        <translation>Невозможно импортировать файл ключа доступа &quot;%1&quot;. Отсутствуют данные.</translation>
-    </message>
-    <message>
-        <source>Cannot import passkey file &quot;%1&quot;.
-The following data is missing:
-%2</source>
-        <translation>Невозможно импортировать файл ключа доступа &quot;%1&quot;.
-Отсутствуют следующие данные:
-%2</translation>
-    </message>
-    <message>
-        <source>Cannot import passkey file &quot;%1&quot;. Private key is missing or malformed.</source>
-        <translation>Невозможно импортировать файл ключа доступа &quot;%1&quot;. Отсутствует или повреждён приватный ключ.</translation>
-    </message>
-    <message>
-        <source>Open Passkey File</source>
-        <translation>Открыть файл ключа доступа</translation>
-    </message>
-    <message>
-        <source>Passkey Import Failed</source>
-        <translation>Ошибка при импорте ключа доступа</translation>
+        <location filename="../../src/format/OpVaultReaderSections.cpp" line="163"/>
+        <source>[%1] Invalid date attribute found: %2 = %3</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PasswordEditWidget</name>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.ui" line="29"/>
         <source>Enter password:</source>
         <translation>Введите пароль:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.ui" line="51"/>
         <source>Password field</source>
         <translation>Поле пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.ui" line="58"/>
         <source>Confirm password:</source>
         <translation>Подтвердите пароль:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.ui" line="80"/>
         <source>Repeat password field</source>
         <translation>Поле повтора пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="101"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="102"/>
         <source>Add Password</source>
         <translation>Добавить пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="103"/>
         <source>Change Password</source>
         <translation>Изменить пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="104"/>
         <source>Remove Password</source>
         <translation>Удалить пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="105"/>
         <source>Password set, click to change or remove</source>
         <translation>Пароль установлен, нажмите, чтобы изменить или удалить</translation>
     </message>
     <message>
-        <source>&lt;p&gt;A password is the primary method for securing your database.&lt;/p&gt;&lt;p&gt;Good passwords are long and unique. KeePassXC can generate one for you.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Пароль — это основной метод защиты базы данных.&lt;/p&gt;&lt;p&gt;Хороший пароль должен быть длинным и уникальным. KeePassXC может сгенерировать его сам.&lt;/p&gt;</translation>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="107"/>
+        <source>&lt;p&gt;A password is the primary method for securing your database.&lt;/p&gt;&lt;p&gt;Good passwords are long and unique. KeePassX-min can generate one for you.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="115"/>
         <source>Passwords do not match.</source>
         <translation>Пароли не совпадают.</translation>
     </message>
@@ -6756,291 +5579,382 @@ The following data is missing:
 <context>
     <name>PasswordGeneratorWidget</name>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="14"/>
         <source>Generate Password</source>
         <translation>Создать пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="36"/>
         <source>strength</source>
         <comment>Password strength</comment>
         <translation>надёжность</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="121"/>
         <source>entropy</source>
         <translation>энтропия</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="151"/>
         <source>Generated password</source>
         <translation>Сгенерированный пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="201"/>
         <source>%p%</source>
         <translation>%p%</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="211"/>
         <source>Regenerate password</source>
         <translation>Создать пароль заново</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="224"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="227"/>
         <source>Copy password</source>
         <translation>Скопировать пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="252"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="272"/>
         <source>&amp;Length:</source>
         <translation>&amp;Длина:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="282"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="307"/>
         <source>Password length</source>
         <translation>Длина пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="326"/>
         <source>Switch to advanced mode</source>
         <translation>В расширенный режим</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="329"/>
         <source>Advanced</source>
         <translation>Дополнительно</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="350"/>
         <source>Character Types</source>
         <translation>Виды символов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="385"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="388"/>
         <source>Special characters</source>
         <translation>Специальные символы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="407"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="410"/>
         <source>Quotes</source>
         <translation>Кавычки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="429"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="432"/>
         <source>Punctuation</source>
         <translation>Знаки препинания</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="451"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="454"/>
         <source>Dashes and Slashes</source>
         <translation>Тире и косые черты</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="473"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="476"/>
         <source>Upper-case letters</source>
         <translation>Заглавные буквы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="495"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="498"/>
         <source>Numbers</source>
         <translation>Цифры</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="517"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="520"/>
         <source>Lower-case letters</source>
         <translation>Строчные буквы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="539"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="542"/>
         <source>Math Symbols</source>
         <translation>Математические символы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="561"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="564"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="567"/>
         <source>Extended ASCII</source>
         <translation>Расширенный ASCII</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="583"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="586"/>
         <source>Braces</source>
         <translation>Скобки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="637"/>
         <source>Do not include:</source>
         <translation>Не включать:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="656"/>
         <source>Additional characters to use for the generated password</source>
         <translation>Дополнительные символы для созданного пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="659"/>
         <source>Additional characters</source>
         <translation>Дополнительные символы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="672"/>
         <source>Add non-hex letters to &quot;do not include&quot; list</source>
         <translation>Добавить не-шестнадцатеричные буквы к списку исключений</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="675"/>
         <source>Hex Passwords</source>
         <translation>Hex-пароли</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="678"/>
         <source>Hex</source>
         <translation>Hex</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="697"/>
         <source>Character set to exclude from generated password</source>
         <translation>Набор символов для исключения из сгенерированного пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="700"/>
         <source>Excluded characters</source>
         <translation>Исключённые символы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="710"/>
         <source>Also choose from:</source>
         <translation>Дополнительные символы:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="725"/>
         <source>Exclude look-alike characters</source>
         <translation>Не использовать похожие символы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="735"/>
         <source>Pick characters from every group</source>
         <translation>Подобрать символы из каждой группы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="767"/>
         <source>Passphrase</source>
         <translation>Парольная фраза</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="946"/>
         <source>Word Separator:</source>
         <translation>Разделитель слов:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="781"/>
         <source>Wordlist:</source>
         <translation>Словарь:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="824"/>
         <source>Word Count:</source>
         <translation>Количество слов:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="834"/>
         <source>Word Case:</source>
         <translation>Регистр слов:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="856"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="859"/>
         <source>Delete selected wordlist</source>
         <translation>Удалить выбранный словарь</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="869"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="872"/>
         <source>Add custom wordlist</source>
         <translation>Добавить свой словарь</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="1006"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="1009"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="1016"/>
         <source>Apply Password</source>
         <translation>Использовать пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="45"/>
         <source>Regenerate password (%1)</source>
         <translation>Создать заново (%1)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="99"/>
         <source>lower case</source>
         <translation>нижний регистр</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="100"/>
         <source>UPPER CASE</source>
         <translation>ВЕРХНИЙ РЕГИСТР</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="101"/>
         <source>Title Case</source>
         <translation>Каждое Слово С Заглавной Буквы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="108"/>
         <source>(SYSTEM)</source>
         <translation>(СИСТЕМА)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="314"/>
         <source>Entropy: %1 bit</source>
         <translation>Энтропия: %1 бит</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="429"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="471"/>
         <source>Failed to delete wordlist</source>
         <translation>Не удалось удалить словарь</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="439"/>
         <source>Wordlists</source>
         <translation>Словари</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="439"/>
         <source>All files</source>
         <translation>Все файлы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="480"/>
         <source>Failed to add wordlist</source>
         <translation>Не удалось добавить словарь</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="504"/>
         <source>Logograms</source>
         <translation>Логограммы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="510"/>
         <source>Special Characters</source>
         <translation>Спецсимволы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="329"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="334"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="339"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="344"/>
         <source>Password Quality: %1</source>
         <translation>Качество пароля: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="329"/>
         <source>Poor</source>
         <comment>Password quality</comment>
         <translation>Плохой</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="334"/>
         <source>Weak</source>
         <comment>Password quality</comment>
         <translation>Слабый</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="339"/>
         <source>Good</source>
         <comment>Password quality</comment>
         <translation>Хороший</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="344"/>
         <source>Excellent</source>
         <comment>Password quality</comment>
         <translation>Отличный</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="83"/>
         <source>passwordLength</source>
         <translation>Длина пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="351"/>
         <source>Characters: %1</source>
         <translation>Символы: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="102"/>
         <source>MIXED case</source>
         <translation>СМЕШАННЫЙ регистр</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="719"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="722"/>
         <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;, &quot;B&quot;, &quot;8&quot;, &quot;G&quot;, &quot;6&quot;</source>
         <translation>Исключить символы: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;, &quot;B&quot;, &quot;8&quot;, &quot;G&quot;, &quot;6&quot;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="959"/>
         <source>Warning: the chosen wordlist is smaller than the minimum recommended size!</source>
         <translation>Внимание: выбранный словарь меньше минимально рекомендованного размера!</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="419"/>
         <source>Confirm Remove Wordlist</source>
         <translation>Подтвердить удаление словаря</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="420"/>
         <source>Do you really want to remove the wordlist &quot;%1&quot;?</source>
         <translation>Вы действительно хотите удалить словарь &quot;%1&quot;?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="440"/>
         <source>Select Custom Wordlist</source>
         <translation>Выберите свой словарь</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="457"/>
         <source>Overwrite Wordlist?</source>
         <translation>Перезаписать словарь?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="458"/>
         <source>Wordlist &quot;%1&quot; already exists as a custom wordlist.
 Do you want to overwrite it?</source>
         <translation>Словарь &quot;%1&quot; уже существует как пользовательский словарь.
@@ -7050,80 +5964,77 @@ Do you want to overwrite it?</source>
 <context>
     <name>PasswordWidget</name>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="45"/>
         <source>Passwords do not match</source>
         <translation>Пароли не совпадают</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="50"/>
         <source>Passwords match so far</source>
         <translation>Количество совпавших паролей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="61"/>
         <source>Toggle Password (%1)</source>
         <translation>Видимость пароля (%1)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="71"/>
         <source>Generate Password (%1)</source>
         <translation>Сгенерировать пароль (%1)</translation>
     </message>
     <message>
-        <source>Warning: Caps Lock enabled!</source>
-        <translation>Внимание: включён CAPS LOCK.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="245"/>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="250"/>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="255"/>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="260"/>
         <source>Quality: %1</source>
         <translation>Качество: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="245"/>
         <source>Poor</source>
         <comment>Password quality</comment>
         <translation>Плохой</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="250"/>
         <source>Weak</source>
         <comment>Password quality</comment>
         <translation>Слабый</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="255"/>
         <source>Good</source>
         <comment>Password quality</comment>
         <translation>Хороший</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="260"/>
         <source>Excellent</source>
         <comment>Password quality</comment>
         <translation>Отличный</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.ui" line="32"/>
         <source>Toggle password visibilty using Control + H. Open the password generator using Control + G.</source>
         <translation>Переключить видимость пароля: Ctrl+H. Открыть генератор паролей: Ctrl+G.</translation>
     </message>
 </context>
 <context>
-    <name>PickcharsDialog</name>
-    <message>
-        <source>KeePassXC - Pick Characters</source>
-        <translation>KeePassXC — Выбор символов</translation>
-    </message>
-    <message>
-        <source>Select characters to type, navigate with arrow keys, Ctrl + S submits.</source>
-        <translation>Выберите символы для ввода (переход — клавишами со стрелками, отправка — Ctrl+S).</translation>
-    </message>
-    <message>
-        <source>Press &amp;Tab between characters</source>
-        <translation>Нажимать &amp;Tab между символами</translation>
-    </message>
-</context>
-<context>
     <name>PreviewEntryAttachmentsDialog</name>
     <message>
+        <location filename="../../src/gui/entry/PreviewEntryAttachmentsDialog.ui" line="14"/>
         <source>Form</source>
         <translation>Форма</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/PreviewEntryAttachmentsDialog.cpp" line="64"/>
         <source>Preview: %1</source>
         <translation>Просмотр: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/PreviewEntryAttachmentsDialog.cpp" line="40"/>
         <source>Save…</source>
         <translation>Сохранить...</translation>
     </message>
@@ -7131,42 +6042,52 @@ Do you want to overwrite it?</source>
 <context>
     <name>QMessageBox</name>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="59"/>
         <source>Overwrite</source>
         <translation>Перезапись</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="60"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="61"/>
         <source>Move</source>
         <translation>Переместить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="62"/>
         <source>Empty</source>
         <translation>Очистить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="63"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="64"/>
         <source>Skip</source>
         <translation>Пропустить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="65"/>
         <source>Disable</source>
         <translation>Выключено</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="66"/>
         <source>Merge</source>
         <translation>Слияние</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="67"/>
         <source>Continue</source>
         <translation>Продолжить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="68"/>
         <source>Continue with weak password</source>
         <translation>Продолжить со слабым паролем</translation>
     </message>
@@ -7174,2424 +6095,1261 @@ Do you want to overwrite it?</source>
 <context>
     <name>QObject</name>
     <message>
-        <source>Database not opened</source>
-        <translation>База данных не открыта</translation>
-    </message>
-    <message>
-        <source>Database hash not available</source>
-        <translation>Недоступен хеш базы данных</translation>
-    </message>
-    <message>
-        <source>Client public key not received</source>
-        <translation>Не получен публичный ключ клиента</translation>
-    </message>
-    <message>
-        <source>Cannot decrypt message</source>
-        <translation>Невозможно расшифровать сообщение</translation>
-    </message>
-    <message>
-        <source>Action cancelled or denied</source>
-        <translation>Действие отменено или запрещено</translation>
-    </message>
-    <message>
-        <source>Message encryption failed.</source>
-        <translation>Ошибка шифрования сообщений.</translation>
-    </message>
-    <message>
-        <source>KeePassXC association failed, try again</source>
-        <translation>Ассоциирование KeePassXC не выполнено, попробуйте ещё раз</translation>
-    </message>
-    <message>
-        <source>Encryption key is not recognized</source>
-        <translation>Не распознан ключ шифрования</translation>
-    </message>
-    <message>
-        <source>Incorrect action</source>
-        <translation>Неправильное действие</translation>
-    </message>
-    <message>
-        <source>Empty message received</source>
-        <translation>Получено пустое сообщение</translation>
-    </message>
-    <message>
-        <source>No URL provided</source>
-        <translation>Нет URL-адреса</translation>
-    </message>
-    <message>
-        <source>No logins found</source>
-        <translation>Логины не найдены</translation>
-    </message>
-    <message>
-        <source>No groups found</source>
-        <translation>Группы не найдены</translation>
-    </message>
-    <message>
-        <source>Cannot create new group</source>
-        <translation>Невозможно создать новую группу</translation>
-    </message>
-    <message>
-        <source>No valid UUID provided</source>
-        <translation>Не указан корректный UUID</translation>
-    </message>
-    <message>
-        <source>Unknown error</source>
-        <translation>Неизвестная ошибка</translation>
-    </message>
-    <message>
-        <source>Browser Integration</source>
-        <translation>Интеграция с браузерами</translation>
-    </message>
-    <message>
-        <source>Browser Plugin Failure</source>
-        <translation>Ошибка подключаемого модуля браузера</translation>
-    </message>
-    <message>
-        <source>Could not save the native messaging script file for %1.</source>
-        <translation>Не удалось сохранить файл сценария механизма native messaging для %1.</translation>
-    </message>
-    <message>
-        <source>Username for the entry.</source>
-        <translation>Логин для записи.</translation>
-    </message>
-    <message>
-        <source>username</source>
-        <translation>логин</translation>
-    </message>
-    <message>
-        <source>URL for the entry.</source>
-        <translation>URL-адрес для записи.</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/HtmlExporter.cpp" line="56"/>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="88"/>
         <source>URL</source>
         <translation>URL-адрес</translation>
     </message>
     <message>
-        <source>Notes for the entry.</source>
-        <translation>Заметки к записи.</translation>
+        <location filename="../../src/format/HtmlExporter.cpp" line="190"/>
+        <source>Internal error: metadata is NULL</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/format/HtmlExporter.cpp" line="96"/>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="88"/>
         <source>Notes</source>
         <translation>Заметки</translation>
     </message>
     <message>
-        <source>Prompt for the entry&apos;s password.</source>
-        <translation>Введите пароль записи.</translation>
-    </message>
-    <message>
-        <source>Generate a password for the entry.</source>
-        <translation>Сгенерировать пароль для записи.</translation>
-    </message>
-    <message>
-        <source>Add a new entry to a database.</source>
-        <translation>Добавить новую запись в базу данных.</translation>
-    </message>
-    <message>
-        <source>Path of the entry to add.</source>
-        <translation>Путь к записи для добавления.</translation>
-    </message>
-    <message>
-        <source>Cannot generate a password and prompt at the same time.</source>
-        <translation>Невозможно одновременно создать пароль и запрос.</translation>
-    </message>
-    <message>
-        <source>Could not create entry with path %1.</source>
-        <translation>Не удалось создать запись с путём %1.</translation>
-    </message>
-    <message>
-        <source>Enter password for new entry: </source>
-        <translation>Введите пароль для новой записи: </translation>
-    </message>
-    <message>
-        <source>Writing the database failed %1.</source>
-        <translation>Ошибка при записи базы данных %1.</translation>
-    </message>
-    <message>
-        <source>Successfully added entry %1.</source>
-        <translation>Запись %1 добавлена.</translation>
-    </message>
-    <message>
-        <source>Adds a new group to a database.</source>
-        <translation>Добавить новую группу в базу данных.</translation>
-    </message>
-    <message>
-        <source>Path of the group to add.</source>
-        <translation>Путь к добавляемой группе.</translation>
-    </message>
-    <message>
-        <source>Group %1 already exists!</source>
-        <translation>Группа %1 уже существует.</translation>
-    </message>
-    <message>
-        <source>Group %1 not found.</source>
-        <translation>Группа %1 не найдена.</translation>
-    </message>
-    <message>
-        <source>Successfully added group %1.</source>
-        <translation>Группа %1 добавлена.</translation>
-    </message>
-    <message>
-        <source>Check if any passwords have been publicly leaked. FILENAME must be the path of a file listing SHA-1 hashes of leaked passwords in HIBP format, as available from https://haveibeenpwned.com/Passwords.</source>
-        <translation>Проверка паролей на компрометацию. Параметр ИМЯ_ФАЙЛА должен быть путём к файлу данных списка хешей SHA-1 паролей в формате HIBP, полученным, например, с сайта https://haveibeenpwned.com/Passwords.</translation>
-    </message>
-    <message>
-        <source>FILENAME</source>
-        <translation>ИМЯ_ФАЙЛА</translation>
-    </message>
-    <message>
-        <source>Path to okon-cli to search a formatted HIBP file</source>
-        <translation>Путь к okon-cli для поиска форматированного файла HIBP</translation>
-    </message>
-    <message>
-        <source>okon-cli</source>
-        <translation>okon-cli</translation>
-    </message>
-    <message>
-        <source>Analyze passwords for weaknesses and problems.</source>
-        <translation>Проверка надёжности и других характеристик паролей.</translation>
-    </message>
-    <message>
-        <source>Cannot find HIBP file: %1</source>
-        <translation>Не удалось найти файл HIBP: %1</translation>
-    </message>
-    <message>
-        <source>Evaluating database entries using okon…</source>
-        <translation>Поиск записей в базе данных с помощью okon...</translation>
-    </message>
-    <message>
-        <source>Failed to open HIBP file %1: %2</source>
-        <translation>Не удалось открыть файл в формате HIBP %1: %2</translation>
-    </message>
-    <message>
-        <source>Evaluating database entries against HIBP file, this will take a while…</source>
-        <translation>Производится проверка записей базы данных относительно файла в формате HIBP…</translation>
-    </message>
-    <message numerus="yes">
-        <source>Password for &apos;%1&apos; has been leaked %2 time(s)!</source>
-        <translation><numerusform>Пароль для &apos;%1&apos; был замечен в утечках %2 раз.</numerusform><numerusform>Пароль для &apos;%1&apos; был замечен в утечках %2 раза.</numerusform><numerusform>Пароль для &apos;%1&apos; был замечен в утечках %2 раз.</numerusform><numerusform>Пароль для &apos;%1&apos; был замечен в утечках %2 раз(-а).</numerusform></translation>
-    </message>
-    <message>
-        <source>Password for &apos;%1&apos; has been leaked!</source>
-        <translation>Пароль для &apos;%1&apos; был замечен в утечке!</translation>
-    </message>
-    <message>
-        <source>Export an attachment of an entry.</source>
-        <translation>Экспорт вложения из записи.</translation>
-    </message>
-    <message>
-        <source>Path of the entry with the target attachment.</source>
-        <translation>Путь к записи с целевым вложением.</translation>
-    </message>
-    <message>
-        <source>Name of the attachment to be exported.</source>
-        <translation>Имя вложения для экспорта.</translation>
-    </message>
-    <message>
-        <source>Path to which the attachment should be exported.</source>
-        <translation>Путь, куда будет экспортировано вложение.</translation>
-    </message>
-    <message>
-        <source>Could not find entry with path %1.</source>
-        <translation>Не удалось найти запись с путём %1.</translation>
-    </message>
-    <message>
-        <source>Could not find attachment with name %1.</source>
-        <translation>Вложение с именем %1 не найдено.</translation>
-    </message>
-    <message>
-        <source>No export target given. Please use &apos;--stdout&apos; or specify an &apos;export-file&apos;.</source>
-        <translation>Цель экспорта не указана. Используйте &apos;--stdout&apos; или укажите &apos;export-file&apos;.</translation>
-    </message>
-    <message>
-        <source>Could not open output file %1.</source>
-        <translation>Невозможно открыть файл %1 для записи.</translation>
-    </message>
-    <message>
-        <source>Successfully exported attachment %1 of entry %2 to %3.</source>
-        <translation>Успешно экспортировано вложение %1 записи %2 в %3.</translation>
-    </message>
-    <message>
-        <source>Overwrite existing attachments.</source>
-        <translation>Перезапись существующих вложений.</translation>
-    </message>
-    <message>
-        <source>Imports an attachment to an entry.</source>
-        <translation>Импортировать вложение в запись.</translation>
-    </message>
-    <message>
-        <source>Path of the entry.</source>
-        <translation>Путь к записи.</translation>
-    </message>
-    <message>
-        <source>Name of the attachment to be added.</source>
-        <translation>Имя вложения для добавления.</translation>
-    </message>
-    <message>
-        <source>Path of the attachment to be imported.</source>
-        <translation>Путь к вложению для импорта.</translation>
-    </message>
-    <message>
-        <source>Attachment %1 already exists for entry %2.</source>
-        <translation>Вложение %1 уже существует для записи %2.</translation>
-    </message>
-    <message>
-        <source>Could not open attachment file %1.</source>
-        <translation>Невозможно открыть файл вложения %1.</translation>
-    </message>
-    <message>
-        <source>Successfully imported attachment %1 as %2 to entry %3.</source>
-        <translation>Успешно импортировано вложение %1 как %2 в запись %3.</translation>
-    </message>
-    <message>
-        <source>Remove an attachment of an entry.</source>
-        <translation>Удалить вложение из записи.</translation>
-    </message>
-    <message>
-        <source>Name of the attachment to be removed.</source>
-        <translation>Имя вложения для удаления.</translation>
-    </message>
-    <message>
-        <source>Successfully removed attachment %1 from entry %2.</source>
-        <translation>Вложение %1 удалено из записи %2.</translation>
-    </message>
-    <message>
-        <source>Copy the given attribute to the clipboard. Defaults to &quot;password&quot; if not specified.</source>
-        <comment>Don't translate &quot;password&quot;, it refers to the attribute.</comment>
-        <translation>Скопировать указанный атрибут в буфер обмена. Если атрибут не указан, используется пароль.</translation>
-    </message>
-    <message>
-        <source>Copy the current TOTP to the clipboard (equivalent to &quot;-a totp&quot;).</source>
-        <translation>Скопировать текущий TOTP в буфер обмена (эквивалентно &quot;-a totp&quot;).</translation>
-    </message>
-    <message>
-        <source>Must match only one entry, otherwise a list of possible matches is shown.</source>
-        <translation>Должно соответствовать только одной записи, в ином случае будет показан список возможных совпадений.</translation>
-    </message>
-    <message>
-        <source>Copy an entry&apos;s attribute to the clipboard.</source>
-        <translation>Скопировать в буфер обмена атрибуты записи.</translation>
-    </message>
-    <message>
-        <source>Path of the entry to clip.</source>
-        <comment>clip = copy to clipboard</comment>
-        <translation>Скопировать путь к записи.</translation>
-    </message>
-    <message>
-        <source>Timeout before clearing the clipboard (default is %1 seconds, set to 0 for unlimited).</source>
-        <translation>Время ожидания очистки буфера обмена (по умолчанию %1 сек, ноль - не ограничивать).</translation>
-    </message>
-    <message>
-        <source>Invalid timeout value %1.</source>
-        <translation>Неверное значение времени ожидания %1.</translation>
-    </message>
-    <message>
-        <source>Multiple entries matching:</source>
-        <translation>Несколько совпадений записей:</translation>
-    </message>
-    <message>
-        <source>Using matching entry: %1</source>
-        <translation>Используется совпадающая запись: %1</translation>
-    </message>
-    <message>
-        <source>Entry %1 not found.</source>
-        <translation>Запись %1 не найдена.</translation>
-    </message>
-    <message>
-        <source>ERROR: Please specify one of --attribute or --totp, not both.</source>
-        <translation>ОШИБКА: Используйте один из аргументов --attribute или --totp, а не оба.</translation>
-    </message>
-    <message>
-        <source>Entry with path %1 has no TOTP set up.</source>
-        <translation>У записи с путём %1 не настроен TOTP.</translation>
-    </message>
-    <message>
-        <source>ERROR: attribute %1 is ambiguous, it matches %2.</source>
-        <translation>ОШИБКА: Атрибут %1 неоднозначный, он соответствует %2.</translation>
-    </message>
-    <message>
-        <source>Attribute &quot;%1&quot; not found.</source>
-        <translation>Атрибут &quot;%1&quot; не найден.</translation>
-    </message>
-    <message>
-        <source>Entry&apos;s &quot;%1&quot; attribute copied to the clipboard!</source>
-        <translation>Атрибуты записи &quot;%1&quot; скопированы в буфер обмена.</translation>
-    </message>
-    <message numerus="yes">
-        <source>Clearing the clipboard in %1 second(s)...</source>
-        <translation><numerusform>Очищение буфера обмена через %1 секунду...</numerusform><numerusform>Очищение буфера обмена через %1 секунды..</numerusform><numerusform>Очищение буфера обмена через %1 секунд...</numerusform><numerusform>Буфер обмена будет очищен через %1 сек...</numerusform></translation>
-    </message>
-    <message>
-        <source>Clipboard cleared!</source>
-        <translation>Буфер обмена очищен.</translation>
-    </message>
-    <message>
-        <source>Close the currently opened database.</source>
-        <translation>Закрыть текущую базу данных.</translation>
-    </message>
-    <message>
-        <source>Display this help.</source>
-        <translation>Показать эту справку.</translation>
-    </message>
-    <message>
-        <source>Silence password prompt and other secondary outputs.</source>
-        <translation>Отключить запрос пароля и другие второстепенные сообщения.</translation>
-    </message>
-    <message>
-        <source>Key file of the database.</source>
-        <translation>Ключевой файл базы данных.</translation>
-    </message>
-    <message>
-        <source>path</source>
-        <translation>путь</translation>
-    </message>
-    <message>
-        <source>Deactivate password key for the database.</source>
-        <translation>Отключить использование парольного ключа базой данных.</translation>
-    </message>
-    <message>
-        <source>Yubikey slot and optional serial used to access the database (e.g., 1:7370001).</source>
-        <translation>Номер слота ключа Yubikey и дополнительный серийный номер для доступа к базе данных (например: 1:7370001).</translation>
-    </message>
-    <message>
-        <source>slot[:serial]</source>
-        <translation>слот[:serial]</translation>
-    </message>
-    <message>
-        <source>Missing positional argument(s).</source>
-        <translation>Отсутствуют позиционные аргументы.</translation>
-    </message>
-    <message>
-        <source>Too many arguments provided.</source>
-        <translation>Слишком много аргументов.</translation>
-    </message>
-    <message>
-        <source>Target decryption time in MS for the database.</source>
-        <translation>Целевое время дешифрования базы данных в миллисекундах.</translation>
-    </message>
-    <message>
-        <source>time</source>
-        <translation>время</translation>
-    </message>
-    <message>
-        <source>Set the key file for the database.</source>
-        <translation>Задать ключевой файл базы данных.</translation>
-    </message>
-    <message>
-        <source>Set a password for the database.</source>
-        <translation>Задать пароль базы данных.</translation>
-    </message>
-    <message>
-        <source>Create a new database.</source>
-        <translation>Создать новую базу данных.</translation>
-    </message>
-    <message>
-        <source>Path of the database.</source>
-        <translation>Путь к базе данных.</translation>
-    </message>
-    <message>
-        <source>Invalid decryption time %1.</source>
-        <translation>Неверное время дешифровки %1.</translation>
-    </message>
-    <message>
-        <source>Target decryption time must be between %1 and %2.</source>
-        <translation>Целевое время дешифровки - от %1 до %2.</translation>
-    </message>
-    <message>
-        <source>Failed to set database password.</source>
-        <translation>Не удалось установить пароль базы данных.</translation>
-    </message>
-    <message>
-        <source>Loading the key file failed</source>
-        <translation>Ошибка загрузки ключевого файла</translation>
-    </message>
-    <message>
-        <source>No key is set. Aborting database creation.</source>
-        <translation>Не задан ключ. Создание базы данных отменено.</translation>
-    </message>
-    <message>
-        <source>Benchmarking key derivation function for %1ms delay.</source>
-        <translation>Тест функции формирования ключа на %1-мс задержку.</translation>
-    </message>
-    <message>
-        <source>Setting %1 rounds for key derivation function.</source>
-        <translation>Установка раундов (%1) для функции формирования ключа.</translation>
-    </message>
-    <message>
-        <source>error while setting database key derivation settings.</source>
-        <translation>ошибка при задании параметров базы данных для функции формирования ключа.</translation>
-    </message>
-    <message>
-        <source>File %1 already exists.</source>
-        <translation>Файл %1 уже существует.</translation>
-    </message>
-    <message>
-        <source>Failed to save the database: %1.</source>
-        <translation>Ошибка сохранения базы данных: %1.</translation>
-    </message>
-    <message>
-        <source>Successfully created new database.</source>
-        <translation>Новая база данных успешно создана.</translation>
-    </message>
-    <message>
-        <source>Word count for the diceware passphrase.</source>
-        <translation>Количество слов для парольной фразы.</translation>
-    </message>
-    <message>
-        <source>count</source>
-        <comment>CLI parameter</comment>
-        <translation>количество</translation>
-    </message>
-    <message>
-        <source>Wordlist for the diceware generator.
-[Default: EFF English]</source>
-        <translation>Словарь для генератора парольной фразы.
-[По умолчанию: Английский EFF]</translation>
-    </message>
-    <message>
-        <source>Generate a new random diceware passphrase.</source>
-        <translation>Сгенерировать новую парольную фразу.</translation>
-    </message>
-    <message>
-        <source>Invalid word count %1</source>
-        <translation>Количество неверных слов: %1</translation>
-    </message>
-    <message>
-        <source>Title for the entry.</source>
-        <translation>Название записи.</translation>
-    </message>
-    <message>
-        <source>title</source>
-        <translation>название</translation>
-    </message>
-    <message>
-        <source>Edit an entry.</source>
-        <translation>Редактирование записи.</translation>
-    </message>
-    <message>
-        <source>Path of the entry to edit.</source>
-        <translation>Путь к записи для редактирования.</translation>
-    </message>
-    <message>
-        <source>Not changing any field for entry %1.</source>
-        <translation>Не меняются никакие поля для записи %1.</translation>
-    </message>
-    <message>
-        <source>Enter new password for entry: </source>
-        <translation>Введите новый пароль для записи: </translation>
-    </message>
-    <message>
-        <source>Writing the database failed: %1</source>
-        <translation>Ошибка при записи базы данных: %1</translation>
-    </message>
-    <message>
-        <source>Successfully edited entry %1.</source>
-        <translation>Запись %1 отредактирована.</translation>
-    </message>
-    <message>
-        <source>Perform advanced analysis on the password.</source>
-        <translation>Выполнить расширенный анализ пароля.</translation>
-    </message>
-    <message>
-        <source>Password for which to estimate the entropy.</source>
-        <translation>Пароль для оценки энтропии.</translation>
-    </message>
-    <message>
-        <source>Estimate the entropy of a password.</source>
-        <translation>Оценка энтропии пароля.</translation>
-    </message>
-    <message>
-        <source>Length %1</source>
-        <translation>Длина %1</translation>
-    </message>
-    <message>
-        <source>Entropy %1</source>
-        <translation>Энтропия %1</translation>
-    </message>
-    <message>
-        <source>Log10 %1</source>
-        <translation>Log10 %1</translation>
-    </message>
-    <message>
-        <source>Multi-word extra bits %1</source>
-        <translation>Дополнительные биты мультислова %1</translation>
-    </message>
-    <message>
-        <source>Type: Bruteforce</source>
-        <translation>Тип: перебор</translation>
-    </message>
-    <message>
-        <source>Type: Dictionary</source>
-        <translation>Тип: словарь</translation>
-    </message>
-    <message>
-        <source>Type: Dict+Leet</source>
-        <translation>Тип: словарь + замена букв цифрами и знаками</translation>
-    </message>
-    <message>
-        <source>Type: User Words</source>
-        <translation>Тип: пользовательские слова</translation>
-    </message>
-    <message>
-        <source>Type: User+Leet</source>
-        <translation>Тип: пользователь + замена букв цифрами и знаками</translation>
-    </message>
-    <message>
-        <source>Type: Repeated</source>
-        <translation>Тип: повторы</translation>
-    </message>
-    <message>
-        <source>Type: Sequence</source>
-        <translation>Тип: последовательность</translation>
-    </message>
-    <message>
-        <source>Type: Spatial</source>
-        <translation>Тип: пространственный</translation>
-    </message>
-    <message>
-        <source>Type: Date</source>
-        <translation>Тип: дата</translation>
-    </message>
-    <message>
-        <source>Type: Bruteforce(Rep)</source>
-        <translation>Тип: перебор (повт.)</translation>
-    </message>
-    <message>
-        <source>Type: Dictionary(Rep)</source>
-        <translation>Тип: словарь (повт.)</translation>
-    </message>
-    <message>
-        <source>Type: Dict+Leet(Rep)</source>
-        <translation>Тип: словарь + замена букв цифрами и знаками (повт.)</translation>
-    </message>
-    <message>
-        <source>Type: User Words(Rep)</source>
-        <translation>Тип: пользовательские слова (повт.)</translation>
-    </message>
-    <message>
-        <source>Type: User+Leet(Rep)</source>
-        <translation>Тип: пользователь + замена букв цифрами и знаками (повт.)</translation>
-    </message>
-    <message>
-        <source>Type: Repeated(Rep)</source>
-        <translation>Тип: повторы (повт.)</translation>
-    </message>
-    <message>
-        <source>Type: Sequence(Rep)</source>
-        <translation>Тип: последовательность (повт.)</translation>
-    </message>
-    <message>
-        <source>Type: Spatial(Rep)</source>
-        <translation>Тип: пространственный (повт.)</translation>
-    </message>
-    <message>
-        <source>Entropy %1 (%2)</source>
-        <translation>Энтропия %1 (%2)</translation>
-    </message>
-    <message>
-        <source>*** Password length (%1) != sum of length of parts (%2) ***</source>
-        <translation>*** Длина пароля (%1) != сумма длин частей (%2) ***</translation>
-    </message>
-    <message>
-        <source>Exit interactive mode.</source>
-        <translation>Покинуть интерактивный режим.</translation>
-    </message>
-    <message>
-        <source>Exports the content of a database to standard output in the specified format.</source>
-        <translation>Экспорт базы данных в заданном формате на стандартное устройство вывода.</translation>
-    </message>
-    <message>
-        <source>Unable to export database to XML: %1</source>
-        <translation>Ошибка экспорта базы данных в формат XML: %1</translation>
-    </message>
-    <message>
-        <source>Unsupported format %1</source>
-        <translation>Неподдерживаемый формат %1</translation>
-    </message>
-    <message>
-        <source>Length of the generated password</source>
-        <translation>Длина генерируемого пароля</translation>
-    </message>
-    <message>
-        <source>length</source>
-        <translation>длина</translation>
-    </message>
-    <message>
-        <source>Use lowercase characters</source>
-        <translation>Использовать строчные буквы</translation>
-    </message>
-    <message>
-        <source>Use uppercase characters</source>
-        <translation>Использовать заглавные буквы</translation>
-    </message>
-    <message>
-        <source>Use numbers</source>
-        <translation>Использовать цифры</translation>
-    </message>
-    <message>
-        <source>Use special characters</source>
-        <translation>Использовать спецсимволы</translation>
-    </message>
-    <message>
-        <source>Use extended ASCII</source>
-        <translation>Использовать расширенный набор ASCII</translation>
-    </message>
-    <message>
-        <source>Exclude character set</source>
-        <translation>Исключить набор символов</translation>
-    </message>
-    <message>
-        <source>chars</source>
-        <translation>симв.</translation>
-    </message>
-    <message>
-        <source>Use custom character set</source>
-        <translation>Использовать настраиваемый набор символов</translation>
-    </message>
-    <message>
-        <source>Exclude similar looking characters</source>
-        <translation>Исключать похожие символы</translation>
-    </message>
-    <message>
-        <source>Include characters from every selected group</source>
-        <translation>Включать символы из каждой выбранной группы</translation>
-    </message>
-    <message>
-        <source>Generate a new random password.</source>
-        <translation>Сгенерировать новый случайный пароль.</translation>
-    </message>
-    <message>
-        <source>Invalid password length %1</source>
-        <translation>Неверная длина пароля %1</translation>
-    </message>
-    <message>
-        <source>Invalid password generator after applying all options</source>
-        <translation>Невозможно создать пароль с заданными параметрами</translation>
-    </message>
-    <message>
-        <source>Display command help.</source>
-        <translation>Показать справку команды.</translation>
-    </message>
-    <message>
-        <source>Available commands:</source>
-        <translation>Доступные команды:</translation>
-    </message>
-    <message>
-        <source>Import the contents of an XML database.</source>
-        <translation>Импортировать базу данных в формате XML.</translation>
-    </message>
-    <message>
-        <source>Path of the XML database export.</source>
-        <translation>Путь для экспорта базы данных в формат XML.</translation>
-    </message>
-    <message>
-        <source>Path of the new database.</source>
-        <translation>Путь до новой базы данных. </translation>
-    </message>
-    <message>
-        <source>Unable to import XML database: %1</source>
-        <translation>Ошибка импорта базы данных из формата XML: %1</translation>
-    </message>
-    <message>
-        <source>Successfully imported database.</source>
-        <translation>База данных успешно импортирована.</translation>
-    </message>
-    <message>
-        <source>Show a database&apos;s information.</source>
-        <translation>Показать сведения о базе данных.</translation>
-    </message>
-    <message>
-        <source>UUID: </source>
-        <translation>UUID: </translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation>Имя: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation>Описание: </translation>
-    </message>
-    <message>
-        <source>Cipher: </source>
-        <translation>Шифрование: </translation>
-    </message>
-    <message>
-        <source>KDF: </source>
-        <translation>KDF: </translation>
-    </message>
-    <message>
-        <source>Recycle bin is enabled.</source>
-        <translation>Использование корзины включено.</translation>
-    </message>
-    <message>
-        <source>Recycle bin is not enabled.</source>
-        <translation>Использование корзины отключено.</translation>
-    </message>
-    <message>
-        <source>Location</source>
-        <translation>Расположение</translation>
-    </message>
-    <message>
-        <source>Database created</source>
-        <translation>База данных создана</translation>
-    </message>
-    <message>
-        <source>Last saved</source>
-        <translation>Последнее сохранение</translation>
-    </message>
-    <message>
-        <source>Unsaved changes</source>
-        <translation>Несохранённые изменения</translation>
-    </message>
-    <message>
-        <source>yes</source>
-        <translation>да</translation>
-    </message>
-    <message>
-        <source>no</source>
-        <translation>нет</translation>
-    </message>
-    <message>
-        <source>Number of groups</source>
-        <translation>Количество групп</translation>
-    </message>
-    <message>
-        <source>Number of entries</source>
-        <translation>Количество записей</translation>
-    </message>
-    <message>
-        <source>Number of expired entries</source>
-        <translation>Количество истекших записей</translation>
-    </message>
-    <message>
-        <source>Unique passwords</source>
-        <translation>Уникальные пароли</translation>
-    </message>
-    <message>
-        <source>Non-unique passwords</source>
-        <translation>Неуникальные пароли</translation>
-    </message>
-    <message>
-        <source>Maximum password reuse</source>
-        <translation>Максимум повторных использований пароля</translation>
-    </message>
-    <message>
-        <source>Number of short passwords</source>
-        <translation>Количество коротких паролей</translation>
-    </message>
-    <message>
-        <source>Number of weak passwords</source>
-        <translation>Количество ненадёжных паролей</translation>
-    </message>
-    <message>
-        <source>Entries excluded from reports</source>
-        <translation>Исключённые из отчёта записи</translation>
-    </message>
-    <message>
-        <source>Average password length</source>
-        <translation>Средняя длина пароля</translation>
-    </message>
-    <message>
-        <source>Unknown command %1</source>
-        <translation>Неизвестная команда %1</translation>
-    </message>
-    <message>
-        <source>
-
-Available commands:
-</source>
-        <translation>
-
-Доступные команды:
-</translation>
-    </message>
-    <message>
-        <source>Name of the command to execute.</source>
-        <translation>Имя выполняемой команды.</translation>
-    </message>
-    <message>
+        <location filename="../../src/main.cpp" line="69"/>
         <source>Displays debugging information.</source>
         <translation>Показывать отладочную информацию.</translation>
     </message>
     <message>
-        <source>Invalid command %1.</source>
-        <translation>Неверная команда: %1.</translation>
-    </message>
-    <message>
-        <source>Recursively list the elements of the group.</source>
-        <translation>Рекурсивный список элементов группы.</translation>
-    </message>
-    <message>
-        <source>Flattens the output to single lines.</source>
-        <translation>Формирование вывода в виде отдельных строк.</translation>
-    </message>
-    <message>
-        <source>List database entries.</source>
-        <translation>Список записей в базе данных.</translation>
-    </message>
-    <message>
-        <source>Path of the group to list. Default is /</source>
-        <translation>Путь к списку группы. По умолчанию /</translation>
-    </message>
-    <message>
-        <source>Cannot find group %1.</source>
-        <translation>Невозможно найти группу %1.</translation>
-    </message>
-    <message>
-        <source>Use the same credentials for both database files.</source>
-        <translation>Используйте те же учётные данные для обоих файлов базы данных.</translation>
-    </message>
-    <message>
-        <source>Key file of the database to merge from.</source>
-        <translation>Ключевой файл базы данных для объединения.</translation>
-    </message>
-    <message>
-        <source>Deactivate password key for the database to merge from.</source>
-        <translation>Отключить использование парольного ключа для объединяемой базы данных.</translation>
-    </message>
-    <message>
-        <source>Only print the changes detected by the merge operation.</source>
-        <translation>Не выполнять объединение, а только сообщать о найденных изменениях.</translation>
-    </message>
-    <message>
-        <source>Yubikey slot for the second database.</source>
-        <translation>Слот Yubikey для второй базы данных.</translation>
-    </message>
-    <message>
-        <source>slot</source>
-        <translation>слот</translation>
-    </message>
-    <message>
-        <source>Merge two databases.</source>
-        <translation>Объединить две базы данных.</translation>
-    </message>
-    <message>
-        <source>Path of the database to merge from.</source>
-        <translation>Путь к базе-источнику для объединения.</translation>
-    </message>
-    <message>
-        <source>Error reading merge file:
-%1</source>
-        <translation>Ошибка при чтении объединяемого файла:
-%1</translation>
-    </message>
-    <message>
-        <source>Unable to save database to file : %1</source>
-        <translation>Невозможно сохранить базу данных в файл: %1</translation>
-    </message>
-    <message>
-        <source>Successfully merged %1 into %2.</source>
-        <translation>%1 успешно объединён с %2.</translation>
-    </message>
-    <message>
-        <source>Database was not modified by merge operation.</source>
-        <translation>База данных не была изменена операцией объединения.</translation>
-    </message>
-    <message>
-        <source>Moves an entry to a new group.</source>
-        <translation>Перемещение записи в новую группу.</translation>
-    </message>
-    <message>
-        <source>Path of the entry to move.</source>
-        <translation>Путь к перемещаемой записи.</translation>
-    </message>
-    <message>
-        <source>Path of the destination group.</source>
-        <translation>Путь к группе назначения.</translation>
-    </message>
-    <message>
-        <source>Could not find group with path %1.</source>
-        <translation>Не удалось найти группу с путём %1.</translation>
-    </message>
-    <message>
-        <source>Entry is already in group %1.</source>
-        <translation>Запись уже существует в группе %1.</translation>
-    </message>
-    <message>
-        <source>Successfully moved entry %1 to group %2.</source>
-        <translation>Запись %1 перемещена в группу %2.</translation>
-    </message>
-    <message>
-        <source>Open a database.</source>
-        <translation>Открыть базу данных.</translation>
-    </message>
-    <message>
-        <source>Path of the entry to remove.</source>
-        <translation>Путь к записи для удаления.</translation>
-    </message>
-    <message>
-        <source>Unable to save database to file: %1</source>
-        <translation>Невозможно сохранить базу данных в файл: %1</translation>
-    </message>
-    <message>
-        <source>Successfully recycled entry %1.</source>
-        <translation>Запись %1 перемещена в корзину.</translation>
-    </message>
-    <message>
-        <source>Successfully deleted entry %1.</source>
-        <translation>Запись %1 удалена.</translation>
-    </message>
-    <message>
-        <source>Path of the group to remove.</source>
-        <translation>Путь к удаляемой группе.</translation>
-    </message>
-    <message>
-        <source>Cannot remove root group from database.</source>
-        <translation>Невозможно удалить корневую группу базы данных.</translation>
-    </message>
-    <message>
-        <source>Successfully recycled group %1.</source>
-        <translation>Группа %1 перемещена в корзину.</translation>
-    </message>
-    <message>
-        <source>Successfully deleted group %1.</source>
-        <translation>Группа %1 удалена.</translation>
-    </message>
-    <message>
-        <source>Find entries quickly.</source>
-        <translation>Быстрый поиск записей.</translation>
-    </message>
-    <message>
-        <source>Search term.</source>
-        <translation>Поисковый запрос.</translation>
-    </message>
-    <message>
-        <source>Show the entry&apos;s current TOTP.</source>
-        <translation>Показать текущий TOTP записи.</translation>
-    </message>
-    <message>
-        <source>Show the protected attributes in clear text.</source>
-        <translation>Показать защищённый атрибут в виде простого текста.</translation>
-    </message>
-    <message>
-        <source>Show the attachments of the entry.</source>
-        <translation>Показать все вложения записи.</translation>
-    </message>
-    <message>
-        <source>Names of the attributes to show. This option can be specified more than once, with each attribute shown one-per-line in the given order. If no attributes are specified, a summary of the default attributes is given.</source>
-        <translation>Имена атрибутов для отображения. Эта опция может быть указана более одного раза — каждый атрибут будет показан по одному в строке в заданном порядке. Если атрибуты не указаны, даётся сводка атрибутов по умолчанию.</translation>
-    </message>
-    <message>
-        <source>attribute</source>
-        <translation>атрибут</translation>
-    </message>
-    <message>
-        <source>Show an entry&apos;s information.</source>
-        <translation>Показать сведения о записях.</translation>
-    </message>
-    <message>
-        <source>Name of the entry to show.</source>
-        <translation>Название записи для отображения.</translation>
-    </message>
-    <message>
-        <source>ERROR: unknown attribute %1.</source>
-        <translation>ОШИБКА: Неизвестный атрибут %1.</translation>
-    </message>
-    <message>
-        <source>No attachments present.</source>
-        <translation>Вложений нет.</translation>
-    </message>
-    <message>
-        <source>Attachments:</source>
-        <translation>Вложения:</translation>
-    </message>
-    <message>
-        <source>Failed to open database file %1: not found</source>
-        <translation>Не удалось открыть базу данных %1: файл не найден</translation>
-    </message>
-    <message>
-        <source>Failed to open database file %1: not a plain file</source>
-        <translation>Не удалось открыть базу данных %1: не обычный файл</translation>
-    </message>
-    <message>
-        <source>Failed to open database file %1: not readable</source>
-        <translation>Не удалось открыть базу данных %1: файл не может быть прочитан</translation>
-    </message>
-    <message>
-        <source>Enter password to unlock %1: </source>
-        <translation>Введите пароль для разблокировки %1: </translation>
-    </message>
-    <message>
-        <source>Failed to load key file %1: %2</source>
-        <translation>Ошибка загрузки ключевого файла %1: %2</translation>
-    </message>
-    <message>
-        <source>WARNING: You are using an old key file format which KeePassXC may
-stop supporting in the future.
-
-Please consider generating a new key file.</source>
-        <translation>ВНИМАНИЕ: Вы используете ключевой файл устаревшего формата, поддержка которого в будущем
-может быть прекращена.
-
-По возможности создайте новый ключевой файл.</translation>
-    </message>
-    <message>
-        <source>Invalid YubiKey slot %1</source>
-        <translation>Неверный слот Yubikey %1</translation>
-    </message>
-    <message>
-        <source>Invalid YubiKey serial %1</source>
-        <translation>Неверный серийный номер Yubikey %1</translation>
-    </message>
-    <message>
-        <source>Enter password to encrypt database (optional): </source>
-        <translation>Введите пароль для шифрования базы данных (необязательно): </translation>
-    </message>
-    <message>
-        <source>Do you want to create a database with an empty password? [y/N]: </source>
-        <translation>Использовать пустой пароль базы данных? [y/N]:</translation>
-    </message>
-    <message>
-        <source>Repeat password: </source>
-        <translation>Повторите пароль: </translation>
-    </message>
-    <message>
-        <source>Error: Passwords do not match.</source>
-        <translation>Ошибка: пароли не совпадают.</translation>
-    </message>
-    <message>
-        <source>No program defined for clipboard manipulation</source>
-        <translation>Не задана программа для управления буфером обмена</translation>
-    </message>
-    <message>
-        <source>All clipping programs failed. Tried %1
-</source>
-        <translation>Ни одна программа обрезки не сработала. Пробовали %1
-</translation>
-    </message>
-    <message>
-        <source>Creating KeyFile %1 failed: %2</source>
-        <translation>Ошибка создания ключевого файла %1: %2</translation>
-    </message>
-    <message>
-        <source>Loading KeyFile %1 failed: %2</source>
-        <translation>Ошибка загрузки ключевого файла %1: %2</translation>
-    </message>
-    <message>
-        <source>HIBP file, line %1: parse error</source>
-        <translation>Ошибка разбора строки %1 файла HIBP</translation>
-    </message>
-    <message>
-        <source>To use okon, you must provide a post-processed file (e.g. file.okon)</source>
-        <translation>Для использования okon необходимо указать соответствующий файл (например, file.okon)</translation>
-    </message>
-    <message>
-        <source>Could not start okon process: %1</source>
-        <translation>Невозможно запустить поиск через okon: %1</translation>
-    </message>
-    <message>
-        <source>Error: okon process did not finish</source>
-        <translation>Ошибка: процесс okon не был завершён</translation>
-    </message>
-    <message>
-        <source>Failed to load okon processed database: %1</source>
-        <translation>Не удалось загрузить базу okon: %1</translation>
-    </message>
-    <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="57"/>
         <source>Very weak password</source>
         <translation>Очень слабый пароль</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="58"/>
+        <location filename="../../src/core/PasswordHealth.cpp" line="63"/>
         <source>Password entropy is %1 bits</source>
         <translation>Энтропия пароля: %1 бит</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="62"/>
         <source>Weak password</source>
         <translation>Слабый пароль</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="135"/>
         <source>Used in %1/%2</source>
         <translation>Используется в %1/%2</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/PasswordHealth.cpp" line="166"/>
         <source>Password is used %1 time(s)</source>
-        <translation><numerusform>Пароль используется %1 раз</numerusform><numerusform>Пароль используется %1 раза</numerusform><numerusform>Пароль используется %1 раз</numerusform><numerusform>Пароль используется %1 раз(-а)</numerusform></translation>
+        <translation>
+            <numerusform>Пароль используется %1 раз</numerusform>
+            <numerusform>Пароль используется %1 раза</numerusform>
+            <numerusform>Пароль используется %1 раз</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="192"/>
         <source>Password has expired</source>
         <translation>Истёк срок действия пароля</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="193"/>
         <source>Password expiry was %1</source>
         <translation>Срок действия пароля истёк %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="211"/>
         <source>Password expires on %1</source>
         <translation>Срок действия пароля истекает %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="214"/>
         <source>Password is about to expire</source>
         <translation>Срок действия пароля скоро истечёт</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/PasswordHealth.cpp" line="218"/>
         <source>Password expires in %1 day(s)</source>
-        <translation><numerusform>Срок действия пароля истечет через %1 день</numerusform><numerusform>Срок действия пароля истечет через %1 дня</numerusform><numerusform>Срок действия пароля истечет через %1 дней</numerusform><numerusform>Срок действия пароля истекает через %1 дн.</numerusform></translation>
+        <translation>
+            <numerusform>Срок действия пароля истечет через %1 день</numerusform>
+            <numerusform>Срок действия пароля истечет через %1 дня</numerusform>
+            <numerusform>Срок действия пароля истечет через %1 дней</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="222"/>
         <source>Password will expire soon</source>
         <translation>Срок действия пароля скоро истечёт</translation>
     </message>
     <message>
+        <location filename="../../src/core/Tools.cpp" line="49"/>
         <source>Version %1</source>
         <translation>Версия %1</translation>
     </message>
     <message>
-        <source>Build Type: %1</source>
-        <translation>Тип сборки: %1</translation>
-    </message>
-    <message>
+        <location filename="../../src/core/Tools.cpp" line="55"/>
         <source>Revision: %1</source>
         <translation>Ревизия: %1</translation>
     </message>
     <message>
-        <source>Distribution: %1</source>
-        <translation>Дистрибутив: %1</translation>
-    </message>
-    <message>
+        <location filename="../../src/core/Tools.cpp" line="62"/>
         <source>Debugging mode is disabled.</source>
         <translation>Режим отладки выключен.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Tools.cpp" line="64"/>
         <source>Debugging mode is enabled.</source>
         <translation>Режим отладки включён.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Tools.cpp" line="69"/>
         <source>Operating system: %1
 CPU architecture: %2
-Kernel: %3 %4</source>
-        <translation>Операционная система: %1
-Архитектура ЦП: %2
-Ядро: %3 %4</translation>
+Kernel: %3 %4
+</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Auto-Type</source>
-        <translation>Автонабор</translation>
+        <location filename="../../src/core/Tools.cpp" line="84"/>
+        <source>B</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SSH Agent</source>
-        <translation>SSH-агент</translation>
+        <location filename="../../src/core/Tools.cpp" line="85"/>
+        <source>KiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>KeeShare</source>
-        <translation>KeeShare</translation>
+        <location filename="../../src/core/Tools.cpp" line="86"/>
+        <source>MiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>YubiKey</source>
-        <translation>YubiKey</translation>
-    </message>
-    <message>
-        <source>Quick Unlock</source>
-        <translation>Быстрая разблокировка</translation>
-    </message>
-    <message>
-        <source>Secret Service Integration</source>
-        <translation>Интеграция с секретной службой</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Нет</translation>
-    </message>
-    <message>
-        <source>Enabled extensions:</source>
-        <translation>Включённые расширения:</translation>
+        <location filename="../../src/core/Tools.cpp" line="87"/>
+        <source>GiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="116"/>
         <source>over %1 year(s)</source>
-        <translation><numerusform>более %1 года</numerusform><numerusform>более %1 лет</numerusform><numerusform>более %1 лет</numerusform><numerusform>более %1 гг.</numerusform></translation>
+        <translation>
+            <numerusform>более %1 года</numerusform>
+            <numerusform>более %1 лет</numerusform>
+            <numerusform>более %1 лет</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="121"/>
         <source>about %1 month(s)</source>
-        <translation><numerusform>около %1 месяца</numerusform><numerusform>около %1 месяцев</numerusform><numerusform>около %1 месяцев</numerusform><numerusform>около %1 мес.</numerusform></translation>
+        <translation>
+            <numerusform>около %1 месяца</numerusform>
+            <numerusform>около %1 месяцев</numerusform>
+            <numerusform>около %1 месяцев</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="126"/>
         <source>%1 week(s)</source>
-        <translation><numerusform>%1 неделя</numerusform><numerusform>%1 недели</numerusform><numerusform>%1 недель</numerusform><numerusform>%1 нед.</numerusform></translation>
+        <translation>
+            <numerusform>%1 неделя</numerusform>
+            <numerusform>%1 недели</numerusform>
+            <numerusform>%1 недель</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="131"/>
         <source>%1 day(s)</source>
-        <translation><numerusform>%1 день</numerusform><numerusform>%1 дня</numerusform><numerusform>%1 дней</numerusform><numerusform>%1 дн.</numerusform></translation>
+        <translation>
+            <numerusform>%1 день</numerusform>
+            <numerusform>%1 дня</numerusform>
+            <numerusform>%1 дней</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="136"/>
         <source>%1 hour(s)</source>
-        <translation><numerusform>%1 час</numerusform><numerusform>%1 часа</numerusform><numerusform>%1 часов</numerusform><numerusform>%1 ч</numerusform></translation>
+        <translation>
+            <numerusform>%1 час</numerusform>
+            <numerusform>%1 часа</numerusform>
+            <numerusform>%1 часов</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="140"/>
         <source>%1 minute(s)</source>
-        <translation><numerusform>%1 минута</numerusform><numerusform>%1 минуты</numerusform><numerusform>%1 минут</numerusform><numerusform>%1 мин</numerusform></translation>
+        <translation>
+            <numerusform>%1 минута</numerusform>
+            <numerusform>%1 минуты</numerusform>
+            <numerusform>%1 минут</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="36"/>
+        <source>SHA-256 mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="50"/>
+        <source>SHA-512 mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="86"/>
+        <source>AES-256 CBC encryption mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="104"/>
+        <source>AES-256 CBC decryption mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="121"/>
+        <source>AES KDF Failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="126"/>
+        <source>AES KDF encryption mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="162"/>
+        <location filename="../../src/crypto/Crypto.cpp" line="180"/>
+        <source>Twofish encryption mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="213"/>
+        <source>Salsa20 stream cipher encrypt mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="231"/>
+        <source>Salsa20 stream cipher decrypt mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="269"/>
+        <source>ChaCha20 stream cipher encrypt mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="287"/>
+        <source>ChaCha20 stream cipher decrypt mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="305"/>
         <source>Botan library must be at least %1, found %2.%3.%4</source>
         <translation>Библиотека Botan должна быть не менее %1, найдено %2.%3.%4</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="330"/>
         <source>Cryptographic libraries:</source>
         <translation>Криптографические библиотеки:</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/kdf/AesKdf.cpp" line="113"/>
         <source>AES (%1 rounds)</source>
         <translation>AES (раундов: %1)</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/kdf/Argon2Kdf.cpp" line="204"/>
+        <source>Argon2 error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/kdf/Argon2Kdf.cpp" line="233"/>
         <source>Argon2%1 (%2 rounds, %3 KB)</source>
         <translation>Argon2%1 (раундов: %2, %3 КБ)</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="29"/>
         <source>SymmetricCipher::init: Invalid cipher mode.</source>
         <translation>SymmetricCipher::init: неверный режим шифрования.</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="46"/>
         <source>SymmetricCipher::init: Invalid IV size of %1 for %2.</source>
         <translation>SymmetricCipher::init: неверный размер IV %1 для %2.</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="75"/>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="108"/>
         <source>Cipher not initialized prior to use.</source>
         <translation>Шифрование не было инициализировано перед использованием.</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="81"/>
         <source>Cannot process 0 length data.</source>
         <translation>Невозможно обработать данные нулевой длины.</translation>
     </message>
     <message>
-        <source>unknown executable (DBus address %1)</source>
-        <translation>неизвестный исполняемый файл (адрес DBus %1)</translation>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="165"/>
+        <source>SymmetricCipher::aesKdf: Could not process: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 (invalid executable path)</source>
-        <translation>%1 (неверный путь к исполняемому файлу)</translation>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="194"/>
+        <source>SymmetricCipher: Invalid KeePass2 Cipher UUID %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="260"/>
+        <source>Invalid Mode Specified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/CsvParser.cpp" line="58"/>
         <source>NULL device</source>
         <translation>Устройство NULL</translation>
     </message>
     <message>
+        <location filename="../../src/format/CsvParser.cpp" line="80"/>
         <source>error reading from device</source>
         <translation>Ошибка чтения из устройства</translation>
     </message>
     <message>
+        <location filename="../../src/format/CsvParser.cpp" line="92"/>
         <source>file empty</source>
         <translation>пустой файл</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="147"/>
         <source>AES 256-bit</source>
         <translation>AES 256-бит</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="151"/>
         <source>Twofish 256-bit</source>
         <translation>Twofish 256-бит</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="155"/>
         <source>ChaCha20 256-bit</source>
         <translation>ChaCha20 256-бит</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="165"/>
         <source>Argon2d (KDBX 4 – recommended)</source>
         <translation>Argon2d (KDBX 4 - рекомендуемая)</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="169"/>
         <source>Argon2id (KDBX 4)</source>
         <translation>Argon2id (KDBX 4)</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="173"/>
         <source>AES-KDF (KDBX 4)</source>
         <translation>AES-KDF (KDBX 4)</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="177"/>
         <source>AES-KDF (KDBX 3)</source>
         <translation>AES-KDF (KDBX 3)</translation>
     </message>
-    <message>
-        <source>Existing single-instance lock file is invalid. Launching new instance.</source>
-        <translation>Повреждён файл блокировки запуска. Запускается новый экземпляр программы.</translation>
-    </message>
-    <message>
-        <source>The lock file could not be created. Single-instance mode disabled.</source>
-        <translation>Невозможно создать файл блокировки. Режим недублирующего хранения отключён.</translation>
-    </message>
     <message numerus="yes">
+        <location filename="../../src/gui/Clipboard.cpp" line="128"/>
         <source>Clearing the clipboard in %1 second(s)…</source>
-        <translation><numerusform>Буфер обмена будет очищен через %1 секунду...</numerusform><numerusform>Буфер обмена будет очищен через %1 секунды...</numerusform><numerusform>Буфер обмена будет очищен через %1 секунд...</numerusform><numerusform>Буфер обмена будет очищен через %1 сек...</numerusform></translation>
+        <translation>
+            <numerusform>Буфер обмена будет очищен через %1 секунду...</numerusform>
+            <numerusform>Буфер обмена будет очищен через %1 секунды...</numerusform>
+            <numerusform>Буфер обмена будет очищен через %1 секунд...</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="87"/>
         <source>Group</source>
         <translation>Группа</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="87"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="87"/>
         <source>Username</source>
         <translation>Логин</translation>
     </message>
     <message>
+        <location filename="../../src/format/HtmlExporter.cpp" line="46"/>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="87"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="88"/>
         <source>TOTP</source>
         <translation>TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="89"/>
         <source>Icon</source>
         <translation>Значок</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="89"/>
         <source>Last Modified</source>
         <translation>Изменён</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="89"/>
         <source>Created</source>
         <translation>Создан</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="72"/>
         <source>Benchmark %1 delay</source>
         <translation>Тест %1 задержки</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="43"/>
         <source>%1 ms</source>
         <comment>milliseconds</comment>
-        <translation><numerusform>%1 мс</numerusform><numerusform>%1 мс</numerusform><numerusform>%1 мс</numerusform><numerusform>%1 мс</numerusform></translation>
+        <translation>
+            <numerusform>%1 мс</numerusform>
+            <numerusform>%1 мс</numerusform>
+            <numerusform>%1 мс</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="46"/>
         <source>%1 s</source>
         <comment>seconds</comment>
-        <translation><numerusform>%1 с</numerusform><numerusform>%1 с</numerusform><numerusform>%1 с</numerusform><numerusform>%1 сек</numerusform></translation>
+        <translation>
+            <numerusform>%1 с</numerusform>
+            <numerusform>%1 с</numerusform>
+            <numerusform>%1 с</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/GuiTools.cpp" line="64"/>
         <source>Do you really want to move entry &quot;%1&quot; to the recycle bin?</source>
         <translation>Переместить запись &quot;%1&quot; в корзину?</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="69"/>
         <source>Do you really want to move %n entry(s) to the recycle bin?</source>
-        <translation><numerusform>Хотите переместить %n запись в корзину?</numerusform><numerusform>Хотите переместить %n записи в корзину?</numerusform><numerusform>Хотите переместить %n записей в корзину?</numerusform><numerusform>Хотите переместить %n записей в корзину?</numerusform></translation>
+        <translation>
+            <numerusform>Хотите переместить %n запись в корзину?</numerusform>
+            <numerusform>Хотите переместить %n записи в корзину?</numerusform>
+            <numerusform>Хотите переместить %n записей в корзину?</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="124"/>
         <source>Entry &quot;%1&quot; has %2 reference(s). Do you want to overwrite references with values, skip this entry, or delete anyway?</source>
-        <translation><numerusform>У записи &quot;%1&quot; есть %2 ссылка. Хотите перезаписать ссылку значениями, пропустить эту запись или всё равно её удалить?</numerusform><numerusform>У записи &quot;%1&quot; есть %2 ссылки. Хотите перезаписать ссылки значениями, пропустить эту запись или всё равно её удалить?</numerusform><numerusform>У записи &quot;%1&quot; есть %2 ссылок. Хотите перезаписать ссылки значениями, пропустить эту запись или всё равно её удалить?</numerusform><numerusform>У записи &quot;%1&quot; есть %2 ссылок. Хотите перезаписать ссылки значениями, пропустить эту запись или всё равно её удалить?</numerusform></translation>
+        <translation>
+            <numerusform>У записи &quot;%1&quot; есть %2 ссылка. Хотите перезаписать ссылку значениями, пропустить эту запись или всё равно её удалить?</numerusform>
+            <numerusform>У записи &quot;%1&quot; есть %2 ссылки. Хотите перезаписать ссылки значениями, пропустить эту запись или всё равно её удалить?</numerusform>
+            <numerusform>У записи &quot;%1&quot; есть %2 ссылок. Хотите перезаписать ссылки значениями, пропустить эту запись или всё равно её удалить?</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/format/HtmlExporter.cpp" line="36"/>
         <source>User name</source>
         <translation>Имя пользователя</translation>
     </message>
     <message>
-        <source>Browser Statistics</source>
-        <translation>Статистика браузера</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/reports/ReportsPageHealthcheck.cpp" line="29"/>
         <source>Health Check</source>
         <translation>Проверка безопасности</translation>
     </message>
     <message>
-        <source>HIBP</source>
-        <translation>HIBP</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/reports/ReportsPageStatistics.cpp" line="24"/>
         <source>Statistics</source>
         <translation>Статистика</translation>
     </message>
     <message>
+        <location filename="../../src/keys/FileKey.cpp" line="372"/>
         <source>Unsupported key file version: %1</source>
         <translation>Неподдерживаемый тип ключевого файла: %1</translation>
     </message>
     <message>
+        <location filename="../../src/keys/FileKey.cpp" line="404"/>
         <source>Checksum mismatch! Key file may be corrupt.</source>
         <translation>Несоответствие контрольной суммы! Возможно, ключевой файл повреждён.</translation>
     </message>
     <message>
+        <location filename="../../src/keys/FileKey.cpp" line="414"/>
         <source>Unexpected key file data! Key file may be corrupt.</source>
         <translation>Неожиданные данные в ключевом файле! Вероятно, он повреждён.</translation>
     </message>
     <message>
-        <source>KeePassXC - cross-platform password manager</source>
-        <translation>KeePassXC — кроссплатформенный менеджер паролей</translation>
+        <location filename="../../src/main.cpp" line="59"/>
+        <source>KeePassX-min - password manager</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>filenames of the password databases to open (*.kdbx)</source>
-        <translation>имена файлов открываемой базы данных паролей (*.kdbx)</translation>
+        <location filename="../../src/main.cpp" line="60"/>
+        <source>filenames of the password databases to open (*.kdbxm)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/main.cpp" line="62"/>
         <source>path to a custom config file</source>
         <translation>путь к своему файлу параметров</translation>
     </message>
     <message>
+        <location filename="../../src/main.cpp" line="63"/>
         <source>path to a custom local config file</source>
         <translation>путь к своему локальному файлу параметров</translation>
     </message>
     <message>
-        <source>lock all open databases</source>
-        <translation>заблокировать все открытые базы данных</translation>
+        <location filename="../../src/main.cpp" line="115"/>
+        <source>KeePassX-min - Error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/main.cpp" line="64"/>
         <source>key file of the database</source>
         <translation>ключевой файл базы данных</translation>
     </message>
     <message>
-        <source>read password of the database from stdin</source>
-        <translation>читать пароли базы данных с stdin</translation>
-    </message>
-    <message>
-        <source>Database failed to lock.</source>
-        <translation>Не удалось заблокировать базы данных.</translation>
-    </message>
-    <message>
-        <source>Another instance of KeePassXC is already running.</source>
-        <translation>Уже запущен другой экземпляр KeePassXC.</translation>
-    </message>
-    <message>
+        <location filename="../../src/main.cpp" line="112"/>
         <source>Fatal error while testing the cryptographic functions.</source>
         <translation>Неустранимая ошибка при тестировании криптографических функций.</translation>
     </message>
     <message>
-        <source>KeePassXC - Error</source>
-        <translation>Ошибка — KeePassXC</translation>
-    </message>
-    <message>
-        <source>Database password: </source>
-        <translation>Пароль базы данных: </translation>
-    </message>
-    <message>
+        <location filename="../../src/core/Totp.cpp" line="274"/>
         <source>Invalid Settings</source>
         <comment>TOTP</comment>
         <translation>Неверные параметры</translation>
     </message>
     <message>
+        <location filename="../../src/core/Totp.cpp" line="280"/>
         <source>Invalid Key</source>
         <comment>TOTP</comment>
         <translation>Неверный ключ</translation>
     </message>
     <message>
-        <source>Failed to create Windows Hello credential.</source>
-        <translation>Не удалось создать учётные данные Windows Hello.</translation>
-    </message>
-    <message>
-        <source>Failed to sign challenge using Windows Hello.</source>
-        <translation>Не удалось подписать вызов с помощью Windows Hello.</translation>
-    </message>
-    <message>
-        <source>Warning: Failed to block screenshot capture on a top-level window.</source>
-        <translation>Внимание: не удалось заблокировать захват экрана в окне верхнего уровня.</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/KeePass2.cpp" line="158"/>
         <source>Invalid Cipher</source>
         <translation>Неверный шифр</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="180"/>
         <source>Invalid KDF</source>
         <translation>Неверная KDF</translation>
     </message>
     <message>
-        <source>Please present or touch your YubiKey to continue.</source>
-        <translation>Подключите или коснитесь YubiKey для продолжения.</translation>
-    </message>
-    <message>
-        <source>Show all the attributes of the entry.</source>
-        <translation>Показать все атрибуты записи.</translation>
-    </message>
-    <message>
-        <source>Set the key file for the database.
-This option is deprecated, use --set-key-file instead.</source>
-        <translation>Установить ключевой файл для базы данных.
-Эта опция устарела, вместо неё используйте --set-key-file.</translation>
-    </message>
-    <message>
-        <source>Databases have been locked.</source>
-        <translation>Базы данных заблокированы.</translation>
-    </message>
-    <message>
-        <source>Attestation not supported</source>
-        <translation>Аттестация не поддерживается</translation>
-    </message>
-    <message>
-        <source>Loading the new key file failed: %1</source>
-        <translation>Ошибка загрузки нового ключевого файла: %1</translation>
-    </message>
-    <message>
-        <source>Unset the password for the database.</source>
-        <translation>Убрать пароль у базы данных.</translation>
-    </message>
-    <message>
-        <source>Unset the key file for the database.</source>
-        <translation>Убрать ключевой файл базы данных.</translation>
-    </message>
-    <message>
-        <source>Cannot use %1 and %2 at the same time.</source>
-        <translation>Невозможно использовать %1 и %2 одновременно.</translation>
-    </message>
-    <message>
-        <source>Cannot remove all the keys from a database.</source>
-        <translation>Невозможно удалить все ключи из базы данных.</translation>
-    </message>
-    <message>
-        <source>Passkeys</source>
-        <translation>Ключи доступа</translation>
-    </message>
-    <message>
-        <source>Found unexpected Key type %1</source>
-        <translation>Обнаружен неожиданный тип ключа %1</translation>
-    </message>
-    <message>
-        <source>KeePassXC is not running. No open database to lock</source>
-        <translation>KeePassXC не запущен. Нет открытой базы данных для блокировки</translation>
-    </message>
-    <message>
-        <source>allow screenshots and app recording (Windows/macOS)</source>
-        <translation>разрешить снимки экрана и запись приложения (Windows/macOS)</translation>
-    </message>
-    <message>
-        <source>Origin is empty or not allowed</source>
-        <translation>Источник пуст или не разрешён</translation>
-    </message>
-    <message>
-        <source>Effective domain is not a valid domain</source>
-        <translation>Действующий домен не является корректным.</translation>
-    </message>
-    <message>
-        <source>Origin and RP ID do not match</source>
-        <translation>ID источника и RP не совпадают</translation>
-    </message>
-    <message>
-        <source>No supported algorithms were provided</source>
-        <translation>Не предоставлены поддерживаемые алгоритмы</translation>
-    </message>
-    <message>
-        <source>Wait for timer to expire</source>
-        <translation>Дождитесь истечения таймера</translation>
-    </message>
-    <message>
-        <source>Challenge is shorter than required minimum length</source>
-        <translation>Вызов короче требуемой минимальной длины</translation>
-    </message>
-    <message>
-        <source>user.id does not match the required length</source>
-        <translation>user.id не соответствует требуемой длине</translation>
-    </message>
-    <message>
-        <source>Access to all entries is denied</source>
-        <translation>Доступ ко всем записям запрещён</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="67"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="98"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="52"/>
         <source>Favorite</source>
         <comment>Tag for favorite entries</comment>
         <translation>Избранное</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="366"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="319"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="222"/>
         <source>File does not exist.</source>
         <translation>Файл не существует.</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="374"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="230"/>
         <source>Cannot open file: %1</source>
         <translation>Невозможно открыть файл: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="382"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="238"/>
         <source>Cannot parse file: %1 at position %2</source>
         <translation>Невозможно выполнить разбор файла: %1 в позиции %2</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="392"/>
         <source>Failed to decrypt json file: %1</source>
         <translation>Не удалось расшифровать json-файл: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="461"/>
         <source>Invalid encKeyValidation field</source>
         <translation>Неверное поле encKeyValidation</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="468"/>
         <source>Invalid cipher list within encKeyValidation field</source>
         <translation>Неверный список шифров в поле encKeyValidation</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="479"/>
         <source>Wrong password</source>
         <translation>Неверный пароль</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="487"/>
         <source>Invalid encrypted data field</source>
         <translation>Неверное поле зашифрованных данных</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="494"/>
         <source>Invalid cipher list within encrypted data field</source>
         <translation>Неверный список шифров в поле зашифрованных данных</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="504"/>
         <source>Cannot initialize cipher</source>
         <translation>Невозможно инициализировать шифр</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="510"/>
         <source>Cannot decrypt data</source>
         <translation>Невозможно расшифровать данные</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="523"/>
         <source>Bitwarden Import</source>
         <translation>Импорт из Bitwarden</translation>
     </message>
     <message>
+        <location filename="../../src/format/OPUXReader.cpp" line="40"/>
+        <source>Failed to extract 1PUX document: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OPUXReader.cpp" line="103"/>
         <source>Archived</source>
         <comment>Tag for archived entries</comment>
         <translation>Архивировано</translation>
     </message>
     <message>
+        <location filename="../../src/format/OPUXReader.cpp" line="327"/>
         <source>Invalid 1PUX file format: Not a valid ZIP file.</source>
         <translation>Неверный формат файла 1PUX: некорректный ZIP-файл.</translation>
     </message>
     <message>
+        <location filename="../../src/format/OPUXReader.cpp" line="335"/>
         <source>Invalid 1PUX file format: Missing export.data</source>
         <translation>Неверный формат файла 1PUX: отсутствует export.data</translation>
     </message>
     <message>
+        <location filename="../../src/format/OPUXReader.cpp" line="341"/>
         <source>1Password Import</source>
         <translation>Импорт из 1Password</translation>
     </message>
     <message>
-        <source>Credential is excluded</source>
-        <translation>Учётные данные исключены</translation>
-    </message>
-    <message>
-        <source>Passkeys request canceled</source>
-        <translation>Запрос на создание ключей доступа отменён</translation>
-    </message>
-    <message>
-        <source>Invalid user verification</source>
-        <translation>Неверная проверка пользователя</translation>
-    </message>
-    <message>
-        <source>Empty public key</source>
-        <translation>Пустой публичный ключ</translation>
-    </message>
-    <message>
-        <source>Invalid URL provided</source>
-        <translation>Указан неверный URL-адрес</translation>
-    </message>
-    <message>
-        <source>Edit a database.</source>
-        <translation>Редактировать базу данных.</translation>
-    </message>
-    <message>
-        <source>Could not change the database key.</source>
-        <translation>Не удалось изменить ключ базы данных.</translation>
-    </message>
-    <message>
-        <source>Database was not modified.</source>
-        <translation>База данных не была изменена.</translation>
-    </message>
-    <message>
-        <source>Successfully edited the database.</source>
-        <translation>База данных успешно изменена.</translation>
-    </message>
-    <message>
-        <source>Cannot remove password: The database does not have a password.</source>
-        <translation>Невозможно удалить пароль: у базы данных нет пароля.</translation>
-    </message>
-    <message>
-        <source>Cannot remove file key: The database does not have a file key.</source>
-        <translation>Невозможно удалить ключевой файл: его нет в базе данных.</translation>
-    </message>
-    <message>
-        <source>Unknown passkeys error</source>
-        <translation>Неизвестная ошибка ключей доступа</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="246"/>
         <source>Encrypted files are not supported.</source>
         <translation>Зашифрованные файлы не поддерживаются.</translation>
     </message>
     <message>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="251"/>
         <source>Proton Pass Import</source>
         <translation>Импорт из Proton Pass</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="134"/>
         <source>Passkey</source>
         <translation>Ключ доступа</translation>
     </message>
     <message>
-        <source>Format to use when exporting. Available choices are &apos;xml&apos;, &apos;csv&apos; or &apos;html&apos;. Defaults to &apos;xml&apos;.</source>
-        <translation>Формат, который будет использоваться при экспорте. Доступны следующие варианты: &apos;xml&apos;, &apos;csv&apos; или &apos;html&apos;. По умолчанию используется &apos;xml&apos;.</translation>
-    </message>
-    <message>
+        <location filename="../../src/main.cpp" line="65"/>
         <source>start minimized to the system tray</source>
         <translation>запустить скрыв в системном трее</translation>
     </message>
     <message>
+        <location filename="../../src/format/CsvParser.cpp" line="136"/>
         <source>malformed string, possible unescaped delimiter</source>
         <translation>некорректная строка, возможно, неэкранированный разделитель</translation>
     </message>
     <message>
+        <location filename="../../src/format/CsvParser.cpp" line="225"/>
         <source>missing closing delimiter</source>
         <translation>отсутствует закрывающий разделитель</translation>
     </message>
     <message>
+        <location filename="../../src/format/CsvParser.cpp" line="343"/>
+        <source>CSV Parser: unget lower bound exceeded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/CsvParser.cpp" line="457"/>
         <source>%1, row: %2, column: %3</source>
         <translation>%1, строка: %2, столбец: %3</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="88"/>
         <source>Tags</source>
         <translation>Теги</translation>
     </message>
     <message>
-        <source>Warning: the chosen wordlist is smaller than the minimum recommended size!</source>
-        <translation>Внимание: выбранный словарь меньше минимально рекомендованного размера!</translation>
-    </message>
-    <message>
+        <location filename="../../src/core/Totp.cpp" line="285"/>
         <source>Invalid Step</source>
         <comment>TOTP</comment>
         <translation>Неверный шаг</translation>
     </message>
     <message>
+        <location filename="../../src/core/Totp.cpp" line="290"/>
         <source>Invalid Digits</source>
         <comment>TOTP</comment>
         <translation>Неверные цифры</translation>
     </message>
-    <message numerus="yes">
-        <source>%1 character(s)</source>
-        <translation><numerusform>%1 символ</numerusform><numerusform>%1 символа</numerusform><numerusform>%1 символов</numerusform><numerusform>%1 символов</numerusform></translation>
-    </message>
     <message>
+        <location filename="../../src/gui/GuiTools.cpp" line="38"/>
         <source>Do you really want to permanently delete the entry &quot;%1&quot;?</source>
         <translation>Вы действительно хотите окончательно удалить запись &quot;%1&quot;?</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="43"/>
         <source>Do you really want to permanently delete %n entry(s)?</source>
-        <translation><numerusform>Вы действительно хотите окончательно удалить &quot;%1&quot; запись?</numerusform><numerusform>Вы действительно хотите окончательно удалить &quot;%1&quot; записи?</numerusform><numerusform>Вы действительно хотите окончательно удалить &quot;%1&quot; записей?</numerusform><numerusform>Вы действительно хотите окончательно удалить &quot;%1&quot; записей?</numerusform></translation>
+        <translation>
+            <numerusform>Вы действительно хотите окончательно удалить &quot;%1&quot; запись?</numerusform>
+            <numerusform>Вы действительно хотите окончательно удалить &quot;%1&quot; записи?</numerusform>
+            <numerusform>Вы действительно хотите окончательно удалить &quot;%1&quot; записей?</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="47"/>
         <source>Confirm Delete Entry(s)</source>
-        <translation><numerusform>Подтвердить удаление записи</numerusform><numerusform>Подтвердить удаление записей</numerusform><numerusform>Подтвердить удаление записей</numerusform><numerusform>Подтвердить удаление записей</numerusform></translation>
+        <translation>
+            <numerusform>Подтвердить удаление записи</numerusform>
+            <numerusform>Подтвердить удаление записей</numerusform>
+            <numerusform>Подтвердить удаление записей</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="73"/>
         <source>Confirm Recycle Entry(s)</source>
-        <translation><numerusform>Подтвердить перемещение записи в корзину</numerusform><numerusform>Подтвердить перемещение записей в корзину</numerusform><numerusform>Подтвердить перемещение записей в корзину</numerusform><numerusform>Подтвердить перемещение записей в корзину</numerusform></translation>
+        <translation>
+            <numerusform>Подтвердить перемещение записи в корзину</numerusform>
+            <numerusform>Подтвердить перемещение записей в корзину</numerusform>
+            <numerusform>Подтвердить перемещение записей в корзину</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/GuiTools.cpp" line="90"/>
         <source>Confirm Delete Plugin Data</source>
         <translation>Подтвердить удаление данных плагина</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="91"/>
         <source>Delete plugin data from the selected entry(s)?</source>
-        <translation><numerusform>Удалить данные плагина из выбранной записи?</numerusform><numerusform>Удалить данные плагина из выбранных записей?</numerusform><numerusform>Удалить данные плагина из выбранных записей?</numerusform><numerusform>Удалить данные плагина из выбранных записей?</numerusform></translation>
+        <translation>
+            <numerusform>Удалить данные плагина из выбранной записи?</numerusform>
+            <numerusform>Удалить данные плагина из выбранных записей?</numerusform>
+            <numerusform>Удалить данные плагина из выбранных записей?</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/GuiTools.cpp" line="123"/>
         <source>Confirm Replace Entry References</source>
         <translation>Подтвердить замену ссылок на запись</translation>
     </message>
     <message>
-        <source>Type: Date(Rep)</source>
-        <translation>Тип: дата (повт.)</translation>
-    </message>
-    <message>
-        <source>Type: Unknown (%1)</source>
-        <translation>Тип: неизвестный (%1)</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="397"/>
         <source>Unsupported format, ensure your Bitwarden export is password-protected</source>
         <translation>Неподдерживаемый формат. Убедитесь, что экспорт Bitwarden защищён паролем</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="412"/>
         <source>Invalid KDF iterations, cannot decrypt json file</source>
         <translation>Недопустимые итерации KDF, невозможно расшифровать json-файл</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="443"/>
         <source>Only PBKDF and Argon2 are supported, cannot decrypt json file</source>
         <translation>Поддерживаются только PBKDF и Argon2, невозможно расшифровать json-файл</translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Bootstrap.cpp" line="64"/>
+        <source>Unable to disable core dumps.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/PassphraseGenerator.cpp" line="75"/>
+        <source>Couldn&apos;t load passphrase wordlist: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/PassphraseGenerator.cpp" line="118"/>
+        <source>Wordlist is less than minimum acceptable size: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Resources.cpp" line="63"/>
+        <source>Resources::DataPath: can&apos;t find data dir</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/CryptoHash.cpp" line="95"/>
+        <source>CryptoHash::update failed to add data: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/CryptoHash.cpp" line="112"/>
+        <source>CryptoHash::setKey failed to set HMAC key: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="36"/>
+        <source>KDBX version &gt;= 4 requires explicit binary index map.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="680"/>
+        <source>Stripping invalid XML 1.0 codepoint %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KeePass2RandomStream.cpp" line="39"/>
+        <source>Invalid stream cipher mode (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="209"/>
+        <source>Expected &quot;overview&quot; in attachment metadata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="238"/>
+        <source>Expected JSON Object in &quot;overview&quot; but nope: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="256"/>
+        <source>Unexpected type of attachment &quot;filename&quot;: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseIcons.cpp" line="59"/>
+        <source>DatabaseIcons::icon: invalid icon index %1, using 0 instead</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseIcons.cpp" line="61"/>
+        <source>invalid icon index %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseIcons.cpp" line="82"/>
+        <source>DatabaseIcons: Out-of-range badge index given to applyBadge: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="58"/>
+        <source>Failed to parse zoom text: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="143"/>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="693"/>
+        <source>Internal zlib error when compressing: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="182"/>
+        <source>Error writing to underlying device: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="211"/>
+        <source>Unknown error, code %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="399"/>
+        <source>Error opening underlying device: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="440"/>
+        <source>The gzip format not supported in this version of zlib.</source>
+        <translation type="unfinished">Формат gzip не поддерживается в этой версии zlib.</translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="464"/>
+        <source>Internal zlib error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="611"/>
+        <source>Error reading data from underlying device: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="638"/>
+        <source>Internal zlib error when decompressing: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QtIOCompressor</name>
     <message>
-        <source>Internal zlib error when compressing: </source>
-        <translation>Внутренняя ошибка zlib при сжатии: </translation>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="311"/>
+        <source>QtIOCompressor::setStreamFormat: zlib 1.2.x or higher is required to use the gzip format. Current version is: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error writing to underlying device: </source>
-        <translation>Ошибка записи на базовое устройство: </translation>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="361"/>
+        <source>QtIOCompressor::open: device already open</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error opening underlying device: </source>
-        <translation>Ошибка открытия базового устройства: </translation>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="372"/>
+        <source>QtIOCompressor::open: QtIOCompressor can only be opened in the ReadOnly or WriteOnly modes</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error reading data from underlying device: </source>
-        <translation>Ошибка чтения с базового устройства: </translation>
-    </message>
-    <message>
-        <source>Internal zlib error when decompressing: </source>
-        <translation>Внутренняя ошибка zlib при распаковке: </translation>
-    </message>
-</context>
-<context>
-    <name>QtIOCompressor::open</name>
-    <message>
-        <source>The gzip format not supported in this version of zlib.</source>
-        <translation>Формат gzip не поддерживается в этой версии zlib.</translation>
-    </message>
-    <message>
-        <source>Internal zlib error: </source>
-        <translation>Внутренняя ошибка zlib: </translation>
-    </message>
-</context>
-<context>
-    <name>ReportsWidgetBrowserStatistics</name>
-    <message>
-        <source>Double-click entries to edit.</source>
-        <translation>Дважды щёлкните левой кнопкой мыши по записи для редактирования.</translation>
-    </message>
-    <message>
-        <source>List of entry URLs</source>
-        <translation>Список записей URL-адресов</translation>
-    </message>
-    <message>
-        <source>Entry has no URLs set</source>
-        <translation>Запись не имеет заданных URL-адресов</translation>
-    </message>
-    <message>
-        <source>Allowed URLs</source>
-        <translation>Разрешённые URL-адреса</translation>
-    </message>
-    <message>
-        <source>Entry has no Browser Integration settings</source>
-        <translation>У записи нет параметров интеграции с браузером</translation>
-    </message>
-    <message>
-        <source>Denied URLs</source>
-        <translation>Запрещённые URL-адреса</translation>
-    </message>
-    <message>
-        <source> (Excluded)</source>
-        <translation> (Исключено)</translation>
-    </message>
-    <message>
-        <source>This entry is being excluded from reports</source>
-        <translation>Эта запись исключена из отчёта</translation>
-    </message>
-    <message>
-        <source>Please wait, browser statistics is being calculated…</source>
-        <translation>Идёт подсчёт статистики браузера, подождите...</translation>
-    </message>
-    <message>
-        <source>No entries with a URL, or none has browser extension settings saved.</source>
-        <translation>Нет записей с URL-адресом, либо ни в одной из них не сохранены параметры расширения браузера.</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation>Название</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation>Путь</translation>
-    </message>
-    <message>
-        <source>URLs</source>
-        <translation>URL-адреса</translation>
-    </message>
-    <message>
-        <source>Edit Entry…</source>
-        <translation>Изменить запись…</translation>
-    </message>
-    <message numerus="yes">
-        <source>Delete Entry(s)…</source>
-        <translation><numerusform>Удаление записи...</numerusform><numerusform>Удаление записей...</numerusform><numerusform>Удаление записей...</numerusform><numerusform>Удаление записей...</numerusform></translation>
-    </message>
-    <message>
-        <source>Exclude from reports</source>
-        <translation>Исключить из отчётов</translation>
-    </message>
-    <message numerus="yes">
-        <source>Expire Entry(s)…</source>
-        <translation><numerusform>Истекает запись...</numerusform><numerusform>Истекают записи...</numerusform><numerusform>Истекает записей...</numerusform><numerusform>Истекает записей...</numerusform></translation>
-    </message>
-    <message>
-        <source>Only show entries that have a URL</source>
-        <translation>Показывать только записи с URL-адресом</translation>
-    </message>
-    <message>
-        <source>Only show entries that have been explicitly allowed or denied</source>
-        <translation>Показывать только записи, которые были явно разрешены или запрещены</translation>
-    </message>
-    <message>
-        <source>Show expired entries</source>
-        <translation>Показать истекшие записи</translation>
-    </message>
-    <message>
-        <source> (Expired)</source>
-        <translation> (истекшая)</translation>
-    </message>
-    <message numerus="yes">
-        <source>Delete plugin data from Entry(s)…</source>
-        <translation><numerusform>Удалить данные плагина из записи...</numerusform><numerusform>Удалить данные плагина из записей..</numerusform><numerusform>Удалить данные плагина из записей..</numerusform><numerusform>Удалить данные плагина из записей..</numerusform></translation>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="383"/>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="388"/>
+        <source>QtIOCompressor::open: underlying device must be open in one of the ReadOnly or WriteOnly modes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ReportsWidgetHealthcheck</name>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.ui" line="60"/>
         <source>Show expired entries</source>
         <translation>Показать истекшие записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="221"/>
         <source> (Expired)</source>
         <translation> (истекшая)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.ui" line="79"/>
         <source>Hover over reason to show additional details. Double-click entries to edit.</source>
         <translation>Наведите курсор, чтобы просмотреть дополнительные сведения. Для редактирования записи дважды щёлкните левой кнопкой мыши.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="189"/>
         <source>Bad — password must be changed</source>
         <translation>Плохой — пароль должен быть изменён</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="195"/>
         <source>Poor — password should be changed</source>
         <translation>Очень слабый — пароль следует изменить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="201"/>
         <source>Weak — consider changing the password</source>
         <translation>Слабый — пароль желательно изменить</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="216"/>
         <source> (Excluded)</source>
         <translation> (Исключено)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="241"/>
         <source>This entry is being excluded from reports</source>
         <translation>Эта запись исключена из отчёта</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="259"/>
         <source>Please wait, health data is being calculated…</source>
         <translation>Готовится отчёт, подождите...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="308"/>
         <source>Congratulations, everything is healthy!</source>
         <translation>Проблем безопасности не выявлено.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="312"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="312"/>
         <source>Path</source>
         <translation>Путь</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="312"/>
         <source>Score</source>
         <translation>Рейтинг</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="312"/>
         <source>Reason</source>
         <translation>Причина</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="356"/>
         <source>Edit Entry…</source>
         <translation>Изменить запись…</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="371"/>
         <source>Delete Entry(s)…</source>
-        <translation><numerusform>Удаление записи...</numerusform><numerusform>Удаление записей...</numerusform><numerusform>Удаление записей...</numerusform><numerusform>Удаление записей...</numerusform></translation>
+        <translation>
+            <numerusform>Удаление записи...</numerusform>
+            <numerusform>Удаление записей...</numerusform>
+            <numerusform>Удаление записей...</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="376"/>
         <source>Exclude from reports</source>
         <translation>Исключить из отчётов</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="366"/>
         <source>Expire Entry(s)…</source>
-        <translation><numerusform>Истекает запись...</numerusform><numerusform>Истекают записи...</numerusform><numerusform>Истекает записей...</numerusform><numerusform>Истекает записей...</numerusform></translation>
+        <translation>
+            <numerusform>Истекает запись...</numerusform>
+            <numerusform>Истекают записи...</numerusform>
+            <numerusform>Истекает записей...</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.ui" line="67"/>
         <source>Show entries that have been excluded from reports</source>
         <translation>Показать записи, которые были исключены из отчётов</translation>
     </message>
 </context>
 <context>
-    <name>ReportsWidgetHibp</name>
-    <message>
-        <source>CAUTION: This report requires sending information to the Have I Been Pwned online service (https://haveibeenpwned.com). If you proceed, your database passwords will be cryptographically hashed and the first five characters of those hashes will be sent securely to this service. Your database remains secure and cannot be reconstituted from this information. However, the number of passwords you send and your IP address will be exposed to this service.</source>
-        <translation>ВНИМАНИЕ: Для подготовки этого отчёта данные будут переданы в службу &quot;Have I Been Pwned&quot; (https://haveibeenpwned.com) в виде первых пяти символов от хеша пароля. Никакие другие сведения, за исключением количества паролей и IP-адреса, не передаются. Ваша база данных остаётся в безопасности и не может быть восстановлена ​​на основе этой информации. Однако этой службе будут доступны количество отправленных вами паролей и ваш IP-адрес.</translation>
-    </message>
-    <message>
-        <source>Perform Online Analysis</source>
-        <translation>Выполнить анализ онлайн</translation>
-    </message>
-    <message>
-        <source>Also show entries that have been excluded from reports</source>
-        <translation>Также показать записи, которые были исключены из отчётов</translation>
-    </message>
-    <message>
-        <source>This build of KeePassXC does not have network functions. Networking is required to check your passwords against Have I Been Pwned databases.</source>
-        <translation>Эта сборка KeePassXC не имеет сетевых функций. Сеть необходима для проверки паролей по базе данных &quot;Have I Been Pwned&quot;.</translation>
-    </message>
-    <message>
-        <source>Congratulations, no exposed passwords!</source>
-        <translation>Поздравляем, скомпрометированных паролей нет!</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation>Название</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation>Путь</translation>
-    </message>
-    <message>
-        <source>Password exposed…</source>
-        <translation>Пароль скомпрометирован...</translation>
-    </message>
-    <message>
-        <source> (Excluded)</source>
-        <translation> (Исключено)</translation>
-    </message>
-    <message>
-        <source>This entry is being excluded from reports</source>
-        <translation>Эта запись исключена из отчёта</translation>
-    </message>
-    <message>
-        <source>once</source>
-        <comment>Password exposure amount</comment>
-        <translation>один раз</translation>
-    </message>
-    <message>
-        <source>up to 10 times</source>
-        <comment>Password exposure amount</comment>
-        <translation>до 10 раз</translation>
-    </message>
-    <message>
-        <source>up to 100 times</source>
-        <comment>Password exposure amount</comment>
-        <translation>до 100 раз</translation>
-    </message>
-    <message>
-        <source>up to 1000 times</source>
-        <comment>Password exposure amount</comment>
-        <translation>до 1000 раз</translation>
-    </message>
-    <message>
-        <source>up to 10,000 times</source>
-        <comment>Password exposure amount</comment>
-        <translation>до 10 000 раз</translation>
-    </message>
-    <message>
-        <source>up to 100,000 times</source>
-        <comment>Password exposure amount</comment>
-        <translation>до 100 000 раз</translation>
-    </message>
-    <message>
-        <source>up to a million times</source>
-        <comment>Password exposure amount</comment>
-        <translation>до миллиона раз</translation>
-    </message>
-    <message>
-        <source>millions of times</source>
-        <comment>Password exposure amount</comment>
-        <translation>млн раз</translation>
-    </message>
-    <message>
-        <source>Edit Entry…</source>
-        <translation>Изменить запись…</translation>
-    </message>
-    <message numerus="yes">
-        <source>Delete Entry(s)…</source>
-        <translation><numerusform>Удаление записи...</numerusform><numerusform>Удаление записей...</numerusform><numerusform>Удаление записей...</numerusform><numerusform>Удаление записей...</numerusform></translation>
-    </message>
-    <message>
-        <source>Exclude from reports</source>
-        <translation>Исключить из отчётов</translation>
-    </message>
-    <message numerus="yes">
-        <source>Expire Entry(s)…</source>
-        <translation><numerusform>Истекает запись...</numerusform><numerusform>Истекают записи...</numerusform><numerusform>Истекает записей...</numerusform><numerusform>Истекает записей...</numerusform></translation>
-    </message>
-</context>
-<context>
-    <name>ReportsWidgetPasskeys</name>
-    <message>
-        <source>Export</source>
-        <translation>Экспорт</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation>Импорт</translation>
-    </message>
-    <message>
-        <source>List of entry URLs</source>
-        <translation>Список записей URL-адресов</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation>Название</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation>Путь</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>Логин</translation>
-    </message>
-    <message>
-        <source>URLs</source>
-        <translation>URL-адреса</translation>
-    </message>
-    <message>
-        <source>Edit Entry…</source>
-        <translation>Изменить запись…</translation>
-    </message>
-    <message numerus="yes">
-        <source>Delete Entry(s)…</source>
-        <translation><numerusform>Удаление записи...</numerusform><numerusform>Удаление записей...</numerusform><numerusform>Удаление записей...</numerusform><numerusform>Удаление записей...</numerusform></translation>
-    </message>
-    <message>
-        <source>Relying Party</source>
-        <translation>Доверенная сторона</translation>
-    </message>
-    <message>
-        <source>Show expired entries</source>
-        <translation>Показать истекшие записи</translation>
-    </message>
-    <message>
-        <source> (Expired)</source>
-        <translation> (истекшая)</translation>
-    </message>
-    <message>
-        <source>Export Confirmation</source>
-        <translation>Подтверждение экспорта</translation>
-    </message>
-    <message>
-        <source>The passkey file will be vulnerable to theft and unauthorized use, if left unsecured. Are you sure you want to continue?</source>
-        <translation>Если оставить файл ключа доступа без защиты, его можно будет украсть и несанкционированно использовать. Вы действительно хотите продолжить?</translation>
-    </message>
-    <message>
-        <source>Please wait, list of entries with passkeys is being updated…</source>
-        <translation>Обновляется список записей с ключами доступа, подождите...</translation>
-    </message>
-    <message>
-        <source>No entries with passkeys.</source>
-        <translation>Нет записей c ключами доступа.</translation>
-    </message>
-</context>
-<context>
     <name>ReportsWidgetStatistics</name>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.ui" line="62"/>
         <source>Hover over lines with error icons for further information.</source>
         <translation>Для получения дополнительной информации наведите курсор мыши на строки, содержащие значок ошибки.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="39"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="39"/>
         <source>Value</source>
         <translation>Значение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="71"/>
         <source>Please wait, database statistics are being calculated…</source>
         <translation>Выполняется сбор статистики…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="92"/>
         <source>Database name</source>
         <translation>Имя базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="93"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="94"/>
         <source>Location</source>
         <translation>Расположение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="95"/>
         <source>Database created</source>
         <translation>База данных создана</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="96"/>
         <source>Last saved</source>
         <translation>Последнее сохранение</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="97"/>
         <source>Unsaved changes</source>
         <translation>Несохранённые изменения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="98"/>
         <source>yes</source>
         <translation>да</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="98"/>
         <source>no</source>
         <translation>нет</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="100"/>
         <source>The database was modified, but the changes have not yet been saved to disk.</source>
         <translation>База данных была изменена, но эти изменения ещё не сохранены на диске.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="101"/>
         <source>Number of groups</source>
         <translation>Количество групп</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="102"/>
         <source>Number of entries</source>
         <translation>Количество записей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="103"/>
         <source>Number of expired entries</source>
         <translation>Количество истекших записей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="106"/>
         <source>The database contains entries that have expired.</source>
         <translation>База данных содержит записи с истекшим сроком действия.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="107"/>
         <source>Unique passwords</source>
         <translation>Уникальные пароли</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="108"/>
         <source>Non-unique passwords</source>
         <translation>Неуникальные пароли</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="111"/>
         <source>More than 10% of passwords are reused. Use unique passwords when possible.</source>
         <translation>У более 10% записей – повторяющиеся пароли. Используйте уникальные пароли, когда это возможно.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="112"/>
         <source>Maximum password reuse</source>
         <translation>Максимальная повторяемость пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="115"/>
         <source>Some passwords are used more than three times. Use unique passwords when possible.</source>
         <translation>Некоторые пароли применяются более трёх раз. Используйте уникальные пароли, когда это возможно.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="116"/>
         <source>Number of short passwords</source>
         <translation>Количество коротких паролей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="119"/>
         <source>Recommended minimum password length is at least 8 characters.</source>
         <translation>Рекомендуемая минимальная длина паролей - 8 символов.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="120"/>
         <source>Number of weak passwords</source>
         <translation>Количество ненадёжных паролей</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="123"/>
         <source>Recommend using long, randomized passwords with a rating of &apos;good&apos; or &apos;excellent&apos;.</source>
         <translation>Рекомендуется использовать длинные пароли, состоящие из случайных символов с уровнями безопасности &apos;хорошо&apos; или &apos;отлично&apos;.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="124"/>
         <source>Entries excluded from reports</source>
         <translation>Исключённые из отчёта записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="127"/>
         <source>Excluding entries from reports, e. g. because they are known to have a poor password, isn&apos;t necessarily a problem but you should keep an eye on them.</source>
         <translation>Исключение записей из отчётов, если, к примеру, известно, что в таких записях используется слабый пароль, не обязательно является проблемой, но стоит обратить на это внимание.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="129"/>
         <source>Average password length</source>
         <translation>Средняя длина пароля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="132"/>
         <source>Average password length is less than ten characters. Longer passwords provide more security.</source>
         <translation>Средняя длина паролей – менее 10 символов. Более длинные пароли надёжнее.</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="130"/>
         <source>%1 character(s)</source>
-        <translation><numerusform>%1 символ</numerusform><numerusform>%1 символа</numerusform><numerusform>%1 символов</numerusform><numerusform>%1 символов</numerusform></translation>
+        <translation>
+            <numerusform>%1 символ</numerusform>
+            <numerusform>%1 символа</numerusform>
+            <numerusform>%1 символов</numerusform>
+        </translation>
     </message>
 </context>
 <context>
-    <name>SSHAgent</name>
+    <name>ScreenLockListenerDBus</name>
     <message>
-        <source>Agent connection failed.</source>
-        <translation>Сбой подключения агента.</translation>
+        <location filename="../../src/gui/osutils/nixutils/ScreenLockListenerDBus.cpp" line="95"/>
+        <source>org.freedesktop.login1.Manager.GetSession did not return results</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Agent protocol error.</source>
-        <translation>Ошибка протокола агента.</translation>
-    </message>
-    <message>
-        <source>No agent running, cannot add identity.</source>
-        <translation>Агент не запущен, невозможно добавить идентификатор.</translation>
-    </message>
-    <message>
-        <source>Key identity ownership conflict. Refusing to add.</source>
-        <translation>Конфликт владения идентификационным ключом, добавление отменено.</translation>
-    </message>
-    <message>
-        <source>Agent refused this identity. Possible reasons include:</source>
-        <translation>Идентификатор отклонён агентом. Возможные причины:</translation>
-    </message>
-    <message>
-        <source>The key has already been added.</source>
-        <translation>Ключ уже добавлен.</translation>
-    </message>
-    <message>
-        <source>Restricted lifetime is not supported by the agent (check options).</source>
-        <translation>Ограничение по времени не поддерживается этим агентом (проверьте параметры).</translation>
-    </message>
-    <message>
-        <source>A confirmation request is not supported by the agent (check options).</source>
-        <translation>Запрос подтверждения не поддерживается этим агентом (проверьте параметры).</translation>
-    </message>
-    <message>
-        <source>Security keys are not supported by the agent or the security key provider is unavailable.</source>
-        <translation>Ключи безопасности не поддерживаются агентом или поставщик ключей безопасности недоступен.</translation>
-    </message>
-    <message>
-        <source>No agent running, cannot remove identity.</source>
-        <translation>Агент не запущен, невозможно удалить идентификатор.</translation>
-    </message>
-    <message>
-        <source>No agent running, cannot list identities.</source>
-        <translation>Агент не запущен, идентификационные данные недоступны.</translation>
-    </message>
-    <message>
-        <source>Failed to remove all SSH identities from agent.</source>
-        <translation>Ошибка при удалении всех SSH-идентификаторов из агента</translation>
-    </message>
-    <message>
-        <source>All SSH identities removed from agent.</source>
-        <translation>Все SSH-идентификаторы удалены из агента.</translation>
+        <location filename="../../src/gui/osutils/nixutils/ScreenLockListenerDBus.cpp" line="102"/>
+        <source>org.freedesktop.login1.Manager.GetSession did not return a QDBusObjectPath</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SearchHelpWidget</name>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="14"/>
         <source>Search Help</source>
         <translation>Поиск в справке</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="38"/>
         <source>Search terms are as follows: [modifiers][field:][&quot;]term[&quot;]</source>
         <translation>Поисковые выражения выглядят так: [модификаторы][поле:][&quot;]выражение[&quot;]</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="60"/>
         <source>Every search term must match (ie, logical AND)</source>
         <translation>Каждое поисковое выражение должно иметь соответствие (то есть логическое И)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="78"/>
         <source>Modifiers</source>
         <translation>Модификаторы</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="109"/>
         <source>exclude term from results</source>
         <translation>исключить выражение из результатов</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="116"/>
         <source>match term exactly</source>
         <translation>соответствовать выражению в точности</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="145"/>
         <source>use regex in term</source>
         <translation>использовать регулярные выражения</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="183"/>
         <source>Fields</source>
         <translation>Поля</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="262"/>
         <source>Term Wildcards</source>
         <translation>Шаблоны для выражений</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="337"/>
         <source>match anything</source>
         <translation>соответствие всему</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="344"/>
         <source>match one</source>
         <translation>соответствие одному</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="351"/>
         <source>logical OR</source>
         <translation>логическое ИЛИ</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="361"/>
         <source>Examples</source>
         <translation>Примеры</translation>
     </message>
@@ -9599,255 +7357,66 @@ This option is deprecated, use --set-key-file instead.</source>
 <context>
     <name>SearchWidget</name>
     <message>
+        <location filename="../../src/gui/SearchWidget.ui" line="51"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.ui" line="56"/>
         <source>Search Help</source>
         <translation>Поиск в Справке</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.cpp" line="60"/>
         <source>Search (%1)…</source>
         <comment>Search placeholder text, %1 is the keyboard shortcut</comment>
         <translation>Поиск (%1)...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.cpp" line="65"/>
         <source>Case sensitive</source>
         <translation>Учитывать регистр</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.cpp" line="69"/>
         <source>Limit search to selected group</source>
         <translation>Поиск только в выбранной группе</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.cpp" line="74"/>
         <source>Press Enter to search</source>
         <translation>Нажмите Enter для поиска</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.ui" line="61"/>
         <source>Save Search</source>
         <translation>Сохранить поиск</translation>
     </message>
 </context>
 <context>
-    <name>SettingsClientModel</name>
-    <message>
-        <source>Application</source>
-        <translation>Приложение</translation>
-    </message>
-    <message>
-        <source>PID</source>
-        <translation>PID</translation>
-    </message>
-    <message>
-        <source>DBus Address</source>
-        <translation>Адрес DBus</translation>
-    </message>
-    <message>
-        <source>Manage</source>
-        <translation>Управление</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsDatabaseModel</name>
-    <message>
-        <source>File Name</source>
-        <translation>Имя файла</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation>Группа</translation>
-    </message>
-    <message>
-        <source>Manage</source>
-        <translation>Управление</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsWidgetFdoSecrets</name>
-    <message>
-        <source>Options</source>
-        <translation>Опции</translation>
-    </message>
-    <message>
-        <source>Enable KeepassXC Freedesktop.org Secret Service integration</source>
-        <translation>Включить интеграцию KeepassXC со службой &quot;Freedesktop.org Secret Service&quot;</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation>Общие</translation>
-    </message>
-    <message>
-        <source>Show notification when passwords are retrieved by clients</source>
-        <translation>Уведомлять при получении паролей клиентами</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled, any attempt to read a password must be confirmed. Otherwise, clients can read passwords without confirmation when the database is unlocked.&lt;/p&gt;&lt;p&gt;This option only covers the access to the password of an entry. Clients can always enumerate the items of exposed databases and query their attributes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Если включено, потребуется подтверждать каждую попытку чтения пароля. Если отключено, клиенты смогут выполнять чтение паролей без подтверждения, когда база данных разблокирована.&lt;/p&gt;&lt;p&gt;Этот параметр управляет только доступом к паролю записи. Клиенты в любой момент могут выполнить перечисление элементов представленных баз данных и запросить их атрибуты.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Confirm when passwords are retrieved by clients</source>
-        <translation>Подтверждать получение паролей клиентами</translation>
-    </message>
-    <message>
-        <source>Confirm when clients request entry deletion</source>
-        <translation>Подтверждать запрос удаления записей клиентами</translation>
-    </message>
-    <message>
-        <source>Prompt to unlock database before searching</source>
-        <translation>Предлагать разблокировать базу данных перед поиском</translation>
-    </message>
-    <message>
-        <source>Exposed database groups:</source>
-        <translation>Доступные группы из базы данных:</translation>
-    </message>
-    <message>
-        <source>Authorization</source>
-        <translation>Авторизация</translation>
-    </message>
-    <message>
-        <source>These applications are currently connected:</source>
-        <translation>Подключены следующие приложения:</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Warning:&lt;/b&gt; </source>
-        <translation>&lt;b&gt;Внимание:&lt;/b&gt; </translation>
-    </message>
-    <message>
-        <source>Save current changes to activate the plugin and enable editing of this section.</source>
-        <translation>Сохраните изменения для активации подключаемого модуля и редактирования этого раздела.</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This setting does not override disabling recycle bin prompts &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Этот параметр не отменяет отключение запросов корзины&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This improves compatibility with certain applications which search for password without unlocking the database first.&lt;/p&gt;&lt;p&gt;But enabling this may also crash the client if the database can not be unlocked within a certain timeout. (Usually 25s, but may be a different value set in applications.) &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Это улучшает совместимость с некоторыми приложениями, которые ищут пароль без предварительной разблокировки базы данных.&lt;/p&gt;&lt;p&gt;Однако включение этой функции может привести к аварийному завершению работы клиента, если база данных не может быть разблокирована в течение определенного таймаута (обычно 25 сек, но в приложениях может быть установлено другое значение).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsWidgetKeeShare</name>
-    <message>
-        <source>Active</source>
-        <translation>Активный</translation>
-    </message>
-    <message>
-        <source>Allow KeeShare imports</source>
-        <translation>Разрешить импорт KeeShare</translation>
-    </message>
-    <message>
-        <source>Allow import</source>
-        <translation>Разрешить импорт</translation>
-    </message>
-    <message>
-        <source>Allow KeeShare exports</source>
-        <translation>Разрешить экспорт KeeShare</translation>
-    </message>
-    <message>
-        <source>Allow export</source>
-        <translation>Разрешить экспорт</translation>
-    </message>
-    <message>
-        <source>Only show warnings and errors</source>
-        <translation>Показывать только ошибки и предупреждения</translation>
-    </message>
-    <message>
-        <source>Own certificate</source>
-        <translation>Свой сертификат</translation>
-    </message>
-    <message>
-        <source>Signer:</source>
-        <translation>Подписант:</translation>
-    </message>
-    <message>
-        <source>Generate new certificate</source>
-        <translation>Создать сертификат</translation>
-    </message>
-    <message>
-        <source>Generate</source>
-        <translation>Генерировать</translation>
-    </message>
-    <message>
-        <source>Fingerprint:</source>
-        <translation>Отпечаток:</translation>
-    </message>
-    <message>
-        <source>Signer name field</source>
-        <translation>Поле имени владельца сертификата</translation>
-    </message>
-    <message>
-        <source>Fingerprint</source>
-        <translation>Отпечаток</translation>
-    </message>
-</context>
-<context>
-    <name>ShareExport</name>
-    <message>
-        <source>Could not write export container.</source>
-        <translation>Не удалось записать экспортируемый контейнер.</translation>
-    </message>
-</context>
-<context>
-    <name>ShareImport</name>
-    <message>
-        <source>Successful import</source>
-        <translation>Успешный импорт</translation>
-    </message>
-</context>
-<context>
-    <name>ShareObserver</name>
-    <message>
-        <source>Import from %1 failed (%2)</source>
-        <translation>Ошибка импорта из %1 (%2)</translation>
-    </message>
-    <message>
-        <source>Import from %1 successful (%2)</source>
-        <translation>Импорт из %1 выполнен (%2)</translation>
-    </message>
-    <message>
-        <source>Imported from %1</source>
-        <translation>Импортировано из %1</translation>
-    </message>
-    <message>
-        <source>Multiple import source path to %1 in %2</source>
-        <translation>Множественный путь источника импорта к %1 в %2</translation>
-    </message>
-    <message>
-        <source>Conflicting export target path %1 in %2</source>
-        <translation>Конфликтный путь цели экспорта %1 в %2</translation>
-    </message>
-    <message>
-        <source>Export to %1 failed (%2)</source>
-        <translation>Ошибка экспорта в %1 (%2)</translation>
-    </message>
-    <message>
-        <source>Export to %1 successful (%2)</source>
-        <translation>Экспорт в %1 выполнен (%2)</translation>
-    </message>
-    <message>
-        <source>Export to %1</source>
-        <translation>Экспорт в %1</translation>
-    </message>
-</context>
-<context>
     <name>TagModel</name>
     <message>
+        <location filename="../../src/gui/tag/TagModel.cpp" line="33"/>
         <source>Expired</source>
         <translation>Истекшие</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagModel.cpp" line="34"/>
         <source>Weak Passwords</source>
         <translation>Слабые пароли</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagModel.cpp" line="32"/>
         <source>All Entries</source>
         <translation>Все записи</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagModel.cpp" line="31"/>
         <source>Clear Search</source>
         <translation>Очистить поиск</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagModel.cpp" line="35"/>
         <source>TOTP Entries</source>
         <translation>Записи с TOTP</translation>
     </message>
@@ -9855,18 +7424,22 @@ This option is deprecated, use --set-key-file instead.</source>
 <context>
     <name>TagView</name>
     <message>
+        <location filename="../../src/gui/tag/TagView.cpp" line="84"/>
         <source>Remove Search</source>
         <translation>Удалить поиск</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagView.cpp" line="94"/>
         <source>Remove Tag</source>
         <translation>Удалить тег</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagView.cpp" line="99"/>
         <source>Confirm Remove Tag</source>
         <translation>Подтвердить удаление тега</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagView.cpp" line="100"/>
         <source>Remove tag &quot;%1&quot; from all entries in this database?</source>
         <translation>Удалить тег &quot;%1&quot; из всех записей в этой базе данных?</translation>
     </message>
@@ -9874,6 +7447,7 @@ This option is deprecated, use --set-key-file instead.</source>
 <context>
     <name>TextAttachmentsEditWidget</name>
     <message>
+        <location filename="../../src/gui/entry/attachments/TextAttachmentsEditWidget.ui" line="34"/>
         <source>Preview</source>
         <translation>Просмотр</translation>
     </message>
@@ -9881,45 +7455,68 @@ This option is deprecated, use --set-key-file instead.</source>
 <context>
     <name>TextAttachmentsPreviewWidget</name>
     <message>
+        <location filename="../../src/gui/entry/attachments/TextAttachmentsPreviewWidget.ui" line="14"/>
         <source>Form</source>
         <translation>Форма</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/attachments/TextAttachmentsPreviewWidget.ui" line="37"/>
         <source>Type:</source>
         <translation>Тип:</translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/attachments/TextAttachmentsPreviewWidget.cpp" line="67"/>
+        <source>Read-write mode is not supported for text preview attachments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/attachments/TextAttachmentsPreviewWidget.cpp" line="133"/>
+        <source>TextAttachmentsPreviewWidget: Unknown text format</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>TotpDialog</name>
     <message>
+        <location filename="../../src/gui/TotpDialog.ui" line="14"/>
         <source>Timed Password</source>
         <translation>Временный пароль</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpDialog.cpp" line="51"/>
         <source>Copy</source>
         <translation>Скопировать</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/TotpDialog.cpp" line="96"/>
         <source>Expires in &lt;b&gt;%n&lt;/b&gt; second(s)</source>
-        <translation><numerusform>Истекает через &lt;b&gt;%n&lt;/b&gt; секунду</numerusform><numerusform>Истекает через &lt;b&gt;%n&lt;/b&gt; секунды</numerusform><numerusform>Истекает через &lt;b&gt;%n&lt;/b&gt; секунд</numerusform><numerusform>Истекает через &lt;b&gt;%n&lt;/b&gt; сек</numerusform></translation>
+        <translation>
+            <numerusform>Истекает через &lt;b&gt;%n&lt;/b&gt; секунду</numerusform>
+            <numerusform>Истекает через &lt;b&gt;%n&lt;/b&gt; секунды</numerusform>
+            <numerusform>Истекает через &lt;b&gt;%n&lt;/b&gt; секунд</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>TotpExportSettingsDialog</name>
     <message>
+        <location filename="../../src/gui/TotpExportSettingsDialog.cpp" line="65"/>
         <source>Copy</source>
         <translation>Скопировать</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpExportSettingsDialog.cpp" line="78"/>
         <source>NOTE: These TOTP settings are custom and may not work with other authenticators.</source>
         <comment>TOTP QR code dialog warning</comment>
         <translation>ПРИМЕЧАНИЕ: Эти параметры TOTP являются пользовательскими и могут не работать с другими аутентификаторами.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpExportSettingsDialog.cpp" line="102"/>
         <source>There was an error creating the QR code.</source>
         <translation>Ошибка при создании QR-кода.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpExportSettingsDialog.cpp" line="129"/>
         <source>Closing in %1 seconds.</source>
         <translation>Закрытие через %1 сек.</translation>
     </message>
@@ -9927,337 +7524,147 @@ This option is deprecated, use --set-key-file instead.</source>
 <context>
     <name>TotpSetupDialog</name>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="14"/>
         <source>Setup TOTP</source>
         <translation>Настроить TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="44"/>
         <source>Secret Key:</source>
         <translation>Секретный ключ:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="63"/>
         <source>Secret key must be in Base32 format</source>
         <translation>Секретный ключ должен быть задан в формате Base32</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="66"/>
         <source>Secret key field</source>
         <translation>Поле секретного ключа</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="90"/>
         <source>Default settings (RFC 6238)</source>
         <translation>Параметры по умолчанию (RFC 6238)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="103"/>
         <source>Steam® settings</source>
         <translation>Параметры Steam®</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="113"/>
         <source>Custom settings:</source>
         <translation>Параметры пользователя:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="129"/>
         <source>Custom Settings</source>
         <translation>Пользовательские настройки</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="156"/>
         <source>Algorithm:</source>
         <translation>Алгоритм:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="166"/>
         <source>Time step:</source>
         <translation>Временной шаг:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="173"/>
         <source>Time step field</source>
         <translation>Поле шага времени</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="176"/>
         <source> sec</source>
         <comment>Seconds</comment>
         <translation> сек</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="192"/>
         <source>Code size:</source>
         <translation>Размер кода:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="199"/>
         <source> digits</source>
         <translation> цифр</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.cpp" line="56"/>
         <source>Invalid TOTP Secret</source>
         <translation>Недействительный секрет TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.cpp" line="57"/>
         <source>You have entered an invalid secret key. The key must be in Base32 format.
 Example: JBSWY3DPEHPK3PXP</source>
         <translation>Введён недействительный секретный ключ. Ключ должен быть задан в формате Base32, например: JBSWY3DPEHPK3PXP.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.cpp" line="87"/>
         <source>Confirm Remove TOTP Settings</source>
         <translation>Подтверждение удаления параметров TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.cpp" line="88"/>
         <source>Are you sure you want to delete TOTP settings for this entry?</source>
         <translation>Удалить параметры TOTP этой записи?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="26"/>
         <source>Error: secret key is invalid</source>
         <translation>Ошибка: секретный ключ неверен</translation>
     </message>
 </context>
 <context>
-    <name>URLEdit</name>
-    <message>
-        <source>Invalid URL</source>
-        <translation>Неверный URL-адрес</translation>
-    </message>
-</context>
-<context>
-    <name>UpdateCheckDialog</name>
-    <message>
-        <source>Checking for updates</source>
-        <translation>Проверка обновлений</translation>
-    </message>
-    <message>
-        <source>Checking for updates…</source>
-        <translation>Проверка обновлений...</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>Закрыть</translation>
-    </message>
-    <message>
-        <source>Software Update</source>
-        <translation>Обновление ПО</translation>
-    </message>
-    <message>
-        <source>An error occurred when trying to retrieve update information, please try again later.</source>
-        <translation>Ошибка при получении информации об обновлении. Повторите попытку позже.</translation>
-    </message>
-    <message>
-        <source>&lt;strong&gt;A new version is available.&lt;/strong&gt;&lt;br/&gt;KeePassXC %1 can be &lt;a href=&quot;https://keepassxc.org/download/&quot;&gt;downloaded here&lt;/a&gt;.</source>
-        <translation>&lt;strong&gt;Доступна новая версия.&lt;/strong&gt;&lt;br/&gt;KeePassXC %1 можно &lt;a href=&quot;https://keepassxc.org/download/&quot;&gt;загрузить здесь&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>You have the latest version of KeePassXC</source>
-        <translation>Установлена новейшая версия KeePassXC</translation>
-    </message>
-</context>
-<context>
     <name>WelcomeWidget</name>
     <message>
-        <source>Start storing your passwords securely in a KeePassXC database</source>
-        <translation>Начать безопасное хранение ваших паролей в базе данных KeePassXC</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="166"/>
         <source>Recent databases</source>
         <translation>Недавние базы данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="191"/>
         <source>Open a recent database</source>
         <translation>Открыть недавнюю базу данных</translation>
     </message>
     <message>
-        <source>Welcome to KeePassXC %1</source>
-        <translation>Вас приветствует KeePassXC %1</translation>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="99"/>
+        <source>Start storing your passwords securely in a KeePassX-min database</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="127"/>
         <source>Create Database</source>
         <translation>Создать базу данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="134"/>
         <source>Open Database</source>
         <translation>Открыть базу данных</translation>
     </message>
     <message>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="141"/>
         <source>Import File</source>
         <translation>Импортировать файл</translation>
     </message>
-</context>
-<context>
-    <name>WinUtils</name>
     <message>
-        <source>Invalid key code</source>
-        <translation>Неверный код ключа</translation>
-    </message>
-    <message>
-        <source>Global shortcut already registered to %1</source>
-        <translation>Глобальная горячая клавиша уже зарегистрирована на %1</translation>
-    </message>
-    <message>
-        <source>Could not register global shortcut</source>
-        <translation>Невозможно зарегистрировать глобальную горячую клавишу</translation>
+        <location filename="../../src/gui/WelcomeWidget.cpp" line="33"/>
+        <source>Welcome to KeePassX-min %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>WindowsHello</name>
+    <name>ZoomHelper</name>
     <message>
-        <source>Failed to init KeePassXC crypto.</source>
-        <translation>Не удалось инициализировать криптографию KeePassXC.</translation>
-    </message>
-    <message>
-        <source>Failed to encrypt key data.</source>
-        <translation>Не удалось зашифровать данные ключа.</translation>
-    </message>
-    <message>
-        <source>Failed to get Windows Hello credential.</source>
-        <translation>Не удалось получить учётные данные Windows Hello.</translation>
-    </message>
-    <message>
-        <source>Failed to decrypt key data.</source>
-        <translation>Не удалось расшифровать данные ключа.</translation>
-    </message>
-</context>
-<context>
-    <name>YubiKey</name>
-    <message>
-        <source>General: </source>
-        <translation>Общий: </translation>
-    </message>
-    <message>
-        <source>Could not find interface for hardware key with serial number %1. Please connect it to continue.</source>
-        <translation>Не удалось найти интерфейс для аппаратного ключа с серийным номером %1. Подключите его, чтобы продолжить.</translation>
-    </message>
-</context>
-<context>
-    <name>YubiKeyEditWidget</name>
-    <message>
-        <source>Hardware key slot selection</source>
-        <translation>Выбор слота аппаратного ключа</translation>
-    </message>
-    <message>
-        <source>Could not find any hardware keys!</source>
-        <translation>Не удалось найти ни одного аппаратного ключа.</translation>
-    </message>
-    <message>
-        <source>Selected hardware key slot does not support challenge-response!</source>
-        <translation>Выбранный аппаратный ключ не поддерживает механизм вызов-ответ!</translation>
-    </message>
-    <message>
-        <source>Challenge-Response</source>
-        <translation>Вызов-ответ</translation>
-    </message>
-    <message>
-        <source>Add Challenge-Response</source>
-        <translation>Добавить вызов-ответ</translation>
-    </message>
-    <message>
-        <source>Change Challenge-Response</source>
-        <translation>Изменить вызов-ответ</translation>
-    </message>
-    <message>
-        <source>Remove Challenge-Response</source>
-        <translation>Удалить вызов-ответ</translation>
-    </message>
-    <message>
-        <source>Challenge-Response set, click to change or remove</source>
-        <translation>Вызов-ответ установлен, нажмите, чтобы изменить или удалить</translation>
-    </message>
-    <message>
-        <source>Detecting hardware keys…</source>
-        <translation>Обнаружение аппаратных ключей...</translation>
-    </message>
-    <message>
-        <source>Refresh hardware keys</source>
-        <translation>Обновить аппаратные ключи</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed with &lt;a href=&quot;https://keepassxc.org/docs/#faq-yubikey-howto&quot;&gt;Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Если у вас есть &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; или &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, его можно использовать как дополнительную защиту.&lt;/p&gt;&lt;p&gt;Для работы ключа необходимо, чтобы один из его слотов был запрограммирован как &lt;a href=&quot;https://keepassxc.org/docs/#faq-yubikey-howto&quot;&gt;вызов-ответ&lt;/a&gt;.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>No hardware keys detected</source>
-        <translation>Аппаратные ключи не обнаружены</translation>
-    </message>
-    <message>
-        <source>Hardware keys found, but no slots are configured</source>
-        <translation>Аппаратные ключи найдены, но ни один слот не настроен.</translation>
-    </message>
-</context>
-<context>
-    <name>YubiKeyInterfacePCSC</name>
-    <message>
-        <source>Could not find or access hardware key with serial number %1. Please present it to continue. </source>
-        <translation>Не удалось найти или получить доступ к аппаратному ключу с серийным номером %1. Подключите его для продолжения. </translation>
-    </message>
-    <message>
-        <source>Hardware key is locked or timed out. Unlock or re-present it to continue.</source>
-        <translation>Аппаратный ключ заблокирован или истекло время ожидания. Разблокируйте или подключите его повторно, чтобы продолжить.</translation>
-    </message>
-    <message>
-        <source>Hardware key was not found or is not configured.</source>
-        <translation>Аппаратный ключ не найден или не настроен.</translation>
-    </message>
-    <message>
-        <source>(NFC) %1 [%2] - Slot %3, %4</source>
-        <comment>YubiKey display fields</comment>
-        <translation>(NFC) %1 [%2] - Слот %3, %4</translation>
-    </message>
-    <message>
-        <source>Press</source>
-        <comment>USB Challenge-Response Key interaction request</comment>
-        <translation>Нажать</translation>
-    </message>
-    <message>
-        <source>Passive</source>
-        <comment>USB Challenge-Response Key no interaction required</comment>
-        <translation>Пассивная</translation>
-    </message>
-    <message>
-        <source>The YubiKey PC/SC interface has not been initialized.</source>
-        <translation>Интерфейс YubiKey PC/SC не был инициализирован.</translation>
-    </message>
-    <message>
-        <source>Failed to complete a challenge-response, the PC/SC error code was: %1</source>
-        <translation>Не удалось завершить вызов-ответ, код ошибки PC/SC: %1</translation>
-    </message>
-</context>
-<context>
-    <name>YubiKeyInterfaceUSB</name>
-    <message>
-        <source>Press</source>
-        <comment>USB Challenge-Response Key interaction request</comment>
-        <translation>Нажать</translation>
-    </message>
-    <message>
-        <source>Passive</source>
-        <comment>USB Challenge-Response Key no interaction required</comment>
-        <translation>Пассивная</translation>
-    </message>
-    <message>
-        <source>The YubiKey USB interface has not been initialized.</source>
-        <translation>USB-интерфейс YubiKey не был инициализирован.</translation>
-    </message>
-    <message>
-        <source>Could not find hardware key with serial number %1. Please plug it in to continue.</source>
-        <translation>Для продолжения работы подключите аппаратный ключ с серийным номером %1.</translation>
-    </message>
-    <message>
-        <source>Hardware key timed out waiting for user interaction.</source>
-        <translation>Ожидание аппаратного ключа истекло во время взаимодействия с пользователем.</translation>
-    </message>
-    <message>
-        <source>A USB error occurred when accessing the hardware key: %1</source>
-        <translation>Ошибка подсистемы USB при доступе к аппаратному ключу: %1</translation>
-    </message>
-    <message>
-        <source>Failed to complete a challenge-response, the specific error was: %1</source>
-        <translation>Не удалось завершить обмен вызов-ответ, ошибка: %1</translation>
-    </message>
-    <message>
-        <source>%1 [%2] - Slot %3</source>
-        <comment>YubiKey NEO display fields</comment>
-        <translation>%1 [%2] - Слот %3</translation>
-    </message>
-    <message>
-        <source>%1 [%2] - Slot %3, %4</source>
-        <comment>YubiKey display fields</comment>
-        <translation>%1 [%2] - Слот %3, %4</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <comment>Unknown hardware key name</comment>
-        <translation>Неизвестный</translation>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="241"/>
+        <source>Failed to set NaN zoom factor</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

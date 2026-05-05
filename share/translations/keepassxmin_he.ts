@@ -1,282 +1,144 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="he">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="he">
 <context>
     <name>AboutDialog</name>
     <message>
+        <location filename="../../src/gui/AboutDialog.ui" line="14"/>
         <source>About KeePassXC</source>
         <translation>על אודות KeepPassXC</translation>
     </message>
     <message>
-        <source>About</source>
-        <translation>על אודות</translation>
-    </message>
-    <message>
-        <source>Report bugs at: &lt;a href=&quot;https://github.com/keepassxreboot/keepassxc/issues&quot; style=&quot;text-decoration: underline;&quot;&gt;https://github.com&lt;/a&gt;</source>
-        <translation>דווח על תקלים בכתובת: &lt;a href=&quot;https://github.com/keepassxreboot/keepassxc/issues&quot; style=&quot;text-decoration: תחתון ;&quot;&gt; https://github.com &lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>KeePassXC is distributed under the terms of the GNU General Public License (GPL) version 2 or (at your option) version 3.</source>
-        <translation>KeePassXC מופץ בתנאי הרשיון של (GNU General License (GPL גרסה 2 או (לבחירה) גרסה 3.</translation>
-    </message>
-    <message>
-        <source>Project Maintainers:</source>
-        <translation>מתחזקי המייזם:</translation>
-    </message>
-    <message>
-        <source>Special thanks from the KeePassXC team go to debfx for creating the original KeePassX.</source>
-        <translation>תודה מיוחדת מצוות KeePassXC, נא לעבור אל debfx ליצירת ה־KeePassX המקורי.</translation>
-    </message>
-    <message>
-        <source>Contributors</source>
-        <translation>תורמים</translation>
-    </message>
-    <message>
-        <source>&lt;a href=&quot;https://github.com/keepassxreboot/keepassxc/graphs/contributors&quot;&gt;See Contributions on GitHub&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;https://github.com/keepassxreboot/keepassxc/graphs/contributors&quot;&gt; צפיה בתרומות ב־GitHub &lt;/a&gt;</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/AboutDialog.ui" line="80"/>
         <source>Debug Info</source>
         <translation>מידע ניפוי־תקלים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/AboutDialog.ui" line="92"/>
         <source>Include the following information whenever you report a bug:</source>
         <translation>הכללת המידע הבא בכל דווח על תקל:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/AboutDialog.ui" line="112"/>
         <source>Copy to clipboard</source>
         <translation>העתקה ללוח־הגזירים</translation>
     </message>
 </context>
 <context>
-    <name>AccessControlDialog</name>
+    <name>Application</name>
     <message>
-        <source>KeePassXC -  Access Request</source>
-        <translation>בקשת גישה - KeePassXC</translation>
-    </message>
-    <message>
-        <source>Non-existing/inaccessible executable path. Please double-check the client is legit.</source>
-        <translation>נתיב הפעלה לא קיים/נגיש. נא לבדוק שנית את חוקיות הלקוח.</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;%1 &lt;/span&gt;is requesting access to the following entries:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>בקשת גישה מ־&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;%1 &lt;/span&gt; לרשומות הבאות:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>שם</translation>
-    </message>
-    <message>
-        <source>PID</source>
-        <translation>קוד מזהה אישי</translation>
-    </message>
-    <message>
-        <source>Executable</source>
-        <translation>קובץ הפעלה</translation>
-    </message>
-    <message>
-        <source>Command Line</source>
-        <translation>שורת פקודה</translation>
-    </message>
-    <message>
-        <source>Details</source>
-        <translation>פרטים</translation>
-    </message>
-    <message>
-        <source>Remember</source>
-        <translation>זכירה</translation>
-    </message>
-    <message>
-        <source>Allow Selected</source>
-        <translation>אפשור נבחרים</translation>
-    </message>
-    <message>
-        <source>Your decision will be remembered for the duration while both the requesting client AND KeePassXC are running.</source>
-        <translation>החלטתך תיזכר למשך הזמן בו גם הלקוח המבקש וגם KeePassXC פועלים.</translation>
-    </message>
-    <message>
-        <source>Deny All &amp;&amp; Future</source>
-        <translation>דחיית הכול וגם בעתיד</translation>
-    </message>
-    <message>
-        <source>Allow All &amp;&amp; &amp;Future</source>
-        <translation>אפשור הכול וגם בעתיד</translation>
-    </message>
-</context>
-<context>
-    <name>AccessControlDialog::DenyButton</name>
-    <message>
-        <source>Deny for this program</source>
-        <translation>דחייה לתוכנית זו</translation>
-    </message>
-</context>
-<context>
-    <name>AgentSettingsWidget</name>
-    <message>
-        <source>Enable SSH Agent integration</source>
-        <translation>אפשור שילוב סוכן SSH</translation>
-    </message>
-    <message>
-        <source>Use Pageant</source>
-        <translation>שימוש בפג&apos;יאנט</translation>
-    </message>
-    <message>
-        <source>Use OpenSSH</source>
-        <translation>שימוש באופן־אס.אס.איץ&apos;</translation>
-    </message>
-    <message>
-        <source>SSH_AUTH_SOCK override</source>
-        <translation>עקיפת SSH_AUTH_SOCK</translation>
-    </message>
-    <message>
-        <source>SSH_AUTH_SOCK value</source>
-        <translation>ערך SSH_AUTH_SOCK</translation>
-    </message>
-    <message>
-        <source>(empty)</source>
-        <translation>(ריק)</translation>
-    </message>
-    <message>
-        <source>SSH_SK_PROVIDER value</source>
-        <translation>ערך SSH_SK_PROVIDER</translation>
-    </message>
-    <message>
-        <source>SSH_SK_PROVIDER override</source>
-        <translation>עקיפת SSH_SK_PROVIDER</translation>
-    </message>
-    <message>
-        <source>No SSH Agent socket available. Either make sure SSH_AUTH_SOCK environment variable exists or set an override.</source>
-        <translation>אין שקע סוכן SSH זמין. נא לוודא שמשתנה הסביבה SSH_AUTH_SOCK קיים או לקבוע עקיפה.</translation>
-    </message>
-    <message>
-        <source>SSH Agent connection is working!</source>
-        <translation>חיבור סוכן SSH פועל!</translation>
-    </message>
-    <message>
-        <source>Use both agents</source>
-        <translation>שימוש בשני הסוכנים</translation>
-    </message>
-</context>
-<context>
-    <name>AppKit</name>
-    <message>
-        <source>Window</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Minimize</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Zoom</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Bring All to Front</source>
-        <translation type="unfinished"/>
+        <location filename="../../src/gui/Application.cpp" line="145"/>
+        <source>System default</source>
+        <comment>Language selection</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ApplicationSettingsWidget</name>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="64"/>
         <source>Application Settings</source>
         <translation>הגדרות יישום</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="69"/>
         <source>General</source>
         <translation>כללי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="70"/>
         <source>Security</source>
         <translation>אבטחה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="124"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="236"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="338"/>
         <source>Access error for config file %1</source>
         <translation>שגיאת גישה לקובץ התצורה %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="162"/>
         <source>Icon only</source>
         <translation>סמל בלבד</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="163"/>
         <source>Text only</source>
         <translation>מלל בלבד</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="164"/>
         <source>Text beside icon</source>
         <translation>מלל לצד סמל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="165"/>
         <source>Text under icon</source>
         <translation>מלל מתחת לסמל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="166"/>
         <source>Follow style</source>
         <translation>עקוב אחר הסגנון</translation>
     </message>
     <message>
-        <source>Monochrome</source>
-        <translation>מונוכרום</translation>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="368"/>
+        <source>Import KeePassX-min Settings</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Monochrome (light)</source>
-        <translation>מונוכרום (בהיר)</translation>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="386"/>
+        <source>Export KeePassX-min Settings</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Monochrome (dark)</source>
-        <translation>מונוכרום (כהה)</translation>
-    </message>
-    <message>
-        <source>Colorful</source>
-        <translation>צבעוני</translation>
-    </message>
-    <message>
-        <source>You must restart the application to set the new language. Would you like to restart now?</source>
-        <translation>נא לאתחל את היישום כדי להגדיר את השפה החדשה. האם ברצונך לאתחל כעת?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="439"/>
         <source>Select backup storage directory</source>
         <translation>בחירת מחיצת אחסן גיבוי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="326"/>
         <source>Confirm Reset</source>
         <translation>אישור איפוס</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="327"/>
         <source>Are you sure you want to reset all settings to default?</source>
         <translation>האם הנך בטוח/ה כי ברצונך לאפס את כל ההגדרות לברירת מחדל?</translation>
     </message>
     <message>
-        <source>Import KeePassXC Settings</source>
-        <translation>ייבוא הגדרות KeePassXC</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="376"/>
         <source>Failed to import settings from %1, not a valid settings file.</source>
         <translation>ייבוא הגדרות מ־%1 כשל, לא קובץ הגדרות תקין.</translation>
     </message>
     <message>
-        <source>Export KeePassXC Settings</source>
-        <translation>ייצוא הגדרות KeePassXC</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="175"/>
         <source>Small</source>
         <translation>קטן</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="176"/>
         <source>Normal</source>
         <translation>רגיל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="177"/>
         <source>Medium</source>
         <translation>בינוני</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="178"/>
         <source>Large</source>
         <translation>גדול</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="188"/>
         <source>Custom</source>
         <translation>מותאם אישית</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="97"/>
         <source>This setting cannot be enabled when minimize on unlock is enabled.</source>
         <translation>לא ניתן לאפשר הגדרה זו כאשר האפשרות &apos;מזעור בעת שחרור נעילה&apos; מאופשרת.</translation>
     </message>
@@ -284,333 +146,253 @@
 <context>
     <name>ApplicationSettingsWidgetGeneral</name>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="33"/>
         <source>Basic Settings</source>
         <translation>הגדרות בסיסיות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="81"/>
         <source>Startup</source>
         <translation>איתחול</translation>
     </message>
     <message>
-        <source>Start only a single instance of KeePassXC</source>
-        <translation>איתחול אֶדְגָּם־יחיד של KeePassXC בלבד</translation>
-    </message>
-    <message>
-        <source>Automatically launch KeePassXC at system startup</source>
-        <translation>שיגור KeePassXC אוטומטית בעת איתחול המערכת</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="87"/>
         <source>Minimize window at application startup</source>
         <translation>מזעור החלון בעת איתחול היישום</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="94"/>
         <source>Minimize window after unlocking database</source>
         <translation>מזעור החלון לאחר שחרור נעילת מסד הנתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="103"/>
         <source>Remember previously used databases</source>
         <translation>זכירת מסדי־נתונים ששימשו בעבר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="168"/>
         <source>Load previously open databases on startup</source>
         <translation>טעינת מסדי־נתונים שנפתחו בעבר בעת האיתחול</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="204"/>
         <source>Remember database key files and security dongles</source>
         <translation>זכירת קבצי מפתח־מסד־נתונים ותקיעי אבטחה</translation>
     </message>
     <message>
-        <source>Check for updates at application startup once per week</source>
-        <translation>בדיקת עדכונים בעת איתחול היישום פעם בשבוע</translation>
-    </message>
-    <message>
-        <source>Include beta releases when checking for updates</source>
-        <translation>בבדיקת עדכונים, לכלול גםגרסאות בטא </translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="274"/>
         <source>File Management</source>
         <translation>ניהול קבצים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="280"/>
         <source>Automatically save after every change</source>
         <translation>שמירה אוטומטית לאחר כל שינוי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="287"/>
         <source>Automatically save when locking database</source>
         <translation>שמירה אוטומטית בעת נעילת מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="294"/>
         <source>Automatically save non-data changes when locking database</source>
         <translation>שמירה שינויים שטרם נשמרו אוטומטית בעת נעילת מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="301"/>
         <source>Automatically reload the database when modified externally</source>
         <translation>טעינה חוזרת אוטומטית של מסד הנתונים בזמן הסגלה ממקור חיצוני</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="308"/>
         <source>Backup database file before saving</source>
         <translation>גיבוי קובץ מסד־נתונים לפני שמירה</translation>
     </message>
     <message>
-        <source>{DB_FILENAME}.old.kdbx</source>
-        <translation>{DB_FILENAME}.old.kdbx</translation>
-    </message>
-    <message>
-        <source>Use alternative saving method (may solve problems with Dropbox, Google Drive, GVFS, etc.)</source>
-        <translation>שימוש בשיטת שמירה חלופית (עשוי לפתור בעיות עם דרופבוקס, גוגל דרייב, GVFS ודומיהם).</translation>
-    </message>
-    <message>
-        <source>Temporary file moved into place</source>
-        <translation>קובץ זמני הועבר למקום</translation>
-    </message>
-    <message>
-        <source>Directly write to database file (dangerous)</source>
-        <translation>כתיבה ישירה לקובץ מסד־נתונים (מסוכן)</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="412"/>
         <source>Entry Management</source>
         <translation>ניהול רשומות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="489"/>
         <source>Use group icon on entry creation</source>
         <translation>שימוש בסמל הקבוצה ביצירת רשומה</translation>
     </message>
     <message>
-        <source>Minimize when opening a URL</source>
-        <translation>מזעור בעת פתיחת כתובת אתר</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="499"/>
         <source>Hide window when copying to clipboard</source>
         <translation>הסתרת חלון בעת העתקה ללוח־הגזירים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="530"/>
         <source>Minimize</source>
         <translation>מזעור</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="563"/>
         <source>Drop to background</source>
         <translation>שחרור לרקע</translation>
     </message>
     <message>
-        <source>Favicon download timeout:</source>
-        <translation>פסק זמן להורדת פביקון:</translation>
-    </message>
-    <message>
-        <source>Website icon download timeout in seconds</source>
-        <translation>פסק זמן להורדת סמל האתר בשניות</translation>
-    </message>
-    <message>
-        <source> sec</source>
-        <comment>Seconds</comment>
-        <translation> שניות</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="575"/>
         <source>User Interface</source>
         <translation>מנשק המשתמש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="643"/>
         <source>Toolbar button style</source>
         <translation>סגנון לחצן סרגל כלים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="662"/>
         <source>Movable toolbar</source>
         <translation>סרגל כלים ניתן להזזה</translation>
     </message>
     <message>
-        <source>Language selection</source>
-        <translation>בחירת שפה</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation>שפה:</translation>
-    </message>
-    <message>
-        <source>(restart program to activate)</source>
-        <translation>(יש לאתחל את התוכנית כדי להפעיל)</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="595"/>
         <source>Toolbar button style:</source>
         <translation>סגנון לחצן סרגל כלים:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="695"/>
         <source>Use monospaced font for notes</source>
         <translation>שימוש בגופן ברוחב אחיד להערות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="702"/>
         <source>Minimize instead of app exit</source>
         <translation>מזעור במקום יציאה מהיישום</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="709"/>
         <source>Show a system tray icon</source>
         <translation>הצגת סמל מגש מערכת</translation>
     </message>
     <message>
-        <source>Tray icon type</source>
-        <translation>סוג סמל מגש</translation>
-    </message>
-    <message>
-        <source>Tray icon type:</source>
-        <translation>סוג סמל מגש:</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="764"/>
         <source>Hide window to system tray when minimized</source>
         <translation>הסתרת חלון למגש המערכת במזעור</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="787"/>
         <source>Reset settings to default…</source>
         <translation>איפוס הגדרות לברירת מחדל...</translation>
     </message>
     <message>
-        <source>Auto-Type</source>
-        <translation>הקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Use entry title to match windows for global Auto-Type</source>
-        <translation>שימוש בכותרת רשומה להתאמת חלונות להקלדה־אוטומטית כללית</translation>
-    </message>
-    <message>
-        <source>Use entry URL to match windows for global Auto-Type</source>
-        <translation>שימוש בכתובת URL של רשומה להתאמת חלונות להקלדה־אוטומטית כללית</translation>
-    </message>
-    <message>
-        <source>Always ask before performing Auto-Type</source>
-        <translation>לשאול תמיד לפני ביצוע הקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Hide expired entries from Auto-Type</source>
-        <translation>הסתרת רשומות שפג תוקפם מהקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Re-lock previously locked database after performing Auto-Type</source>
-        <translation>לנעול מחדש מסד־נתונים שננעל בעבר לאחר ביצוע הקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Auto-Type start delay:</source>
-        <translation>השהיית התחלת הקלדה־אוטומטית:</translation>
-    </message>
-    <message>
-        <source>Global Auto-Type shortcut:</source>
-        <translation>קיצור דרך כללי להקלדה־אוטומטית:</translation>
-    </message>
-    <message>
-        <source>Auto-type start delay milliseconds</source>
-        <translation>השהיית התחלת הקלדה־אוטומטית באלפיות השנייה</translation>
-    </message>
-    <message>
-        <source> ms</source>
-        <comment>Milliseconds</comment>
-        <translation>אלפיות שנייה</translation>
-    </message>
-    <message>
-        <source>Auto-Type typing delay:</source>
-        <translation>השהיית הקלדת הקלדה־אוטומטית:</translation>
-    </message>
-    <message>
-        <source>Global auto-type shortcut</source>
-        <translation>קיצור דרך כללי להקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Auto-type character typing delay milliseconds</source>
-        <translation>השהיית הקלדה־אוטומטית של תווים באלפיות השנייה</translation>
-    </message>
-    <message>
-        <source>Remember last typed entry for:</source>
-        <translation>זכירת הרשומה האחרונה שהוקלדה למשך:</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="224"/>
         <source>On database unlock, show entries that will expire within</source>
         <translation>עם שחרור נעילת מסד־נתונים, יש להציג רשומות שתוקפן יפוג בתוך</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="237"/>
         <source>On database unlock, show entries that will expire within </source>
         <translation>עם שחרור נעילת מסד־נתונים, יש להציג רשומות שתוקפן יפוג בתוך</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="240"/>
         <source> days</source>
         <comment>number of days warning for password expiration</comment>
         <translation>ימים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="342"/>
         <source>Destination format:</source>
         <translation>תסדיר יעד:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="371"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{DB_FILENAME}&lt;/span&gt; is replaced with the filename of the saved database without extension&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{TIME:&amp;lt;format&amp;gt;}&lt;/span&gt; is replaced with the specified time format (default: dd_MM_yyyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;See the User Guide for more details&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{שם_קובץ_מסד_נתונים}&lt;/span&gt;מוחלף עם שם הקובץ של מסד הנתונים שנשמר ללא סיומת &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;{זמן:&amp;gt;תסדיר&amp;lt;}&lt;/span&gt; מוחלף עם תסדיר הזמן המצוין (ברירת מחדל: dd_MM_yyyy_hh-mm-ss)&lt;/p&gt;&lt;p&gt;יש לראות את מדריך המשתמש עבור עוד פרטים&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="374"/>
+        <source>{DB_FILENAME}.old.kdbxm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="400"/>
         <source>Choose folder...</source>
         <translation>בחירת תיקייה...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="418"/>
         <source>Show confirmation before moving entries to recycle bin</source>
         <translation>הצגת אישור לפני העברת רשומות לסל מחזור</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="432"/>
         <source>Copy data on double clicking field in entry view</source>
         <translation>העתקת נתונים בלחיצה כפולה על שדה בתצוגת רשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="671"/>
         <source>Show toolbar</source>
         <translation>הצגת סרגל כלים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="678"/>
         <source>Show the menu bar by pressing the Alt key</source>
         <translation>הצגת סרגל תפריט באמצעות לחיצה על המקש Alt</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="681"/>
         <source>Show menubar</source>
         <translation>הצגת סרגל תפריט</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="807"/>
         <source>Import settings…</source>
         <translation>ייבוא הגדרות...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="814"/>
         <source>Export settings…</source>
         <translation>ייצוא הגדרות...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="608"/>
         <source>Font size:</source>
         <translation>גודל גופן:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="624"/>
         <source>Font size selection</source>
         <translation>בחירת גודל גופן</translation>
     </message>
     <message>
-        <source>Skip confirmation for main window Auto-Type actions</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="441"/>
         <source>Double-click action for URL:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="454"/>
         <source>Double-click action for URL field</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="466"/>
         <source>Edit entry</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">עריכת רשומה</translation>
     </message>
     <message>
-        <source>Open entry URL in browser</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="461"/>
         <source>Copy entry URL to clipboard</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="425"/>
         <source>Auto-generate password for new entries</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="113"/>
         <source> recent files</source>
         <translation>קבצים אחרונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetGeneral.ui" line="688"/>
         <source>Show passwords in color</source>
         <translation>הצגת סיסמאות בצבע</translation>
     </message>
@@ -618,88 +400,90 @@
 <context>
     <name>ApplicationSettingsWidgetSecurity</name>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="32"/>
         <source>Timeouts</source>
         <translation>פסקי זמן</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="47"/>
         <source>Database lock timeout seconds</source>
         <translation>פסק זמן בשניות לנעילת מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="50"/>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="120"/>
         <source> sec</source>
         <comment>Seconds</comment>
         <translation> שנ&apos;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="66"/>
         <source>Clear clipboard after</source>
         <translation>ניקוי לוח גזירים לאחר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="73"/>
         <source>Clear search query after</source>
         <translation>ניקוי שאילתת חיפוש לאחר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="89"/>
         <source> min</source>
         <comment>Minutes</comment>
         <translation>דק&apos;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="117"/>
         <source>Clipboard clear seconds</source>
         <translation>ניקוי לוח גזירים בשניות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="155"/>
         <source>Lock databases after inactivity of</source>
         <translation>נעילת מסדי־נתונים לאחר חוסר פעילות של</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="188"/>
         <source>Convenience</source>
         <translation>נוחות</translation>
     </message>
     <message>
-        <source>Enable database quick unlock (Touch ID / Windows Hello)</source>
-        <translation>אפשור שחרור נעילת מסד נתונים מהיר (Touch ID / Windows Hello)</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="171"/>
         <source>Lock databases when session is locked or lid is closed</source>
         <translation>נעילת מסדי־נתונים כאשר ההפעלה נעולה או המכסה סגור</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="178"/>
         <source>Lock databases after minimizing the window</source>
         <translation>נעילת מסדי־נתונים לאחר מזעור החלון</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="201"/>
         <source>Hide passwords when editing them</source>
         <translation>הסתרת סיסמאות בעת עריכתן</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="194"/>
         <source>Use placeholder for empty password fields</source>
         <translation>יש להשתמש בשומר מקום עבור שדות סיסמה ריקים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="208"/>
         <source>Hide passwords in the entry preview panel</source>
         <translation>הסתרת סיסמאות בלוח תצוגת רשומות מקדימה</translation>
     </message>
     <message>
-        <source>Privacy</source>
-        <translation>פרטיות</translation>
-    </message>
-    <message>
-        <source>Use DuckDuckGo service to download website icons</source>
-        <translation>יש להשתמש בשירות DuckDuckGo כדי להוריד סמלי אתרים</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="215"/>
         <source>Hide TOTP in the entry preview panel</source>
         <translation>הסתרת TOTP בלוחית תצוגת רשומות מקדימה</translation>
     </message>
     <message>
-        <source>Lock databases when switching user</source>
-        <translation>נעילת מסדי־נתונים בעת החלפת משתמש</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="165"/>
         <source>Lock Options</source>
         <translation>אפשרויות נעילה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/ApplicationSettingsWidgetSecurity.ui" line="222"/>
         <source>Hide notes in the entry preview panel</source>
         <translation>הסתרת הערות בלוח תצוגת רשומות מקדימה</translation>
     </message>
@@ -707,737 +491,44 @@
 <context>
     <name>AttachmentWidget</name>
     <message>
+        <location filename="../../src/gui/entry/attachments/AttachmentWidget.cpp" line="30"/>
         <source>Attachment Viewer</source>
         <translation>משקף צרופות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/attachments/AttachmentWidget.cpp" line="73"/>
         <source>Unknown attachment type</source>
         <translation>סוג צרופה לא ידוע</translation>
     </message>
 </context>
 <context>
-    <name>AutoType</name>
-    <message>
-        <source>The requested Auto-Type sequence cannot be used due to an error:</source>
-        <translation>לא ניתן להשתמש ברצף הקלדה־אוטומטית המבוקש עקב שגיאה:</translation>
-    </message>
-    <message>
-        <source>Auto-Type Error</source>
-        <translation>שגיאת הקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Permission Required</source>
-        <translation>נדרשת הרשאה</translation>
-    </message>
-    <message>
-        <source>KeePassXC requires the Accessibility permission in order to perform entry level Auto-Type. If you already granted permission, you may have to restart KeePassXC.</source>
-        <translation>ל־KeePassXC נדרשת הרשאת נגישות על מנת לבצע הקלדה־אוטומטית ברמה בסיסית. אם כבר הוענקה הרשאה, ייתכן שצריך לאתחל את KeePassXC.</translation>
-    </message>
-    <message>
-        <source>KeePassXC requires the Accessibility and Screen Recorder permission in order to perform global Auto-Type. Screen Recording is necessary to use the window title to find entries. If you already granted permission, you may have to restart KeePassXC.</source>
-        <translation>ל־KeePassXC נדרשת הרשאת נגישות ומקליט מסך על מנת לבצע הקלדה־אוטומטית כללית. הקלטת מסך נחוצה כדי להשתמש בכותרת החלון כדי למצוא רשומות. אם כבר הוענקה הרשאה, ייתכן שצריך לאתחל את KeePassXC.</translation>
-    </message>
-    <message>
-        <source>Invalid entry provided</source>
-        <translation>סופקה רשומה לא תקינה</translation>
-    </message>
-    <message>
-        <source>Bracket imbalance detected, found extra { or }</source>
-        <translation>זוהה חוסר איזון בסוגריים, נמצאו { או } נוספים</translation>
-    </message>
-    <message>
-        <source>Too many repetitions detected, max is %1: %2</source>
-        <translation>זוהו חזרות רבות מדי, המרב הוא %1: %2</translation>
-    </message>
-    <message>
-        <source>Very slow key press detected, max is %1: %2</source>
-        <translation>זוהתה הקשת מקש איטית מאוד, המרב הוא %1: %2</translation>
-    </message>
-    <message>
-        <source>Very long delay detected, max is %1: %2</source>
-        <translation>זוהתה השהיה ארוכה מאוד, המרב הוא %1: %2</translation>
-    </message>
-    <message>
-        <source>Invalid placeholder: %1</source>
-        <translation>שומר מקום לא תקין: %1</translation>
-    </message>
-    <message>
-        <source>Entry does not have attribute for PICKCHARS: %1</source>
-        <translation>לרשומה אין תכונה עבור PICKCHARS: %1</translation>
-    </message>
-    <message>
-        <source>Entry has invalid TOTP settings</source>
-        <translation>raunv עם הגדרות TOTP לא תקינות</translation>
-    </message>
-</context>
-<context>
-    <name>AutoTypeAssociationsModel</name>
-    <message>
-        <source>Window</source>
-        <translation>חלון</translation>
-    </message>
-    <message>
-        <source>Sequence</source>
-        <translation>רצף</translation>
-    </message>
-    <message>
-        <source>(empty)</source>
-        <translation>(ריק)</translation>
-    </message>
-    <message>
-        <source>Default sequence</source>
-        <translation>רצף ברירת מחדל</translation>
-    </message>
-</context>
-<context>
-    <name>AutoTypeMatchModel</name>
-    <message>
-        <source>Group</source>
-        <translation>קבוצה</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation>כותרת</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>שם משתמש</translation>
-    </message>
-    <message>
-        <source>Sequence</source>
-        <translation>רצף</translation>
-    </message>
-</context>
-<context>
-    <name>AutoTypePlatformX11</name>
-    <message>
-        <source>Sequence aborted: Caps Lock is on</source>
-        <translation>הרצף בוטל: Caps Lock מופעל</translation>
-    </message>
-    <message>
-        <source>Sequence aborted: Modifier keys held by user</source>
-        <translation>הרצף בוטל: מקשי הצירוף מוחזקים על־ידי המשתמש</translation>
-    </message>
-    <message>
-        <source>Unable to get valid keycode for key: </source>
-        <translation>לא ניתן לקבל קוד מפתח תקין למפתח: </translation>
-    </message>
-    <message>
-        <source>Trying to send invalid keyboard symbol.</source>
-        <translation>ניסיון לשלוח סמל מקלדת לא תקין.</translation>
-    </message>
-</context>
-<context>
-    <name>AutoTypeSelectDialog</name>
-    <message>
-        <source>Auto-Type - KeePassXC</source>
-        <translation>הקלדה־אוטומטית - KeePassXC</translation>
-    </message>
-    <message>
-        <source>Double click a row to perform Auto-Type or find an entry using the search:</source>
-        <translation>יש להקיש הקשה כפולה על שורה כדי לבצע הקלדה־אוטומטית או כדי למצוא רשומה באמצעות החיפוש:</translation>
-    </message>
-    <message>
-        <source>Search all open databases</source>
-        <translation>חיפוש בכל מסדי הנתונים הפתוחים</translation>
-    </message>
-    <message>
-        <source>Search…</source>
-        <translation>חיפוש...</translation>
-    </message>
-    <message>
-        <source>Type Sequence</source>
-        <translation>הקלדת רצף</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>ביטול</translation>
-    </message>
-    <message>
-        <source>Type {USERNAME}</source>
-        <translation>סוג {שם משתמש}</translation>
-    </message>
-    <message>
-        <source>Type {PASSWORD}</source>
-        <translation>סוג {סיסמה}</translation>
-    </message>
-    <message>
-        <source>Type {TOTP}</source>
-        <translation>סוג {TOTP}</translation>
-    </message>
-    <message>
-        <source>Copy Username</source>
-        <translation>העתקת שם משתמש</translation>
-    </message>
-    <message>
-        <source>Copy Password</source>
-        <translation>העתקת סיסמה</translation>
-    </message>
-    <message>
-        <source>Copy TOTP</source>
-        <translation>העתקת TOTP</translation>
-    </message>
-    <message>
-        <source>Use Virtual Keyboard</source>
-        <translation>שימוש במקלדת מדומה</translation>
-    </message>
-    <message>
-        <source>Type {URL}</source>
-        <translation>סוג {סיסמה}</translation>
-    </message>
-    <message>
-        <source>Copy URL</source>
-        <translation>להעתיק מען URL</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;The following shortcuts are available:&lt;br/&gt;
-Ctrl+F - Focus search&lt;br/&gt;
-Ctrl+1 - Type username&lt;br/&gt;
-Ctrl+2 - Type password&lt;br/&gt;
-Ctrl+3 - Type TOTP&lt;br/&gt;
-Ctrl+4 - Type URL&lt;br/&gt;
-Ctrl+5 - Use Virtual Keyboard (Windows Only)&lt;br/&gt;
-Ctrl+Shift+1 - Copy username&lt;br/&gt;
-Ctrl+Shift+2 - Copy password&lt;br/&gt;
-Ctrl+Shift+3 - Copy TOTP&lt;br/&gt;
-Ctrl+Shift+4 - Copy URL&lt;br/&gt;
-&lt;/p&gt;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>You can use advanced search queries to find any entry in your open databases.</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>BinaryStream</name>
-    <message>
-        <source>Failed to read string data: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>String length exceeds 10 MiB limit (requested %1)</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>BrowserAccessControlDialog</name>
-    <message>
-        <source>KeePassXC - Browser Access Request</source>
-        <translation>KeePassXC - בקשת גישה לדפדפן</translation>
-    </message>
-    <message>
-        <source>%1 is requesting access to the following entries:</source>
-        <translation>נתקבלה בקשת גישה מ־%1 לרשומות הבאות:</translation>
-    </message>
-    <message>
-        <source>Remember access to checked entries</source>
-        <translation>זכירת גישה לרשומות שסומנו</translation>
-    </message>
-    <message>
-        <source>Remember</source>
-        <translation>זכירה</translation>
-    </message>
-    <message>
-        <source>Allow access to entries</source>
-        <translation>אפשור גישה לרשומות</translation>
-    </message>
-    <message>
-        <source>Allow Selected</source>
-        <translation>אפשור נבחרים</translation>
-    </message>
-    <message>
-        <source>Deny All</source>
-        <translation>דחיית הכול</translation>
-    </message>
-    <message>
-        <source>Disable for this site</source>
-        <translation>השבתה עבור אתר זה</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation>ביטול פעולה</translation>
-    </message>
-</context>
-<context>
-    <name>BrowserEntrySaveDialog</name>
-    <message>
-        <source>Ok</source>
-        <translation>בסדר</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>ביטול</translation>
-    </message>
-    <message>
-        <source>You have multiple databases open.
-Please select the correct database for saving credentials.</source>
-        <translation>יש לך מספר מסדי־נתונים פתוחים.
-נא לבחור את מסד הנתונים הנכון לשמירת נתוני האמנה.</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Select Database</source>
-        <translation>KeePassXC - בחירת מסד־נתונים</translation>
-    </message>
-</context>
-<context>
-    <name>BrowserPasskeysConfirmationDialog</name>
-    <message>
-        <source>Cancel</source>
-        <translation>ביטול</translation>
-    </message>
-    <message>
-        <source>Update</source>
-        <translation>עדכון</translation>
-    </message>
-    <message>
-        <source>Authenticate</source>
-        <translation>אימות</translation>
-    </message>
-    <message>
-        <source>Register new</source>
-        <translation>רישום חדש</translation>
-    </message>
-    <message>
-        <source>Register</source>
-        <translation>רישום</translation>
-    </message>
-    <message numerus="yes">
-        <source>Timeout in &lt;b&gt;%n&lt;/b&gt; seconds...</source>
-        <translation><numerusform>פסק זמן בתוך שניה &lt;b&gt;%n&lt;/b&gt;...</numerusform><numerusform>פסק זמן בתוך &lt;b&gt;%n&lt;/b&gt; שניות...</numerusform><numerusform>פסק זמן תוך &lt;b&gt;%n&lt;/b&gt; שניות...</numerusform></translation>
-    </message>
-    <message>
-        <source>Relying Party: %1</source>
-        <translation>צד מסתמך: %1</translation>
-    </message>
-    <message>
-        <source>Username: %1</source>
-        <translation>שם משתמש: %1</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Passkey credentials</source>
-        <translation>KeePassXC - נתוני האמנה של מפתח גישה</translation>
-    </message>
-    <message>
-        <source>Add to existing entry</source>
-        <translation>הוספה לרשומה קיימת</translation>
-    </message>
-    <message>
-        <source>Existing passkey found.
-Do you want to register a new passkey for:</source>
-        <translation>נמצא מפתח גישה קיים.
-האם ברצונך לרשום מפתח גישה חדש עבור:</translation>
-    </message>
-    <message>
-        <source>Select the existing passkey and press Update to replace it.</source>
-        <translation>יש לבחור את מפתח הגישה הקיים וללחוץ על עדכון כדי להחליפו.</translation>
-    </message>
-    <message>
-        <source>Authenticate passkey credentials for:</source>
-        <translation>אימות נתוני האמנה של מפתח גישה עבור:</translation>
-    </message>
-    <message>
-        <source>Do you want to register a passkey for:</source>
-        <translation>האם ברצונך לרשום מפתח גישה עבור:</translation>
-    </message>
-</context>
-<context>
-    <name>BrowserService</name>
-    <message>
-        <source>A request for creating a new group &quot;%1&quot; has been received.
-Do you want to create this group?
-</source>
-        <translation>בקשה ליצור קבוצה חדשה &quot;%1&quot; התקבלה.
-האם ליצור קבוצה זו?
-</translation>
-    </message>
-    <message>
-        <source>You have received an association request for the following database:
-%1
-
-Give the connection a unique name or ID, for example:
-chrome-laptop.</source>
-        <translation>התקבלה בקשת שיוך עבור מסד הנתונים הבא:
-%1
-
-יש לתת לחיבור שם או מזהה ייחודיים, לדוגמה:
-מחשב נייד-כרום.</translation>
-    </message>
-    <message>
-        <source>Save and allow access</source>
-        <translation>שמירה ואפשור גישה</translation>
-    </message>
-    <message>
-        <source>A shared encryption key with the name &quot;%1&quot; already exists.
-Do you want to overwrite it?</source>
-        <translation>קיים כבר מפתח הצפנה משותף עם השם &quot;%1&quot;. האם לכתוב על הכתוב?</translation>
-    </message>
-    <message>
-        <source>Do you want to update the information in %1 - %2?</source>
-        <translation>האם ברצונך לעדכן את המידע ב־%1 - %2?</translation>
-    </message>
-    <message>
-        <source>A request for deleting entry &quot;%1&quot; has been received.
-Do you want to delete the entry?
-</source>
-        <translation>בקשה למחיקת רשומה &quot;%1&quot; התקבלה.
-האם למחוק רשומה זו?
-</translation>
-    </message>
-    <message>
-        <source>%1 (Passkey)</source>
-        <translation>%1 (מפתח גישה)</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Create a new group</source>
-        <translation>KeePassXC - יצירת קבוצה חדשה</translation>
-    </message>
-    <message>
-        <source>Disable</source>
-        <translation>מושבת</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Overwrite existing key?</source>
-        <translation>KeePassXC - לכתוב על מפתח קיים?</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Update Entry</source>
-        <translation>KeePassXC - עדכון רשומה</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Delete entry</source>
-        <translation>KeePassXC - מחיקת רשומה</translation>
-    </message>
-    <message>
-        <source>Converting attributes to custom data…</source>
-        <translation>המרת תכונות לנתונים מותאמים אישית...</translation>
-    </message>
-    <message>
-        <source>KeePassXC - New key association request</source>
-        <translation>KeePassXC - בקשת שיוך מפתח חדש</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Passkey credentials</source>
-        <translation>KeePassXC - נתוני האמנה של מפתח גישה</translation>
-    </message>
-    <message>
-        <source>Register a new passkey to this entry:</source>
-        <translation>רישום מפתח גישה חדש לרשומה זו:</translation>
-    </message>
-    <message>
-        <source>Register</source>
-        <translation>רישום</translation>
-    </message>
-    <message>
-        <source>KeePassXC - Update passkey</source>
-        <translation>KeePassXC - עדכון מפתח גישה</translation>
-    </message>
-    <message>
-        <source>Entry already has a passkey.
-Do you want to overwrite the passkey in %1 - %2?</source>
-        <translation>לרשומה זו כבר יש מפתח גישה.
-האם ברצונך לכתוב על מפתח הגישה ב־%1 - %2?</translation>
-    </message>
-    <message>
-        <source>Passkey</source>
-        <translation>מפתח גישה</translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation>ביטול</translation>
-    </message>
-    <message>
-        <source>KeePassXC: Converted KeePassHTTP attributes</source>
-        <translation>KeePassXC: הומרו תכונות KeePassHTTP</translation>
-    </message>
-    <message>
-        <source>Successfully converted attributes from %1 entry(s).
-Moved %2 keys to custom data.</source>
-        <translation>התכונות הומרו בהצלחה מ־%1 רשומה(ות).
-הועברו %2 מפתחות לנתונים מותאמים אישית.</translation>
-    </message>
-    <message numerus="yes">
-        <source>Successfully moved %n keys to custom data.</source>
-        <translation><numerusform>מפתח %n הועבר בהצלחה לנתונים מותאמים אישית.</numerusform><numerusform>%n מפתחות הועברו בהצלחה לנתונים מותאמים אישית.</numerusform><numerusform>%n מפתחות הועברו בהצלחה לנתונים מותאמים אישית.</numerusform></translation>
-    </message>
-    <message>
-        <source>KeePassXC: No entry with KeePassHTTP attributes found!</source>
-        <translation>KeePassXC: לא נמצאה רשומה עם תכונות KeePassHTTP!</translation>
-    </message>
-    <message>
-        <source>The active database does not contain an entry with KeePassHTTP attributes.</source>
-        <translation>מסד־נתונים הפעיל לא מכיל רשומה עם תכונות KeePassHTTP.</translation>
-    </message>
-    <message>
-        <source>Don&apos;t show this warning again</source>
-        <translation>לא להציג אזהרה זו שוב</translation>
-    </message>
-    <message>
-        <source>KeePassXC: Legacy browser integration settings detected</source>
-        <translation>KeePassXC: זוהו הגדרות שילוב דפדפן מדור קודם</translation>
-    </message>
-    <message>
-        <source>Your KeePassXC-Browser settings need to be moved into the database settings.
-This is necessary to maintain your current browser connections.
-Would you like to migrate your existing settings now?</source>
-        <translation>יש להעביר את הגדרות דפדפן־KeePassXC שלך לתוך הגדרות מסד הנתונים.
-פעולה זו נחוצה כדי לשמור על חיבורי הדפדפן הנוכחיים שלך.
-האם ברצונך להעביר את ההגדרות הקיימות שלך כעת?</translation>
-    </message>
-</context>
-<context>
-    <name>BrowserSettingsWidget</name>
-    <message>
-        <source>Dialog</source>
-        <translation>דו־שיח</translation>
-    </message>
-    <message>
-        <source>This is required for accessing your databases with KeePassXC-Browser</source>
-        <translation>נדרש עבור גישה למסדי הנתונים באמצעות דפדפן־KeePassXC</translation>
-    </message>
-    <message>
-        <source>Enable browser integration</source>
-        <translation>אפשור שילוב דפדפן</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation>כללי</translation>
-    </message>
-    <message>
-        <source>Enable integration for these browsers:</source>
-        <translation>אפשור שילוב עם דפדפנים אלה:</translation>
-    </message>
-    <message>
-        <source>Vivaldi</source>
-        <translation>Vivaldi</translation>
-    </message>
-    <message>
-        <source>&amp;Edge</source>
-        <translation>&amp;Edge</translation>
-    </message>
-    <message>
-        <source>Firefox</source>
-        <translation>Firefox</translation>
-    </message>
-    <message>
-        <source>Tor Browser</source>
-        <translation>דפדפן Tor</translation>
-    </message>
-    <message>
-        <source>Brave</source>
-        <translation>Brave</translation>
-    </message>
-    <message>
-        <source>Google Chrome</source>
-        <translation>Google Chrome</translation>
-    </message>
-    <message>
-        <source>Chromium</source>
-        <translation>Chromium</translation>
-    </message>
-    <message>
-        <source>Show a notification when credentials are requested</source>
-        <extracomment>Credentials mean login data requested via browser extension</extracomment>
-        <translation>הצגת הודעה כאשר נדרשים נתוני האמנה</translation>
-    </message>
-    <message>
-        <source>Request to unlock the database if it is locked</source>
-        <translation>יש לבקש לשחרר את נעילת מסד הנתונים אם הוא נעול</translation>
-    </message>
-    <message>
-        <source>Only entries with the same scheme (http://, https://, …) are returned.</source>
-        <translation>רק רשומות עם אותה הסכמה (http://, https://, …) מוחזרות.</translation>
-    </message>
-    <message>
-        <source>Match URL scheme (e.g., https://example.com)</source>
-        <translation>התאמת סכמת URL (לדוגמה, https://example.com)</translation>
-    </message>
-    <message>
-        <source>Only returns the best matches for a specific URL instead of all entries for the whole domain.</source>
-        <translation>החזרת ההתאמות הטובות ביותר בלבד עבור כתובת אתר מסויימת במקום כל הרשומות עבור כל תחום.</translation>
-    </message>
-    <message>
-        <source>Return only best-matching credentials</source>
-        <translation>החזרת נתוני האמנה המתאימים ביותר בלבד</translation>
-    </message>
-    <message>
-        <source>Returns expired credentials. String [expired] is added to the title.</source>
-        <translation>מחזיר נתוני האמנה שפג תוקפם. מחרוזת [פג תוקף] נוספת לכותרת.</translation>
-    </message>
-    <message>
-        <source>Allow returning expired credentials</source>
-        <translation>אפשור החזרת נתוני האמנה שפג תוקפם</translation>
-    </message>
-    <message>
-        <source>All databases connected to the extension will return matching credentials.</source>
-        <translation>כל מסדי הנתונים המחוברים להרחבה יחזירו נתוני האמנה תואמים.</translation>
-    </message>
-    <message>
-        <source>Search in all opened databases for matching credentials</source>
-        <extracomment>Credentials mean login data requested via browser extension</extracomment>
-        <translation>חיפוש נתוני האמנה תואמים בכל מסדי הנתונים הפתוחים</translation>
-    </message>
-    <message>
-        <source>Advanced</source>
-        <translation>מתקדם</translation>
-    </message>
-    <message>
-        <source>Never ask before accessing credentials</source>
-        <extracomment>Credentials mean login data requested via browser extension</extracomment>
-        <translation>לעולם לא לשאול לפני גישה לנתוני האמנה</translation>
-    </message>
-    <message>
-        <source>Never ask before updating credentials</source>
-        <extracomment>Credentials mean login data requested via browser extension</extracomment>
-        <translation>לעולם לא לשאול לפני עדכון נתוני האמנה</translation>
-    </message>
-    <message>
-        <source>Do not ask permission for HTTP Basic Auth</source>
-        <extracomment>An extra HTTP Basic Auth setting</extracomment>
-        <translation>לא לבקש רשות עבור אימות בסיסי של HTTP</translation>
-    </message>
-    <message>
-        <source>Automatically creating or updating string fields is not supported.</source>
-        <translation>יצירה או עדכון אוטומטיים של שדות מחרוזת אינם נתמכים.</translation>
-    </message>
-    <message>
-        <source>Return advanced string fields which start with &quot;KPH: &quot;</source>
-        <translation>החזרת שדות מחרוזת מתקדמים המתחילים ב־&quot;KPH: &quot;</translation>
-    </message>
-    <message>
-        <source>Don&apos;t display the popup suggesting migration of legacy KeePassHTTP settings.</source>
-        <translation>לא להציג חלונות־צצים המציעים הגירת הגדרות KeePassHTTP מדור קודם.</translation>
-    </message>
-    <message>
-        <source>Do not prompt for KeePassHTTP settings migration.</source>
-        <translation>לא להציג הנחיה להעברת הגדרות KeePassHTTP.</translation>
-    </message>
-    <message>
-        <source>Updates KeePassXC or keepassxc-proxy binary path automatically to native messaging scripts on startup.</source>
-        <translation>עדכון הנתיב הבינארי KeePassXC או keepassxc־proxy בינאריים באופן אוטומטי לתסריטים להודעות מקוריות בעת האיתחול.</translation>
-    </message>
-    <message>
-        <source>Update native messaging manifest files at startup</source>
-        <translation>עדכון קבצי מניפסט להודעות מקוריות בעת האיתחול</translation>
-    </message>
-    <message>
-        <source>Use a custom proxy location if you installed a proxy manually.</source>
-        <translation>שימוש במיקום שרת מתווך מותאם אישית אם השרת המתווך הותקן באופן ידני.</translation>
-    </message>
-    <message>
-        <source>Use a custom proxy location:</source>
-        <comment>Meant is the proxy for KeePassXC-Browser</comment>
-        <translation>שימוש במיקום שרת מתווך מותאם אישית:</translation>
-    </message>
-    <message>
-        <source>Custom proxy location field</source>
-        <translation>שדה מיקום שרת מתווך מותאם אישית</translation>
-    </message>
-    <message>
-        <source>Browser for custom proxy file</source>
-        <translation>דפדפן עבור קובץ שרת מתווך מותאם אישית</translation>
-    </message>
-    <message>
-        <source>Browse…</source>
-        <extracomment>Button for opening file dialog</extracomment>
-        <translation>עיון...</translation>
-    </message>
-    <message>
-        <source>Use a custom browser configuration location:</source>
-        <translation>שימוש במיקום תצורת דפדפן מותאם אישית:</translation>
-    </message>
-    <message>
-        <source>Browser type:</source>
-        <translation>סוג דפדפן:</translation>
-    </message>
-    <message>
-        <source>Toolbar button style</source>
-        <translation>סגנון לחצן סרגל כלים</translation>
-    </message>
-    <message>
-        <source>Config Location:</source>
-        <translation>תצורת מיקום:</translation>
-    </message>
-    <message>
-        <source>Custom browser location field</source>
-        <translation>שדה מיקום דפדפן מותאם אישית</translation>
-    </message>
-    <message>
-        <source>Browse for custom browser path</source>
-        <translation>עיון עבור נתיב דפדפן מותאם אישית</translation>
-    </message>
-    <message>
-        <source>Custom extension ID:</source>
-        <translation>מזהה הרחבה מותאם אישית:</translation>
-    </message>
-    <message>
-        <source>Custom extension ID</source>
-        <translation>מזהה הרחבה מותאם אישית</translation>
-    </message>
-    <message>
-        <source>Executable Files</source>
-        <translation>קבצי הפעלה</translation>
-    </message>
-    <message>
-        <source>All Files</source>
-        <translation>כל הקבצים</translation>
-    </message>
-    <message>
-        <source>Select custom proxy location</source>
-        <translation>בחירת מיקום שרת מתווך מותאם אישית</translation>
-    </message>
-    <message>
-        <source>Select native messaging host folder location</source>
-        <translation>בחירת מיקום תיקיית מארח שרות הודעות מובנה</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Warning:&lt;/b&gt; Only adjust these settings if necessary.</source>
-        <translation>&lt;b&gt;אזהרה:&lt;/b&gt; לכוונן הגדרות אלו בלבד ככוש שנדרש.</translation>
-    </message>
-    <message>
-        <source>The custom proxy location does not exist.</source>
-        <translation>מיקום מתווך מותאם אישית לא קיים.</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Error:&lt;/b&gt; The custom proxy location does not exist. Correct this in the advanced settings tab.</source>
-        <translation>&lt;b&gt;שגיאה:&lt;/b&gt; מיקום המתווך המותאם אישית לא קיים. נא לתקן זאת בלשונית הגדרות מתקדמות.</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Error:&lt;/b&gt; The installed proxy executable is missing from the expected location: %1&lt;br/&gt;Please set a custom proxy location in the advanced settings or reinstall the application.</source>
-        <translation>&lt;b&gt;שגיאה:&lt;/b&gt; המתווך הבציע המותקן חסר במיקום הצפוי: %1&lt;br/&gt; נא לקבוע מיקום מתווך מותאם אישית בהגדרות מתקדמות או להתקין מחדש את היישום.</translation>
-    </message>
-    <message>
-        <source>Allows using insecure http://localhost with passkeys for testing purposes.</source>
-        <translation>אפשור שימוש ב־http://localhost לא מאובטח למטרות בדיקה.</translation>
-    </message>
-    <message>
-        <source>Allow using localhost with passkeys</source>
-        <translation>אפשור שימוש ב־localhost עם passkeys</translation>
-    </message>
-    <message>
-        <source>KeePassXC-Browser is needed for the browser integration to work. &lt;br /&gt;Download it for %1 and %2 and %3.</source>
-        <translation>דפדפן – KeePassXC נדרש כדי שתכלול דפדפן יפעל. &lt;br /&gt; ניתן להורידו עבור %1 ו־%2 ו־%3.</translation>
-    </message>
-    <message>
-        <source>Browsers installed using Snap or Flatpak are not supported with exception to Firefox installed using Snap.</source>
-        <translation>דפדפנים שהותקנו באמצעות Snap או Flatpak אינם נתמכים למעט Firefox שהותקן באמצעות Snap.</translation>
+    <name>Clipboard</name>
+    <message>
+        <location filename="../../src/gui/Clipboard.cpp" line="44"/>
+        <location filename="../../src/gui/Clipboard.cpp" line="92"/>
+        <source>Unable to access the clipboard.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CloneDialog</name>
     <message>
+        <location filename="../../src/gui/CloneDialog.ui" line="14"/>
         <source>Clone Entry Options</source>
         <translation>שכפול אפשרויות רשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/CloneDialog.ui" line="23"/>
         <source>Append &apos; - Clone&apos; to title</source>
         <translation>צירוף &apos; - שיבוט&apos; לכותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/CloneDialog.ui" line="33"/>
         <source>Replace username and password with references</source>
         <translation>החלפת שם משתמש וססמה בהפניות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/CloneDialog.ui" line="40"/>
         <source>Copy history</source>
         <translation>העתק הסטוריה</translation>
     </message>
@@ -1445,136 +536,169 @@ Would you like to migrate your existing settings now?</source>
 <context>
     <name>CsvImportWidget</name>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="684"/>
         <source>size, rows, columns</source>
         <translation>גודל, שורות, עמודות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="39"/>
         <source>Column Association</source>
         <translation>שיוך עמודות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="213"/>
         <source>Password</source>
         <translation>ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="112"/>
         <source>Username</source>
         <translation>שם משתמש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="345"/>
         <source>Title</source>
         <translation>כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="76"/>
         <source>Group</source>
         <translation>קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="278"/>
         <source>URL</source>
         <translation>מען url</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="94"/>
         <source>Notes</source>
         <translation>הערות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="296"/>
         <source>TOTP</source>
         <translation>TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="247"/>
         <source>Created</source>
         <translation>נוצר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="169"/>
         <source>Last Modified</source>
         <translation>הוסגל לאחרונה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="327"/>
         <source>Icon</source>
         <translation>סמל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="407"/>
         <source>Encoding</source>
         <translation>קידוד</translation>
     </message>
     <message>
-        <source>Codec</source>
-        <translation>קודק</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="418"/>
         <source>Text is qualified by</source>
         <translation>מלל הוכשר על־ידי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="433"/>
         <source>Text qualification</source>
         <translation>הכשרת מלל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="476"/>
         <source>Fields are separated by</source>
         <translation>שדות מופרדים באמצעות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="491"/>
         <source>Field separation</source>
         <translation>הפרדת שדות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="539"/>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="554"/>
         <source>Comments start with</source>
         <translation>הערות מתחילות עם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="592"/>
         <source>Header lines skipped</source>
         <translation>המערכת דלגה על שורות כותרת עליונה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="607"/>
         <source>Number of header lines to discard</source>
         <translation>מספר שורות הכותרת שיש למחוק</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="631"/>
         <source>First line has field names</source>
         <translation>לשורה הראשונה יש שמות שדות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="619"/>
         <source>Consider &apos;\&apos; an escape character</source>
         <translation>נא לשקול תו החלצות  &apos;\&apos;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="664"/>
         <source>Preview</source>
         <translation>תצוגה מקדימה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="708"/>
         <source>CSV import preview</source>
         <translation>תצוגה מקדימה ייבוא CSV</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="171"/>
         <source>Not Present</source>
         <translation>לא קיים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="180"/>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="189"/>
         <source>Column %1</source>
         <translation>עמודה %1</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="403"/>
         <source>[%n more message(s) skipped]</source>
-        <translation><numerusform>[דילוג על הודעות נוספות %n]</numerusform><numerusform>[דילוג על %n הודעות נוספות]</numerusform><numerusform>[דלוג על %n הודעות נוספות]</numerusform></translation>
+        <translation>
+            <numerusform>[דילוג על הודעות נוספות %n]</numerusform>
+            <numerusform>[דילוג על %n הודעות נוספות]</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="248"/>
         <source>Failed to parse CSV file: %1</source>
         <translation>ניתוך קובץ CSV כשל: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="274"/>
         <source>Imported from CSV file: %1</source>
         <translation>יובא מקובץ CSV: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="263"/>
         <source>No Title Selected</source>
         <translation>לא נבחרה כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="264"/>
         <source>No title column was selected, entries will be hard to tell apart.
 Are you sure you want to import?</source>
         <translation>לא נבחרה כותרת עמודה, יהיה קשה להבחין בין רשומות.
 האם לייבוא?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.ui" line="376"/>
         <source>Tags</source>
         <translation>תגים</translation>
     </message>
@@ -1582,70 +706,86 @@ Are you sure you want to import?</source>
 <context>
     <name>CsvParserModel</name>
     <message numerus="yes">
+        <location filename="../../src/gui/csvImport/CsvParserModel.cpp" line="46"/>
         <source>%n row(s)</source>
         <comment>CSV row count</comment>
-        <translation><numerusform>שורה %n</numerusform><numerusform>%n שורות</numerusform><numerusform>%n שורות</numerusform></translation>
+        <translation>
+            <numerusform>שורה %n</numerusform>
+            <numerusform>%n שורות</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/csvImport/CsvParserModel.cpp" line="47"/>
         <source>%n column(s)</source>
         <comment>CSV column count</comment>
-        <translation><numerusform>עמודה %n</numerusform><numerusform>%n עמודות</numerusform><numerusform>%n עמודות</numerusform></translation>
+        <translation>
+            <numerusform>עמודה %n</numerusform>
+            <numerusform>%n עמודות</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>Database</name>
     <message>
+        <location filename="../../src/core/Database.cpp" line="661"/>
         <source>Passwords</source>
         <comment>Root group name</comment>
         <translation>ססמאות</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="139"/>
         <source>File %1 does not exist.</source>
         <translation>קובץ %1 לא קיים.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="156"/>
+        <location filename="../../src/core/Database.cpp" line="317"/>
         <source>Unable to open file %1.</source>
         <translation>לא יכול לפתוח את הקובץ %1.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="189"/>
         <source>Error while reading the database: %1</source>
         <translation>שגיאה בזמן קריאת מסד־נתונים: %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="255"/>
         <source>Could not save, database does not point to a valid file.</source>
         <translation>לא ניתן לשמור, מסד הנתונים לא מצביע על קובץ תקין.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="290"/>
         <source>Database save is already in progress.</source>
         <translation>שמירת מסד־נתונים כבר בתהליך.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="301"/>
         <source>Could not save, database has not been initialized!</source>
         <translation>לא ניתן לשמור, מסד הנתונים לא אותחל!</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="331"/>
         <source>Database file has unmerged changes.</source>
         <translation>בקובץ מסד הנתונים קיימים שינויים שלא מוזגו.</translation>
     </message>
     <message>
-        <source>%1
-Backup database located at %2</source>
-        <translation>%1
-גיבוי מסד־נתונים הממוקם ב־%2</translation>
-    </message>
-    <message>
+        <location filename="../../src/core/Database.cpp" line="473"/>
         <source>Key not transformed. This is a bug, please report it to the developers.</source>
         <translation>מפתח לא הומר. זהו תקל, נא לדווח עליו לצוות הפתוח.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="988"/>
         <source>Recycle Bin</source>
         <translation>סל המחזור</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="173"/>
+        <location filename="../../src/core/Database.cpp" line="343"/>
         <source>Database file read error.</source>
         <translation>שגיאת קריאת קובץ מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/core/Database.cpp" line="128"/>
         <source>No file path was provided.</source>
         <translation>לא סופק נתיב קובץ.</translation>
     </message>
@@ -1653,89 +793,99 @@ Backup database located at %2</source>
 <context>
     <name>DatabaseOpenDialog</name>
     <message>
-        <source>Unlock Database - KeePassXC</source>
-        <translation>שחרור נעילת מסד־נתונים - KeePassXC</translation>
+        <location filename="../../src/gui/DatabaseOpenDialog.cpp" line="33"/>
+        <source>Unlock Database - KeePassX-min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseOpenDialog.cpp" line="137"/>
+        <source>DatabaseOpenDialog: mismatch between tab count %1 and DB count %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DatabaseOpenWidget</name>
     <message>
-        <source>Unlock KeePassXC Database</source>
-        <translation>שחרור נעילת מסד־נתונים KeePassXC</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="187"/>
         <source>Enter Password:</source>
         <translation>הזנת ססמה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="202"/>
         <source>Password field</source>
         <translation>שדה ססמה</translation>
     </message>
     <message>
-        <source>Hardware key slot selection</source>
-        <translation>בחירת עמדה למפתח חומרה</translation>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="14"/>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="87"/>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="164"/>
+        <source>Unlock KeePassX-min Database</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="259"/>
         <source>Key file to unlock the database</source>
         <translation>קובץ מפתח לשחרור נעילת מסד־הנתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="266"/>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="269"/>
         <source>Browse for key file</source>
         <translation>דפדוף לקובץ מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="272"/>
         <source>Browse…</source>
         <translation>עיון...</translation>
     </message>
     <message>
-        <source>Unlock Database</source>
-        <translation>שחרור נעילת מסד הנתונים</translation>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="324"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In addition to a password, you can use a secret file to enhance the security of your database. This file can be generated in your database&apos;s security settings.&lt;/p&gt;&lt;p&gt;This is &lt;span style=&quot; font-weight:700;&quot;&gt;not&lt;/span&gt; your *.kdbxm database file!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>ביטול</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="64"/>
         <source>Unlock</source>
         <translation>שחרור נעילה</translation>
     </message>
     <message>
-        <source>Please present or touch your YubiKey to continue…</source>
-        <translation>נא להציג או לגעת ב־YubiKey על מנת להמשך...</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="269"/>
         <source>Database Version Mismatch</source>
         <translation>אין תאימות בגרסאות מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="234"/>
+        <source>Ignoring unlock request for %1 because of running unlock action.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="270"/>
         <source>The database you are trying to open was most likely
-created by a newer version of KeePassXC.
+created by a newer version of KeePassX-min.
 
 You can try to open it anyway, but it may be incomplete
 and saving any changes may incur data loss.
 
-We recommend you update your KeePassXC installation.</source>
-        <translation>מסד הנתונים אותו נעשה ניסיון לפתוח נוצר קרוב לוודאי
- על ידי גרסת Keepassxc חדשה יות
-
-ניתן לנסות לפתוח אותו למרות זאת, אך עשוי הוא עשוי להיות חלקי
-ושמירת שינויים למסד הנתונים שנפתח, עלולה לגרום לאובדן נתונים.
-
-אנו ממליצים לעדכן את התקנת KeepassXC שבמחשב.</translation>
+We recommend you update your KeePassX-min installation.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="276"/>
         <source>Open database anyway</source>
         <translation>פתיחת מסד־נתונים בכול זאת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="286"/>
         <source>Database unlock canceled.</source>
         <translation>שחרור נעילת מסד־נתונים בוטלה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="301"/>
         <source>Unlock failed and no password given</source>
         <translation>שחרור נעילה כשל ולא סופקה ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="302"/>
         <source>Unlocking the database failed and you did not enter a password.
 Do you want to retry with an &quot;empty&quot; password instead?
 
@@ -1746,76 +896,69 @@ To prevent this error from appearing, you must go to &quot;Database Settings / S
 כדי למנוע הופעת שגיאה זו, נא לעבור אל &quot;הגדרות מסד־נתונים / אבטחה&quot; ולאפס את הססמה.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="307"/>
         <source>Retry with empty password</source>
         <translation>נסה שוב עם ססמה ריקה</translation>
     </message>
     <message>
-        <source>Failed to authenticate with Touch ID</source>
-        <translation>אימות באמצעות מזהה מגע כשל</translation>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="361"/>
+        <source>You are using an old key file format which KeePassX-min may&lt;br&gt;stop supporting in the future.&lt;br&gt;&lt;br&gt;Please consider generating a new key file by going to:&lt;br&gt;&lt;strong&gt;Database &amp;gt; Database Security &amp;gt; Change Key File.&lt;/strong&gt;&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="424"/>
+        <source>KeePassX-min database file selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="351"/>
         <source>Failed to open key file: %1</source>
         <translation>כשל בפתיחת קובץ מפתח: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="360"/>
         <source>Old key file format</source>
         <translation>תסדיר קובץ מפתח ישן</translation>
     </message>
     <message>
-        <source>You are using an old key file format which KeePassXC may&lt;br&gt;stop supporting in the future.&lt;br&gt;&lt;br&gt;Please consider generating a new key file by going to:&lt;br&gt;&lt;strong&gt;Database &amp;gt; Database Security &amp;gt; Change Key File.&lt;/strong&gt;&lt;br&gt;</source>
-        <translation>נעשה שימוש בתסדיר קובץ מפתח ישן ש־KeePassXC עשוי&lt;br&gt;להפסיק לתמוך בעתיד.&lt;br&gt;&lt;br&gt;נא שקול ליצור קובץ מפתח חדש מהתפריט:&lt;br&gt;&lt;strong&gt;מסד־נתונים -&gt; אבטחת מסד־נתונים -&gt; שינוי קובץ מפתח.&lt;/strong&gt;&lt;br&gt;</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="369"/>
         <source>Don&apos;t show this warning again</source>
         <translation>לא להציג הזהרה זו שוב</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="396"/>
         <source>All files</source>
         <translation>כל הקבצים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="396"/>
         <source>Key files</source>
         <translation>קבצי מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="397"/>
         <source>Select key file</source>
         <translation>בחירת קובץ ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="415"/>
         <source>Cannot use database file as key file</source>
         <translation>לא ניתן להשתמש בקובץ מסד־נתונים כקובץ מפתח</translation>
     </message>
     <message>
-        <source>authenticate to access the database</source>
-        <translation>נא לאמת לגישה למסד הנתונים</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="241"/>
         <source>Select Key File:</source>
         <translation>בחירת קובץ מפתח:</translation>
     </message>
     <message>
-        <source>&lt;p&gt;In addition to a password, you can use a secret file to enhance the security of your database. This file can be generated in your database&apos;s security settings.&lt;/p&gt;&lt;p&gt;This is &lt;strong&gt;not&lt;/strong&gt; your *.kdbx database file!&lt;/p&gt;</source>
-        <translation>&lt;p&gt; בנוסף לססמה, ניתן להשתמש בקובץ סודי להעצמת ביטחון מסד הנתונים. ניתן לחולל קובץ זה מהגדרות אבטחת מסד הנתונים.&lt;/p&gt;&lt;p&gt;זה &lt;strong&gt;לא&lt;/strong&gt; קובץ מסד נתונים *.kdbx.</translation>
-    </message>
-    <message>
-        <source>Use hardware key [Serial: %1]</source>
-        <translation>שימוש במפתח חומרה  [Serial: %1]</translation>
-    </message>
-    <message>
-        <source>Use hardware key</source>
-        <translation>שימוש במפתח חומרה</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="416"/>
         <source>Your database file is NOT a key file!
 If you don&apos;t have a key file or don&apos;t know what that is, you don&apos;t have to select one.</source>
         <translation>קובץ מסד נתונים הוא לא קובץ מפתח.
 אם אין קובץ מפתח או לא ברור מה זה, לא נדרש לקבוע כזה.</translation>
     </message>
     <message>
-        <source>KeePassXC database file selected</source>
-        <translation>קובץ מסד נתונים KeePassXC</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="425"/>
         <source>The file you selected looks like a database file.
 A database file is NOT a key file!
 
@@ -1826,41 +969,25 @@ Are you sure you want to continue with this file?.</source>
 האם להמשיך עם קובץ זה?</translation>
     </message>
     <message>
-        <source>No hardware keys found.</source>
-        <translation>לא נמצאו מפתחות חומרה.</translation>
-    </message>
-    <message>
-        <source>Refresh Hardware Keys</source>
-        <translation>רענון מפתחות חומרה</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="327"/>
         <source>Click to add a key file.</source>
         <translation>הקשה להוספת קובץ מפתח חדש.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.ui" line="330"/>
         <source>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;I have a key file&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;#&quot; style=&quot;text-decoration: underline&quot;&gt;יש ברשותי קובץ מפתח&lt;/a&gt;</translation>
     </message>
     <message>
-        <source>Hardware keys found, but no slots are configured.</source>
-        <translation>נמצאו מפתחות חומרה, אבל לא הוגדרו חריצים.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseOpenWidget.cpp" line="91"/>
         <source>Press ESC again to close this database</source>
         <translation>לחיצה חוזרת על מקש ESC לסגירת מסד־נתונים זה</translation>
-    </message>
-    <message>
-        <source>Windows Hello setup was canceled or failed. Quick unlock has not been enabled.</source>
-        <translation>הגדרות &apos;הלו וינדוס&apos; בוטלו או כשלו. שחרור נעילה מהירה לא אופשרה.</translation>
-    </message>
-    <message>
-        <source>Failed to authenticate with Windows Hello: %1</source>
-        <translation>אימות באמצעות Windows Hello כשל: %1</translation>
     </message>
 </context>
 <context>
     <name>DatabaseSettingWidgetMetaData</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.cpp" line="38"/>
         <source>Passwords</source>
         <translation>ססמאות</translation>
     </message>
@@ -1868,193 +995,50 @@ Are you sure you want to continue with this file?.</source>
 <context>
     <name>DatabaseSettingsDialog</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="42"/>
         <source>General</source>
         <translation>כללי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="43"/>
         <source>Security</source>
         <translation>אבטחה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="54"/>
         <source>Database Credentials</source>
         <translation>אישורי מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="55"/>
         <source>Encryption Settings</source>
         <translation>הצנת ההגדרות</translation>
     </message>
     <message>
-        <source>Browser Integration</source>
-        <translation>שילוב דפדפן</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="59"/>
         <source>Maintenance</source>
         <translation>תחזוקה</translation>
     </message>
     <message>
-        <source>KeeShare</source>
-        <translation>KeeShare</translation>
-    </message>
-    <message>
-        <source>Secret Service Integration</source>
-        <translation>שילוב שירות חשאי</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsDialog.cpp" line="68"/>
         <source>Database Settings: %1</source>
         <translation>הגדרות מסד־נתונים: %1</translation>
     </message>
 </context>
 <context>
-    <name>DatabaseSettingsWidgetBrowser</name>
-    <message>
-        <source>KeePassXC-Browser settings</source>
-        <translation>הגדרות דפדפן KeePassXC</translation>
-    </message>
-    <message>
-        <source>Convert KeePassHTTP data</source>
-        <translation>המרת נתוני KeePassHTTP</translation>
-    </message>
-    <message>
-        <source>Convert legacy KeePassHTTP attributes to KeePassXC-Browser compatible custom data</source>
-        <translation>המרת מאפייני תוכנת־מורשת KeePassHTTP לנתוני דפדפן KeePassXC תואמים.</translation>
-    </message>
-    <message>
-        <source>Refresh database root group ID</source>
-        <translation>רענון מזהה קבוצת שורש מסד־נתונים</translation>
-    </message>
-    <message>
-        <source>Disconnect all browsers</source>
-        <translation>ניתוק כל הדפדפנים</translation>
-    </message>
-    <message>
-        <source>Forget all site-specific settings on entries</source>
-        <translation>לשכוח את כל ההגדרות המסוימות לאתר ברשומות</translation>
-    </message>
-    <message>
-        <source>Stored keys</source>
-        <translation>אחסן ססמאות</translation>
-    </message>
-    <message>
-        <source>Stored browser keys</source>
-        <translation>מפתחות דפדפן מאוחסנים</translation>
-    </message>
-    <message>
-        <source>Remove selected key</source>
-        <translation>הסרת מפתחות שנבחרו</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>הסרה</translation>
-    </message>
-    <message>
-        <source>Delete the selected key?</source>
-        <translation>האם למחוק את המפתח שנבחר?</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete the selected key?
-This may prevent connection to the browser plugin.</source>
-        <translation>האם למחוק את המפתח שנבחר?
-פעולה זו עשויה למנוע חיבור למתקע הדפדפן.</translation>
-    </message>
-    <message>
-        <source>Key</source>
-        <translation>מפתח</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation>ערך</translation>
-    </message>
-    <message>
-        <source>Created</source>
-        <translation>נוצר</translation>
-    </message>
-    <message>
-        <source>Enable Browser Integration to access these settings.</source>
-        <translation>אפשור שילוב דפדפנים לגישה להגדרות.</translation>
-    </message>
-    <message>
-        <source>Do you really want to disconnect all browsers?
-This may prevent connection to the browser plugin.</source>
-        <translation>האם לנתק את כל הדפדפנים?
-פעולה זו עשויה למנוע חיבור למתקע הדפדפן.</translation>
-    </message>
-    <message>
-        <source>No shared encryption keys found in KeePassXC settings.</source>
-        <translation>לא נמצאו מפתחות הצפנה משותפים בהגדרות KeePassXC.</translation>
-    </message>
-    <message numerus="yes">
-        <source>Successfully removed %n encryption key(s) from KeePassXC settings.</source>
-        <translation><numerusform>מפתח הצפנה משותף %n הוסר בהצלחה מהגדרות KeePassXC.</numerusform><numerusform>%n מפתחות הצפנה משותפים הוסרו בהצלחה מהגדרות KeePassXC.</numerusform><numerusform>%n מפתחות הצפנה משותפים הוסרו בהצלחה מהגדרות KeePassXC.</numerusform></translation>
-    </message>
-    <message>
-        <source>Do you really want forget all site-specific settings on every entry?
-Permissions to access entries will be revoked.</source>
-        <translation>האם לשכוח הגדרות מסוימות לאתרים בכל הרשומות?
-הרשאות גישה לרשומות יוסרו.</translation>
-    </message>
-    <message>
-        <source>Removing stored permissions…</source>
-        <translation>מסיר הרשאות מאוחסנות...</translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation>הפסק וצא</translation>
-    </message>
-    <message numerus="yes">
-        <source>Successfully removed permissions from %n entry(s).</source>
-        <translation><numerusform>הרשאה הוסרה בהצלחה מ־%n רשומות.</numerusform><numerusform>הרשאות הוסרו בהצלחה מ־%n רשומות.</numerusform><numerusform>הרשאות הוסרו בהצלחה מ־%n רשומות.</numerusform></translation>
-    </message>
-    <message>
-        <source>The active database does not contain an entry with permissions.</source>
-        <translation>מסד הנתונים הפעיל לא מכיל רשומה עם הרשאות.</translation>
-    </message>
-    <message>
-        <source>Move KeePassHTTP attributes to custom data</source>
-        <translation>העברת תכונות KeePassHTTP לנתונים מותאמים אישית</translation>
-    </message>
-    <message>
-        <source>Do you really want to convert all legacy browser integration data to the latest standard?
-This is necessary to maintain compatibility with the browser plugin.</source>
-        <translation>האם להמיר את כל נתוני שילוב הדפדפן מדור קודם לתקן העדכני ביותר?
-פעולה זו נחוצה כדי לשמור על תאימות עם מתקע הדפדפן.</translation>
-    </message>
-    <message>
-        <source>Refresh database ID</source>
-        <translation>רענון מזהה מסד־נתונים</translation>
-    </message>
-    <message>
-        <source>Do you really want refresh the database ID?
-This is only necessary if your database is a copy of another and the browser extension cannot connect.</source>
-        <translation>האם לרענן את מזהה מסד הנתונים? נחוץ רק אם מסד הנתונים הוא עותק של מסד־נתונים אחר ומתקע הדפדפן לא מתחבר.</translation>
-    </message>
-    <message>
-        <source>No keys found</source>
-        <translation>לא נמצאו מפתחות</translation>
-    </message>
-    <message>
-        <source>Removed keys from database</source>
-        <translation>מפתחות שהוסרו ממסד הנתונים</translation>
-    </message>
-    <message>
-        <source>Removed permissions</source>
-        <translation>התרים שהוסרו</translation>
-    </message>
-    <message>
-        <source>No entry with permissions found!</source>
-        <translation>לא נמצאה רשומה עם התרים!</translation>
-    </message>
-</context>
-<context>
     <name>DatabaseSettingsWidgetDatabaseKey</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="34"/>
         <source>Add additional protection…</source>
         <translation>הוספת הגנה נוספת...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="146"/>
         <source>No password set</source>
         <translation>לא הוגדרה ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="147"/>
         <source>WARNING! You have not set a password. Using a database without a password is strongly discouraged!
 
 Are you sure you want to continue without a password?</source>
@@ -2063,34 +1047,43 @@ Are you sure you want to continue without a password?</source>
 האם להמשיך ללא ססמה?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="151"/>
         <source>Continue without password</source>
         <translation>המשך ללא ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="207"/>
         <source>No encryption key added</source>
         <translation>לא התווסף מפתח הצפנה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="208"/>
         <source>You must add at least one encryption key to secure your database!</source>
         <translation>נא להוסיף לפחות מפתח הצפנה אחד לאבטחת מסד הנתונים!</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="253"/>
         <source>Unknown error</source>
         <translation>שגיאה לא ידועה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="256"/>
         <source>Failed to change database credentials</source>
         <translation>שינוי אישורי מסד־נתונים כשל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="174"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="186"/>
         <source>Weak password</source>
         <translation>ססמה חלשה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="187"/>
         <source>This is a weak password! For better protection of your secrets, you should choose a stronger password.</source>
         <translation>זוהי ססמה חלשה! להגנה טובה יותר על קבצים חשאיים נא לבחור בססמה חזקה יותר.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="175"/>
         <source>The provided password does not meet the minimum quality requirement.</source>
         <translation>הססמה שסופקה לא עומדת בדרישת האיכות המזערית.</translation>
     </message>
@@ -2098,95 +1091,118 @@ Are you sure you want to continue without a password?</source>
 <context>
     <name>DatabaseSettingsWidgetEncryption</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="175"/>
         <source>Decryption Time:</source>
         <translation>זמן פענוח:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="225"/>
         <source>Decryption time in seconds</source>
         <translation>זמן פענוח בשניות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="287"/>
         <source>Higher values offer more protection, but opening the database will take longer.</source>
         <translation>ערכים גבוהים יותר מציעים הגנה טובה יותר, אך פתיחת מסד הנתונים תימשך זמן רב יותר.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="67"/>
         <source>Database format:</source>
         <translation>תסדיר מסד־נתונים:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="83"/>
         <source>Database format</source>
         <translation>תסדיר מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="95"/>
         <source>Format cannot be changed: Your database uses KDBX 4 features</source>
         <translation>לא ניתן לשנות תסדיר: מסד הנתונים משתמש בתכונות KDBX 4</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="80"/>
         <source>Unless you need to open your database with other programs, always use the latest format.</source>
         <translation>יש להשתמש תמיד במבנה האחרון (העדכני ביותר). אלא אם יידרש לפתוח את מסד הנתונים גם באמצעות תוכנות אחרות.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="505"/>
         <source>Encryption Algorithm:</source>
         <translation>אלגוריתם הצפנה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="488"/>
         <source>Encryption algorithm</source>
         <translation>אלגוריתם הצפנה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="492"/>
         <source>AES:  256 Bit   (default)</source>
         <translation>AES: 256 סיביות (ברירת מחדל)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="497"/>
         <source>Twofish:  256 Bit</source>
         <translation>Twofish:  256 ביט</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="475"/>
         <source>Key Derivation Function:</source>
         <translation>פעולת נגזרות מפתח:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="468"/>
         <source>Key derivation function</source>
         <translation>פעולת נגזרות מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="455"/>
         <source>Transform rounds:</source>
         <translation>סבבי המרה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="417"/>
         <source>Transform rounds</source>
         <translation>סבבי המרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="396"/>
         <source>Memory Usage:</source>
         <translation>שימוש בזיכרון:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="383"/>
         <source>Memory usage</source>
         <translation>שימוש בזיכרון</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="364"/>
         <source>Parallelism:</source>
         <translation>הקבלה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="351"/>
         <source>Parallelism</source>
         <translation>הקבלה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="65"/>
         <source>KDBX 4 (recommended)</source>
         <translation>KDBX 4 (מומלץ)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="66"/>
         <source>KDBX 3</source>
         <translation>KDBX 3</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="342"/>
         <source>Number of rounds too high</source>
         <comment>Key transformation rounds</comment>
         <translation>מספר הסבבים גבוה מדי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="343"/>
         <source>You are using a very high number of key transform rounds with Argon2.
 
 If you keep this number, your database may take hours, days, or even longer to open.</source>
@@ -2195,19 +1211,25 @@ If you keep this number, your database may take hours, days, or even longer to o
 אם מספר זה יישמר, פתיחת מסד הנתונים עשויה להימשך שעות או ימים או אפילו יותר.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="345"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="363"/>
         <source>Understood, keep number</source>
         <translation>מובן, שמרת מספר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="346"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="364"/>
         <source>Cancel</source>
         <translation>ביטול</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="360"/>
         <source>Number of rounds too low</source>
         <comment>Key transformation rounds</comment>
         <translation>מספר סבבים נמוך מדי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="361"/>
         <source>You are using a very low number of key transform rounds with AES-KDF.
 
 If you keep this number, your database will not be protected from brute force attacks.</source>
@@ -2216,128 +1238,142 @@ If you keep this number, your database will not be protected from brute force at
 אם מספר זה ישמר, מסד הנתונים לא יהיה מוגן מפני תְּקִיפָה כּוֹחָנִית.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="400"/>
         <source>KDF unchanged</source>
         <translation>KDF ללא שינוי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="401"/>
         <source>Failed to transform key with new KDF parameters; KDF unchanged.</source>
         <translation>המרת מפתח באמצעות פרמטרים חדשים של KDF כשלה; KDF נשאר ללא שינוי.</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="450"/>
         <source> MiB</source>
         <comment>Abbreviation for Mebibytes (KDF settings)</comment>
-        <translation><numerusform> מיל.</numerusform><numerusform> מיל.</numerusform><numerusform> מיב</numerusform></translation>
+        <translation>
+            <numerusform> מיל.</numerusform>
+            <numerusform> מיל.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="458"/>
         <source> thread(s)</source>
         <comment>Threads for parallel execution (KDF settings)</comment>
-        <translation><numerusform>שִׁרְשׁוּר</numerusform><numerusform>שִׁרְשׁוּרים</numerusform><numerusform>שִׁרְשׁוּרים</numerusform></translation>
+        <translation>
+            <numerusform>שִׁרְשׁוּר</numerusform>
+            <numerusform>שִׁרְשׁוּרים</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="129"/>
         <source>Encryption Settings:</source>
         <translation>הגדרות קידוד:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="146"/>
         <source>Basic</source>
         <translation>בסיסי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.ui" line="314"/>
         <source>Advanced</source>
         <translation>מתקדם</translation>
     </message>
 </context>
 <context>
-    <name>DatabaseSettingsWidgetFdoSecrets</name>
-    <message>
-        <source>Exposed Entries</source>
-        <translation>רשומות חשופות</translation>
-    </message>
-    <message>
-        <source>Don&apos;t expose this database</source>
-        <translation>לא לחשוף מסד־נתונים זה</translation>
-    </message>
-    <message>
-        <source>Expose entries under this group:</source>
-        <translation>חשיפת רשומות בקבוצה זו:</translation>
-    </message>
-    <message>
-        <source>Enable Secret Service to access these settings.</source>
-        <translation>איפשור גישות השירות החשאי להגדרות אלה.</translation>
-    </message>
-</context>
-<context>
     <name>DatabaseSettingsWidgetGeneral</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="44"/>
         <source>Database Metadata</source>
         <translation>נתוני־על מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="50"/>
         <source>Database name:</source>
         <translation>שם מסד־נתונים:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="57"/>
         <source>Database name field</source>
         <translation>שדה שם מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="64"/>
         <source>Database description:</source>
         <translation>תיאור מסד הנתונים:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="71"/>
         <source>Database description field</source>
         <translation>שדה תיאור מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="78"/>
         <source>Default username:</source>
         <translation>שם משתמש ברירת מחדל:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="88"/>
         <source>Default username field</source>
         <translation>שדה שם משתמש ברירת מחדל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="243"/>
         <source>History Settings</source>
         <translation>הגדרות היסטוריה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="309"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="312"/>
         <source>Maximum number of history items per entry</source>
         <translation>מספר מרבי של פרטי היסטוריה לרשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="290"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="293"/>
         <source>Maximum size of history per entry</source>
         <translation>גודל היסטוריה מרבי לרשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="296"/>
         <source> MiB</source>
         <translation> מיב</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="270"/>
         <source>Use recycle bin</source>
         <translation>שימוש בסל־מחזור</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="340"/>
         <source>Additional Database Settings</source>
         <translation>הגדרות מסד־נתונים נוספות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="346"/>
         <source>Enable compression (recommended)</source>
         <translation>איפור דחיסה (מומלץ)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.cpp" line="124"/>
         <source>Delete Recycle Bin</source>
         <translation>מחיקת סל־מחזור</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.cpp" line="125"/>
         <source>Do you want to delete the current recycle bin and all its contents?
 This action is not reversible.</source>
         <translation>האם למחוק את סל־המיחזור הנוכחי ואת כל תוכנו?
 פעולה זו אינה הפיכה.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.cpp" line="136"/>
         <source> (old)</source>
         <translation> (ישן)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="251"/>
         <source>When saving this setting or editing an entry
 the oldest history items of an entry will be
 removed such that only the specified amount
@@ -2347,10 +1383,12 @@ of entries remain at most.</source>
 כך שלכול היותר תיוותר רק כמות הרשומות שצוינה.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="257"/>
         <source>Limit the amount of history items per entry to:</source>
         <translation>הגבלת כמות ההיסטוריה לרשומה ל:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="277"/>
         <source>When saving this setting or editing an entry
 the oldest history items of an entry will be
 removed such that the remaining history items
@@ -2360,10 +1398,12 @@ add up to the specified amount at most.</source>
 כך שפרטי ההיסטוריה שיוותרו יסתכמו בכמות הרשומות שצוינה.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="283"/>
         <source>Limit the total size of history items per entry to:</source>
         <translation>הגבלת כמות ההיסטוריה הכוללת לרשומה ל:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="264"/>
         <source>Move entries to a recycle bin group
 instead of deleting them from the database.
 Entries deleted from the recycle bin are
@@ -2374,160 +1414,164 @@ removed from the database.</source>
 יוסרו ממסד הנתונים.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="358"/>
         <source>Autosave delay since last change</source>
         <translation>השהיית שמירה אוטומטית מאז השינוי האחרון</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="364"/>
         <source>Autosave delay</source>
         <translation>השהיית שמירה אוטומטית</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="371"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="374"/>
         <source>Autosave delay since last change in minutes</source>
         <translation>השהית שמירה אוטומטית בדקות מאז שינוי אחרון</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="377"/>
         <source> min</source>
         <translation> דקה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="361"/>
         <source>Autosave delay since last change checkbox</source>
         <translation>תיבת סימון השהית שמירה אוטומטית בדקות מאז שינוי אחרון</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="98"/>
         <source>Public Database Metadata</source>
         <translation>מטא־נתונים של מסד־נתונים ציבורי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="109"/>
         <source>Warning: the following settings are not encrypted.</source>
         <translation>אזהרה: ההגדרות הבאות אינן מוצפנות.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="121"/>
         <source>Display name:</source>
         <translation>שם מצג:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="131"/>
         <source>Database public display name</source>
         <translation>שם תצוגה ציבורי של מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="138"/>
         <source>Display color:</source>
         <translation>צבע תצוגה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="156"/>
         <source>Database public display color chooser</source>
         <translation>בוחר צבע תצוגה ציבורי של מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="166"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="216"/>
         <source>Clear</source>
         <translation>נקה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="188"/>
         <source>Display icon:</source>
         <translation>סמל תצוגה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.cpp" line="241"/>
         <source>Select Database Icon</source>
         <translation>בחירת סמל מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="128"/>
         <source>Publicly visible display name used on the unlock dialog</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetGeneral.ui" line="153"/>
         <source>Publicly visible color used on the unlock dialog</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>DatabaseSettingsWidgetKeeShare</name>
-    <message>
-        <source>Sharing</source>
-        <translation>שיתוף</translation>
-    </message>
-    <message>
-        <source>Breadcrumb</source>
-        <translation>סימני דרך</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>סוג</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation>נתיב</translation>
-    </message>
-    <message>
-        <source>Last Signer</source>
-        <translation>חותם אחרון</translation>
-    </message>
-    <message>
-        <source>Certificates</source>
-        <translation>אישורים</translation>
-    </message>
-    <message>
-        <source> &gt; </source>
-        <comment>Breadcrumb separator</comment>
-        <translation> &gt; </translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DatabaseSettingsWidgetMaintenance</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui" line="44"/>
         <source>Manage Custom Icons</source>
         <translation>ניהול סמלים מותאמים אישית</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui" line="80"/>
         <source>Delete selected icon(s)</source>
         <translation>מחיקת סמלים שנבחרו</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui" line="87"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui" line="90"/>
         <source>Delete all custom icons not in use by any entry or group</source>
         <translation>מחיקת כל הסמלים המותאמים אישית שאינם בשימוש על־ידי רשומה או קבוצה כלשהם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.ui" line="93"/>
         <source>Purge unused icons</source>
         <translation>ניקוי סמלים שאינם בשימוש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="139"/>
         <source>Confirm Deletion</source>
         <translation>אישור מחיקה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="140"/>
         <source>At least one of the selected icons is currently in use by at least one entry or group. The icons of all affected entries and groups will be replaced by the default icon. Are you sure you want to delete icons that are currently in use?</source>
         <translation>לפחות אחד מהסמלים שנבחרו נמצא כעת בשימוש רשומה או קבוצה אחת לפחות. סמלי כל הרשומות והקבוצות המושפעים יוחלפו בסמל ברירת המחדל. האם למחוק סמלים הנמצאים כעת בשימוש?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="245"/>
         <source>Custom Icons Are In Use</source>
         <translation>סמלים מותאמים אישית נמצאים בשימוש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="246"/>
         <source>All custom icons are in use by at least one entry or group.</source>
         <translation>כל הסמלים המותאמים אישית בשימוש לפחות על־ידי רשומה או קבוצה אחת.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="254"/>
         <source>Purged Unused Icons</source>
         <translation>סמלים לא בשימוש שנמחקו</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMaintenance.cpp" line="254"/>
         <source>Purged %n icon(s) from the database.</source>
-        <translation><numerusform>סמל %n נמחק ממסד הנתונים.</numerusform><numerusform>%n סמלים נמחקו ממסד הנתונים.</numerusform><numerusform>%n סמלים נמחקו ממסד הנתונים.</numerusform></translation>
+        <translation>
+            <numerusform>סמל %n נמחק ממסד הנתונים.</numerusform>
+            <numerusform>%n סמלים נמחקו ממסד הנתונים.</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>DatabaseSettingsWidgetMetaDataSimple</name>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.ui" line="29"/>
         <source>Database Name:</source>
         <translation>שם מסד־נתונים:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.ui" line="36"/>
         <source>Database name field</source>
         <translation>שדה שם מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.ui" line="43"/>
         <source>Description:</source>
         <translation>תיאור:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetMetaDataSimple.ui" line="50"/>
         <source>Database description field</source>
         <translation>שדה תיאור מסד־נתונים</translation>
     </message>
@@ -2535,73 +1579,93 @@ removed from the database.</source>
 <context>
     <name>DatabaseTabWidget</name>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="101"/>
         <source>Database creation error</source>
         <translation>שגיאת יצירת מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="102"/>
         <source>The created database has no key or KDF, refusing to save it.
 This is definitely a bug, please report it to the developers.</source>
         <translation>למסד הנתונים שנוצר אין מפתח או ש־KDF מסרב לקבל אותו.
 זהו בהחלט תקל, נא לדווח עליו לצוות הפתוח.</translation>
     </message>
     <message>
-        <source>KeePass 2 Database</source>
-        <translation>מסד נתוני KeePass 2</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="129"/>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="323"/>
         <source>All files</source>
         <translation>כל הקבצים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="130"/>
         <source>Open database</source>
         <translation>פתיחת מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="160"/>
         <source>Failed to open %1. It either does not exist or is not accessible.</source>
         <translation>פתיחת %1 כשלה. יתכן והוא לא קיים או לא נגיש.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="489"/>
         <source>CSV file</source>
         <translation>קובץ CSV</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="324"/>
         <source>Merge database</source>
         <translation>מיזוג מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="129"/>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="323"/>
+        <source>KeePassX-min Database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="489"/>
         <source>Export database to CSV file</source>
         <translation>ייצוא מסד־נתונים לקובץ CSV</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="500"/>
         <source>Writing the CSV file failed.</source>
         <translation>כתיבת קובץ ה־CSV כשלה.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="506"/>
         <source>Writing the HTML file failed.</source>
         <translation>כתיבת קובץ ה־HTML כשלה.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="564"/>
         <source>Export Confirmation</source>
         <translation>אישור ייצוא</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="565"/>
         <source>You are about to export your database to an unencrypted file. This will leave your passwords and sensitive information vulnerable! Are you sure you want to continue?</source>
         <translation>מסד הנתונים עומד להיות מיוצא לקובץ לא מוצפן. פעולה זו תשאיר את ססמאות ומידע רגיש, פגיעים! האם להמשיך?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="655"/>
         <source>%1 [Locked]</source>
         <comment>Database tab name modifier</comment>
         <translation>%1 [נעול]</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="537"/>
         <source>Export database to XML file</source>
         <translation>ייצוא מסד נתונים לקובץ XML</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="537"/>
         <source>XML file</source>
         <translation>קובץ XML</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="549"/>
+        <location filename="../../src/gui/DatabaseTabWidget.cpp" line="555"/>
         <source>Writing the XML file failed</source>
         <translation>כתיבה לקובץ HTML כשלה.</translation>
     </message>
@@ -2609,240 +1673,252 @@ This is definitely a bug, please report it to the developers.</source>
 <context>
     <name>DatabaseWidget</name>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="148"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1578"/>
         <source>Searching…</source>
         <translation>חיפוש...</translation>
     </message>
     <message>
-        <source>Shared group…</source>
-        <translation>קבוצה משותפת...</translation>
-    </message>
-    <message>
-        <source>Confirm Auto-Type</source>
-        <translation>אישור הקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Perform Auto-Type into the previously active window?</source>
-        <translation>האם לבצע הקלדה־אוטומטית בחלון הפעיל הקודם?</translation>
-    </message>
-    <message>
-        <source>Execute command?</source>
-        <translation>האם לבצע פקודה?</translation>
-    </message>
-    <message>
-        <source>Do you really want to execute the following command?&lt;br&gt;&lt;br&gt;%1&lt;br&gt;</source>
-        <translation>האם לבצע את הפקודה הבאה?&lt;br&gt;&lt;br&gt;%1&lt;br&gt;</translation>
-    </message>
-    <message>
-        <source>Remember my choice</source>
-        <translation>זכירת הבחירה שלי</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="937"/>
         <source>Do you really want to move the group &quot;%1&quot; to the recycle bin?</source>
         <translation>האם להעביר את הקבוצה &quot;%1&quot; לסל־המיחזור?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1081"/>
         <source>Expired entries</source>
         <translation>רשומות פגות־תוקף</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1118"/>
         <source>No current database.</source>
         <translation>אין מסד־נתונים נוכחי.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1132"/>
         <source>No source database, nothing to do.</source>
         <translation>אין מסד נתוני מקור, אין מה לעשות.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1413"/>
         <source>Search Results (%1)</source>
         <translation>תוצאות חיפוש (%1)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1417"/>
         <source>No Results</source>
         <translation>אין תוצאות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1448"/>
         <source>Enter a unique name or overwrite an existing search from the list:</source>
         <translation>נא להזין שם ייחודי או לכתוב על שם חיפוש מהרשימה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1449"/>
         <source>Save Search</source>
         <translation>שמירת חיפוש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1740"/>
         <source>Lock Database?</source>
         <translation>האם לנעול מסד־נתונים?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1741"/>
         <source>You are editing an entry. Discard changes and lock anyway?</source>
         <translation>הרשומה בעריכה. האם לנטוש שינויים ולנעול בכל זאת?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1779"/>
         <source>&quot;%1&quot; was modified.
 Save changes?</source>
         <translation>&quot;%1&quot; הוסגל.
 האם לשמור שינויים?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1783"/>
         <source>Database was modified.
 Save changes?</source>
         <translation>מסד הנתונים הוסגל.
 האם לשמור שינויים?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1787"/>
         <source>Save changes?</source>
         <translation>האם לשמור שינויים?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1861"/>
         <source>File has changed</source>
         <translation>הקובץ השתנה</translation>
     </message>
     <message>
-        <source>Disable safe saves?</source>
-        <translation>האם להשבית שמירות בטוחות?</translation>
-    </message>
-    <message>
-        <source>KeePassXC has failed to save the database multiple times. This is likely caused by file sync services holding a lock on the save file.
-Disable safe saves and try again?</source>
-        <translation>KeePassXC כשל בשמירת מסד הנתונים מספר פעמים. סביר להניח שהדבר נגרם על־ידי שירותי סינכרון קבצים הנועלים את קובץ השמירה.
-האם להשבית שמירות בטוחות ולנסות שוב?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2219"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2266"/>
         <source>Writing the database failed: %1</source>
         <translation>כתיבת מסד הנתונים כשלה: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2254"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2349"/>
         <source>Passwords</source>
         <translation>ססמאות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2258"/>
         <source>Save database as</source>
         <translation>שמירת מסד־נתונים בשם</translation>
     </message>
     <message>
-        <source>KeePass 2 Database</source>
-        <translation>מסד נתוני KeePass 2</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2445"/>
         <source>Empty recycle bin?</source>
         <translation>לרוקן סל־מחזור?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2446"/>
         <source>Are you sure you want to permanently delete everything from your recycle bin?</source>
         <translation>האם למחוק הכול מסל־המיחזור לצמיתות?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2485"/>
         <source>Could not find database file: %1</source>
         <translation>לא ניתן למצוא קובץ מסד־נתונים: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="342"/>
         <source>New Database</source>
         <translation>מסד־נתונים חדש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="346"/>
         <source>%1 [New Database]</source>
         <comment>Database tab name modifier</comment>
         <translation>%1 [מסד־נתונים חדש]</translation>
     </message>
     <message>
-        <source>Remove passkey from entry</source>
-        <translation>הסרת Passkey מרשומה</translation>
-    </message>
-    <message>
-        <source>Do you want to remove the passkey from this entry?</source>
-        <translation>האם להסיר את ה־Passkey מרשומה זו?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1862"/>
         <source>The database file &quot;%1&quot; was modified externally</source>
         <translation>קובץ מסד הנתונים &quot;%1&quot; השתנה באופן חיצוני</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1863"/>
         <source>Do you want to load the changes?</source>
         <translation>האם ברצונך לטעון את השינויים?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1879"/>
         <source>Reloading database…</source>
         <translation>טוען מסד־נתונים מחדש…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1905"/>
         <source>Reload canceled</source>
         <translation>טעינה מחדש בוטלה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1933"/>
         <source>Reload successful</source>
         <translation>טעינה מחדש מוצלחת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1963"/>
         <source>Reload pending user action…</source>
         <translation>לטעון מחדש פעולת משתמש ממתינה…</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1966"/>
         <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes&lt;br&gt;Ignore the changes on disk until save&lt;br&gt;Discard unsaved changes</source>
         <translation>קובץ מסד הנתונים &quot;%1&quot; השתנה באופן חיצוני.&lt;br&gt;איך היית רוצה להתקדם?&lt;br&gt;&lt;br&gt;מיזוג כל השינויים&lt;br&gt;התעלמות מהשינויים בדיסק עד לשמירה&lt;br&gt;השלכת כל השינויים שלא נשמרו</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1977"/>
         <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes then save&lt;br&gt;Overwrite the changes on disk&lt;br&gt;Discard unsaved changes</source>
         <translation>קובץ מסד הנתונים &quot;%1&quot; השתנה באופן חיצוני.&lt;br&gt;איך היית רוצה להתקדם?&lt;br&gt;&lt;br&gt;מיזוג כל השינויים ואז שמירה&lt;br&gt;כתיבה על השינויים בדיסק&lt;br&gt;השלכת כל השינויים שלא נשמרו</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1987"/>
         <source>Reload database</source>
         <translation>טעינת מסד־נתונים מחדש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2002"/>
         <source>Database file overwritten.</source>
         <translation>נכתב על קובץ מסד־נתונים.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2038"/>
         <source>Database file on disk cannot be unlocked with current credentials.&lt;br&gt;Enter new credentials and/or present hardware key to continue.</source>
         <translation>לא ניתן לשחרר נעילת קובץ מסד־נתונים בדיסק עם נתוני האמנה הנוכחיים.&lt;br&gt;יש להזין נתוני האמנה חדשים ו/או להציג מפתח חומרה כדי להמשיך.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2258"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2355"/>
+        <source>KeePassX-min Database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2380"/>
         <source>Failed to save backup database: %1</source>
         <translation>כשל בשמירת גיבוי מסד־נתונים : %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="923"/>
         <source>Confirm Delete Group</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="924"/>
         <source>Do you really want to permanently delete the group &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="936"/>
         <source>Confirm Recycle Group</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1447"/>
         <source>Save</source>
         <translation>שמירה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2353"/>
         <source>Save Database Backup</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1140"/>
         <source>Successfully merged the selected database.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1145"/>
         <source>No changes were made by the merge operation.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1151"/>
         <source>Merge canceled, no changes were made.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="101"/>
         <source>Searches and Tags</source>
         <translation>חיפוש ותיוג</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1086"/>
         <source>Entries expiring within %1 day(s)</source>
-        <translation><numerusform>רשומות שתוקפן יפוג בתוך יום %1</numerusform><numerusform>רשומות שתוקפן יפוג בתוך %1 ימים</numerusform><numerusform>רשומות שתוקפן יפוג בתוך %1 ימים</numerusform></translation>
+        <translation>
+            <numerusform>רשומות שתוקפן יפוג בתוך יום %1</numerusform>
+            <numerusform>רשומות שתוקפן יפוג בתוך %1 ימים</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>EditEntryAttachmentsDialog</name>
     <message>
+        <location filename="../../src/gui/entry/EditEntryAttachmentsDialog.cpp" line="45"/>
         <source>Edit: %1</source>
         <translation>עריכה: %1</translation>
     </message>
@@ -2850,402 +1926,300 @@ Disable safe saves and try again?</source>
 <context>
     <name>EditEntryWidget</name>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="136"/>
         <source>Entry</source>
         <translation>רשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="164"/>
         <source>Advanced</source>
         <translation>מתקדם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="191"/>
         <source>Icon</source>
         <translation>סמל</translation>
     </message>
     <message>
-        <source>Auto-Type</source>
-        <translation>הקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Browser Integration</source>
-        <translation>שילוב דפדפן</translation>
-    </message>
-    <message>
-        <source>&lt;empty URL&gt;</source>
-        <translation>&lt;מען URL ריק&gt;</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="720"/>
         <source>Confirm Removal</source>
         <translation>אישור הסרה</translation>
     </message>
     <message>
-        <source>Are you sure you want to remove this URL?</source>
-        <translation>האם להסיר מען URL זה?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="196"/>
         <source>Properties</source>
         <translation>מאפיינים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="202"/>
         <source>History</source>
         <translation>היסטוריה</translation>
     </message>
     <message>
-        <source>SSH Agent</source>
-        <translation>סוכן SSH</translation>
-    </message>
-    <message>
-        <source>n/a</source>
-        <translation>ל/ר</translation>
-    </message>
-    <message>
-        <source>Select private key</source>
-        <translation>בחירת מפתח פרטי</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="322"/>
         <source>Entry history</source>
         <translation>הסטורית רשומות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="328"/>
         <source>Add entry</source>
         <translation>הוספת רשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="332"/>
         <source>Edit entry</source>
         <translation>עריכת רשומה</translation>
     </message>
     <message>
-        <source>Some Browser Integration settings are overridden by group settings.</source>
-        <translation>הגדרות קבוצה יכתבו־על מספר הגדרות כילול דפדפן.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="496"/>
         <source>Invalid Entry</source>
         <translation>רשומה לא תקינה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="497"/>
         <source>An external merge operation has invalidated this entry.
 Unfortunately, any changes made have been lost.</source>
         <translation>פעולת מיזוג חיצונית ביטלה רשומה זו.
 למרבה הצער, כל השינויים שבוצעו אבדו.</translation>
     </message>
     <message>
-        <source>Auto-Type Validation Error</source>
-        <translation>שגיאת אימות הקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>An error occurred while validating the custom Auto-Type sequence:
-%1
-Would you like to correct it?</source>
-        <translation>אירעה שגיאה בעת אימות רצף הקלדה־אוטומטית מותאמת אישית:
-%1
-האם לתקן זאת?</translation>
-    </message>
-    <message>
-        <source>An error occurred while validating the Auto-Type sequence for &quot;%1&quot;:
-%2
-Would you like to correct it?</source>
-        <translation>אירעה שגיאה בעת אימות רצף הקלדה־אוטומטית ל־&quot;%1&quot;:
-%2
-האם לתקן זאת?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="534"/>
         <source>Entry updated successfully.</source>
         <translation>רשומה עודכנה בהצלחה.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="629"/>
         <source>Unsaved Changes</source>
         <translation>שינויים שלא נשמרו</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="630"/>
         <source>Would you like to save changes to this entry?</source>
         <translation>האם לשמור שינויים לרשומה זו?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="679"/>
         <source>New attribute</source>
         <translation>תכונה חדשה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="684"/>
         <source>New attribute %1</source>
         <translation>תכונה חדשה %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="721"/>
         <source>Are you sure you want to remove this attribute?</source>
         <translation>האם להסיר תכונה זו?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="758"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="839"/>
         <source>Reveal</source>
         <translation>חשיפה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="765"/>
         <source>[PROTECTED] Press Reveal to view or edit</source>
         <translation>[מוגן] הקשה על חשיפה או עריכה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="834"/>
         <source>Hide</source>
         <translation>הסתרה</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="895"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="896"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="897"/>
         <source>%n week(s)</source>
-        <translation><numerusform>שבוע %n</numerusform><numerusform>%n שבועות</numerusform><numerusform>%n שבועות</numerusform></translation>
+        <translation>
+            <numerusform>שבוע %n</numerusform>
+            <numerusform>%n שבועות</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="899"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="900"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="901"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="902"/>
         <source>%n month(s)</source>
-        <translation><numerusform>חודש %n</numerusform><numerusform>%n חודשים</numerusform><numerusform>%n חודשים</numerusform></translation>
+        <translation>
+            <numerusform>חודש %n</numerusform>
+            <numerusform>%n חודשים</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="904"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="905"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="906"/>
         <source>%n year(s)</source>
-        <translation><numerusform>שנה %n</numerusform><numerusform>%n שנים</numerusform><numerusform>%n שנים</numerusform></translation>
+        <translation>
+            <numerusform>שנה %n</numerusform>
+            <numerusform>%n שנים</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="892"/>
+        <location filename="../../src/gui/entry/EditEntryWidget.cpp" line="893"/>
         <source>%n hour(s)</source>
-        <translation><numerusform>שעה %n</numerusform><numerusform>%1 שעות</numerusform><numerusform>%1 שעות</numerusform></translation>
-    </message>
-    <message>
-        <source>Failed to decrypt SSH key, ensure password is correct.</source>
-        <translation>פענוח מפתח SSH כשל, נא לוודא שהססמה תקינה.</translation>
+        <translation>
+            <numerusform>שעה %n</numerusform>
+            <numerusform>%1 שעות</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>EditEntryWidgetAdvanced</name>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="29"/>
         <source>Additional attributes</source>
         <translation>תכונות נוספות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="48"/>
         <source>Attribute selection</source>
         <translation>בחירת תכונות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="74"/>
         <source>Attribute value</source>
         <translation>ערך תכונה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="84"/>
         <source>Add a new attribute</source>
         <translation>הוספת תכונה חדשה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="87"/>
         <source>Add</source>
         <translation>הוספה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="97"/>
         <source>Remove selected attribute</source>
         <translation>הסרת תכונות שנבחרו</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="100"/>
         <source>Remove</source>
         <translation>הסרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="110"/>
         <source>Edit attribute name</source>
         <translation>עריכת שם תכונה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="113"/>
         <source>Edit Name</source>
         <translation>עריכת שם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="136"/>
         <source>Toggle attribute protection</source>
         <translation>החלפת־מצב הגנה על תכונות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="142"/>
         <source>Protect</source>
         <translation>מיזם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="155"/>
         <source>Show a protected attribute</source>
         <translation>הצגת תכונה מוגנת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="158"/>
         <source>Reveal</source>
         <translation>חשיפה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="173"/>
         <source>Attachments</source>
         <translation>צרופות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="185"/>
         <source>If checked, the entry will not appear in reports like Health Check and HIBP even if it doesn&apos;t match the quality requirements.</source>
         <translation>אם אפשרות זו מסומנת, הרשומה לא תופיע בדוחות כגון בדיקת תקינות ו־HIBP גם אם היא אינה תואמת לדרישות האיכות.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="188"/>
         <source>Exclude from database reports</source>
         <translation>החרגה מדוחות מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="210"/>
         <source>Foreground Color:</source>
         <translation>צבע חזית:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="229"/>
         <source>Foreground color selection</source>
         <translation>בחירת צבע חזית</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="255"/>
         <source>Background Color:</source>
         <translation>צבע רקע:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetAdvanced.ui" line="274"/>
         <source>Background color selection</source>
         <translation>בחירת צבע רקע</translation>
     </message>
 </context>
 <context>
-    <name>EditEntryWidgetAutoType</name>
-    <message>
-        <source>Enable Auto-Type for this entry</source>
-        <translation>אפשור הקלדה־אוטומטית ברשומה זו</translation>
-    </message>
-    <message>
-        <source>Inherit default Auto-Type sequence from the group</source>
-        <translation>ירושת רצף ברירת מחדל הקלדה־אוטומטית מהקבוצה</translation>
-    </message>
-    <message>
-        <source>Use custom Auto-Type sequence:</source>
-        <translation>שימוש ברצף הקלדה־אוטומטית ברירת מחדל:</translation>
-    </message>
-    <message>
-        <source>Custom Auto-Type sequence</source>
-        <translation>רצף הקלדה־אוטומטית מותאם אישית</translation>
-    </message>
-    <message>
-        <source>Open Auto-Type help webpage</source>
-        <translation>פתיחת עמוד מרשתת עזרת הקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Window Associations</source>
-        <translation>שיוכי חלונות</translation>
-    </message>
-    <message>
-        <source>Existing window associations</source>
-        <translation>שיוכי חלונות קיימים</translation>
-    </message>
-    <message>
-        <source>Add new window association</source>
-        <translation>הוספת שיוך חלון חדש</translation>
-    </message>
-    <message>
-        <source>Remove selected window association</source>
-        <translation>הסרת חלון צרופות שנבחר</translation>
-    </message>
-    <message>
-        <source>Window title:</source>
-        <translation>כותרת חלון:</translation>
-    </message>
-    <message>
-        <source>You can use an asterisk (*) to match everything</source>
-        <translation>ניתן להשתמש בכוכבית (*) כדי להתאים לכל דבר</translation>
-    </message>
-    <message>
-        <source>Set the window association title</source>
-        <translation>הגדרת כותרת שיוך החלון</translation>
-    </message>
-    <message>
-        <source>You can use an asterisk to match everything</source>
-        <translation>ניתן להשתמש בכוכבית כדי להתאים לכל דבר</translation>
-    </message>
-    <message>
-        <source>Use a specific sequence for this association:</source>
-        <translation>נא להשתמש ברצף מבויים עבור שיוך זה:</translation>
-    </message>
-    <message>
-        <source>Custom Auto-Type sequence for this window</source>
-        <translation>רצף הקלדה־אוטומטית מותאם אישית לחלון זה</translation>
-    </message>
-    <message>
-        <source>+</source>
-        <comment>Add item</comment>
-        <translation>+</translation>
-    </message>
-    <message>
-        <source>-</source>
-        <comment>Remove item</comment>
-        <translation>-</translation>
-    </message>
-</context>
-<context>
-    <name>EditEntryWidgetBrowser</name>
-    <message>
-        <source>General</source>
-        <translation>כללי</translation>
-    </message>
-    <message>
-        <source>Hide this entry from the browser extension</source>
-        <translation>הסתרת רשומה זו מהרחבת הדפדפן</translation>
-    </message>
-    <message>
-        <source>Skip Auto-Submit for this entry</source>
-        <translation>דלוג על Auto-Submit ברשומה זו</translation>
-    </message>
-    <message>
-        <source>Use this entry only with HTTP Basic Auth</source>
-        <translation>שימוש ברשומה זו רק באמצעות HTTP Basic Auth</translation>
-    </message>
-    <message>
-        <source>Do not use this entry with HTTP Basic Auth</source>
-        <translation>לא להשתמש ברשומה זו ב־HTTP Basic Auth</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>הוספה</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>הסרה</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation>עריכה</translation>
-    </message>
-    <message>
-        <source>These settings affect the entry&apos;s behaviour with the browser extension.</source>
-        <translation>הגדרות אלו משפיעות על התנהגות הרשומה עם הרחבות הדפדפן.</translation>
-    </message>
-    <message>
-        <source>Additional URLs</source>
-        <translation>מעני URL נוספים</translation>
-    </message>
-    <message>
-        <source>Only send this entry to the browser for HTTP Auth dialogs. If enabled, normal login forms will not show this entry for selection.</source>
-        <translation>לשלוח ערך זה לדפדפן רק עבור תיבות דו־שיח HTTP Auth. אם מופעל, טפסי התחברות רגילים לא יציגו ערך זה לבחירה.</translation>
-    </message>
-    <message>
-        <source>Do not send this entry to the browser for HTTP Auth dialogs. If enabled, HTTP Auth dialogs will not show this entry for selection.</source>
-        <translation>לא לשלוח ערך זה לדפדפן עבור תיבות דו־שיח של HTTP Auth. אם מופעל, תיבות דו־שיח HTTP Auth לא יציגו ערך זה לבחירה.</translation>
-    </message>
-</context>
-<context>
     <name>EditEntryWidgetHistory</name>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="29"/>
         <source>Entry history selection</source>
         <translation>בחירת הסטורית רשומות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="50"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="53"/>
         <source>Show entry at selected history state</source>
         <translation>הצגת רשומות במצב היסטוריה שנבחר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="56"/>
         <source>Show</source>
         <translation>מצג</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="66"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="69"/>
         <source>Restore entry to selected history state</source>
         <translation>שחזור רשומות למצב היסטוריה שנבחר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="72"/>
         <source>Restore</source>
         <translation>שחזור</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="82"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="85"/>
         <source>Delete selected history state</source>
         <translation>מחיקת מצב היסטוריה שנבחר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="88"/>
         <source>Delete</source>
         <translation>מחיקה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="98"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="101"/>
         <source>Delete all history</source>
         <translation>מחקת כל ההיסטוריה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetHistory.ui" line="104"/>
         <source>Delete all</source>
         <translation>מחיקת הכול</translation>
     </message>
@@ -3253,453 +2227,207 @@ Would you like to correct it?</source>
 <context>
     <name>EditEntryWidgetMain</name>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="14"/>
         <source>Edit Entry</source>
         <translation>עריכת רשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="106"/>
         <source>Notes field</source>
         <translation>שדה הערות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="147"/>
         <source>Username field</source>
         <translation>השדה &apos;שם משתמש&apos;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="185"/>
         <source>Expiration field</source>
         <translation>שדה תפוגה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="201"/>
         <source>Expiration Presets</source>
         <translation>תפוגה קבועה מראש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="204"/>
         <source>Expiration presets</source>
         <translation>הגדרות תפוגה קבועות מראש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="207"/>
         <source>Presets</source>
         <translation>קבועות מראש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="234"/>
         <source>Url field</source>
         <translation>שדה מען URL</translation>
     </message>
     <message>
-        <source>Download favicon for URL</source>
-        <translation>הורדת פביקון למען URL</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="62"/>
         <source>Title field</source>
         <translation>שדה כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="85"/>
         <source>Password field</source>
         <translation>שדה ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="169"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="172"/>
         <source>Toggle expiration</source>
         <translation>החלפת־מצב תפוגה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="157"/>
         <source>Tags list</source>
         <translation>רשימת תגים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="69"/>
         <source>&amp;Username:</source>
         <translation>&amp;שם משתמש:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="118"/>
         <source>&amp;Title:</source>
         <translation>&amp;תואר:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="131"/>
         <source>&amp;Password:</source>
         <translation>&amp;ססמה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="216"/>
         <source>UR&amp;L:</source>
         <translation>UR&amp;L:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="248"/>
         <source>&amp;Notes:</source>
         <translation>&amp;הערות:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="279"/>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="282"/>
         <source>Toggle notes visibility</source>
         <translation>מחלף נראות הערות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="315"/>
         <source>T&amp;ags:</source>
         <translation>ת&amp;גים:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EditEntryWidgetMain.ui" line="328"/>
         <source>&amp;Expires:</source>
         <translation>&amp;תפוגה:</translation>
     </message>
 </context>
 <context>
-    <name>EditEntryWidgetSSHAgent</name>
-    <message>
-        <source>Form</source>
-        <translation>טופס</translation>
-    </message>
-    <message>
-        <source>Remove key from agent when database is closed/locked</source>
-        <translation>הסרת מפתח מהסוכן כשמסד הנתונים סגור/נעול</translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation>הערה</translation>
-    </message>
-    <message>
-        <source>Add key to agent when database is opened/unlocked</source>
-        <translation>הוספת מפתח לסוכן כאשר מסד־נתונים נפתח/שוחרר מנעילה</translation>
-    </message>
-    <message>
-        <source>Decrypt</source>
-        <translation>פענוח</translation>
-    </message>
-    <message>
-        <source>Fingerprint</source>
-        <translation>טביעות אצבע</translation>
-    </message>
-    <message>
-        <source>Copy to clipboard</source>
-        <translation>העתקה ללוח־הגזירים</translation>
-    </message>
-    <message>
-        <source>Public key</source>
-        <translation>מפתח ציבורי</translation>
-    </message>
-    <message>
-        <source>Private key</source>
-        <translation>מפתח פרטי</translation>
-    </message>
-    <message>
-        <source>External file</source>
-        <translation>קובץ חיצוני</translation>
-    </message>
-    <message>
-        <source>Browser for key file</source>
-        <translation>דפדוף לקובץ מפתח</translation>
-    </message>
-    <message>
-        <source>Browse…</source>
-        <extracomment>Button for opening file dialog</extracomment>
-        <translation>עיון...</translation>
-    </message>
-    <message>
-        <source>Attachment</source>
-        <translation>צרופה</translation>
-    </message>
-    <message>
-        <source>External key file</source>
-        <translation>קובץ מפתח חיצוני</translation>
-    </message>
-    <message>
-        <source>Add to agent</source>
-        <translation>הוספה לסוכן</translation>
-    </message>
-    <message>
-        <source>Remove from agent</source>
-        <translation>הסרה מסוכן</translation>
-    </message>
-    <message>
-        <source>Select attachment file</source>
-        <translation>בחירת קובץ צרופה</translation>
-    </message>
-    <message>
-        <source>Require user confirmation when this key is used</source>
-        <translation>נדרש אישור משתמש בעת שימוש במפתח זה</translation>
-    </message>
-    <message>
-        <source>n/a</source>
-        <translation>ל/ר</translation>
-    </message>
-    <message>
-        <source>Remove key from agent after</source>
-        <translation>הסרת מפתח מהסוכן לאחר</translation>
-    </message>
-    <message>
-        <source>Remove key from agent after specified seconds</source>
-        <translation>הסרה מפתח מהסוכן לאחר מספר השניות שצוינו</translation>
-    </message>
-    <message>
-        <source> seconds</source>
-        <translation> שניות</translation>
-    </message>
-    <message>
-        <source>Clear agent</source>
-        <translation>ניקוי סוכן</translation>
-    </message>
-</context>
-<context>
     <name>EditGroupWidget</name>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="69"/>
         <source>Group</source>
         <translation>קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="70"/>
         <source>Icon</source>
         <translation>סמל</translation>
     </message>
     <message>
-        <source>Browser Integration</source>
-        <translation>שילוב דפדפן</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="71"/>
         <source>Properties</source>
         <translation>מאפיינים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="112"/>
         <source>Add group</source>
         <translation>הוספת קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="116"/>
         <source>Edit group</source>
         <translation>עריכת קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="231"/>
         <source>Group has unsaved changes</source>
         <translation>קיימים שינויי קבוצה שטרם נשמרו</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="273"/>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="282"/>
         <source>Enable</source>
         <translation>איפשור</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="277"/>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="283"/>
         <source>Disable</source>
         <translation>מושבת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidget.cpp" line="281"/>
         <source>Inherit from parent group (%1)</source>
         <translation>ירושה מקבוצת הורה (%1)</translation>
     </message>
 </context>
 <context>
-    <name>EditGroupWidgetBrowser</name>
-    <message>
-        <source>These settings affect to the group&apos;s behaviour with the browser extension.</source>
-        <translation>הגדרות אלה משפיעות על התנהגות הקבוצה בהרחברת הדפדפן.</translation>
-    </message>
-    <message>
-        <source>Hide entries from browser extension:</source>
-        <translation>הסתרת רשומות מהרחבת דפדפן:</translation>
-    </message>
-    <message>
-        <source>Hide entries from browser extension toggle for this and sub groups</source>
-        <translation>הסתרת רשומות ממחלף הרחבות דפדפן עבור זה ועבור קבוצות משנה</translation>
-    </message>
-    <message>
-        <source>Skip Auto-Submit for entries:</source>
-        <translation>דלוג על Auto-Submit לרשומות:</translation>
-    </message>
-    <message>
-        <source>Skip Auto-Submit toggle for this and sub groups</source>
-        <translation>דלוג על הקלדה־אוטומטית לזה ולקבוצות משנה</translation>
-    </message>
-    <message>
-        <source>Use entries only with HTTP Basic Auth:</source>
-        <translation>שימוש ברשומות רק באמצעות :HTTP Basic Auth</translation>
-    </message>
-    <message>
-        <source>Only HTTP Auth toggle for this and sub groups</source>
-        <translation>רק החלפת־מצב HTTP Auth לזה ולקבוצות משנה</translation>
-    </message>
-    <message>
-        <source>Do not use entries with HTTP Basic Auth:</source>
-        <translation>לא להשתמש ברשומות עם :HTTP Basic Auth</translation>
-    </message>
-    <message>
-        <source>Do not use HTTP Auth toggle for this and sub groups</source>
-        <translation>לא להשתמש ב־HTTP Auth לזה ולקבוצות משנה</translation>
-    </message>
-    <message>
-        <source>Omit WWW subdomain from matching:</source>
-        <translation>השמטת תת־תחום WWW מההתאמה:</translation>
-    </message>
-    <message>
-        <source>Omit WWW subdomain from matching toggle for this and sub groups</source>
-        <translation>השמטת תת־תחום WWW ממחלף ההתאמה, לקבוצה זו ותתי־קבוצות</translation>
-    </message>
-    <message>
-        <source>Restrict matching to given browser key:</source>
-        <translation>הגבלת התאמות למפתחות דפדפן נתונים:</translation>
-    </message>
-    <message>
-        <source>Restrict matching to given browser key toggle for this and sub groups</source>
-        <translation>להגביל התאמה כדי לספק מיתוג מפתח דפדפן עבור זה ועבור קבוצות משה.</translation>
-    </message>
-</context>
-<context>
-    <name>EditGroupWidgetKeeShare</name>
-    <message>
-        <source>Sharing mode field</source>
-        <translation>שדה מצב שיתוף</translation>
-    </message>
-    <message>
-        <source>Password field</source>
-        <translation>שדה ססמה</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation>סוג:</translation>
-    </message>
-    <message>
-        <source>Password:</source>
-        <translation>ססמה:</translation>
-    </message>
-    <message>
-        <source>Path:</source>
-        <translation>נתיב:</translation>
-    </message>
-    <message>
-        <source>Path to share file field</source>
-        <translation>נתיב לשיתוף שדה קובץ</translation>
-    </message>
-    <message>
-        <source>Browse for share file</source>
-        <translation>דפדוף לקובץ שיתוף</translation>
-    </message>
-    <message>
-        <source>Browse…</source>
-        <translation>עיון...</translation>
-    </message>
-    <message>
-        <source>Clear fields</source>
-        <translation>נקוי שדות</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation>נקה</translation>
-    </message>
-    <message>
-        <source>Inactive</source>
-        <translation>לא פעיל</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation>ייבוא</translation>
-    </message>
-    <message>
-        <source>Export</source>
-        <translation>ייצוא</translation>
-    </message>
-    <message>
-        <source>Synchronize</source>
-        <translation>סנכרון</translation>
-    </message>
-    <message>
-        <source>Your KeePassXC version does not support sharing this container type.
-Supported extensions are: %1.</source>
-        <translation>גרסת KeePassXC לא תומכת בשיתוף סוג מיכל זה.
-הרחבות נתמכות הן: %1.</translation>
-    </message>
-    <message>
-        <source>%1 is already being exported by this database.</source>
-        <translation>מסד־נתונים זה מייצא כבר את %1.</translation>
-    </message>
-    <message>
-        <source>%1 is already being imported by this database.</source>
-        <translation>מסד־נתונים זה מייבא כבר את %1.</translation>
-    </message>
-    <message>
-        <source>%1 is being imported and exported by different groups in this database.</source>
-        <translation>%1 מיובא ומיוצא על־ידי קבוצות שונות במסד נתונים זה.</translation>
-    </message>
-    <message>
-        <source>KeeShare is currently disabled. You can enable import/export in the application settings.</source>
-        <comment>KeeShare is a proper noun</comment>
-        <translation>KeeShare מושבת כעת. ניתן לאפשר ייבוא/ייצוא בהגדרות היישום.</translation>
-    </message>
-    <message>
-        <source>Database export is currently disabled by application settings.</source>
-        <translation>ייצוא מסד־נתונים מושבת כעת על־ידי הגדרות יישום.</translation>
-    </message>
-    <message>
-        <source>Database import is currently disabled by application settings.</source>
-        <translation>ייבוא מסד־נתונים מושבת כעת על־ידי הגדרות יישום.</translation>
-    </message>
-    <message>
-        <source>KeeShare container</source>
-        <translation>מיכל KeeShare</translation>
-    </message>
-    <message>
-        <source>KeeShare signed container</source>
-        <translation>מיכל KeeShare חתום</translation>
-    </message>
-    <message>
-        <source>Select import source</source>
-        <translation>בחירת מקור יבוא</translation>
-    </message>
-    <message>
-        <source>Select export target</source>
-        <translation>בחירת יעד יצוא</translation>
-    </message>
-    <message>
-        <source>Select import/export file</source>
-        <translation>בחירת קובץ ייבוא/ייצוא</translation>
-    </message>
-</context>
-<context>
     <name>EditGroupWidgetMain</name>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="14"/>
         <source>Edit Group</source>
         <translation>עריכת קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="85"/>
         <source>Toggle expiration</source>
         <translation>החלפת־מצב תפוגה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="88"/>
         <source>Expires:</source>
         <translation>תפוגה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="131"/>
         <source>Name field</source>
         <translation>שדה שם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="141"/>
         <source>Expiration field</source>
         <translation>שדה תפוגה</translation>
     </message>
     <message>
-        <source>Use default Auto-Type sequence of parent group</source>
-        <translation>שימוש ברצף הקלדה־אוטומטית ברירת מחדל של קבוצת אב</translation>
-    </message>
-    <message>
-        <source>Auto-Type:</source>
-        <translation>הקלדה־אוטומטית:</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="121"/>
         <source>Search:</source>
         <translation>חיפוש:</translation>
     </message>
     <message>
-        <source>Auto-Type toggle for this and sub groups</source>
-        <translation>החלפת־מצב הקלדה־אוטומטית לקבוצות משנה אלו</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="153"/>
         <source>Notes:</source>
         <translation>הערות:</translation>
     </message>
     <message>
-        <source>Default auto-type sequence field</source>
-        <translation>רצף הקלדה־אוטומטית ברירת מחדל כשל</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="107"/>
         <source>Notes field</source>
         <translation>שדה הערות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="75"/>
         <source>Name:</source>
         <translation>שם:</translation>
     </message>
     <message>
-        <source>Set default Auto-Type sequence</source>
-        <translation>הגדרת רצף הקלדה־אוטומטית ברירת מחדל</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/group/EditGroupWidgetMain.ui" line="114"/>
         <source>Search toggle for this and sub groups</source>
         <translation>החלפת־מצב חיפוש קבוצות משנה אלה</translation>
     </message>
@@ -3707,155 +2435,167 @@ Supported extensions are: %1.</source>
 <context>
     <name>EditWidgetIcons</name>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="29"/>
         <source>Use default icon</source>
         <translation>שימוש בסמל ברירת מחדל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="77"/>
         <source>Use custom icon</source>
         <translation>שימוש בסמל מותאם אישית</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="111"/>
         <source>Choose icon…</source>
         <translation>בחירת סמל...</translation>
     </message>
     <message>
-        <source>Set the URL to use to search for a favicon</source>
-        <translation>הגדרת מען ה־URL שישמש לחיפוש פביקון</translation>
-    </message>
-    <message>
-        <source>Favicon URL</source>
-        <translation>מען URL לפביקון</translation>
-    </message>
-    <message>
-        <source>Download favicon for URL</source>
-        <translation>הורדת פביקון למען URL</translation>
-    </message>
-    <message>
-        <source>Download favicon</source>
-        <translation>הורדת פביקון</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="137"/>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="140"/>
         <source>Apply selected icon to subgroups and entries</source>
         <translation>החלת סמל שנבחר לקבוצות־משנה ורשומות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.ui" line="146"/>
         <source>Apply icon to…</source>
         <translation>החלת סמל על...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="164"/>
         <source>Apply to this group only</source>
         <translation>החלה על קבוצה זו בלבד</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="168"/>
         <source>Also apply to child groups</source>
         <translation>חלה גם על קבוצות צאצא</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="169"/>
         <source>Also apply to child entries</source>
         <translation>חל גם על רשומות צאצא</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="170"/>
         <source>Also apply to all children</source>
         <translation>חל גם על כל הצאצאים</translation>
     </message>
     <message>
-        <source>Unable to fetch favicon.</source>
-        <translation>לא ניתן לאחזר פביקון.</translation>
-    </message>
-    <message>
-        <source>Existing icon selected.</source>
-        <translation>נבחר סמל קיים.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="182"/>
         <source>Images</source>
         <translation>תמונות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="182"/>
         <source>All files</source>
         <translation>כל הקבצים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="183"/>
         <source>Select Image(s)</source>
         <translation>בחירת תמונה(ות)</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="213"/>
         <source>Successfully loaded %1 of %n icon(s)</source>
-        <translation><numerusform>%1 מתוך %n סמלים נטען בהצלחה</numerusform><numerusform>%1 מתוך %n סמלים נטענו בהצלחה</numerusform><numerusform>%1 מתוך %n סמלים נטענו בהצלחה</numerusform></translation>
+        <translation>
+            <numerusform>%1 מתוך %n סמלים נטען בהצלחה</numerusform>
+            <numerusform>%1 מתוך %n סמלים נטענו בהצלחה</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="217"/>
         <source>No icons were loaded</source>
         <translation>לא נטענו סמלים</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="222"/>
         <source>%n icon(s) already exist in the database</source>
-        <translation><numerusform>סמל %n כבר קיים במסד הנתונים</numerusform><numerusform>%n סמלים כבר קיימים במסד הנתונים</numerusform><numerusform>%n סמלים כבר קיימים במסד הנתונים</numerusform></translation>
+        <translation>
+            <numerusform>סמל %n כבר קיים במסד הנתונים</numerusform>
+            <numerusform>%n סמלים כבר קיימים במסד הנתונים</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="229"/>
         <source>The following icon(s) failed:</source>
-        <translation><numerusform>הסמל הבא כשל:</numerusform><numerusform>הסמלים הבאים כשלו:</numerusform><numerusform>הסמלים הבאים כשלו:</numerusform></translation>
-    </message>
-    <message>
-        <source>You can enable the DuckDuckGo website icon service under Application Settings -&gt; Security</source>
-        <translation>ניתן לאפשור את שרות סמלי אתר מרשתת DuckDuckGo מתפריט הגדרות יישום -&gt; אבטחה</translation>
+        <translation>
+            <numerusform>הסמל הבא כשל:</numerusform>
+            <numerusform>הסמלים הבאים כשלו:</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>EditWidgetProperties</name>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="37"/>
         <source>Created:</source>
         <translation>נוצר:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="53"/>
         <source>Datetime created</source>
         <translation>תאריך ושעה נוצרו</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="63"/>
         <source>Modified:</source>
         <translation>הוסגל:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="79"/>
         <source>Datetime modified</source>
         <translation>תאריך ושעה הוסגלו</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="89"/>
         <source>Uuid:</source>
         <translation>Uuid:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="99"/>
         <source>Unique ID</source>
         <translation>מזהה ייחודי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="127"/>
         <source>Plugin Data</source>
         <translation>נתוני מתקע</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="133"/>
         <source>Plugin data</source>
         <translation>נתוני מתקע</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="157"/>
         <source>Remove selected plugin data</source>
         <translation>הסרת מידע מתקע שנבחר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.ui" line="160"/>
         <source>Remove</source>
         <translation>הסרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.cpp" line="79"/>
         <source>Delete plugin data?</source>
         <translation>האם למחוק נתוני מתקע?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.cpp" line="80"/>
         <source>Do you really want to delete the selected plugin data?
 This may cause the affected plugins to malfunction.</source>
         <translation>האם למחוק את נתוני המתקע שנבחר?
 עלול לגרום לכשל במתקעים מושפעים.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.cpp" line="114"/>
         <source>Key</source>
         <translation>ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EditWidgetProperties.cpp" line="114"/>
         <source>Value</source>
         <translation>ערך</translation>
     </message>
@@ -3863,87 +2603,125 @@ This may cause the affected plugins to malfunction.</source>
 <context>
     <name>Entry</name>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="1043"/>
         <source>%1 - Clone</source>
         <translation>שכפול - %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="491"/>
         <source>Passkey</source>
         <translation>Passkey</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="1101"/>
+        <location filename="../../src/core/Entry.cpp" line="1135"/>
+        <location filename="../../src/core/Entry.cpp" line="1374"/>
+        <source>Maximum depth of replacement has been reached. Entry uuid: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Entry.cpp" line="1250"/>
+        <source>Bad DateTime placeholder type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Entry.cpp" line="1306"/>
         <source>Invalid conversion type: %1</source>
         <translation>סוג המרה לא תקין: %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="1318"/>
+        <location filename="../../src/core/Entry.cpp" line="1364"/>
         <source>Invalid conversion syntax: %1</source>
         <translation>תחביר המרה לא תקין: %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="1352"/>
         <source>Invalid regular expression syntax %1
 %2</source>
         <translation>תחביר ביטוי רגיל לא תקין %1
 %2</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="913"/>
         <source>Title</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="919"/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">שם משתמש</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="925"/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="931"/>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">מען url</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="937"/>
         <source>Notes</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">הערות</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="943"/>
         <source>Custom Attributes</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="949"/>
         <source>Icon</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">סמל</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="954"/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="960"/>
         <source>Expiration</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">תפוגה</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="965"/>
         <source>TOTP</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="970"/>
         <source>Custom Data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="975"/>
         <source>Attachments</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">צרופות</translation>
     </message>
     <message>
-        <source>Auto-Type</source>
-        <translation type="unfinished"/>
+        <location filename="../../src/core/Entry.cpp" line="1591"/>
+        <source>Bad url placeholder type</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Entry.cpp" line="980"/>
         <source>Tags</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">תגים</translation>
     </message>
 </context>
 <context>
     <name>EntryAttachments</name>
     <message>
+        <location filename="../../src/core/EntryAttachments.cpp" line="96"/>
+        <source>Can&apos;t find attachment for key %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/EntryAttachments.cpp" line="307"/>
         <source>Cannot open file &quot;%1&quot;</source>
         <translation>לא ניתן לפתוח קובץ &quot;%1&quot;</translation>
     </message>
@@ -3951,10 +2729,12 @@ This may cause the affected plugins to malfunction.</source>
 <context>
     <name>EntryAttachmentsModel</name>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsModel.cpp" line="27"/>
         <source>Name</source>
         <translation>שם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsModel.cpp" line="27"/>
         <source>Size</source>
         <translation>גודל</translation>
     </message>
@@ -3962,102 +2742,155 @@ This may cause the affected plugins to malfunction.</source>
 <context>
     <name>EntryAttachmentsWidget</name>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="14"/>
         <source>Form</source>
         <translation>טופס</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="32"/>
         <source>Attachments</source>
         <translation>צרופות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="69"/>
         <source>Add new attachment</source>
         <translation>הוספת צרופה חדשה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="145"/>
         <source>Remove selected attachment</source>
         <translation>הסרת צרופה שנבחרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="148"/>
         <source>Remove</source>
         <translation>הסרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="109"/>
         <source>Open selected attachment</source>
         <translation>פתיחת צרופה שנבחרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="112"/>
         <source>Open</source>
         <translation>פתיחה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="122"/>
         <source>Save selected attachment to disk</source>
         <translation>שמירת צרופה שנבחרה לכונן הקשיח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="189"/>
         <source>Select files</source>
         <translation>בחירת קובצים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="237"/>
+        <source>Failed to preview an attachment: No selection model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="244"/>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="297"/>
+        <source>Failed to edit an attachment: No attachment selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="251"/>
+        <source>Failed to preview an attachment: Attachment not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="290"/>
+        <source>Failed to edit an attachment: No selection model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="305"/>
+        <source>Failed to edit an attachment: Attachment not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="349"/>
         <source>Confirm remove</source>
         <translation>אישור הסרה</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="350"/>
         <source>Are you sure you want to remove %n attachment(s)?</source>
-        <translation><numerusform>האם להסיר צרופה %n?</numerusform><numerusform>האם להסיר %n צרופות?</numerusform><numerusform>האם להסיר %n צרופות?</numerusform></translation>
+        <translation>
+            <numerusform>האם להסיר צרופה %n?</numerusform>
+            <numerusform>האם להסיר %n צרופות?</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="378"/>
         <source>Save attachments</source>
         <translation>שמירת צרופות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="389"/>
         <source>Unable to create directory:
 %1</source>
         <translation>לא ניתן ליצור מחיצה:
 %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="411"/>
         <source>Are you sure you want to overwrite the existing file &quot;%1&quot; with the attachment?</source>
         <translation>האם לכתוב־על קובץ קיים &quot;%1&quot; יחד עם הצרופה?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="413"/>
         <source>Confirm overwrite</source>
         <translation>אישור כתיבה־על</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="438"/>
         <source>Unable to save attachments:
 %1</source>
         <translation>לא ניתן לשמור צרופות:
  %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="453"/>
         <source>Unable to open attachment:
 %1</source>
         <translation>לא ניתן לפתוח צרופה:
  %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="478"/>
         <source>Unable to open attachments:
 %1</source>
         <translation>לא ניתן לפתוח צרופה:
  %1</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="546"/>
         <source>Unable to open file(s):
 %1</source>
-        <translation><numerusform>לא ניתן לפתוח קובץ:
-%1</numerusform><numerusform>לא ניתן לפתוח קובצים:
-%1</numerusform><numerusform>לא ניתן לפתוח קובצים:
-%1</numerusform></translation>
+        <translation>
+            <numerusform>לא ניתן לפתוח קובץ:
+%1</numerusform>
+            <numerusform>לא ניתן לפתוח קובצים:
+%1</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="564"/>
         <source>Confirm Overwrite Attachment</source>
         <translation>אישור כתיבה־על צרופה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="582"/>
         <source>Confirm Attachment</source>
         <translation>אישור צרופה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="583"/>
         <source>%1 is a big file (%2 MB).
 Your database may get very large and reduce performance.
 
@@ -4068,63 +2901,76 @@ Are you sure to add this file?</source>
 האם להוסיף קובץ זה?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="659"/>
         <source>Attachment modified</source>
         <translation>צרופה הוסגלה</translation>
     </message>
     <message>
-        <source>The attachment '%1' was modified.
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="660"/>
+        <source>The attachment &apos;%1&apos; was modified.
 Do you want to save the changes to your database?</source>
         <translation>צרופה &apos;%1&apos; הוסגלה.
 האם לשמור את השינויים למסד הנתונים?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="676"/>
         <source>Saving attachment failed</source>
         <translation>שמירת צרופה כשלה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="677"/>
         <source>Saving updated attachment failed.
 Error: %1</source>
         <translation>שמירת צרופה עדכנית כשלה.
 שגיאה: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="565"/>
         <source>Attachment &quot;%1&quot; already exists. 
 Would you like to overwrite the existing attachment?</source>
         <translation>קיימת כבר צרופה &quot;%1&quot;.
 האם לכתוב־על הצרופה הקיימת?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="99"/>
         <source>Preview</source>
         <translation>תצוגה מקדימה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="82"/>
         <source>Edit</source>
         <translation>עריכה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="105"/>
         <source>New Text Document</source>
         <translation>מסמך מלל חדש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="72"/>
         <source>Add file…</source>
         <translation>הוספת קובץ...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="106"/>
         <source>Load from Disk…</source>
         <translation>טעינ מכונן...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.ui" line="125"/>
         <source>Save…</source>
         <translation>שמירה...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryAttachmentsWidget.cpp" line="222"/>
         <source>New Attachment</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>EntryAttributesModel</name>
     <message>
+        <location filename="../../src/gui/entry/EntryAttributesModel.cpp" line="82"/>
         <source>Name</source>
         <translation>שם</translation>
     </message>
@@ -4132,22 +2978,27 @@ Would you like to overwrite the existing attachment?</source>
 <context>
     <name>EntryHistoryModel</name>
     <message>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="93"/>
         <source>Current (%1)</source>
         <translation>נוכחי (%1)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="134"/>
         <source>Last modified</source>
         <translation>הוסגל לאחרונה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="136"/>
         <source>Age</source>
         <translation>גיל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="138"/>
         <source>Difference</source>
         <translation>שוני</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="140"/>
         <source>Size</source>
         <translation>גודל</translation>
     </message>
@@ -4155,107 +3006,165 @@ Would you like to overwrite the existing attachment?</source>
 <context>
     <name>EntryModel</name>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="161"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="177"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="197"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="210"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="229"/>
         <source>Ref: </source>
         <comment>Reference abbreviation</comment>
         <translation>הפניה: </translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="236"/>
         <source>Never</source>
         <translation>אף פעם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="265"/>
+        <source>B</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="266"/>
+        <source>KiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="267"/>
+        <source>MiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="268"/>
+        <source>GiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="461"/>
         <source>Group</source>
         <translation>קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="465"/>
         <source>Title</source>
         <translation>כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="467"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="509"/>
         <source>Username</source>
         <translation>שם משתמש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="469"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="511"/>
         <source>Password</source>
         <translation>ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="471"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="515"/>
         <source>URL</source>
         <translation>מען url</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="473"/>
         <source>Notes</source>
         <translation>הערות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="475"/>
         <source>Expires</source>
         <translation>תפוגה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="477"/>
         <source>Created</source>
         <translation>נוצר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="479"/>
         <source>Modified</source>
         <translation>הוסגל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="481"/>
         <source>Attachments</source>
         <translation>צרופות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="483"/>
         <source>Size</source>
         <translation>גודל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="503"/>
         <source>Group name</source>
         <translation>שם קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="507"/>
         <source>Entry title</source>
         <translation>כותרת רשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="513"/>
         <source>Password Strength</source>
         <translation>חוזק ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="517"/>
         <source>Entry notes</source>
         <translation>הערות רשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="519"/>
         <source>Entry expires at</source>
         <translation>תוקף רשומה פג ב־</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="521"/>
         <source>Creation date</source>
         <translation>תאריך יצירה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="523"/>
         <source>Last modification date</source>
         <translation>תאריך הסגלה אחרון</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="525"/>
         <source>Attached files</source>
         <translation>קבצים מצורפים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="527"/>
         <source>Entry size</source>
         <translation>גודל רשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="529"/>
         <source>Has attachments</source>
         <translation>קיימות צרופות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="531"/>
         <source>Has TOTP</source>
         <translation>קיים TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="533"/>
         <source>Background Color</source>
         <translation>צבע רקע</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="463"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="505"/>
         <source>Group Path</source>
         <translation>נתיב קבוצה</translation>
     </message>
@@ -4263,151 +3172,156 @@ Would you like to overwrite the existing attachment?</source>
 <context>
     <name>EntryPreviewWidget</name>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="177"/>
         <source>Display current TOTP value</source>
         <translation>הצגת ערך TOTP נוכחי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="193"/>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="845"/>
         <source>Close</source>
         <translation>סגירה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="218"/>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="870"/>
         <source>General</source>
         <translation>כללי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="589"/>
         <source>Password</source>
         <translation>ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="610"/>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="1006"/>
         <source>Notes</source>
         <translation>הערות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="631"/>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="985"/>
         <source>Expiration</source>
         <translation>תפוגה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="460"/>
         <source>Tags</source>
         <translation>תגים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="527"/>
         <source>Tags list</source>
         <translation>רשימת תגים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="388"/>
         <source>Username</source>
         <translation>שם משתמש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="652"/>
         <source>URL</source>
         <translation>מען url</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="666"/>
         <source>Advanced</source>
         <translation>מתקדם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="698"/>
         <source>Attachments</source>
         <translation>צרופות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="729"/>
         <source>Attributes</source>
         <translation>תכונות</translation>
     </message>
     <message>
-        <source>Autotype</source>
-        <translation>הקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Default Sequence</source>
-        <translation>רצף ברירת מחדל</translation>
-    </message>
-    <message>
-        <source>Window</source>
-        <translation>חלון</translation>
-    </message>
-    <message>
-        <source>Sequence</source>
-        <translation>רצף סדר פעולות</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="922"/>
         <source>Searching</source>
         <translation>חיפוש</translation>
     </message>
     <message>
-        <source>Share</source>
-        <translation>שיתוף</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="1027"/>
         <source>Search</source>
         <translation>חיפוש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="1032"/>
         <source>Clear</source>
         <translation>נקה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.cpp" line="452"/>
+        <location filename="../../src/gui/EntryPreviewWidget.cpp" line="549"/>
         <source>Never</source>
         <translation>אף פעם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.cpp" line="545"/>
         <source>Enabled</source>
         <translation>מאופשר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.cpp" line="545"/>
         <source>Disabled</source>
         <translation>מושבת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.cpp" line="522"/>
         <source>Double click to copy value</source>
         <translation>הקשה כפולה להעתקת ערך</translation>
     </message>
     <message>
+        <location filename="../../src/gui/EntryPreviewWidget.ui" line="145"/>
         <source>Double click to copy to clipboard</source>
         <translation>הקשה כפולה להעתיק ללוח גזירים</translation>
     </message>
 </context>
 <context>
-    <name>EntryURLModel</name>
-    <message>
-        <source>Invalid URL</source>
-        <translation>מען URL תקין</translation>
-    </message>
-    <message>
-        <source>Duplicate URL</source>
-        <translation>שיכפול מען URL</translation>
-    </message>
-</context>
-<context>
     <name>EntryView</name>
     <message>
+        <location filename="../../src/gui/entry/EntryView.cpp" line="133"/>
         <source>Fit to window</source>
         <translation>התאמה לחלון</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryView.cpp" line="134"/>
         <source>Fit to contents</source>
         <translation>התאמה לתוכן</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/EntryView.cpp" line="136"/>
         <source>Reset to defaults</source>
         <translation>איפוס לברירות המחדל</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/entry/EntryView.cpp" line="602"/>
         <source>+ %1 entry(s)...</source>
-        <translation><numerusform>רשומה + %1...</numerusform><numerusform>+ %1 רשומות...</numerusform><numerusform>+ %1 רשומות...</numerusform></translation>
+        <translation>
+            <numerusform>רשומה + %1...</numerusform>
+            <numerusform>+ %1 רשומות...</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>ExportDialog</name>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.ui" line="14"/>
         <source>Export options</source>
         <translation>אפשרויות יצוא</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.ui" line="30"/>
         <source>Sort entries by...</source>
         <translation>מיון רשומות לפי...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="42"/>
         <source>You are about to export your database to an unencrypted file.
 This will leave your passwords and sensitive information vulnerable!
 </source>
@@ -4417,221 +3331,157 @@ This will leave your passwords and sensitive information vulnerable!
 </translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="56"/>
         <source>database order</source>
         <translation>סדר מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="58"/>
         <source>name (ascending)</source>
         <translation>שם (סדר עולה)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="60"/>
         <source>name (descending)</source>
         <translation>שם (סדר יורד)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="73"/>
         <source>Export database to HTML file</source>
         <translation>ייצוא מסד־נתונים לקובץ HTML</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="73"/>
         <source>HTML file</source>
         <translation>קובץ HTML</translation>
     </message>
     <message>
+        <location filename="../../src/gui/export/ExportDialog.cpp" line="63"/>
         <source>invalid sort order</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::DBusMgr</name>
-    <message>
-        <source>Failed to deliver message</source>
-        <translation>מסירת הודעה כשלה</translation>
-    </message>
-    <message>
-        <source>Failed to send reply on DBus</source>
-        <translation>שליחת תשובה ב־DBus כשלה</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <comment>Unknown PID</comment>
-        <translation>לא ידוע</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <comment>Unknown executable path</comment>
-        <translation>לא ידוע</translation>
-    </message>
-    <message>
-        <source>&lt;i&gt;PID: %1, Executable: %2&lt;/i&gt;</source>
-        <comment>&lt;i&gt;PID: 1234, Executable: /path/to/exe&lt;/i&gt;</comment>
-        <translation>&lt;i&gt;PID: %1, קובץ הפעלה: %2&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <source>Another secret service is running (%1).&lt;br/&gt;Please stop/remove it before re-enabling the Secret Service Integration.</source>
-        <translation>שירות חשאי אחר פועל (%1).&lt;br/&gt;נא להפסיק/להסיר אותו לפני איפשור השירות החשאי מחדש.</translation>
-    </message>
-    <message>
-        <source>Failed to register DBus service at %1.&lt;br/&gt;</source>
-        <translation>רישום שירות DBus ב־%1 כשל.&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <source>Failed to register service on DBus at path &apos;%1&apos;</source>
-        <translation>רישום השירות ב־DBus בנתיב &apos;%1&apos; כשל</translation>
-    </message>
-    <message>
-        <source>Failed to register database on DBus under the name &apos;%1&apos;</source>
-        <translation>רישום מסד־נתונים ב־DBus בשם &apos;%1&apos; כשל</translation>
-    </message>
-    <message>
-        <source>Failed to register session on DBus at path &apos;%1&apos;</source>
-        <translation>רישום השיח ב־DBus בנתיב &apos;%1&apos; כשל</translation>
-    </message>
-    <message>
-        <source>Failed to register item on DBus at path &apos;%1&apos;</source>
-        <translation>רישום פריט ב־DBus בנתיב &apos;%1&apos; כשל</translation>
-    </message>
-    <message>
-        <source>Failed to register prompt object on DBus at path &apos;%1&apos;</source>
-        <translation>רישום אובייקט הנחיה ב־DBus בנתיב &apos;%1&apos; כשל</translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::Item</name>
-    <message>
-        <source>Entry &quot;%1&quot; from database &quot;%2&quot; was used by %3</source>
-        <translation>%3 עשה שימוש ברשומה &quot;%1&quot; ממסד נתונים &quot;%2&quot;</translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::Service</name>
-    <message numerus="yes">
-        <source>%n Entry(s) was used by %1</source>
-        <comment>%1 is the name of an application</comment>
-        <translation><numerusform>%1 השתמש ברשומה %n</numerusform><numerusform>%1 השתמש ב־%n רשומות</numerusform><numerusform>%1 השתמש ב־%n רשומות</numerusform></translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::SettingsClientModel</name>
-    <message>
-        <source>Unknown</source>
-        <translation>לא ידוע</translation>
-    </message>
-    <message>
-        <source>Non-existing/inaccessible executable path. Please double-check the client is legit.</source>
-        <translation>נתיב הפעלה לא קיים/נגיש. נא לבדוק שנית את חוקיות הלקוח.</translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::SettingsDatabaseModel</name>
-    <message>
-        <source>Unlock to show</source>
-        <translation>שחרור נעילה להצגה</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>ללא</translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecrets::UnlockPrompt</name>
-    <message>
-        <source>%1 (PID: %2)</source>
-        <translation>%1 (PID: %2)</translation>
-    </message>
-</context>
-<context>
-    <name>FdoSecretsPlugin</name>
-    <message>
-        <source>&lt;b&gt;Fdo Secret Service:&lt;/b&gt; %1</source>
-        <translation>&lt;b&gt;שירות חשאי Fdo:&lt;/b&gt; %1</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Group</name>
     <message>
+        <location filename="../../src/core/Group.cpp" line="679"/>
+        <source>Can&apos;t search entry with &quot;referenceType&quot; parameter equal to &quot;Unknown&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Group.cpp" line="816"/>
         <source>[empty]</source>
         <comment>group has no children</comment>
         <translation>[ריק]</translation>
     </message>
     <message>
+        <location filename="../../src/core/Group.cpp" line="1039"/>
         <source>%1 - Clone</source>
         <translation>שכפול - %1</translation>
     </message>
-</context>
-<context>
-    <name>HibpDownloader</name>
     <message>
-        <source>Online password validation failed</source>
-        <translation>אימות ססמה מקוון כשל</translation>
+        <location filename="../../src/core/Group.cpp" line="1078"/>
+        <source>Group %1 does not contain %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>IconDownloaderDialog</name>
+    <name>HashedBlockStream</name>
     <message>
-        <source>Download Favicons</source>
-        <translation>הורדת פביקונס</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="147"/>
+        <source>Invalid block index.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>ביטול</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="155"/>
+        <source>Invalid hash size.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Having trouble downloading icons?
-You can enable the DuckDuckGo website icon service in the security section of the application settings.</source>
-        <translation>בעיה בהורדת סמלים?
-ניתן להפעיל את שירות הסמלים של אתר DuckDuckGo במקטע אבטחת הגדרות היישום.</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="163"/>
+        <source>Invalid block size.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Close</source>
-        <translation>סגירה</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="172"/>
+        <source>Invalid hash of final block.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>URL</source>
-        <translation>מען url</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="184"/>
+        <source>Block too short.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Status</source>
-        <translation>מצב</translation>
+        <location filename="../../src/streams/HashedBlockStream.cpp" line="191"/>
+        <source>Mismatch between hash and data.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HashingStream</name>
+    <message>
+        <location filename="../../src/streams/HashingStream.cpp" line="58"/>
+        <source>Not enough data to compute hash</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HmacBlockStream</name>
+    <message>
+        <location filename="../../src/streams/HmacBlockStream.cpp" line="146"/>
+        <source>Invalid HMAC size.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please wait, processing entry list…</source>
-        <translation>נא להמתין רשימת רשומות מעובדת...</translation>
+        <location filename="../../src/streams/HmacBlockStream.cpp" line="154"/>
+        <source>Invalid block size size.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Downloading…</source>
-        <translation>הורדה...</translation>
+        <location filename="../../src/streams/HmacBlockStream.cpp" line="162"/>
+        <source>Invalid block size.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation>בסדר</translation>
+        <location filename="../../src/streams/HmacBlockStream.cpp" line="170"/>
+        <source>Block too short.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Already Exists</source>
-        <translation>כבר קיים</translation>
-    </message>
-    <message>
-        <source>Download Failed</source>
-        <translation>ההורדה כשלה</translation>
-    </message>
-    <message>
-        <source>Downloading favicons (%1/%2)…</source>
-        <translation>הורדת פביקונס (%1/%2)...</translation>
+        <location filename="../../src/streams/HmacBlockStream.cpp" line="183"/>
+        <source>Mismatch between hash and data.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImageAttachmentsWidget</name>
     <message>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.ui" line="37"/>
         <source>Zoom:</source>
         <translation>מיקוד:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="97"/>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="155"/>
         <source>Fit</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="184"/>
+        <source>Read-write mode is not supported for image attachments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="196"/>
+        <source>Failed to load image from data</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportWizard</name>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizard.cpp" line="39"/>
         <source>Import Wizard</source>
         <translation>אשף ייבוא</translation>
     </message>
@@ -4639,30 +3489,37 @@ You can enable the DuckDuckGo website icon service in the security section of th
 <context>
     <name>ImportWizardPageReview</name>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.ui" line="14"/>
         <source>WizardPage</source>
         <translation>עמוד אשף</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="145"/>
         <source>Entry count: %1</source>
         <translation>מספר רשומה: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
         <source>Group</source>
         <translation>קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
         <source>Title</source>
         <translation>כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
         <source>Username</source>
         <translation>שם משתמש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
         <source>Password</source>
         <translation>ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
         <source>Url</source>
         <translation>מען URL</translation>
     </message>
@@ -4670,110 +3527,139 @@ You can enable the DuckDuckGo website icon service in the security section of th
 <context>
     <name>ImportWizardPageSelect</name>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="14"/>
         <source>Form</source>
         <translation>טופס</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="17"/>
         <source>Import File Selection</source>
         <translation>בחירת קובץ ייבוא</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="121"/>
         <source>Password:</source>
         <translation>ססמה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="131"/>
         <source>Key File:</source>
         <translation>קובץ ססמה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="112"/>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="143"/>
         <source>Browse…</source>
         <translation>עיון...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="168"/>
         <source>Import Into:</source>
         <translation>ייבוא לתוך:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="211"/>
         <source>New Database</source>
         <translation>מסד־נתונים חדש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="226"/>
         <source>No unlocked databases available</source>
         <translation>אין מסדי נתונים לא נעולים זמינים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="229"/>
         <source>Existing Database:</source>
         <translation>מסד נתונים קיים:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.ui" line="100"/>
         <source>Import File:</source>
         <translation>ייבוא קובץ:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="33"/>
         <source>Comma Separated Values (.csv)</source>
         <translation>ערכים מופרדים בפסיקים (.csv)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="34"/>
         <source>1Password Export (.1pux)</source>
         <translation>ייצוא 1Password (.1pux)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="35"/>
         <source>1Password Vault (.opvault)</source>
         <translation>כספת 1Password (.opvault)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="36"/>
         <source>Bitwarden (.json)</source>
         <translation>Bitwarden (.json)</translation>
     </message>
     <message>
-        <source>KeePass 1 Database (.kdb)</source>
-        <translation>מסד נתונים KeePass 1 (.kdb)</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="200"/>
         <source>Open OPVault</source>
         <translation>פתיחת OPVault</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="204"/>
         <source>Select import file</source>
         <translation>בחירת קובץ ייבוא</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="215"/>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="259"/>
         <source>All files</source>
         <translation>כל הקבצים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="215"/>
         <source>Key files</source>
         <translation>קבצי מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="216"/>
         <source>Select key file</source>
         <translation>בחירת קובץ ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="259"/>
         <source>Comma Separated Values</source>
         <translation>ערכים מופרדים בפסיקים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="261"/>
         <source>1Password Export</source>
         <translation>ייצוא 1Password</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="263"/>
         <source>Bitwarden JSON Export</source>
         <translation>ייצוא Bitwarden JSON</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="267"/>
         <source>1Password Vault</source>
         <translation>כספת 1Password</translation>
     </message>
     <message>
-        <source>KeePass1 Database</source>
-        <translation>מסד־נתונים KeePass 1</translation>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="269"/>
+        <source>KeepassXC database</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="37"/>
         <source>Proton Pass (.json)</source>
         <translation>Proton Pass (.json)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="38"/>
+        <source>KeepassXC (.kdbx)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="265"/>
         <source>Proton Pass JSON Export</source>
         <translation>ייצוא JSON של Proton Pass</translation>
     </message>
@@ -4781,63 +3667,79 @@ You can enable the DuckDuckGo website icon service in the security section of th
 <context>
     <name>KMessageWidget</name>
     <message>
+        <location filename="../../src/gui/KMessageWidget.cpp" line="64"/>
         <source>&amp;Close</source>
         <translation>&amp;סגירה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/KMessageWidget.cpp" line="65"/>
         <source>Close message</source>
         <translation>סגירת הערה</translation>
     </message>
 </context>
 <context>
+    <name>KPToolBar</name>
+    <message>
+        <location filename="../../src/gui/widgets/KPToolBar.cpp" line="56"/>
+        <source>Toolbar: Cannot invoke setExpanded!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Kdbx3Reader</name>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="51"/>
         <source>Missing database headers</source>
         <translation>חסרות כותרות מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="58"/>
         <source>Unable to calculate database key</source>
         <translation>לא ניתן לחשב מפתח מסד־נתונים</translation>
     </message>
     <message>
-        <source>Unable to issue challenge-response: %1</source>
-        <translation>לא ניתן להנפיק אתגר־מענה: %1</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="85"/>
         <source>Invalid credentials were provided, please try again.
 If this reoccurs, then your database file may be corrupt.</source>
         <translation>סופקו אישורים לא תקינים, נא לנסות שוב.
 אם פעולה זו חוזרת על עצמה, ייתכן שקובץ מסד הנתונים פגום.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="143"/>
         <source>Header doesn&apos;t match hash</source>
         <translation>הכותרת העליונה אינה תואמת לגבובב</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="158"/>
         <source>Invalid header id size</source>
         <translation>גודל מזהה כותרת לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="168"/>
         <source>Invalid header field length: field %1</source>
         <translation>אורך שדה כותרת לא תקין: שדה %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="178"/>
         <source>Invalid header data length: field %1, %2 expected, %3 found</source>
         <translation>אורך נתוני כותרת לא תקין: שדה %1, ציפיה ל־%2, נמצא %3</translation>
+    </message>
+    <message>
+        <location filename="../../src/format/Kdbx3Reader.cpp" line="231"/>
+        <source>Unknown header field read: id=%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Kdbx3Writer</name>
     <message>
+        <location filename="../../src/format/Kdbx3Writer.cpp" line="39"/>
         <source>Invalid symmetric cipher IV size.</source>
         <comment>IV = Initialization Vector for symmetric cipher</comment>
         <translation>גודל צופן IV סימטרי לא תקין.</translation>
     </message>
     <message>
-        <source>Unable to issue challenge-response: %1</source>
-        <translation>לא ניתן להנפיק אתגר־מענה: %1</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/Kdbx3Writer.cpp" line="51"/>
         <source>Unable to calculate database key</source>
         <translation>לא ניתן לחשב מפתח מסד־נתונים</translation>
     </message>
@@ -4845,131 +3747,165 @@ If this reoccurs, then your database file may be corrupt.</source>
 <context>
     <name>Kdbx4Reader</name>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="51"/>
         <source>missing database headers</source>
         <translation>כותרות מסד־נתונים חסרות</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="58"/>
         <source>Unable to calculate database key: %1</source>
         <translation>לא ניתן לחשב מפתח מסד־נתונים: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="71"/>
         <source>Invalid header checksum size</source>
         <translation>גודל  סיכום ביקורת כותרת עליונה לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="77"/>
         <source>Header SHA256 mismatch</source>
         <translation>כותרת עליונה SHA256 לא תואמת</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="84"/>
         <source>Invalid credentials were provided, please try again.
 If this reoccurs, then your database file may be corrupt.</source>
         <translation>סופקו אישורים לא תקינים, נא לנסות שוב.
 אם פעולה זו חוזרת על עצמה, ייתכן שקובץ מסד הנתונים פגום.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="85"/>
         <source>(HMAC mismatch)</source>
         <translation>(אי התאמת HMAC)</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="100"/>
         <source>Unknown cipher</source>
         <translation>צופן לא ידוע</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="185"/>
         <source>Invalid header id size</source>
         <translation>גודל מזהה כותרת לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="195"/>
         <source>Invalid header field length: field %1</source>
         <translation>אורך שדה כותרת לא תקין: שדה %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="205"/>
         <source>Invalid header data length: field %1, %2 expected, %3 found</source>
         <translation>אורך נתוני כותרת לא תקין: שדה %1, ציפיה ל־%2, נמצא %3</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="240"/>
         <source>Failed to open buffer for KDF parameters in header</source>
         <translation>פתיחת החציצה עבור משתני KDF בכותרת, כשלה</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="248"/>
         <source>Unsupported key derivation function (KDF) or invalid parameters</source>
         <translation>פונקציית נגזרת מפתח (KDF) לא נתמכים או פרמטרים לא תקינים</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="271"/>
         <source>Legacy header fields found in KDBX4 file.</source>
         <translation>שדות כותרת מדור קודם שנמצאו בקובץ KDBX4.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="275"/>
+        <source>Unknown header field read: id=%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="293"/>
         <source>Invalid inner header id size</source>
         <translation>גודל מזהה כותרת פנימי לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="303"/>
         <source>Invalid inner header field length: field %1</source>
         <translation>אורך שדה כותרת פנימית לא תקין: שדה %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="313"/>
         <source>Invalid inner header data length: field %1, %2 expected, %3 found</source>
         <translation>אורך נתוני כותרת פנימית לא תקין: שדה %1, ציפיה ל־%2, נמצא %3</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="339"/>
         <source>Invalid inner header binary size</source>
         <translation>גודל בינארי של כותרת פנימית לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="366"/>
         <source>Unsupported KeePass variant map version.</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>גרסת מפת משתני KeePass לא נתמכת.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="380"/>
         <source>Invalid variant map entry name length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>אורך שם מפת משתנה רשומה לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="391"/>
         <source>Invalid variant map entry name data</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>נתוני שם מפת משתנה רשומה לא תקינים</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="402"/>
         <source>Invalid variant map entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>אורך ערך מפת משתנה רשומה לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="413"/>
         <source>Invalid variant map entry value data</source>
         <extracomment>Translation comment: variant map = data structure for storing meta data</extracomment>
         <translation>נתוני ערך מפת משתנה רשומה לא תקינים</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="424"/>
         <source>Invalid variant map Bool entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>אורך ערך מפת משתנה רשומה בוליאנית לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="435"/>
         <source>Invalid variant map Int32 entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>אורך ערך מפת משתנה רשומה Int32 לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="446"/>
         <source>Invalid variant map UInt32 entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>אורך ערך מפת משתנה רשומה UInt32 לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="457"/>
         <source>Invalid variant map Int64 entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>אורך ערך מפת משתנה רשומה Int64 לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="468"/>
         <source>Invalid variant map UInt64 entry value length</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>אורך ערך מפת משתנה רשומה UInt64 לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="485"/>
         <source>Invalid variant map entry type</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>סוג מפת משתנה רשומה לא תקינים</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Reader.cpp" line="493"/>
         <source>Invalid variant map field type size</source>
         <extracomment>Translation: variant map = data structure for storing meta data</extracomment>
         <translation>גודל שדה מפת משתנה לא תקין</translation>
@@ -4978,104 +3914,131 @@ If this reoccurs, then your database file may be corrupt.</source>
 <context>
     <name>Kdbx4Writer</name>
     <message>
+        <location filename="../../src/format/Kdbx4Writer.cpp" line="36"/>
         <source>Invalid symmetric cipher algorithm.</source>
         <translation>אלגוריתם צופן סימטרי לא תקין.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Writer.cpp" line="43"/>
         <source>Invalid symmetric cipher IV size.</source>
         <comment>IV = Initialization Vector for symmetric cipher</comment>
         <translation>גודל צופן IV סימטרי לא תקין.</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Writer.cpp" line="54"/>
         <source>Unable to calculate database key: %1</source>
         <translation>לא ניתן לחשב מפתח מסד־נתונים: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/Kdbx4Writer.cpp" line="87"/>
         <source>Failed to serialize KDF parameters variant map</source>
         <extracomment>Translation comment: variant map = data structure for storing meta data</extracomment>
         <translation>סִדְרוּת מפת משתני פרמטר KDF כשלה</translation>
+    </message>
+    <message>
+        <location filename="../../src/format/Kdbx4Writer.cpp" line="320"/>
+        <source>Unknown object type %1 in QVariantMap</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>KdbxReader</name>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="133"/>
         <source>Invalid cipher uuid length: %1 (length=%2)</source>
         <translation>אורך uuid צופן לא תקין: %1 (אורך=%2)</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="140"/>
         <source>Unable to parse UUID: %1</source>
         <translation>לא ניתן לנתח UUID: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="146"/>
         <source>Unsupported cipher</source>
         <translation>צופן לא נתמך</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="160"/>
         <source>Invalid compression flags length</source>
         <translation>אורך דגלי דחיסה לא תקינים</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="168"/>
         <source>Unsupported compression algorithm</source>
         <translation>אלגוריתם דחיסה לא נתמך</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="182"/>
         <source>Invalid master seed size</source>
         <translation>גודל זרע ראשי לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="196"/>
         <source>Invalid transform seed size</source>
         <translation>המרת גודל זרע לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="214"/>
         <source>Invalid transform rounds size</source>
         <translation>גודל סבבי המרה לא תקינים</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="249"/>
         <source>Invalid start bytes size</source>
         <translation>גודל בתים התחלתי לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="263"/>
         <source>Invalid random stream id size</source>
         <translation>גודל מזהה זרם אקראי לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxReader.cpp" line="272"/>
         <source>Invalid inner random stream cipher</source>
         <translation>צופן זרם פנימי אקראי לא תקין</translation>
-    </message>
-    <message>
-        <source>Failed to read database file.</source>
-        <translation>קריאת קובץ מסד־נתונים כשלה.</translation>
-    </message>
-    <message>
-        <source>The selected file is an old KeePass 1 database (.kdb).
-
-You can import it by clicking on Database &gt; 'Import KeePass 1 database…'.
-This is a one-way migration. You won&apos;t be able to open the imported database with the old KeePassX 0.4 version.</source>
-        <translation>הקובץ שנבחר הוא מסד נתונים ישן של KeePass 1 (.kdb).
-
-ניתן לייבא אותו על־ידי לחיצה על מסד נתונים -&gt; &apos;ייבוא KeePass 1 מסד נתונים ...&apos;.
-זו הגירה חד־כיוונית. לא תתאפשר פתיחת מסד הנתונים המיובא עם גרסת KeePassX 0.4 הישנה.</translation>
-    </message>
-    <message>
-        <source>Not a KeePass database.</source>
-        <translation>לא מסד נתוני KeePass.</translation>
-    </message>
-    <message>
-        <source>Unsupported KeePass 2 database version.</source>
-        <translation>גרסת מסד נתוני KeePass 2 לא נתמכת.</translation>
     </message>
 </context>
 <context>
     <name>KdbxXmlReader</name>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="104"/>
         <source>XML parsing failure: %1</source>
         <translation>כשל ניתוח מבנה XML: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="115"/>
         <source>No root group</source>
         <translation>אין קבוצת שורש</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="121"/>
+        <source>KdbxXmlReader::readDatabase: found %1 invalid group reference(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="126"/>
+        <source>KdbxXmlReader::readDatabase: found %1 invalid entry reference(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="136"/>
+        <source>Unmapped keys left.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="141"/>
+        <source>KdbxXmlReader::readDatabase: found unused key &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="195"/>
         <source>XML error:
 %1
 Line %2, column %3</source>
@@ -5084,354 +4047,214 @@ Line %2, column %3</source>
 שורה %2, עמודה %3</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="239"/>
+        <source>Multiple root elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="358"/>
+        <source>HistoryMaxItems invalid number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="370"/>
+        <source>HistoryMaxSize invalid number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="491"/>
         <source>Missing icon uuid or data</source>
         <translation>חסרים uuid סמלים או נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="512"/>
+        <source>KdbxXmlReader::parseBinaries: overwriting binary item &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="572"/>
         <source>Missing custom data key or value</source>
         <translation>חסר מפתח נתונים מותאם אישית או ערך</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="589"/>
         <source>Multiple group elements</source>
         <translation>רכיבי קבוצה מרובים</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="633"/>
         <source>Null group uuid</source>
         <translation>uuid קבוצת Null</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="673"/>
         <source>Invalid group icon number</source>
         <translation>מספר סמל קבוצה לא כותרת פנימית</translation>
     </message>
     <message>
-        <source>Invalid EnableAutoType value</source>
-        <translation>ערך איפשור הקלדה־אוטומטית לא תקין</translation>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1480"/>
+        <source>KdbxXmlReader::skipCurrentElement: skip element &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="722"/>
         <source>Invalid EnableSearching value</source>
         <translation>ערך איפשור חיפוש לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="785"/>
         <source>No group uuid found</source>
         <translation>לא נמצאה uuid קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="833"/>
         <source>Null DeleteObject uuid</source>
         <translation>uuid עצם שנמחק ריק</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="860"/>
         <source>Missing DeletedObject uuid or time</source>
         <translation>חסרים uuid עצמים שנמחקו או זמן</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="882"/>
         <source>Null entry uuid</source>
         <translation>רשומת uuid ריקה</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="904"/>
         <source>Invalid entry icon number</source>
         <translation>מספר סמל רשומה לא תקינה</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="981"/>
         <source>History element in history entry</source>
         <translation>רכיב היסטורי ברשומה היסטורית</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1036"/>
         <source>No entry uuid found</source>
         <translation>לא נמצאה uuid רשומת</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1045"/>
         <source>History element with different uuid</source>
         <translation>רכיב היסטוריה עם uuid שונה</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1102"/>
         <source>Duplicate custom attribute found</source>
         <translation>נמצאה תכונה מותאמת אישית כפולה</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1110"/>
         <source>Entry string key or value missing</source>
         <translation>מפתח או ערך מחרוזת רשומה חסרים</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1162"/>
+        <source>Duplicate attachment name found, renamed to: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1169"/>
         <source>Entry binary key or value missing</source>
         <translation>מפתח בינארי או ערך רשומה חסרים</translation>
     </message>
     <message>
-        <source>Auto-type association window or sequence missing</source>
-        <translation>חסר חלון שיוך או רצף הקלדה־אוטומטית</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1292"/>
         <source>Invalid bool value</source>
         <translation>ערך בוליאני לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1314"/>
         <source>Invalid date time value</source>
         <translation>ערך תאריך ושעה לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1333"/>
         <source>Invalid color value</source>
         <translation>ערך צבע לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1348"/>
         <source>Invalid color rgb part</source>
         <translation>חלק צבע rbg לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1364"/>
         <source>Invalid number value</source>
         <translation>ערך מספרי לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1382"/>
         <source>Invalid uuid value</source>
         <translation>ערך uuid לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1430"/>
         <source>Unable to decompress binary</source>
         <extracomment>Translator meant is a binary data inside an entry</extracomment>
         <translation>לא ניתן לחלץ דחיסת קבצים בינאריים</translation>
     </message>
 </context>
 <context>
-    <name>KeeAgentSettings</name>
+    <name>KeePass2Reader</name>
     <message>
-        <source>Invalid KeeAgent settings file structure.</source>
-        <translation>מבנה קובץ הגדרות KeeAgent לא תקין.</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="63"/>
+        <source>No file path was provided.</source>
+        <translation type="unfinished">לא סופק נתיב קובץ.</translation>
     </message>
     <message>
-        <source>Private key is an attachment but no attachments provided.</source>
-        <translation>מפתח פרטי הוא צרופה אך לא סופקו צרופות.</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="70"/>
+        <source>File %1 does not exist.</source>
+        <translation type="unfinished">קובץ %1 לא קיים.</translation>
     </message>
     <message>
-        <source>Private key is empty</source>
-        <translation>המפתח הפרטי ריק</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="83"/>
+        <source>Unable to open file %1.</source>
+        <translation type="unfinished">לא יכול לפתוח את הקובץ %1.</translation>
     </message>
     <message>
-        <source>File too large to be a private key</source>
-        <translation>הקובץ גדול מכדי להיות מפתח פרטי</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="89"/>
+        <source>Error while reading the database: %1</source>
+        <translation type="unfinished">שגיאה בזמן קריאת מסד־נתונים: %1</translation>
     </message>
     <message>
-        <source>Failed to open private key</source>
-        <translation>פתיחת קובץ מפתח כשלה</translation>
-    </message>
-</context>
-<context>
-    <name>KeePass1Reader</name>
-    <message>
-        <source>Unable to read keyfile.</source>
-        <translation>לא ניתן לקרוא קובץ מפתח.</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="144"/>
+        <source>Failed to read database file.</source>
+        <translation type="unfinished">קריאת קובץ מסד־נתונים כשלה.</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="150"/>
         <source>Not a KeePass database.</source>
-        <translation>לא מסד נתוני KeePass.</translation>
+        <translation type="unfinished">לא מסד נתוני KeePass.</translation>
     </message>
     <message>
-        <source>Unsupported encryption algorithm.</source>
-        <translation>אלגוריתם הצפנה לא נתמך.</translation>
-    </message>
-    <message>
-        <source>Unsupported KeePass database version.</source>
-        <translation>גרסת מסד־נתונים KeePass לא נתמכת.</translation>
-    </message>
-    <message>
-        <source>Unable to read encryption IV</source>
-        <comment>IV = Initialization Vector for symmetric cipher</comment>
-        <translation>לא ניתן לקרוא הצפנה IV</translation>
-    </message>
-    <message>
-        <source>Invalid number of groups</source>
-        <translation>מספר קבוצות לא תקין</translation>
-    </message>
-    <message>
-        <source>Invalid number of entries</source>
-        <translation>מספר רשומות לא תקין</translation>
-    </message>
-    <message>
-        <source>Invalid content hash size</source>
-        <translation>גודל גיבוב תוכן לא תקין</translation>
-    </message>
-    <message>
-        <source>Invalid transform seed size</source>
-        <translation>המרת גודל זרע לא תקין</translation>
-    </message>
-    <message>
-        <source>Invalid number of transform rounds</source>
-        <translation>מספר סבבי המרה לא תקין</translation>
-    </message>
-    <message>
-        <source>Unable to construct group tree</source>
-        <translation>לא ניתן לבנות עץ קבוצה</translation>
-    </message>
-    <message>
-        <source>Root</source>
-        <translation>שורש</translation>
-    </message>
-    <message>
-        <source>Unable to calculate database key</source>
-        <translation>לא ניתן לחשב מפתח מסד־נתונים</translation>
-    </message>
-    <message>
-        <source>unable to seek to content position</source>
-        <translation>לא ניתן לחתור למיקום תוכן</translation>
-    </message>
-    <message>
-        <source>Invalid credentials were provided, please try again.
-If this reoccurs, then your database file may be corrupt.</source>
-        <translation>סופקו אישורים לא תקינים, נא לנסות שוב.
-אם פעולה זו חוזרת על עצמה, ייתכן שקובץ מסד הנתונים פגום.</translation>
-    </message>
-    <message>
-        <source>Key transformation failed</source>
-        <translation>המרת מפתח כשלה</translation>
-    </message>
-    <message>
-        <source>Invalid group field type number</source>
-        <translation>מספר סוג שדה קבוצה לאתקין</translation>
-    </message>
-    <message>
-        <source>Invalid group field size</source>
-        <translation>גודל שדה קבוצה לא תקין</translation>
-    </message>
-    <message>
-        <source>Read group field data doesn&apos;t match size</source>
-        <translation>קריאת נתוני שדה קבוצה לא תואם לגודל</translation>
-    </message>
-    <message>
-        <source>Incorrect group id field size</source>
-        <translation>גודל שדה מזהה קבוצה שגוי</translation>
-    </message>
-    <message>
-        <source>Incorrect group creation time field size</source>
-        <translation>גודל שדה זמן יצירת קבוצה שגוי</translation>
-    </message>
-    <message>
-        <source>Incorrect group modification time field size</source>
-        <translation>גודל שדה זמן הסגלת קבוצה שגויה</translation>
-    </message>
-    <message>
-        <source>Incorrect group access time field size</source>
-        <translation>גודל שדה זמן גישה לקבוצה  שגוי</translation>
-    </message>
-    <message>
-        <source>Incorrect group expiry time field size</source>
-        <translation>גודל שדה זמן תפוגת קבוצה שגוי</translation>
-    </message>
-    <message>
-        <source>Incorrect group icon field size</source>
-        <translation>גודל שדה סמל קבוצה שגוי</translation>
-    </message>
-    <message>
-        <source>Incorrect group level field size</source>
-        <translation>גודל שדה ברמת הקבוצה שגוי</translation>
-    </message>
-    <message>
-        <source>Invalid group field type</source>
-        <translation>סוג שדה קבוצה לא תקין</translation>
-    </message>
-    <message>
-        <source>Missing group id or level</source>
-        <translation>מזהה קבוצה או רמה חסרים</translation>
-    </message>
-    <message>
-        <source>Missing entry field type number</source>
-        <translation>מספר סוג שדה רשומה חסר</translation>
-    </message>
-    <message>
-        <source>Invalid entry field size</source>
-        <translation>גודל שדה רשומה לא תקין</translation>
-    </message>
-    <message>
-        <source>Read entry field data doesn&apos;t match size</source>
-        <translation>קריאת נתוני שדה רשומה לא תואם לגודל</translation>
-    </message>
-    <message>
-        <source>Invalid entry UUID field size</source>
-        <translation>גודל שדה רשומה UUID לא תקין</translation>
-    </message>
-    <message>
-        <source>Invalid entry group id field size</source>
-        <translation>גודל מזהה שדה קבוצת רשומה לא תקין</translation>
-    </message>
-    <message>
-        <source>Invalid entry icon field size</source>
-        <translation>גודל שדה סמל רשומה לא תקין</translation>
-    </message>
-    <message>
-        <source>Invalid entry creation time field size</source>
-        <translation>גודל שדה זמן יצירת רשומה לא תקין</translation>
-    </message>
-    <message>
-        <source>Invalid entry modification time field size</source>
-        <translation>גודל שדה זמן הסגלת רשומה לא תקין</translation>
-    </message>
-    <message>
-        <source>Invalid entry expiry time field size</source>
-        <translation>גודל שדה זמן תפוגת רשומה לא תקין</translation>
-    </message>
-    <message>
-        <source>Invalid entry field type</source>
-        <translation>סוג שדה רשומה לא תקין</translation>
-    </message>
-</context>
-<context>
-    <name>KeeShare</name>
-    <message>
-        <source>Invalid sharing reference</source>
-        <translation>הפניית שיתוף לא תקניה</translation>
-    </message>
-    <message>
-        <source>Inactive share %1</source>
-        <translation>מיקום משותף לא פעיל %1</translation>
-    </message>
-    <message>
-        <source>Imported from %1</source>
-        <translation>מיובא מ־%1</translation>
-    </message>
-    <message>
-        <source>Exported to %1</source>
-        <translation>ייצוא ל־%1</translation>
-    </message>
-    <message>
-        <source>Synchronized with %1</source>
-        <translation>סונכרן עם %1</translation>
-    </message>
-    <message>
-        <source>Import is disabled in settings</source>
-        <translation>הייבוא מושבת בהגדרות</translation>
-    </message>
-    <message>
-        <source>Export is disabled in settings</source>
-        <translation>הייצוא מושבת בהגדרות</translation>
-    </message>
-    <message>
-        <source>Inactive share</source>
-        <translation>השבתת שתוף</translation>
-    </message>
-    <message>
-        <source>Imported from</source>
-        <translation>יובא מ־</translation>
-    </message>
-    <message>
-        <source>Exported to</source>
-        <translation>יוצא ל־</translation>
-    </message>
-    <message>
-        <source>Synchronized with</source>
-        <translation>סונכרן עם</translation>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="157"/>
+        <source>Unsupported KeePass 2 database version.</source>
+        <translation type="unfinished">גרסת מסד נתוני KeePass 2 לא נתמכת.</translation>
     </message>
 </context>
 <context>
     <name>KeyComponentWidget</name>
     <message>
+        <location filename="../../src/gui/databasekey/KeyComponentWidget.ui" line="41"/>
         <source>Key Component</source>
         <translation>רכיב מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyComponentWidget.ui" line="78"/>
         <source>Key Component Description</source>
         <translation>תיאור רכיב מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyComponentWidget.ui" line="159"/>
         <source>Cancel</source>
         <translation>ביטול</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyComponentWidget.ui" line="193"/>
         <source>Key Component set, click to change or remove</source>
         <translation>ערכת רכיבי מפתח, הקשה לשנוי או הסרה</translation>
     </message>
@@ -5439,104 +4262,131 @@ If this reoccurs, then your database file may be corrupt.</source>
 <context>
     <name>KeyFileEditWidget</name>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="29"/>
         <source>Generate a new key file</source>
         <translation>חילול קובץ מפתח חדש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="32"/>
         <source>Generate</source>
         <translation>חילול</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="39"/>
         <source>Generate a new key file or choose an existing one to protect your database.</source>
         <translation>חילול קובץ מפתח חדש או בחירת קובץ מפתח קיים להגנה על מסד הנתונים.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="54"/>
         <source>Note: Do NOT use a file that may change as that will prevent you from unlocking your database.</source>
         <translation>הערה: נא לא להשתמש בקובץ שעשוי להשתנות כך שימנע את שחרור נעילת מסד הנתונים.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="84"/>
         <source>Browse for key file</source>
         <translation>דפדוף לקובץ מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.ui" line="87"/>
         <source>Browse…</source>
         <translation>עיון...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="52"/>
         <source>Old key file format</source>
         <translation>תסדיר קובץ מפתח ישן</translation>
     </message>
     <message>
-        <source>You selected a key file in an old format which KeePassXC&lt;br&gt;may stop supporting in the future.&lt;br&gt;&lt;br&gt;Please consider generating a new key file instead.</source>
-        <translation>נבחר קובץ מפתח בתסדיר ישן ש־KeePassXC&lt;br&gt;עשוי להפסיק לתמוך בעתיד.&lt;br&gt;&lt;br&gt;במקום זאת, נא לשקול ליצור קובץ מפתח חדש.</translation>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="53"/>
+        <source>You selected a key file in an old format which KeePassX-min&lt;br&gt;may stop supporting in the future.&lt;br&gt;&lt;br&gt;Please consider generating a new key file instead.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error loading the key file '%1'
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="70"/>
+        <source>Error loading the key file &apos;%1&apos;
 Message: %2</source>
         <translation>שגיאה בטעינת קובץ המפתח &apos;%1&apos;
 הודעה: %2</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="98"/>
         <source>Key File</source>
         <translation>קובץ מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="99"/>
         <source>Add Key File</source>
         <translation>הוספת קובץ מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="100"/>
         <source>Change Key File</source>
         <translation>שינוי קובץ מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="101"/>
         <source>Remove Key File</source>
         <translation>הסרת קובץ מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="102"/>
         <source>Key File set, click to change or remove</source>
         <translation>ערכת קבצי מפתח, הקשה לשנוי או הסרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="105"/>
         <source>&lt;p&gt;You can add a key file containing random bytes for additional security.&lt;/p&gt;&lt;p&gt;You must keep it secret and never lose it or you will be locked out.&lt;/p&gt;</source>
         <translation>&lt;p&gt;ניתן להוסיף קובץ מפתח המכיל בתים אקראיים לאבטחה נוספת.&lt;/p&gt;&lt;p&gt;חובה לשמור אות &apos;סודי&apos; ולעולם לא לאבד אותו או שלא ניתן יהיה להתחבר למערכת שוב!&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="117"/>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="146"/>
         <source>Key files</source>
         <translation>קבצי מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="117"/>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="146"/>
         <source>All files</source>
         <translation>כל הקבצים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="118"/>
         <source>Create Key File…</source>
         <translation>יצירת קובץ מפתח...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="127"/>
         <source>Error creating key file</source>
         <translation>שגיאה ביצירת קובץ מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="128"/>
         <source>Unable to create key file: %1</source>
         <translation>לא ניתן ליצר קובץ מפתח: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="147"/>
         <source>Select a key file</source>
         <translation>בחירת קובץ מפתח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="158"/>
         <source>Invalid Key File</source>
         <translation>קובץ מפתח לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="159"/>
         <source>You cannot use the current database as its own keyfile. Please choose a different file or generate a new key file.</source>
         <translation>לא ניתן להשתמש במסד הנתונים הנוכחי כקובץ המפתח שלו. נא לבחור קובץ אחר או לחולל קובץ מפתח חדש.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="166"/>
         <source>Suspicious Key File</source>
         <translation>קובץ מפתח חשוד</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/KeyFileEditWidget.cpp" line="167"/>
         <source>The chosen key file looks like a password database file. A key file must be a static file that never changes or you will lose access to your database forever.
 Are you sure you want to continue with this file?</source>
         <translation>קובץ המפתח שנבחר נראה כמו קובץ מסד נתוני ססמאות. קובץ מפתח חייב להיות קובץ נייח שלעולם לא ישתנה או שהגישה למסד הנתונים תאבד  לנצח.
@@ -5544,752 +4394,766 @@ Are you sure you want to continue with this file?</source>
     </message>
 </context>
 <context>
-    <name>MacUtils</name>
+    <name>LayeredStream</name>
     <message>
-        <source>Invalid key code</source>
-        <translation>קוד מפתח לא תקין</translation>
+        <location filename="../../src/streams/LayeredStream.cpp" line="43"/>
+        <source>LayeredStream::open: Device is already open.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Global shortcut already registered to %1</source>
-        <translation>קיצור דרך כללי כבר רשום ב־%1</translation>
+        <location filename="../../src/streams/LayeredStream.cpp" line="52"/>
+        <source>LayeredStream::open: Reading and writing at the same time is not supported.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Could not register global shortcut</source>
-        <translation>לא ניתן לרשום קיצור דרך כללי</translation>
+        <location filename="../../src/streams/LayeredStream.cpp" line="57"/>
+        <source>LayeredStream::open: Must be opened in read or write mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/LayeredStream.cpp" line="62"/>
+        <source>LayeredStream::open: Base device is not opened correctly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/LayeredStream.cpp" line="69"/>
+        <source>LayeredStream::open: QIODevice::Append is not supported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/LayeredStream.cpp" line="74"/>
+        <source>LayeredStream::open: QIODevice::Truncate is not supported.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="217"/>
         <source>&amp;Database</source>
         <translation>&amp;מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="221"/>
         <source>&amp;Recent Databases</source>
         <translation>מסדי־נתונים &amp;אחרונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="226"/>
         <source>&amp;Export</source>
         <translation>&amp;ייצוא</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="255"/>
         <source>&amp;Help</source>
         <translation>&amp;עזרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="261"/>
         <source>&amp;Entries</source>
         <translation>&amp;רשומות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="271"/>
         <source>Copy Att&amp;ribute</source>
         <translation>העתקת &amp;תכונה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="279"/>
         <source>TOTP</source>
         <translation>TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="316"/>
         <source>&amp;Groups</source>
         <translation>&amp;קבוצות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="331"/>
         <source>&amp;Tools</source>
         <translation>&amp;כלים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="338"/>
         <source>View</source>
         <translation>מצג</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>ערכת נושא</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="398"/>
         <source>&amp;Quit</source>
         <translation>&amp;יצאה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="406"/>
         <source>&amp;About</source>
         <translation>&amp;על אודות</translation>
     </message>
     <message>
-        <source>&amp;Check for Updates</source>
-        <translation>&amp;בדיקת זמינות עדכונים</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="414"/>
         <source>&amp;Open Database…</source>
         <translation>&amp;פתיחת מסד־נתונים...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="419"/>
         <source>&amp;Save Database</source>
         <translation>&amp;שמירת מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="424"/>
         <source>&amp;Close Database</source>
         <translation>&amp;סגירת מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="429"/>
         <source>&amp;New Database…</source>
         <translation>&amp;מסד־נתונים חדש...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="432"/>
         <source>Create a new database</source>
         <translation>יצירת מסד־נתונים חדש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="437"/>
         <source>&amp;Merge From Database…</source>
         <translation>&amp;מיזוג ממסד נתונים...</translation>
     </message>
     <message>
-        <source>Merge from another KDBX database</source>
-        <translation>מיזוג ממסד־נתונים KDBX אחר</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="445"/>
         <source>&amp;New Entry…</source>
         <translation>&amp;רשומה חדשה...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="453"/>
         <source>&amp;Edit Entry…</source>
         <translation>&amp;עריכת רשומה...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="492"/>
         <source>&amp;New Group…</source>
         <translation>&amp;קבוצה חדשה...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="495"/>
         <source>Add a new group</source>
         <translation>הוספת קבוצה חדשה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="500"/>
         <source>&amp;Edit Group…</source>
         <translation>&amp;עריכת קבוצה...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="505"/>
         <source>&amp;Delete Group…</source>
         <translation>&amp;מחיקת קבוצה...</translation>
     </message>
     <message>
-        <source>Download All &amp;Favicons…</source>
-        <translation>הורדת כל ה־&amp;פביקונס...</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="510"/>
         <source>Sort &amp;A-Z</source>
         <translation>מיין &amp;א-ת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="515"/>
         <source>Sort &amp;Z-A</source>
         <translation>מיין &amp;ת-א</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="520"/>
         <source>Sa&amp;ve Database As…</source>
         <translation>שמי&amp;רת מסד־נתונים בשם...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="525"/>
         <source>Database &amp;Security…</source>
         <translation>&amp;אבטחת מסד־נתונים...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="533"/>
         <source>Database &amp;Reports…</source>
         <translation>&amp;דוחות מסד־נתונים...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="536"/>
         <source>Statistics, health check, etc.</source>
         <translation>סטטיסטיקה, בדיקת תקינות ועוד.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="547"/>
         <source>&amp;Database Settings…</source>
         <translation>&amp;הגדרות מסד־נתונים...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="550"/>
         <source>Database settings</source>
         <translation>הגדרות מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="558"/>
         <source>&amp;Clone Entry…</source>
         <translation>&amp;שכפול רשומה...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="563"/>
         <source>Move u&amp;p</source>
         <translation>העברה &amp;מעלה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="566"/>
         <source>Move entry one step up</source>
         <translation>העברת רשומה צעד אחד מעלה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="571"/>
         <source>Move do&amp;wn</source>
         <translation>העברה &amp;מטה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="574"/>
         <source>Move entry one step down</source>
         <translation>העברת רשומה צעד אחד מטה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="579"/>
         <source>Copy &amp;Username</source>
         <translation>העתקת &amp;שם משתמש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="582"/>
         <source>Copy username to clipboard</source>
         <translation>העתקת שם משתמש ללוח־הגזירים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="587"/>
         <source>Copy &amp;Password</source>
         <translation>העתקת &amp;ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="590"/>
         <source>Copy password to clipboard</source>
         <translation>העתקת ססמאות ללוח־הגזירים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="598"/>
         <source>&amp;Settings</source>
         <translation>&amp;הגדרות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="609"/>
         <source>&amp;Password Generator</source>
         <translation>מחולל &amp;ססמאות</translation>
     </message>
     <message>
-        <source>Perform &amp;Auto-Type</source>
-        <translation>ביצוע &amp;הקלדה־אוטומטית</translation>
-    </message>
-    <message>
-        <source>Download &amp;Favicon</source>
-        <translation>הורדת &amp;פביקון</translation>
-    </message>
-    <message>
-        <source>Open &amp;URL</source>
-        <translation>פתיחת &amp;מען URL</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="614"/>
+        <location filename="../../src/gui/MainWindow.ui" line="816"/>
         <source>&amp;Lock Database</source>
         <translation>&amp;נעילת מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="619"/>
         <source>Lock &amp;All Databases</source>
         <translation>&amp;נעילת כל מסדי־הנתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="624"/>
         <source>&amp;Title</source>
         <translation>&amp;כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="627"/>
         <source>Copy title to clipboard</source>
         <translation>העתקת כותרת ללוח־הגזירים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="635"/>
         <source>Copy URL to clipboard</source>
         <translation>העתקת מען URL ללוח־הגזירים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="640"/>
         <source>&amp;Notes</source>
         <translation>&amp;הערות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="643"/>
         <source>Copy notes to clipboard</source>
         <translation>העתקת הערות ללוח־הגזירים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="648"/>
         <source>&amp;CSV File…</source>
         <translation>&amp;קובץ CSV...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="653"/>
         <source>&amp;HTML File…</source>
         <translation>ק&amp;ובץ HTML...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="658"/>
         <source>KeePass 1 Database…</source>
         <translation>מסד־נתונים KeePass 1...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="661"/>
         <source>Import a KeePass 1 database</source>
         <translation>ייבוא מסד נתוני KeePass 1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="666"/>
         <source>1Password Vault…</source>
         <translation>כספת 1Password...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="669"/>
         <source>Import a 1Password Vault</source>
         <translation>ייבוא כספת 1Password</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="674"/>
         <source>CSV File…</source>
         <translation>קובץ CSV...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="677"/>
         <source>Import a CSV file</source>
         <translation>יבא קובץ CSV</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="682"/>
         <source>Show TOTP</source>
         <translation>הצגת TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="687"/>
         <source>Show QR Code</source>
         <translation>הצגת קוד QR</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="692"/>
         <source>Set up TOTP…</source>
         <translation>הגדרת TOTP...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="697"/>
         <source>Copy &amp;TOTP</source>
         <translation>העתקת &amp;TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="707"/>
         <source>E&amp;mpty recycle bin</source>
         <translation>&amp;ריקןן סל־מחזור</translation>
     </message>
     <message>
-        <source>&amp;Donate</source>
-        <translation>&amp;תרומה</translation>
-    </message>
-    <message>
-        <source>Report a &amp;Bug</source>
-        <translation>דיווח על &amp;תקלה</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="715"/>
         <source>&amp;Getting Started</source>
         <translation>&amp;תחילת עבודה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="718"/>
         <source>Open Getting Started Guide</source>
         <translation>פתיחת מדריך &apos;מתחילים&apos;</translation>
     </message>
     <message>
-        <source>&amp;Online Help</source>
-        <translation>עזרה &amp;מקוונת</translation>
-    </message>
-    <message>
-        <source>Go to online documentation</source>
-        <translation>מעבר לתיעוד מקוון</translation>
-    </message>
-    <message>
-        <source>&amp;User Guide</source>
-        <translation>&amp;מדריך למשתמש</translation>
-    </message>
-    <message>
-        <source>Open User Guide</source>
-        <translation>פתיחת מדריך למשתמש</translation>
-    </message>
-    <message>
-        <source>&amp;Keyboard Shortcuts</source>
-        <translation>&amp;קיצורי מקשים</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="723"/>
         <source>Save Database Backup…</source>
         <translation>שמירת גיבוי מסד־נתונים...</translation>
     </message>
     <message>
-        <source>Add key to SSH Agent</source>
-        <translation>הוספת מפתח לסוכן SSH</translation>
-    </message>
-    <message>
-        <source>Remove key from SSH Agent</source>
-        <translation>הסרת מפתח מסוכן SSH</translation>
-    </message>
-    <message>
-        <source>Compact Mode</source>
-        <translation>מצב צמום</translation>
-    </message>
-    <message>
-        <source>Automatic</source>
-        <translation>אוטומטי</translation>
-    </message>
-    <message>
-        <source>Light</source>
-        <translation>בהיר</translation>
-    </message>
-    <message>
-        <source>Dark</source>
-        <translation>כהה</translation>
-    </message>
-    <message>
-        <source>Classic (Platform-native)</source>
-        <translation>קלאסי (מובנה מסדת)</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="734"/>
         <source>Show Menubar</source>
         <translation>הצגת סרגל תפריט</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="748"/>
         <source>Show Toolbar</source>
         <translation>הצגת סרגל־כלים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="759"/>
         <source>Show Preview Panel</source>
         <translation>הצגת לוחית &apos;תצוגה מקדימה&apos;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="767"/>
         <source>Always on Top</source>
         <translation>תמיד מעל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="778"/>
         <source>Hide Usernames</source>
         <translation>הסתרת שמות משתמשים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="792"/>
         <source>Hide Passwords</source>
         <translation>הסתרת ססמאות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="800"/>
         <source>Clone Group...</source>
         <translation>שכפול קבוצה...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="130"/>
         <source>Clear history</source>
         <translation>נקוי היסטוריה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="388"/>
         <source>Access error for config file %1</source>
         <translation>שגיאת גישה לקובץ התצורה %1</translation>
     </message>
     <message>
-        <source>Don&apos;t show again for this version</source>
-        <translation>לא להציג שוב לגרסה זו</translation>
-    </message>
-    <message>
-        <source>WARNING: You are using an unstable build of KeePassXC.
-There is a high risk of corruption, maintain a backup of your databases.
-This version is not meant for production use.</source>
-        <translation>אזהרה: נעשה שימוש בבניה לא יציבה של KeePassXC!
-קיים סיכון גבוה להשחתה, נא לשמור גיבוי מסדי הנתונים.
-גרסה זו אינה מיועדת לשימוש בייצור.</translation>
-    </message>
-    <message>
-        <source>NOTE: You are using a pre-release version of KeePassXC.
-Expect some bugs and minor issues, this version is meant for testing purposes.</source>
-        <translation>הערה: זוהי גרסת טרום שחרור של KeePassXC!
-צפוי שיתרחשו תקלים וסוגיות קלות, גרסה זו מיועדת לשימוש כמערכת בדיקות.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="569"/>
         <source>No Tags</source>
         <translation>ללא תג</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/MainWindow.cpp" line="671"/>
+        <location filename="../../src/gui/MainWindow.cpp" line="672"/>
         <source>Restore Entry(s)</source>
-        <translation><numerusform>שחזור רשומה</numerusform><numerusform>שחזור רשומות</numerusform><numerusform>שחזור רשומות</numerusform></translation>
+        <translation>
+            <numerusform>שחזור רשומה</numerusform>
+            <numerusform>שחזור רשומות</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="755"/>
         <source>Settings</source>
         <translation>הגדרות</translation>
     </message>
     <message>
-        <source>Check for updates on startup?</source>
-        <translation>האם לבדוק עדכונים בעת האיתחול?</translation>
-    </message>
-    <message>
-        <source>Would you like KeePassXC to check for updates on startup?</source>
-        <translation>האם לאפשר ל־KeePassXC לבדוק עדכונים בעת האיתחול?</translation>
-    </message>
-    <message>
-        <source>You can always check for updates manually from the application menu.</source>
-        <translation>ניתן תמיד לבדוק אם קיימים עדכונים באופן ידני מתפריט היישום.</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="1182"/>
         <source>Toggle window</source>
         <translation>החלפת־מצב חלון</translation>
     </message>
     <message>
-        <source>Quit KeePassXC</source>
-        <translation>יצאה מ־KeePassXC</translation>
-    </message>
-    <message>
-        <source>Please present or touch your YubiKey to continue…</source>
-        <translation>נא להציג או לגעת ב־YubiKey על מנת להמשך...</translation>
-    </message>
-    <message>
-        <source>Restart Application?</source>
-        <translation>האם לאתחל את היישום?</translation>
-    </message>
-    <message>
-        <source>You must restart the application to apply this setting. Would you like to restart now?</source>
-        <translation>נא לאתחל את היישום להחלת הגדרה זו. האם לאתחל כעת?</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="292"/>
         <source>Tags</source>
         <translation>תגים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="440"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Merge from another KDBXM database&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="829"/>
         <source>1Password 1PUX...</source>
         <translation>1Password 1PUX...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="832"/>
         <source>Import a 1Password 1PUX file</source>
         <translation>ייבוא קובץ 1Password 1PUX</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="837"/>
         <source>Import…</source>
         <translation>ייבוא...</translation>
     </message>
-    <message>
-        <source>Passkeys…</source>
-        <translation>Passkeys…</translation>
-    </message>
     <message numerus="yes">
+        <location filename="../../src/gui/MainWindow.cpp" line="1248"/>
         <source>%1 Entry(s)</source>
-        <translation><numerusform>רשומה %1</numerusform><numerusform>%1 רשומות</numerusform><numerusform>%1 רשומות</numerusform></translation>
+        <translation>
+            <numerusform>רשומה %1</numerusform>
+            <numerusform>%1 רשומות</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="821"/>
         <source>&amp;XML File…</source>
         <translation>&amp;קובץ XML...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="824"/>
         <source>XML File…</source>
         <translation>קובץ XML...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="632"/>
         <source>Copy &amp;URL</source>
         <translation>העתקת מען־URL</translation>
     </message>
     <message>
-        <source>Allow Screen Capture</source>
-        <translation>אפשור לכידת מסך</translation>
-    </message>
-    <message>
-        <source>Passkeys</source>
-        <translation>Passkeys</translation>
-    </message>
-    <message>
-        <source>Import Passkey</source>
-        <translation>ייבוא Passkey</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="481"/>
+        <location filename="../../src/gui/MainWindow.ui" line="484"/>
+        <location filename="../../src/gui/MainWindow.cpp" line="663"/>
         <source>Delete Entry</source>
         <translation>מחיקת רשומה</translation>
     </message>
     <message>
-        <source>Remove Passkey From Entry</source>
-        <translation>הסרת Passkey מרשומה</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="710"/>
         <source>Empty Recycle Bin</source>
         <translation>לרוקן סל מחזור</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="737"/>
         <source>Toggle Show Menubar</source>
         <translation>מיתוג הצגת סרגל תפריט</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="848"/>
         <source>Show Group Panel</source>
         <translation>הצגת לוח קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="851"/>
         <source>Toggle Show Group Panel</source>
         <translation>מיתוג הצגת לוח קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.cpp" line="759"/>
         <source>Password Generator</source>
         <translation>מחולל סיסמאות</translation>
     </message>
     <message>
-        <source>Clear SSH Agent</source>
-        <translation>ניקוי סוכן SSH</translation>
-    </message>
-    <message>
-        <source>Clear all identities in ssh-agent</source>
-        <translation>ניקוי כל הזהויות בסוכן SSH</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/MainWindow.ui" line="448"/>
         <source>New Entry</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="456"/>
         <source>Edit Entry…</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">עריכת רשומה...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="467"/>
         <source>E&amp;xpire Entry</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="470"/>
+        <location filename="../../src/gui/MainWindow.ui" line="473"/>
         <source>Expire Entry</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="478"/>
         <source>&amp;Delete Entry</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/MainWindow.cpp" line="653"/>
         <source>Move selected entry(s) to the recycle bin</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/MainWindow.cpp" line="658"/>
         <source>Permanently delete the selected entry(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="459"/>
         <source>View or edit entry</source>
         <translation>הצגת או עריכת רשומה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MainWindow.ui" line="702"/>
         <source>Copy Password and TOTP</source>
         <translation>העתקת ססמה ו־TOTP</translation>
     </message>
 </context>
 <context>
-    <name>ManageDatabase</name>
-    <message>
-        <source>Database settings</source>
-        <translation>הגדרות מסד־נתונים</translation>
-    </message>
-    <message>
-        <source>Edit database settings</source>
-        <translation>עריכת הגדרות מסד־נתונים</translation>
-    </message>
-    <message>
-        <source>Unlock database</source>
-        <translation>שחרור נעילה של מסד־נתונים</translation>
-    </message>
-    <message>
-        <source>Unlock database to show more information</source>
-        <translation>שחרור נעילת מסד־נתונים להצגת מידע נוסף</translation>
-    </message>
-    <message>
-        <source>Lock database</source>
-        <translation>נעילת מסד־נתונים</translation>
-    </message>
-</context>
-<context>
-    <name>ManageSession</name>
-    <message>
-        <source>Disconnect</source>
-        <translation>התנתקות</translation>
-    </message>
-    <message>
-        <source>Disconnect this application</source>
-        <translation>ניתוק יישום זה</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation>איפוס</translation>
-    </message>
-    <message>
-        <source>Reset any remembered decisions for this application</source>
-        <translation>איפוס כלל ההגדרות המומלצות ביישומון זה</translation>
-    </message>
-</context>
-<context>
     <name>MergeDialog</name>
     <message>
+        <location filename="../../src/gui/MergeDialog.ui" line="14"/>
         <source>Database Merge Confirmation</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="38"/>
         <source>Merge</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">מיזוג</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="89"/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="91"/>
         <source>Title</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="93"/>
         <source>UUID</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="97"/>
         <source>Details</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">פרטים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="199"/>
+        <source>Merge results differed from the expected changes. Expected: %1, Actual: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/MergeDialog.cpp" line="95"/>
         <source>Change</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Merger</name>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="868"/>
         <source>Changed deleted objects</source>
         <translation>אובייקטים שנמחקו ששונו</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="923"/>
         <source>Removed custom data %1 [%2]</source>
         <translation>הוסרו נתונים מותאמים אישית %1 [%2]</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="945"/>
         <source>Adding custom data %1 [%2]</source>
         <translation>הוספת נתונים מותאמים אישית %1 [%2]</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="94"/>
         <source>Added</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="96"/>
         <source>Modified</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">הוסגל</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="98"/>
         <source>Moved</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="100"/>
         <source>Deleted</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="102"/>
+        <source>Metadata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="104"/>
+        <source>Unspecified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="238"/>
+        <location filename="../../src/core/Merger.cpp" line="278"/>
         <source>Previous location: %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="260"/>
         <source>Number of entries in group: %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="345"/>
         <source>Group name</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">שם קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="351"/>
         <source>Notes</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">הערות</translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="359"/>
         <source>Icon (UUID)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="367"/>
         <source>Icon (Number)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="374"/>
         <source>Expiry time</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="384"/>
         <source>Modification time</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="556"/>
+        <source>Merge %1/%2 with alien on top under %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="564"/>
         <source>%1 (Add local modifications to new entry)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="572"/>
+        <source>Merge %1/%2 with local on top/under %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="583"/>
         <source>%1 (Add new modifications to existing entry)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="628"/>
+        <source>Inconsistent history entry of %1[%2] at %3 contains conflicting changes - conflict resolution may lose data!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="644"/>
+        <source>History entry of %1[%2] at %3 contains conflicting changes - conflict resolution may lose data!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="667"/>
+        <source>Entry of %1[%2] contains conflicting changes - conflict resolution may lose data!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Merger.cpp" line="812"/>
+        <location filename="../../src/core/Merger.cpp" line="853"/>
         <source>Explicit deletion</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="816"/>
+        <location filename="../../src/core/Merger.cpp" line="857"/>
         <source>Implicit deletion (e.g. removal of parent group)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/core/Merger.cpp" line="891"/>
         <source>Adding new icon %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>NewDatabaseWizard</name>
     <message>
-        <source>Create a new KeePassXC database…</source>
-        <translation>יצירת מסד נתוני KeePassXC חדש...</translation>
+        <location filename="../../src/gui/wizard/NewDatabaseWizard.cpp" line="46"/>
+        <source>Create a new KeePassX-min database…</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizard.cpp" line="84"/>
         <source>Root</source>
         <comment>Root group</comment>
         <translation>שורש</translation>
@@ -6298,14 +5162,17 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>NewDatabaseWizardPage</name>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPage.ui" line="20"/>
         <source>WizardPage</source>
         <translation>עמוד אשף</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPage.ui" line="23"/>
         <source>Encryption Settings</source>
         <translation>הצנת ההגדרות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPage.ui" line="26"/>
         <source>Here you can adjust the database encryption settings. Don&apos;t worry, you can change them later in the database settings.</source>
         <translation>כאן ניתן להתאים את הגדרות הצפנת מסד הנתונים. אל דאגה, אפשר יהיה לשנות אותם מאוחר יותר בהגדרות מסד הנתונים.</translation>
     </message>
@@ -6313,10 +5180,12 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>NewDatabaseWizardPageDatabaseKey</name>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageDatabaseKey.cpp" line="25"/>
         <source>Database Credentials</source>
         <translation>אישורי מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageDatabaseKey.cpp" line="26"/>
         <source>A set of credentials known only to you that protects your database.</source>
         <translation>ערכת אישורים הידועה רק לך המגנה על מסד הנתונים.</translation>
     </message>
@@ -6324,10 +5193,12 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>NewDatabaseWizardPageEncryption</name>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageEncryption.cpp" line="25"/>
         <source>Encryption Settings</source>
         <translation>הצנת ההגדרות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageEncryption.cpp" line="26"/>
         <source>Here you can adjust the database encryption settings. Don&apos;t worry, you can change them later in the database settings.</source>
         <translation>כאן ניתן להתאים את הגדרות הצפנת מסד הנתונים. אל דאגה, אפשר יהיה לשנות אותם מאוחר יותר בהגדרות מסד הנתונים.</translation>
     </message>
@@ -6335,56 +5206,50 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>NewDatabaseWizardPageMetaData</name>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageMetaData.cpp" line="25"/>
         <source>General Database Information</source>
         <translation>מידע כללי אודות מסד הנתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/wizard/NewDatabaseWizardPageMetaData.cpp" line="26"/>
         <source>Please fill in the display name and an optional description for your new database:</source>
         <translation>נא להזין את שם המצג ותיאור חלופי למסד הנתונים החדש:</translation>
     </message>
 </context>
 <context>
-    <name>NixUtils</name>
-    <message>
-        <source>Password Manager</source>
-        <translation>מנהל ססמאות</translation>
-    </message>
-    <message>
-        <source>Global shortcut already registered to %1</source>
-        <translation>קיצור דרך כללי כבר רשום ב־%1</translation>
-    </message>
-    <message>
-        <source>Could not register global shortcut</source>
-        <translation>לא ניתן לרשום קיצור דרך כללי</translation>
-    </message>
-</context>
-<context>
     <name>OpData01</name>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="43"/>
         <source>Invalid OpData01, does not contain header</source>
         <translation>OpData01 לא תקין, לא מכיל כותרת עליונה</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="64"/>
         <source>Unable to read all IV bytes, wanted 16 but got %1</source>
         <translation>לא ניתן לקרוא את כל הביטים של IV, נדרשו 16 אך נתקבלו %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="71"/>
         <source>Unable to init cipher for opdata01: %1</source>
         <translation>לא ניתן ליצור צופן איתחול עבור opdata01: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="103"/>
         <source>Unable to read all HMAC signature bytes</source>
         <translation>לא ניתן לקרוא את כל הבייטים של החתימת HMAC</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="111"/>
         <source>Malformed OpData01 due to a failed HMAC</source>
         <translation>OpData01 פגום עקב HMAC שכשל</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="117"/>
         <source>Unable to process clearText in place</source>
         <translation>לא ניתן לעבד clearText במקום</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpData01.cpp" line="125"/>
         <source>Expected %1 bytes of clear-text, found %2</source>
         <translation>ציפיה ל־%1 בתים של מלל רגיל, נמצאו %2</translation>
     </message>
@@ -6392,351 +5257,300 @@ Expect some bugs and minor issues, this version is meant for testing purposes.</
 <context>
     <name>OpVaultReader</name>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="40"/>
         <source>Directory .opvault must exist</source>
         <translation>מחיצה .opvault חייבת להתקיים</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="46"/>
         <source>Directory .opvault must be readable</source>
         <translation>מחיצה opvault. חייבת להיות ברת קריאה</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="54"/>
         <source>Directory .opvault/default must exist</source>
         <translation>מחיצה .opvault/default חייבת להתקיים</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="60"/>
         <source>Directory .opvault/default must be readable</source>
         <translation>מחיצה .opvault/default חייבת להיות ברת קריאה</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="115"/>
+        <source>Mismatched Entry UUID, its JSON key &lt;&lt;%1&gt;&gt; and its UUID &lt;&lt;%2&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="126"/>
+        <source>Skipping malformed Entry UUID %1 without key %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="141"/>
+        <source>Unable to process Band Entry %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="232"/>
+        <source>Found non-Object folder with key &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="242"/>
+        <source>Unable to decipher folder UUID &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="264"/>
+        <source>Expected a predicate in smart folder [uuid=&quot;%1&quot;; title=&quot;%2&quot;]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="318"/>
+        <source>File &quot;%1&quot; must exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="324"/>
+        <source>File &quot;%1&quot; must be readable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="330"/>
+        <source>Unable to open &quot;%1&quot; readonly+text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="358"/>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="141"/>
+        <source>Expected %1 to be a JSON Object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="373"/>
         <source>Unable to decode masterKey: %1</source>
         <translation>לא ניתן לפענח מפתח ראשי: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/OpVaultReader.cpp" line="424"/>
         <source>Unable to derive master key: %1</source>
         <translation>לא ניתן להפיק מפתח ראשי: %1</translation>
     </message>
-</context>
-<context>
-    <name>OpenSSHKey</name>
     <message>
-        <source>Invalid key file, expecting an OpenSSH key</source>
-        <translation>קובץ מפתח לא תקין, צפייה למפתח OpenSSH</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="41"/>
+        <source>Unable to open &quot;%s&quot; for reading</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PEM boundary mismatch</source>
-        <translation>אי־התאמת גבולות PEM</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="49"/>
+        <source>Expected OPCLDAT but found &lt;&lt; %1 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Base64 decoding failed</source>
-        <translation>פענוח Base64 כשל</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="56"/>
+        <source>Unexpected version number; wanted 1 or 2, got &lt;&lt; %1 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Key file way too small.</source>
-        <translation>קובץ המפתח קטן מדי.</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="63"/>
+        <source>Unable to read all metadata length bytes; wanted 2 bytes, got %1: &lt;&lt; %2 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Key file magic header id invalid</source>
-        <translation>מזהה כותרת־קסם קובץ־מפתח לא תקין</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="77"/>
+        <source>Unable to read all &quot;junk&quot; bytes; wanted 2 bytes, got %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Found zero keys</source>
-        <translation>נמצאו מפתחות אפס</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="84"/>
+        <source>Unable to read all &quot;iconLen&quot; bytes; wanted 4 bytes, got %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Corrupted key file, reading private key failed</source>
-        <translation>קובץ מפתח פגום, קריאת מפתח פרטי כשלה</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="99"/>
+        <source>Unable to read all bytes of metadata JSON; wanted %1 but read %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unsupported key type: %1</source>
-        <translation>סוג מפתח לא נתמך: %1</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="108"/>
+        <source>Unable to read all icon bytes; wanted %1 but read %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No private key payload to decrypt</source>
-        <translation>אין תכולת מפתח פרטי לפענוח</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="121"/>
+        <source>Unable to decipher attachment icon in %1: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknown cipher: %1</source>
-        <translation>צופן לא ידוע: %1</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="131"/>
+        <source>Found invalid attachment metadata JSON at offset %1: error(%2): %3
+&lt;&lt;%4&gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Passphrase is required to decrypt this key</source>
-        <translation>נדרש ביטוי ססמה כדי לפענח מפתח זה</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="155"/>
+        <source>Unable to decipher attachment payload: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Key derivation failed: %1</source>
-        <translation>נגזרת מפתח כשלה: %1</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="187"/>
+        <source>Attachment file &quot;%1&quot; is not readable</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cipher IV is too short for MD5 kdf</source>
-        <translation>צופן IV קצר מדי עבור MD5 kdf</translation>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="243"/>
+        <source>Unable to decode attach.overview for &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknown KDF: %1</source>
-        <translation>KDF לא ידוע: %1</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="38"/>
+        <source>Band entries must contain a &quot;d&quot; key: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to initialize cipher: %1</source>
-        <translation>איתחול צופן כשל: %1</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="44"/>
+        <source>Band entries must contain a &quot;k&quot; key: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Decryption failed: %1</source>
-        <translation>פענוח כשל: %1</translation>
-    </message>
-    <message>
-        <source>Decryption failed, wrong passphrase?</source>
-        <translation>פענוח כשל, האם ביטוי ססמה שגוי?</translation>
-    </message>
-    <message>
-        <source>Unexpected EOF while reading key</source>
-        <translation>EOF לא צפוי בעת קריאת מפתח</translation>
-    </message>
-    <message>
-        <source>Unsupported key part</source>
-        <translation>רכיב מפתח לא נתמך</translation>
-    </message>
-    <message>
-        <source>Unexpected EOF while reading public key</source>
-        <translation>EOF לא צפוי בעת קריאת מפתח ציבורי</translation>
-    </message>
-    <message>
-        <source>Unknown key type: %1</source>
-        <translation>סוג מפתח לא ידוע: %1</translation>
-    </message>
-    <message>
-        <source>Unexpected EOF while reading private key</source>
-        <translation>EOF לא צפוי בעת קריאת מפתח פרטי</translation>
-    </message>
-    <message>
-        <source>Can&apos;t write public key as it is empty</source>
-        <translation>לא ניתן לכתוב מפתח פרטי מכיוון שהוא ריק</translation>
-    </message>
-    <message>
-        <source>Unexpected EOF when writing public key</source>
-        <translation>EOF לא צפוי בעת כתיבת מפתח ציבורי</translation>
-    </message>
-    <message>
-        <source>Can&apos;t write private key as it is empty</source>
-        <translation>לא ניתן לכתוב מפתח פרטי מכיוון שהוא ריק</translation>
-    </message>
-    <message>
-        <source>Unexpected EOF when writing private key</source>
-        <translation>EOF לא צפוי בעת כתיבת מפתח פרטי</translation>
-    </message>
-    <message>
-        <source>(encrypted)</source>
-        <translation>(מוצפן)</translation>
-    </message>
-    <message>
-        <source>Failed to read key file: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to read public key: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>AES-256/GCM is currently not supported</source>
-        <translation>AES-256/GCM לא נתמך לעת עתה</translation>
-    </message>
-</context>
-<context>
-    <name>PasskeyExportDialog</name>
-    <message>
-        <source>KeePassXC - Passkey Export</source>
-        <translation>ייצוא KeePassXC – Passkey</translation>
-    </message>
-    <message>
-        <source>Filenames will be generated with title and .passkey file extension.</source>
-        <translation>שמות קבצים יחוללו עם כותרת וסיומת קובץ Passkey.</translation>
-    </message>
-    <message>
-        <source>Export entries</source>
-        <translation>ייצוא רשומות</translation>
-    </message>
-    <message>
-        <source>Export Selected</source>
-        <translation>ייצוא בחירה</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>ביטול</translation>
-    </message>
-    <message>
-        <source>Export to folder</source>
-        <translation>ייצוא לתיקייה</translation>
-    </message>
-    <message>
-        <source>Export the following passkey entries.</source>
-        <translation>ייצוא רשומות ה־Passkey הבאות.</translation>
-    </message>
-</context>
-<context>
-    <name>PasskeyExporter</name>
-    <message>
-        <source>File &quot;%1.passkey&quot; already exists.
-Do you want to overwrite it?
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="68"/>
+        <source>Malformed &quot;k&quot; size; expected %1 got %2
 </source>
-        <translation>קובץ &quot;%1.passkey&quot; כבר קיים
-האם לכתוב עליו?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot open file</source>
-        <translation>לא ניתן לפתוח קובץ</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="76"/>
+        <source>Entry &quot;k&quot; failed its HMAC in UUID &quot;%1&quot;, wanted &quot;%2&quot; got &quot;%3&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot open file &quot;%1&quot; for writing.</source>
-        <translation>לא ניתן לפתוח קובץ &quot;%1&quot; לכתיבה.</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="89"/>
+        <source>Unable to init cipher using masterKey in UUID %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot write to file</source>
-        <translation>לא ניתן לכתוב לקובץ</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="95"/>
+        <source>Unable to decipher &quot;k&quot;(key+hmac) in UUID %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Overwrite Existing File?</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>PasskeyImportDialog</name>
-    <message>
-        <source>KeePassXC - Passkey Import</source>
-        <translation>ייבוא KeePassXC – Passkey</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="106"/>
+        <source>Unable to decipher &quot;d&quot; in UUID &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Username: %1</source>
-        <translation>שם משתמש: %1</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="121"/>
+        <source>Skipping suspicious band UUID &lt;&lt;%1&gt;&gt; with length %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Group</source>
-        <translation>קבוצה</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="152"/>
+        <source>Unable to place Entry.Category &quot;%1&quot; so using the Root instead</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Database</source>
-        <translation>Database</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="158"/>
+        <source>Skipping non-String Category type &quot;%1&quot; in UUID &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import Passkey</source>
-        <translation>ייבוא Passkey</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="167"/>
+        <source>Using the root group because the entry is category-less: &lt;&lt;
+%1
+&gt;&gt; in UUID %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import</source>
-        <translation>ייבוא</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="247"/>
+        <source>Skipping non-Object in &quot;sections&quot; for UUID &quot;%1&quot; &lt;&lt; %2 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>ביטול</translation>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="267"/>
+        <source>Unable to decipher &quot;o&quot; in UUID &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Entry</source>
-        <translation>רשומה</translation>
+        <location filename="../../src/format/OpVaultReaderSections.cpp" line="64"/>
+        <source>Skipping &quot;fields&quot;-less Section in UUID &quot;%1&quot;: &lt;&lt; %2 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Create new entry</source>
-        <translation>יצירת רשומה חדשה</translation>
+        <location filename="../../src/format/OpVaultReaderSections.cpp" line="71"/>
+        <source>Skipping non-Array &quot;fields&quot; in UUID &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Relying Party: %1</source>
-        <translation>צד סומך: %1</translation>
+        <location filename="../../src/format/OpVaultReaderSections.cpp" line="80"/>
+        <source>Skipping non-Object &quot;fields&quot; in UUID &quot;%1&quot;: &lt;&lt; %2 &gt;&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import the following passkey:</source>
-        <translation>ייבוא ה־ הבא:Passkey</translation>
+        <location filename="../../src/format/OpVaultReaderSections.cpp" line="149"/>
+        <source>[%1] Invalid expiration date found: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import the following passkey to this entry:</source>
-        <translation>לייבא את ה־Passkey הבא לרשומה זו:</translation>
-    </message>
-    <message>
-        <source>Default passkeys group (Imported Passkeys)</source>
-        <translation>קבוצה passkeys בררת מחדל (passkeys שיובאו)</translation>
-    </message>
-</context>
-<context>
-    <name>PasskeyImporter</name>
-    <message>
-        <source>Passkey file</source>
-        <translation>קובץ Passkey</translation>
-    </message>
-    <message>
-        <source>All files</source>
-        <translation>כל הקבצים</translation>
-    </message>
-    <message>
-        <source>Cannot open file</source>
-        <translation>לא ניתן לפתוח קובץ</translation>
-    </message>
-    <message>
-        <source>Cannot open file &quot;%1&quot; for reading.</source>
-        <translation>לא ניתן לפתוח קובץ &quot;%1&quot; לקריאה.</translation>
-    </message>
-    <message>
-        <source>Cannot import passkey file &quot;%1&quot;. Data is missing.</source>
-        <translation>לא ניתן לייבוא קובץ Passkey &quot;%1&quot;. חסרים נתונים.</translation>
-    </message>
-    <message>
-        <source>Cannot import passkey file &quot;%1&quot;.
-The following data is missing:
-%2</source>
-        <translation>לא ניתן לייבא קובץ Passkey &quot;%1&quot;.
-הנתון הבא חסר:
-%2</translation>
-    </message>
-    <message>
-        <source>Cannot import passkey file &quot;%1&quot;. Private key is missing or malformed.</source>
-        <translation>לא ניתן לייבא קובץ Passkey &quot;%1&quot;. מפתח פרטי חסר או לוקה בתצורה.</translation>
-    </message>
-    <message>
-        <source>Open Passkey File</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Passkey Import Failed</source>
-        <translation type="unfinished"/>
+        <location filename="../../src/format/OpVaultReaderSections.cpp" line="163"/>
+        <source>[%1] Invalid date attribute found: %2 = %3</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PasswordEditWidget</name>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.ui" line="29"/>
         <source>Enter password:</source>
         <translation>הזנת ססמה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.ui" line="51"/>
         <source>Password field</source>
         <translation>שדה ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.ui" line="58"/>
         <source>Confirm password:</source>
         <translation>אישור ססמה:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.ui" line="80"/>
         <source>Repeat password field</source>
         <translation>חזרה על שדה ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="101"/>
         <source>Password</source>
         <translation>ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="102"/>
         <source>Add Password</source>
         <translation>הוספת ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="103"/>
         <source>Change Password</source>
         <translation>שנוי ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="104"/>
         <source>Remove Password</source>
         <translation>הסרת ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="105"/>
         <source>Password set, click to change or remove</source>
         <translation>ערכת ססמאות, הקשה לשנוי או להסרה</translation>
     </message>
     <message>
-        <source>&lt;p&gt;A password is the primary method for securing your database.&lt;/p&gt;&lt;p&gt;Good passwords are long and unique. KeePassXC can generate one for you.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;ססמה היא השיטה העיקרית לאבטחת מסד־נתונים.&lt;/p&gt;&lt;p&gt;ססמאות טובות צריכות שיהיו ארוכות וייחודיות. KeePassXC יכול לחולל אחד כזה בכל עת.&lt;/p&gt;</translation>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="107"/>
+        <source>&lt;p&gt;A password is the primary method for securing your database.&lt;/p&gt;&lt;p&gt;Good passwords are long and unique. KeePassX-min can generate one for you.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/databasekey/PasswordEditWidget.cpp" line="115"/>
         <source>Passwords do not match.</source>
         <translation>ססמאות לא תואמות.</translation>
     </message>
@@ -6744,291 +5558,382 @@ The following data is missing:
 <context>
     <name>PasswordGeneratorWidget</name>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="14"/>
         <source>Generate Password</source>
         <translation>חילול ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="36"/>
         <source>strength</source>
         <comment>Password strength</comment>
         <translation>חוזק</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="121"/>
         <source>entropy</source>
         <translation>אנטרופיה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="151"/>
         <source>Generated password</source>
         <translation>ססמה שחוללה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="201"/>
         <source>%p%</source>
         <translation>%p%</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="211"/>
         <source>Regenerate password</source>
         <translation>חילול ססמה מחדש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="224"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="227"/>
         <source>Copy password</source>
         <translation>העתקת ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="252"/>
         <source>Password</source>
         <translation>ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="272"/>
         <source>&amp;Length:</source>
         <translation>&amp;אורך:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="282"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="307"/>
         <source>Password length</source>
         <translation>אורך ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="326"/>
         <source>Switch to advanced mode</source>
         <translation>החלפה למצב מתקדם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="329"/>
         <source>Advanced</source>
         <translation>מתקדם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="350"/>
         <source>Character Types</source>
         <translation>סוגי תווים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="385"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="388"/>
         <source>Special characters</source>
         <translation>תווים מיוחדים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="407"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="410"/>
         <source>Quotes</source>
         <translation>מרכאות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="429"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="432"/>
         <source>Punctuation</source>
         <translation>פיסוק</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="451"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="454"/>
         <source>Dashes and Slashes</source>
         <translation>מקפים ולוכסנים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="473"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="476"/>
         <source>Upper-case letters</source>
         <translation>אותיות רישיות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="495"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="498"/>
         <source>Numbers</source>
         <translation>מספרים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="517"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="520"/>
         <source>Lower-case letters</source>
         <translation>אותיות קטנות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="539"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="542"/>
         <source>Math Symbols</source>
         <translation>סימנים מתמטיים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="561"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="564"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="567"/>
         <source>Extended ASCII</source>
         <translation>ASCII מורחב</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="583"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="586"/>
         <source>Braces</source>
         <translation>סוגרים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="637"/>
         <source>Do not include:</source>
         <translation>לא לכלול:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="656"/>
         <source>Additional characters to use for the generated password</source>
         <translation>שימוש בערכת תווים נוספת בססמה שחוללה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="659"/>
         <source>Additional characters</source>
         <translation>תווים נוספים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="672"/>
         <source>Add non-hex letters to &quot;do not include&quot; list</source>
         <translation>הוספת אותיות non-hex לרשימת ה&quot;החרגה&quot;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="675"/>
         <source>Hex Passwords</source>
         <translation>ססמאות Hex</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="678"/>
         <source>Hex</source>
         <translation>הקס</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="697"/>
         <source>Character set to exclude from generated password</source>
         <translation>ערכת תווים להחרגה מססמה שחוללה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="700"/>
         <source>Excluded characters</source>
         <translation>החרגת תווים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="710"/>
         <source>Also choose from:</source>
         <translation>נא לבחור גם מבין:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="725"/>
         <source>Exclude look-alike characters</source>
         <translation>החרגת תווים דומים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="735"/>
         <source>Pick characters from every group</source>
         <translation>בחירת תווים מכל קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="767"/>
         <source>Passphrase</source>
         <translation>ביטוי ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="946"/>
         <source>Word Separator:</source>
         <translation>מפריד מילים:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="781"/>
         <source>Wordlist:</source>
         <translation>רשימת מילים:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="824"/>
         <source>Word Count:</source>
         <translation>ספירת מילים:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="834"/>
         <source>Word Case:</source>
         <translation>גודל אות:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="856"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="859"/>
         <source>Delete selected wordlist</source>
         <translation>מחיקת רשימת־מילים שנבחרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="869"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="872"/>
         <source>Add custom wordlist</source>
         <translation>הוספת רשימת־מילים מותאמת אישית</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="1006"/>
         <source>Close</source>
         <translation>סגירה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="1009"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="1016"/>
         <source>Apply Password</source>
         <translation>החלת ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="45"/>
         <source>Regenerate password (%1)</source>
         <translation>חילול ססמה (%1) מחדש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="99"/>
         <source>lower case</source>
         <translation>אותיות קטנות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="100"/>
         <source>UPPER CASE</source>
         <translation>אותיות רישיות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="101"/>
         <source>Title Case</source>
         <translation>אותיות כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="108"/>
         <source>(SYSTEM)</source>
         <translation>(מערכת)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="314"/>
         <source>Entropy: %1 bit</source>
         <translation>אנטרופיה: %1 סיביות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="429"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="471"/>
         <source>Failed to delete wordlist</source>
         <translation>מחיקת רשימת־מילים כשלה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="439"/>
         <source>Wordlists</source>
         <translation>רשימת מילים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="439"/>
         <source>All files</source>
         <translation>כל הקבצים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="480"/>
         <source>Failed to add wordlist</source>
         <translation>הוספת רשימת־מילים כשלה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="504"/>
         <source>Logograms</source>
         <translation>לוגוגרמות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="510"/>
         <source>Special Characters</source>
         <translation>תווים מיוחדים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="329"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="334"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="339"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="344"/>
         <source>Password Quality: %1</source>
         <translation>איכות ססמה: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="329"/>
         <source>Poor</source>
         <comment>Password quality</comment>
         <translation>עלוב</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="334"/>
         <source>Weak</source>
         <comment>Password quality</comment>
         <translation>חלש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="339"/>
         <source>Good</source>
         <comment>Password quality</comment>
         <translation>טוב</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="344"/>
         <source>Excellent</source>
         <comment>Password quality</comment>
         <translation>מצוין</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="83"/>
         <source>passwordLength</source>
         <translation>אורך ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="351"/>
         <source>Characters: %1</source>
         <translation>תווים: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="102"/>
         <source>MIXED case</source>
         <translation>אותיות רישיות וקטנות מעורבות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="719"/>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="722"/>
         <source>Excluded characters: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;, &quot;B&quot;, &quot;8&quot;, &quot;G&quot;, &quot;6&quot;</source>
         <translation>תווים שהוחרגו: &quot;0&quot;, &quot;1&quot;, &quot;l&quot;, &quot;I&quot;, &quot;O&quot;, &quot;|&quot;, &quot;﹒&quot;, &quot;B&quot;, &quot;8&quot;, &quot;G&quot;, &quot;6&quot;</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.ui" line="959"/>
         <source>Warning: the chosen wordlist is smaller than the minimum recommended size!</source>
         <translation>אזהרה: רשימת המילים שנבחרה קטנה מהגודל המומלץ המזערי!</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="419"/>
         <source>Confirm Remove Wordlist</source>
         <translation>אישור הסרת רשימת מילים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="420"/>
         <source>Do you really want to remove the wordlist &quot;%1&quot;?</source>
         <translation>האם להסיר רשימת מילים &quot;%1&quot;?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="440"/>
         <source>Select Custom Wordlist</source>
         <translation>בחירת רשימת מילים מותאמת אישית</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="457"/>
         <source>Overwrite Wordlist?</source>
         <translation>כתיבה־על רשימת מילים?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordGeneratorWidget.cpp" line="458"/>
         <source>Wordlist &quot;%1&quot; already exists as a custom wordlist.
 Do you want to overwrite it?</source>
         <translation>קימת כבר רשימת מילים &quot;%1&quot; כרשימת מילים מותאמת אישית.
@@ -7038,80 +5943,77 @@ Do you want to overwrite it?</source>
 <context>
     <name>PasswordWidget</name>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="45"/>
         <source>Passwords do not match</source>
         <translation>ססמאות לא תואמות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="50"/>
         <source>Passwords match so far</source>
         <translation>ססמאות תואמות עד כה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="61"/>
         <source>Toggle Password (%1)</source>
         <translation>החלפת־מצב ססמה (%1)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="71"/>
         <source>Generate Password (%1)</source>
         <translation>חילול ססמה (%1)</translation>
     </message>
     <message>
-        <source>Warning: Caps Lock enabled!</source>
-        <translation>אזהרה: אופשרה נעילת רישיות!</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="245"/>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="250"/>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="255"/>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="260"/>
         <source>Quality: %1</source>
         <translation>איכות: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="245"/>
         <source>Poor</source>
         <comment>Password quality</comment>
         <translation>עלוב</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="250"/>
         <source>Weak</source>
         <comment>Password quality</comment>
         <translation>חלש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="255"/>
         <source>Good</source>
         <comment>Password quality</comment>
         <translation>טוב</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.cpp" line="260"/>
         <source>Excellent</source>
         <comment>Password quality</comment>
         <translation>מצוין</translation>
     </message>
     <message>
+        <location filename="../../src/gui/PasswordWidget.ui" line="32"/>
         <source>Toggle password visibilty using Control + H. Open the password generator using Control + G.</source>
         <translation>מחלף נראות ססמה תוך שימוש בצרוף המקשים Ctrl + H. לפתיחת מחולל הססמאות נא להשתנמש ב־Ctrl + G.</translation>
     </message>
 </context>
 <context>
-    <name>PickcharsDialog</name>
-    <message>
-        <source>KeePassXC - Pick Characters</source>
-        <translation>KeePassXC - בחירת תווים</translation>
-    </message>
-    <message>
-        <source>Select characters to type, navigate with arrow keys, Ctrl + S submits.</source>
-        <translation>בחירת תווים להקלדה, נווט באמצעות מקשי החצים, Ctrl + S לשיגור.</translation>
-    </message>
-    <message>
-        <source>Press &amp;Tab between characters</source>
-        <translation>הקשה על &amp;Tab בין תווים</translation>
-    </message>
-</context>
-<context>
     <name>PreviewEntryAttachmentsDialog</name>
     <message>
+        <location filename="../../src/gui/entry/PreviewEntryAttachmentsDialog.ui" line="14"/>
         <source>Form</source>
         <translation>טופס</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/PreviewEntryAttachmentsDialog.cpp" line="64"/>
         <source>Preview: %1</source>
         <translation>תצוגה מקדימה: %1</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/PreviewEntryAttachmentsDialog.cpp" line="40"/>
         <source>Save…</source>
         <translation>שמירה...</translation>
     </message>
@@ -7119,42 +6021,52 @@ Do you want to overwrite it?</source>
 <context>
     <name>QMessageBox</name>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="59"/>
         <source>Overwrite</source>
         <translation>כתיבה־על</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="60"/>
         <source>Delete</source>
         <translation>מחיקה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="61"/>
         <source>Move</source>
         <translation>העברה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="62"/>
         <source>Empty</source>
         <translation>ריק</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="63"/>
         <source>Remove</source>
         <translation>הסרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="64"/>
         <source>Skip</source>
         <translation>דלוג</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="65"/>
         <source>Disable</source>
         <translation>מושבת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="66"/>
         <source>Merge</source>
         <translation>מיזוג</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="67"/>
         <source>Continue</source>
         <translation>המשך</translation>
     </message>
     <message>
+        <location filename="../../src/gui/MessageBox.cpp" line="68"/>
         <source>Continue with weak password</source>
         <translation>להמשיך עם ססמה חלשה</translation>
     </message>
@@ -7162,2425 +6074,1241 @@ Do you want to overwrite it?</source>
 <context>
     <name>QObject</name>
     <message>
-        <source>Database not opened</source>
-        <translation>מסד־נתונים לא נפתח</translation>
-    </message>
-    <message>
-        <source>Database hash not available</source>
-        <translation>גיבוב מסד־נתונים לא זמין</translation>
-    </message>
-    <message>
-        <source>Client public key not received</source>
-        <translation>לא התקבל מפתח לקוח ציבורי</translation>
-    </message>
-    <message>
-        <source>Cannot decrypt message</source>
-        <translation>לא ניתן לפענח הודעה</translation>
-    </message>
-    <message>
-        <source>Action cancelled or denied</source>
-        <translation>הפעולה בוטלה או נדחתה</translation>
-    </message>
-    <message>
-        <source>Message encryption failed.</source>
-        <translation>הצפנת הודעה כשלה.</translation>
-    </message>
-    <message>
-        <source>KeePassXC association failed, try again</source>
-        <translation>שיוך KeePassXC כשל, נא לנסות שוב</translation>
-    </message>
-    <message>
-        <source>Encryption key is not recognized</source>
-        <translation>מפתח ההצפנה לא מזוהה</translation>
-    </message>
-    <message>
-        <source>Incorrect action</source>
-        <translation>פעולה שגויה</translation>
-    </message>
-    <message>
-        <source>Empty message received</source>
-        <translation>התקבלה הודעה ריקה</translation>
-    </message>
-    <message>
-        <source>No URL provided</source>
-        <translation>לא סופקמען URL</translation>
-    </message>
-    <message>
-        <source>No logins found</source>
-        <translation>לא נמצאו התחברויות</translation>
-    </message>
-    <message>
-        <source>No groups found</source>
-        <translation>לא נמצאו קבוצות</translation>
-    </message>
-    <message>
-        <source>Cannot create new group</source>
-        <translation>לא ניתן ליצור קבוצה חדשה</translation>
-    </message>
-    <message>
-        <source>No valid UUID provided</source>
-        <translation>לא סופק ערך UUID תקין</translation>
-    </message>
-    <message>
-        <source>Unknown error</source>
-        <translation>שגיאה לא ידועה</translation>
-    </message>
-    <message>
-        <source>Browser Integration</source>
-        <translation>שילוב דפדפן</translation>
-    </message>
-    <message>
-        <source>Browser Plugin Failure</source>
-        <translation>כשל במתקע דפדפן</translation>
-    </message>
-    <message>
-        <source>Could not save the native messaging script file for %1.</source>
-        <translation>לא ניתן לשמור את קובץ התסריט המקורי של %1.</translation>
-    </message>
-    <message>
-        <source>Username for the entry.</source>
-        <translation>שם משתמש הרשומה.</translation>
-    </message>
-    <message>
-        <source>username</source>
-        <translation>שם משתמש</translation>
-    </message>
-    <message>
-        <source>URL for the entry.</source>
-        <translation>מען URL הרשומה.</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/HtmlExporter.cpp" line="56"/>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="88"/>
         <source>URL</source>
         <translation>מען url</translation>
     </message>
     <message>
-        <source>Notes for the entry.</source>
-        <translation>הערות הרשומה.</translation>
+        <location filename="../../src/format/HtmlExporter.cpp" line="190"/>
+        <source>Internal error: metadata is NULL</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/format/HtmlExporter.cpp" line="96"/>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="88"/>
         <source>Notes</source>
         <translation>הערות</translation>
     </message>
     <message>
-        <source>Prompt for the entry&apos;s password.</source>
-        <translation>הנחיה לססמת רשומה.</translation>
-    </message>
-    <message>
-        <source>Generate a password for the entry.</source>
-        <translation>חילול ססמה עבור הרשומה.</translation>
-    </message>
-    <message>
-        <source>Add a new entry to a database.</source>
-        <translation>הוספת רשומה חדשה למסד הנתונים.</translation>
-    </message>
-    <message>
-        <source>Path of the entry to add.</source>
-        <translation>הנתיב לרשומה להוספה.</translation>
-    </message>
-    <message>
-        <source>Cannot generate a password and prompt at the same time.</source>
-        <translation>לא ניתן לחולל ססמה ולהנחות, בו־זמנית.</translation>
-    </message>
-    <message>
-        <source>Could not create entry with path %1.</source>
-        <translation>נא ניתן ליצור רשומה בנתיב %1.</translation>
-    </message>
-    <message>
-        <source>Enter password for new entry: </source>
-        <translation>הזנת ססמה לרשומה חדשה: </translation>
-    </message>
-    <message>
-        <source>Writing the database failed %1.</source>
-        <translation>כתיבת מסד הנתונים כשלה %1.</translation>
-    </message>
-    <message>
-        <source>Successfully added entry %1.</source>
-        <translation>רשומה %1 נוספה בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Adds a new group to a database.</source>
-        <translation>הוספת קבוצה חדשה למסד נתונים.</translation>
-    </message>
-    <message>
-        <source>Path of the group to add.</source>
-        <translation>הנתיב לקבוצה להוספה.</translation>
-    </message>
-    <message>
-        <source>Group %1 already exists!</source>
-        <translation>קבוצה %1 כבר קיימת!</translation>
-    </message>
-    <message>
-        <source>Group %1 not found.</source>
-        <translation>הקבוצה %1 לא נמצאה.</translation>
-    </message>
-    <message>
-        <source>Successfully added group %1.</source>
-        <translation>קבוצה %1 נוספה בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Check if any passwords have been publicly leaked. FILENAME must be the path of a file listing SHA-1 hashes of leaked passwords in HIBP format, as available from https://haveibeenpwned.com/Passwords.</source>
-        <translation>נא לבדוק אם ססמאות כלשהן הודלפו בפומבי. FILENAME חייב להיות הנתיב של קובץ המפרט HASS SHA-1 של ססמאות שדלפו בתסדיר HIBP, כפי שזמין ב־https://haveibeenpwned.com/Passwords.</translation>
-    </message>
-    <message>
-        <source>FILENAME</source>
-        <translation>שם קובץ</translation>
-    </message>
-    <message>
-        <source>Path to okon-cli to search a formatted HIBP file</source>
-        <translation>נתיב ל־okon-cli לחיפוש בקובץ HIBP מתובנת</translation>
-    </message>
-    <message>
-        <source>okon-cli</source>
-        <translation>okon-cli</translation>
-    </message>
-    <message>
-        <source>Analyze passwords for weaknesses and problems.</source>
-        <translation>ניתוח ססמאות לחולשות ובעיות.</translation>
-    </message>
-    <message>
-        <source>Cannot find HIBP file: %1</source>
-        <translation>קובץ HIBP לא נמצא: %1</translation>
-    </message>
-    <message>
-        <source>Evaluating database entries using okon…</source>
-        <translation>הערכת רשומות מסד־נתונים באמצעות okon...</translation>
-    </message>
-    <message>
-        <source>Failed to open HIBP file %1: %2</source>
-        <translation>כשל בפתיחת קובץ HIBP %1: %2</translation>
-    </message>
-    <message>
-        <source>Evaluating database entries against HIBP file, this will take a while…</source>
-        <translation>הערכת רשומות מסד־נתונים מול קובץ HIBP, פעולה זו תימשך זמן מה...</translation>
-    </message>
-    <message numerus="yes">
-        <source>Password for &apos;%1&apos; has been leaked %2 time(s)!</source>
-        <translation><numerusform>הססמה ל־&apos;%1&apos; הודלפה פעם %2!</numerusform><numerusform>הססמה ל־&apos;%1&apos; הודלפה %2 פעמים!</numerusform><numerusform>הססמה ל־&apos;%1&apos; הודלפה %2 פעמים!</numerusform></translation>
-    </message>
-    <message>
-        <source>Password for &apos;%1&apos; has been leaked!</source>
-        <translation>הססמה של &apos;%1&apos; דלפה!</translation>
-    </message>
-    <message>
-        <source>Export an attachment of an entry.</source>
-        <translation>ייצוא צרופת רשומה.</translation>
-    </message>
-    <message>
-        <source>Path of the entry with the target attachment.</source>
-        <translation>הנתיב לרשומה עם צרופת יעד.</translation>
-    </message>
-    <message>
-        <source>Name of the attachment to be exported.</source>
-        <translation>שם הצרופה שתיוצא.</translation>
-    </message>
-    <message>
-        <source>Path to which the attachment should be exported.</source>
-        <translation>נתיב לצרופה שתיוצא.</translation>
-    </message>
-    <message>
-        <source>Could not find entry with path %1.</source>
-        <translation>לא ניתן למצוא רשומה בנתיב %1.</translation>
-    </message>
-    <message>
-        <source>Could not find attachment with name %1.</source>
-        <translation>לא ניתן למצוא קובץ צרופה: %1.</translation>
-    </message>
-    <message>
-        <source>No export target given. Please use &apos;--stdout&apos; or specify an &apos;export-file&apos;.</source>
-        <translation>לא סופק יעד לייצוא. נא להשתמש ב־&apos;stdout--&apos; או לספק &apos;קובץ ייצוא&apos;.</translation>
-    </message>
-    <message>
-        <source>Could not open output file %1.</source>
-        <translation>לא ניתן לפתוח קובץ פלט: %1.</translation>
-    </message>
-    <message>
-        <source>Successfully exported attachment %1 of entry %2 to %3.</source>
-        <translation>צרופה %1 מרשומה %2 יוצאה בהצלחה ל%3.</translation>
-    </message>
-    <message>
-        <source>Overwrite existing attachments.</source>
-        <translation>כתיבה־על צרופות קיימות.</translation>
-    </message>
-    <message>
-        <source>Imports an attachment to an entry.</source>
-        <translation>ייבוא צרופה לרשומה.</translation>
-    </message>
-    <message>
-        <source>Path of the entry.</source>
-        <translation>נתיב הרשומה.</translation>
-    </message>
-    <message>
-        <source>Name of the attachment to be added.</source>
-        <translation>שם הצרופה שתתווסף.</translation>
-    </message>
-    <message>
-        <source>Path of the attachment to be imported.</source>
-        <translation>לנתיב לצרופה שתיובא.</translation>
-    </message>
-    <message>
-        <source>Attachment %1 already exists for entry %2.</source>
-        <translation>לרשומה %2 קיימת כבר צרופה %1.</translation>
-    </message>
-    <message>
-        <source>Could not open attachment file %1.</source>
-        <translation>לא ניתן לפתוח קובץ צרופה: %1.</translation>
-    </message>
-    <message>
-        <source>Successfully imported attachment %1 as %2 to entry %3.</source>
-        <translation>צרופה %1 יובאה בהצלחה כ־%2 לרשומה %3.</translation>
-    </message>
-    <message>
-        <source>Remove an attachment of an entry.</source>
-        <translation>הסרת צרופה מרשומה.</translation>
-    </message>
-    <message>
-        <source>Name of the attachment to be removed.</source>
-        <translation>שם הצרופה שתוסר.</translation>
-    </message>
-    <message>
-        <source>Successfully removed attachment %1 from entry %2.</source>
-        <translation>צרופה %1 הוסרה בהצלחה מרשומה %2.</translation>
-    </message>
-    <message>
-        <source>Copy the given attribute to the clipboard. Defaults to &quot;password&quot; if not specified.</source>
-        <comment>Don't translate &quot;password&quot;, it refers to the attribute.</comment>
-        <translation>העתקת התכונה הנתונה ללוח־הגזירים. אם לא צוין, ברירת המחדל תהא &quot;ססמה&quot;.</translation>
-    </message>
-    <message>
-        <source>Copy the current TOTP to the clipboard (equivalent to &quot;-a totp&quot;).</source>
-        <translation>העתקת תוכן ה־TOTP הנוכחי ללוח־הגזירים (שווה ערך ל־&quot;-a totp&quot;).</translation>
-    </message>
-    <message>
-        <source>Must match only one entry, otherwise a list of possible matches is shown.</source>
-        <translation>חייב להתאים לרשומה אחת בלבד, אחרת תוצג רשימת התאמות אפשריות.</translation>
-    </message>
-    <message>
-        <source>Copy an entry&apos;s attribute to the clipboard.</source>
-        <translation>העתקת תכונת רשומה ללוח־הגזירים.</translation>
-    </message>
-    <message>
-        <source>Path of the entry to clip.</source>
-        <comment>clip = copy to clipboard</comment>
-        <translation>הנתיב לרשומה לקְטִימָה.</translation>
-    </message>
-    <message>
-        <source>Timeout before clearing the clipboard (default is %1 seconds, set to 0 for unlimited).</source>
-        <translation>פסק־הזמן לפני ניקוי הלוח־הגזירים (ברירת המחדל היא %1 שניות, הגדרה כ־0 עבור &apos;ללא הגבלה&apos;).</translation>
-    </message>
-    <message>
-        <source>Invalid timeout value %1.</source>
-        <translation>ערך פסק־זמן לא תקין %1.</translation>
-    </message>
-    <message>
-        <source>Multiple entries matching:</source>
-        <translation>התאמת רשומות מרובות:</translation>
-    </message>
-    <message>
-        <source>Using matching entry: %1</source>
-        <translation>שימוש ברשומה תואמת: %1</translation>
-    </message>
-    <message>
-        <source>Entry %1 not found.</source>
-        <translation>רשומה %1 לא נמצאה.</translation>
-    </message>
-    <message>
-        <source>ERROR: Please specify one of --attribute or --totp, not both.</source>
-        <translation>שגיאה: נא לציין אחד מתוך --attribute או --totp, לא את שניהם.</translation>
-    </message>
-    <message>
-        <source>Entry with path %1 has no TOTP set up.</source>
-        <translation>לא הוגדר TOTP לרשומה בנתיב %1.</translation>
-    </message>
-    <message>
-        <source>ERROR: attribute %1 is ambiguous, it matches %2.</source>
-        <translation>שגיאה: תכונה %1 רב־משמעית, היא תואמת ל־%2.</translation>
-    </message>
-    <message>
-        <source>Attribute &quot;%1&quot; not found.</source>
-        <translation>תכונה &quot;%1&quot; לא נמצאה.</translation>
-    </message>
-    <message>
-        <source>Entry&apos;s &quot;%1&quot; attribute copied to the clipboard!</source>
-        <translation>העתקת תכונת רשומה &apos;%1&apos; ללוח־הגזירים!</translation>
-    </message>
-    <message numerus="yes">
-        <source>Clearing the clipboard in %1 second(s)...</source>
-        <translation><numerusform>ניקוי לוח־גזירים בתוך שניה %1...</numerusform><numerusform>ניקוי לוח־גזירים בתוך %1 שניות...</numerusform><numerusform>ניקוי לוח־גזירים בתוך %1 שניות...</numerusform></translation>
-    </message>
-    <message>
-        <source>Clipboard cleared!</source>
-        <translation>לוח־גזירים נוקה!</translation>
-    </message>
-    <message>
-        <source>Close the currently opened database.</source>
-        <translation>סגירת מסד הנתונים הנוכחי.</translation>
-    </message>
-    <message>
-        <source>Display this help.</source>
-        <translation>הצגת עזרה זו.</translation>
-    </message>
-    <message>
-        <source>Silence password prompt and other secondary outputs.</source>
-        <translation>השתקת הנחית ססמה ופלטים משניים אחרים.</translation>
-    </message>
-    <message>
-        <source>Key file of the database.</source>
-        <translation>קובץ מפתח מסד־נתונים.</translation>
-    </message>
-    <message>
-        <source>path</source>
-        <translation>נתיב</translation>
-    </message>
-    <message>
-        <source>Deactivate password key for the database.</source>
-        <translation>השבתת הפעלת מפתח ססמה עבור מסד הנתונים.</translation>
-    </message>
-    <message>
-        <source>Yubikey slot and optional serial used to access the database (e.g., 1:7370001).</source>
-        <translation>חריץ Yubikey וסדרה חלופית המשמשת לגישה למסד הנתונים (למשל, 1:7370001).</translation>
-    </message>
-    <message>
-        <source>slot[:serial]</source>
-        <translation>חריץ[:טורי]</translation>
-    </message>
-    <message>
-        <source>Missing positional argument(s).</source>
-        <translation>חסרים משתנים תלויים.</translation>
-    </message>
-    <message>
-        <source>Too many arguments provided.</source>
-        <translation>סופקו משתנים רבים מדי.</translation>
-    </message>
-    <message>
-        <source>Target decryption time in MS for the database.</source>
-        <translation>זמן פענוח יעד מסד הנתונים במילי־שניות.</translation>
-    </message>
-    <message>
-        <source>time</source>
-        <translation>זמן</translation>
-    </message>
-    <message>
-        <source>Set the key file for the database.</source>
-        <translation>הגדרת קובץ המפתח עבור מסד הנתונים.</translation>
-    </message>
-    <message>
-        <source>Set a password for the database.</source>
-        <translation>הגדרת ססמה למסד הנתונים.</translation>
-    </message>
-    <message>
-        <source>Create a new database.</source>
-        <translation>יצירת מסד־נתונים חדש.</translation>
-    </message>
-    <message>
-        <source>Path of the database.</source>
-        <translation>הנתיב למסד הנתונים.</translation>
-    </message>
-    <message>
-        <source>Invalid decryption time %1.</source>
-        <translation>זמן פענוח לא תקין %1.</translation>
-    </message>
-    <message>
-        <source>Target decryption time must be between %1 and %2.</source>
-        <translation>זמן פענוח היעד חייב להיות בין %1 ל־%2.</translation>
-    </message>
-    <message>
-        <source>Failed to set database password.</source>
-        <translation>הגדרת ססמת מסד־נתונים כשלה.</translation>
-    </message>
-    <message>
-        <source>Loading the key file failed</source>
-        <translation>טעינת קובץ מפתח כשלה</translation>
-    </message>
-    <message>
-        <source>No key is set. Aborting database creation.</source>
-        <translation>לא הוגדר מפתח. נטישת יצירת מסד־נתונים.</translation>
-    </message>
-    <message>
-        <source>Benchmarking key derivation function for %1ms delay.</source>
-        <translation>פונקציית גזירת מפתח בחינת ביצועים להשהייה של %1 מילי־שניות.</translation>
-    </message>
-    <message>
-        <source>Setting %1 rounds for key derivation function.</source>
-        <translation>הגדרת %1 סבבים פונקציית נגזרת מפתח.</translation>
-    </message>
-    <message>
-        <source>error while setting database key derivation settings.</source>
-        <translation>שגיאה בעת הגדרת נגזרת מפתח מסד־נתונים.</translation>
-    </message>
-    <message>
-        <source>File %1 already exists.</source>
-        <translation>קובץ %1 כבר קיים.</translation>
-    </message>
-    <message>
-        <source>Failed to save the database: %1.</source>
-        <translation>כשל בשמירת מסד־נתונים לקובץ : %1.</translation>
-    </message>
-    <message>
-        <source>Successfully created new database.</source>
-        <translation>מסד־נתונים חדש נוצר בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Word count for the diceware passphrase.</source>
-        <translation>ספירת מילים עבור ביטוי ססמה הטלת־קוביות.</translation>
-    </message>
-    <message>
-        <source>count</source>
-        <comment>CLI parameter</comment>
-        <translation>ספירה</translation>
-    </message>
-    <message>
-        <source>Wordlist for the diceware generator.
-[Default: EFF English]</source>
-        <translation>רשימת מילים עבור מחולל הטלת־קוביות.
-[ברירת מחדל: אנגלית EFF]</translation>
-    </message>
-    <message>
-        <source>Generate a new random diceware passphrase.</source>
-        <translation>חילול ביטוי ססמת הטלת־קוביות אקראית חדשה.</translation>
-    </message>
-    <message>
-        <source>Invalid word count %1</source>
-        <translation>ספירת מילים לא תקינה %1</translation>
-    </message>
-    <message>
-        <source>Title for the entry.</source>
-        <translation>כותרת הרשומה.</translation>
-    </message>
-    <message>
-        <source>title</source>
-        <translation>כותרת</translation>
-    </message>
-    <message>
-        <source>Edit an entry.</source>
-        <translation>עריכת רשומה.</translation>
-    </message>
-    <message>
-        <source>Path of the entry to edit.</source>
-        <translation>הנתיב לרשומה לעריכה.</translation>
-    </message>
-    <message>
-        <source>Not changing any field for entry %1.</source>
-        <translation>לא השתנו שדות ברשומה %1.</translation>
-    </message>
-    <message>
-        <source>Enter new password for entry: </source>
-        <translation>הזנת ססמה חדשה לרשומה: </translation>
-    </message>
-    <message>
-        <source>Writing the database failed: %1</source>
-        <translation>כתיבת מסד הנתונים כשלה: %1</translation>
-    </message>
-    <message>
-        <source>Successfully edited entry %1.</source>
-        <translation>רשומה %1 נערכה בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Perform advanced analysis on the password.</source>
-        <translation>ביצוע ניתוח מתקדם לססמה.</translation>
-    </message>
-    <message>
-        <source>Password for which to estimate the entropy.</source>
-        <translation>ססמה להערכת האנטרופיה.</translation>
-    </message>
-    <message>
-        <source>Estimate the entropy of a password.</source>
-        <translation>הערכת אנטרופית ססמה.</translation>
-    </message>
-    <message>
-        <source>Length %1</source>
-        <translation>אורך %1</translation>
-    </message>
-    <message>
-        <source>Entropy %1</source>
-        <translation>אנטרופיה %1</translation>
-    </message>
-    <message>
-        <source>Log10 %1</source>
-        <translation>Log10 %1</translation>
-    </message>
-    <message>
-        <source>Multi-word extra bits %1</source>
-        <translation>סיביות מרובות מילים %1 נוספות</translation>
-    </message>
-    <message>
-        <source>Type: Bruteforce</source>
-        <translation>סוג: תְּקִיפָה כּוֹחָנִית</translation>
-    </message>
-    <message>
-        <source>Type: Dictionary</source>
-        <translation>סוג: מילון</translation>
-    </message>
-    <message>
-        <source>Type: Dict+Leet</source>
-        <translation>סוג: Dict+Leet</translation>
-    </message>
-    <message>
-        <source>Type: User Words</source>
-        <translation>סוג: מילות משתמש</translation>
-    </message>
-    <message>
-        <source>Type: User+Leet</source>
-        <translation>סוג: משתמש+Leet</translation>
-    </message>
-    <message>
-        <source>Type: Repeated</source>
-        <translation>סוג: מחזורי</translation>
-    </message>
-    <message>
-        <source>Type: Sequence</source>
-        <translation>סוג: רצף</translation>
-    </message>
-    <message>
-        <source>Type: Spatial</source>
-        <translation>סוג: מרחבי</translation>
-    </message>
-    <message>
-        <source>Type: Date</source>
-        <translation>סוג: תאריך</translation>
-    </message>
-    <message>
-        <source>Type: Bruteforce(Rep)</source>
-        <translation>סוג: תְּקִיפָה כּוֹחָנִית (נציג)</translation>
-    </message>
-    <message>
-        <source>Type: Dictionary(Rep)</source>
-        <translation>סוג: מילון(מחזורי)</translation>
-    </message>
-    <message>
-        <source>Type: Dict+Leet(Rep)</source>
-        <translation>סוג: תכתיב+לייט(מחזורי)</translation>
-    </message>
-    <message>
-        <source>Type: User Words(Rep)</source>
-        <translation>סוג: מילות משתמש(מחזורי)</translation>
-    </message>
-    <message>
-        <source>Type: User+Leet(Rep)</source>
-        <translation>סוג: משתמש+לית(מחזורי)</translation>
-    </message>
-    <message>
-        <source>Type: Repeated(Rep)</source>
-        <translation>סוג: חוזר(מחזורי)</translation>
-    </message>
-    <message>
-        <source>Type: Sequence(Rep)</source>
-        <translation>סוג: רצף(מחזורי)</translation>
-    </message>
-    <message>
-        <source>Type: Spatial(Rep)</source>
-        <translation>סוג: מרחבי(מחזורי)</translation>
-    </message>
-    <message>
-        <source>Entropy %1 (%2)</source>
-        <translation>אנטרופיה %1 (%2)</translation>
-    </message>
-    <message>
-        <source>*** Password length (%1) != sum of length of parts (%2) ***</source>
-        <translation>אורך ססמה (%1) != סכום אורך החלקים (%2) ***</translation>
-    </message>
-    <message>
-        <source>Exit interactive mode.</source>
-        <translation>יציאה ממצב הידודי.</translation>
-    </message>
-    <message>
-        <source>Exports the content of a database to standard output in the specified format.</source>
-        <translation>ייצוא תוכן מסד־נתונים לפלט רגיל בתסדיר שצוין.</translation>
-    </message>
-    <message>
-        <source>Unable to export database to XML: %1</source>
-        <translation>לא ניתן לייצא מסד־נתונים ל־XML: %1</translation>
-    </message>
-    <message>
-        <source>Unsupported format %1</source>
-        <translation>תסדיר %1 לא נתמך</translation>
-    </message>
-    <message>
-        <source>Length of the generated password</source>
-        <translation>אורך הססמה שחוללה</translation>
-    </message>
-    <message>
-        <source>length</source>
-        <translation>אורך</translation>
-    </message>
-    <message>
-        <source>Use lowercase characters</source>
-        <translation>שימוש בתווי אותיות־קטנות</translation>
-    </message>
-    <message>
-        <source>Use uppercase characters</source>
-        <translation>שימוש בתווי אותיות רישיות</translation>
-    </message>
-    <message>
-        <source>Use numbers</source>
-        <translation>שימוש במספרים</translation>
-    </message>
-    <message>
-        <source>Use special characters</source>
-        <translation>שימוש בתווים מיוחדים</translation>
-    </message>
-    <message>
-        <source>Use extended ASCII</source>
-        <translation>שימוש ב־ASCII מורחב</translation>
-    </message>
-    <message>
-        <source>Exclude character set</source>
-        <translation>החרגת ערכת תווים</translation>
-    </message>
-    <message>
-        <source>chars</source>
-        <translation>תווים</translation>
-    </message>
-    <message>
-        <source>Use custom character set</source>
-        <translation>שימוש בערכת תווים מותאמת אישית</translation>
-    </message>
-    <message>
-        <source>Exclude similar looking characters</source>
-        <translation>החרגת תווים דומים</translation>
-    </message>
-    <message>
-        <source>Include characters from every selected group</source>
-        <translation>הכללת תווים מכל קבוצה שנבחרה</translation>
-    </message>
-    <message>
-        <source>Generate a new random password.</source>
-        <translation>חילול ססמה אקראית חדשה.</translation>
-    </message>
-    <message>
-        <source>Invalid password length %1</source>
-        <translation>אורך ססמה לא תקין %1</translation>
-    </message>
-    <message>
-        <source>Invalid password generator after applying all options</source>
-        <translation>מחולל ססמאות לא תקין לאחר החלת כל האפשרויות</translation>
-    </message>
-    <message>
-        <source>Display command help.</source>
-        <translation>הצגת עזרת פקודה.</translation>
-    </message>
-    <message>
-        <source>Available commands:</source>
-        <translation>פקודות זמינות:</translation>
-    </message>
-    <message>
-        <source>Import the contents of an XML database.</source>
-        <translation>ייבוא תוכן מסד נתוני XML.</translation>
-    </message>
-    <message>
-        <source>Path of the XML database export.</source>
-        <translation>נתיב ייצוא מסד הנתונים XML.</translation>
-    </message>
-    <message>
-        <source>Path of the new database.</source>
-        <translation>הנתיב של מסד הנתונים החדש.</translation>
-    </message>
-    <message>
-        <source>Unable to import XML database: %1</source>
-        <translation>לא ניתן לייבא מסד־נתונים ל־XML: %1</translation>
-    </message>
-    <message>
-        <source>Successfully imported database.</source>
-        <translation>מסד הנתונים יובא בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Show a database&apos;s information.</source>
-        <translation>הצגת מידע מסד־נתונים.</translation>
-    </message>
-    <message>
-        <source>UUID: </source>
-        <translation>UUID: </translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation>שם: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation>תיאור: </translation>
-    </message>
-    <message>
-        <source>Cipher: </source>
-        <translation>צופן: </translation>
-    </message>
-    <message>
-        <source>KDF: </source>
-        <translation>KDF: </translation>
-    </message>
-    <message>
-        <source>Recycle bin is enabled.</source>
-        <translation>סל־מחזור מאופשר.</translation>
-    </message>
-    <message>
-        <source>Recycle bin is not enabled.</source>
-        <translation>סל־מחזור מושבת.</translation>
-    </message>
-    <message>
-        <source>Location</source>
-        <translation>מקום</translation>
-    </message>
-    <message>
-        <source>Database created</source>
-        <translation>מסד־נתונים נוצר</translation>
-    </message>
-    <message>
-        <source>Last saved</source>
-        <translation>שמירה אחרונה</translation>
-    </message>
-    <message>
-        <source>Unsaved changes</source>
-        <translation>שינויים שלא נשמרו</translation>
-    </message>
-    <message>
-        <source>yes</source>
-        <translation>כן</translation>
-    </message>
-    <message>
-        <source>no</source>
-        <translation>לא</translation>
-    </message>
-    <message>
-        <source>Number of groups</source>
-        <translation>מספר קבוצות</translation>
-    </message>
-    <message>
-        <source>Number of entries</source>
-        <translation>מספר רשומות</translation>
-    </message>
-    <message>
-        <source>Number of expired entries</source>
-        <translation>מספר רשומות שתוקפם פג</translation>
-    </message>
-    <message>
-        <source>Unique passwords</source>
-        <translation>ססמאות ייחודיות</translation>
-    </message>
-    <message>
-        <source>Non-unique passwords</source>
-        <translation>ססמאות לא־ייחודיות</translation>
-    </message>
-    <message>
-        <source>Maximum password reuse</source>
-        <translation>שימוש חוזר מרבי בססמה</translation>
-    </message>
-    <message>
-        <source>Number of short passwords</source>
-        <translation>מספר ססמאות קצרות</translation>
-    </message>
-    <message>
-        <source>Number of weak passwords</source>
-        <translation>מספר ססמאות חלשות</translation>
-    </message>
-    <message>
-        <source>Entries excluded from reports</source>
-        <translation>רשומות מוחרגות מדוחות</translation>
-    </message>
-    <message>
-        <source>Average password length</source>
-        <translation>אורך ססמה ממוצע</translation>
-    </message>
-    <message>
-        <source>Unknown command %1</source>
-        <translation>פקודה לא ידועה %1</translation>
-    </message>
-    <message>
-        <source>
-
-Available commands:
-</source>
-        <translation>
-
-פקודות זמינות:
-</translation>
-    </message>
-    <message>
-        <source>Name of the command to execute.</source>
-        <translation>שם הפקודה לבצוע.</translation>
-    </message>
-    <message>
+        <location filename="../../src/main.cpp" line="69"/>
         <source>Displays debugging information.</source>
         <translation>הצגת מידע ניפוי־תקלים.</translation>
     </message>
     <message>
-        <source>Invalid command %1.</source>
-        <translation>פקודה לא תקינה %1.</translation>
-    </message>
-    <message>
-        <source>Recursively list the elements of the group.</source>
-        <translation>פרוט רקורסיבי של רכיבי הקבוצה.</translation>
-    </message>
-    <message>
-        <source>Flattens the output to single lines.</source>
-        <translation>שיטוח הפלט לשורות בודדות.</translation>
-    </message>
-    <message>
-        <source>List database entries.</source>
-        <translation>הצגת רשומות מסד־נתונים.</translation>
-    </message>
-    <message>
-        <source>Path of the group to list. Default is /</source>
-        <translation>נתיב הקבוצה לרשימה. ברירת המחדל היא /</translation>
-    </message>
-    <message>
-        <source>Cannot find group %1.</source>
-        <translation>לא ניתן למצוא קבוצה %1.</translation>
-    </message>
-    <message>
-        <source>Use the same credentials for both database files.</source>
-        <translation>נא להשתמש באותם אישורים עבור שני קבצי מסדי הנתונים.</translation>
-    </message>
-    <message>
-        <source>Key file of the database to merge from.</source>
-        <translation>קובץ מפתח של מסד הנתונים למיזוג.</translation>
-    </message>
-    <message>
-        <source>Deactivate password key for the database to merge from.</source>
-        <translation>השבתת מפתח ססמת מסד הנתונים שימוזג.</translation>
-    </message>
-    <message>
-        <source>Only print the changes detected by the merge operation.</source>
-        <translation>להדפיס רק את השינויים שזוהו בפעולת המזוג.</translation>
-    </message>
-    <message>
-        <source>Yubikey slot for the second database.</source>
-        <translation>חריץ Yubikey למסד הנתונים השני.</translation>
-    </message>
-    <message>
-        <source>slot</source>
-        <translation>חריץ</translation>
-    </message>
-    <message>
-        <source>Merge two databases.</source>
-        <translation>מזוג שני מסדי־נתונים.</translation>
-    </message>
-    <message>
-        <source>Path of the database to merge from.</source>
-        <translation>הנתיב למסד הנתונים שימוזג.</translation>
-    </message>
-    <message>
-        <source>Error reading merge file:
-%1</source>
-        <translation>שגיאה בקריאת קובץ מיזוג:
-%1</translation>
-    </message>
-    <message>
-        <source>Unable to save database to file : %1</source>
-        <translation>לא ניתן לשמור מסד־נתונים לקובץ : %1</translation>
-    </message>
-    <message>
-        <source>Successfully merged %1 into %2.</source>
-        <translation>%1 מוזג לתוך %2 בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Database was not modified by merge operation.</source>
-        <translation>מסד הנתונים לא הוסגל כתוצאה מפעולת המיזוג.</translation>
-    </message>
-    <message>
-        <source>Moves an entry to a new group.</source>
-        <translation>העברת רשומה לקבוצה חדשה.</translation>
-    </message>
-    <message>
-        <source>Path of the entry to move.</source>
-        <translation>הנתיב לרשומה להעברה.</translation>
-    </message>
-    <message>
-        <source>Path of the destination group.</source>
-        <translation>הנתיב של קבוצת היעד.</translation>
-    </message>
-    <message>
-        <source>Could not find group with path %1.</source>
-        <translation>לא ניתן למצוא קבוצה בנתיב %1.</translation>
-    </message>
-    <message>
-        <source>Entry is already in group %1.</source>
-        <translation>הרשומה נמצאת כבר בקבוצה %1.</translation>
-    </message>
-    <message>
-        <source>Successfully moved entry %1 to group %2.</source>
-        <translation>רשומה %1 הועברה בהצלחה לקבוצה %2.</translation>
-    </message>
-    <message>
-        <source>Open a database.</source>
-        <translation>פתיחת מסד־נתונים.</translation>
-    </message>
-    <message>
-        <source>Path of the entry to remove.</source>
-        <translation>הנתיב לרשומה להסרה.</translation>
-    </message>
-    <message>
-        <source>Unable to save database to file: %1</source>
-        <translation>לא ניתן לשמור מסד־נתונים לקובץ : %1</translation>
-    </message>
-    <message>
-        <source>Successfully recycled entry %1.</source>
-        <translation>רשומה %1 מוחזרה בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Successfully deleted entry %1.</source>
-        <translation>רשומה %1 נמחקה בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Path of the group to remove.</source>
-        <translation>הנתיב לקבוצה להסרה.</translation>
-    </message>
-    <message>
-        <source>Cannot remove root group from database.</source>
-        <translation>לא ניתן להסיר קבוצת שורש ממסד הנתונים.</translation>
-    </message>
-    <message>
-        <source>Successfully recycled group %1.</source>
-        <translation>רשומה %1 מוחזרה בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Successfully deleted group %1.</source>
-        <translation>הקבוצה %1 נמחקה בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Find entries quickly.</source>
-        <translation>חיפוש ערכים מהיר.</translation>
-    </message>
-    <message>
-        <source>Search term.</source>
-        <translation>תנאי חיפוש.</translation>
-    </message>
-    <message>
-        <source>Show the entry&apos;s current TOTP.</source>
-        <translation>הצגת TOTP רשומה נוכחי.</translation>
-    </message>
-    <message>
-        <source>Show the protected attributes in clear text.</source>
-        <translation>הצגת התכונות המוגנות במלל רגיל.</translation>
-    </message>
-    <message>
-        <source>Show the attachments of the entry.</source>
-        <translation>הצגת הצרופה של הרשומה.</translation>
-    </message>
-    <message>
-        <source>Names of the attributes to show. This option can be specified more than once, with each attribute shown one-per-line in the given order. If no attributes are specified, a summary of the default attributes is given.</source>
-        <translation>שמות התכונות להצגה. ניתן להגדיר אפשרות זו יותר מפעם אחת, כאשר כל תכונה מוצגת בשורה אחת בסדר הנתון. אם לא צוינו תכונות, תתקבל תמצית של תכונת ברירת המחדל.</translation>
-    </message>
-    <message>
-        <source>attribute</source>
-        <translation>תכונה</translation>
-    </message>
-    <message>
-        <source>Show an entry&apos;s information.</source>
-        <translation>הצגת מידע רשומה.</translation>
-    </message>
-    <message>
-        <source>Name of the entry to show.</source>
-        <translation>מספר רשומות להצגה.</translation>
-    </message>
-    <message>
-        <source>ERROR: unknown attribute %1.</source>
-        <translation>שגיאה: תכונה לא ידועה %1.</translation>
-    </message>
-    <message>
-        <source>No attachments present.</source>
-        <translation>לא קיימות צרופות.</translation>
-    </message>
-    <message>
-        <source>Attachments:</source>
-        <translation>צרופות:</translation>
-    </message>
-    <message>
-        <source>Failed to open database file %1: not found</source>
-        <translation>כשל בפתיחת קובץ מסד־נתונים %1: לא נמצא</translation>
-    </message>
-    <message>
-        <source>Failed to open database file %1: not a plain file</source>
-        <translation>כשל בפתיחת קובץ מסד־נתונים %1: לא קובץ רגיל</translation>
-    </message>
-    <message>
-        <source>Failed to open database file %1: not readable</source>
-        <translation>כשל בפתיחת קובץ מסד־נתונים %1: לא קריא</translation>
-    </message>
-    <message>
-        <source>Enter password to unlock %1: </source>
-        <translation>הזנת ססמה לשחרור נעילת %1: </translation>
-    </message>
-    <message>
-        <source>Failed to load key file %1: %2</source>
-        <translation>טעינת קובץ מפתח %1 כשלה: %2</translation>
-    </message>
-    <message>
-        <source>WARNING: You are using an old key file format which KeePassXC may
-stop supporting in the future.
-
-Please consider generating a new key file.</source>
-        <translation>אזהרה: נעשה שימוש בתסדיר קובץ מפתח ישן ש־KeePassXC עשוי
-להפסיק לתמוך בעתיד.
-
-נא לשקול ליצור קובץ מפתח חדש.</translation>
-    </message>
-    <message>
-        <source>Invalid YubiKey slot %1</source>
-        <translation>חריץ YubiKey לא תקין %1</translation>
-    </message>
-    <message>
-        <source>Invalid YubiKey serial %1</source>
-        <translation>YubiKey סידורי %1 לא תקין</translation>
-    </message>
-    <message>
-        <source>Enter password to encrypt database (optional): </source>
-        <translation>נא להזין ססמה להצפנת מסד־נתונים (חלופי): </translation>
-    </message>
-    <message>
-        <source>Do you want to create a database with an empty password? [y/N]: </source>
-        <translation>האם ליצור מסד־נתונים עם ססמה ריקה? [ל/כ]: </translation>
-    </message>
-    <message>
-        <source>Repeat password: </source>
-        <translation>חזרה על הססמה: </translation>
-    </message>
-    <message>
-        <source>Error: Passwords do not match.</source>
-        <translation>שגיאה: ססמאות לא תואמות.</translation>
-    </message>
-    <message>
-        <source>No program defined for clipboard manipulation</source>
-        <translation>לא הוגדרה תכנית לטפלול לוח־הגזירים</translation>
-    </message>
-    <message>
-        <source>All clipping programs failed. Tried %1
-</source>
-        <translation>כל תוכניות הקְטִימָה כשלו. בוצע ניסיון %1
-</translation>
-    </message>
-    <message>
-        <source>Creating KeyFile %1 failed: %2</source>
-        <translation>יצירת קובץ מפתח %1 כשלה: %2</translation>
-    </message>
-    <message>
-        <source>Loading KeyFile %1 failed: %2</source>
-        <translation>טעינת קובץ מפתח %1 כשלה: %2</translation>
-    </message>
-    <message>
-        <source>HIBP file, line %1: parse error</source>
-        <translation>קובץ HIBP, שורה %1: שגיאת ניתוח מבנה</translation>
-    </message>
-    <message>
-        <source>To use okon, you must provide a post-processed file (e.g. file.okon)</source>
-        <translation>כדי להשתמש ב־okon, נא לספק קובץ פלט (לדוגמה file.okon)</translation>
-    </message>
-    <message>
-        <source>Could not start okon process: %1</source>
-        <translation>לא ניתן להפעיל תהליך אישור: %1</translation>
-    </message>
-    <message>
-        <source>Error: okon process did not finish</source>
-        <translation>שגיאה: תהליך okon לא הסתיים</translation>
-    </message>
-    <message>
-        <source>Failed to load okon processed database: %1</source>
-        <translation>טעינת מסד הנתונים מעובד okon כשלה: %1</translation>
-    </message>
-    <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="57"/>
         <source>Very weak password</source>
         <translation>ססמה חלשה מאוד</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="58"/>
+        <location filename="../../src/core/PasswordHealth.cpp" line="63"/>
         <source>Password entropy is %1 bits</source>
         <translation>אנטרופיית ססמה היא %1 סיביות</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="62"/>
         <source>Weak password</source>
         <translation>ססמה חלשה</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="135"/>
         <source>Used in %1/%2</source>
         <translation>נמצא בשימוש ב־%1/%2</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/PasswordHealth.cpp" line="166"/>
         <source>Password is used %1 time(s)</source>
-        <translation><numerusform>נעשה שימוש בססמה פעם %1</numerusform><numerusform>נעשה שימוש בססמה %1 פעמים</numerusform><numerusform>נעשה שימוש בססמה %1 פעמים</numerusform></translation>
+        <translation>
+            <numerusform>נעשה שימוש בססמה פעם %1</numerusform>
+            <numerusform>נעשה שימוש בססמה %1 פעמים</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="192"/>
         <source>Password has expired</source>
         <translation>תוקף הססמה פג</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="193"/>
         <source>Password expiry was %1</source>
         <translation>תפוגת ססמה היתה %1</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="211"/>
         <source>Password expires on %1</source>
         <translation>תפוגת ססמה ב־%1</translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="214"/>
         <source>Password is about to expire</source>
         <translation>תוקף הססמה עומד לפוג</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/PasswordHealth.cpp" line="218"/>
         <source>Password expires in %1 day(s)</source>
-        <translation><numerusform>תוקף הססמה יפוג בתוך יום %1</numerusform><numerusform>תוקף הססמה יפוג בתוך %1 ימים</numerusform><numerusform>תוקף הססמה יפוג בתוך %1 ימים</numerusform></translation>
+        <translation>
+            <numerusform>תוקף הססמה יפוג בתוך יום %1</numerusform>
+            <numerusform>תוקף הססמה יפוג בתוך %1 ימים</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/core/PasswordHealth.cpp" line="222"/>
         <source>Password will expire soon</source>
         <translation>תוקף ססמה יפוג בקרוב</translation>
     </message>
     <message>
+        <location filename="../../src/core/Tools.cpp" line="49"/>
         <source>Version %1</source>
         <translation>גירסה %1</translation>
     </message>
     <message>
-        <source>Build Type: %1</source>
-        <translation>סוג בניה: %1</translation>
-    </message>
-    <message>
+        <location filename="../../src/core/Tools.cpp" line="55"/>
         <source>Revision: %1</source>
         <translation>מהדורה: %1</translation>
     </message>
     <message>
-        <source>Distribution: %1</source>
-        <translation>הפצה: %1</translation>
-    </message>
-    <message>
+        <location filename="../../src/core/Tools.cpp" line="62"/>
         <source>Debugging mode is disabled.</source>
         <translation>מצב ניפוי־תקלים מושבת.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Tools.cpp" line="64"/>
         <source>Debugging mode is enabled.</source>
         <translation>מצב ניפוי־תקלים מאופשר.</translation>
     </message>
     <message>
+        <location filename="../../src/core/Tools.cpp" line="69"/>
         <source>Operating system: %1
 CPU architecture: %2
-Kernel: %3 %4</source>
-        <translation>מערכת הפעלה: %1
-ארכיטקטורת CPU: %2
-ליבה: %3 %4</translation>
+Kernel: %3 %4
+</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Auto-Type</source>
-        <translation>הקלדה־אוטומטית</translation>
+        <location filename="../../src/core/Tools.cpp" line="84"/>
+        <source>B</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SSH Agent</source>
-        <translation>סוכן SSH</translation>
+        <location filename="../../src/core/Tools.cpp" line="85"/>
+        <source>KiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>KeeShare</source>
-        <translation>KeeShare</translation>
+        <location filename="../../src/core/Tools.cpp" line="86"/>
+        <source>MiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>YubiKey</source>
-        <translation>YubiKey</translation>
-    </message>
-    <message>
-        <source>Quick Unlock</source>
-        <translation>שחרור נעילה מהירה</translation>
-    </message>
-    <message>
-        <source>Secret Service Integration</source>
-        <translation>שילוב שירות חשאי</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>ללא</translation>
-    </message>
-    <message>
-        <source>Enabled extensions:</source>
-        <translation>איפשור הרחבות:</translation>
+        <location filename="../../src/core/Tools.cpp" line="87"/>
+        <source>GiB</source>
+        <comment>file size unit</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="116"/>
         <source>over %1 year(s)</source>
-        <translation><numerusform>מעל שנה %1</numerusform><numerusform>מעל %1 שנים</numerusform><numerusform>מעל %1 שנים</numerusform></translation>
+        <translation>
+            <numerusform>מעל שנה %1</numerusform>
+            <numerusform>מעל %1 שנים</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="121"/>
         <source>about %1 month(s)</source>
-        <translation><numerusform>בסביבות חודש %1</numerusform><numerusform>בסביבות %1 חודשים</numerusform><numerusform>בסביבות %1 חודשים</numerusform></translation>
+        <translation>
+            <numerusform>בסביבות חודש %1</numerusform>
+            <numerusform>בסביבות %1 חודשים</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="126"/>
         <source>%1 week(s)</source>
-        <translation><numerusform>שבועה %1</numerusform><numerusform>%1 שבועות</numerusform><numerusform>%1 שבועות</numerusform></translation>
+        <translation>
+            <numerusform>שבועה %1</numerusform>
+            <numerusform>%1 שבועות</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="131"/>
         <source>%1 day(s)</source>
-        <translation><numerusform>יום %1</numerusform><numerusform>%1 ימים</numerusform><numerusform>%1 ימים</numerusform></translation>
+        <translation>
+            <numerusform>יום %1</numerusform>
+            <numerusform>%1 ימים</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="136"/>
         <source>%1 hour(s)</source>
-        <translation><numerusform>שעה %1</numerusform><numerusform>%1 שעות</numerusform><numerusform>%1 שעות</numerusform></translation>
+        <translation>
+            <numerusform>שעה %1</numerusform>
+            <numerusform>%1 שעות</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/core/Tools.cpp" line="140"/>
         <source>%1 minute(s)</source>
-        <translation><numerusform>דקה %1</numerusform><numerusform>%1 דקות</numerusform><numerusform>%1 דקות</numerusform></translation>
+        <translation>
+            <numerusform>דקה %1</numerusform>
+            <numerusform>%1 דקות</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="36"/>
+        <source>SHA-256 mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="50"/>
+        <source>SHA-512 mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="86"/>
+        <source>AES-256 CBC encryption mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="104"/>
+        <source>AES-256 CBC decryption mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="121"/>
+        <source>AES KDF Failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="126"/>
+        <source>AES KDF encryption mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="162"/>
+        <location filename="../../src/crypto/Crypto.cpp" line="180"/>
+        <source>Twofish encryption mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="213"/>
+        <source>Salsa20 stream cipher encrypt mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="231"/>
+        <source>Salsa20 stream cipher decrypt mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="269"/>
+        <source>ChaCha20 stream cipher encrypt mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="287"/>
+        <source>ChaCha20 stream cipher decrypt mismatch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="305"/>
         <source>Botan library must be at least %1, found %2.%3.%4</source>
         <translation>ספריית Botan חייבת להיות לפחות %1, נמצאה גרסה %2.%3.%4</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/Crypto.cpp" line="330"/>
         <source>Cryptographic libraries:</source>
         <translation>ספריות הצפנה:</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/kdf/AesKdf.cpp" line="113"/>
         <source>AES (%1 rounds)</source>
         <translation>AES (%1 סבבים)</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/kdf/Argon2Kdf.cpp" line="204"/>
+        <source>Argon2 error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/kdf/Argon2Kdf.cpp" line="233"/>
         <source>Argon2%1 (%2 rounds, %3 KB)</source>
         <translation>Argon2%1 (%2 סבבים, %3 KB)</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="29"/>
         <source>SymmetricCipher::init: Invalid cipher mode.</source>
         <translation>SymmetricCipher::init: מצב צופן לא תקין.</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="46"/>
         <source>SymmetricCipher::init: Invalid IV size of %1 for %2.</source>
         <translation>SymmetricCipher::init: גודל IV לא תקין של %1 ל־%2.</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="75"/>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="108"/>
         <source>Cipher not initialized prior to use.</source>
         <translation>הצופן לא אותחל לפני השימוש.</translation>
     </message>
     <message>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="81"/>
         <source>Cannot process 0 length data.</source>
         <translation>לא ניתן לעבד נתוני אורך 0.</translation>
     </message>
     <message>
-        <source>unknown executable (DBus address %1)</source>
-        <translation>קובץ הרצה לא ידוע (כתובת DBus %1)</translation>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="165"/>
+        <source>SymmetricCipher::aesKdf: Could not process: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 (invalid executable path)</source>
-        <translation>%1 (נתיב קובץ הפעלה לא תקין)</translation>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="194"/>
+        <source>SymmetricCipher: Invalid KeePass2 Cipher UUID %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/crypto/SymmetricCipher.cpp" line="260"/>
+        <source>Invalid Mode Specified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/CsvParser.cpp" line="58"/>
         <source>NULL device</source>
         <translation>התקן NULL</translation>
     </message>
     <message>
+        <location filename="../../src/format/CsvParser.cpp" line="80"/>
         <source>error reading from device</source>
         <translation>שגיאת קריאה מהתקן</translation>
     </message>
     <message>
+        <location filename="../../src/format/CsvParser.cpp" line="92"/>
         <source>file empty</source>
         <translation>קובץ ריק</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="147"/>
         <source>AES 256-bit</source>
         <translation>AES- 256 סיביות</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="151"/>
         <source>Twofish 256-bit</source>
         <translation>256-סיביות Twofish</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="155"/>
         <source>ChaCha20 256-bit</source>
         <translation>ChaCha20 256-ביט</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="165"/>
         <source>Argon2d (KDBX 4 – recommended)</source>
         <translation>Argon2d (KDBX 4 – מומלץ)</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="169"/>
         <source>Argon2id (KDBX 4)</source>
         <translation>Argon2id (KDBX 4)</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="173"/>
         <source>AES-KDF (KDBX 4)</source>
         <translation>AES-KDF (KDBX 4)</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="177"/>
         <source>AES-KDF (KDBX 3)</source>
         <translation>AES-KDF (KDBX 3)</translation>
     </message>
-    <message>
-        <source>Existing single-instance lock file is invalid. Launching new instance.</source>
-        <translation>קובץ נעילת אֶדְגָּם־יחיד קיים לא תקין. שיגור אֶדְגָּם חדש.</translation>
-    </message>
-    <message>
-        <source>The lock file could not be created. Single-instance mode disabled.</source>
-        <translation>לא ניתן ליצור את קובץ הנעילה. מצב אֶדְגָּם־יחיד לא זמין.</translation>
-    </message>
     <message numerus="yes">
+        <location filename="../../src/gui/Clipboard.cpp" line="128"/>
         <source>Clearing the clipboard in %1 second(s)…</source>
-        <translation><numerusform>ניקוי לוח־גזירים בתוך שניה %1...</numerusform><numerusform>ניקוי לוח־גזירים בתוך %1 שניות...</numerusform><numerusform>ניקוי לוח־גזירים בתוך %1 שניות...</numerusform></translation>
+        <translation>
+            <numerusform>ניקוי לוח־גזירים בתוך שניה %1...</numerusform>
+            <numerusform>ניקוי לוח־גזירים בתוך %1 שניות...</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="87"/>
         <source>Group</source>
         <translation>קבוצה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="87"/>
         <source>Title</source>
         <translation>כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="87"/>
         <source>Username</source>
         <translation>שם משתמש</translation>
     </message>
     <message>
+        <location filename="../../src/format/HtmlExporter.cpp" line="46"/>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="87"/>
         <source>Password</source>
         <translation>ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="88"/>
         <source>TOTP</source>
         <translation>TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="89"/>
         <source>Icon</source>
         <translation>סמל</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="89"/>
         <source>Last Modified</source>
         <translation>הוסגל לאחרונה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="89"/>
         <source>Created</source>
         <translation>נוצר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="72"/>
         <source>Benchmark %1 delay</source>
         <translation>השהיית בחינת ביצועים %1</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="43"/>
         <source>%1 ms</source>
         <comment>milliseconds</comment>
-        <translation><numerusform>אלפית שניה %1</numerusform><numerusform>%1 אלפיות שניה</numerusform><numerusform>%1 אלפיות שניה</numerusform></translation>
+        <translation>
+            <numerusform>אלפית שניה %1</numerusform>
+            <numerusform>%1 אלפיות שניה</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp" line="46"/>
         <source>%1 s</source>
         <comment>seconds</comment>
-        <translation><numerusform>שניה %1</numerusform><numerusform>%1 שניות</numerusform><numerusform>%1 שניות</numerusform></translation>
+        <translation>
+            <numerusform>שניה %1</numerusform>
+            <numerusform>%1 שניות</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/GuiTools.cpp" line="64"/>
         <source>Do you really want to move entry &quot;%1&quot; to the recycle bin?</source>
         <translation>האם להעביר רשומה &quot;%1&quot; לסל־המחזור?</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="69"/>
         <source>Do you really want to move %n entry(s) to the recycle bin?</source>
-        <translation><numerusform>האם להעביר רשומה %n לסל־המחזור?</numerusform><numerusform>האם להעביר %n רשומות לסל־המחזור?</numerusform><numerusform>האם להעביר %n רשומות לסל־המחזור?</numerusform></translation>
+        <translation>
+            <numerusform>האם להעביר רשומה %n לסל־המחזור?</numerusform>
+            <numerusform>האם להעביר %n רשומות לסל־המחזור?</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="124"/>
         <source>Entry &quot;%1&quot; has %2 reference(s). Do you want to overwrite references with values, skip this entry, or delete anyway?</source>
-        <translation><numerusform>לרשומה &apos;%1&apos; קיימות %2 הפניות. האם לכתוב־על הפניות עם ערכים, לדלג על רשומה זו, או למחוק אותה בכל זאת?</numerusform><numerusform>לרשומה &apos;%1&apos; קיימות %2 הפניות. האם לכתוב־על הפניות עם ערכים, לדלג על רשומה זו, או למחוק אותה בכל זאת?</numerusform><numerusform>לרשומה &apos;%1&apos; קיימות %2 הפניות. האם לכתוב־על הפניות עם ערכים, לדלג על רשומה זו, או למחוק אותה בכל זאת?</numerusform></translation>
+        <translation>
+            <numerusform>לרשומה &apos;%1&apos; קיימות %2 הפניות. האם לכתוב־על הפניות עם ערכים, לדלג על רשומה זו, או למחוק אותה בכל זאת?</numerusform>
+            <numerusform>לרשומה &apos;%1&apos; קיימות %2 הפניות. האם לכתוב־על הפניות עם ערכים, לדלג על רשומה זו, או למחוק אותה בכל זאת?</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/format/HtmlExporter.cpp" line="36"/>
         <source>User name</source>
         <translation>שם משתמש</translation>
     </message>
     <message>
-        <source>Browser Statistics</source>
-        <translation>סטטיסטיקת דפדפן</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/reports/ReportsPageHealthcheck.cpp" line="29"/>
         <source>Health Check</source>
         <translation>בדיקת תקינות</translation>
     </message>
     <message>
-        <source>HIBP</source>
-        <translation>HIBP</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/reports/ReportsPageStatistics.cpp" line="24"/>
         <source>Statistics</source>
         <translation>סטטיסטיקה</translation>
     </message>
     <message>
+        <location filename="../../src/keys/FileKey.cpp" line="372"/>
         <source>Unsupported key file version: %1</source>
         <translation>גרסת קובץ מפתח לא נתמכת: %1</translation>
     </message>
     <message>
+        <location filename="../../src/keys/FileKey.cpp" line="404"/>
         <source>Checksum mismatch! Key file may be corrupt.</source>
         <translation>אי התאמת סיכום־בקורת! ייתכן שקובץ המפתח פגום.</translation>
     </message>
     <message>
+        <location filename="../../src/keys/FileKey.cpp" line="414"/>
         <source>Unexpected key file data! Key file may be corrupt.</source>
         <translation>נתוני קובץ מפתח לא צפויים! ייתכן שקובץ המפתח פגום.</translation>
     </message>
     <message>
-        <source>KeePassXC - cross-platform password manager</source>
-        <translation>KeePassXC - מנהל ססמאות חוצה מסדות</translation>
+        <location filename="../../src/main.cpp" line="59"/>
+        <source>KeePassX-min - password manager</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>filenames of the password databases to open (*.kdbx)</source>
-        <translation>שמות קובץ מסד נתוני ססמאות לפתיחה (*.kdbx)</translation>
+        <location filename="../../src/main.cpp" line="60"/>
+        <source>filenames of the password databases to open (*.kdbxm)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/main.cpp" line="62"/>
         <source>path to a custom config file</source>
         <translation>נתיב לקובץ תצורה מותאם אישית</translation>
     </message>
     <message>
+        <location filename="../../src/main.cpp" line="63"/>
         <source>path to a custom local config file</source>
         <translation>נתיב לקובץ תצורה מותאם אישית</translation>
     </message>
     <message>
-        <source>lock all open databases</source>
-        <translation>נעילת כל מסדי הנתונים הפתוחים</translation>
+        <location filename="../../src/main.cpp" line="115"/>
+        <source>KeePassX-min - Error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/main.cpp" line="64"/>
         <source>key file of the database</source>
         <translation>קובץ המפתח של מסד הנתונים</translation>
     </message>
     <message>
-        <source>read password of the database from stdin</source>
-        <translation>קריאת ססמה של מסד הנתונים מ־stdin</translation>
-    </message>
-    <message>
-        <source>Database failed to lock.</source>
-        <translation>נעילת מסד הנתונים כשלה.</translation>
-    </message>
-    <message>
-        <source>Another instance of KeePassXC is already running.</source>
-        <translation>אֶדְגָּם KeePassXC נוסף כבר פועל.</translation>
-    </message>
-    <message>
+        <location filename="../../src/main.cpp" line="112"/>
         <source>Fatal error while testing the cryptographic functions.</source>
         <translation>שגיאה מכרעת בעת בדיקת פונקציות ההצפנה.</translation>
     </message>
     <message>
-        <source>KeePassXC - Error</source>
-        <translation>שגיאת KeePassXC</translation>
-    </message>
-    <message>
-        <source>Database password: </source>
-        <translation>ססמת מסד־נתונים: </translation>
-    </message>
-    <message>
+        <location filename="../../src/core/Totp.cpp" line="274"/>
         <source>Invalid Settings</source>
         <comment>TOTP</comment>
         <translation>הגדרות לא תקינות</translation>
     </message>
     <message>
+        <location filename="../../src/core/Totp.cpp" line="280"/>
         <source>Invalid Key</source>
         <comment>TOTP</comment>
         <translation>מפתח לא תקין</translation>
     </message>
     <message>
-        <source>Failed to create Windows Hello credential.</source>
-        <translation>יצירת אישור Windows Hello כשלה.</translation>
-    </message>
-    <message>
-        <source>Failed to sign challenge using Windows Hello.</source>
-        <translation>אימות אתגר־מענה באמצעות Windows Hello כשל.</translation>
-    </message>
-    <message>
-        <source>Warning: Failed to block screenshot capture on a top-level window.</source>
-        <translation>אזהרה: חסימת צילומי מסך בחלון ברמה העליונה כשלה!</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/KeePass2.cpp" line="158"/>
         <source>Invalid Cipher</source>
         <translation>צופן לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/KeePass2.cpp" line="180"/>
         <source>Invalid KDF</source>
         <translation>KDF לא תקין</translation>
     </message>
     <message>
-        <source>Please present or touch your YubiKey to continue.</source>
-        <translation>נא להציג או לגעת ב־YubiKey על מנת להמשך...</translation>
-    </message>
-    <message>
-        <source>Show all the attributes of the entry.</source>
-        <translation>הצגת כל מאפייני הרשומה.</translation>
-    </message>
-    <message>
-        <source>Set the key file for the database.
-This option is deprecated, use --set-key-file instead.</source>
-        <translation>קביעת קובץ המפתח למסד הנתונים.
-אפשרות זו הוצאה משימוש, במקום זאת יש להשתמש ב: &apos; --set-key-file&apos;.</translation>
-    </message>
-    <message>
-        <source>Databases have been locked.</source>
-        <translation>מסד נתונים ננעל.</translation>
-    </message>
-    <message>
-        <source>Attestation not supported</source>
-        <translation>אימות לא נתמך</translation>
-    </message>
-    <message>
-        <source>Loading the new key file failed: %1</source>
-        <translation>טעינת קובץ מפתח כשלה: %1</translation>
-    </message>
-    <message>
-        <source>Unset the password for the database.</source>
-        <translation>הסרת הגדרת ססמה למסד־הנתונים.</translation>
-    </message>
-    <message>
-        <source>Unset the key file for the database.</source>
-        <translation>הסרת הגדרת קובץ המפתח למסד־הנתונים.</translation>
-    </message>
-    <message>
-        <source>Cannot use %1 and %2 at the same time.</source>
-        <translation>לא ניתן להשתמש ב־%1 וב־%2 בו זמנית.</translation>
-    </message>
-    <message>
-        <source>Cannot remove all the keys from a database.</source>
-        <translation>לא ניתן להסיר את כל המפתחות ממסד־נתונים.</translation>
-    </message>
-    <message>
-        <source>Passkeys</source>
-        <translation>Passkeys</translation>
-    </message>
-    <message>
-        <source>Found unexpected Key type %1</source>
-        <translation>נמצ סוג מפתח לא צפוי %1</translation>
-    </message>
-    <message>
-        <source>KeePassXC is not running. No open database to lock</source>
-        <translation>KeePassXC לא פעיל. אין מסד נתונים פתוח לנעילה.</translation>
-    </message>
-    <message>
-        <source>allow screenshots and app recording (Windows/macOS)</source>
-        <translation>אפשור תצלום מצג והקלטת יישום Iוינדוס/מאק OS)</translation>
-    </message>
-    <message>
-        <source>Origin is empty or not allowed</source>
-        <translation>מקור ריק או לא מאופשר</translation>
-    </message>
-    <message>
-        <source>Effective domain is not a valid domain</source>
-        <translation>התחום בפועל אינן תחום תקין</translation>
-    </message>
-    <message>
-        <source>Origin and RP ID do not match</source>
-        <translation>מקור ומזהה RP לא תואמים</translation>
-    </message>
-    <message>
-        <source>No supported algorithms were provided</source>
-        <translation>לא סופק אלגוריתם נתמך</translation>
-    </message>
-    <message>
-        <source>Wait for timer to expire</source>
-        <translation>המתנה לתפוגת קוצב זמן</translation>
-    </message>
-    <message>
-        <source>Challenge is shorter than required minimum length</source>
-        <translation>אתגר מענה קצר מאורך מזערי נדרש</translation>
-    </message>
-    <message>
-        <source>user.id does not match the required length</source>
-        <translation>מזהה משתמש לא תואם לאורך הנדרש</translation>
-    </message>
-    <message>
-        <source>Access to all entries is denied</source>
-        <translation>גישה לכול הרשומות נדחתה</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="67"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="98"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="52"/>
         <source>Favorite</source>
         <comment>Tag for favorite entries</comment>
         <translation>מועדף</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="366"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="319"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="222"/>
         <source>File does not exist.</source>
         <translation>קובץ לא קיים.</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="374"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="230"/>
         <source>Cannot open file: %1</source>
         <translation>לא ניתן לפתוח קובץ: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="382"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="238"/>
         <source>Cannot parse file: %1 at position %2</source>
         <translation>לא ניתן לפרק קובץ: %1 באיות %2</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="392"/>
         <source>Failed to decrypt json file: %1</source>
         <translation>פענוח קובץ json כשל: %1</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="461"/>
         <source>Invalid encKeyValidation field</source>
         <translation>שדה encKeyValidation לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="468"/>
         <source>Invalid cipher list within encKeyValidation field</source>
         <translation>רשימת צופן בתוך שדה צופן encKeyValidation לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="479"/>
         <source>Wrong password</source>
         <translation>ססמה שגויה</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="487"/>
         <source>Invalid encrypted data field</source>
         <translation>שדה נתונים מוצפן לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="494"/>
         <source>Invalid cipher list within encrypted data field</source>
         <translation>רשימה צופן בתוך שדה נתונים מוצפן לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="504"/>
         <source>Cannot initialize cipher</source>
         <translation>לא ניתן לאתחל צופן</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="510"/>
         <source>Cannot decrypt data</source>
         <translation>לא ניתן לפענח נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="523"/>
         <source>Bitwarden Import</source>
         <translation>ייבוא Bitwarden</translation>
     </message>
     <message>
+        <location filename="../../src/format/OPUXReader.cpp" line="40"/>
+        <source>Failed to extract 1PUX document: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OPUXReader.cpp" line="103"/>
         <source>Archived</source>
         <comment>Tag for archived entries</comment>
         <translation>הועבר לארכיון</translation>
     </message>
     <message>
+        <location filename="../../src/format/OPUXReader.cpp" line="327"/>
         <source>Invalid 1PUX file format: Not a valid ZIP file.</source>
         <translation>תסדיר קובץ 1PUX לא תקין: לא קובץ תקין.</translation>
     </message>
     <message>
+        <location filename="../../src/format/OPUXReader.cpp" line="335"/>
         <source>Invalid 1PUX file format: Missing export.data</source>
         <translation>תסדיר קובץ 1PUX לא תקין: נתוני ייצוא חסרים</translation>
     </message>
     <message>
+        <location filename="../../src/format/OPUXReader.cpp" line="341"/>
         <source>1Password Import</source>
         <translation>1Password יובא</translation>
     </message>
     <message>
-        <source>Credential is excluded</source>
-        <translation>נתוני אמנה הוחרגו</translation>
-    </message>
-    <message>
-        <source>Passkeys request canceled</source>
-        <translation>בקשת Passkeys בוטלה</translation>
-    </message>
-    <message>
-        <source>Invalid user verification</source>
-        <translation>אימות משתמש לא תקין</translation>
-    </message>
-    <message>
-        <source>Empty public key</source>
-        <translation>מפתח ציבורי ריק</translation>
-    </message>
-    <message>
-        <source>Invalid URL provided</source>
-        <translation>סופק מען URL לא תקין</translation>
-    </message>
-    <message>
-        <source>Edit a database.</source>
-        <translation>עריכת מסד־נתונים.</translation>
-    </message>
-    <message>
-        <source>Could not change the database key.</source>
-        <translation>לא ניתן היה לשנות את מפתח מסד־הנתונים.</translation>
-    </message>
-    <message>
-        <source>Database was not modified.</source>
-        <translation>מסד־נתונים לא השתנה.</translation>
-    </message>
-    <message>
-        <source>Successfully edited the database.</source>
-        <translation>מסד־נתונים נערך בהצלחה.</translation>
-    </message>
-    <message>
-        <source>Cannot remove password: The database does not have a password.</source>
-        <translation>לא מיתן להסיר ססמה: אין למסד־הנתונים ססמה.</translation>
-    </message>
-    <message>
-        <source>Cannot remove file key: The database does not have a file key.</source>
-        <translation>לא ניתן להסיר קובץ מפתח: אין למסד־הנתונים קובץ מפתח.</translation>
-    </message>
-    <message>
-        <source>Unknown passkeys error</source>
-        <translation>שגיאת passkeys לא ידועה</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="246"/>
         <source>Encrypted files are not supported.</source>
         <translation>קבצים מוצפנים אינם נתמכים.</translation>
     </message>
     <message>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="251"/>
         <source>Proton Pass Import</source>
         <translation>ייבוא Proton Pass</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="134"/>
         <source>Passkey</source>
         <translation>Passkey</translation>
     </message>
     <message>
-        <source>Format to use when exporting. Available choices are &apos;xml&apos;, &apos;csv&apos; or &apos;html&apos;. Defaults to &apos;xml&apos;.</source>
-        <translation>תסדיר לשימוש בעת ייצוא. אפשרויות זמינות הן &apos;xml&apos;, &apos;csv&apos; או &apos;html&apos;. ברירת המחדל היא &apos;xml&apos;.</translation>
-    </message>
-    <message>
+        <location filename="../../src/main.cpp" line="65"/>
         <source>start minimized to the system tray</source>
         <translation>התחלה במצב ממוזער למגש המערכת</translation>
     </message>
     <message>
+        <location filename="../../src/format/CsvParser.cpp" line="136"/>
         <source>malformed string, possible unescaped delimiter</source>
         <translation>מחרוזת פגומה, תוחם שלא נמלט אפשרי</translation>
     </message>
     <message>
+        <location filename="../../src/format/CsvParser.cpp" line="225"/>
         <source>missing closing delimiter</source>
         <translation>חסר תוחם סוגר</translation>
     </message>
     <message>
+        <location filename="../../src/format/CsvParser.cpp" line="343"/>
+        <source>CSV Parser: unget lower bound exceeded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/CsvParser.cpp" line="457"/>
         <source>%1, row: %2, column: %3</source>
         <translation>%1, שורה: %2, עמודה: %3</translation>
     </message>
     <message>
+        <location filename="../../src/gui/csvImport/CsvImportWidget.cpp" line="88"/>
         <source>Tags</source>
         <translation>תגים</translation>
     </message>
     <message>
-        <source>Warning: the chosen wordlist is smaller than the minimum recommended size!</source>
-        <translation>אזהרה: רשימת המילים שנבחרה קטנה מהגודל המומלץ המזערי!</translation>
-    </message>
-    <message>
+        <location filename="../../src/core/Totp.cpp" line="285"/>
         <source>Invalid Step</source>
         <comment>TOTP</comment>
         <translation>שלב לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/core/Totp.cpp" line="290"/>
         <source>Invalid Digits</source>
         <comment>TOTP</comment>
         <translation>ספרות לא תקינות</translation>
     </message>
-    <message numerus="yes">
-        <source>%1 character(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
     <message>
+        <location filename="../../src/gui/GuiTools.cpp" line="38"/>
         <source>Do you really want to permanently delete the entry &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="43"/>
         <source>Do you really want to permanently delete %n entry(s)?</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="47"/>
         <source>Confirm Delete Entry(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="73"/>
         <source>Confirm Recycle Entry(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/GuiTools.cpp" line="90"/>
         <source>Confirm Delete Plugin Data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/GuiTools.cpp" line="91"/>
         <source>Delete plugin data from the selected entry(s)?</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/GuiTools.cpp" line="123"/>
         <source>Confirm Replace Entry References</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Type: Date(Rep)</source>
-        <translation>סוג: תאריך(מחזורי)</translation>
-    </message>
-    <message>
-        <source>Type: Unknown (%1)</source>
-        <translation>סוג: לא ידוע (%1)</translation>
-    </message>
-    <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="397"/>
         <source>Unsupported format, ensure your Bitwarden export is password-protected</source>
         <translation>תסדיר לא נתמך, נא לוודא שייצוא Bitwarden מוגן בססמה</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="412"/>
         <source>Invalid KDF iterations, cannot decrypt json file</source>
         <translation>חזרורי KDF לא תקינים, לא ניתן לפענח קובץ json</translation>
     </message>
     <message>
+        <location filename="../../src/format/BitwardenReader.cpp" line="443"/>
         <source>Only PBKDF and Argon2 are supported, cannot decrypt json file</source>
         <translation>רק  PBKDF ו־Argon2 נתמכים, לא ניתן לפענח קובץ json</translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Bootstrap.cpp" line="64"/>
+        <source>Unable to disable core dumps.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/PassphraseGenerator.cpp" line="75"/>
+        <source>Couldn&apos;t load passphrase wordlist: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/PassphraseGenerator.cpp" line="118"/>
+        <source>Wordlist is less than minimum acceptable size: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Resources.cpp" line="63"/>
+        <source>Resources::DataPath: can&apos;t find data dir</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/CryptoHash.cpp" line="95"/>
+        <source>CryptoHash::update failed to add data: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/crypto/CryptoHash.cpp" line="112"/>
+        <source>CryptoHash::setKey failed to set HMAC key: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="36"/>
+        <source>KDBX version &gt;= 4 requires explicit binary index map.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="680"/>
+        <source>Stripping invalid XML 1.0 codepoint %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KeePass2RandomStream.cpp" line="39"/>
+        <source>Invalid stream cipher mode (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="209"/>
+        <source>Expected &quot;overview&quot; in attachment metadata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="238"/>
+        <source>Expected JSON Object in &quot;overview&quot; but nope: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/OpVaultReaderAttachments.cpp" line="256"/>
+        <source>Unexpected type of attachment &quot;filename&quot;: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseIcons.cpp" line="59"/>
+        <source>DatabaseIcons::icon: invalid icon index %1, using 0 instead</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseIcons.cpp" line="61"/>
+        <source>invalid icon index %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/DatabaseIcons.cpp" line="82"/>
+        <source>DatabaseIcons: Out-of-range badge index given to applyBadge: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="58"/>
+        <source>Failed to parse zoom text: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="143"/>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="693"/>
+        <source>Internal zlib error when compressing: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="182"/>
+        <source>Error writing to underlying device: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="211"/>
+        <source>Unknown error, code %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="399"/>
+        <source>Error opening underlying device: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="440"/>
+        <source>The gzip format not supported in this version of zlib.</source>
+        <translation type="unfinished">תסדיר gzip אינו נתמך בגרסה זו של zlib.</translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="464"/>
+        <source>Internal zlib error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="611"/>
+        <source>Error reading data from underlying device: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="638"/>
+        <source>Internal zlib error when decompressing: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QtIOCompressor</name>
     <message>
-        <source>Internal zlib error when compressing: </source>
-        <translation>שגיאת zlib פנימית בעת דחיסה: </translation>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="311"/>
+        <source>QtIOCompressor::setStreamFormat: zlib 1.2.x or higher is required to use the gzip format. Current version is: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error writing to underlying device: </source>
-        <translation>שגיאה בכתיבה להתקן הבסיסי: </translation>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="361"/>
+        <source>QtIOCompressor::open: device already open</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error opening underlying device: </source>
-        <translation>שגיאה בפתיחת ההתקן הבסיסי: </translation>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="372"/>
+        <source>QtIOCompressor::open: QtIOCompressor can only be opened in the ReadOnly or WriteOnly modes</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error reading data from underlying device: </source>
-        <translation>שגיאה בקריאת נתונים מההתקן הבסיסי: </translation>
-    </message>
-    <message>
-        <source>Internal zlib error when decompressing: </source>
-        <translation>שגיאת zlib פנימית בעת חילוץ מדחיסה: </translation>
-    </message>
-</context>
-<context>
-    <name>QtIOCompressor::open</name>
-    <message>
-        <source>The gzip format not supported in this version of zlib.</source>
-        <translation>תסדיר gzip אינו נתמך בגרסה זו של zlib.</translation>
-    </message>
-    <message>
-        <source>Internal zlib error: </source>
-        <translation>שגיאת zlib פנימית: </translation>
-    </message>
-</context>
-<context>
-    <name>ReportsWidgetBrowserStatistics</name>
-    <message>
-        <source>Double-click entries to edit.</source>
-        <translation>לעריכה, נא להקיש הקשה כפולה על הרשומות.</translation>
-    </message>
-    <message>
-        <source>List of entry URLs</source>
-        <translation>רשימת כל מעני URL ברשומות</translation>
-    </message>
-    <message>
-        <source>Entry has no URLs set</source>
-        <translation>לא הוגדרו מעני URL לרשומה</translation>
-    </message>
-    <message>
-        <source>Allowed URLs</source>
-        <translation>מעני URL מורשים</translation>
-    </message>
-    <message>
-        <source>Entry has no Browser Integration settings</source>
-        <translation>אין לרשומה הגדרות שילוב דפדפן</translation>
-    </message>
-    <message>
-        <source>Denied URLs</source>
-        <translation>מעני URL דחויים</translation>
-    </message>
-    <message>
-        <source> (Excluded)</source>
-        <translation> (לא נכלל)</translation>
-    </message>
-    <message>
-        <source>This entry is being excluded from reports</source>
-        <translation>הרשומה הוחרגה מדוחות</translation>
-    </message>
-    <message>
-        <source>Please wait, browser statistics is being calculated…</source>
-        <translation>נא להמתין, סטטיסטיקת נתוני דפדפן מחושבים עתה...</translation>
-    </message>
-    <message>
-        <source>No entries with a URL, or none has browser extension settings saved.</source>
-        <translation>לאף רשומה, עם או ללא מען URL, אין הגדרות הרחבת דפדפן שנשמרו.</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation>כותרת</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation>נתיב</translation>
-    </message>
-    <message>
-        <source>URLs</source>
-        <translation>מעני URL</translation>
-    </message>
-    <message>
-        <source>Edit Entry…</source>
-        <translation>עריכת רשומה...</translation>
-    </message>
-    <message numerus="yes">
-        <source>Delete Entry(s)…</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform>מחיקת רשומות...</numerusform></translation>
-    </message>
-    <message>
-        <source>Exclude from reports</source>
-        <translation>החרגה מדוחות</translation>
-    </message>
-    <message numerus="yes">
-        <source>Expire Entry(s)…</source>
-        <translation><numerusform>תפוגת רשומה…</numerusform><numerusform>תפוגת רשומות…</numerusform><numerusform>תפוגת רשומות…</numerusform></translation>
-    </message>
-    <message>
-        <source>Only show entries that have a URL</source>
-        <translation>להציג רק רשומות שיש להן מען URL</translation>
-    </message>
-    <message>
-        <source>Only show entries that have been explicitly allowed or denied</source>
-        <translation>להציג רק רשומות שאפשרו או נדחו במפורש</translation>
-    </message>
-    <message>
-        <source>Show expired entries</source>
-        <translation>הצגת רשומות שפגו</translation>
-    </message>
-    <message>
-        <source> (Expired)</source>
-        <translation>(פג)</translation>
-    </message>
-    <message numerus="yes">
-        <source>Delete plugin data from Entry(s)…</source>
-        <translation><numerusform>מחיקת נתוני מתקע מרשומות?</numerusform><numerusform>מחיקת נתוני מתקע מרשומות?</numerusform><numerusform>מחיקת נתוני מתקע מרשומה?</numerusform></translation>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="383"/>
+        <location filename="../../src/streams/qtiocompressor.cpp" line="388"/>
+        <source>QtIOCompressor::open: underlying device must be open in one of the ReadOnly or WriteOnly modes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ReportsWidgetHealthcheck</name>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.ui" line="60"/>
         <source>Show expired entries</source>
         <translation>הצגת רשומות שפגו</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="221"/>
         <source> (Expired)</source>
         <translation>(פג)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.ui" line="79"/>
         <source>Hover over reason to show additional details. Double-click entries to edit.</source>
         <translation>ריחוף מעל &apos;סיבה&apos; להצגת פרטים נוספים. הקשה כפולה על רשומות לעריכה.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="189"/>
         <source>Bad — password must be changed</source>
         <translation>חלש — יש לשנות ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="195"/>
         <source>Poor — password should be changed</source>
         <translation>חלש — יש לשנות ססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="201"/>
         <source>Weak — consider changing the password</source>
         <translation>חלש — נא לשקול לשנות הססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="216"/>
         <source> (Excluded)</source>
-        <translation> (מוחרג)</translation>
+        <translation>&#xa0;(מוחרג)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="241"/>
         <source>This entry is being excluded from reports</source>
         <translation>הרשומה הוחרגה מדוחות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="259"/>
         <source>Please wait, health data is being calculated…</source>
         <translation>נא להמתין, נתוני תקינות מחושבים...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="308"/>
         <source>Congratulations, everything is healthy!</source>
         <translation>מזל טוב, הכול תקין!</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="312"/>
         <source>Title</source>
         <translation>כותרת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="312"/>
         <source>Path</source>
         <translation>נתיב</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="312"/>
         <source>Score</source>
         <translation>ציון</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="312"/>
         <source>Reason</source>
         <translation>סיבה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="356"/>
         <source>Edit Entry…</source>
         <translation>עריכת רשומה...</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="371"/>
         <source>Delete Entry(s)…</source>
-        <translation><numerusform>מחיקת רשומה...</numerusform><numerusform>מחיקת רשומות...</numerusform><numerusform>מחיקת רשומות...</numerusform></translation>
+        <translation>
+            <numerusform>מחיקת רשומה...</numerusform>
+            <numerusform>מחיקת רשומות...</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="376"/>
         <source>Exclude from reports</source>
         <translation>החרגה מדוחות</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.cpp" line="366"/>
         <source>Expire Entry(s)…</source>
-        <translation><numerusform>תפוגת רשומה…</numerusform><numerusform>תפוגת רשומות…</numerusform><numerusform>תפוגת רשומות…</numerusform></translation>
+        <translation>
+            <numerusform>תפוגת רשומה…</numerusform>
+            <numerusform>תפוגת רשומות…</numerusform>
+        </translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetHealthcheck.ui" line="67"/>
         <source>Show entries that have been excluded from reports</source>
         <translation>הצגת רשומות שהוחרגו מדוחות</translation>
     </message>
 </context>
 <context>
-    <name>ReportsWidgetHibp</name>
-    <message>
-        <source>CAUTION: This report requires sending information to the Have I Been Pwned online service (https://haveibeenpwned.com). If you proceed, your database passwords will be cryptographically hashed and the first five characters of those hashes will be sent securely to this service. Your database remains secure and cannot be reconstituted from this information. However, the number of passwords you send and your IP address will be exposed to this service.</source>
-        <translation>התראה: דוח זה מחייב שליחת מידע לשירות המקוון של &apos;האם השטלתו עלי&apos; (https://haveibeenpwned.com). אם תמשיכו, ססמאות מסד הנתונים יוצפנו וחמשת התווים הראשונים של הגיבוב יישלחו באופן מאובטח לשירות זה. מסד הנתונים יישאר מאובטח ולא יהיה ניתן לבנות אותו מחדש  מהמידע שיתקבל. עם זאת, מספר הססמאות שיתקבלו וכתובת ה־IP ייחשפו לשירות זה.</translation>
-    </message>
-    <message>
-        <source>Perform Online Analysis</source>
-        <translation>ביצוע ניתוח מקוון</translation>
-    </message>
-    <message>
-        <source>Also show entries that have been excluded from reports</source>
-        <translation>הצגת רשומות שהוחרגו מדוחות</translation>
-    </message>
-    <message>
-        <source>This build of KeePassXC does not have network functions. Networking is required to check your passwords against Have I Been Pwned databases.</source>
-        <translation>לבנייה זו של KeePassXC אין יכולות רשת. חיבור לרשת נדרש כדי לבדוק את הססמאות אל מול מסדי נתוני &apos;I Been Pwned&apos;.</translation>
-    </message>
-    <message>
-        <source>Congratulations, no exposed passwords!</source>
-        <translation>ברכות, אין ססמאות חשופות!</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation>כותרת</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation>נתיב</translation>
-    </message>
-    <message>
-        <source>Password exposed…</source>
-        <translation>הססמה נחשפה...</translation>
-    </message>
-    <message>
-        <source> (Excluded)</source>
-        <translation> (הוחרג)</translation>
-    </message>
-    <message>
-        <source>This entry is being excluded from reports</source>
-        <translation>הרשומה הופעלה מתוך דוחות</translation>
-    </message>
-    <message>
-        <source>once</source>
-        <comment>Password exposure amount</comment>
-        <translation>פעם אחת</translation>
-    </message>
-    <message>
-        <source>up to 10 times</source>
-        <comment>Password exposure amount</comment>
-        <translation>עד פי 10</translation>
-    </message>
-    <message>
-        <source>up to 100 times</source>
-        <comment>Password exposure amount</comment>
-        <translation>עד פי 100</translation>
-    </message>
-    <message>
-        <source>up to 1000 times</source>
-        <comment>Password exposure amount</comment>
-        <translation>עד 1000 פעמים</translation>
-    </message>
-    <message>
-        <source>up to 10,000 times</source>
-        <comment>Password exposure amount</comment>
-        <translation>עד 10,000 פעמים</translation>
-    </message>
-    <message>
-        <source>up to 100,000 times</source>
-        <comment>Password exposure amount</comment>
-        <translation>עד 100,000 פעמים</translation>
-    </message>
-    <message>
-        <source>up to a million times</source>
-        <comment>Password exposure amount</comment>
-        <translation>עד מיליון פעמים</translation>
-    </message>
-    <message>
-        <source>millions of times</source>
-        <comment>Password exposure amount</comment>
-        <translation>מיליוני פעמים</translation>
-    </message>
-    <message>
-        <source>Edit Entry…</source>
-        <translation>עריכת רשומה...</translation>
-    </message>
-    <message numerus="yes">
-        <source>Delete Entry(s)…</source>
-        <translation><numerusform>מחיקת רשומה?</numerusform><numerusform>מחיקת רשומות?</numerusform><numerusform>מחיקת רשומות?</numerusform></translation>
-    </message>
-    <message>
-        <source>Exclude from reports</source>
-        <translation>החרגה מדוחות</translation>
-    </message>
-    <message numerus="yes">
-        <source>Expire Entry(s)…</source>
-        <translation><numerusform>תפוגת רשומה…</numerusform><numerusform>תפוגת רשומות…</numerusform><numerusform>תפוגת רשומות…</numerusform></translation>
-    </message>
-</context>
-<context>
-    <name>ReportsWidgetPasskeys</name>
-    <message>
-        <source>Export</source>
-        <translation>ייצא</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation>ייבוא</translation>
-    </message>
-    <message>
-        <source>List of entry URLs</source>
-        <translation>רשימת כל מעני URL ברשומות</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation>כותרת</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation>נתיב</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>שם משתמש</translation>
-    </message>
-    <message>
-        <source>URLs</source>
-        <translation>מעני URL</translation>
-    </message>
-    <message>
-        <source>Edit Entry…</source>
-        <translation>עריכת רשומה...</translation>
-    </message>
-    <message numerus="yes">
-        <source>Delete Entry(s)…</source>
-        <translation><numerusform>מחיקת רשומה?</numerusform><numerusform>מחיקת רשומות?</numerusform><numerusform>מחיקת רשומות?</numerusform></translation>
-    </message>
-    <message>
-        <source>Relying Party</source>
-        <translation>צד נסמך</translation>
-    </message>
-    <message>
-        <source>Show expired entries</source>
-        <translation>הצגת רשומות שפגו</translation>
-    </message>
-    <message>
-        <source> (Expired)</source>
-        <translation>(פג תוקף)</translation>
-    </message>
-    <message>
-        <source>Export Confirmation</source>
-        <translation>אישור ייצוא</translation>
-    </message>
-    <message>
-        <source>The passkey file will be vulnerable to theft and unauthorized use, if left unsecured. Are you sure you want to continue?</source>
-        <translation>קובץ ה־Passkey יהיה פגיע לגנבה או שימוש לא מאושר.האם להמשיך?</translation>
-    </message>
-    <message>
-        <source>Please wait, list of entries with passkeys is being updated…</source>
-        <translation>נא להמתין, מתבצעת העלאת רשימת רשומות עם passkeys 
-...</translation>
-    </message>
-    <message>
-        <source>No entries with passkeys.</source>
-        <translation>אין רשומות עם passkeys.</translation>
-    </message>
-</context>
-<context>
     <name>ReportsWidgetStatistics</name>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.ui" line="62"/>
         <source>Hover over lines with error icons for further information.</source>
         <translation>רחוף מעל שורות עם סמלי שגיאה לקבלת מידע נוסף.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="39"/>
         <source>Name</source>
         <translation>שם</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="39"/>
         <source>Value</source>
         <translation>ערך</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="71"/>
         <source>Please wait, database statistics are being calculated…</source>
         <translation>נא להמתין, סטטיסטיקת מסד־נתונים מחושבת...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="92"/>
         <source>Database name</source>
         <translation>שם מסד־נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="93"/>
         <source>Description</source>
         <translation>תיאור</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="94"/>
         <source>Location</source>
         <translation>מקום</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="95"/>
         <source>Database created</source>
         <translation>מסד־נתונים נוצר</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="96"/>
         <source>Last saved</source>
         <translation>שמירה אחרונה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="97"/>
         <source>Unsaved changes</source>
         <translation>שינויים שלא נשמרו</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="98"/>
         <source>yes</source>
         <translation>כן</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="98"/>
         <source>no</source>
         <translation>לא</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="100"/>
         <source>The database was modified, but the changes have not yet been saved to disk.</source>
         <translation>מסד הנתונים הוסגל, אך השינויים עדיין לא נשמרו לכונן הקשיח.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="101"/>
         <source>Number of groups</source>
         <translation>מספר קבוצות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="102"/>
         <source>Number of entries</source>
         <translation>מספר רשומות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="103"/>
         <source>Number of expired entries</source>
         <translation>מספר רשומות שתוקפם פג</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="106"/>
         <source>The database contains entries that have expired.</source>
         <translation>מסד הנתונים מכיל רשומות שתוקפם פג.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="107"/>
         <source>Unique passwords</source>
         <translation>ססמאות ייחודיות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="108"/>
         <source>Non-unique passwords</source>
         <translation>ססמאות לא־ייחודיות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="111"/>
         <source>More than 10% of passwords are reused. Use unique passwords when possible.</source>
         <translation>נעשה שימוש חוזר ביותר מ־10% מהססמאות. נא להשתמש בססמאות ייחודיות ככל שניתן.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="112"/>
         <source>Maximum password reuse</source>
         <translation>שימוש חוזר מרבי בססמה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="115"/>
         <source>Some passwords are used more than three times. Use unique passwords when possible.</source>
         <translation>נעשה שימוש בססמאות מסוימות יותר משלוש פעמים. נא להשתמש בססמאות ייחודיות ככל שניתן.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="116"/>
         <source>Number of short passwords</source>
         <translation>מספר ססמאות קצרות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="119"/>
         <source>Recommended minimum password length is at least 8 characters.</source>
         <translation>אורך הססמה המזערי המומלץ הוא לפחות 8 תווים.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="120"/>
         <source>Number of weak passwords</source>
         <translation>מספר ססמאות חלשות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="123"/>
         <source>Recommend using long, randomized passwords with a rating of &apos;good&apos; or &apos;excellent&apos;.</source>
         <translation>מומלץ להשתמש בססמאות ארוכות ואקראיות בדירוג &apos;טוב&apos; או &apos;מעולה&apos;.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="124"/>
         <source>Entries excluded from reports</source>
         <translation>רשומות מוחרגות מדוחות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="127"/>
         <source>Excluding entries from reports, e. g. because they are known to have a poor password, isn&apos;t necessarily a problem but you should keep an eye on them.</source>
         <translation>החרגת רשומות מדוחות, לדוגמה, הידיעה שהססמה חלשה, אינה בהכרח בעיה, אך כדאי לפקוח עליהם עין.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="129"/>
         <source>Average password length</source>
         <translation>אורך ססמה ממוצע</translation>
     </message>
     <message>
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="132"/>
         <source>Average password length is less than ten characters. Longer passwords provide more security.</source>
         <translation>אורך הססמה הממוצע הוא פחות מעשרה תווים. ססמאות ארוכות יותר מספקות אבטחה טובה יותר.</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/reports/ReportsWidgetStatistics.cpp" line="130"/>
         <source>%1 character(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
-    <name>SSHAgent</name>
+    <name>ScreenLockListenerDBus</name>
     <message>
-        <source>Agent connection failed.</source>
-        <translation>חיבור הסוכן כשל.</translation>
+        <location filename="../../src/gui/osutils/nixutils/ScreenLockListenerDBus.cpp" line="95"/>
+        <source>org.freedesktop.login1.Manager.GetSession did not return results</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Agent protocol error.</source>
-        <translation>שגיאת פרוטוקול סוכן.</translation>
-    </message>
-    <message>
-        <source>No agent running, cannot add identity.</source>
-        <translation>אין סוכן פעיל, לא ניתן להוסיף זהות.</translation>
-    </message>
-    <message>
-        <source>Key identity ownership conflict. Refusing to add.</source>
-        <translation>התנגשות בבעלות על זהות מפתח. ההוספה סורבה.</translation>
-    </message>
-    <message>
-        <source>Agent refused this identity. Possible reasons include:</source>
-        <translation>הסוכן סירב לזהות הזאת. סיבות אפשריות כוללות:</translation>
-    </message>
-    <message>
-        <source>The key has already been added.</source>
-        <translation>המפתח כבר נוסף.</translation>
-    </message>
-    <message>
-        <source>Restricted lifetime is not supported by the agent (check options).</source>
-        <translation>מגבלות אורך־חיים לא נתמכת על־ידי הסוכן (נא לבדוק אפשרויות).</translation>
-    </message>
-    <message>
-        <source>A confirmation request is not supported by the agent (check options).</source>
-        <translation>בקשת אישור לא נתמכת על־ידי הסוכן (נא לבדוק אפשרויות).</translation>
-    </message>
-    <message>
-        <source>Security keys are not supported by the agent or the security key provider is unavailable.</source>
-        <translation>מפתחות האבטחה אינם נתמכים על ידי הסוכן או שספק שרות מפתחות האבטחה אינו זמין.</translation>
-    </message>
-    <message>
-        <source>No agent running, cannot remove identity.</source>
-        <translation>אין סוכן פעיל, לא ניתן להוסיף זהות.</translation>
-    </message>
-    <message>
-        <source>No agent running, cannot list identities.</source>
-        <translation>אין סוכן פעיל, לא ניתן להוסיף זהויות.</translation>
-    </message>
-    <message>
-        <source>Failed to remove all SSH identities from agent.</source>
-        <translation>הסרת כל זהויות ה ־SSH מהסוכן כשלה.</translation>
-    </message>
-    <message>
-        <source>All SSH identities removed from agent.</source>
-        <translation>כל זהויות ה ־SSH הוסרו מהסוכן.</translation>
+        <location filename="../../src/gui/osutils/nixutils/ScreenLockListenerDBus.cpp" line="102"/>
+        <source>org.freedesktop.login1.Manager.GetSession did not return a QDBusObjectPath</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SearchHelpWidget</name>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="14"/>
         <source>Search Help</source>
         <translation>עזרה בחיפוש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="38"/>
         <source>Search terms are as follows: [modifiers][field:][&quot;]term[&quot;]</source>
         <translation>מונחי חיפוש כדלקמן: [מהדד][שדה:][&quot;]מונח[&quot;]</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="60"/>
         <source>Every search term must match (ie, logical AND)</source>
         <translation>כל מונח חיפוש חייב להתאים (כלומר, AND לוגי)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="78"/>
         <source>Modifiers</source>
         <translation>מהדדים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="109"/>
         <source>exclude term from results</source>
         <translation>החרגת מונח מהתוצאות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="116"/>
         <source>match term exactly</source>
         <translation>התאמת מונח במדויק</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="145"/>
         <source>use regex in term</source>
         <translation>שימוש בביטי־רגיל במונח</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="183"/>
         <source>Fields</source>
         <translation>שדות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="262"/>
         <source>Term Wildcards</source>
         <translation>תו־כל מונחים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="337"/>
         <source>match anything</source>
         <translation>התאמת הכול</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="344"/>
         <source>match one</source>
         <translation>התאמה לאחד</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="351"/>
         <source>logical OR</source>
         <translation>OR לוגי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchHelpWidget.ui" line="361"/>
         <source>Examples</source>
         <translation>דוגמאות</translation>
     </message>
@@ -9588,255 +7316,66 @@ This option is deprecated, use --set-key-file instead.</source>
 <context>
     <name>SearchWidget</name>
     <message>
+        <location filename="../../src/gui/SearchWidget.ui" line="51"/>
         <source>Search</source>
         <translation>חיפוש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.ui" line="56"/>
         <source>Search Help</source>
         <translation>עזרה בחיפוש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.cpp" line="60"/>
         <source>Search (%1)…</source>
         <comment>Search placeholder text, %1 is the keyboard shortcut</comment>
         <translation>חיפוש (%1)...</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.cpp" line="65"/>
         <source>Case sensitive</source>
         <translation>תלוי רישיות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.cpp" line="69"/>
         <source>Limit search to selected group</source>
         <translation>הגבלת חיפוש לקבוצה שנבחרה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.cpp" line="74"/>
         <source>Press Enter to search</source>
         <translation>לחיצה על &apos;אנטר&apos; כדי להמשיך</translation>
     </message>
     <message>
+        <location filename="../../src/gui/SearchWidget.ui" line="61"/>
         <source>Save Search</source>
         <translation>שמירת חיפוש</translation>
     </message>
 </context>
 <context>
-    <name>SettingsClientModel</name>
-    <message>
-        <source>Application</source>
-        <translation>יישום</translation>
-    </message>
-    <message>
-        <source>PID</source>
-        <translation>קוד זיהוי אישי</translation>
-    </message>
-    <message>
-        <source>DBus Address</source>
-        <translation> מען DBus</translation>
-    </message>
-    <message>
-        <source>Manage</source>
-        <translation>ניהול</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsDatabaseModel</name>
-    <message>
-        <source>File Name</source>
-        <translation>שם קובץ</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation>קבוצה</translation>
-    </message>
-    <message>
-        <source>Manage</source>
-        <translation>ניהול</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsWidgetFdoSecrets</name>
-    <message>
-        <source>Options</source>
-        <translation>אפשרויות</translation>
-    </message>
-    <message>
-        <source>Enable KeepassXC Freedesktop.org Secret Service integration</source>
-        <translation>איפשור שילוב שירות חשאי Freedesktop.org KeepassXC</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation>כללי</translation>
-    </message>
-    <message>
-        <source>Show notification when passwords are retrieved by clients</source>
-        <translation>הצג הודעה כאשר ססמאות מאוחזרות על־ידי לקוחות</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled, any attempt to read a password must be confirmed. Otherwise, clients can read passwords without confirmation when the database is unlocked.&lt;/p&gt;&lt;p&gt;This option only covers the access to the password of an entry. Clients can always enumerate the items of exposed databases and query their attributes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;אם אופשר, כל ניסיון לקרוא ססמה תחויב באישור. אחרת, לקוחות יוכלו לקרוא ססמאות ללא אישור כאשר מסד הנתונים לא נעול.&lt;/p&gt;&lt;p&gt;אפשרות זו מכסה רק את הגישה לססמה של רשומה. לקוחות יכולו תמיד לספרר את פריטי מסדי־נתונים החשופים ולתשאל את התכונות שלהם.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Confirm when passwords are retrieved by clients</source>
-        <translation>אישור כשלקוחות מאחזרים ססמאות</translation>
-    </message>
-    <message>
-        <source>Confirm when clients request entry deletion</source>
-        <translation>אשור כאשר לקוחות מבקשים מחיקת רשומה</translation>
-    </message>
-    <message>
-        <source>Prompt to unlock database before searching</source>
-        <translation>הנחיה לשחרור נעילת מסד־נתונים לפני חיפוש</translation>
-    </message>
-    <message>
-        <source>Exposed database groups:</source>
-        <translation>קבוצות מסדי־נתונים חשופות:</translation>
-    </message>
-    <message>
-        <source>Authorization</source>
-        <translation>הרשאות</translation>
-    </message>
-    <message>
-        <source>These applications are currently connected:</source>
-        <translation>יישומים אלה מחוברים כעת:</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Warning:&lt;/b&gt; </source>
-        <translation>&lt;b&gt;אזהרה:&lt;/b&gt; </translation>
-    </message>
-    <message>
-        <source>Save current changes to activate the plugin and enable editing of this section.</source>
-        <translation>שמירת השינויים הנוכחיים כדי להפעיל את המתקע ולאפשר עריכת מקטע זה.</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This setting does not override disabling recycle bin prompts &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;הגדרה זו does not לא עוקפת השבתת השבתת הנחיות סל מחזור &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This improves compatibility with certain applications which search for password without unlocking the database first.&lt;/p&gt;&lt;p&gt;But enabling this may also crash the client if the database can not be unlocked within a certain timeout. (Usually 25s, but may be a different value set in applications.) &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;משפר תאימות עם יישומים מסוימים שמחפשים ססמה מבלי לשחרר את נעילת מסד הנתונים תחילה.&lt;/p&gt;&lt;p&gt;אבל הפעלת אפשרות זו עשויה גם לגרום ללקוח לקרוס אם נעילת מסד הנתונים ישתחרר בתוך פרק זמן מסוים. (בדרך כלל 25 שניות, אך עשוי להיות ערך שונה שהוגדר ביישומים.) &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsWidgetKeeShare</name>
-    <message>
-        <source>Active</source>
-        <translation>פעיל</translation>
-    </message>
-    <message>
-        <source>Allow KeeShare imports</source>
-        <translation>איפשור ייבוא KeeShare</translation>
-    </message>
-    <message>
-        <source>Allow import</source>
-        <translation>איפשור ייבוא</translation>
-    </message>
-    <message>
-        <source>Allow KeeShare exports</source>
-        <translation>איפשור ייצוא KeeShare</translation>
-    </message>
-    <message>
-        <source>Allow export</source>
-        <translation>איפשור ייצוא</translation>
-    </message>
-    <message>
-        <source>Only show warnings and errors</source>
-        <translation>הצגת אזהרות ושגיאות בלבד</translation>
-    </message>
-    <message>
-        <source>Own certificate</source>
-        <translation>אישור עצמי</translation>
-    </message>
-    <message>
-        <source>Signer:</source>
-        <translation>חותם:</translation>
-    </message>
-    <message>
-        <source>Generate new certificate</source>
-        <translation>חילול אישור חדש</translation>
-    </message>
-    <message>
-        <source>Generate</source>
-        <translation>חילול</translation>
-    </message>
-    <message>
-        <source>Fingerprint:</source>
-        <translation>טביעות אצבע:</translation>
-    </message>
-    <message>
-        <source>Signer name field</source>
-        <translation>שדה שם חותם</translation>
-    </message>
-    <message>
-        <source>Fingerprint</source>
-        <translation>טביעות אצבע</translation>
-    </message>
-</context>
-<context>
-    <name>ShareExport</name>
-    <message>
-        <source>Could not write export container.</source>
-        <translation>לא ניתן לכתוב מיכל ייצוא.</translation>
-    </message>
-</context>
-<context>
-    <name>ShareImport</name>
-    <message>
-        <source>Successful import</source>
-        <translation>ייבוא צלח</translation>
-    </message>
-</context>
-<context>
-    <name>ShareObserver</name>
-    <message>
-        <source>Import from %1 failed (%2)</source>
-        <translation>ייבוא מ־%1 כשל (%2)</translation>
-    </message>
-    <message>
-        <source>Import from %1 successful (%2)</source>
-        <translation>הייבוא מ־%1 צלח (%2)</translation>
-    </message>
-    <message>
-        <source>Imported from %1</source>
-        <translation>מיובא מ־%1</translation>
-    </message>
-    <message>
-        <source>Multiple import source path to %1 in %2</source>
-        <translation>נתיבי מקור ייבוא מרובים ל־%1 ב־%2</translation>
-    </message>
-    <message>
-        <source>Conflicting export target path %1 in %2</source>
-        <translation>התנגשות בנתיב יעד ייצוא %1 ב־ %2</translation>
-    </message>
-    <message>
-        <source>Export to %1 failed (%2)</source>
-        <translation>ייצוא ל־%1 כשל (%2)</translation>
-    </message>
-    <message>
-        <source>Export to %1 successful (%2)</source>
-        <translation>הייצוא ל־%1 צלח (%2)</translation>
-    </message>
-    <message>
-        <source>Export to %1</source>
-        <translation>ייצוא ל־%1</translation>
-    </message>
-</context>
-<context>
     <name>TagModel</name>
     <message>
+        <location filename="../../src/gui/tag/TagModel.cpp" line="33"/>
         <source>Expired</source>
         <translation>תפוגה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagModel.cpp" line="34"/>
         <source>Weak Passwords</source>
         <translation>ססמאות חלשות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagModel.cpp" line="32"/>
         <source>All Entries</source>
         <translation>כל הרשומות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagModel.cpp" line="31"/>
         <source>Clear Search</source>
         <translation>ניקוי חיפוש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagModel.cpp" line="35"/>
         <source>TOTP Entries</source>
         <translation>רשומות TOTP</translation>
     </message>
@@ -9844,18 +7383,22 @@ This option is deprecated, use --set-key-file instead.</source>
 <context>
     <name>TagView</name>
     <message>
+        <location filename="../../src/gui/tag/TagView.cpp" line="84"/>
         <source>Remove Search</source>
         <translation>הסרת חיפוש</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagView.cpp" line="94"/>
         <source>Remove Tag</source>
         <translation>הסרת תג</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagView.cpp" line="99"/>
         <source>Confirm Remove Tag</source>
         <translation>אישור הסרת תג</translation>
     </message>
     <message>
+        <location filename="../../src/gui/tag/TagView.cpp" line="100"/>
         <source>Remove tag &quot;%1&quot; from all entries in this database?</source>
         <translation>להסיר תג &apos;%1&apos; מכול הרשומות במסד־נתונים זה? </translation>
     </message>
@@ -9863,6 +7406,7 @@ This option is deprecated, use --set-key-file instead.</source>
 <context>
     <name>TextAttachmentsEditWidget</name>
     <message>
+        <location filename="../../src/gui/entry/attachments/TextAttachmentsEditWidget.ui" line="34"/>
         <source>Preview</source>
         <translation>תצוגה מקדימה</translation>
     </message>
@@ -9870,45 +7414,67 @@ This option is deprecated, use --set-key-file instead.</source>
 <context>
     <name>TextAttachmentsPreviewWidget</name>
     <message>
+        <location filename="../../src/gui/entry/attachments/TextAttachmentsPreviewWidget.ui" line="14"/>
         <source>Form</source>
         <translation>טופס</translation>
     </message>
     <message>
+        <location filename="../../src/gui/entry/attachments/TextAttachmentsPreviewWidget.ui" line="37"/>
         <source>Type:</source>
         <translation>סוג:</translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/attachments/TextAttachmentsPreviewWidget.cpp" line="67"/>
+        <source>Read-write mode is not supported for text preview attachments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/entry/attachments/TextAttachmentsPreviewWidget.cpp" line="133"/>
+        <source>TextAttachmentsPreviewWidget: Unknown text format</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>TotpDialog</name>
     <message>
+        <location filename="../../src/gui/TotpDialog.ui" line="14"/>
         <source>Timed Password</source>
         <translation>ססמה מתוזמנת</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpDialog.cpp" line="51"/>
         <source>Copy</source>
         <translation>עותק</translation>
     </message>
     <message numerus="yes">
+        <location filename="../../src/gui/TotpDialog.cpp" line="96"/>
         <source>Expires in &lt;b&gt;%n&lt;/b&gt; second(s)</source>
-        <translation><numerusform>תפוגה &lt;b&gt;בתוך שניה %n&lt;/b&gt;</numerusform><numerusform>תפוגה &lt;b&gt;בתוך %n&lt;/b&gt; שניות</numerusform><numerusform>תפוגה &lt;b&gt;בתוך %n&lt;/b&gt; שניות</numerusform></translation>
+        <translation>
+            <numerusform>תפוגה &lt;b&gt;בתוך שניה %n&lt;/b&gt;</numerusform>
+            <numerusform>תפוגה &lt;b&gt;בתוך %n&lt;/b&gt; שניות</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>TotpExportSettingsDialog</name>
     <message>
+        <location filename="../../src/gui/TotpExportSettingsDialog.cpp" line="65"/>
         <source>Copy</source>
         <translation>עותק</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpExportSettingsDialog.cpp" line="78"/>
         <source>NOTE: These TOTP settings are custom and may not work with other authenticators.</source>
         <comment>TOTP QR code dialog warning</comment>
         <translation>הערה: הגדרות TOTP אלה מותאמות אישית וייתכן שלא יפעלו עם מאמתים אחרים.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpExportSettingsDialog.cpp" line="102"/>
         <source>There was an error creating the QR code.</source>
         <translation>אירעה שגיאה בעת יצירת קוד ה־QR.</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpExportSettingsDialog.cpp" line="129"/>
         <source>Closing in %1 seconds.</source>
         <translation>סגירה בעוד %1 שניות.</translation>
     </message>
@@ -9916,338 +7482,148 @@ This option is deprecated, use --set-key-file instead.</source>
 <context>
     <name>TotpSetupDialog</name>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="14"/>
         <source>Setup TOTP</source>
         <translation>הגדרת TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="44"/>
         <source>Secret Key:</source>
         <translation>מפתח סודי:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="63"/>
         <source>Secret key must be in Base32 format</source>
         <translation>מפתח סודי חייב להיות בתסדיר Base32</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="66"/>
         <source>Secret key field</source>
         <translation>שדה מפתח סודי</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="90"/>
         <source>Default settings (RFC 6238)</source>
         <translation>הגדרות ברירת מחדל (RFC 6238)</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="103"/>
         <source>Steam® settings</source>
         <translation>הגדרות Steam®</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="113"/>
         <source>Custom settings:</source>
         <translation>הגדרות מותאמות אישית:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="129"/>
         <source>Custom Settings</source>
         <translation>הגדרות מותאמות אישית</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="156"/>
         <source>Algorithm:</source>
         <translation>אלגוריתם:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="166"/>
         <source>Time step:</source>
         <translation>שלב זמן:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="173"/>
         <source>Time step field</source>
         <translation>שדה חותמת זמן</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="176"/>
         <source> sec</source>
         <comment>Seconds</comment>
         <translation> שניה</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="192"/>
         <source>Code size:</source>
         <translation>גודל קוד:</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="199"/>
         <source> digits</source>
         <translation> ספרות</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.cpp" line="56"/>
         <source>Invalid TOTP Secret</source>
         <translation>סוד TOTP לא תקין</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.cpp" line="57"/>
         <source>You have entered an invalid secret key. The key must be in Base32 format.
 Example: JBSWY3DPEHPK3PXP</source>
         <translation>הוזן מפתח סודי לא תקין. המפתח חייב להיות בתסדיר Base32.
 דוגמה: JBSWY3DPEHPK3PXP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.cpp" line="87"/>
         <source>Confirm Remove TOTP Settings</source>
         <translation>אישור הסרת הגדרות TOTP</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.cpp" line="88"/>
         <source>Are you sure you want to delete TOTP settings for this entry?</source>
         <translation>האם למחוק הגדרות TOTP לרשומות זו?</translation>
     </message>
     <message>
+        <location filename="../../src/gui/TotpSetupDialog.ui" line="26"/>
         <source>Error: secret key is invalid</source>
         <translation>שגיאה: מפתח סודי לא תקין</translation>
     </message>
 </context>
 <context>
-    <name>URLEdit</name>
-    <message>
-        <source>Invalid URL</source>
-        <translation>מען URL תקין</translation>
-    </message>
-</context>
-<context>
-    <name>UpdateCheckDialog</name>
-    <message>
-        <source>Checking for updates</source>
-        <translation>בדיקת זמינות עדכונים</translation>
-    </message>
-    <message>
-        <source>Checking for updates…</source>
-        <translation>בודקת זמינות עדכונים...</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>סגירה</translation>
-    </message>
-    <message>
-        <source>Software Update</source>
-        <translation>עדכון תוכנה</translation>
-    </message>
-    <message>
-        <source>An error occurred when trying to retrieve update information, please try again later.</source>
-        <translation>אירעה שגיאה בעת ניסיון לאחזר מידע עדכון, נא לנסות שוב מאוחר יותר.</translation>
-    </message>
-    <message>
-        <source>&lt;strong&gt;A new version is available.&lt;/strong&gt;&lt;br/&gt;KeePassXC %1 can be &lt;a href=&quot;https://keepassxc.org/download/&quot;&gt;downloaded here&lt;/a&gt;.</source>
-        <translation>&lt;strong&gt;גרסה חדשה זמינה.&lt;/strong&gt;&lt;br/&gt;ניתן &lt;a href=&quot;https://keepassxc.org/download/&quot;&gt;להוריד כאן את&lt;/a&gt;KeePassXC %1 .</translation>
-    </message>
-    <message>
-        <source>You have the latest version of KeePassXC</source>
-        <translation>זוהי הגרסה העדכנית ביותר של KeePassXC</translation>
-    </message>
-</context>
-<context>
     <name>WelcomeWidget</name>
     <message>
-        <source>Start storing your passwords securely in a KeePassXC database</source>
-        <translation>ניתן להתחיל ולאחסן את הססמאות בצורה מאובטחת במסד נתוני KeePassXC</translation>
-    </message>
-    <message>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="166"/>
         <source>Recent databases</source>
         <translation>מסדי־נתונים אחרונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="191"/>
         <source>Open a recent database</source>
         <translation>פתיחת מסד־נתונים קודם</translation>
     </message>
     <message>
-        <source>Welcome to KeePassXC %1</source>
-        <translation>ברוכים הבאים ל-KeePassXC %1</translation>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="99"/>
+        <source>Start storing your passwords securely in a KeePassX-min database</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="127"/>
         <source>Create Database</source>
         <translation>יצירת מסד נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="134"/>
         <source>Open Database</source>
         <translation>פתיחת מסד נתונים</translation>
     </message>
     <message>
+        <location filename="../../src/gui/WelcomeWidget.ui" line="141"/>
         <source>Import File</source>
         <translation>ייבוא קובץ</translation>
     </message>
-</context>
-<context>
-    <name>WinUtils</name>
     <message>
-        <source>Invalid key code</source>
-        <translation>קוד מפתח לא תקין</translation>
-    </message>
-    <message>
-        <source>Global shortcut already registered to %1</source>
-        <translation>קיצור דרך כללי כבר רשום ב־%1</translation>
-    </message>
-    <message>
-        <source>Could not register global shortcut</source>
-        <translation>לא ניתן לרשום קיצור דרך כללי</translation>
+        <location filename="../../src/gui/WelcomeWidget.cpp" line="33"/>
+        <source>Welcome to KeePassX-min %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>WindowsHello</name>
+    <name>ZoomHelper</name>
     <message>
-        <source>Failed to init KeePassXC crypto.</source>
-        <translation>נכשל באיתחול קריפטו KeePassXC.</translation>
-    </message>
-    <message>
-        <source>Failed to encrypt key data.</source>
-        <translation>הצפנת נתוני מפתח כשלה.</translation>
-    </message>
-    <message>
-        <source>Failed to get Windows Hello credential.</source>
-        <translation>קבלת אישור Windows Hello כשלה.</translation>
-    </message>
-    <message>
-        <source>Failed to decrypt key data.</source>
-        <translation>פענוח נתוני מפתח כשלה.</translation>
-    </message>
-</context>
-<context>
-    <name>YubiKey</name>
-    <message>
-        <source>General: </source>
-        <translation>כללי:</translation>
-    </message>
-    <message>
-        <source>Could not find interface for hardware key with serial number %1. Please connect it to continue.</source>
-        <translation>לא ניתן למצוא מנשק עבור מפתח חומרה עם המספר הסידורי %1. נא לחבר אותו על מנת להמשיך.</translation>
-    </message>
-</context>
-<context>
-    <name>YubiKeyEditWidget</name>
-    <message>
-        <source>Hardware key slot selection</source>
-        <translation>בחירת עמדה למפתח חומרה</translation>
-    </message>
-    <message>
-        <source>Could not find any hardware keys!</source>
-        <translation>לא ניתן למצוא מפתחות חומרה!</translation>
-    </message>
-    <message>
-        <source>Selected hardware key slot does not support challenge-response!</source>
-        <translation>חריץ מפתח החומרה שנבחר לא תומך באתגר־מענה!</translation>
-    </message>
-    <message>
-        <source>Challenge-Response</source>
-        <translation>אתגר־מענה</translation>
-    </message>
-    <message>
-        <source>Add Challenge-Response</source>
-        <translation>הוספת אתגר־מענה</translation>
-    </message>
-    <message>
-        <source>Change Challenge-Response</source>
-        <translation>שינוי אתגר־מענה</translation>
-    </message>
-    <message>
-        <source>Remove Challenge-Response</source>
-        <translation>הסרת אתגר־מענה</translation>
-    </message>
-    <message>
-        <source>Challenge-Response set, click to change or remove</source>
-        <translation>ערכת אתגר־מענה, הקשה לשנוי או הסרה</translation>
-    </message>
-    <message>
-        <source>Detecting hardware keys…</source>
-        <translation>זוהה מפתח חומרה...</translation>
-    </message>
-    <message>
-        <source>Refresh hardware keys</source>
-        <translation>רענון מפתחות חומרה</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;If you own a &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; or &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, you can use it for additional security.&lt;/p&gt;&lt;p&gt;The key requires one of its slots to be programmed with &lt;a href=&quot;https://keepassxc.org/docs/#faq-yubikey-howto&quot;&gt;Challenge-Response&lt;/a&gt;.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;אם קיים &lt;a href=&quot;https://www.yubico.com/&quot;&gt;YubiKey&lt;/a&gt; או &lt;a href=&quot;https://onlykey.io&quot;&gt;OnlyKey&lt;/a&gt;, ניתן להשתמש בו לאבטחה נוספת.&lt;/p&gt;&lt;p&gt;המפתח דורש שאחד החריצים שלו יהיה מתוכנת עם &lt;a href=&quot;https://keepassxc.org/docs/#faq-yubikey-howto&quot;&gt;אתגר־מענה&lt;/a&gt;.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>No hardware keys detected</source>
-        <translation>לא זוהה מפתח חומרה</translation>
-    </message>
-    <message>
-        <source>Hardware keys found, but no slots are configured</source>
-        <translation>נמצאו מפתחות חומרה, אבל לא הוגדרו חריצים</translation>
-    </message>
-</context>
-<context>
-    <name>YubiKeyInterfacePCSC</name>
-    <message>
-        <source>Could not find or access hardware key with serial number %1. Please present it to continue. </source>
-        <translation>לא ניתן למצוא או לגשת למפתח חומרה עם המספר הסידורי %1. נא להציגו על מנת להמשיך.</translation>
-    </message>
-    <message>
-        <source>Hardware key is locked or timed out. Unlock or re-present it to continue.</source>
-        <translation>מפתח חומרה נעול או שפסק־הזמן חלף. נא לשחרר נעילה או להציגו שוב על מנת להמשיך.</translation>
-    </message>
-    <message>
-        <source>Hardware key was not found or is not configured.</source>
-        <translation>מפתח חומרה לא נמצא או שאינו מתוצר.</translation>
-    </message>
-    <message>
-        <source>(NFC) %1 [%2] - Slot %3, %4</source>
-        <comment>YubiKey display fields</comment>
-        <translation>(NFC) %1 [%2] - חריץ %3, %4</translation>
-    </message>
-    <message>
-        <source>Press</source>
-        <comment>USB Challenge-Response Key interaction request</comment>
-        <translation>לחיצה</translation>
-    </message>
-    <message>
-        <source>Passive</source>
-        <comment>USB Challenge-Response Key no interaction required</comment>
-        <translation>סביל</translation>
-    </message>
-    <message>
-        <source>The YubiKey PC/SC interface has not been initialized.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to complete a challenge-response, the PC/SC error code was: %1</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>YubiKeyInterfaceUSB</name>
-    <message>
-        <source>Press</source>
-        <comment>USB Challenge-Response Key interaction request</comment>
-        <translation>לחיצה</translation>
-    </message>
-    <message>
-        <source>Passive</source>
-        <comment>USB Challenge-Response Key no interaction required</comment>
-        <translation>סביל</translation>
-    </message>
-    <message>
-        <source>The YubiKey USB interface has not been initialized.</source>
-        <translation>מנשק USB YubiKey לא אותחל.</translation>
-    </message>
-    <message>
-        <source>Could not find hardware key with serial number %1. Please plug it in to continue.</source>
-        <translation>לא ניתן למצוא מפתח חומרה עם המספר הסידורי %1. נא לחבר אותו כדי להמשיך.</translation>
-    </message>
-    <message>
-        <source>Hardware key timed out waiting for user interaction.</source>
-        <translation>פסק־זמן מפתח חומרה בהמתנה להידוד המשתמש.</translation>
-    </message>
-    <message>
-        <source>A USB error occurred when accessing the hardware key: %1</source>
-        <translation>אירעה שגיאת USB בעת גישה למפתח החומרה: %1</translation>
-    </message>
-    <message>
-        <source>Failed to complete a challenge-response, the specific error was: %1</source>
-        <translation>השלמת אתגר־מענה כשלה, השגיאה המסוימת היתה: %1</translation>
-    </message>
-    <message>
-        <source>%1 [%2] - Slot %3</source>
-        <comment>YubiKey NEO display fields</comment>
-        <translation>%1 [%2] - חריץ %3</translation>
-    </message>
-    <message>
-        <source>%1 [%2] - Slot %3, %4</source>
-        <comment>YubiKey display fields</comment>
-        <translation>%1 [%2] - חריץ %3, %4</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <comment>Unknown hardware key name</comment>
-        <translation type="unfinished"/>
+        <location filename="../../src/gui/entry/attachments/ImageAttachmentsWidget.cpp" line="241"/>
+        <source>Failed to set NaN zoom factor</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
