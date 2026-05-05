@@ -450,7 +450,7 @@ void EditEntryWidget::setForms(Entry *entry, bool restore)
 	IconStruct iconStruct;
 	iconStruct.uuid = entry->iconUuid();
 	iconStruct.number = entry->iconNumber();
-	m_iconsWidget->load(entry->uuid(), m_db, iconStruct, entry->webUrl());
+	m_iconsWidget->load(entry->uuid(), m_db, iconStruct);
 
 	m_editWidgetProperties->setFields(entry->timeInfo(), entry->uuid());
 

@@ -945,7 +945,7 @@ bool Database::setKey(
 	{
 		transformedDatabaseKey = QByteArray(oldTransformedDatabaseKey.rawKey());
 	}
-	else if (!key->transform(*m_data.kdf, transformedDatabaseKey, &m_keyError))
+	else if (!key->transform(*m_data.kdf, transformedDatabaseKey))
 	{
 		return false;
 	}

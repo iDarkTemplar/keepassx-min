@@ -65,8 +65,7 @@ public:
 	void load(
 		const QUuid &currentUuid,
 		const QSharedPointer<Database> &database,
-		const IconStruct &iconStruct,
-		const QString &url = QString());
+		const IconStruct &iconStruct);
 	void setShowApplyIconToButton(bool state);
 
 Q_SIGNALS:

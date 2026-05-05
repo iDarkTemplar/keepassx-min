@@ -114,13 +114,10 @@ void EditWidgetIcons::reset()
 void EditWidgetIcons::load(
 	const QUuid &currentUuid,
 	const QSharedPointer<Database> &database,
-	const IconStruct &iconStruct,
-	const QString &url)
+	const IconStruct &iconStruct)
 {
 	Q_ASSERT(database);
 	Q_ASSERT(!currentUuid.isNull());
-
-	Q_UNUSED(url); // TODO: remove
 
 	m_db = database;
 	m_currentUuid = currentUuid;

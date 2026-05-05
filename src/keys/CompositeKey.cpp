@@ -61,29 +61,6 @@ bool CompositeKey::isEmpty() const
  */
 QByteArray CompositeKey::rawKey() const
 {
-	return rawKey(nullptr);
-}
-
-void CompositeKey::setRawKey(const QByteArray &data)
-{
-	deserialize(data);
-}
-
-/**
- * Get raw key hash as bytes.
- *
- * Challenge-response key components will use the provided <tt>transformSeed</tt>
- * as a challenge to acquire their key contribution.
- *
- * @param transformSeed transform seed to challenge or nullptr to exclude challenge-response components
- * @param ok true if challenges were successful and all key components could be added to the composite key
- * @return key hash
- */
-QByteArray CompositeKey::rawKey(const QByteArray *transformSeed, bool *ok, QString *error) const
-{
-	Q_UNUSED(transformSeed); // TODO: remove
-	Q_UNUSED(error); // TODO: remove
-
 	CryptoHash cryptoHash(CryptoHash::Sha256);
 
 	for (auto const &key: m_keys)
@@ -91,12 +68,12 @@ QByteArray CompositeKey::rawKey(const QByteArray *transformSeed, bool *ok, QStri
 		cryptoHash.addData(key->rawKey());
 	}
 
-	if (ok)
-	{
-		*ok = true;
-	}
-
 	return cryptoHash.result();
+}
+
+void CompositeKey::setRawKey(const QByteArray &data)
+{
+	deserialize(data);
 }
 
 /**
@@ -112,18 +89,9 @@ QByteArray CompositeKey::rawKey(const QByteArray *transformSeed, bool *ok, QStri
  * @param result transformed key hash
  * @return true on success
  */
-bool CompositeKey::transform(const Kdf &kdf, QByteArray &result, QString *error) const
+bool CompositeKey::transform(const Kdf &kdf, QByteArray &result) const
 {
-	if (kdf.uuid() == KeePass2::KDF_AES_KDBX3)
-	{
-		// legacy KDBX3 AES-KDF, challenge response is added later to the hash
-		return kdf.transform(rawKey(), result);
-	}
-
-	QByteArray seed = kdf.seed();
-	Q_ASSERT(!seed.isEmpty());
-	bool ok = false;
-	return kdf.transform(rawKey(&seed, &ok, error), result) && ok;
+	return kdf.transform(rawKey(), result);
 }
 
 /**

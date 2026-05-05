@@ -39,7 +39,7 @@ public:
 	QByteArray rawKey() const override;
 	void setRawKey(const QByteArray &data) override;
 
-	Q_REQUIRED_RESULT bool transform(const Kdf &kdf, QByteArray &result, QString *error = nullptr) const;
+	Q_REQUIRED_RESULT bool transform(const Kdf &kdf, QByteArray &result) const;
 
 	void addKey(const QSharedPointer<Key> &key);
 	QSharedPointer<Key> getKey(const QUuid keyType) const;
@@ -49,8 +49,6 @@ public:
 	void deserialize(const QByteArray &data) override;
 
 private:
-	QByteArray rawKey(const QByteArray *transformSeed, bool *ok = nullptr, QString *error = nullptr) const;
-
 	QList<QSharedPointer<Key>> m_keys;
 };
 
