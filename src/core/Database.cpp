@@ -505,7 +505,7 @@ bool Database::import(const QString &xmlExportPath, QString *error)
 	{
 		if (error)
 		{
-			*error = tr("Failed to open file %1 for reading").arg(xmlExportPath);
+			*error = tr("Failed to open file \"%1\" for reading.").arg(xmlExportPath);
 		}
 
 		return false;

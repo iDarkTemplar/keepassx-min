@@ -59,7 +59,7 @@ QSharedPointer<Database> KdbxXmlReader::readDatabase(const QString &filename)
 
 	if (!file.open(QIODevice::ReadOnly))
 	{
-		raiseError(tr("Failed to open file %1 for reading.").arg(filename));
+		raiseError(tr("Failed to open file \"%1\" for reading.").arg(filename));
 		return {};
 	}
 

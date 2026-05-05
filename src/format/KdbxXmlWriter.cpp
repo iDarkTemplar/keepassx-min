@@ -84,7 +84,7 @@ void KdbxXmlWriter::writeDatabase(const QString &filename, Database *db)
 
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
 	{
-		raiseError(QObject::tr("Failed to open file %1 for writing.").arg(filename));
+		raiseError(QObject::tr("Failed to open file \"%1\" for writing.").arg(filename));
 		return;
 	}
 
