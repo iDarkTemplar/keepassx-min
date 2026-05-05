@@ -20,6 +20,8 @@
 #include <QIcon>
 #include <QWidget>
 
+#include <memory>
+
 class Database;
 class QStandardItemModel;
 
@@ -51,7 +53,7 @@ private:
 
 	bool m_statsCalculated = false;
 	QIcon m_errIcon;
-	QScopedPointer<QStandardItemModel> m_referencesModel;
+	std::unique_ptr<QStandardItemModel> m_referencesModel;
 	QSharedPointer<Database> m_db;
 
 	void addStatsRow(const QString &name, const QString &value, bool bad = false, const QString &badMsg = QString());

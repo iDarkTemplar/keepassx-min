@@ -18,7 +18,7 @@
 
 SymmetricCipherStream::SymmetricCipherStream(QIODevice *baseDevice)
 	: LayeredStream(baseDevice)
-	, m_cipher(new SymmetricCipher())
+	, m_cipher(std::make_unique<SymmetricCipher>())
 	, m_bufferPos(0)
 	, m_bufferFilling(false)
 	, m_error(false)

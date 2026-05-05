@@ -17,7 +17,7 @@
 #ifndef KEEPASSX_QRCODE_H
 #define KEEPASSX_QRCODE_H
 
-#include <QScopedPointer>
+#include <memory>
 
 class QImage;
 class QIODevice;
@@ -70,7 +70,7 @@ private:
 	void init(const QString &data, const Version version, const ErrorCorrectionLevel ecl, const bool caseSensitive);
 	void init(const QByteArray &data, const Version version, const ErrorCorrectionLevel ecl);
 
-	QScopedPointer<QrCodePrivate> d_ptr;
+	std::unique_ptr<QrCodePrivate> d_ptr;
 };
 
 #endif // KEEPASSX_QRCODE_H

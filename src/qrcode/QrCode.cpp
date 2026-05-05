@@ -36,18 +36,18 @@ QrCodePrivate::~QrCodePrivate()
 }
 
 QrCode::QrCode()
-	: d_ptr(new QrCodePrivate())
+	: d_ptr(std::make_unique<QrCodePrivate>())
 {
 }
 
 QrCode::QrCode(const QString &data, const Version version, const ErrorCorrectionLevel ecl, const bool caseSensitive)
-	: d_ptr(new QrCodePrivate())
+	: d_ptr(std::make_unique<QrCodePrivate>())
 {
 	init(data, version, ecl, caseSensitive);
 }
 
 QrCode::QrCode(const QByteArray &data, const Version version, const ErrorCorrectionLevel ecl)
-	: d_ptr(new QrCodePrivate())
+	: d_ptr(std::make_unique<QrCodePrivate>())
 {
 	init(data, version, ecl);
 }

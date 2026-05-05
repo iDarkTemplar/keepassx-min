@@ -32,12 +32,12 @@ ReportsWidgetStatistics::ReportsWidgetStatistics(QWidget *parent)
 	: QWidget(parent)
 	, m_ui(new Ui::ReportsWidgetStatistics())
 	, m_errIcon(icons()->icon(QStringLiteral("dialog-error")))
+	, m_referencesModel(std::make_unique<QStandardItemModel>())
 {
 	m_ui->setupUi(this);
 
-	m_referencesModel.reset(new QStandardItemModel());
 	m_referencesModel->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Value"));
-	m_ui->statisticsTableView->setModel(m_referencesModel.data());
+	m_ui->statisticsTableView->setModel(m_referencesModel.get());
 	m_ui->statisticsTableView->setSelectionMode(QAbstractItemView::NoSelection);
 	m_ui->statisticsTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 }

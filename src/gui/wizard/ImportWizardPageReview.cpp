@@ -109,6 +109,7 @@ void ImportWizardPageReview::setupCsvImport(const QString &filename)
 	// No need for this label with CSV
 	m_ui->previewLabel->hide();
 
+	// TODO: check lifetime of CsvImportWidget
 	m_csvWidget = new CsvImportWidget();
 	connect(m_csvWidget, &CsvImportWidget::message, m_ui->messageWidget, [this](QString message) {
 		if (message.isEmpty())
@@ -146,7 +147,7 @@ void ImportWizardPageReview::setupDatabasePreview()
 
 	QStringList headerLabels({tr("Group"), tr("Title"), tr("Username"), tr("Password"), tr("Url")});
 
-	auto tableWidget = new QTableWidget(entryList.count(), headerLabels.count());
+	std::unique_ptr<QTableWidget> tableWidget = std::make_unique<QTableWidget>(entryList.count(), headerLabels.count());
 	tableWidget->setHorizontalHeaderLabels(headerLabels);
 
 	int row = 0;
@@ -176,7 +177,7 @@ void ImportWizardPageReview::setupDatabasePreview()
 	tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 	tableWidget->horizontalHeader()->setStretchLastSection(true);
 
-	m_ui->scrollAreaContents->layout()->addWidget(tableWidget);
+	m_ui->scrollAreaContents->layout()->addWidget(tableWidget.release());
 }
 
 QSharedPointer<Database> ImportWizardPageReview::importOPUX(const QString &filename)

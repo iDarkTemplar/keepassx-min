@@ -18,7 +18,8 @@
 #define KEEPASSX_SYMMETRICCIPHERSTREAM_H
 
 #include <QByteArray>
-#include <QScopedPointer>
+
+#include <memory>
 
 #include "crypto/SymmetricCipher.h"
 #include "streams/LayeredStream.h"
@@ -51,7 +52,7 @@ private:
 	bool writeBlock(bool lastBlock);
 	int blockSize() const;
 
-	const QScopedPointer<SymmetricCipher> m_cipher;
+	std::unique_ptr<SymmetricCipher> m_cipher;
 	QByteArray m_buffer;
 	int m_bufferPos;
 	bool m_bufferFilling;
