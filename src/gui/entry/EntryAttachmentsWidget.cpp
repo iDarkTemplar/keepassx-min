@@ -234,21 +234,21 @@ void EntryAttachmentsWidget::previewSelectedAttachment()
 	const auto selectionModel = m_ui->attachmentsView->selectionModel();
 	if (!selectionModel)
 	{
-		qWarning() << "Failed to preview an attachment: No selection model";
+		qWarning() << tr("Failed to preview an attachment: No selection model");
 		return;
 	}
 
 	auto indexes = selectionModel->selectedIndexes();
 	if (indexes.empty())
 	{
-		qWarning() << "Failed to edit an attachment: No attachment selected";
+		qWarning() << tr("Failed to edit an attachment: No attachment selected");
 		return;
 	}
 
 	const auto index = indexes.first();
 	if (!index.isValid())
 	{
-		qWarning() << "Failed to preview an attachment: Attachment not found";
+		qWarning() << tr("Failed to preview an attachment: Attachment not found");
 		return;
 	}
 
@@ -287,14 +287,14 @@ void EntryAttachmentsWidget::editSelectedAttachment()
 	const auto selectionModel = m_ui->attachmentsView->selectionModel();
 	if (!selectionModel)
 	{
-		qWarning() << "Failed to edit an attachment: No selection model";
+		qWarning() << tr("Failed to edit an attachment: No selection model");
 		return;
 	}
 
 	const auto selectedIndexes = selectionModel->selectedIndexes();
 	if (selectedIndexes.isEmpty())
 	{
-		qWarning() << "Failed to edit an attachment: No attachment selected";
+		qWarning() << tr("Failed to edit an attachment: No attachment selected");
 		return;
 	}
 
@@ -302,7 +302,7 @@ void EntryAttachmentsWidget::editSelectedAttachment()
 
 	if (!index.isValid())
 	{
-		qWarning() << "Failed to edit an attachment: Attachment not found";
+		qWarning() << tr("Failed to edit an attachment: Attachment not found");
 		return;
 	}
 

@@ -35,13 +35,13 @@ bool OpVaultReader::decryptBandEntry(
 {
 	if (!bandEntry.contains(QStringLiteral("d")))
 	{
-		qWarning() << "Band entries must contain a \"d\" key: " << bandEntry.keys();
+		qWarning() << tr("Band entries must contain a \"d\" key: %1").arg(bandEntry.keys().join(QStringLiteral(", ")));
 		return false;
 	}
 
 	if (!bandEntry.contains(QStringLiteral("k")))
 	{
-		qWarning() << "Band entries must contain a \"k\" key: " << bandEntry.keys();
+		qWarning() << tr("Band entries must contain a \"k\" key: %1").arg(bandEntry.keys().join(QStringLiteral(", ")));
 		return false;
 	}
 
@@ -65,7 +65,7 @@ bool OpVaultReader::decryptBandEntry(
 	const int wantKsize = 16 + 32 + 32 + 32;
 	if (kBA.size() != wantKsize)
 	{
-		qCritical("Malformed \"k\" size; expected %d got %d\n", wantKsize, kBA.size());
+		qCritical() << tr("Malformed \"k\" size; expected %1 got %2\n").arg(wantKsize).arg(kBA.size());
 		return false;
 	}
 
@@ -73,7 +73,7 @@ bool OpVaultReader::decryptBandEntry(
 	const QByteArray &realHmacSig = CryptoHash::hmac(kBA.mid(0, kBA.size() - hmacSig.size()), m_masterHmacKey, CryptoHash::Sha256);
 	if (realHmacSig != hmacSig)
 	{
-		qCritical() << QStringLiteral(R"(Entry "k" failed its HMAC in UUID "%1", wanted "%2" got "%3")")
+		qCritical() << tr("Entry \"k\" failed its HMAC in UUID \"%1\", wanted \"%2\" got \"%3\"")
 			.arg(uuid)
 			.arg(QString::fromUtf8(hmacSig.toHex()))
 			.arg(QString::fromUtf8(realHmacSig));
@@ -86,13 +86,13 @@ bool OpVaultReader::decryptBandEntry(
 	SymmetricCipher cipher;
 	if (!cipher.init(SymmetricCipher::Aes256_CBC, SymmetricCipher::Decrypt, m_masterKey, iv))
 	{
-		qCritical() << "Unable to init cipher using masterKey in UUID " << uuid;
+		qCritical() << tr("Unable to init cipher using masterKey in UUID %1").arg(uuid);
 		return false;
 	}
 
 	if (!cipher.process(keyAndMacKey))
 	{
-		qCritical() << "Unable to decipher \"k\"(key+hmac) in UUID " << uuid;
+		qCritical() << tr("Unable to decipher \"k\"(key+hmac) in UUID %1").arg(uuid);
 		return false;
 	}
 
@@ -103,7 +103,7 @@ bool OpVaultReader::decryptBandEntry(
 	OpData01 entD01;
 	if (!entD01.decodeBase64(dKeyB64, key, hmacKey))
 	{
-		qCritical() << R"(Unable to decipher "d" in UUID ")" << uuid << "\": " << entD01.errorString();
+		qCritical() << tr("Unable to decipher \"d\" in UUID \"%1\": %2").arg(uuid).arg(entD01.errorString());
 		return false;
 	}
 
@@ -118,7 +118,7 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 	const QString uuid = bandEntry.value(QStringLiteral("uuid")).toString();
 	if (!(uuid.size() == 32 || uuid.size() == 36))
 	{
-		qWarning() << QStringLiteral("Skipping suspicious band UUID <<%1>> with length %2").arg(uuid).arg(uuid.size());
+		qWarning() << tr("Skipping suspicious band UUID <<%1>> with length %2").arg(uuid).arg(uuid.size());
 		return nullptr;
 	}
 
@@ -149,13 +149,13 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 
 			if (!found)
 			{
-				qWarning() << QStringLiteral("Unable to place Entry.Category \"%1\" so using the Root instead").arg(category);
+				qWarning() << tr("Unable to place Entry.Category \"%1\" so using the Root instead").arg(category);
 				entry->setGroup(rootGroup);
 			}
 		}
 		else
 		{
-			qWarning() << QStringLiteral(R"(Skipping non-String Category type "%1" in UUID "%2")")
+			qWarning() << tr("Skipping non-String Category type \"%1\" in UUID \"%2\"")
 				.arg(categoryValue.type())
 				.arg(uuid);
 
@@ -164,8 +164,7 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 	}
 	else
 	{
-		qWarning() << "Using the root group because the entry is category-less: <<\n"
-			<< bandEntry << "\n>> in UUID " << uuid;
+		qWarning() << tr("Using the root group because the entry is category-less: <<\n%1\n>> in UUID %2").arg(QJsonDocument(bandEntry).toJson(QJsonDocument::Compact)).arg(uuid);
 		entry->setGroup(rootGroup);
 	}
 
@@ -245,7 +244,7 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 	{
 		if (!sectionValue.isObject())
 		{
-			qWarning() << R"(Skipping non-Object in "sections" for UUID ")" << uuid << "\" << " << sectionsArray << ">>";
+			qWarning() << tr("Skipping non-Object in \"sections\" for UUID \"%1\" << %2 >>").arg(uuid).arg(QJsonDocument(sectionsArray).toJson(QJsonDocument::Compact));
 			continue;
 		}
 
@@ -265,9 +264,7 @@ bool OpVaultReader::fillAttributes(Entry *entry, const QJsonObject &bandEntry)
 	OpData01 entOver01;
 	if (!entOver01.decodeBase64(overviewStr, m_overviewKey, m_overviewHmacKey))
 	{
-		qCritical() << "Unable to decipher 'o' in UUID \"" << entry->uuid() << "\"\n"
-			<< ": " << entOver01.errorString();
-
+		qCritical() << tr("Unable to decipher \"o\" in UUID \"%1\": %2").arg(entry->uuid().toString()).arg(entOver01.errorString());
 		return false;
 	}
 

@@ -48,6 +48,8 @@
 
 #include <vector>
 
+#include <QDebug>
+
 #include <zlib.h>
 
 typedef Bytef ZlibByte;
@@ -306,9 +308,7 @@ void QtIOCompressor::setStreamFormat(StreamFormat format)
 	// Print a waning if the compile-time version of zlib does not support gzip.
 	if (format == GzipFormat && checkGzipSupport(ZLIB_VERSION) == false)
 	{
-		qWarning("QtIOCompressor::setStreamFormat: zlib 1.2.x or higher is "
-			"required to use the gzip format. Current version is: %s",
-			ZLIB_VERSION);
+		qWarning() << tr("QtIOCompressor::setStreamFormat: zlib 1.2.x or higher is required to use the gzip format. Current version is: %1").arg(ZLIB_VERSION);
 	}
 
 	d->streamFormat = format;
@@ -358,7 +358,7 @@ bool QtIOCompressor::open(OpenMode mode)
 	Q_D(QtIOCompressor);
 	if (isOpen())
 	{
-		qWarning("QtIOCompressor::open: device already open");
+		qWarning() << tr("QtIOCompressor::open: device already open");
 		return false;
 	}
 
@@ -369,7 +369,7 @@ bool QtIOCompressor::open(OpenMode mode)
 	const bool neither = !(read || write);
 	if (both || neither)
 	{
-		qWarning("QtIOCompressor::open: QtIOCompressor can only be opened in the ReadOnly or WriteOnly modes");
+		qWarning() << tr("QtIOCompressor::open: QtIOCompressor can only be opened in the ReadOnly or WriteOnly modes");
 		return false;
 	}
 
@@ -380,12 +380,12 @@ bool QtIOCompressor::open(OpenMode mode)
 		const OpenMode deviceMode = d->device->openMode();
 		if (read && !(deviceMode & ReadOnly))
 		{
-			qWarning("QtIOCompressor::open: underlying device must be open in one of the ReadOnly or WriteOnly modes");
+			qWarning() << tr("QtIOCompressor::open: underlying device must be open in one of the ReadOnly or WriteOnly modes");
 			return false;
 		}
 		else if (write && !(deviceMode & WriteOnly))
 		{
-			qWarning("QtIOCompressor::open: underlying device must be open in one of the ReadOnly or WriteOnly modes");
+			qWarning() << tr("QtIOCompressor::open: underlying device must be open in one of the ReadOnly or WriteOnly modes");
 			return false;
 		}
 

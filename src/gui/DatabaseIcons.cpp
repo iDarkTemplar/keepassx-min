@@ -56,7 +56,7 @@ QPixmap DatabaseIcons::icon(int index, IconSize size)
 {
 	if (index < 0 || index >= count())
 	{
-		qWarning("DatabaseIcons::icon: invalid icon index %d, using 0 instead", index);
+		qWarning() << QObject::tr("DatabaseIcons::icon: invalid icon index %1, using 0 instead").arg(index);
 		index = 0;
 		Q_ASSERT_X(false, "DatabaseIcons::icon", "invalid icon index %d");
 	}
@@ -79,7 +79,7 @@ QPixmap DatabaseIcons::applyBadge(const QPixmap &basePixmap, Badges badgeIndex)
 	QPixmap pixmap = basePixmap;
 	if (badgeIndex < 0 || badgeIndex >= badgeList.size())
 	{
-		qWarning("DatabaseIcons: Out-of-range badge index given to applyBadge: %d", badgeIndex);
+		qWarning() << QObject::tr("DatabaseIcons: Out-of-range badge index given to applyBadge: %1").arg(badgeIndex);
 	}
 	else if (!QPixmapCache::find(cacheKey, &pixmap))
 	{

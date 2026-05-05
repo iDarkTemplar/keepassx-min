@@ -17,6 +17,9 @@
 #include "Bootstrap.h"
 #include "config-keepassx.h"
 
+#include <QObject>
+#include <QDebug>
+
 #if defined(HAVE_RLIMIT_CORE)
 #include <sys/resource.h>
 #endif
@@ -58,7 +61,7 @@ void disableCoreDumps()
 
 	if (!success)
 	{
-		qWarning("Unable to disable core dumps.");
+		qWarning() << QObject::tr("Unable to disable core dumps.");
 	}
 }
 // LCOV_EXCL_STOP

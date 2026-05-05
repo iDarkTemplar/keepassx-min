@@ -112,7 +112,7 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 			const QString uuid = bandEnt[QStringLiteral("uuid")].toString();
 			if (entryKey != uuid)
 			{
-				qWarning() << QStringLiteral("Mismatched Entry UUID, its JSON key <<%1>> and its UUID <<%2>>")
+				qWarning() << tr("Mismatched Entry UUID, its JSON key <<%1>> and its UUID <<%2>>")
 					.arg(entryKey)
 					.arg(uuid);
 			}
@@ -123,7 +123,7 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 			{
 				if (!bandEnt.contains(requiredKey))
 				{
-					qCritical() << "Skipping malformed Entry UUID " << uuid << " without key " << requiredKey;
+					qCritical() << tr("Skipping malformed Entry UUID %1 without key %2").arg(uuid).arg(requiredKey);
 					ok = false;
 					break;
 				}
@@ -138,7 +138,7 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 			auto entry = processBandEntry(bandEnt, defaultDir, rootGroup);
 			if (!entry)
 			{
-				qWarning() << "Unable to process Band Entry " << uuid;
+				qWarning() << tr("Unable to process Band Entry %1").arg(uuid);
 			}
 		}
 	}
@@ -229,7 +229,7 @@ bool OpVaultReader::processFolderJson(QJsonObject &foldersJson, Group *rootGroup
 		const QJsonValueRef &folderValue = foldersJson[key];
 		if (!folderValue.isObject())
 		{
-			qWarning() << "Found non-Object folder with key \"" << key << "\"";
+			qWarning() << tr("Found non-Object folder with key \"%1\"").arg(key);
 			continue;
 		}
 
@@ -239,7 +239,7 @@ bool OpVaultReader::processFolderJson(QJsonObject &foldersJson, Group *rootGroup
 		OpData01 foldOverview01;
 		if (!foldOverview01.decodeBase64(overviewStr, m_overviewKey, m_overviewHmacKey))
 		{
-			qCritical() << "Unable to decipher folder UUID \"" << key << "\": " << foldOverview01.errorString();
+			qCritical() << tr("Unable to decipher folder UUID \"%1\": %2").arg(key).arg(foldOverview01.errorString());
 			result = false;
 			continue;
 		}
@@ -261,7 +261,7 @@ bool OpVaultReader::processFolderJson(QJsonObject &foldersJson, Group *rootGroup
 		{
 			if (!overviewJs.contains(QStringLiteral("predicate_b64")))
 			{
-				QString errMsg = QStringLiteral(R"(Expected a predicate in smart folder[uuid="%1"; title="%2"]))").arg(key, folderTitle);
+				QString errMsg = tr("Expected a predicate in smart folder [uuid=\"%1\"; title=\"%2\"]").arg(key, folderTitle);
 				qWarning() << errMsg;
 				myGroup->setNotes(errMsg);
 			}
@@ -315,19 +315,19 @@ QJsonObject OpVaultReader::readAndAssertJsonFile(QFile &file, const QString &str
 	auto absFilePath = fileInfo.absoluteFilePath();
 	if (!fileInfo.exists())
 	{
-		qCritical() << QObject::tr("File \"%1\" must exist").arg(absFilePath);
+		qCritical() << tr("File \"%1\" must exist").arg(absFilePath);
 		return QJsonObject();
 	}
 
 	if (!fileInfo.isReadable())
 	{
-		qCritical() << QObject::tr("File \"%1\" must be readable").arg(absFilePath);
+		qCritical() << tr("File \"%1\" must be readable").arg(absFilePath);
 		return QJsonObject();
 	}
 
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
-		qCritical() << QObject::tr("Unable to open \"%1\" readonly+text").arg(absFilePath);
+		qCritical() << tr("Unable to open \"%1\" readonly+text").arg(absFilePath);
 	}
 
 	filePayload = file.readAll();
@@ -355,7 +355,7 @@ QJsonObject OpVaultReader::readAndAssertJsonFile(QFile &file, const QString &str
 	QJsonDocument jDoc = QJsonDocument::fromJson(filePayload, error);
 	if (!jDoc.isObject())
 	{
-		qCritical() << "Expected " << filePayload << "to be a JSON Object";
+		qCritical() << tr("Expected %1 to be a JSON Object").arg(filePayload);
 		return QJsonObject();
 	}
 

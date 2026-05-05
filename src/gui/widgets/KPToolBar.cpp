@@ -53,7 +53,7 @@ void KPToolBar::setExpanded(bool state)
 {
 	if (canExpand() && !QMetaObject::invokeMethod(layout(), "setExpanded", Q_ARG(bool, state)))
 	{
-		qWarning("Toolbar: Cannot invoke setExpanded!");
+		qWarning() << tr("Toolbar: Cannot invoke setExpanded!");
 	}
 }
 

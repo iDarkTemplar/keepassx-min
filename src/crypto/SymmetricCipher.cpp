@@ -162,7 +162,7 @@ bool SymmetricCipher::aesKdf(const QByteArray &key, int rounds, QByteArray &data
 	}
 	catch (const std::exception &e)
 	{
-		qWarning("SymmetricCipher::aesKdf: Could not process: %s", e.what());
+		qWarning() << QObject::tr("SymmetricCipher::aesKdf: Could not process: %1").arg(e.what());
 		return false;
 	}
 }
@@ -191,7 +191,7 @@ SymmetricCipher::Mode SymmetricCipher::cipherUuidToMode(const QUuid &uuid)
 		return Twofish_CBC;
 	}
 
-	qWarning("SymmetricCipher: Invalid KeePass2 Cipher UUID %s", uuid.toString().toLatin1().data());
+	qWarning() << QObject::tr("SymmetricCipher: Invalid KeePass2 Cipher UUID %1").arg(uuid.toString());
 	return InvalidMode;
 }
 

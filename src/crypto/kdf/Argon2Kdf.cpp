@@ -201,7 +201,7 @@ bool Argon2Kdf::transform(const QByteArray &raw, QByteArray &result) const
 
 	if (rc != ARGON2_OK)
 	{
-		qWarning("Argon2 error: %s", argon2_error_message(rc));
+		qWarning() << QObject::tr("Argon2 error: %1").arg(argon2_error_message(rc));
 		return false;
 	}
 

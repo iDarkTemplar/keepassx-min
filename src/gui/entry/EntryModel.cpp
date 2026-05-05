@@ -261,7 +261,13 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 		case Size:
 			{
 				const int unitsSize = 4;
-				QString units[unitsSize] = {QStringLiteral("B"), QStringLiteral("KiB"), QStringLiteral("MiB"), QStringLiteral("GiB")};
+				QString units[unitsSize] = {
+					tr("B", "file size unit"),
+					tr("KiB", "file size unit"),
+					tr("MiB", "file size unit"),
+					tr("GiB", "file size unit")
+				};
+
 				float resultInt = entry->size();
 
 				for (int i = 0; i < unitsSize; ++i)

@@ -93,7 +93,7 @@ void EntryAttachments::remove(const QString &key)
 {
 	if (!m_attachments.contains(key))
 	{
-		Q_ASSERT_X(false, "EntryAttachments::remove", qPrintable(QStringLiteral("Can't find attachment for key %1").arg(key)));
+		Q_ASSERT_X(false, "EntryAttachments::remove", qPrintable(tr("Can't find attachment for key %1").arg(key)));
 		return;
 	}
 

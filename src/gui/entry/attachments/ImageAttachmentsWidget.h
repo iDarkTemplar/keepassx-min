@@ -60,6 +60,7 @@ private:
 class ImageAttachmentsWidget: public QWidget
 {
 	Q_OBJECT
+
 public:
 	explicit ImageAttachmentsWidget(QWidget *parent = nullptr);
 	~ImageAttachmentsWidget();

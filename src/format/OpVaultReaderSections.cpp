@@ -61,14 +61,14 @@ void OpVaultReader::fillFromSection(Entry *entry, const QJsonObject &section)
 		auto sectionName = section[QStringLiteral("name")].toString();
 		if (!(sectionName.toLower() == QStringLiteral("linked items") && sectionTitle.toLower() == QStringLiteral("related items")))
 		{
-			qWarning() << R"(Skipping "fields"-less Section in UUID ")" << uuid << "\": <<" << section << ">>";
+			qWarning() << tr("Skipping \"fields\"-less Section in UUID \"%1\": << %2 >>").arg(uuid.toString()).arg(QJsonDocument(section).toJson(QJsonDocument::Compact));
 		}
 
 		return;
 	}
 	else if (!section[QStringLiteral("fields")].isArray())
 	{
-		qWarning() << R"(Skipping non-Array "fields" in UUID ")" << uuid << "\"\n";
+		qWarning() << tr("Skipping non-Array \"fields\" in UUID \"%1\"").arg(uuid.toString());
 		return;
 	}
 
@@ -77,7 +77,7 @@ void OpVaultReader::fillFromSection(Entry *entry, const QJsonObject &section)
 	{
 		if (!sectionField.isObject())
 		{
-			qWarning() << R"(Skipping non-Object "fields" in UUID ")" << uuid << "\": << " << sectionField << ">>";
+			qWarning() << tr("Skipping non-Object \"fields\" in UUID \"%1\": << %2 >>").arg(uuid.toString()).arg(sectionField.toString());
 			continue;
 		}
 
@@ -146,7 +146,7 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 		}
 		else
 		{
-			qWarning() << QObject::tr("[%1] Invalid expiration date found: %2").arg(entry->title(), attrValue);
+			qWarning() << tr("[%1] Invalid expiration date found: %2").arg(entry->title(), attrValue);
 		}
 	}
 	else
@@ -160,7 +160,7 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 			}
 			else
 			{
-				qWarning() << QObject::tr("[%1] Invalid date attribute found: %2 = %3").arg(entry->title(), attrName, attrValue);
+				qWarning() << tr("[%1] Invalid date attribute found: %2 = %3").arg(entry->title(), attrName, attrValue);
 			}
 		}
 		else if (kind == QStringLiteral("address"))

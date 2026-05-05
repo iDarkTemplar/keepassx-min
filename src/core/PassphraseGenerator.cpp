@@ -72,7 +72,7 @@ void PassphraseGenerator::setWordList(const QString &path)
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
-		qWarning("Couldn't load passphrase wordlist: %s", qPrintable(path));
+		qWarning() << QObject::tr("Couldn't load passphrase wordlist: %1").arg(path);
 		return;
 	}
 
@@ -115,7 +115,7 @@ void PassphraseGenerator::setWordList(const QString &path)
 
 	if (!isWordListValid())
 	{
-		qWarning("Wordlist is less than minimum acceptable size: %s", qPrintable(path));
+		qWarning() << QObject::tr("Wordlist is less than minimum acceptable size: %1").arg(path);
 	}
 }
 

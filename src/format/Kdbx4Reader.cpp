@@ -272,7 +272,7 @@ bool Kdbx4Reader::readHeaderField(StoreDataStream &device, Database *db)
 		return false;
 
 	default:
-		qWarning("Unknown header field read: id=%d", fieldID);
+		qWarning() << tr("Unknown header field read: id=%1").arg(fieldID);
 		break;
 	}
 

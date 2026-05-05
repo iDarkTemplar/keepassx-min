@@ -37,7 +37,7 @@ QByteArray extractFile(unzFile uf, const QString &filename)
 {
 	if (unzLocateFile(uf, filename.toLatin1(), 2) != UNZ_OK)
 	{
-		qWarning("Failed to extract 1PUX document: %s", qPrintable(filename));
+		qWarning() << QObject::tr("Failed to extract 1PUX document: %1").arg(filename);
 		return {};
 	}
 

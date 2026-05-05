@@ -1098,7 +1098,7 @@ QString Entry::resolveMultiplePlaceholdersRecursive(const QString &str, int maxD
 
 	if (--maxDepth < 0)
 	{
-		qWarning("Maximum depth of replacement has been reached. Entry uuid: %s", uuid().toString().toLatin1().data());
+		qWarning() << tr("Maximum depth of replacement has been reached. Entry uuid: %1").arg(uuid().toString());
 		return str;
 	}
 
@@ -1132,7 +1132,7 @@ QString Entry::resolvePlaceholderRecursive(const QString &placeholder, int maxDe
 {
 	if (--maxDepth < 0)
 	{
-		qWarning("Maximum depth of replacement has been reached. Entry uuid: %s", uuid().toString().toLatin1().data());
+		qWarning() << tr("Maximum depth of replacement has been reached. Entry uuid: %1").arg(uuid().toString());
 		return placeholder;
 	}
 
@@ -1371,7 +1371,7 @@ QString Entry::resolveReferencePlaceholderRecursive(const QString &placeholder, 
 {
 	if (--maxDepth < 0)
 	{
-		qWarning("Maximum depth of replacement has been reached. Entry uuid: %s", uuid().toString().toLatin1().data());
+		qWarning() << tr("Maximum depth of replacement has been reached. Entry uuid: %1").arg(uuid().toString());
 		return placeholder;
 	}
 

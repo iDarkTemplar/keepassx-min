@@ -41,7 +41,7 @@ void Clipboard::setText(const QString &text, bool clear)
 	auto *clipboard = QApplication::clipboard();
 	if (!clipboard)
 	{
-		qWarning("Unable to access the clipboard.");
+		qWarning() << tr("Unable to access the clipboard.");
 		return;
 	}
 
@@ -89,7 +89,7 @@ void Clipboard::clearCopiedText()
 	auto *clipboard = QApplication::clipboard();
 	if (!clipboard)
 	{
-		qWarning("Unable to access the clipboard.");
+		qWarning() << tr("Unable to access the clipboard.");
 		return;
 	}
 

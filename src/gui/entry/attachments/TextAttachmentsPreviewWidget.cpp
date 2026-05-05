@@ -64,7 +64,7 @@ void TextAttachmentsPreviewWidget::openAttachment(attachments::Attachment attach
 {
 	if (mode == attachments::OpenMode::ReadWrite)
 	{
-		qWarning() << "Read-write mode is not supported for text preview attachments";
+		qWarning() << tr("Read-write mode is not supported for text preview attachments");
 	}
 
 	m_attachment = std::move(attachments);
@@ -130,7 +130,7 @@ void TextAttachmentsPreviewWidget::onTypeChanged(int index)
 {
 	if (index < 0)
 	{
-		qWarning() << "TextAttachmentsPreviewWidget: Unknown text format";
+		qWarning() << tr("TextAttachmentsPreviewWidget: Unknown text format");
 	}
 
 	const auto scrollPos = m_ui->previewTextBrowser->verticalScrollBar()->value();

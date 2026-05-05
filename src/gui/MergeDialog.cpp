@@ -196,9 +196,9 @@ void MergeDialog::performMerge()
 	auto changes = Merger(m_sourceDatabase.data(), m_targetDatabase.data()).merge();
 	if (changes != m_changes)
 	{
-		qWarning("Merge results differed from the expected changes. Expected: %d, Actual: %d",
-			m_changes.size(),
-			changes.size());
+		qWarning() << tr("Merge results differed from the expected changes. Expected: %1, Actual: %2")
+			.arg(m_changes.size())
+			.arg(changes.size());
 	}
 
 	Q_EMIT databaseMerged(!changes.isEmpty());

@@ -134,9 +134,9 @@ void DatabaseOpenDialog::tabChanged(int index)
 	else
 	{
 		// if these list sizes don't match, there's a bug somewhere nearby
-		qWarning("DatabaseOpenDialog: mismatch between tab count %d and DB count %d",
-			m_tabBar->count(),
-			m_tabDbWidgets.count());
+		qWarning() << tr("DatabaseOpenDialog: mismatch between tab count %1 and DB count %2")
+			.arg(m_tabBar->count())
+			.arg(m_tabDbWidgets.count());
 	}
 }
 

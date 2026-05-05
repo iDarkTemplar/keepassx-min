@@ -92,14 +92,14 @@ void ScreenLockListenerDBus::login1SessionObjectReceived(QDBusMessage response)
 {
 	if (response.arguments().isEmpty())
 	{
-		qDebug() << "org.freedesktop.login1.Manager.GetSession did not return results";
+		qDebug() << tr("org.freedesktop.login1.Manager.GetSession did not return results");
 		return;
 	}
 
 	QVariant arg0 = response.arguments().at(0);
 	if (!arg0.canConvert<QDBusObjectPath>())
 	{
-		qDebug() << "org.freedesktop.login1.Manager.GetSession did not return a QDBusObjectPath";
+		qDebug() << tr("org.freedesktop.login1.Manager.GetSession did not return a QDBusObjectPath");
 		return;
 	}
 

@@ -55,7 +55,7 @@ double parseZoomText(const QString &zoomText)
 	double zoomFactor = zoomTextTrimmed.toDouble(&ok);
 	if (!ok)
 	{
-		qWarning() << "Failed to parse zoom text:" << zoomText;
+		qWarning() << QObject::tr("Failed to parse zoom text: %1").arg(zoomText);
 		return std::numeric_limits<double>::quiet_NaN();
 	}
 
@@ -181,7 +181,7 @@ void ImageAttachmentsWidget::openAttachment(attachments::Attachment attachment, 
 
 	if (mode == attachments::OpenMode::ReadWrite)
 	{
-		qWarning() << "Read-write mode is not supported for image attachments";
+		qWarning() << tr("Read-write mode is not supported for image attachments");
 	}
 
 	loadImage();
@@ -193,7 +193,7 @@ void ImageAttachmentsWidget::loadImage()
 	pixmap.loadFromData(m_attachment.data);
 	if (pixmap.isNull())
 	{
-		qWarning() << "Failed to load image from data";
+		qWarning() << tr("Failed to load image from data");
 		return;
 	}
 
@@ -238,7 +238,7 @@ void ZoomHelper::setZoomFactor(double zoomFactor)
 {
 	if (std::isnan(zoomFactor))
 	{
-		qWarning() << "Failed to set NaN zoom factor";
+		qWarning() << tr("Failed to set NaN zoom factor");
 		return;
 	}
 

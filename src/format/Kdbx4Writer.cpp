@@ -317,7 +317,7 @@ bool Kdbx4Writer::serializeVariantMap(const QVariantMap &map, QByteArray &output
 			data = v.toByteArray();
 			break;
 		default:
-			qWarning("Unknown object type %d in QVariantMap", v.type());
+			qWarning() << tr("Unknown object type %1 in QVariantMap").arg(v.type());
 			return false;
 		}
 		QByteArray typeBytes;

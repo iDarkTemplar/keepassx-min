@@ -668,7 +668,7 @@ QString KdbxXmlWriter::stripInvalidXml10Chars(QString str)
 		if (ch.isLowSurrogate() && i != 0 && str.at(i - 1).isHighSurrogate())
 		{
 			// keep valid surrogate pair
-			i--;
+			--i;
 		}
 		else if ((uc < 0x20 && uc != 0x09 && uc != 0x0A && uc != 0x0D) // control characters
 			|| (uc >= 0x7F && uc <= 0x84) // control characters, valid but discouraged by XML
@@ -677,7 +677,7 @@ QString KdbxXmlWriter::stripInvalidXml10Chars(QString str)
 			|| ch.isLowSurrogate() // single low surrogate
 			|| ch.isHighSurrogate()) // single high surrogate
 		{
-			qWarning("Stripping invalid XML 1.0 codepoint %x", uc);
+			qWarning() << QObject::tr("Stripping invalid XML 1.0 codepoint %1").arg(QString(ch).toUtf8().toHex());
 			str.remove(i, 1);
 		}
 	}

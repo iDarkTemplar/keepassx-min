@@ -80,7 +80,12 @@ QString humanReadableFileSize(qint64 bytes, quint32 precision)
 	constexpr auto kibibyte = 1024;
 	double size = bytes;
 
-	QStringList units = QStringList() << QStringLiteral("B") << QStringLiteral("KiB") << QStringLiteral("MiB") << QStringLiteral("GiB");
+	QStringList units = QStringList()
+		<< QObject::tr("B", "file size unit")
+		<< QObject::tr("KiB", "file size unit")
+		<< QObject::tr("MiB", "file size unit")
+		<< QObject::tr("GiB", "file size unit");
+
 	int i = 0;
 	int maxI = units.size() - 1;
 

@@ -118,12 +118,12 @@ void KdbxXmlReader::readDatabase(QIODevice *device, Database *db, KeePass2Random
 
 	if (!m_tmpParent->children().isEmpty())
 	{
-		qWarning("KdbxXmlReader::readDatabase: found %d invalid group reference(s)", m_tmpParent->children().size());
+		qWarning() << tr("KdbxXmlReader::readDatabase: found %1 invalid group reference(s)", "", m_tmpParent->children().size()).arg(m_tmpParent->children().size());
 	}
 
 	if (!m_tmpParent->entries().isEmpty())
 	{
-		qWarning("KdbxXmlReader::readDatabase: found %d invalid entry reference(s)", m_tmpParent->children().size());
+		qWarning() << tr("KdbxXmlReader::readDatabase: found %1 invalid entry reference(s)", "", m_tmpParent->children().size()).arg(m_tmpParent->children().size());
 	}
 
 	const QSet<QString> poolKeys = Tools::asSet(m_binaryPool.keys());
@@ -133,12 +133,12 @@ void KdbxXmlReader::readDatabase(QIODevice *device, Database *db, KeePass2Random
 
 	if (!unmappedKeys.isEmpty())
 	{
-		qWarning("Unmapped keys left.");
+		qWarning() << tr("Unmapped keys left.");
 	}
 
 	for (const QString &key: unusedKeys)
 	{
-		qWarning("KdbxXmlReader::readDatabase: found unused key \"%s\"", qPrintable(key));
+		qWarning() << tr("KdbxXmlReader::readDatabase: found unused key \"%1\"").arg(key);
 	}
 
 	QMultiHash<QString, QPair<Entry*, QString>>::const_iterator i;
@@ -236,7 +236,7 @@ bool KdbxXmlReader::parseKeePassFile()
 			if (rootElementFound)
 			{
 				rootParsedSuccessfully = false;
-				qWarning("Multiple root elements");
+				qWarning() << tr("Multiple root elements");
 			}
 			else
 			{
@@ -355,7 +355,7 @@ void KdbxXmlReader::parseMeta()
 			}
 			else
 			{
-				qWarning("HistoryMaxItems invalid number");
+				qWarning() << tr("HistoryMaxItems invalid number");
 			}
 		}
 		else if (m_xml.name() == QStringLiteral("HistoryMaxSize"))
@@ -367,7 +367,7 @@ void KdbxXmlReader::parseMeta()
 			}
 			else
 			{
-				qWarning("HistoryMaxSize invalid number");
+				qWarning() << tr("HistoryMaxSize invalid number");
 			}
 		}
 		else if (m_xml.name() == QStringLiteral("Binaries"))
@@ -509,7 +509,7 @@ void KdbxXmlReader::parseBinaries()
 
 		if (m_binaryPool.contains(id))
 		{
-			qWarning("KdbxXmlReader::parseBinaries: overwriting binary item \"%s\"", qPrintable(id));
+			qWarning() << tr("KdbxXmlReader::parseBinaries: overwriting binary item \"%1\"").arg(id);
 		}
 
 		m_binaryPool.insert(id, data);
@@ -1159,7 +1159,7 @@ QPair<QString, QString> KdbxXmlReader::parseEntryBinary(Entry *entry)
 			// NOTE: This only impacts KDBX 3.x databases
 			// Prepend a random string to the key to make it unique and prevent data loss
 			key = key.prepend(QUuid::createUuid().toString().mid(1, 8) + QStringLiteral("_"));
-			qWarning("Duplicate attachment name found, renamed to: %s", qPrintable(key));
+			qWarning() << tr("Duplicate attachment name found, renamed to: %1").arg(key);
 		}
 
 		entry->attachments()->set(key, value);
@@ -1477,6 +1477,6 @@ Entry* KdbxXmlReader::getEntry(const QUuid &uuid)
 
 void KdbxXmlReader::skipCurrentElement()
 {
-	qWarning("KdbxXmlReader::skipCurrentElement: skip element \"%s\"", qPrintable(m_xml.name().toString()));
+	qWarning() << tr("KdbxXmlReader::skipCurrentElement: skip element \"%1\"").arg(m_xml.name());
 	m_xml.skipCurrentElement();
 }

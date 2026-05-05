@@ -36,7 +36,7 @@ bool KeePass2RandomStream::init(SymmetricCipher::Mode mode, const QByteArray &ke
 			return m_cipher.init(mode, SymmetricCipher::Encrypt, keyIv.left(32), keyIv.mid(32, 12));
 		}
 	default:
-		qWarning("Invalid stream cipher mode (%d)", mode);
+		qWarning() << QObject::tr("Invalid stream cipher mode (%1)").arg(mode);
 		break;
 	}
 

@@ -60,7 +60,7 @@ Resources::Resources()
 
 	if (m_dataPath.isEmpty())
 	{
-		qWarning("Resources::DataPath: can't find data dir");
+		qWarning() << QObject::tr("Resources::DataPath: can't find data dir");
 	}
 }
 

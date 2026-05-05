@@ -553,10 +553,10 @@ Merger::ChangeList Merger::resolveEntryConflict_MergeHistories(
 		Group *currentGroup = targetEntry->group();
 		Entry *clonedEntry = sourceEntry->clone(Entry::CloneIncludeHistory);
 
-		qDebug("Merge %s/%s with alien on top under %s",
-			qPrintable(targetEntry->title()),
-			qPrintable(sourceEntry->title()),
-			qPrintable(currentGroup->name()));
+		qDebug() << tr("Merge %1/%2 with alien on top under %3")
+			.arg(targetEntry->title())
+			.arg(sourceEntry->title())
+			.arg(currentGroup->name());
 
 		changes << Change(
 			Change::Type::Modified,
@@ -569,10 +569,10 @@ Merger::ChangeList Merger::resolveEntryConflict_MergeHistories(
 	}
 	else
 	{
-		qDebug("Merge %s/%s with local on top/under %s",
-			qPrintable(targetEntry->title()),
-			qPrintable(sourceEntry->title()),
-			qPrintable(targetEntry->group()->name()));
+		qDebug() << tr("Merge %1/%2 with local on top/under %3")
+			.arg(targetEntry->title())
+			.arg(sourceEntry->title())
+			.arg(targetEntry->group()->name());
 
 		const bool changed = mergeHistory(sourceEntry, targetEntry, mergeMethod, maxItems);
 		if (changed)
@@ -625,11 +625,10 @@ bool Merger::mergeHistory(
 		if (merged.contains(modificationTime)
 			&& (!merged[modificationTime]->equals(historyItem, CompareItemIgnoreMilliseconds)))
 		{
-			qWarning("Inconsistent history entry of %s[%s] at %s contains conflicting changes - conflict resolution "
-				"may lose data!",
-				qPrintable(sourceEntry->title()),
-				qPrintable(sourceEntry->uuidToHex()),
-				qPrintable(modificationTime.toString(QStringLiteral("yyyy-MM-dd HH-mm-ss-zzz"))));
+			qWarning() << tr("Inconsistent history entry of %1[%2] at %3 contains conflicting changes - conflict resolution may lose data!")
+				.arg(sourceEntry->title())
+				.arg(sourceEntry->uuidToHex())
+				.arg(modificationTime.toString(QStringLiteral("yyyy-MM-dd HH-mm-ss-zzz")));
 		}
 
 		merged[modificationTime] = historyItem->clone(Entry::CloneNoFlags);
@@ -642,10 +641,10 @@ bool Merger::mergeHistory(
 		if (merged.contains(modificationTime)
 			&& (!merged[modificationTime]->equals(historyItem, CompareItemIgnoreMilliseconds)))
 		{
-			qWarning("History entry of %s[%s] at %s contains conflicting changes - conflict resolution may lose data!",
-				qPrintable(sourceEntry->title()),
-				qPrintable(sourceEntry->uuidToHex()),
-				qPrintable(modificationTime.toString(QStringLiteral("yyyy-MM-dd HH-mm-ss-zzz"))));
+			qWarning() << tr("History entry of %1[%2] at %3 contains conflicting changes - conflict resolution may lose data!")
+				.arg(sourceEntry->title())
+				.arg(sourceEntry->uuidToHex())
+				.arg(modificationTime.toString(QStringLiteral("yyyy-MM-dd HH-mm-ss-zzz")));
 		}
 
 		if (preferRemote && merged.contains(modificationTime))
@@ -665,9 +664,9 @@ bool Merger::mergeHistory(
 	if ((targetModificationTime == sourceModificationTime)
 		&& (!targetEntry->equals(sourceEntry, CompareItemIgnoreMilliseconds | CompareItemIgnoreHistory | CompareItemIgnoreLocation)))
 	{
-		qWarning("Entry of %s[%s] contains conflicting changes - conflict resolution may lose data!",
-			qPrintable(sourceEntry->title()),
-			qPrintable(sourceEntry->uuidToHex()));
+		qWarning() << tr("Entry of %1[%2] contains conflicting changes - conflict resolution may lose data!")
+			.arg(sourceEntry->title())
+			.arg(sourceEntry->uuidToHex());
 	}
 
 	if (targetModificationTime < sourceModificationTime)

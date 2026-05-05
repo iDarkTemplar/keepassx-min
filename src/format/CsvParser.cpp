@@ -340,7 +340,7 @@ void CsvParser::ungetChar()
 {
 	if (!m_ts.seek(m_lastPos))
 	{
-		qWarning("CSV Parser: unget lower bound exceeded");
+		qWarning() << QObject::tr("CSV Parser: unget lower bound exceeded");
 		m_isGood = false;
 	}
 }

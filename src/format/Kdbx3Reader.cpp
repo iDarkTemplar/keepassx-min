@@ -228,7 +228,7 @@ bool Kdbx3Reader::readHeaderField(StoreDataStream &headerStream, Database *db)
 		break;
 
 	default:
-		qWarning("Unknown header field read: id=%d", fieldID);
+		qWarning() << tr("Unknown header field read: id=%1").arg(fieldID);
 		break;
 	}
 

@@ -231,7 +231,7 @@ void DatabaseOpenWidget::enterKey(const QString &pw, const QString &keyFile)
 {
 	if (unlockingDatabase())
 	{
-		qWarning("Ignoring unlock request for %s because of running unlock action.", qPrintable(m_filename));
+		qWarning() << tr("Ignoring unlock request for %1 because of running unlock action.").arg(m_filename);
 		return;
 	}
 

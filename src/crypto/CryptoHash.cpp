@@ -18,6 +18,8 @@
 #include "CryptoHash.h"
 
 #include <QScopedPointer>
+#include <QObject>
+#include <QDebug>
 
 #include <botan/hash.h>
 #include <botan/mac.h>
@@ -90,7 +92,7 @@ void CryptoHash::addData(const QByteArray &data)
 	}
 	catch (const std::exception &e)
 	{
-		qWarning("CryptoHash::update failed to add data: %s", e.what());
+		qWarning() << QObject::tr("CryptoHash::update failed to add data: %1").arg(e.what());
 		Q_ASSERT(false);
 	}
 }
@@ -107,7 +109,7 @@ void CryptoHash::setKey(const QByteArray &data)
 		}
 		catch (const std::exception &e)
 		{
-			qWarning("CryptoHash::setKey failed to set HMAC key: %s", e.what());
+			qWarning() << QObject::tr("CryptoHash::setKey failed to set HMAC key: %1").arg(e.what());
 			Q_ASSERT(false);
 		}
 	}

@@ -38,7 +38,7 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 	QFile file(filePath);
 	if (!file.open(QIODevice::ReadOnly))
 	{
-		qCritical() << QObject::tr("Unable to open \"%s\" for reading").arg(file.fileName());
+		qCritical() << tr("Unable to open \"%s\" for reading").arg(file.fileName());
 		return false;
 	}
 
@@ -46,22 +46,23 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 	QByteArray magicBytes = file.read(7);
 	if (magicBytes != magic.toUtf8())
 	{
-		qCritical() << "Expected OPCLDAT but found <<" << magicBytes.toHex() << ">>";
+		qCritical() << tr("Expected OPCLDAT but found << %1 >>").arg(magicBytes.toHex());
 		return false;
 	}
 
 	QByteArray version = file.read(1);
 	if (version[0] != '\001' && version[0] != '\002')
 	{
-		qCritical() << "Unexpected version number; wanted 1 or 2, got <<" << version << ">>";
+		qCritical() << tr("Unexpected version number; wanted 1 or 2, got << %1 >>").arg(version);
 		return false;
 	}
 
 	const QByteArray &metadataLenBytes = file.read(2);
 	if (metadataLenBytes.size() != 2)
 	{
-		qCritical() << "Unable to read all metadata length bytes; wanted 2 bytes, got " << metadataLenBytes.size()
-					<< ": <<" << metadataLenBytes.toHex() << ">>";
+		qCritical() << tr("Unable to read all metadata length bytes; wanted 2 bytes, got %1: << %2 >>")
+			.arg(metadataLenBytes.size())
+			.arg(metadataLenBytes.toHex());
 		return false;
 	}
 
@@ -73,14 +74,14 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 	int junkBytesRead = file.read(2).size();
 	if (junkBytesRead != 2)
 	{
-		qCritical() << "Unable to read all \"junk\" bytes; wanted 2 bytes, got " << junkBytesRead;
+		qCritical() << tr("Unable to read all \"junk\" bytes; wanted 2 bytes, got %1").arg(junkBytesRead);
 		return false;
 	}
 
 	const QByteArray &iconLenBytes = file.read(4);
 	if (iconLenBytes.size() != 4)
 	{
-		qCritical() << "Unable to read all \"iconLen\" bytes; wanted 4 bytes, got " << iconLenBytes.size();
+		qCritical() << tr("Unable to read all \"iconLen\" bytes; wanted 4 bytes, got %1").arg(iconLenBytes.size());
 		return false;
 	}
 
@@ -95,15 +96,18 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 	QByteArray metadataJsonBytes = file.read(metadataLen);
 	if (metadataJsonBytes.size() != metadataLen)
 	{
-		qCritical() << "Unable to read all bytes of metadata JSON; wanted " << metadataLen << "but read "
-					<< metadataJsonBytes.size();
+		qCritical() << tr("Unable to read all bytes of metadata JSON; wanted %1 but read %2")
+			.arg(metadataLen)
+			.arg(metadataJsonBytes.size());
 		return false;
 	}
 
 	QByteArray iconBytes = file.read(iconLen);
 	if (iconBytes.size() != iconLen)
 	{
-		qCritical() << "Unable to read all icon bytes; wanted " << iconLen << "but read " << iconBytes.size();
+		qCritical() << tr("Unable to read all icon bytes; wanted %1 but read %2")
+			.arg(iconLen)
+			.arg(iconBytes.size());
 		// apologies for the icon being fatal, but it would take some gear-turning
 		// to re-sync where in the attach header we are
 		return false;
@@ -114,7 +118,9 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 	OpData01 icon01;
 	if (!icon01.decode(iconBytes, itemKey, itemHmacKey))
 	{
-		qCritical() << "Unable to decipher attachment icon in " << filePath << ": " << icon01.errorString();
+		qCritical() << tr("Unable to decipher attachment icon in %1: %2")
+			.arg(filePath)
+			.arg(icon01.errorString());
 		return false;
 	}
 
@@ -122,14 +128,17 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 	QJsonDocument jDoc = QJsonDocument::fromJson(metadataJsonBytes, &jsError);
 	if (jsError.error != QJsonParseError::ParseError::NoError)
 	{
-		qCritical() << "Found invalid attachment metadata JSON at offset " << jsError.offset << ": error("
-					<< jsError.error << "): " << jsError.errorString() << "\n<<" << metadataJsonBytes << ">>";
+		qCritical() << tr("Found invalid attachment metadata JSON at offset %1: error(%2): %3\n<<%4>>")
+			.arg(jsError.offset)
+			.arg(jsError.error)
+			.arg(jsError.errorString())
+			.arg(metadataJsonBytes);
 		return false;
 	}
 
 	if (!jDoc.isObject())
 	{
-		qCritical() << "Expected " << metadataJsonBytes << "to be a JSON Object";
+		qCritical() << tr("Expected %1 to be a JSON Object").arg(metadataJsonBytes);
 		return false;
 	}
 
@@ -143,7 +152,7 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 	const QByteArray encData = file.readAll();
 	if (!att01.decode(encData, itemKey, itemHmacKey))
 	{
-		qCritical() << "Unable to decipher attachment payload: " << att01.errorString();
+		qCritical() << tr("Unable to decipher attachment payload: %1").arg(att01.errorString());
 		return false;
 	}
 
@@ -175,7 +184,7 @@ void OpVaultReader::fillAttachments(Entry *entry,
 	{
 		if (!info.isReadable())
 		{
-			qCritical() << QObject::tr("Attachment file \"%1\" is not readable").arg(info.absoluteFilePath());
+			qCritical() << tr("Attachment file \"%1\" is not readable").arg(info.absoluteFilePath());
 			continue;
 		}
 
@@ -226,12 +235,12 @@ void OpVaultReader::fillAttachment(Entry *entry,
 		}
 		else
 		{
-			qWarning() << "Expected JSON Object in \"overview\" but nope: " << overDoc;
+			qWarning() << QObject::tr("Expected JSON Object in \"overview\" but nope: %1").arg(overDoc.toJson(QJsonDocument::Compact));
 		}
 	}
 	else
 	{
-		qCritical() << QObject::tr("Unable to decode attach.overview for \"%1\": %2").arg(info.fileName(), over01.errorString());
+		qCritical() << tr("Unable to decode attach.overview for \"%1\": %2").arg(info.fileName(), over01.errorString());
 	}
 
 	QString attachKey = info.baseName();
