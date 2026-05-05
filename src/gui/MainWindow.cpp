@@ -108,7 +108,7 @@ MainWindow::MainWindow()
 	databaseLockMenu->addAction(m_ui->actionLockAllDatabases);
 	m_ui->actionLockDatabaseToolbar->setMenu(databaseLockMenu);
 	auto databaseLockButton =
-		qobject_cast<QToolButton *>(m_ui->toolBar->widgetForAction(m_ui->actionLockDatabaseToolbar));
+		qobject_cast<QToolButton*>(m_ui->toolBar->widgetForAction(m_ui->actionLockDatabaseToolbar));
 	if (databaseLockButton)
 	{
 		databaseLockButton->setPopupMode(QToolButton::MenuButtonPopup);
@@ -926,7 +926,7 @@ bool MainWindow::event(QEvent *event)
 {
 	if (event->type() == QEvent::ShortcutOverride)
 	{
-		const auto keyevent = static_cast<QKeyEvent *>(event);
+		const auto keyevent = static_cast<QKeyEvent*>(event);
 		// Did we get a ShortcutOverride event with the same key sequence as the OS default
 		// copy-to-clipboard shortcut?
 		if (keyevent->matches(QKeySequence::Copy))
@@ -1696,7 +1696,7 @@ bool MainWindowEventFilter::eventFilter(QObject *watched, QEvent *event)
 	}
 	else if (eventType == QEvent::KeyRelease && watched == mainWindow)
 	{
-		auto keyEvent = dynamic_cast<QKeyEvent *>(event);
+		auto keyEvent = dynamic_cast<QKeyEvent*>(event);
 
 		if (keyEvent->key() == Qt::Key_Alt
 			&& !keyEvent->modifiers()

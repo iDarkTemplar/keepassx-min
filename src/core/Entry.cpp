@@ -821,7 +821,7 @@ void Entry::truncateHistory()
 		int size = 0;
 		QSet<QByteArray> foundAttachments = attachments()->values();
 
-		QMutableListIterator<Entry *> i(m_history);
+		QMutableListIterator<Entry*> i(m_history);
 		i.toBack();
 		while (i.hasPrevious())
 		{

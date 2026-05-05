@@ -255,7 +255,7 @@ void ReportsWidgetHealthcheck::loadSettings(QSharedPointer<Database> db)
 	m_referencesModel->clear();
 	m_rowToEntry.clear();
 
-	auto row = QList<QStandardItem *>();
+	auto row = QList<QStandardItem*>();
 	row << new QStandardItem(tr("Please wait, health data is being calculated…"));
 	m_referencesModel->appendRow(row);
 

@@ -66,7 +66,7 @@ bool DatabaseStats::isAvgPwdTooShort() const
 	return (averagePwdLength() < 10);
 }
 
-void DatabaseStats::gatherStats(const QList<Group *> &groups)
+void DatabaseStats::gatherStats(const QList<Group*> &groups)
 {
 	auto checker = HealthChecker(m_db);
 

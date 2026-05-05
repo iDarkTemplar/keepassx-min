@@ -121,7 +121,7 @@ MessageBox::Button MessageBox::messageBox(
 			QList<QAbstractButton*> defPtrList = m_addedButtonLookup.keys(defaultButton);
 			if (defPtrList.count() > 0)
 			{
-				msgBox.setDefaultButton(static_cast<QPushButton *>(defPtrList[0]));
+				msgBox.setDefaultButton(static_cast<QPushButton*>(defPtrList[0]));
 			}
 		}
 

@@ -83,11 +83,11 @@ void CryptoHash::addData(const QByteArray &data)
 	{
 		if (d->hmacFunction)
 		{
-			d->hmacFunction->update(reinterpret_cast<const uint8_t *>(data.data()), data.size());
+			d->hmacFunction->update(reinterpret_cast<const uint8_t*>(data.data()), data.size());
 		}
 		else if (d->hashFunction)
 		{
-			d->hashFunction->update(reinterpret_cast<const uint8_t *>(data.data()), data.size());
+			d->hashFunction->update(reinterpret_cast<const uint8_t*>(data.data()), data.size());
 		}
 	}
 	catch (const std::exception &e)
@@ -105,7 +105,7 @@ void CryptoHash::setKey(const QByteArray &data)
 	{
 		try
 		{
-			d->hmacFunction->set_key(reinterpret_cast<const uint8_t *>(data.data()), data.size());
+			d->hmacFunction->set_key(reinterpret_cast<const uint8_t*>(data.data()), data.size());
 		}
 		catch (const std::exception &e)
 		{
@@ -129,7 +129,7 @@ QByteArray CryptoHash::result() const
 		result = d->hashFunction->final();
 	}
 
-	return QByteArray(reinterpret_cast<const char *>(result.data()), result.size());
+	return QByteArray(reinterpret_cast<const char*>(result.data()), result.size());
 }
 
 QByteArray CryptoHash::hash(const QByteArray &data, Algorithm algo)

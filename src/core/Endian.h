@@ -30,9 +30,9 @@ SizedQInt bytesToSizedInt(const QByteArray &ba, QSysInfo::Endian byteOrder)
 
 	if (byteOrder == QSysInfo::LittleEndian)
 	{
-		return qFromLittleEndian<SizedQInt>(reinterpret_cast<const uchar *>(ba.constData()));
+		return qFromLittleEndian<SizedQInt>(reinterpret_cast<const uchar*>(ba.constData()));
 	}
-	return qFromBigEndian<SizedQInt>(reinterpret_cast<const uchar *>(ba.constData()));
+	return qFromBigEndian<SizedQInt>(reinterpret_cast<const uchar*>(ba.constData()));
 }
 
 template <typename SizedQInt>
@@ -58,11 +58,11 @@ QByteArray sizedIntToBytes(SizedQInt num, QSysInfo::Endian byteOrder)
 
 	if (byteOrder == QSysInfo::LittleEndian)
 	{
-		qToLittleEndian<SizedQInt>(num, reinterpret_cast<uchar *>(ba.data()));
+		qToLittleEndian<SizedQInt>(num, reinterpret_cast<uchar*>(ba.data()));
 	}
 	else
 	{
-		qToBigEndian<SizedQInt>(num, reinterpret_cast<uchar *>(ba.data()));
+		qToBigEndian<SizedQInt>(num, reinterpret_cast<uchar*>(ba.data()));
 	}
 
 	return ba;

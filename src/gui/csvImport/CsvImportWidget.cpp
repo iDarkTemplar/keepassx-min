@@ -118,7 +118,7 @@ CsvImportWidget::~CsvImportWidget()
 void CsvImportWidget::comboChanged(int index)
 {
 	// this line is the one that actually updates GUI table
-	m_parserModel->mapColumns(index - 1, m_combos.indexOf(qobject_cast<QComboBox *>(sender())));
+	m_parserModel->mapColumns(index - 1, m_combos.indexOf(qobject_cast<QComboBox*>(sender())));
 	updateTableview();
 }
 

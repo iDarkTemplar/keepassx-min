@@ -601,7 +601,7 @@ qint64 QtIOCompressor::readData(char *data, qint64 maxSize)
 		// from a previous readData call.
 		if (d->zlibStream.avail_in == 0)
 		{
-			qint64 bytesAvailable = d->device->read(reinterpret_cast<char *>(d->buffer), d->bufferSize);
+			qint64 bytesAvailable = d->device->read(reinterpret_cast<char*>(d->buffer), d->bufferSize);
 			d->zlibStream.next_in = d->buffer;
 			d->zlibStream.avail_in = bytesAvailable;
 

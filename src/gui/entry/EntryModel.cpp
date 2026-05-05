@@ -77,7 +77,7 @@ void EntryModel::setGroup(Group *group)
 	endResetModel();
 }
 
-void EntryModel::setEntries(const QList<Entry *> &entries)
+void EntryModel::setEntries(const QList<Entry*> &entries)
 {
 	beginResetModel();
 

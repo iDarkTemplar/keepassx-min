@@ -37,7 +37,7 @@ bool SymmetricCipher::init(Mode mode, Direction direction, const QByteArray &key
 
 		auto cipher = Botan::Cipher_Mode::create_or_throw(botanMode.toStdString(), botanDirection);
 		m_cipher.reset(cipher.release());
-		m_cipher->set_key(reinterpret_cast<const uint8_t *>(key.data()), key.size());
+		m_cipher->set_key(reinterpret_cast<const uint8_t*>(key.data()), key.size());
 
 		if (!m_cipher->valid_nonce_length(iv.size()))
 		{
@@ -47,7 +47,7 @@ bool SymmetricCipher::init(Mode mode, Direction direction, const QByteArray &key
 			return false;
 		}
 
-		m_cipher->start(reinterpret_cast<const uint8_t *>(iv.data()), iv.size());
+		m_cipher->start(reinterpret_cast<const uint8_t*>(iv.data()), iv.size());
 	}
 	catch (const std::exception &e)
 	{
@@ -85,7 +85,7 @@ bool SymmetricCipher::process(char *data, int len)
 	try
 	{
 		// Block size is checked by Botan, an exception is thrown if invalid
-		m_cipher->process(reinterpret_cast<uint8_t *>(data), len);
+		m_cipher->process(reinterpret_cast<uint8_t*>(data), len);
 		return true;
 	}
 	catch (const std::exception &e)
@@ -148,7 +148,7 @@ bool SymmetricCipher::aesKdf(const QByteArray &key, int rounds, QByteArray &data
 	try
 	{
 		std::unique_ptr<Botan::BlockCipher> cipher(Botan::BlockCipher::create("AES-256"));
-		cipher->set_key(reinterpret_cast<const uint8_t *>(key.data()), key.size());
+		cipher->set_key(reinterpret_cast<const uint8_t*>(key.data()), key.size());
 
 		Botan::secure_vector<uint8_t> out(data.begin(), data.end());
 		for (int i = 0; i < rounds; ++i)

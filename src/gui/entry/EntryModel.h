@@ -67,7 +67,7 @@ public:
 	QMimeData* mimeData(const QModelIndexList &indexes) const override;
 
 	void setGroup(Group *group);
-	void setEntries(const QList<Entry *> &entries);
+	void setEntries(const QList<Entry*> &entries);
 	void setBackgroundColorVisible(bool visible);
 
 private Q_SLOTS:

@@ -80,7 +80,7 @@ void QrCode::init(const QByteArray &data, const Version version, const ErrorCorr
 
 	d_ptr->m_qrcode = QRcode_encodeData(
 		data.size(),
-		reinterpret_cast<const unsigned char *>(data.data()),
+		reinterpret_cast<const unsigned char*>(data.data()),
 		static_cast<int>(version),
 		static_cast<QRecLevel>(ecl));
 }

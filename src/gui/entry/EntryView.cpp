@@ -230,7 +230,7 @@ void EntryView::displayGroup(Group *group)
 	m_inSearchMode = false;
 }
 
-void EntryView::displaySearch(const QList<Entry *> &entries)
+void EntryView::displaySearch(const QList<Entry*> &entries)
 {
 	m_model->setEntries(entries);
 	header()->showSection(EntryModel::ParentGroup);

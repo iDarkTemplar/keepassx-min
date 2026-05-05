@@ -199,7 +199,7 @@ bool DatabaseSettingsWidgetGeneral::saveSettings()
 
 	if (truncate)
 	{
-		const QList<Entry *> allEntries = m_db->rootGroup()->entriesRecursive(false);
+		const QList<Entry*> allEntries = m_db->rootGroup()->entriesRecursive(false);
 		for (Entry *entry: allEntries)
 		{
 			entry->truncateHistory();

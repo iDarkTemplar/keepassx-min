@@ -49,7 +49,7 @@ public:
 	bool setViewState(const QByteArray &state);
 
 	void displayGroup(Group *group);
-	void displaySearch(const QList<Entry *> &entries);
+	void displaySearch(const QList<Entry*> &entries);
 
 Q_SIGNALS:
 	void entryActivated(Entry *entry, EntryModel::ModelColumn column);

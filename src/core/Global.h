@@ -48,7 +48,7 @@ struct AddConst
 
 // this adds const to non-const objects (like std::as_const)
 template <typename T>
-constexpr typename AddConst<T>::Type &asConst(T &t) noexcept
+constexpr typename AddConst<T>::Type& asConst(T &t) noexcept
 {
 	return t;
 }

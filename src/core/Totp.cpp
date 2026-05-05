@@ -338,7 +338,7 @@ QString Totp::generateTotp(const QSharedPointer<Totp::Settings> &settings, bool 
 
 	QMessageAuthenticationCode code(cryptoHash);
 	code.setKey(secret.toByteArray());
-	code.addData(QByteArray(reinterpret_cast<char *>(&current), sizeof(current)));
+	code.addData(QByteArray(reinterpret_cast<char*>(&current), sizeof(current)));
 	QByteArray hmac = code.result();
 
 	int offset = (hmac[hmac.length() - 1] & 0xf);

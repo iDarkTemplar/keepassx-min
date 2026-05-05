@@ -22,7 +22,7 @@
 
 namespace GuiTools {
 
-bool confirmDeleteEntries(QWidget *parent, const QList<Entry *> &entries, bool permanent)
+bool confirmDeleteEntries(QWidget *parent, const QList<Entry*> &entries, bool permanent)
 {
 	if (!parent || entries.isEmpty())
 	{
@@ -79,7 +79,7 @@ bool confirmDeleteEntries(QWidget *parent, const QList<Entry *> &entries, bool p
 	}
 }
 
-bool confirmDeletePluginData(QWidget *parent, const QList<Entry *> &entries)
+bool confirmDeletePluginData(QWidget *parent, const QList<Entry*> &entries)
 {
 	if (!parent || entries.isEmpty())
 	{
@@ -95,7 +95,7 @@ bool confirmDeletePluginData(QWidget *parent, const QList<Entry *> &entries)
 	return answer == MessageBox::Delete;
 }
 
-size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry *> &entries, bool permanent)
+size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry*> &entries, bool permanent)
 {
 	if (!parent || entries.isEmpty())
 	{

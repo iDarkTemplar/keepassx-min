@@ -144,7 +144,7 @@ QVariant EntryHistoryModel::headerData(int section, Qt::Orientation orientation,
 	return {};
 }
 
-void EntryHistoryModel::setEntries(const QList<Entry *> &entries, Entry *parentEntry)
+void EntryHistoryModel::setEntries(const QList<Entry*> &entries, Entry *parentEntry)
 {
 	beginResetModel();
 	m_parentEntry = parentEntry;

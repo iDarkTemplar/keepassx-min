@@ -53,7 +53,7 @@ bool ModifiableObject::modifiedSignalEnabled() const
 			return false;
 		}
 
-		p = findParent<ModifiableObject *>(p);
+		p = findParent<ModifiableObject*>(p);
 	}
 
 	return true;

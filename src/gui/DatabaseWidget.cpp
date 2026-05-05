@@ -632,7 +632,7 @@ void DatabaseWidget::restoreSelectedEntries()
 	}
 }
 
-void DatabaseWidget::deleteEntries(QList<Entry *> selectedEntries, bool confirm)
+void DatabaseWidget::deleteEntries(QList<Entry*> selectedEntries, bool confirm)
 {
 	if (selectedEntries.isEmpty())
 	{
@@ -793,7 +793,7 @@ bool DatabaseWidget::copyFocusedTextSelection()
 
 	const bool clearClipboard = config()->get(Config::Security_ClearClipboard).toBool();
 
-	const auto plainTextEdit = qobject_cast<QPlainTextEdit *>(focusWidget());
+	const auto plainTextEdit = qobject_cast<QPlainTextEdit*>(focusWidget());
 	if (plainTextEdit && plainTextEdit->textCursor().hasSelection())
 	{
 		clipboard()->setText(plainTextEdit->textCursor().selectedText(), clearClipboard);
@@ -1119,7 +1119,7 @@ void DatabaseWidget::mergeDatabase(bool accepted)
 			return;
 		}
 
-		auto *senderDialog = qobject_cast<DatabaseOpenDialog *>(sender());
+		auto *senderDialog = qobject_cast<DatabaseOpenDialog*>(sender());
 		Q_ASSERT(senderDialog);
 		if (!senderDialog)
 		{
@@ -1162,7 +1162,7 @@ void DatabaseWidget::mergeDatabase(bool accepted)
  */
 void DatabaseWidget::unlockDatabase(bool accepted)
 {
-	auto *senderDialog = qobject_cast<DatabaseOpenDialog *>(sender());
+	auto *senderDialog = qobject_cast<DatabaseOpenDialog*>(sender());
 
 	if (!accepted)
 	{

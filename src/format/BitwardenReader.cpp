@@ -416,11 +416,11 @@ QSharedPointer<Database> BitwardenReader::convert(const QString &path, const QSt
 			auto pwd_fam = Botan::PasswordHashFamily::create_or_throw("PBKDF2(SHA-256)");
 			auto pwd_hash = pwd_fam->from_params(iterations);
 			pwd_hash->derive_key(
-				reinterpret_cast<uint8_t *>(key.data()),
+				reinterpret_cast<uint8_t*>(key.data()),
 				key.size(),
 				password.toUtf8().data(),
 				password.toUtf8().size(),
-				reinterpret_cast<uint8_t *>(salt.data()),
+				reinterpret_cast<uint8_t*>(salt.data()),
 				salt.size());
 		}
 		else if (kdfType == 1)
@@ -448,11 +448,11 @@ QSharedPointer<Database> BitwardenReader::convert(const QString &path, const QSt
 
 		// Derive the MAC Key
 		auto stretched_mac = hkdf->derive_key(32, reinterpret_cast<const uint8_t*>(key.data()), key.size(), "", "mac");
-		auto mac = QByteArray(reinterpret_cast<const char *>(stretched_mac.data()), stretched_mac.size());
+		auto mac = QByteArray(reinterpret_cast<const char*>(stretched_mac.data()), stretched_mac.size());
 
 		// Stretch the Master Key
 		auto stretched_key = hkdf->derive_key(32, reinterpret_cast<const uint8_t*>(key.data()), key.size(), "", "enc");
-		key = QByteArray(reinterpret_cast<const char *>(stretched_key.data()), stretched_key.size());
+		key = QByteArray(reinterpret_cast<const char*>(stretched_key.data()), stretched_key.size());
 
 		// Validate the encryption key
 		auto keyList = json.value(QStringLiteral("encKeyValidation_DO_NOT_EDIT")).toString().split(QLatin1Char('.'));

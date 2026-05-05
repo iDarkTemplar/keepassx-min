@@ -504,7 +504,7 @@ void GroupModel::sortChildren(Group *rootGroup, bool reverse)
 	Q_EMIT layoutChanged();
 }
 
-void GroupModel::collectIndexesRecursively(QList<QModelIndex> &indexes, QList<Group *> groups)
+void GroupModel::collectIndexesRecursively(QList<QModelIndex> &indexes, QList<Group*> groups)
 {
 	for (auto group: groups)
 	{

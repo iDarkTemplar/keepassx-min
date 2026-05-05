@@ -467,7 +467,7 @@ bool DatabaseTabWidget::saveDatabaseBackup(int index)
 
 void DatabaseTabWidget::closeDatabaseFromSender()
 {
-	auto *dbWidget = qobject_cast<DatabaseWidget *>(sender());
+	auto *dbWidget = qobject_cast<DatabaseWidget*>(sender());
 	Q_ASSERT(dbWidget);
 	closeDatabaseTab(dbWidget);
 }
@@ -882,7 +882,7 @@ void DatabaseTabWidget::emitActiveDatabaseChanged()
 
 void DatabaseTabWidget::emitDatabaseLockChanged()
 {
-	auto *dbWidget = qobject_cast<DatabaseWidget *>(sender());
+	auto *dbWidget = qobject_cast<DatabaseWidget*>(sender());
 	Q_ASSERT(dbWidget);
 	if (!dbWidget)
 	{

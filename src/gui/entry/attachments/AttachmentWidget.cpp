@@ -84,7 +84,7 @@ void AttachmentWidget::updateUi()
 attachments::Attachment AttachmentWidget::getAttachment() const
 {
 	// Text attachments can be edited at this time so pass this call forward
-	if (auto textWidget = qobject_cast<TextAttachmentsWidget *>(m_attachmentWidget))
+	if (auto textWidget = qobject_cast<TextAttachmentsWidget*>(m_attachmentWidget))
 	{
 		return textWidget->getAttachment();
 	}

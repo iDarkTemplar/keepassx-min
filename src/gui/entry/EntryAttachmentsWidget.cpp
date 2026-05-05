@@ -87,7 +87,7 @@ EntryAttachmentsWidget::EntryAttachmentsWidget(QWidget *parent)
 	});
 
 	connect(m_ui->attachmentsView->itemDelegate(), &QAbstractItemDelegate::commitData, [this](QWidget *editor) {
-		if (auto lineEdit = qobject_cast<QLineEdit *>(editor))
+		if (auto lineEdit = qobject_cast<QLineEdit*>(editor))
 		{
 			auto index = m_attachmentsModel->rowByKey(lineEdit->text());
 			m_ui->attachmentsView->setCurrentIndex(m_attachmentsModel->index(index, 0));
@@ -605,7 +605,7 @@ bool EntryAttachmentsWidget::eventFilter(QObject *watched, QEvent *e)
 		const QEvent::Type eventType = e->type();
 		if (eventType == QEvent::DragEnter || eventType == QEvent::DragMove)
 		{
-			QDropEvent *dropEv = static_cast<QDropEvent *>(e);
+			QDropEvent *dropEv = static_cast<QDropEvent*>(e);
 			const QMimeData *mimeData = dropEv->mimeData();
 			if (mimeData->hasUrls())
 			{
@@ -615,7 +615,7 @@ bool EntryAttachmentsWidget::eventFilter(QObject *watched, QEvent *e)
 		}
 		else if (eventType == QEvent::Drop)
 		{
-			QDropEvent *dropEv = static_cast<QDropEvent *>(e);
+			QDropEvent *dropEv = static_cast<QDropEvent*>(e);
 			const QMimeData *mimeData = dropEv->mimeData();
 			if (mimeData->hasUrls())
 			{

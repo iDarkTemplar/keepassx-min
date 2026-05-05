@@ -50,7 +50,7 @@ QSharedPointer<Botan::RandomNumberGenerator> Random::getRng()
 
 void Random::randomize(QByteArray &ba)
 {
-	m_rng->randomize(reinterpret_cast<uint8_t *>(ba.data()), ba.size());
+	m_rng->randomize(reinterpret_cast<uint8_t*>(ba.data()), ba.size());
 }
 
 QByteArray Random::randomArray(int len)
@@ -74,7 +74,7 @@ quint32 Random::randomUInt(quint32 limit)
 	// To avoid modulo bias make sure rand is below the largest number where rand%limit==0
 	do
 	{
-		m_rng->randomize(reinterpret_cast<uint8_t *>(&rand), 4);
+		m_rng->randomize(reinterpret_cast<uint8_t*>(&rand), 4);
 	} while (rand > ceil);
 
 	return (rand % limit);
