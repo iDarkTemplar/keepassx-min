@@ -27,7 +27,7 @@
 <context>
     <name>Application</name>
     <message>
-        <location filename="../../src/gui/Application.cpp" line="145"/>
+        <location filename="../../src/gui/Application.cpp" line="143"/>
         <source>System default</source>
         <comment>Language selection</comment>
         <translation type="unfinished"></translation>
@@ -729,7 +729,7 @@ Are you sure you want to import?</source>
 <context>
     <name>Database</name>
     <message>
-        <location filename="../../src/core/Database.cpp" line="661"/>
+        <location filename="../../src/core/Database.cpp" line="670"/>
         <source>Passwords</source>
         <comment>Root group name</comment>
         <translation>Heslá</translation>
@@ -776,7 +776,12 @@ Are you sure you want to import?</source>
         <translation>Kľúč nebol transformovaný. Je to chyba, prosím, nahláste ju vývojárom!</translation>
     </message>
     <message>
-        <location filename="../../src/core/Database.cpp" line="988"/>
+        <location filename="../../src/core/Database.cpp" line="508"/>
+        <source>Failed to open file &quot;%1&quot; for reading.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Database.cpp" line="997"/>
         <source>Recycle Bin</source>
         <translation>Kôš</translation>
     </message>
@@ -2459,42 +2464,42 @@ Unfortunately, any changes made have been lost.</source>
         <translation>Použiť ikonu na…</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="164"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="161"/>
         <source>Apply to this group only</source>
         <translation>Použiť len na túto skupinu</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="168"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="165"/>
         <source>Also apply to child groups</source>
         <translation>Použiť aj na podriadené skupiny</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="169"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="166"/>
         <source>Also apply to child entries</source>
         <translation>Použiť aj na podriadené položky</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="170"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="167"/>
         <source>Also apply to all children</source>
         <translation>Použiť na všetkých potomkov</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="182"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="179"/>
         <source>Images</source>
         <translation>Obrázky</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="182"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="179"/>
         <source>All files</source>
         <translation>Všetky súbory</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="183"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="180"/>
         <source>Select Image(s)</source>
         <translation>vyberte obrázok(y)</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="213"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="210"/>
         <source>Successfully loaded %1 of %n icon(s)</source>
         <translation>
             <numerusform>Úspešne načítané %1 z %n ikony</numerusform>
@@ -2503,12 +2508,12 @@ Unfortunately, any changes made have been lost.</source>
         </translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="217"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="214"/>
         <source>No icons were loaded</source>
         <translation>Neboli načítané ikony</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="222"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="219"/>
         <source>%n icon(s) already exist in the database</source>
         <translation>
             <numerusform>%n ikony už v databáze existuje</numerusform>
@@ -2517,7 +2522,7 @@ Unfortunately, any changes made have been lost.</source>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="229"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="226"/>
         <source>The following icon(s) failed:</source>
         <translation>
             <numerusform>Nasledujúca ikona zlyhala:</numerusform>
@@ -2614,30 +2619,30 @@ Môže to spôsobiť nefunkčnosť dotknutých zásuvných modulov.</translation
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1101"/>
-        <location filename="../../src/core/Entry.cpp" line="1135"/>
-        <location filename="../../src/core/Entry.cpp" line="1374"/>
+        <location filename="../../src/core/Entry.cpp" line="1100"/>
+        <location filename="../../src/core/Entry.cpp" line="1134"/>
+        <location filename="../../src/core/Entry.cpp" line="1373"/>
         <source>Maximum depth of replacement has been reached. Entry uuid: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1250"/>
+        <location filename="../../src/core/Entry.cpp" line="1249"/>
         <source>Bad DateTime placeholder type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1306"/>
+        <location filename="../../src/core/Entry.cpp" line="1305"/>
         <source>Invalid conversion type: %1</source>
         <translation>Neplatný typ konverzie: %1</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1318"/>
-        <location filename="../../src/core/Entry.cpp" line="1364"/>
+        <location filename="../../src/core/Entry.cpp" line="1317"/>
+        <location filename="../../src/core/Entry.cpp" line="1363"/>
         <source>Invalid conversion syntax: %1</source>
         <translation>Neplatná syntax konverzie: %1</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1352"/>
+        <location filename="../../src/core/Entry.cpp" line="1351"/>
         <source>Invalid regular expression syntax %1
 %2</source>
         <translation>Neplatná syntax regulárneho výrazu %1
@@ -2704,7 +2709,7 @@ Môže to spôsobiť nefunkčnosť dotknutých zásuvných modulov.</translation
         <translation type="unfinished">Prílohy</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1591"/>
+        <location filename="../../src/core/Entry.cpp" line="1590"/>
         <source>Bad url placeholder type</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3049,126 +3054,126 @@ Prepísať existujúcu prílohu?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="461"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="457"/>
         <source>Group</source>
         <translation>Skupina</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="465"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="461"/>
         <source>Title</source>
         <translation>Nadpis</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="467"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="509"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="463"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="505"/>
         <source>Username</source>
         <translation>Používateľské meno</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="469"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="511"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="465"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="507"/>
         <source>Password</source>
         <translation>Heslo</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="471"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="515"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="467"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="511"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="473"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="469"/>
         <source>Notes</source>
         <translation>Poznámky</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="475"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="471"/>
         <source>Expires</source>
         <translation>Platí do</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="477"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="473"/>
         <source>Created</source>
         <translation>Vytvorené</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="479"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="475"/>
         <source>Modified</source>
         <translation>Upravené</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="481"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="477"/>
         <source>Attachments</source>
         <translation>Prílohy</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="483"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="479"/>
         <source>Size</source>
         <translation>Veľkosť</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="503"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="499"/>
         <source>Group name</source>
         <translation>Názov skupiny</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="507"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="503"/>
         <source>Entry title</source>
         <translation>Názov položky</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="513"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="509"/>
         <source>Password Strength</source>
         <translation>Sila hesla</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="517"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="513"/>
         <source>Entry notes</source>
         <translation>Poznámky položky</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="519"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="515"/>
         <source>Entry expires at</source>
         <translation>Položka platí do</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="521"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="517"/>
         <source>Creation date</source>
         <translation>Dátum vytvorenia</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="523"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="519"/>
         <source>Last modification date</source>
         <translation>Dátum poslednej úpravy</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="525"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="521"/>
         <source>Attached files</source>
         <translation>Pripojené súbory</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="527"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="523"/>
         <source>Entry size</source>
         <translation>Veľkosť položky</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="529"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="525"/>
         <source>Has attachments</source>
         <translation>Má prílohy</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="531"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="527"/>
         <source>Has TOTP</source>
         <translation>Má TOTP</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="533"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="529"/>
         <source>Background Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="463"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="505"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="459"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="501"/>
         <source>Group Path</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4007,17 +4012,17 @@ Ak sa to opakuje, potom môže byť súbor databázy poškodený.</translation>
 <context>
     <name>KdbxXmlReader</name>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="104"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="110"/>
         <source>XML parsing failure: %1</source>
         <translation>Chyba spracovania XML: %1</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="115"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="121"/>
         <source>No root group</source>
         <translation>Žiadna koreňová skupina</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="121"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="127"/>
         <source>KdbxXmlReader::readDatabase: found %1 invalid group reference(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -4026,7 +4031,7 @@ Ak sa to opakuje, potom môže byť súbor databázy poškodený.</translation>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="126"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="132"/>
         <source>KdbxXmlReader::readDatabase: found %1 invalid entry reference(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -4035,17 +4040,17 @@ Ak sa to opakuje, potom môže byť súbor databázy poškodený.</translation>
         </translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="136"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="142"/>
         <source>Unmapped keys left.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="141"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="147"/>
         <source>KdbxXmlReader::readDatabase: found unused key &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="195"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="201"/>
         <source>XML error:
 %1
 Line %2, column %3</source>
@@ -4054,152 +4059,157 @@ Line %2, column %3</source>
 Riadok %2, stĺpec %3</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="239"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="245"/>
         <source>Multiple root elements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="358"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="364"/>
         <source>HistoryMaxItems invalid number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="370"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="376"/>
         <source>HistoryMaxSize invalid number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="491"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="497"/>
         <source>Missing icon uuid or data</source>
         <translation>Chýbajúce UUID ikony alebo dáta</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="512"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="518"/>
         <source>KdbxXmlReader::parseBinaries: overwriting binary item &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="572"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="578"/>
         <source>Missing custom data key or value</source>
         <translation>Chýbajúci kľúč alebo hodnota vlastných dát</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="589"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="595"/>
         <source>Multiple group elements</source>
         <translation>Viaceré položky skupiny</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="633"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="639"/>
         <source>Null group uuid</source>
         <translation>Nulový UUID skupiny</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="673"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="679"/>
         <source>Invalid group icon number</source>
         <translation>Neplatný počet ikon skupiny</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1480"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1486"/>
         <source>KdbxXmlReader::skipCurrentElement: skip element &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="722"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="728"/>
         <source>Invalid EnableSearching value</source>
         <translation>Neplatná hodnota EnableSearching</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="785"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="62"/>
+        <source>Failed to open file &quot;%1&quot; for reading.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="791"/>
         <source>No group uuid found</source>
         <translation>Nenájdené UUID skupiny</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="833"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="839"/>
         <source>Null DeleteObject uuid</source>
         <translation>Nulový UUID DeleteObject</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="860"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="866"/>
         <source>Missing DeletedObject uuid or time</source>
         <translation>Chýbajúci UUID alebo čas DeletedObject</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="882"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="888"/>
         <source>Null entry uuid</source>
         <translation>Nulový UUID položky</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="904"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="910"/>
         <source>Invalid entry icon number</source>
         <translation>Neplatný počet ikon položky</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="981"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="987"/>
         <source>History element in history entry</source>
         <translation>Prvok histórie v položke histórie</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1036"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1042"/>
         <source>No entry uuid found</source>
         <translation>Nenájdené UUID položky</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1045"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1051"/>
         <source>History element with different uuid</source>
         <translation>Prvok histórie s iným UUID</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1102"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1108"/>
         <source>Duplicate custom attribute found</source>
         <translation>Nájdený duplicitný vlastný atribút</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1110"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1116"/>
         <source>Entry string key or value missing</source>
         <translation>Chýba kľúč alebo hodnota reťazca položky</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1162"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1168"/>
         <source>Duplicate attachment name found, renamed to: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1169"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1175"/>
         <source>Entry binary key or value missing</source>
         <translation>Chýba binárny kľúč alebo hodnota položky</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1292"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1298"/>
         <source>Invalid bool value</source>
         <translation>Neplatná logická hodnota</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1314"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1320"/>
         <source>Invalid date time value</source>
         <translation>Neplatná hodnota dátumu/času</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1333"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1339"/>
         <source>Invalid color value</source>
         <translation>Neplatná hodnota farby</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1348"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1354"/>
         <source>Invalid color rgb part</source>
         <translation>neplatná časť RGB farby</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1364"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1370"/>
         <source>Invalid number value</source>
         <translation>Neplatná číselná hodnota</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1382"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1388"/>
         <source>Invalid uuid value</source>
         <translation>Neplatná hodnota UUID</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1430"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1436"/>
         <source>Unable to decompress binary</source>
         <extracomment>Translator meant is a binary data inside an entry</extracomment>
         <translation>Nemožno dekomprimovať binárku</translation>
@@ -5415,70 +5425,70 @@ Naozaj chcete pokračovať s týmto súborom?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="38"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="40"/>
         <source>Band entries must contain a &quot;d&quot; key: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="44"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="46"/>
         <source>Band entries must contain a &quot;k&quot; key: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="68"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="70"/>
         <source>Malformed &quot;k&quot; size; expected %1 got %2
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="76"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="78"/>
         <source>Entry &quot;k&quot; failed its HMAC in UUID &quot;%1&quot;, wanted &quot;%2&quot; got &quot;%3&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="89"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="91"/>
         <source>Unable to init cipher using masterKey in UUID %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="95"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="97"/>
         <source>Unable to decipher &quot;k&quot;(key+hmac) in UUID %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="106"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="108"/>
         <source>Unable to decipher &quot;d&quot; in UUID &quot;%1&quot;: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="121"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="123"/>
         <source>Skipping suspicious band UUID &lt;&lt;%1&gt;&gt; with length %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="152"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="154"/>
         <source>Unable to place Entry.Category &quot;%1&quot; so using the Root instead</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="158"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="160"/>
         <source>Skipping non-String Category type &quot;%1&quot; in UUID &quot;%2&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="167"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="169"/>
         <source>Using the root group because the entry is category-less: &lt;&lt;
 %1
 &gt;&gt; in UUID %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="247"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="249"/>
         <source>Skipping non-Object in &quot;sections&quot; for UUID &quot;%1&quot; &lt;&lt; %2 &gt;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="267"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="269"/>
         <source>Unable to decipher &quot;o&quot; in UUID &quot;%1&quot;: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6101,7 +6111,7 @@ Do you want to overwrite it?</source>
         <translation>Poznámky</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="69"/>
+        <location filename="../../src/main.cpp" line="66"/>
         <source>Displays debugging information.</source>
         <translation>Zobraziť ladiace informácie</translation>
     </message>
@@ -6571,37 +6581,37 @@ Kernel: %3 %4
         <translation>Neočakávané dáta súboru kľúča! Súbor kľúča môže byť poškodený.</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="59"/>
+        <location filename="../../src/main.cpp" line="56"/>
         <source>KeePassX-min - password manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="60"/>
+        <location filename="../../src/main.cpp" line="57"/>
         <source>filenames of the password databases to open (*.kdbxm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="62"/>
+        <location filename="../../src/main.cpp" line="59"/>
         <source>path to a custom config file</source>
         <translation>cesta k vlastnému konfiguračnému súboru</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="63"/>
+        <location filename="../../src/main.cpp" line="60"/>
         <source>path to a custom local config file</source>
         <translation>cesta k vlastnému konfiguračnému súboru</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="115"/>
+        <location filename="../../src/main.cpp" line="112"/>
         <source>KeePassX-min - Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="64"/>
+        <location filename="../../src/main.cpp" line="61"/>
         <source>key file of the database</source>
         <translation>súbor kľúča databázy</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="112"/>
+        <location filename="../../src/main.cpp" line="109"/>
         <source>Fatal error while testing the cryptographic functions.</source>
         <translation>Fatálna chyba pri testovaní kryptografických funkcií.</translation>
     </message>
@@ -6628,120 +6638,120 @@ Kernel: %3 %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="67"/>
-        <location filename="../../src/format/OPUXReader.cpp" line="98"/>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="52"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="69"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="100"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="54"/>
         <source>Favorite</source>
         <comment>Tag for favorite entries</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="366"/>
-        <location filename="../../src/format/OPUXReader.cpp" line="319"/>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="222"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="368"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="321"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="224"/>
         <source>File does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="374"/>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="230"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="376"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="232"/>
         <source>Cannot open file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="382"/>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="238"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="384"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="240"/>
         <source>Cannot parse file: %1 at position %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="392"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="394"/>
         <source>Failed to decrypt json file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="461"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="463"/>
         <source>Invalid encKeyValidation field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="468"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="470"/>
         <source>Invalid cipher list within encKeyValidation field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="479"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="481"/>
         <source>Wrong password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="487"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="489"/>
         <source>Invalid encrypted data field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="494"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="496"/>
         <source>Invalid cipher list within encrypted data field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="504"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="506"/>
         <source>Cannot initialize cipher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="510"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="512"/>
         <source>Cannot decrypt data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="523"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="525"/>
         <source>Bitwarden Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OPUXReader.cpp" line="40"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="42"/>
         <source>Failed to extract 1PUX document: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OPUXReader.cpp" line="103"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="105"/>
         <source>Archived</source>
         <comment>Tag for archived entries</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OPUXReader.cpp" line="327"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="329"/>
         <source>Invalid 1PUX file format: Not a valid ZIP file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OPUXReader.cpp" line="335"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="337"/>
         <source>Invalid 1PUX file format: Missing export.data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OPUXReader.cpp" line="341"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="343"/>
         <source>1Password Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="246"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="248"/>
         <source>Encrypted files are not supported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="251"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="253"/>
         <source>Proton Pass Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="134"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="136"/>
         <source>Passkey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="65"/>
+        <location filename="../../src/main.cpp" line="62"/>
         <source>start minimized to the system tray</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6834,17 +6844,17 @@ Kernel: %3 %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="397"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="399"/>
         <source>Unsupported format, ensure your Bitwarden export is password-protected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="412"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="414"/>
         <source>Invalid KDF iterations, cannot decrypt json file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="443"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="445"/>
         <source>Only PBKDF and Argon2 are supported, cannot decrypt json file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6879,12 +6889,17 @@ Kernel: %3 %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlWriter.cpp" line="36"/>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="37"/>
         <source>KDBX version &gt;= 4 requires explicit binary index map.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlWriter.cpp" line="680"/>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="87"/>
+        <source>Failed to open file &quot;%1&quot; for writing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="687"/>
         <source>Stripping invalid XML 1.0 codepoint %1</source>
         <translation type="unfinished"></translation>
     </message>

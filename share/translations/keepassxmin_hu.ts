@@ -27,7 +27,7 @@
 <context>
     <name>Application</name>
     <message>
-        <location filename="../../src/gui/Application.cpp" line="145"/>
+        <location filename="../../src/gui/Application.cpp" line="143"/>
         <source>System default</source>
         <comment>Language selection</comment>
         <translation type="unfinished"></translation>
@@ -724,7 +724,7 @@ Valóban importálja?</translation>
 <context>
     <name>Database</name>
     <message>
-        <location filename="../../src/core/Database.cpp" line="661"/>
+        <location filename="../../src/core/Database.cpp" line="670"/>
         <source>Passwords</source>
         <comment>Root group name</comment>
         <translation>Jelszavak</translation>
@@ -771,7 +771,12 @@ Valóban importálja?</translation>
         <translation>A kulcs nincs átalakítva. Ez egy hiba, jelezze a fejlesztőknek.</translation>
     </message>
     <message>
-        <location filename="../../src/core/Database.cpp" line="988"/>
+        <location filename="../../src/core/Database.cpp" line="508"/>
+        <source>Failed to open file &quot;%1&quot; for reading.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/Database.cpp" line="997"/>
         <source>Recycle Bin</source>
         <translation>Kuka</translation>
     </message>
@@ -2452,61 +2457,61 @@ Sajnos az esetleges változások elvesztek.</translation>
         <translation>Ikon alkalmazása ehhez…</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="164"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="161"/>
         <source>Apply to this group only</source>
         <translation>Alkalmazás csak ehhez a csoporthoz</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="168"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="165"/>
         <source>Also apply to child groups</source>
         <translation>Alkalmazás az alcsoportokra is</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="169"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="166"/>
         <source>Also apply to child entries</source>
         <translation>Alkalmazás az albejegyzésekre is</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="170"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="167"/>
         <source>Also apply to all children</source>
         <translation>Alkalmazás minden alegységre is</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="182"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="179"/>
         <source>Images</source>
         <translation>Képek</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="182"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="179"/>
         <source>All files</source>
         <translation>Minden fájl</translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="183"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="180"/>
         <source>Select Image(s)</source>
         <translation>Kép kiválasztása</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="213"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="210"/>
         <source>Successfully loaded %1 of %n icon(s)</source>
         <translation>
             <numerusform>%1 / %n ikon sikeresen betöltve</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="217"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="214"/>
         <source>No icons were loaded</source>
         <translation>Egy ikon sem lett betöltve</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="222"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="219"/>
         <source>%n icon(s) already exist in the database</source>
         <translation>
             <numerusform>%n ikon már létezik az adatbázisban</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/EditWidgetIcons.cpp" line="229"/>
+        <location filename="../../src/gui/EditWidgetIcons.cpp" line="226"/>
         <source>The following icon(s) failed:</source>
         <translation>
             <numerusform>A következő ikonnál hiba történt:</numerusform>
@@ -2601,30 +2606,30 @@ Ez a kijelölt bővítmény hibás működését eredményezheti.</translation>
         <translation>Jelkulcso</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1101"/>
-        <location filename="../../src/core/Entry.cpp" line="1135"/>
-        <location filename="../../src/core/Entry.cpp" line="1374"/>
+        <location filename="../../src/core/Entry.cpp" line="1100"/>
+        <location filename="../../src/core/Entry.cpp" line="1134"/>
+        <location filename="../../src/core/Entry.cpp" line="1373"/>
         <source>Maximum depth of replacement has been reached. Entry uuid: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1250"/>
+        <location filename="../../src/core/Entry.cpp" line="1249"/>
         <source>Bad DateTime placeholder type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1306"/>
+        <location filename="../../src/core/Entry.cpp" line="1305"/>
         <source>Invalid conversion type: %1</source>
         <translation>Érvénytelen átalakítási típus: %1</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1318"/>
-        <location filename="../../src/core/Entry.cpp" line="1364"/>
+        <location filename="../../src/core/Entry.cpp" line="1317"/>
+        <location filename="../../src/core/Entry.cpp" line="1363"/>
         <source>Invalid conversion syntax: %1</source>
         <translation>Érvénytelen átalakítási szintaxis: %1</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1352"/>
+        <location filename="../../src/core/Entry.cpp" line="1351"/>
         <source>Invalid regular expression syntax %1
 %2</source>
         <translation>Érvénytelen reguláriskifejezés-szintaxis %1
@@ -2691,7 +2696,7 @@ Ez a kijelölt bővítmény hibás működését eredményezheti.</translation>
         <translation>Mellékletek</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1591"/>
+        <location filename="../../src/core/Entry.cpp" line="1590"/>
         <source>Bad url placeholder type</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3030,126 +3035,126 @@ Valóban felülírható a meglévő melléklet?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="461"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="457"/>
         <source>Group</source>
         <translation>Csoport</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="465"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="461"/>
         <source>Title</source>
         <translation>Cím</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="467"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="509"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="463"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="505"/>
         <source>Username</source>
         <translation>Felhasználónév</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="469"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="511"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="465"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="507"/>
         <source>Password</source>
         <translation>Jelszó</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="471"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="515"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="467"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="511"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="473"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="469"/>
         <source>Notes</source>
         <translation>Jegyzetek</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="475"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="471"/>
         <source>Expires</source>
         <translation>Lejárat</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="477"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="473"/>
         <source>Created</source>
         <translation>Létrehozva</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="479"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="475"/>
         <source>Modified</source>
         <translation>Módosított</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="481"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="477"/>
         <source>Attachments</source>
         <translation>Mellékletek</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="483"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="479"/>
         <source>Size</source>
         <translation>Méret</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="503"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="499"/>
         <source>Group name</source>
         <translation>Csoportnév</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="507"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="503"/>
         <source>Entry title</source>
         <translation>Bejegyzés címe</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="513"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="509"/>
         <source>Password Strength</source>
         <translation>Jelszóerősség</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="517"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="513"/>
         <source>Entry notes</source>
         <translation>Megjegyzés a bejegyzéshez</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="519"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="515"/>
         <source>Entry expires at</source>
         <translation>Bejegyzés lejárata</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="521"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="517"/>
         <source>Creation date</source>
         <translation>Létrehozási dátum</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="523"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="519"/>
         <source>Last modification date</source>
         <translation>Utolsó módosítás dátuma</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="525"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="521"/>
         <source>Attached files</source>
         <translation>Mellékelt fájlok</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="527"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="523"/>
         <source>Entry size</source>
         <translation>Bejegyzés mérete</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="529"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="525"/>
         <source>Has attachments</source>
         <translation>Van melléklete</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="531"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="527"/>
         <source>Has TOTP</source>
         <translation>Van TOTP-je</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="533"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="529"/>
         <source>Background Color</source>
         <translation>Háttérszín</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="463"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="505"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="459"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="501"/>
         <source>Group Path</source>
         <translation>Csoportútvonal</translation>
     </message>
@@ -3984,41 +3989,41 @@ Ha ez újból előfordul, lehet hogy az adatbázisfájl sérült.</translation>
 <context>
     <name>KdbxXmlReader</name>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="104"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="110"/>
         <source>XML parsing failure: %1</source>
         <translation>XML értelmezési hiba: %1</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="115"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="121"/>
         <source>No root group</source>
         <translation>Nincs gyökércsoport</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="121"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="127"/>
         <source>KdbxXmlReader::readDatabase: found %1 invalid group reference(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="126"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="132"/>
         <source>KdbxXmlReader::readDatabase: found %1 invalid entry reference(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="136"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="142"/>
         <source>Unmapped keys left.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="141"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="147"/>
         <source>KdbxXmlReader::readDatabase: found unused key &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="195"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="201"/>
         <source>XML error:
 %1
 Line %2, column %3</source>
@@ -4027,152 +4032,157 @@ Line %2, column %3</source>
 %2. sor, %3. oszlop</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="239"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="245"/>
         <source>Multiple root elements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="358"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="364"/>
         <source>HistoryMaxItems invalid number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="370"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="376"/>
         <source>HistoryMaxSize invalid number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="491"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="497"/>
         <source>Missing icon uuid or data</source>
         <translation>Hiányzó ikon UUID vagy adat</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="512"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="518"/>
         <source>KdbxXmlReader::parseBinaries: overwriting binary item &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="572"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="578"/>
         <source>Missing custom data key or value</source>
         <translation>Hiányzó egyéni adatkulcs vagy -érték</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="589"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="595"/>
         <source>Multiple group elements</source>
         <translation>Többszörös csoportelemek</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="633"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="639"/>
         <source>Null group uuid</source>
         <translation>Null csoport UUID</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="673"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="679"/>
         <source>Invalid group icon number</source>
         <translation>Érvénytelen csoportikonszám</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1480"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1486"/>
         <source>KdbxXmlReader::skipCurrentElement: skip element &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="722"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="728"/>
         <source>Invalid EnableSearching value</source>
         <translation>Érvénytelen EnableSearching érték</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="785"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="62"/>
+        <source>Failed to open file &quot;%1&quot; for reading.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="791"/>
         <source>No group uuid found</source>
         <translation>Nem található a csoport UUID</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="833"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="839"/>
         <source>Null DeleteObject uuid</source>
         <translation>Null DeleteObject UUID</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="860"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="866"/>
         <source>Missing DeletedObject uuid or time</source>
         <translation>Hiányzó DeletedObject UUID vagy idő</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="882"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="888"/>
         <source>Null entry uuid</source>
         <translation>Null bejegyzés UUID</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="904"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="910"/>
         <source>Invalid entry icon number</source>
         <translation>Érvénytelen bejegyzésikonszám</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="981"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="987"/>
         <source>History element in history entry</source>
         <translation>Előzményelem az előzménybejegyzésben</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1036"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1042"/>
         <source>No entry uuid found</source>
         <translation>Nem található bejegyzés UUID</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1045"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1051"/>
         <source>History element with different uuid</source>
         <translation>Előzményelem különböző UUID-vel</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1102"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1108"/>
         <source>Duplicate custom attribute found</source>
         <translation>Kétszeres egyéni attribútum található</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1110"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1116"/>
         <source>Entry string key or value missing</source>
         <translation>Hiányzik a bejegyzés karakterlánckulcsa vagy -értéke </translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1162"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1168"/>
         <source>Duplicate attachment name found, renamed to: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1169"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1175"/>
         <source>Entry binary key or value missing</source>
         <translation>Hiányzik a bejegyzés bináris kulcsa vagy értéke </translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1292"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1298"/>
         <source>Invalid bool value</source>
         <translation>Érvénytelen logikai érték</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1314"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1320"/>
         <source>Invalid date time value</source>
         <translation>Érvénytelen dátum/idő érték</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1333"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1339"/>
         <source>Invalid color value</source>
         <translation>Érvénytelen színérték</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1348"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1354"/>
         <source>Invalid color rgb part</source>
         <translation>Érvénytelen RGB-színrész</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1364"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1370"/>
         <source>Invalid number value</source>
         <translation>Érvénytelen számérték</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1382"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1388"/>
         <source>Invalid uuid value</source>
         <translation>Érvénytelen UUID-érték</translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlReader.cpp" line="1430"/>
+        <location filename="../../src/format/KdbxXmlReader.cpp" line="1436"/>
         <source>Unable to decompress binary</source>
         <extracomment>Translator meant is a binary data inside an entry</extracomment>
         <translation>A bináris nem kibontható</translation>
@@ -5380,70 +5390,70 @@ Valóban folytatható a művelet ezzel a fájllal?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="38"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="40"/>
         <source>Band entries must contain a &quot;d&quot; key: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="44"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="46"/>
         <source>Band entries must contain a &quot;k&quot; key: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="68"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="70"/>
         <source>Malformed &quot;k&quot; size; expected %1 got %2
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="76"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="78"/>
         <source>Entry &quot;k&quot; failed its HMAC in UUID &quot;%1&quot;, wanted &quot;%2&quot; got &quot;%3&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="89"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="91"/>
         <source>Unable to init cipher using masterKey in UUID %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="95"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="97"/>
         <source>Unable to decipher &quot;k&quot;(key+hmac) in UUID %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="106"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="108"/>
         <source>Unable to decipher &quot;d&quot; in UUID &quot;%1&quot;: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="121"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="123"/>
         <source>Skipping suspicious band UUID &lt;&lt;%1&gt;&gt; with length %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="152"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="154"/>
         <source>Unable to place Entry.Category &quot;%1&quot; so using the Root instead</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="158"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="160"/>
         <source>Skipping non-String Category type &quot;%1&quot; in UUID &quot;%2&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="167"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="169"/>
         <source>Using the root group because the entry is category-less: &lt;&lt;
 %1
 &gt;&gt; in UUID %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="247"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="249"/>
         <source>Skipping non-Object in &quot;sections&quot; for UUID &quot;%1&quot; &lt;&lt; %2 &gt;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="267"/>
+        <location filename="../../src/format/OpVaultReaderBandEntry.cpp" line="269"/>
         <source>Unable to decipher &quot;o&quot; in UUID &quot;%1&quot;: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6067,7 +6077,7 @@ Valóban felülírja?</translation>
         <translation>Jegyzetek</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="69"/>
+        <location filename="../../src/main.cpp" line="66"/>
         <source>Displays debugging information.</source>
         <translation>Hibakeresési információk megjelenítése.</translation>
     </message>
@@ -6511,37 +6521,37 @@ Kernel: %3 %4
         <translation>Váratlan kulcsfájladatok. A kulcsfájl megsérülhetett.</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="59"/>
+        <location filename="../../src/main.cpp" line="56"/>
         <source>KeePassX-min - password manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="60"/>
+        <location filename="../../src/main.cpp" line="57"/>
         <source>filenames of the password databases to open (*.kdbxm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="62"/>
+        <location filename="../../src/main.cpp" line="59"/>
         <source>path to a custom config file</source>
         <translation>útvonal az egyéni beállítófájlhoz</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="63"/>
+        <location filename="../../src/main.cpp" line="60"/>
         <source>path to a custom local config file</source>
         <translation>útvonal az egyéni helyi beállítófájlhoz</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="115"/>
+        <location filename="../../src/main.cpp" line="112"/>
         <source>KeePassX-min - Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="64"/>
+        <location filename="../../src/main.cpp" line="61"/>
         <source>key file of the database</source>
         <translation>adatbázis kulcsfájlja</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="112"/>
+        <location filename="../../src/main.cpp" line="109"/>
         <source>Fatal error while testing the cryptographic functions.</source>
         <translation>Végzetes hiba a kriptográfiai funkciók tesztelése közben.</translation>
     </message>
@@ -6568,120 +6578,120 @@ Kernel: %3 %4
         <translation>Érvénytelen KDF</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="67"/>
-        <location filename="../../src/format/OPUXReader.cpp" line="98"/>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="52"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="69"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="100"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="54"/>
         <source>Favorite</source>
         <comment>Tag for favorite entries</comment>
         <translation>Kedvenc</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="366"/>
-        <location filename="../../src/format/OPUXReader.cpp" line="319"/>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="222"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="368"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="321"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="224"/>
         <source>File does not exist.</source>
         <translation>A fájl nem létezik</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="374"/>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="230"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="376"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="232"/>
         <source>Cannot open file: %1</source>
         <translation>A fájl nem nyitható meg: %1</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="382"/>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="238"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="384"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="240"/>
         <source>Cannot parse file: %1 at position %2</source>
         <translation>A fájl nem dolgozható fel: %1, ennél a pozíciónál: %2</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="392"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="394"/>
         <source>Failed to decrypt json file: %1</source>
         <translation>A JSON-fájl visszafejtése sikertelen: %1</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="461"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="463"/>
         <source>Invalid encKeyValidation field</source>
         <translation>Érvénytelen encKeyValidation mező</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="468"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="470"/>
         <source>Invalid cipher list within encKeyValidation field</source>
         <translation>Érvénytelen titkosítólista az encKeyValidation mezőben</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="479"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="481"/>
         <source>Wrong password</source>
         <translation>Hibás jelszó</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="487"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="489"/>
         <source>Invalid encrypted data field</source>
         <translation>Érvénytelen titkosított adatmező</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="494"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="496"/>
         <source>Invalid cipher list within encrypted data field</source>
         <translation>Érvénytelen titkosítólista a titkosított adatmezőben</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="504"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="506"/>
         <source>Cannot initialize cipher</source>
         <translation>A titkosító előkészítése sikertelen</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="510"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="512"/>
         <source>Cannot decrypt data</source>
         <translation>Nem lehet visszafejteni az adatokat</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="523"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="525"/>
         <source>Bitwarden Import</source>
         <translation>Bitwarden import</translation>
     </message>
     <message>
-        <location filename="../../src/format/OPUXReader.cpp" line="40"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="42"/>
         <source>Failed to extract 1PUX document: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/OPUXReader.cpp" line="103"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="105"/>
         <source>Archived</source>
         <comment>Tag for archived entries</comment>
         <translation>Archiválva</translation>
     </message>
     <message>
-        <location filename="../../src/format/OPUXReader.cpp" line="327"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="329"/>
         <source>Invalid 1PUX file format: Not a valid ZIP file.</source>
         <translation>Érvénytelen 1PUX-fájlformátum: nem érvényes ZIP-fájl.</translation>
     </message>
     <message>
-        <location filename="../../src/format/OPUXReader.cpp" line="335"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="337"/>
         <source>Invalid 1PUX file format: Missing export.data</source>
         <translation>Érvénytelen 1PUX-fájlformátum: hiányzó export.data.</translation>
     </message>
     <message>
-        <location filename="../../src/format/OPUXReader.cpp" line="341"/>
+        <location filename="../../src/format/OPUXReader.cpp" line="343"/>
         <source>1Password Import</source>
         <translation>1Password import</translation>
     </message>
     <message>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="246"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="248"/>
         <source>Encrypted files are not supported.</source>
         <translation>A titkosított fájlok nem támogatottak</translation>
     </message>
     <message>
-        <location filename="../../src/format/ProtonPassReader.cpp" line="251"/>
+        <location filename="../../src/format/ProtonPassReader.cpp" line="253"/>
         <source>Proton Pass Import</source>
         <translation>Proton Pass importálás</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="134"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="136"/>
         <source>Passkey</source>
         <translation>Jelkulcso</translation>
     </message>
     <message>
-        <location filename="../../src/main.cpp" line="65"/>
+        <location filename="../../src/main.cpp" line="62"/>
         <source>start minimized to the system tray</source>
         <translation>indítás a rendszertálcára minimalizálva</translation>
     </message>
@@ -6766,17 +6776,17 @@ Kernel: %3 %4
         <translation>Bejegyzés cseréjének megerősítése</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="397"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="399"/>
         <source>Unsupported format, ensure your Bitwarden export is password-protected</source>
         <translation>Nem támogatott formátum, győződjön meg róla, hogy a Bitwarden exportja jelszóval védett.</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="412"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="414"/>
         <source>Invalid KDF iterations, cannot decrypt json file</source>
         <translation>Érvénytelen KDF iterációk, a JSON-fájl nem fejthető vissza</translation>
     </message>
     <message>
-        <location filename="../../src/format/BitwardenReader.cpp" line="443"/>
+        <location filename="../../src/format/BitwardenReader.cpp" line="445"/>
         <source>Only PBKDF and Argon2 are supported, cannot decrypt json file</source>
         <translation>Csak a PBKDF és az Argon2 támogatott, a JSON-fájl nem fejthető vissza</translation>
     </message>
@@ -6811,12 +6821,17 @@ Kernel: %3 %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlWriter.cpp" line="36"/>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="37"/>
         <source>KDBX version &gt;= 4 requires explicit binary index map.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlWriter.cpp" line="680"/>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="87"/>
+        <source>Failed to open file &quot;%1&quot; for writing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="687"/>
         <source>Stripping invalid XML 1.0 codepoint %1</source>
         <translation type="unfinished"></translation>
     </message>
