@@ -87,8 +87,7 @@ public:
 	bool manageDevice;
 	z_stream zlibStream;
 	const int compressionLevel;
-	const ZlibSize bufferSize;
-	ZlibByte *buffer;
+	std::vector<ZlibByte> buffer;
 	State state;
 	QtIOCompressor::StreamFormat streamFormat;
 };
@@ -104,8 +103,6 @@ QtIOCompressorPrivate::QtIOCompressorPrivate(QtIOCompressor *q_ptr,
 	, device(device)
 	, manageDevice(false)
 	, compressionLevel(compressionLevel)
-	, bufferSize(bufferSize)
-	, buffer(new ZlibByte[bufferSize])
 	, state(Closed)
 	, streamFormat(QtIOCompressor::ZlibFormat)
 {
@@ -113,6 +110,8 @@ QtIOCompressorPrivate::QtIOCompressorPrivate(QtIOCompressor *q_ptr,
 	zlibStream.zalloc = Z_NULL;
 	zlibStream.zfree = Z_NULL;
 	zlibStream.opaque = Z_NULL;
+
+	buffer.resize(bufferSize);
 }
 
 /*!
@@ -120,7 +119,6 @@ QtIOCompressorPrivate::QtIOCompressorPrivate(QtIOCompressor *q_ptr,
 */
 QtIOCompressorPrivate::~QtIOCompressorPrivate()
 {
-	delete [] buffer;
 }
 
 /*!
@@ -136,8 +134,8 @@ void QtIOCompressorPrivate::flushZlib(int flushMode)
 
 	do
 	{
-		zlibStream.next_out = buffer;
-		zlibStream.avail_out = bufferSize;
+		zlibStream.next_out = buffer.data();
+		zlibStream.avail_out = buffer.size();
 		status = deflate(&zlibStream, flushMode);
 		if (status != Z_OK && status != Z_STREAM_END)
 		{
@@ -146,10 +144,10 @@ void QtIOCompressorPrivate::flushZlib(int flushMode)
 			return;
 		}
 
-		ZlibSize outputSize = bufferSize - zlibStream.avail_out;
+		ZlibSize outputSize = buffer.size() - zlibStream.avail_out;
 
 		// Try to write data from the buffer to to the underlying device, return on failure.
-		if (!writeBytes(buffer, outputSize))
+		if (!writeBytes(buffer.data(), outputSize))
 			return;
 
 		// If the mode is Z_FINISH we must loop until we get Z_STREAM_END,
@@ -603,8 +601,8 @@ qint64 QtIOCompressor::readData(char *data, qint64 maxSize)
 		// from a previous readData call.
 		if (d->zlibStream.avail_in == 0)
 		{
-			qint64 bytesAvailableValue = d->device->read(reinterpret_cast<char*>(d->buffer), d->bufferSize);
-			d->zlibStream.next_in = d->buffer;
+			qint64 bytesAvailableValue = d->device->read(reinterpret_cast<char*>(d->buffer.data()), d->buffer.size());
+			d->zlibStream.next_in = d->buffer.data();
 			d->zlibStream.avail_in = bytesAvailableValue;
 
 			if (bytesAvailableValue == -1)
@@ -685,8 +683,8 @@ qint64 QtIOCompressor::writeData(const char *data, qint64 maxSize)
 
 	do
 	{
-		d->zlibStream.next_out = d->buffer;
-		d->zlibStream.avail_out = d->bufferSize;
+		d->zlibStream.next_out = d->buffer.data();
+		d->zlibStream.avail_out = d->buffer.size();
 		const int status = deflate(&d->zlibStream, Z_NO_FLUSH);
 
 		if (status != Z_OK)
@@ -696,10 +694,10 @@ qint64 QtIOCompressor::writeData(const char *data, qint64 maxSize)
 			return -1;
 		}
 
-		ZlibSize outputSize = d->bufferSize - d->zlibStream.avail_out;
+		ZlibSize outputSize = d->buffer.size() - d->zlibStream.avail_out;
 
 		// Try to write data from the buffer to to the underlying device, return -1 on failure.
-		if (d->writeBytes(d->buffer, outputSize) == false)
+		if (d->writeBytes(d->buffer.data(), outputSize) == false)
 		{
 			return -1;
 		}
