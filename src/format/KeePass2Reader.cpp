@@ -54,8 +54,6 @@ QSharedPointer<Database> KeePass2Reader::importDatabase(const QString &filename,
 
 QSharedPointer<Database> KeePass2Reader::importDatabase(const QString &filename, QSharedPointer<const CompositeKey> key)
 {
-	// TODO: open database
-
 	auto db = QSharedPointer<Database>::create();
 
 	if (filename.isEmpty())
