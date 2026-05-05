@@ -28,7 +28,7 @@
 #include <QStandardPaths>
 #include <QTemporaryFile>
 
-#define CONFIG_VERSION 2
+#define CONFIG_VERSION 20260505
 #define QS QStringLiteral
 
 enum ConfigType
@@ -361,7 +361,72 @@ static const QHash<QString, Config::ConfigKey> deprecationMap = {
 
 	// 2.7.8
 	{QS("GUI/AdvancedSettings"), Config::Deleted},
-	{QS("Security/PasswordsRepeatVisible"), Config::Deleted}};
+	{QS("Security/PasswordsRepeatVisible"), Config::Deleted},
+
+	// KeePassX-min 20260505
+	{QS("SingleInstance"), Config::Deleted},
+	{QS("UseAtomicSaves"), Config::Deleted},
+	{QS("UseDirectWriteSaves"), Config::Deleted},
+	{QS("MinimizeOnOpenUrl"), Config::Deleted},
+	{QS("OpenURLOnDoubleClick"), Config::Deleted},
+	{QS("AutoTypeEntryTitleMatch"), Config::Deleted},
+	{QS("AutoTypeEntryURLMatch"), Config::Deleted},
+	{QS("AutoTypeDelay"), Config::Deleted},
+	{QS("AutoTypeStartDelay"), Config::Deleted},
+	{QS("AutoTypeHideExpiredEntry"), Config::Deleted},
+	{QS("AutoTypeDialogSortColumn"), Config::Deleted},
+	{QS("AutoTypeDialogSortOrder"), Config::Deleted},
+	{QS("GlobalAutoTypeKey"), Config::Deleted},
+	{QS("GlobalAutoTypeModifiers"), Config::Deleted},
+	{QS("GlobalAutoTypeRetypeTime"), Config::Deleted},
+	{QS("FaviconDownloadTimeout"), Config::Deleted},
+	{QS("UpdateCheckMessageShown"), Config::Deleted},
+	{QS("GUI/Language"), Config::Deleted},
+	{QS("GUI/LaunchAtStartup"), Config::Deleted},
+	{QS("GUI/TrayIconAppearance"), Config::Deleted},
+	{QS("GUI/ApplicationTheme"), Config::Deleted},
+	{QS("GUI/CompactMode"), Config::Deleted},
+	{QS("GUI/CheckForUpdates"), Config::Deleted},
+	{QS("GUI/CheckForUpdatesNextCheck"), Config::Deleted},
+	{QS("GUI/CheckForUpdatesIncludeBetas"), Config::Deleted},
+	{QS("GUI/AutoTypeSelectDialogSize"), Config::Deleted},
+	{QS("Security/LockDatabaseOnUserSwitch"), Config::Deleted},
+	{QS("Security/RelockAutoType"), Config::Deleted},
+	{QS("Security/AutotypeAsk"), Config::Deleted},
+	{QS("Security/AutoTypeSkipMainWindowConfirmation"), Config::Deleted},
+	{QS("Security/IconDownloadFallback"), Config::Deleted},
+	{QS("Security/QuickUnlock"), Config::Deleted},
+	{QS("Browser/Enabled"), Config::Deleted},
+	{QS("Browser/ShowNotification"), Config::Deleted},
+	{QS("Browser/BestMatchOnly"), Config::Deleted},
+	{QS("Browser/UnlockDatabase"), Config::Deleted},
+	{QS("Browser/MatchUrlScheme"), Config::Deleted},
+	{QS("Browser/SupportBrowserProxy"), Config::Deleted},
+	{QS("Browser/UseCustomProxy"), Config::Deleted},
+	{QS("Browser/CustomProxyLocation"), Config::Deleted},
+	{QS("Browser/UpdateBinaryPath"), Config::Deleted},
+	{QS("Browser/AllowExpiredCredentials"), Config::Deleted},
+	{QS("Browser/AlwaysAllowAccess"), Config::Deleted},
+	{QS("Browser/AlwaysAllowUpdate"), Config::Deleted},
+	{QS("Browser/HttpAuthPermission"), Config::Deleted},
+	{QS("Browser/SearchInAllDatabases"), Config::Deleted},
+	{QS("Browser/SupportKphFields"), Config::Deleted},
+	{QS("Browser/NoMigrationPrompt"), Config::Deleted},
+	{QS("Browser/UseCustomBrowser"), Config::Deleted},
+	{QS("Browser/CustomBrowserType"), Config::Deleted},
+	{QS("Browser/CustomBrowserLocation"), Config::Deleted},
+	{QS("Browser/Browser_AllowLocalhostWithPasskeys"), Config::Deleted},
+	{QS("Browser/CustomExtensionId"), Config::Deleted},
+	{QS("SSHAgent/Enabled"), Config::Deleted},
+	{QS("SSHAgent/UseOpenSSH"), Config::Deleted},
+	{QS("SSHAgent/UsePageant"), Config::Deleted},
+	{QS("SSHAgent/AuthSockOverride"), Config::Deleted},
+	{QS("SSHAgent/SecurityKeyProviderOverride"), Config::Deleted},
+	{QS("KeeShare/QuietSuccess"), Config::Deleted},
+	{QS("KeeShare/Own"), Config::Deleted},
+	{QS("KeeShare/Foreign"), Config::Deleted},
+	{QS("KeeShare/Active"), Config::Deleted},
+};
 
 /**
  * Migrate settings from previous versions.
