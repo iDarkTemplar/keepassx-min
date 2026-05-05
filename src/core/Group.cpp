@@ -676,7 +676,7 @@ Entry* Group::findEntryBySearchTerm(const QString &term, EntryReferenceType refe
 {
 	Q_ASSERT_X(referenceType != EntryReferenceType::Unknown,
 		"Database::findEntryRecursive",
-		"Can't search entry with \"referenceType\" parameter equal to \"Unknown\"");
+		qPrintable(tr("Can't search entry with \"referenceType\" parameter equal to \"Unknown\"")));
 
 	const QList<Group*> groups = groupsRecursive(true);
 
@@ -1075,7 +1075,7 @@ void Group::removeEntry(Entry *entry)
 {
 	Q_ASSERT_X(m_entries.contains(entry),
 		Q_FUNC_INFO,
-		tr("Group %1 does not contain %2").arg(this->name(), entry->title()).toLatin1());
+		qPrintable(tr("Group %1 does not contain %2").arg(this->name(), entry->title())));
 
 	Q_EMIT entryAboutToRemove(entry);
 

@@ -1247,7 +1247,7 @@ QString Entry::resolveDateTimePlaceholder(Entry::PlaceholderType placeholderType
 		return time_utc.toString(QStringLiteral("ss"));
 	default:
 		{
-			Q_ASSERT_X(false, "Entry::resolveDateTimePlaceholder", "Bad DateTime placeholder type");
+			Q_ASSERT_X(false, "Entry::resolveDateTimePlaceholder", qPrintable(tr("Bad DateTime placeholder type")));
 			break;
 		}
 	}
@@ -1588,7 +1588,7 @@ QString Entry::resolveUrlPlaceholder(const QString &str, Entry::PlaceholderType 
 		return qurl.password();
 	default:
 		{
-			Q_ASSERT_X(false, "Entry::resolveUrlPlaceholder", "Bad url placeholder type");
+			Q_ASSERT_X(false, "Entry::resolveUrlPlaceholder", qPrintable(tr("Bad url placeholder type")));
 			break;
 		}
 	}

@@ -257,7 +257,7 @@ QString SymmetricCipher::modeToString(const Mode mode)
 	case ChaCha20:
 		return QStringLiteral("ChaCha20");
 	default:
-		Q_ASSERT_X(false, "SymmetricCipher::modeToString", "Invalid Mode Specified");
+		Q_ASSERT_X(false, "SymmetricCipher::modeToString", qPrintable(QObject::tr("Invalid Mode Specified")));
 		return {};
 	}
 }

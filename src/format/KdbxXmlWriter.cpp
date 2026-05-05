@@ -33,7 +33,7 @@ KdbxXmlWriter::KdbxXmlWriter(quint32 version)
 {
 	Q_ASSERT_X(m_kdbxVersion < KeePass2::FILE_VERSION_4,
 		"KDBX version",
-		"KDBX version >= 4 requires explicit binary index map.");
+		qPrintable(QObject::tr("KDBX version >= 4 requires explicit binary index map.")));
 }
 
 KdbxXmlWriter::KdbxXmlWriter(quint32 version, KdbxXmlWriter::BinaryIdxMap binaryIdxMap)

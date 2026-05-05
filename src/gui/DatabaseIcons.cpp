@@ -58,7 +58,7 @@ QPixmap DatabaseIcons::icon(int index, IconSize size)
 	{
 		qWarning() << QObject::tr("DatabaseIcons::icon: invalid icon index %1, using 0 instead").arg(index);
 		index = 0;
-		Q_ASSERT_X(false, "DatabaseIcons::icon", "invalid icon index %d");
+		Q_ASSERT_X(false, "DatabaseIcons::icon", qPrintable(QObject::tr("invalid icon index %1").arg(index)));
 	}
 
 	auto cacheKey = QString::number(index);
