@@ -93,7 +93,7 @@ void EntryAttachments::remove(const QString &key)
 {
 	if (!m_attachments.contains(key))
 	{
-		Q_ASSERT_X(false, "EntryAttachments::remove", qPrintable(QString("Can't find attachment for key %1").arg(key)));
+		Q_ASSERT_X(false, "EntryAttachments::remove", qPrintable(QStringLiteral("Can't find attachment for key %1").arg(key)));
 		return;
 	}
 
@@ -241,9 +241,9 @@ bool EntryAttachments::openAttachment(const QString &key, QString *errorMessage)
 	if (!m_openedAttachments.contains(key))
 	{
 		const QByteArray attachmentData = value(key);
-		auto ext = key.contains(".") ? "." + key.split(".").last() : "";
+		auto ext = key.contains(QStringLiteral(".")) ? QStringLiteral(".") + key.split(QStringLiteral(".")).last() : QString();
 
-		const QString tmpFileTemplate = QDir::temp().absoluteFilePath(QString("XXXXXXXXXXXX").append(ext));
+		const QString tmpFileTemplate = QDir::temp().absoluteFilePath(QStringLiteral("XXXXXXXXXXXX").append(ext));
 
 		QTemporaryFile tmpFile(tmpFileTemplate);
 
@@ -256,7 +256,7 @@ bool EntryAttachments::openAttachment(const QString &key, QString *errorMessage)
 		{
 			if (errorMessage)
 			{
-				*errorMessage = QString("%1 - %2").arg(key, tmpFile.errorString());
+				*errorMessage = QStringLiteral("%1 - %2").arg(key, tmpFile.errorString());
 			}
 
 			return false;
@@ -294,7 +294,7 @@ bool EntryAttachments::openAttachment(const QString &key, QString *errorMessage)
 		{
 			if (errorMessage)
 			{
-				*errorMessage = QString("%1 - %2").arg(key, file.errorString());
+				*errorMessage = QStringLiteral("%1 - %2").arg(key, file.errorString());
 			}
 
 			return false;

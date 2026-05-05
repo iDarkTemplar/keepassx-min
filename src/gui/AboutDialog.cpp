@@ -36,14 +36,14 @@ AboutDialog::AboutDialog(QWidget *parent)
 	setWindowFlags(Qt::Sheet);
 	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-	m_ui->nameLabel->setText(m_ui->nameLabel->text().replace("${VERSION}", KEEPASSXM_VERSION));
+	m_ui->nameLabel->setText(m_ui->nameLabel->text().replace(QStringLiteral("${VERSION}"), QStringLiteral(KEEPASSXM_VERSION)));
 	QFont nameLabelFont = m_ui->nameLabel->font();
 	nameLabelFont.setPointSize(nameLabelFont.pointSize() + 4);
 	m_ui->nameLabel->setFont(nameLabelFont);
 
 	m_ui->iconLabel->setPixmap(icons()->applicationIcon().pixmap(48));
 
-	QString debugInfo = Tools::debugInfo().append("\n").append(Crypto::debugInfo());
+	QString debugInfo = Tools::debugInfo().append(QStringLiteral("\n")).append(Crypto::debugInfo());
 	m_ui->debugInfo->setPlainText(debugInfo);
 
 	setAttribute(Qt::WA_DeleteOnClose);

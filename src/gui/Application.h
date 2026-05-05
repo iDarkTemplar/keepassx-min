@@ -33,12 +33,12 @@ public:
 	Application(int &argc, char **argv);
 	~Application() override;
 
-	static void bootstrap(const QString &uiLanguage = "system");
+	static void bootstrap(const QString &uiLanguage = QStringLiteral("system"));
 	static void applyFontSize();
 
 	bool event(QEvent *event) override;
 
-	void installTranslator(const QString &uiLanguage = "system");
+	void installTranslator(const QString &uiLanguage = QStringLiteral("system"));
 
 	static QList<QPair<QString, QString>> availableLanguages();
 

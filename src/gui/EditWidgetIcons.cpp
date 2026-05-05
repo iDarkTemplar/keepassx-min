@@ -179,8 +179,8 @@ void EditWidgetIcons::addCustomIconFromFile()
 		return;
 	}
 
-	auto filter = QString("%1 (%2);;%3 (*)").arg(tr("Images"), Icons::imageFormatsFilter(), tr("All files"));
-	auto filenames = fileDialog()->getOpenFileNames(this, tr("Select Image(s)"), FileDialog::getLastDir("icons"), filter);
+	auto filter = QStringLiteral("%1 (%2);;%3 (*)").arg(tr("Images"), Icons::imageFormatsFilter(), tr("All files"));
+	auto filenames = fileDialog()->getOpenFileNames(this, tr("Select Image(s)"), FileDialog::getLastDir(QStringLiteral("icons")), filter);
 	if (!filenames.empty())
 	{
 		QStringList errornames;
@@ -203,7 +203,7 @@ void EditWidgetIcons::addCustomIconFromFile()
 		}
 
 		// Save last used directory using first image path
-		FileDialog::saveLastDir("icons", filenames[0]);
+		FileDialog::saveLastDir(QStringLiteral("icons"), filenames[0]);
 
 		int numloaded = filenames.size() - errornames.size() - numexisting;
 		QString msg;
@@ -219,15 +219,14 @@ void EditWidgetIcons::addCustomIconFromFile()
 
 		if (numexisting > 0)
 		{
-			msg += "\n" + tr("%n icon(s) already exist in the database", "", numexisting);
+			msg += QStringLiteral("\n") + tr("%n icon(s) already exist in the database", "", numexisting);
 		}
 
 		if (!errornames.empty())
 		{
 			// Show the first 8 icons that failed to load
 			errornames = errornames.mid(0, 8);
-			Q_EMIT messageEditEntry(msg + "\n" + tr("The following icon(s) failed:", "", errornames.size()) + "\n"
-					+ errornames.join("\n"),
+			Q_EMIT messageEditEntry(msg + QStringLiteral("\n") + tr("The following icon(s) failed:", "", errornames.size()) + QStringLiteral("\n") + errornames.join(QLatin1Char('\n')),
 				MessageWidget::Error);
 		}
 		else if (numloaded > 0)

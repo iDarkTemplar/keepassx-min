@@ -133,7 +133,7 @@ QWidget* EditEntryWidget::widgetForPage(Page page) const
 void EditEntryWidget::setupMain()
 {
 	m_mainUi->setupUi(m_mainWidget);
-	addPage(tr("Entry"), icons()->icon("document-edit"), m_mainWidget);
+	addPage(tr("Entry"), icons()->icon(QStringLiteral("document-edit")), m_mainWidget);
 
 	// Disable mouse wheel grab when scrolling
 	m_mainUi->usernameComboBox->installEventFilter(new MouseWheelEventFilter(this));
@@ -161,7 +161,7 @@ void EditEntryWidget::setupMain()
 void EditEntryWidget::setupAdvanced()
 {
 	m_advancedUi->setupUi(m_advancedWidget);
-	addPage(tr("Advanced"), icons()->icon("preferences-other"), m_advancedWidget);
+	addPage(tr("Advanced"), icons()->icon(QStringLiteral("preferences-other")), m_advancedWidget);
 
 	m_advancedUi->attachmentsWidget->setReadOnly(false);
 	m_advancedUi->attachmentsWidget->setButtonsVisible(true);
@@ -188,18 +188,18 @@ void EditEntryWidget::setupAdvanced()
 void EditEntryWidget::setupIcon()
 {
 	m_iconsWidget->setShowApplyIconToButton(false);
-	addPage(tr("Icon"), icons()->icon("preferences-desktop-icons"), m_iconsWidget);
+	addPage(tr("Icon"), icons()->icon(QStringLiteral("preferences-desktop-icons")), m_iconsWidget);
 }
 
 void EditEntryWidget::setupProperties()
 {
-	addPage(tr("Properties"), icons()->icon("document-properties"), m_editWidgetProperties);
+	addPage(tr("Properties"), icons()->icon(QStringLiteral("document-properties")), m_editWidgetProperties);
 }
 
 void EditEntryWidget::setupHistory()
 {
 	m_historyUi->setupUi(m_historyWidget);
-	addPage(tr("History"), icons()->icon("view-history"), m_historyWidget);
+	addPage(tr("History"), icons()->icon(QStringLiteral("view-history")), m_historyWidget);
 
 	m_sortModel->setSourceModel(m_historyModel);
 	m_sortModel->setDynamicSortFilter(true);
@@ -297,7 +297,7 @@ void EditEntryWidget::useExpiryPreset(QAction *action)
 void EditEntryWidget::toggleHideNotes(bool visible)
 {
 	m_mainUi->notesEdit->setVisible(visible);
-	m_mainUi->revealNotesButton->setIcon(icons()->onOffIcon("password-show", visible));
+	m_mainUi->revealNotesButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), visible));
 }
 
 Entry* EditEntryWidget::currentEntry() const
@@ -319,17 +319,17 @@ void EditEntryWidget::loadEntry(
 
 	if (history)
 	{
-		setHeadline(QString("%1 \u2022 %2").arg(parentName, tr("Entry history")));
+		setHeadline(QStringLiteral("%1 \u2022 %2").arg(parentName, tr("Entry history")));
 	}
 	else
 	{
 		if (create)
 		{
-			setHeadline(QString("%1 \u2022 %2").arg(parentName, tr("Add entry")));
+			setHeadline(QStringLiteral("%1 \u2022 %2").arg(parentName, tr("Add entry")));
 		}
 		else
 		{
-			setHeadline(QString("%1 \u2022 %2 \u2022 %3").arg(parentName, entry->title(), tr("Edit entry")));
+			setHeadline(QStringLiteral("%1 \u2022 %2 \u2022 %3").arg(parentName, entry->title(), tr("Edit entry")));
 			// Reload entry details if changed outside of the edit dialog
 			connect(m_entry, &Entry::modified, this, [this] { m_entryModifiedTimer.start(); });
 		}
@@ -367,7 +367,7 @@ void EditEntryWidget::setForms(Entry *entry, bool restore)
 	m_mainUi->tagsList->completion(m_db->tagList());
 	m_mainUi->expireCheck->setEnabled(!m_history);
 	m_mainUi->expireDatePicker->setReadOnly(m_history);
-	m_mainUi->revealNotesButton->setIcon(icons()->onOffIcon("password-show", false));
+	m_mainUi->revealNotesButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), false));
 	m_mainUi->revealNotesButton->setVisible(config()->get(Config::Security_HideNotes).toBool());
 	m_mainUi->revealNotesButton->setChecked(false);
 	m_mainUi->notesEdit->setReadOnly(m_history);
@@ -438,7 +438,7 @@ void EditEntryWidget::setForms(Entry *entry, bool restore)
 	}
 	else
 	{
-		m_advancedUi->attributesEdit->setPlainText("");
+		m_advancedUi->attributesEdit->setPlainText(QString());
 		m_advancedUi->attributesEdit->setEnabled(false);
 	}
 
@@ -550,21 +550,21 @@ void EditEntryWidget::acceptEntry()
 
 void EditEntryWidget::updateEntryData(Entry *entry) const
 {
-	QRegularExpression newLineRegex("(?:\r?\n|\r)");
+	QRegularExpression newLineRegex(QStringLiteral("(?:\r?\n|\r)"));
 
 	entry->attributes()->copyCustomKeysFrom(m_entryAttributes);
 	entry->attachments()->copyDataFrom(m_attachments.data());
 	entry->customData()->copyDataFrom(m_customData.data());
-	entry->setTitle(m_mainUi->titleEdit->text().replace(newLineRegex, " "));
-	entry->setUsername(m_mainUi->usernameComboBox->lineEdit()->text().replace(newLineRegex, " "));
-	entry->setUrl(m_mainUi->urlEdit->text().replace(newLineRegex, " "));
+	entry->setTitle(m_mainUi->titleEdit->text().replace(newLineRegex, QStringLiteral(" ")));
+	entry->setUsername(m_mainUi->usernameComboBox->lineEdit()->text().replace(newLineRegex, QStringLiteral(" ")));
+	entry->setUrl(m_mainUi->urlEdit->text().replace(newLineRegex, QStringLiteral(" ")));
 	entry->setPassword(m_mainUi->passwordEdit->text());
 	entry->setExpires(m_mainUi->expireCheck->isChecked());
 	entry->setExpiryTime(m_mainUi->expireDatePicker->dateTime().toUTC());
 
 	QStringList uniqueTags(m_mainUi->tagsList->tags());
 	uniqueTags.removeDuplicates();
-	entry->setTags(uniqueTags.join(";"));
+	entry->setTags(uniqueTags.join(QLatin1Char(';')));
 
 	entry->setNotes(m_mainUi->notesEdit->toPlainText());
 
@@ -659,9 +659,9 @@ void EditEntryWidget::clear()
 	m_entry = nullptr;
 	m_db.reset();
 
-	m_mainUi->titleEdit->setText("");
-	m_mainUi->passwordEdit->setText("");
-	m_mainUi->urlEdit->setText("");
+	m_mainUi->titleEdit->setText(QString());
+	m_mainUi->passwordEdit->setText(QString());
+	m_mainUi->urlEdit->setText(QString());
 	m_mainUi->notesEdit->clear();
 
 	m_entryAttributes->clear();
@@ -782,7 +782,7 @@ void EditEntryWidget::displayAttribute(QModelIndex index, bool showProtected)
 	}
 	else
 	{
-		m_advancedUi->attributesEdit->setPlainText("");
+		m_advancedUi->attributesEdit->setPlainText(QString());
 		m_advancedUi->attributesEdit->setEnabled(false);
 		m_advancedUi->revealAttributeButton->setEnabled(false);
 		m_advancedUi->protectAttributeButton->setChecked(false);
@@ -920,13 +920,13 @@ void EditEntryWidget::setupColorButton(bool foreground, const QColor &color)
 
 	if (color.isValid())
 	{
-		button->setStyleSheet(QString("background-color:%1").arg(color.name()));
+		button->setStyleSheet(QStringLiteral("background-color:%1").arg(color.name()));
 		button->setProperty("color", color.name());
 		checkBox->setChecked(true);
 	}
 	else
 	{
-		button->setStyleSheet("");
+		button->setStyleSheet(QString());
 		button->setProperty("color", QVariant());
 		checkBox->setChecked(false);
 	}

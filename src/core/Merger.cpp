@@ -383,7 +383,7 @@ Merger::ChangeList Merger::resolveGroupConflict(const MergeContext &context, con
 			},
 			tr("Modification time"));
 
-		changes << Change(Change::Type::Modified, *sourceChildGroup, modifications.join(", "));
+		changes << Change(Change::Type::Modified, *sourceChildGroup, modifications.join(QStringLiteral(", ")));
 	}
 
 	return changes;
@@ -561,7 +561,7 @@ Merger::ChangeList Merger::resolveEntryConflict_MergeHistories(
 		changes << Change(
 			Change::Type::Modified,
 			*targetEntry,
-			tr("%1 (Add local modifications to new entry)").arg(differences.join(", ")));
+			tr("%1 (Add local modifications to new entry)").arg(differences.join(QStringLiteral(", "))));
 
 		mergeHistory(targetEntry, clonedEntry, mergeMethod, maxItems);
 		eraseEntry(targetEntry);
@@ -580,7 +580,7 @@ Merger::ChangeList Merger::resolveEntryConflict_MergeHistories(
 			changes << Change(
 				Change::Type::Modified,
 				*targetEntry,
-				tr("%1 (Add new modifications to existing entry)").arg(differences.join(", ")));
+				tr("%1 (Add new modifications to existing entry)").arg(differences.join(QStringLiteral(", "))));
 		}
 	}
 
@@ -629,7 +629,7 @@ bool Merger::mergeHistory(
 				"may lose data!",
 				qPrintable(sourceEntry->title()),
 				qPrintable(sourceEntry->uuidToHex()),
-				qPrintable(modificationTime.toString("yyyy-MM-dd HH-mm-ss-zzz")));
+				qPrintable(modificationTime.toString(QStringLiteral("yyyy-MM-dd HH-mm-ss-zzz"))));
 		}
 
 		merged[modificationTime] = historyItem->clone(Entry::CloneNoFlags);
@@ -645,7 +645,7 @@ bool Merger::mergeHistory(
 			qWarning("History entry of %s[%s] at %s contains conflicting changes - conflict resolution may lose data!",
 				qPrintable(sourceEntry->title()),
 				qPrintable(sourceEntry->uuidToHex()),
-				qPrintable(modificationTime.toString("yyyy-MM-dd HH-mm-ss-zzz")));
+				qPrintable(modificationTime.toString(QStringLiteral("yyyy-MM-dd HH-mm-ss-zzz"))));
 		}
 
 		if (preferRemote && merged.contains(modificationTime))

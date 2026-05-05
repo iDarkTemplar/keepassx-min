@@ -38,11 +38,11 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 	QFile file(filePath);
 	if (!file.open(QIODevice::ReadOnly))
 	{
-		qCritical() << QString("Unable to open \"%s\" for reading").arg(file.fileName());
+		qCritical() << QObject::tr("Unable to open \"%s\" for reading").arg(file.fileName());
 		return false;
 	}
 
-	QString magic("OPCLDAT");
+	QString magic = QStringLiteral("OPCLDAT");
 	QByteArray magicBytes = file.read(7);
 	if (magicBytes != magic.toUtf8())
 	{
@@ -134,7 +134,7 @@ bool OpVaultReader::readAttachment(const QString &filePath,
 	}
 
 	metadata = jDoc.object();
-	if (metadata.contains("trashed") && metadata["trashed"].toBool())
+	if (metadata.contains(QStringLiteral("trashed")) && metadata[QStringLiteral("trashed")].toBool())
 	{
 		return false;
 	}
@@ -163,7 +163,7 @@ void OpVaultReader::fillAttachments(Entry *entry,
 	 * Attachment files are named with the UUID of the item that they are attached to followed by an underscore
 	 * and then followed by the UUID of the attachment itself. The file is then given the extension .attachment.
 	 */
-	auto fileFilter = QString("%1_*.attachment").arg(entry->uuidToHex().toUpper());
+	auto fileFilter = QStringLiteral("%1_*.attachment").arg(entry->uuidToHex().toUpper());
 	const auto &attachInfoList = attachmentDir.entryInfoList(QStringList() << fileFilter, QDir::Files);
 	int attachmentCount = attachInfoList.size();
 	if (attachmentCount == 0)
@@ -175,7 +175,7 @@ void OpVaultReader::fillAttachments(Entry *entry,
 	{
 		if (!info.isReadable())
 		{
-			qCritical() << QString("Attachment file \"%1\" is not readable").arg(info.absoluteFilePath());
+			qCritical() << QObject::tr("Attachment file \"%1\" is not readable").arg(info.absoluteFilePath());
 			continue;
 		}
 
@@ -195,13 +195,13 @@ void OpVaultReader::fillAttachment(Entry *entry,
 		return;
 	}
 
-	if (!attachMetadata.contains("overview"))
+	if (!attachMetadata.contains(QStringLiteral("overview")))
 	{
-		qWarning() << "Expected \"overview\" in attachment metadata";
+		qWarning() << QObject::tr("Expected \"overview\" in attachment metadata");
 		return;
 	}
 
-	const QString &overB64 = attachMetadata["overview"].toString();
+	const QString &overB64 = attachMetadata[QStringLiteral("overview")].toString();
 	OpData01 over01;
 
 	if (over01.decodeBase64(overB64, m_overviewKey, m_overviewHmacKey))
@@ -211,14 +211,14 @@ void OpVaultReader::fillAttachment(Entry *entry,
 		if (overDoc.isObject())
 		{
 			QJsonObject overObj = overDoc.object();
-			attachMetadata.remove("overview");
+			attachMetadata.remove(QStringLiteral("overview"));
 			for (QString &key: overObj.keys())
 			{
 				const QJsonValueRef &value = overObj[key];
 				QString insertAs = key;
 				for (int aa = 0; attachMetadata.contains(insertAs) && aa < 5; ++aa)
 				{
-					insertAs = QString("%1_%2").arg(key, aa);
+					insertAs = QStringLiteral("%1_%2").arg(key, aa);
 				}
 
 				attachMetadata[insertAs] = value;
@@ -231,53 +231,27 @@ void OpVaultReader::fillAttachment(Entry *entry,
 	}
 	else
 	{
-		qCritical() << QString("Unable to decode attach.overview for \"%1\": %2").arg(info.fileName(), over01.errorString());
-	}
-
-	QByteArray payload;
-	payload.append(QString("attachment file is actually %1 bytes\n").arg(info.size()).toUtf8());
-	for (QString &key: attachMetadata.keys())
-	{
-		const QJsonValueRef &value = attachMetadata[key];
-		QByteArray valueBytes;
-		if (value.isString())
-		{
-			valueBytes = value.toString().toUtf8();
-		}
-		else if (value.isDouble())
-		{
-			valueBytes = QString("%1").arg(value.toInt()).toUtf8();
-		}
-		else if (value.isBool())
-		{
-			valueBytes = value.toBool() ? "true" : "false";
-		}
-		else
-		{
-			valueBytes = QString("Unexpected metadata type in attachment: %1").arg(value.type()).toUtf8();
-		}
-
-		payload.append(key.toUtf8()).append(":=").append(valueBytes).append("\n");
+		qCritical() << QObject::tr("Unable to decode attach.overview for \"%1\": %2").arg(info.fileName(), over01.errorString());
 	}
 
 	QString attachKey = info.baseName();
-	if (attachMetadata.contains("filename"))
+	if (attachMetadata.contains(QStringLiteral("filename")))
 	{
-		QJsonValueRef attFilename = attachMetadata["filename"];
+		QJsonValueRef attFilename = attachMetadata[QStringLiteral("filename")];
 		if (attFilename.isString())
 		{
 			attachKey = attFilename.toString();
 		}
 		else
 		{
-			qWarning() << QString("Unexpected type of attachment \"filename\": %1").arg(attFilename.type());
+			qWarning() << QObject::tr("Unexpected type of attachment \"filename\": %1").arg(attFilename.type());
 		}
 	}
 
 	if (entry->attachments()->hasKey(attachKey))
 	{
 		// Prepend a random string to the attachment name to avoid collisions
-		attachKey.prepend(QString("%1_").arg(QUuid::createUuid().toString().mid(1, 5)));
+		attachKey.prepend(QStringLiteral("%1_").arg(QUuid::createUuid().toString().mid(1, 5)));
 	}
 
 	entry->attachments()->set(attachKey, attachPayload);

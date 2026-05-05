@@ -63,17 +63,17 @@ QString CsvExporter::errorString() const
 QString CsvExporter::exportHeader()
 {
 	QString header;
-	addColumn(header, "Group");
-	addColumn(header, "Title");
-	addColumn(header, "Username");
-	addColumn(header, "Password");
-	addColumn(header, "URL");
-	addColumn(header, "Notes");
-	addColumn(header, "TOTP");
-	addColumn(header, "Icon");
-	addColumn(header, "Last Modified");
-	addColumn(header, "Created");
-	return header + QString("\n");
+	addColumn(header, QStringLiteral("Group"));
+	addColumn(header, QStringLiteral("Title"));
+	addColumn(header, QStringLiteral("Username"));
+	addColumn(header, QStringLiteral("Password"));
+	addColumn(header, QStringLiteral("URL"));
+	addColumn(header, QStringLiteral("Notes"));
+	addColumn(header, QStringLiteral("TOTP"));
+	addColumn(header, QStringLiteral("Icon"));
+	addColumn(header, QStringLiteral("Last Modified"));
+	addColumn(header, QStringLiteral("Created"));
+	return header + QStringLiteral("\n");
 }
 
 QString CsvExporter::exportGroup(const Group *group, QString groupPath)
@@ -81,7 +81,7 @@ QString CsvExporter::exportGroup(const Group *group, QString groupPath)
 	QString response;
 	if (!groupPath.isEmpty())
 	{
-		groupPath.append("/");
+		groupPath.append(QStringLiteral("/"));
 	}
 
 	groupPath.append(group->name());
@@ -102,7 +102,7 @@ QString CsvExporter::exportGroup(const Group *group, QString groupPath)
 		addColumn(line, entry->timeInfo().lastModificationTime().toString(Qt::ISODate));
 		addColumn(line, entry->timeInfo().creationTime().toString(Qt::ISODate));
 
-		line.append("\n");
+		line.append(QStringLiteral("\n"));
 		response.append(line);
 	}
 
@@ -119,10 +119,10 @@ void CsvExporter::addColumn(QString &str, const QString &column)
 {
 	if (!str.isEmpty())
 	{
-		str.append(",");
+		str.append(QStringLiteral(","));
 	}
 
-	str.append("\"");
-	str.append(QString(column).replace("\"", "\"\""));
-	str.append("\"");
+	str.append(QStringLiteral("\""));
+	str.append(QString(column).replace(QStringLiteral("\""), QStringLiteral("\"\"")));
+	str.append(QStringLiteral("\""));
 }

@@ -44,11 +44,11 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 {
 	// Create the item map and extract the folder id
 	const auto itemMap = item.toVariantMap();
-	folderId = itemMap.value("folderId").toString();
+	folderId = itemMap.value(QStringLiteral("folderId")).toString();
 	if (folderId.isEmpty())
 	{
 		// Bitwarden organization vaults use collectionId instead of folderId
-		auto collectionIds = itemMap.value("collectionIds").toStringList();
+		auto collectionIds = itemMap.value(QStringLiteral("collectionIds")).toStringList();
 		if (!collectionIds.empty())
 		{
 			folderId = collectionIds.first();
@@ -59,29 +59,29 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 	QScopedPointer<Entry> entry(new Entry());
 	entry->setEmitModified(false);
 	entry->setUuid(QUuid::createUuid());
-	entry->setTitle(itemMap.value("name").toString());
-	entry->setNotes(itemMap.value("notes").toString());
+	entry->setTitle(itemMap.value(QStringLiteral("name")).toString());
+	entry->setNotes(itemMap.value(QStringLiteral("notes")).toString());
 
-	if (itemMap.value("favorite").toBool())
+	if (itemMap.value(QStringLiteral("favorite")).toBool())
 	{
 		entry->addTag(QObject::tr("Favorite", "Tag for favorite entries"));
 	}
 
 	// Parse login details if present
-	if (itemMap.contains("login"))
+	if (itemMap.contains(QStringLiteral("login")))
 	{
-		const auto loginMap = itemMap.value("login").toMap();
-		entry->setUsername(loginMap.value("username").toString());
-		entry->setPassword(loginMap.value("password").toString());
-		if (loginMap.contains("totp"))
+		const auto loginMap = itemMap.value(QStringLiteral("login")).toMap();
+		entry->setUsername(loginMap.value(QStringLiteral("username")).toString());
+		entry->setPassword(loginMap.value(QStringLiteral("password")).toString());
+		if (loginMap.contains(QStringLiteral("totp")))
 		{
-			auto totp = loginMap.value("totp").toString();
-			if (!totp.startsWith("otpauth://"))
+			auto totp = loginMap.value(QStringLiteral("totp")).toString();
+			if (!totp.startsWith(QStringLiteral("otpauth://")))
 			{
-				QUrl url(QString("otpauth://totp/%1:%2?secret=%3")
-					.arg(QString(QUrl::toPercentEncoding(entry->title())),
-						QString(QUrl::toPercentEncoding(entry->username())),
-						QString(QUrl::toPercentEncoding(totp))));
+				QUrl url(QStringLiteral("otpauth://totp/%1:%2?secret=%3")
+					.arg(QString::fromUtf8(QUrl::toPercentEncoding(entry->title())),
+						QString::fromUtf8(QUrl::toPercentEncoding(entry->username())),
+						QString::fromUtf8(QUrl::toPercentEncoding(totp))));
 
 				totp = url.toString(QUrl::FullyEncoded);
 			}
@@ -90,45 +90,45 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 		}
 
 		// Parse passkey
-		if (loginMap.contains("fido2Credentials"))
+		if (loginMap.contains(QStringLiteral("fido2Credentials")))
 		{
-			const auto fido2CredentialsMap = loginMap.value("fido2Credentials").toList();
+			const auto fido2CredentialsMap = loginMap.value(QStringLiteral("fido2Credentials")).toList();
 			for (const auto &fido2Credentials: fido2CredentialsMap)
 			{
 				const auto passkey = fido2Credentials.toMap();
 
 				// Change from UUID to base64 byte array
-				const auto credentialIdValue = passkey.value("credentialId").toString();
+				const auto credentialIdValue = passkey.value(QStringLiteral("credentialId")).toString();
 				if (!credentialIdValue.isEmpty())
 				{
 					const auto credentialUuid = Tools::uuidToHex(QUuid(credentialIdValue));
 					const auto credentialIdArray = QByteArray::fromHex(credentialUuid.toUtf8());
 					const auto credentialId = credentialIdArray.toBase64(QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
-					entry->attributes()->set(EntryAttributes::KPEX_PASSKEY_CREDENTIAL_ID, credentialId, true);
+					entry->attributes()->set(EntryAttributes::KPEX_PASSKEY_CREDENTIAL_ID, QString::fromUtf8(credentialId), true);
 				}
 
 				// Base64 needs to be changed from URL encoding back to normal, and the result as PEM string
-				const auto keyValue = passkey.value("keyValue").toString();
+				const auto keyValue = passkey.value(QStringLiteral("keyValue")).toString();
 				if (!keyValue.isEmpty())
 				{
 					const auto keyValueArray = QByteArray::fromBase64(keyValue.toUtf8(), QByteArray::Base64UrlEncoding);
 					auto privateKey = keyValueArray.toBase64(QByteArray::Base64Encoding);
 					privateKey.insert(0, EntryAttributes::KPEX_PASSKEY_PRIVATE_KEY_START.toUtf8());
 					privateKey.append(EntryAttributes::KPEX_PASSKEY_PRIVATE_KEY_END.toUtf8());
-					entry->attributes()->set(EntryAttributes::KPEX_PASSKEY_PRIVATE_KEY_PEM, privateKey, true);
+					entry->attributes()->set(EntryAttributes::KPEX_PASSKEY_PRIVATE_KEY_PEM, QString::fromUtf8(privateKey), true);
 				}
 
 				entry->attributes()->set(
 					EntryAttributes::KPEX_PASSKEY_USERNAME,
-					passkey.value("userName").toString());
+					passkey.value(QStringLiteral("userName")).toString());
 
 				entry->attributes()->set(
 					EntryAttributes::KPEX_PASSKEY_RELYING_PARTY,
-					passkey.value("rpId").toString());
+					passkey.value(QStringLiteral("rpId")).toString());
 
 				entry->attributes()->set(
 					EntryAttributes::KPEX_PASSKEY_USER_HANDLE,
-					passkey.value("userHandle").toString(),
+					passkey.value(QStringLiteral("userHandle")).toString(),
 					true);
 
 				entry->addTag(QObject::tr("Passkey"));
@@ -137,9 +137,9 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 
 		// Set the entry url(s)
 		int i = 1;
-		for (const auto &urlObj: loginMap.value("uris").toList())
+		for (const auto &urlObj: loginMap.value(QStringLiteral("uris")).toList())
 		{
-			const auto url = urlObj.toMap().value("uri").toString();
+			const auto url = urlObj.toMap().value(QStringLiteral("uri")).toString();
 			if (entry->url().isEmpty())
 			{
 				// First url encountered is set as the primary url
@@ -155,45 +155,45 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 	}
 
 	// Parse identity details if present
-	if (itemMap.contains("identity"))
+	if (itemMap.contains(QStringLiteral("identity")))
 	{
-		const auto idMap = itemMap.value("identity").toMap();
+		const auto idMap = itemMap.value(QStringLiteral("identity")).toMap();
 
 		// Combine name attributes
-		auto attrs = QStringList({idMap.value("title").toString(),
-			idMap.value("firstName").toString(),
-			idMap.value("middleName").toString(),
-			idMap.value("lastName").toString()});
+		auto attrs = QStringList({idMap.value(QStringLiteral("title")).toString(),
+			idMap.value(QStringLiteral("firstName")).toString(),
+			idMap.value(QStringLiteral("middleName")).toString(),
+			idMap.value(QStringLiteral("lastName")).toString()});
 
-		attrs.removeAll("");
-		entry->attributes()->set("identity_name", attrs.join(" "));
+		attrs.removeAll(QString());
+		entry->attributes()->set(QStringLiteral("identity_name"), attrs.join(QStringLiteral(" ")));
 
 		// Combine all the address attributes
-		attrs = QStringList({idMap.value("address1").toString(),
-			idMap.value("address2").toString(),
-			idMap.value("address3").toString()});
+		attrs = QStringList({idMap.value(QStringLiteral("address1")).toString(),
+			idMap.value(QStringLiteral("address2")).toString(),
+			idMap.value(QStringLiteral("address3")).toString()});
 
-		attrs.removeAll("");
-		auto address = attrs.join("\n") + "\n" + idMap.value("city").toString() + ", "
-			+ idMap.value("state").toString() + " " + idMap.value("postalCode").toString() + "\n"
-			+ idMap.value("country").toString();
+		attrs.removeAll(QString());
+		auto address = attrs.join(QStringLiteral("\n")) + QStringLiteral("\n") + idMap.value(QStringLiteral("city")).toString() + QStringLiteral(", ")
+			+ idMap.value(QStringLiteral("state")).toString() + QStringLiteral(" ") + idMap.value(QStringLiteral("postalCode")).toString() + QStringLiteral("\n")
+			+ idMap.value(QStringLiteral("country")).toString();
 
-		entry->attributes()->set("identity_address", address);
+		entry->attributes()->set(QStringLiteral("identity_address"), address);
 
 		// Add the remaining attributes
-		attrs = QStringList({"company", "email", "phone", "ssn", "passportNumber", "licenseNumber"});
-		const QStringList sensitive({"ssn", "passportNumber", "licenseNumber"});
+		attrs = QStringList({QStringLiteral("company"), QStringLiteral("email"), QStringLiteral("phone"), QStringLiteral("ssn"), QStringLiteral("passportNumber"), QStringLiteral("licenseNumber")});
+		const QStringList sensitive({QStringLiteral("ssn"), QStringLiteral("passportNumber"), QStringLiteral("licenseNumber")});
 		for (const auto &attr: attrs)
 		{
 			const auto value = idMap.value(attr).toString();
 			if (!value.isEmpty())
 			{
-				entry->attributes()->set("identity_" + attr, value, sensitive.contains(attr));
+				entry->attributes()->set(QStringLiteral("identity_") + attr, value, sensitive.contains(attr));
 			}
 		}
 
 		// Set the username or push it into attributes if already set
-		const auto username = idMap.value("username").toString();
+		const auto username = idMap.value(QStringLiteral("username")).toString();
 		if (!username.isEmpty())
 		{
 			if (entry->username().isEmpty())
@@ -202,58 +202,58 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 			}
 			else
 			{
-				entry->attributes()->set("identity_username", username);
+				entry->attributes()->set(QStringLiteral("identity_username"), username);
 			}
 		}
 	}
 
 	// Parse card details if present
-	if (itemMap.contains("card"))
+	if (itemMap.contains(QStringLiteral("card")))
 	{
-		const auto cardMap = itemMap.value("card").toMap();
-		const QStringList attrs({"cardholderName", "brand", "number", "expMonth", "expYear", "code"});
-		const QStringList sensitive({"code"});
+		const auto cardMap = itemMap.value(QStringLiteral("card")).toMap();
+		const QStringList attrs({QStringLiteral("cardholderName"), QStringLiteral("brand"), QStringLiteral("number"), QStringLiteral("expMonth"), QStringLiteral("expYear"), QStringLiteral("code")});
+		const QStringList sensitive({QStringLiteral("code")});
 		for (const auto &attr: attrs)
 		{
 			auto value = cardMap.value(attr).toString();
 			if (!value.isEmpty())
 			{
-				entry->attributes()->set("card_" + attr, value, sensitive.contains(attr));
+				entry->attributes()->set(QStringLiteral("card_") + attr, value, sensitive.contains(attr));
 			}
 		}
 	}
 
 	// Parse remaining fields
-	for (const auto &field: itemMap.value("fields").toList())
+	for (const auto &field: itemMap.value(QStringLiteral("fields")).toList())
 	{
 		// Derive a prefix for attribute names using the title or uuid if missing
 		const auto fieldMap = field.toMap();
-		auto name = fieldMap.value("name").toString();
+		auto name = fieldMap.value(QStringLiteral("name")).toString();
 		if (entry->attributes()->hasKey(name))
 		{
 			name = QStringLiteral("%1_%2").arg(name, QUuid::createUuid().toString().mid(1, 5));
 		}
 
-		const auto value = fieldMap.value("value").toString();
-		const auto type = fieldMap.value("type").toInt();
+		const auto value = fieldMap.value(QStringLiteral("value")).toString();
+		const auto type = fieldMap.value(QStringLiteral("type")).toInt();
 
 		entry->attributes()->set(name, value, type == 1);
 	}
 
 	// Parse timestamps
 	auto timeInfo = entry->timeInfo();
-	if (itemMap.contains("creationDate"))
+	if (itemMap.contains(QStringLiteral("creationDate")))
 	{
-		const auto creationDate = QDateTime::fromString(itemMap.value("creationDate").toString(), Qt::ISODate);
+		const auto creationDate = QDateTime::fromString(itemMap.value(QStringLiteral("creationDate")).toString(), Qt::ISODate);
 		if (creationDate.isValid())
 		{
 			timeInfo.setCreationTime(creationDate);
 		}
 	}
 
-	if (itemMap.contains("revisionDate"))
+	if (itemMap.contains(QStringLiteral("revisionDate")))
 	{
-		const auto revisionDate = QDateTime::fromString(itemMap.value("revisionDate").toString(), Qt::ISODate);
+		const auto revisionDate = QDateTime::fromString(itemMap.value(QStringLiteral("revisionDate")).toString(), Qt::ISODate);
 		if (revisionDate.isValid())
 		{
 			timeInfo.setLastModificationTime(revisionDate);
@@ -267,14 +267,14 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 	entry->removeHistoryItems(entry->historyItems());
 
 	// Parse password history, if present
-	if (itemMap.contains("passwordHistory"))
+	if (itemMap.contains(QStringLiteral("passwordHistory")))
 	{
-		const auto passwordHistory = itemMap.value("passwordHistory").toList();
+		const auto passwordHistory = itemMap.value(QStringLiteral("passwordHistory")).toList();
 		for (const auto &historyItem: passwordHistory)
 		{
 			const auto historyMap = historyItem.toMap();
-			const auto password = historyMap.value("password").toString();
-			const auto lastUsedDate = QDateTime::fromString(historyMap.value("lastUsedDate").toString(), Qt::ISODate);
+			const auto password = historyMap.value(QStringLiteral("password")).toString();
+			const auto lastUsedDate = QDateTime::fromString(historyMap.value(QStringLiteral("lastUsedDate")).toString(), Qt::ISODate);
 
 			if (!password.isEmpty() && lastUsedDate.isValid())
 			{
@@ -305,33 +305,33 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 
 void writeVaultToDatabase(const QJsonObject &vault, QSharedPointer<Database> db)
 {
-	auto folderField = QString("folders");
+	auto folderField = QStringLiteral("folders");
 	if (!vault.contains(folderField))
 	{
 		// Handle Bitwarden organization vaults
-		folderField = "collections";
+		folderField = QStringLiteral("collections");
 	}
 
-	if (!vault.contains(folderField) || !vault.contains("items"))
+	if (!vault.contains(folderField) || !vault.contains(QStringLiteral("items")))
 	{
 		// Early out if the vault is missing critical items
 		return;
 	}
 
 	// Create groups from folders and store a temporary map of id -> uuid
-	QMap<QString, Group *> folderMap;
+	QMap<QString, Group*> folderMap;
 	for (const auto &folder: vault.value(folderField).toArray())
 	{
 		auto group = new Group();
 		group->setUuid(QUuid::createUuid());
-		group->setName(folder.toObject().value("name").toString());
+		group->setName(folder.toObject().value(QStringLiteral("name")).toString());
 		group->setParent(db->rootGroup());
 
-		folderMap.insert(folder.toObject().value("id").toString(), group);
+		folderMap.insert(folder.toObject().value(QStringLiteral("id")).toString(), group);
 	}
 
 	QString folderId;
-	const auto items = vault.value("items").toArray();
+	const auto items = vault.value(QStringLiteral("items")).toArray();
 	for (const auto &item: items)
 	{
 		auto entry = readItem(item.toObject(), folderId);
@@ -386,27 +386,27 @@ QSharedPointer<Database> BitwardenReader::convert(const QString &path, const QSt
 	file.close();
 
 	// Check if this is an encrypted json
-	if (json.contains("encrypted") && json.value("encrypted").toBool())
+	if (json.contains(QStringLiteral("encrypted")) && json.value(QStringLiteral("encrypted")).toBool())
 	{
 		auto buildError = [](const QString &errorString) {
 			return QObject::tr("Failed to decrypt json file: %1").arg(errorString);
 		};
 
-		if (!json.contains("kdfType") || !json.contains("salt"))
+		if (!json.contains(QStringLiteral("kdfType")) || !json.contains(QStringLiteral("salt")))
 		{
 			m_error = buildError(QObject::tr("Unsupported format, ensure your Bitwarden export is password-protected"));
 			return {};
 		}
 
 		QByteArray key(32, '\0');
-		auto salt = json.value("salt").toString().toUtf8();
-		auto kdfType = json.value("kdfType").toInt();
+		auto salt = json.value(QStringLiteral("salt")).toString().toUtf8();
+		auto kdfType = json.value(QStringLiteral("kdfType")).toInt();
 
 		// Derive the Master Key
 		if (kdfType == 0)
 		{
 			// PBKDF2
-			auto iterations = json.value("kdfIterations").toInt();
+			auto iterations = json.value(QStringLiteral("kdfIterations")).toInt();
 			if (iterations <= 0)
 			{
 				m_error = buildError(QObject::tr("Invalid KDF iterations, cannot decrypt json file"));
@@ -433,9 +433,9 @@ QSharedPointer<Database> BitwardenReader::convert(const QString &path, const QSt
 
 			Argon2Kdf argon2(Argon2Kdf::Type::Argon2id);
 			argon2.setSeed(salt);
-			argon2.setRounds(json.value("kdfIterations").toInt());
-			argon2.setMemory(json.value("kdfMemory").toInt() * 1024);
-			argon2.setParallelism(json.value("kdfParallelism").toInt());
+			argon2.setRounds(json.value(QStringLiteral("kdfIterations")).toInt());
+			argon2.setMemory(json.value(QStringLiteral("kdfMemory")).toInt() * 1024);
+			argon2.setParallelism(json.value(QStringLiteral("kdfParallelism")).toInt());
 			argon2.transform(password.toUtf8(), key);
 		}
 		else
@@ -447,22 +447,22 @@ QSharedPointer<Database> BitwardenReader::convert(const QString &path, const QSt
 		auto hkdf = Botan::KDF::create_or_throw("HKDF-Expand(SHA-256)");
 
 		// Derive the MAC Key
-		auto stretched_mac = hkdf->derive_key(32, reinterpret_cast<const uint8_t *>(key.data()), key.size(), "", "mac");
+		auto stretched_mac = hkdf->derive_key(32, reinterpret_cast<const uint8_t*>(key.data()), key.size(), "", "mac");
 		auto mac = QByteArray(reinterpret_cast<const char *>(stretched_mac.data()), stretched_mac.size());
 
 		// Stretch the Master Key
-		auto stretched_key = hkdf->derive_key(32, reinterpret_cast<const uint8_t *>(key.data()), key.size(), "", "enc");
+		auto stretched_key = hkdf->derive_key(32, reinterpret_cast<const uint8_t*>(key.data()), key.size(), "", "enc");
 		key = QByteArray(reinterpret_cast<const char *>(stretched_key.data()), stretched_key.size());
 
 		// Validate the encryption key
-		auto keyList = json.value("encKeyValidation_DO_NOT_EDIT").toString().split(".");
+		auto keyList = json.value(QStringLiteral("encKeyValidation_DO_NOT_EDIT")).toString().split(QLatin1Char('.'));
 		if (keyList.size() < 2)
 		{
 			m_error = buildError(QObject::tr("Invalid encKeyValidation field"));
 			return {};
 		}
 
-		auto cipherList = keyList[1].split("|");
+		auto cipherList = keyList[1].split(QLatin1Char('|'));
 		if (cipherList.size() < 3)
 		{
 			m_error = buildError(QObject::tr("Invalid cipher list within encKeyValidation field"));
@@ -481,14 +481,14 @@ QSharedPointer<Database> BitwardenReader::convert(const QString &path, const QSt
 		}
 
 		// Decrypt data field using AES-256-CBC
-		keyList = json.value("data").toString().split(".");
+		keyList = json.value(QStringLiteral("data")).toString().split(QLatin1Char('.'));
 		if (keyList.size() < 2)
 		{
 			m_error = buildError(QObject::tr("Invalid encrypted data field"));
 			return {};
 		}
 
-		cipherList = keyList[1].split("|");
+		cipherList = keyList[1].split(QLatin1Char('|'));
 		if (cipherList.size() < 2)
 		{
 			m_error = buildError(QObject::tr("Invalid cipher list within encrypted data field"));

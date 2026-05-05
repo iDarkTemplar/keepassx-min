@@ -39,8 +39,8 @@ DatabaseSettingsDialog::DatabaseSettingsDialog(QWidget *parent)
 	connect(this, &DatabaseSettingsDialog::accepted, this, &DatabaseSettingsDialog::save);
 	connect(this, &DatabaseSettingsDialog::rejected, this, &DatabaseSettingsDialog::reject);
 
-	addPage(tr("General"), icons()->icon("preferences-other"), m_generalWidget);
-	addPage(tr("Security"), icons()->icon("security-high"), m_securityTabWidget);
+	addPage(tr("General"), icons()->icon(QStringLiteral("preferences-other")), m_generalWidget);
+	addPage(tr("Security"), icons()->icon(QStringLiteral("security-high")), m_securityTabWidget);
 
 	auto *scrollArea = new QScrollArea(parent);
 	scrollArea->setFrameShape(QFrame::NoFrame);
@@ -56,7 +56,7 @@ DatabaseSettingsDialog::DatabaseSettingsDialog(QWidget *parent)
 
 	m_securityTabWidget->setCurrentIndex(0);
 
-	addPage(tr("Maintenance"), icons()->icon("hammer-wrench"), m_maintenanceWidget);
+	addPage(tr("Maintenance"), icons()->icon(QStringLiteral("hammer-wrench")), m_maintenanceWidget);
 
 	setCurrentPage(0);
 }

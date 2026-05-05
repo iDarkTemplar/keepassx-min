@@ -46,7 +46,7 @@ std::unique_ptr<Icons> Icons::m_instance;
 
 QString Icons::applicationIconName()
 {
-	return QString("keepassxmin");
+	return QStringLiteral("keepassxmin");
 }
 
 QIcon Icons::applicationIcon()
@@ -59,10 +59,10 @@ QIcon Icons::trayIcon(bool unlocked)
 	QString suffix;
 	if (!unlocked)
 	{
-		suffix = "-locked";
+		suffix = QStringLiteral("-locked");
 	}
 
-	return icon(QString("%1%2").arg(applicationIconName(), suffix), false);
+	return icon(QStringLiteral("%1%2").arg(applicationIconName(), suffix), false);
 }
 
 AdaptiveIconEngine::AdaptiveIconEngine(QIcon baseIcon, QColor overrideColor)
@@ -136,9 +136,9 @@ QIcon Icons::icon(const QString &name, bool recolor, const QColor &overrideColor
 	//
 	// See issue #4963: https://github.com/keepassxreboot/keepassxc/issues/4963
 	// and qt5ct issue #80: https://sourceforge.net/p/qt5ct/tickets/80/
-	QIcon::setThemeName("application");
+	QIcon::setThemeName(QStringLiteral("application"));
 
-	QString cacheName = QString("%1:%2:%3").arg(recolor ? "1" : "0", overrideColor.isValid() ? overrideColor.name() : "#", name);
+	QString cacheName = QStringLiteral("%1:%2:%3").arg(recolor ? QStringLiteral("1") : QStringLiteral("0"), overrideColor.isValid() ? overrideColor.name() : QStringLiteral("#"), name);
 	QIcon icon = m_iconCache.value(cacheName);
 
 	if (!icon.isNull() && !overrideColor.isValid())
@@ -159,7 +159,7 @@ QIcon Icons::icon(const QString &name, bool recolor, const QColor &overrideColor
 
 QIcon Icons::onOffIcon(const QString &name, bool on, bool recolor)
 {
-	return icon(name + (on ? "-on" : "-off"), recolor);
+	return icon(name + (on ? QStringLiteral("-on") : QStringLiteral("-off")), recolor);
 }
 
 Icons* Icons::instance()
@@ -169,8 +169,8 @@ Icons* Icons::instance()
 		m_instance.reset(new Icons());
 
 		Q_INIT_RESOURCE(icons);
-		QIcon::setThemeSearchPaths(QStringList{":/icons"} << QIcon::themeSearchPaths());
-		QIcon::setThemeName("application");
+		QIcon::setThemeSearchPaths(QStringList{QStringLiteral(":/icons")} << QIcon::themeSearchPaths());
+		QIcon::setThemeName(QStringLiteral("application"));
 	}
 
 	return m_instance.get();
@@ -257,7 +257,7 @@ QString Icons::imageFormatsFilter()
 		bool codePointClean = true;
 		for (char codePoint: format)
 		{
-			if (!QChar(codePoint).isLetterOrNumber())
+			if (!QChar(QLatin1Char(codePoint)).isLetterOrNumber())
 			{
 				codePointClean = false;
 				break;
@@ -266,11 +266,11 @@ QString Icons::imageFormatsFilter()
 
 		if (codePointClean)
 		{
-			formatsStringList.append("*." + QString::fromLatin1(format).toLower());
+			formatsStringList.append(QStringLiteral("*.") + QString::fromLatin1(format).toLower());
 		}
 	}
 
-	return formatsStringList.join(" ");
+	return formatsStringList.join(QLatin1Char(' '));
 }
 
 QByteArray Icons::saveToBytes(const QImage &image)

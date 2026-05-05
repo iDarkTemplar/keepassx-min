@@ -65,7 +65,8 @@ private:
 		KDBX4,
 		KDBX3
 	};
-	static const char *CD_DECRYPTION_TIME_PREFERENCE_KEY;
+
+	static const QString CD_DECRYPTION_TIME_PREFERENCE_KEY;
 
 	bool m_isDirty = false;
 	bool m_initWithAdvanced = false;

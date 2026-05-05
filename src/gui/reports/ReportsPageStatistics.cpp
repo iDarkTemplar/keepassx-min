@@ -26,7 +26,7 @@ QString ReportsPageStatistics::name()
 
 QIcon ReportsPageStatistics::icon()
 {
-	return icons()->icon("statistics");
+	return icons()->icon(QStringLiteral("statistics"));
 }
 
 QWidget* ReportsPageStatistics::createWidget()

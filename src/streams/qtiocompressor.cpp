@@ -138,7 +138,7 @@ void QtIOCompressorPrivate::flushZlib(int flushMode)
 		if (status != Z_OK && status != Z_STREAM_END)
 		{
 			state = QtIOCompressorPrivate::Error;
-			setZlibError(QT_TRANSLATE_NOOP("QtIOCompressor", "Internal zlib error when compressing: "), status);
+			setZlibError(QObject::tr("Internal zlib error when compressing: %1"), status);
 			return;
 		}
 
@@ -174,11 +174,10 @@ bool QtIOCompressorPrivate::writeBytes(ZlibByte *buffer, ZlibSize outputSize)
 	// Loop until all bytes are written to the underlying device.
 	do
 	{
-		const qint64 bytesWritten = device->write(reinterpret_cast<char *>(buffer), outputSize);
+		const qint64 bytesWritten = device->write(reinterpret_cast<char*>(buffer), outputSize);
 		if (bytesWritten == -1)
 		{
-			q->setErrorString(QT_TRANSLATE_NOOP("QtIOCompressor", "Error writing to underlying device: ")
-				+ device->errorString());
+			q->setErrorString(QObject::tr("Error writing to underlying device: %1").arg(device->errorString()));
 			return false;
 		}
 
@@ -203,11 +202,11 @@ void QtIOCompressorPrivate::setZlibError(const QString &errorMessage, int zlibEr
 
 	if (zlibErrorString)
 	{
-		errorString = errorMessage + zlibErrorString;
+		errorString = errorMessage.arg(QString::fromLocal8Bit(zlibErrorString));
 	}
 	else
 	{
-		errorString = errorMessage + " Unknown error, code " + QString::number(zlibErrorCode);
+		errorString = errorMessage.arg(QObject::tr("Unknown error, code %1").arg(QString::number(zlibErrorCode)));
 	}
 
 	q->setErrorString(errorString);
@@ -397,8 +396,7 @@ bool QtIOCompressor::open(OpenMode mode)
 		d->manageDevice = true;
 		if (d->device->open(mode) == false)
 		{
-			setErrorString(QT_TRANSLATE_NOOP("QtIOCompressor", "Error opening underlying device: ")
-				+ d->device->errorString());
+			setErrorString(QObject::tr("Error opening underlying device: %1").arg(d->device->errorString()));
 
 			return false;
 		}
@@ -439,8 +437,7 @@ bool QtIOCompressor::open(OpenMode mode)
 		{
 			if (checkGzipSupport(zlibVersion()) == false)
 			{
-				setErrorString(QT_TRANSLATE_NOOP("QtIOCompressor::open",
-					"The gzip format not supported in this version of zlib."));
+				setErrorString(QObject::tr("The gzip format not supported in this version of zlib."));
 
 				return false;
 			}
@@ -464,7 +461,7 @@ bool QtIOCompressor::open(OpenMode mode)
 	// Handle error.
 	if (status != Z_OK)
 	{
-		d->setZlibError(QT_TRANSLATE_NOOP("QtIOCompressor::open", "Internal zlib error: "), status);
+		d->setZlibError(QObject::tr("Internal zlib error: %1"), status);
 		return false;
 	}
 
@@ -611,8 +608,7 @@ qint64 QtIOCompressor::readData(char *data, qint64 maxSize)
 			if (bytesAvailable == -1)
 			{
 				d->state = QtIOCompressorPrivate::Error;
-				setErrorString(QT_TRANSLATE_NOOP("QtIOCompressor", "Error reading data from underlying device: ")
-					+ d->device->errorString());
+				setErrorString(QObject::tr("Error reading data from underlying device: %1").arg(d->device->errorString()));
 
 				return -1;
 			}
@@ -639,7 +635,7 @@ qint64 QtIOCompressor::readData(char *data, qint64 maxSize)
 		case Z_DATA_ERROR:
 		case Z_MEM_ERROR:
 			d->state = QtIOCompressorPrivate::Error;
-			d->setZlibError(QT_TRANSLATE_NOOP("QtIOCompressor", "Internal zlib error when decompressing: "), status);
+			d->setZlibError(QObject::tr("Internal zlib error when decompressing: %1"), status);
 			return -1;
 		case Z_BUF_ERROR: // No more input and zlib can not provide more output - Not an error, we can try to read again
 		                  // when we have more input.
@@ -694,7 +690,7 @@ qint64 QtIOCompressor::writeData(const char *data, qint64 maxSize)
 		if (status != Z_OK)
 		{
 			d->state = QtIOCompressorPrivate::Error;
-			d->setZlibError(QT_TRANSLATE_NOOP("QtIOCompressor", "Internal zlib error when compressing: "), status);
+			d->setZlibError(QObject::tr("Internal zlib error when compressing: %1"), status);
 			return -1;
 		}
 

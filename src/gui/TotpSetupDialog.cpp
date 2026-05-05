@@ -47,10 +47,10 @@ void TotpSetupDialog::saveSettings()
 {
 	// Secret key sanity check
 	// Convert user input to all uppercase and remove '='
-	auto key = m_ui->seedEdit->text().toUpper().remove(" ").remove("=").trimmed().toLatin1();
-	auto sanitizedKey = Base32::sanitizeInput(key);
+	auto key = m_ui->seedEdit->text().toUpper().remove(QStringLiteral(" ")).remove(QStringLiteral("=")).trimmed();
+	auto sanitizedKey = Base32::sanitizeInput(key.toLatin1());
 	// Use startsWith to ignore added '=' for padding at the end
-	if (!sanitizedKey.startsWith(key))
+	if (!sanitizedKey.startsWith(key.toLatin1()))
 	{
 		MessageBox::information(this,
 			tr("Invalid TOTP Secret"),
@@ -129,7 +129,7 @@ void TotpSetupDialog::init()
 	if (settings)
 	{
 		auto key = settings->key;
-		m_ui->seedEdit->setText(key.remove("="));
+		m_ui->seedEdit->setText(key.remove(QStringLiteral("=")));
 		m_ui->seedEdit->setCursorPosition(0);
 		m_ui->stepSpinBox->setValue(settings->step);
 

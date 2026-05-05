@@ -64,17 +64,17 @@ constexpr uint DEFAULT_DIGITS = 6u;
 constexpr uint STEAM_DIGITS = 5u;
 constexpr Totp::Algorithm DEFAULT_ALGORITHM = Sha1;
 constexpr Totp::StorageFormat DEFAULT_FORMAT = OTPURL;
-static const QString STEAM_SHORTNAME = "S";
+static const QString STEAM_SHORTNAME = QStringLiteral("S");
 
-static const QString ATTRIBUTE_OTP = "otp";
-static const QString ATTRIBUTE_SEED = "TOTP Seed";
-static const QString ATTRIBUTE_SETTINGS = "TOTP Settings";
+static const QString ATTRIBUTE_OTP = QStringLiteral("otp");
+static const QString ATTRIBUTE_SEED = QStringLiteral("TOTP Seed");
+static const QString ATTRIBUTE_SETTINGS = QStringLiteral("TOTP Settings");
 
 // Support for KeePass2 TOTP
-static const QString KP2_TOTP_SECRET = "TimeOtp-Secret-Base32";
-static const QString KP2_TOTP_ALGORITHM = "TimeOtp-Algorithm";
-static const QString KP2_TOTP_LENGTH = "TimeOtp-Length";
-static const QString KP2_TOTP_PERIOD = "TimeOtp-Period";
+static const QString KP2_TOTP_SECRET = QStringLiteral("TimeOtp-Secret-Base32");
+static const QString KP2_TOTP_ALGORITHM = QStringLiteral("TimeOtp-Algorithm");
+static const QString KP2_TOTP_LENGTH = QStringLiteral("TimeOtp-Length");
+static const QString KP2_TOTP_PERIOD = QStringLiteral("TimeOtp-Period");
 
 QSharedPointer<Totp::Settings> fromKeePass2Totp(
 	const QString &secret,

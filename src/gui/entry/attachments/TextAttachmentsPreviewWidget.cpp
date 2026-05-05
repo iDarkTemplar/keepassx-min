@@ -84,7 +84,7 @@ void TextAttachmentsPreviewWidget::initTypeCombobox()
 	const auto metaEnum = QMetaEnum::fromType<TextAttachmentsPreviewWidget::PreviewTextType>();
 	for (int i = 0; i < metaEnum.keyCount(); ++i)
 	{
-		QStandardItem *item = new QStandardItem(metaEnum.key(i));
+		QStandardItem *item = new QStandardItem(QString::fromUtf8(metaEnum.key(i)));
 		item->setData(metaEnum.value(i), Qt::UserRole);
 		model->appendRow(item);
 	}
@@ -137,17 +137,17 @@ void TextAttachmentsPreviewWidget::onTypeChanged(int index)
 	const auto fileType = m_ui->typeComboBox->itemData(index).toInt();
 	if (fileType == TextAttachmentsPreviewWidget::PreviewTextType::PlainText)
 	{
-		m_ui->previewTextBrowser->setPlainText(m_attachment.data);
+		m_ui->previewTextBrowser->setPlainText(QString::fromUtf8(m_attachment.data));
 	}
 
 	if (fileType == TextAttachmentsPreviewWidget::PreviewTextType::Html)
 	{
-		m_ui->previewTextBrowser->setHtml(m_attachment.data);
+		m_ui->previewTextBrowser->setHtml(QString::fromUtf8(m_attachment.data));
 	}
 
 	if (fileType == TextAttachmentsPreviewWidget::PreviewTextType::Markdown)
 	{
-		m_ui->previewTextBrowser->setMarkdown(m_attachment.data);
+		m_ui->previewTextBrowser->setMarkdown(QString::fromUtf8(m_attachment.data));
 	}
 
 	// Delay setting the scrollbar position to ensure the text is rendered first

@@ -82,7 +82,7 @@ bool Kdbx4Reader::readDatabaseImpl(
 	if (headerHmac != CryptoHash::hmac(headerData, HmacBlockStream::getHmacKey(UINT64_MAX, hmacKey), CryptoHash::Sha256))
 	{
 		raiseError(tr("Invalid credentials were provided, please try again.\n"
-			"If this reoccurs, then your database file may be corrupt.") + " " + tr("(HMAC mismatch)"));
+			"If this reoccurs, then your database file may be corrupt.") + QStringLiteral(" ") + tr("(HMAC mismatch)"));
 
 		return false;
 	}

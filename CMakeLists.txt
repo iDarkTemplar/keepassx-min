@@ -138,7 +138,7 @@ macro(check_add_gcc_compiler_flag FLAG)
 	endif()
 endmacro(check_add_gcc_compiler_flag)
 
-add_definitions(-DQT_NO_EXCEPTIONS -DQT_STRICT_ITERATORS -DQT_NO_CAST_TO_ASCII)
+add_definitions(-DQT_NO_EXCEPTIONS -DQT_STRICT_ITERATORS -DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII)
 if (NOT IS_DEBUG_BUILD)
 	add_definitions(-DQT_NO_DEBUG_OUTPUT)
 endif()

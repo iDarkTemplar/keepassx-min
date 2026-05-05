@@ -20,8 +20,8 @@
 #include "crypto/Random.h"
 
 const int PasswordGenerator::DefaultLength = 32;
-const char *PasswordGenerator::DefaultCustomCharacterSet = "";
-const char *PasswordGenerator::DefaultExcludedChars = "";
+const QString PasswordGenerator::DefaultCustomCharacterSet;
+const QString PasswordGenerator::DefaultExcludedChars;
 
 PasswordGenerator::PasswordGenerator()
 	: m_length(PasswordGenerator::DefaultLength)

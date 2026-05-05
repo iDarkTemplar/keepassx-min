@@ -45,29 +45,25 @@ namespace Tools {
 
 QString debugInfo()
 {
-	QString debugInfo = "KeePassX-min - ";
-	debugInfo.append(QObject::tr("Version %1").arg(KEEPASSXM_VERSION).append("\n"));
+	QString debugInfo = QStringLiteral("KeePassX-min - ");
+	debugInfo.append(QObject::tr("Version %1").arg(QStringLiteral(KEEPASSXM_VERSION)).append(QStringLiteral("\n")));
 
-	QString commitHash;
-	if (!QString(GIT_HASH).isEmpty())
-	{
-		commitHash = GIT_HASH;
-	}
+	QString commitHash = QStringLiteral(GIT_HASH);
 
 	if (!commitHash.isEmpty())
 	{
-		debugInfo.append(QObject::tr("Revision: %1").arg(commitHash.left(7)).append("\n"));
+		debugInfo.append(QObject::tr("Revision: %1").arg(commitHash.left(7)).append(QStringLiteral("\n")));
 	}
 
 	// Qt related debugging information.
-	debugInfo.append("\n");
-	debugInfo.append("Qt ").append(QString::fromLocal8Bit(qVersion())).append("\n");
+	debugInfo.append(QStringLiteral("\n"));
+	debugInfo.append(QStringLiteral("Qt ")).append(QString::fromLocal8Bit(qVersion())).append(QStringLiteral("\n"));
 #ifdef QT_NO_DEBUG
-	debugInfo.append(QObject::tr("Debugging mode is disabled.").append("\n"));
+	debugInfo.append(QObject::tr("Debugging mode is disabled.").append(QStringLiteral("\n")));
 #else
-	debugInfo.append(QObject::tr("Debugging mode is enabled.").append("\n"));
+	debugInfo.append(QObject::tr("Debugging mode is enabled.").append(QStringLiteral("\n")));
 #endif
-	debugInfo.append("\n");
+	debugInfo.append(QStringLiteral("\n"));
 
 	debugInfo.append(
 		QObject::tr("Operating system: %1\nCPU architecture: %2\nKernel: %3 %4\n")
@@ -84,7 +80,7 @@ QString humanReadableFileSize(qint64 bytes, quint32 precision)
 	constexpr auto kibibyte = 1024;
 	double size = bytes;
 
-	QStringList units = QStringList() << "B" << "KiB" << "MiB" << "GiB";
+	QStringList units = QStringList() << QStringLiteral("B") << QStringLiteral("KiB") << QStringLiteral("MiB") << QStringLiteral("GiB");
 	int i = 0;
 	int maxI = units.size() - 1;
 
@@ -96,7 +92,7 @@ QString humanReadableFileSize(qint64 bytes, quint32 precision)
 
 	// do not display decimals for smallest unit bytes identified by index i==0
 	const quint32 displayPrecision = (i == 0 ? 0 : precision);
-	return QString("%1 %2").arg(QLocale().toString(size, 'f', displayPrecision), units.at(i));
+	return QStringLiteral("%1 %2").arg(QLocale().toString(size, 'f', displayPrecision), units.at(i));
 }
 
 QString humanReadableTimeDifference(qint64 seconds)
@@ -200,7 +196,7 @@ bool isHex(const QByteArray &ba)
 
 bool isBase64(const QByteArray &ba)
 {
-	constexpr auto pattern = R"(^(?:[a-z0-9+/]{4})*(?:[a-z0-9+/]{3}=|[a-z0-9+/]{2}==)?$)";
+	const QString pattern = QStringLiteral(R"(^(?:[a-z0-9+/]{4})*(?:[a-z0-9+/]{3}=|[a-z0-9+/]{2}==)?$)");
 	QRegularExpression regexp(pattern, QRegularExpression::CaseInsensitiveOption);
 
 	QString base64 = QString::fromLatin1(ba.constData(), ba.size());
@@ -210,7 +206,7 @@ bool isBase64(const QByteArray &ba)
 
 bool isAsciiString(const QString &str)
 {
-	constexpr auto pattern = R"(^[\x00-\x7F]+$)";
+	const QString pattern = QStringLiteral(R"(^[\x00-\x7F]+$)");
 	QRegularExpression regexp(pattern, QRegularExpression::CaseInsensitiveOption);
 	return regexp.match(str).hasMatch();
 }
@@ -337,24 +333,24 @@ QRegularExpression convertToRegex(const QString &string, int opts)
 
 		if (opts & RegexConvertOpts::WILDCARD_UNLIMITED_MATCH)
 		{
-			pattern.replace("\\*", ".*");
+			pattern.replace(QStringLiteral("\\*"), QStringLiteral(".*"));
 		}
 
 		if (opts & RegexConvertOpts::WILDCARD_SINGLE_MATCH)
 		{
-			pattern.replace("\\?", ".");
+			pattern.replace(QStringLiteral("\\?"), QStringLiteral("."));
 		}
 
 		if (opts & RegexConvertOpts::WILDCARD_LOGICAL_OR)
 		{
-			pattern.replace("\\|", "|");
+			pattern.replace(QStringLiteral("\\|"), QStringLiteral("|"));
 		}
 	}
 
 	if (opts & RegexConvertOpts::EXACT_MATCH)
 	{
 		// Exact modifier
-		pattern = "^(?:" + pattern + ")$";
+		pattern = QStringLiteral("^(?:") + pattern + QStringLiteral(")$");
 	}
 
 	auto regex = QRegularExpression(pattern);
@@ -395,34 +391,34 @@ bool isValidUuid(const QString &uuidStr)
 QString cleanFilename(QString filename)
 {
 	// Remove forward slash from title on all platforms
-	filename.replace("/", "_");
+	filename.replace(QStringLiteral("/"), QStringLiteral("_"));
 	// Remove invalid characters
-	filename.remove(QRegularExpression("[:*?\"<>|]"));
+	filename.remove(QRegularExpression(QStringLiteral("[:*?\"<>|]")));
 
 	return filename.trimmed();
 }
 
 QString cleanUsername()
 {
-	QString userName = qgetenv("USER");
+	QString userName = QString::fromLocal8Bit(qgetenv("USER"));
 	if (userName.isEmpty())
 	{
-		userName = qgetenv("USERNAME");
+		userName = QString::fromLocal8Bit(qgetenv("USERNAME"));
 	}
 
 	// Sanitize username for file safety
 	userName = userName.trimmed();
 	// Replace <>:"/\|?* with _
-	userName.replace(QRegularExpression(R"([<>:\"\/\\|?*])"), "_");
+	userName.replace(QRegularExpression(QStringLiteral(R"([<>:\"\/\\|?*])")), QStringLiteral("_"));
 	// Remove trailing dots and spaces
-	userName.replace(QRegularExpression(R"([.\s]+$)"), "");
+	userName.replace(QRegularExpression(QStringLiteral(R"([.\s]+$)")), QString());
 
 	return userName;
 }
 
 QString escapeAccelerators(QString string)
 {
-	return string.replace("&", "&&");
+	return string.replace(QStringLiteral("&"), QStringLiteral("&&"));
 }
 
 QString substituteBackupFilePath(QString pattern, const QString &databasePath)
@@ -438,13 +434,13 @@ QString substituteBackupFilePath(QString pattern, const QString &databasePath)
 
 	const QDateTime now = Clock::currentDateTime();
 
-	const QRegularExpression re(R"(\{TIME(?::([^\\{}]*))?\})");
+	const QRegularExpression re(QStringLiteral(R"(\{TIME(?::([^\\{}]*))?\})"));
 	auto match = re.match(pattern);
 
 	while (match.hasMatch())
 	{
 		// Extract time format specifier, or use default value if absent
-		QString formatSpecifier = "dd_MM_yyyy_hh-mm-ss";
+		QString formatSpecifier = QStringLiteral("dd_MM_yyyy_hh-mm-ss");
 		if (!match.captured(1).isEmpty())
 		{
 			formatSpecifier = match.captured(1);
@@ -465,18 +461,18 @@ QString substituteBackupFilePath(QString pattern, const QString &databasePath)
 MimeType toMimeType(const QString &mimeName)
 {
 	const static QStringList TextFormats = {
-		"text/",
-		"application/json",
-		"application/xml",
-		"application/soap+xml",
-		"application/x-yaml",
-		"application/protobuf",
-		"application/x-zerosize"
+		QStringLiteral("text/"),
+		QStringLiteral("application/json"),
+		QStringLiteral("application/xml"),
+		QStringLiteral("application/soap+xml"),
+		QStringLiteral("application/x-yaml"),
+		QStringLiteral("application/protobuf"),
+		QStringLiteral("application/x-zerosize")
 	};
 
-	const static QStringList HtmlFormats = {"text/html"};
-	const static QStringList MarkdownFormats = {"text/markdown", "text/x-web-markdown"};
-	const static QStringList ImageFormats = {"image/"};
+	const static QStringList HtmlFormats = {QStringLiteral("text/html")};
+	const static QStringList MarkdownFormats = {QStringLiteral("text/markdown"), QStringLiteral("text/x-web-markdown")};
+	const static QStringList ImageFormats = {QStringLiteral("image/")};
 
 	static auto isCompatible = [](const QString &format, const QStringList &list) {
 		return std::any_of(list.cbegin(), list.cend(), [&format](const auto &item) { return format.startsWith(item); });

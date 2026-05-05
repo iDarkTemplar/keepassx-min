@@ -33,7 +33,7 @@ bool testSha256()
 	if (CryptoHash::hash("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq", CryptoHash::Sha256)
 		!= QByteArray::fromHex("248D6A61D20638B8E5C026930C3E6039A33CE45964FF2167F6ECEDD419DB06C1"))
 	{
-		g_cryptoError = "SHA-256 mismatch.";
+		g_cryptoError = QObject::tr("SHA-256 mismatch.");
 		return false;
 	}
 
@@ -47,7 +47,7 @@ bool testSha512()
 			"204a8fc6dda82f0a0ced7beb8e08a41657c16ef468b228a8279be331a703c335"
 			"96fd15c13b1b07f9aa1d3bea57789ca031ad85c7a71dd70354ec631238ca3445"))
 	{
-		g_cryptoError = "SHA-512 mismatch.";
+		g_cryptoError = QObject::tr("SHA-512 mismatch.");
 		return false;
 	}
 
@@ -83,7 +83,7 @@ bool testAes256Cbc()
 
 	if (data != cipherText)
 	{
-		g_cryptoError = "AES-256 CBC encryption mismatch.";
+		g_cryptoError = QObject::tr("AES-256 CBC encryption mismatch.");
 		return false;
 	}
 
@@ -101,7 +101,7 @@ bool testAes256Cbc()
 
 	if (data != plainText)
 	{
-		g_cryptoError = "AES-256 CBC decryption mismatch.";
+		g_cryptoError = QObject::tr("AES-256 CBC decryption mismatch.");
 		return false;
 	}
 
@@ -118,12 +118,12 @@ bool testAesKdf()
 
 	if (!SymmetricCipher::aesKdf(key, 1, plainText))
 	{
-		g_cryptoError = "AES KDF Failed.";
+		g_cryptoError = QObject::tr("AES KDF Failed.");
 	}
 
 	if (plainText != cipherText)
 	{
-		g_cryptoError = "AES KDF encryption mismatch.";
+		g_cryptoError = QObject::tr("AES KDF encryption mismatch.");
 		return false;
 	}
 
@@ -159,7 +159,7 @@ bool testTwofish()
 
 	if (data != cipherText)
 	{
-		g_cryptoError = "Twofish encryption mismatch.";
+		g_cryptoError = QObject::tr("Twofish encryption mismatch.");
 		return false;
 	}
 
@@ -177,7 +177,7 @@ bool testTwofish()
 
 	if (data != plainText)
 	{
-		g_cryptoError = "Twofish encryption mismatch.";
+		g_cryptoError = QObject::tr("Twofish encryption mismatch.");
 		return false;
 	}
 
@@ -210,7 +210,7 @@ bool testSalsa20()
 
 	if (data != salsa20Cipher)
 	{
-		g_cryptoError = "Salsa20 stream cipher encrypt mismatch.";
+		g_cryptoError = QObject::tr("Salsa20 stream cipher encrypt mismatch.");
 		return false;
 	}
 
@@ -228,7 +228,7 @@ bool testSalsa20()
 
 	if (data != salsa20Plain)
 	{
-		g_cryptoError = "Salsa20 stream cipher decrypt mismatch.";
+		g_cryptoError = QObject::tr("Salsa20 stream cipher decrypt mismatch.");
 		return false;
 	}
 
@@ -266,7 +266,7 @@ bool testChaCha20()
 
 	if (data != chacha20Cipher)
 	{
-		g_cryptoError = "ChaCha20 stream cipher encrypt mismatch.";
+		g_cryptoError = QObject::tr("ChaCha20 stream cipher encrypt mismatch.");
 		return false;
 	}
 
@@ -284,7 +284,7 @@ bool testChaCha20()
 
 	if (data != chacha20Plain)
 	{
-		g_cryptoError = "ChaCha20 stream cipher decrypt mismatch.";
+		g_cryptoError = QObject::tr("ChaCha20 stream cipher decrypt mismatch.");
 		return false;
 	}
 
@@ -298,7 +298,7 @@ namespace Crypto {
 bool init()
 {
 	unsigned int version_major = 3, min_version_minor = 0;
-	QString versionString = "3.x";
+	QString versionString = QStringLiteral("3.x");
 
 	if (Botan::version_major() != version_major || Botan::version_minor() < min_version_minor)
 	{
@@ -327,8 +327,8 @@ QString errorString()
 
 QString debugInfo()
 {
-	QString debugInfo = QObject::tr("Cryptographic libraries:").append("\n");
-	debugInfo.append(QString("- Botan %1.%2.%3\n")
+	QString debugInfo = QObject::tr("Cryptographic libraries:").append(QStringLiteral("\n"));
+	debugInfo.append(QStringLiteral("- Botan %1.%2.%3\n")
 		.arg(Botan::version_major())
 		.arg(Botan::version_minor())
 		.arg(Botan::version_patch()));

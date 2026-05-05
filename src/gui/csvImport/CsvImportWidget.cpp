@@ -42,7 +42,7 @@ Group* createGroupStructure(Database *db, const QString &groupPath, const QStrin
 		return group;
 	}
 
-	auto nameList = groupPath.split("/", Qt::SkipEmptyParts);
+	auto nameList = groupPath.split(QLatin1Char('/'), Qt::SkipEmptyParts);
 
 	// Skip the identified root group name if present
 	if (!rootGroupToSkip.isEmpty()
@@ -88,7 +88,7 @@ CsvImportWidget::CsvImportWidget(QWidget *parent)
 		<< QObject::tr("URL") << QObject::tr("Tags") << QObject::tr("Notes") << QObject::tr("TOTP")
 		<< QObject::tr("Icon") << QObject::tr("Last Modified") << QObject::tr("Created");
 
-	m_fieldSeparatorList << "," << ";" << "-" << ":" << "." << "\t";
+	m_fieldSeparatorList << QStringLiteral(",") << QStringLiteral(";") << QStringLiteral("-") << QStringLiteral(":") << QStringLiteral(".") << QStringLiteral("\t");
 
 	m_combos << m_ui->groupCombo << m_ui->titleCombo << m_ui->usernameCombo << m_ui->passwordCombo << m_ui->urlCombo
 		<< m_ui->tagsCombo << m_ui->notesCombo << m_ui->totpCombo << m_ui->iconCombo << m_ui->lastModifiedCombo
@@ -280,7 +280,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 	for (int r = 0; r < rows; ++r)
 	{
 		auto groupPath = m_parserModel->data(m_parserModel->index(r, 0)).toString();
-		auto groupName = groupPath.mid(0, groupPath.indexOf('/'));
+		auto groupName = groupPath.mid(0, groupPath.indexOf(QLatin1Char('/')));
 		if (!rootGroupName.isNull() && rootGroupName != groupName)
 		{
 			rootGroupName.clear();
@@ -341,7 +341,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 		if (m_parserModel->data(m_parserModel->index(r, 9)).isValid())
 		{
 			auto datetime = m_parserModel->data(m_parserModel->index(r, 9)).toString();
-			if (datetime.contains(QRegularExpression("^\\d+$")))
+			if (datetime.contains(QRegularExpression(QStringLiteral("^\\d+$"))))
 			{
 				auto t = datetime.toLongLong();
 				if (t <= INT32_MAX)
@@ -368,7 +368,7 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 		if (m_parserModel->data(m_parserModel->index(r, 10)).isValid())
 		{
 			auto datetime = m_parserModel->data(m_parserModel->index(r, 10)).toString();
-			if (datetime.contains(QRegularExpression("^\\d+$")))
+			if (datetime.contains(QRegularExpression(QStringLiteral("^\\d+$"))))
 			{
 				auto t = datetime.toLongLong();
 				if (t <= INT32_MAX)
@@ -397,15 +397,15 @@ QSharedPointer<Database> CsvImportWidget::buildDatabase()
 QString CsvImportWidget::formatStatusText() const
 {
 	QString text = m_parserModel->parser()->getStatus();
-	int items = text.count('\n');
+	int items = text.count(QLatin1Char('\n'));
 	if (items > 2)
 	{
-		return text.section('\n', 0, 1).append("\n").append(tr("[%n more message(s) skipped]", "", items - 2));
+		return text.section(QLatin1Char('\n'), 0, 1).append(QStringLiteral("\n")).append(tr("[%n more message(s) skipped]", "", items - 2));
 	}
 
 	if (items == 1)
 	{
-		text.append(QString("\n"));
+		text.append(QStringLiteral("\n"));
 	}
 
 	return text;

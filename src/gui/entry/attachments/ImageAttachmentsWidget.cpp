@@ -38,14 +38,14 @@ constexpr double WheelZoomStep = 1.1;
 
 QString formatZoomText(double zoomFactor)
 {
-	return QString("%1%").arg(QString::number(zoomFactor * 100, 'f', 0));
+	return QStringLiteral("%1%").arg(QString::number(zoomFactor * 100, 'f', 0));
 }
 
 double parseZoomText(const QString &zoomText)
 {
 	auto zoomTextTrimmed = zoomText.trimmed();
 
-	if (auto percentIndex = zoomTextTrimmed.indexOf('%'); percentIndex != -1)
+	if (auto percentIndex = zoomTextTrimmed.indexOf(QLatin1Char('%')); percentIndex != -1)
 	{
 		// Remove the '%' character and parse the number
 		zoomTextTrimmed = zoomTextTrimmed.left(percentIndex).trimmed();

@@ -19,7 +19,7 @@
 
 namespace {
 
-const QString htmlLinkTemplate("<a href=\"%1\">%2</a>");
+const QString htmlLinkTemplate = QStringLiteral("<a href=\"%1\">%2</a>");
 
 } // namespace
 

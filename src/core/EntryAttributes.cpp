@@ -22,21 +22,21 @@
 #include <QRegularExpression>
 #include <QUuid>
 
-const QString EntryAttributes::TitleKey = "Title";
-const QString EntryAttributes::UserNameKey = "UserName";
-const QString EntryAttributes::PasswordKey = "Password";
-const QString EntryAttributes::URLKey = "URL";
-const QString EntryAttributes::NotesKey = "Notes";
+const QString EntryAttributes::TitleKey = QStringLiteral("Title");
+const QString EntryAttributes::UserNameKey = QStringLiteral("UserName");
+const QString EntryAttributes::PasswordKey = QStringLiteral("Password");
+const QString EntryAttributes::URLKey = QStringLiteral("URL");
+const QString EntryAttributes::NotesKey = QStringLiteral("Notes");
 const QStringList EntryAttributes::DefaultAttributes(QStringList() << TitleKey << UserNameKey << PasswordKey << URLKey << NotesKey);
-const QString EntryAttributes::WantedFieldGroupName = "WantedField";
-const QString EntryAttributes::SearchInGroupName = "SearchIn";
-const QString EntryAttributes::SearchTextGroupName = "SearchText";
+const QString EntryAttributes::WantedFieldGroupName = QStringLiteral("WantedField");
+const QString EntryAttributes::SearchInGroupName = QStringLiteral("SearchIn");
+const QString EntryAttributes::SearchTextGroupName = QStringLiteral("SearchText");
 
-const QString EntryAttributes::RememberCmdExecAttr = "_EXEC_CMD";
-const QString EntryAttributes::AdditionalUrlAttribute = "KP2A_URL";
+const QString EntryAttributes::RememberCmdExecAttr = QStringLiteral("_EXEC_CMD");
+const QString EntryAttributes::AdditionalUrlAttribute = QStringLiteral("KP2A_URL");
 
 // Passkey related attributes
-const QString EntryAttributes::PasskeyAttribute = "KPEX_PASSKEY";
+const QString EntryAttributes::PasskeyAttribute = QStringLiteral("KPEX_PASSKEY");
 const QString EntryAttributes::KPEX_PASSKEY_USERNAME = QStringLiteral("KPEX_PASSKEY_USERNAME");
 const QString EntryAttributes::KPEX_PASSKEY_CREDENTIAL_ID = QStringLiteral("KPEX_PASSKEY_CREDENTIAL_ID");
 const QString EntryAttributes::KPEX_PASSKEY_PRIVATE_KEY_PEM = QStringLiteral("KPEX_PASSKEY_PRIVATE_KEY_PEM");
@@ -364,7 +364,7 @@ QRegularExpressionMatch EntryAttributes::matchReference(const QString &text)
 {
 	// Updated regex to handle nested braces in SearchText (e.g., {UUID})
 	static const QRegularExpression referenceRegExp(
-		R"(\{REF:(?<WantedField>[TUPANI])@(?<SearchIn>[TUPANIO]):(?<SearchText>(?:[^{}]|\{[^}]*\})+)\})",
+		QStringLiteral(R"(\{REF:(?<WantedField>[TUPANI])@(?<SearchIn>[TUPANIO]):(?<SearchText>(?:[^{}]|\{[^}]*\})+)\})"),
 		QRegularExpression::CaseInsensitiveOption);
 
 	return referenceRegExp.match(text);
@@ -379,7 +379,7 @@ void EntryAttributes::clear()
 
 	for (const QString &key: DefaultAttributes)
 	{
-		m_attributes.insert(key, "");
+		m_attributes.insert(key, QString());
 	}
 
 	Q_EMIT reset();

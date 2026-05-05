@@ -88,7 +88,7 @@ public Q_SLOTS:
 	void closeAllDatabases();
 	void lockAllDatabases();
 	void closeModalWindow();
-	void displayDesktopNotification(const QString &msg, QString title = "", int msTimeoutHint = 10000);
+	void displayDesktopNotification(const QString &msg, QString title = QString(), int msTimeoutHint = 10000);
 
 protected:
 	bool event(QEvent *event) override;

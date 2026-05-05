@@ -540,7 +540,7 @@ void Metadata::addSavedSearch(const QString &name, const QString &searchtext)
 	auto searches = savedSearches();
 	searches.insert(name, searchtext);
 	auto json = QJsonDocument::fromVariant(searches);
-	m_customData->set(customDataKeys::savedSearch, json.toJson());
+	m_customData->set(customDataKeys::savedSearch, QString::fromLocal8Bit(json.toJson()));
 }
 
 void Metadata::deleteSavedSearch(const QString &name)
@@ -548,7 +548,7 @@ void Metadata::deleteSavedSearch(const QString &name)
 	auto searches = savedSearches();
 	searches.remove(name);
 	auto json = QJsonDocument::fromVariant(searches);
-	m_customData->set(customDataKeys::savedSearch, json.toJson());
+	m_customData->set(customDataKeys::savedSearch, QString::fromLocal8Bit(json.toJson()));
 }
 
 QVariantMap Metadata::savedSearches()

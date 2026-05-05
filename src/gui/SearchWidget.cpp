@@ -76,13 +76,13 @@ SearchWidget::SearchWidget(QWidget *parent)
 	m_actionWaitForEnter->setCheckable(true);
 	m_actionWaitForEnter->setChecked(config()->get(Config::GUI_SearchWaitForEnter).toBool());
 
-	m_ui->searchIcon->setIcon(icons()->icon("system-search"));
+	m_ui->searchIcon->setIcon(icons()->icon(QStringLiteral("system-search")));
 	m_ui->searchEdit->addAction(m_ui->searchIcon, QLineEdit::LeadingPosition);
 
-	m_ui->helpIcon->setIcon(icons()->icon("system-help"));
+	m_ui->helpIcon->setIcon(icons()->icon(QStringLiteral("system-help")));
 	m_ui->searchEdit->addAction(m_ui->helpIcon, QLineEdit::TrailingPosition);
 
-	m_ui->saveIcon->setIcon(icons()->icon("document-save"));
+	m_ui->saveIcon->setIcon(icons()->icon(QStringLiteral("document-save")));
 	m_ui->searchEdit->addAction(m_ui->saveIcon, QLineEdit::TrailingPosition);
 	m_ui->saveIcon->setVisible(false);
 

@@ -30,11 +30,11 @@ namespace {
 QDateTime resolveDate(const QString &kind, const QJsonValue &value)
 {
 	QDateTime date;
-	if (kind == "monthYear")
+	if (kind == QStringLiteral("monthYear"))
 	{
 		// 1Password programmers are sadistic...
 		auto dateValue = QString::number(value.toInt());
-		date = QDateTime::fromString(dateValue, "yyyyMM");
+		date = QDateTime::fromString(dateValue, QStringLiteral("yyyyMM"));
 		date.setTimeSpec(Qt::UTC);
 	}
 	else if (value.isString())
@@ -54,25 +54,25 @@ QDateTime resolveDate(const QString &kind, const QJsonValue &value)
 void OpVaultReader::fillFromSection(Entry *entry, const QJsonObject &section)
 {
 	const auto uuid = entry->uuid();
-	auto sectionTitle = section["title"].toString();
+	auto sectionTitle = section[QStringLiteral("title")].toString();
 
-	if (!section.contains("fields"))
+	if (!section.contains(QStringLiteral("fields")))
 	{
-		auto sectionName = section["name"].toString();
-		if (!(sectionName.toLower() == "linked items" && sectionTitle.toLower() == "related items"))
+		auto sectionName = section[QStringLiteral("name")].toString();
+		if (!(sectionName.toLower() == QStringLiteral("linked items") && sectionTitle.toLower() == QStringLiteral("related items")))
 		{
 			qWarning() << R"(Skipping "fields"-less Section in UUID ")" << uuid << "\": <<" << section << ">>";
 		}
 
 		return;
 	}
-	else if (!section["fields"].isArray())
+	else if (!section[QStringLiteral("fields")].isArray())
 	{
 		qWarning() << R"(Skipping non-Array "fields" in UUID ")" << uuid << "\"\n";
 		return;
 	}
 
-	QJsonArray sectionFields = section["fields"].toArray();
+	QJsonArray sectionFields = section[QStringLiteral("fields")].toArray();
 	for (const QJsonValue sectionField: sectionFields)
 	{
 		if (!sectionField.isObject())
@@ -87,7 +87,7 @@ void OpVaultReader::fillFromSection(Entry *entry, const QJsonObject &section)
 
 void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionName, const QJsonObject &field)
 {
-	if (!field.contains("v"))
+	if (!field.contains(QStringLiteral("v")))
 	{
 		// for our purposes, we don't care if there isn't a value in the field
 		return;
@@ -95,37 +95,37 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 
 	// Ignore "a" and "inputTraits" fields, they don't apply to KPXC
 
-	auto attrName = resolveAttributeName(sectionName, field["n"].toString(), field["t"].toString());
-	auto attrValue = field.value("v").toString();
-	auto kind = field["k"].toString();
+	auto attrName = resolveAttributeName(sectionName, field[QStringLiteral("n")].toString(), field[QStringLiteral("t")].toString());
+	auto attrValue = field.value(QStringLiteral("v")).toString();
+	auto kind = field[QStringLiteral("k")].toString();
 
-	if (attrName.startsWith("TOTP_"))
+	if (attrName.startsWith(QStringLiteral("TOTP_")))
 	{
 		if (entry->hasTotp())
 		{
 			// Store multiple TOTP definitions as additional otp attributes
 			int i = 0;
-			QString name("otp");
+			QString name = QStringLiteral("otp");
 			auto attributes = entry->attributes()->keys();
 			while (attributes.contains(name))
 			{
-				name = QString("otp_%1").arg(++i);
+				name = QStringLiteral("otp_%1").arg(++i);
 			}
 
 			entry->attributes()->set(name, attrValue, true);
 		}
-		else if (attrValue.startsWith("otpauth://"))
+		else if (attrValue.startsWith(QStringLiteral("otpauth://")))
 		{
 			QUrlQuery query(attrValue);
 			// at least as of 1Password 7, they don't append the digits= and period= which totp.cpp requires
-			if (!query.hasQueryItem("digits"))
+			if (!query.hasQueryItem(QStringLiteral("digits")))
 			{
-				query.addQueryItem("digits", QString("%1").arg(Totp::DEFAULT_DIGITS));
+				query.addQueryItem(QStringLiteral("digits"), QStringLiteral("%1").arg(Totp::DEFAULT_DIGITS));
 			}
 
-			if (!query.hasQueryItem("period"))
+			if (!query.hasQueryItem(QStringLiteral("period")))
 			{
-				query.addQueryItem("period", QString("%1").arg(Totp::DEFAULT_STEP));
+				query.addQueryItem(QStringLiteral("period"), QStringLiteral("%1").arg(Totp::DEFAULT_STEP));
 			}
 
 			attrValue = query.toString(QUrl::FullyEncoded);
@@ -136,9 +136,9 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 			entry->setTotp(Totp::parseSettings({}, attrValue));
 		}
 	}
-	else if (attrName.startsWith("expir", Qt::CaseInsensitive))
+	else if (attrName.startsWith(QStringLiteral("expir"), Qt::CaseInsensitive))
 	{
-		QDateTime expiry = resolveDate(kind, field.value("v"));
+		QDateTime expiry = resolveDate(kind, field.value(QStringLiteral("v")));
 		if (expiry.isValid())
 		{
 			entry->setExpiryTime(expiry);
@@ -146,30 +146,30 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 		}
 		else
 		{
-			qWarning() << QString("[%1] Invalid expiration date found: %2").arg(entry->title(), attrValue);
+			qWarning() << QObject::tr("[%1] Invalid expiration date found: %2").arg(entry->title(), attrValue);
 		}
 	}
 	else
 	{
-		if (kind == "date" || kind == "monthYear")
+		if (kind == QStringLiteral("date") || kind == QStringLiteral("monthYear"))
 		{
-			QDateTime date = resolveDate(kind, field.value("v"));
+			QDateTime date = resolveDate(kind, field.value(QStringLiteral("v")));
 			if (date.isValid())
 			{
 				entry->attributes()->set(attrName, QLocale::system().toString(date, QLocale::ShortFormat));
 			}
 			else
 			{
-				qWarning() << QString("[%1] Invalid date attribute found: %2 = %3").arg(entry->title(), attrName, attrValue);
+				qWarning() << QObject::tr("[%1] Invalid date attribute found: %2 = %3").arg(entry->title(), attrName, attrValue);
 			}
 		}
-		else if (kind == "address")
+		else if (kind == QStringLiteral("address"))
 		{
 			// Expand address into multiple attributes
-			auto addrFields = field.value("v").toObject().toVariantMap();
+			auto addrFields = field.value(QStringLiteral("v")).toObject().toVariantMap();
 			for (auto &part: addrFields.keys())
 			{
-				entry->attributes()->set(attrName + QString("_%1").arg(part), addrFields.value(part).toString());
+				entry->attributes()->set(attrName + QStringLiteral("_%1").arg(part), addrFields.value(part).toString());
 			}
 		}
 		else
@@ -177,10 +177,10 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 			if (entry->attributes()->hasKey(attrName))
 			{
 				// Append a random string to the attribute name to avoid collisions
-				attrName += QString("_%1").arg(QUuid::createUuid().toString().mid(1, 5));
+				attrName += QStringLiteral("_%1").arg(QUuid::createUuid().toString().mid(1, 5));
 			}
 
-			entry->attributes()->set(attrName, attrValue, (kind == "password" || kind == "concealed"));
+			entry->attributes()->set(attrName, attrValue, (kind == QStringLiteral("password") || kind == QStringLiteral("concealed")));
 		}
 	}
 }
@@ -188,30 +188,30 @@ void OpVaultReader::fillFromSectionField(Entry *entry, const QString &sectionNam
 QString OpVaultReader::resolveAttributeName(const QString &section, const QString &name, const QString &text)
 {
 	// Special case for TOTP
-	if (name.startsWith("TOTP_"))
+	if (name.startsWith(QStringLiteral("TOTP_")))
 	{
 		return name;
 	}
 
 	auto lowName = name.toLower();
 	auto lowText = text.toLower();
-	if (section.isEmpty() || name.startsWith("address"))
+	if (section.isEmpty() || name.startsWith(QStringLiteral("address")))
 	{
 		// Empty section implies these are core attributes
 		// try to find username, password, url
-		if (lowName == "password" || lowText == "password")
+		if (lowName == QStringLiteral("password") || lowText == QStringLiteral("password"))
 		{
 			return EntryAttributes::PasswordKey;
 		}
-		else if (lowName == "username" || lowText == "username")
+		else if (lowName == QStringLiteral("username") || lowText == QStringLiteral("username"))
 		{
 			return EntryAttributes::UserNameKey;
 		}
-		else if (lowName == "url"
-			|| lowText == "url"
-			|| lowName == "hostname"
-			|| lowText == "server"
-			|| lowName == "website")
+		else if (lowName == QStringLiteral("url")
+			|| lowText == QStringLiteral("url")
+			|| lowName == QStringLiteral("hostname")
+			|| lowText == QStringLiteral("server")
+			|| lowName == QStringLiteral("website"))
 		{
 			return EntryAttributes::URLKey;
 		}
@@ -219,5 +219,5 @@ QString OpVaultReader::resolveAttributeName(const QString &section, const QStrin
 		return text;
 	}
 
-	return QString("%1_%2").arg(section, text);
+	return QStringLiteral("%1_%2").arg(section, text);
 }

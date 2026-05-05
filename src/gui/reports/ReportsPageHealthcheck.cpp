@@ -31,7 +31,7 @@ QString ReportsPageHealthcheck::name()
 
 QIcon ReportsPageHealthcheck::icon()
 {
-	return icons()->icon("health");
+	return icons()->icon(QStringLiteral("health"));
 }
 
 QWidget* ReportsPageHealthcheck::createWidget()

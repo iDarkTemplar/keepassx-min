@@ -38,7 +38,7 @@ QString FileDialog::getOpenFileName(
 	}
 	else
 	{
-		const auto &workingDir = dir.isEmpty() ? getLastDir("default") : dir;
+		const auto &workingDir = dir.isEmpty() ? getLastDir(QStringLiteral("default")) : dir;
 		const auto result = QDir::toNativeSeparators(QFileDialog::getOpenFileName(parent, caption, workingDir, filter, selectedFilter, options));
 
 		return result;
@@ -61,7 +61,7 @@ QStringList FileDialog::getOpenFileNames(
 	}
 	else
 	{
-		const auto &workingDir = dir.isEmpty() ? getLastDir("default") : dir;
+		const auto &workingDir = dir.isEmpty() ? getLastDir(QStringLiteral("default")) : dir;
 		auto results = QFileDialog::getOpenFileNames(parent, caption, workingDir, filter, selectedFilter, options);
 
 		for (auto &path: results)
@@ -89,7 +89,7 @@ QString FileDialog::getSaveFileName(
 	}
 	else
 	{
-		const auto &workingDir = dir.isEmpty() ? getLastDir("default") : dir;
+		const auto &workingDir = dir.isEmpty() ? getLastDir(QStringLiteral("default")) : dir;
 		const auto result = QDir::toNativeSeparators(QFileDialog::getSaveFileName(parent, caption, workingDir, filter, selectedFilter, options));
 
 		return result;
@@ -110,7 +110,7 @@ QString FileDialog::getExistingDirectory(
 	}
 	else
 	{
-		const auto &workingDir = dir.isEmpty() ? getLastDir("default") : dir;
+		const auto &workingDir = dir.isEmpty() ? getLastDir(QStringLiteral("default")) : dir;
 		const auto result = QDir::toNativeSeparators(QFileDialog::getExistingDirectory(parent, caption, workingDir, options));
 
 		return result;
@@ -160,7 +160,7 @@ QString FileDialog::getLastDir(const QString &role, const QString &defaultDir)
 	{
 		// Fallback to the environment variable, if it exists, otherwise use the home directory
 		const auto &env = QProcessEnvironment::systemEnvironment();
-		fallbackDir = env.value("KPXC_INITIAL_DIR", QDir::homePath());
+		fallbackDir = env.value(QStringLiteral("KPXC_INITIAL_DIR"), QDir::homePath());
 	}
 
 	return lastDirs.value(role, fallbackDir).toString();

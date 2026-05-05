@@ -130,14 +130,14 @@ void KdbxReader::setCipher(const QByteArray &data)
 {
 	if (data.size() != UUID_LENGTH)
 	{
-		raiseError(tr("Invalid cipher uuid length: %1 (length=%2)").arg(QString(data)).arg(data.size()));
+		raiseError(tr("Invalid cipher uuid length: %1 (length=%2)").arg(QString::fromLocal8Bit(data)).arg(data.size()));
 		return;
 	}
 
 	QUuid uuid = QUuid::fromRfc4122(data);
 	if (uuid.isNull())
 	{
-		raiseError(tr("Unable to parse UUID: %1").arg(QString(data)));
+		raiseError(tr("Unable to parse UUID: %1").arg(QString::fromLocal8Bit(data)));
 		return;
 	}
 

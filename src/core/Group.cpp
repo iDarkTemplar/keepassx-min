@@ -139,7 +139,7 @@ QString Group::fullPath() const
 
 	do
 	{
-		fullPath.insert(0, "/" + group->name());
+		fullPath.insert(0, QStringLiteral("/") + group->name());
 		group = group->parentGroup();
 	} while (group);
 
@@ -664,12 +664,12 @@ Entry* Group::findEntryByPath(const QString &entryPath) const
 	// Add a beginning slash if the search string contains a slash
 	// We don't add a slash by default to allow searching by entry title
 	QString normalizedEntryPath = entryPath;
-	if (!normalizedEntryPath.startsWith("/") && normalizedEntryPath.contains("/"))
+	if (!normalizedEntryPath.startsWith(QStringLiteral("/")) && normalizedEntryPath.contains(QStringLiteral("/")))
 	{
-		normalizedEntryPath = "/" + normalizedEntryPath;
+		normalizedEntryPath = QStringLiteral("/") + normalizedEntryPath;
 	}
 
-	return findEntryByPathRecursive(normalizedEntryPath, "/");
+	return findEntryByPathRecursive(normalizedEntryPath, QStringLiteral("/"));
 }
 
 Entry* Group::findEntryBySearchTerm(const QString &term, EntryReferenceType referenceType)
@@ -730,7 +730,7 @@ Entry* Group::findEntryByPathRecursive(const QString &entryPath, const QString &
 	for (Entry *entry: entries())
 	{
 		if ((entryPath == (basePath + entry->title()))
-			|| ((!entryPath.startsWith("/"))
+			|| ((!entryPath.startsWith(QStringLiteral("/")))
 				&& (entry->title() == entryPath)))
 		{
 			return entry;
@@ -739,7 +739,7 @@ Entry* Group::findEntryByPathRecursive(const QString &entryPath, const QString &
 
 	for (Group *group: children())
 	{
-		Entry *entry = group->findEntryByPathRecursive(entryPath, basePath + group->name() + "/");
+		Entry *entry = group->findEntryByPathRecursive(entryPath, basePath + group->name() + QStringLiteral("/"));
 		if (entry != nullptr)
 		{
 			return entry;
@@ -756,23 +756,23 @@ Group* Group::findGroupByPath(const QString &groupPath)
 
 	if (groupPath.isEmpty())
 	{
-		normalizedGroupPath = QString("/"); // root group
+		normalizedGroupPath = QStringLiteral("/"); // root group
 	}
 	else
 	{
-		normalizedGroupPath = (groupPath.startsWith("/") ? "" : "/")
+		normalizedGroupPath = (groupPath.startsWith(QStringLiteral("/")) ? QString() : QStringLiteral("/"))
 			+ groupPath
-			+ (groupPath.endsWith("/") ? "" : "/");
+			+ (groupPath.endsWith(QStringLiteral("/")) ? QString() : QStringLiteral("/"));
 	}
 
-	return findGroupByPathRecursive(normalizedGroupPath, "/");
+	return findGroupByPathRecursive(normalizedGroupPath, QStringLiteral("/"));
 }
 
 Group* Group::findGroupByPathRecursive(const QString &groupPath, const QString &basePath)
 {
 	// paths must be normalized
-	Q_ASSERT(groupPath.startsWith("/") && groupPath.endsWith("/"));
-	Q_ASSERT(basePath.startsWith("/") && basePath.endsWith("/"));
+	Q_ASSERT(groupPath.startsWith(QStringLiteral("/")) && groupPath.endsWith(QStringLiteral("/")));
+	Q_ASSERT(basePath.startsWith(QStringLiteral("/")) && basePath.endsWith(QStringLiteral("/")));
 
 	if (groupPath == basePath)
 	{
@@ -781,7 +781,7 @@ Group* Group::findGroupByPathRecursive(const QString &groupPath, const QString &
 
 	for (Group *innerGroup: children())
 	{
-		QString innerBasePath = basePath + innerGroup->name() + "/";
+		QString innerBasePath = basePath + innerGroup->name() + QStringLiteral("/");
 		Group *group = innerGroup->findGroupByPathRecursive(groupPath, innerBasePath);
 		if (group != nullptr)
 		{
@@ -799,7 +799,7 @@ QString Group::print(bool recursive, bool flatten, int depth)
 
 	if (flatten)
 	{
-		const QString separator("/");
+		const QString separator = QStringLiteral("/");
 		prefix = hierarchy(depth).join(separator);
 		if (!prefix.isEmpty())
 		{
@@ -808,23 +808,23 @@ QString Group::print(bool recursive, bool flatten, int depth)
 	}
 	else
 	{
-		prefix = QString("  ").repeated(depth);
+		prefix = QStringLiteral("  ").repeated(depth);
 	}
 
 	if (entries().isEmpty() && children().isEmpty())
 	{
-		response += prefix + tr("[empty]", "group has no children") + "\n";
+		response += prefix + tr("[empty]", "group has no children") + QStringLiteral("\n");
 		return response;
 	}
 
 	for (Entry *entry: entries())
 	{
-		response += prefix + entry->title() + "\n";
+		response += prefix + entry->title() + QStringLiteral("\n");
 	}
 
 	for (Group *innerGroup: children())
 	{
-		response += prefix + innerGroup->name() + "/\n";
+		response += prefix + innerGroup->name() + QStringLiteral("/\n");
 		if (recursive)
 		{
 			response += innerGroup->print(recursive, flatten, depth + 1);
@@ -1075,7 +1075,7 @@ void Group::removeEntry(Entry *entry)
 {
 	Q_ASSERT_X(m_entries.contains(entry),
 		Q_FUNC_INFO,
-		QString("Group %1 does not contain %2").arg(this->name(), entry->title()).toLatin1());
+		tr("Group %1 does not contain %2").arg(this->name(), entry->title()).toLatin1());
 
 	Q_EMIT entryAboutToRemove(entry);
 
@@ -1217,9 +1217,9 @@ Entry* Group::addEntryWithPath(const QString &entryPath)
 		return nullptr;
 	}
 
-	QStringList groups = entryPath.split("/");
+	QStringList groups = entryPath.split(QLatin1Char('/'));
 	QString entryTitle = groups.takeLast();
-	QString groupPath = groups.join("/");
+	QString groupPath = groups.join(QLatin1Char('/'));
 
 	Group *group = findGroupByPath(groupPath);
 	if (!group)

@@ -31,7 +31,7 @@
 ReportsWidgetStatistics::ReportsWidgetStatistics(QWidget *parent)
 	: QWidget(parent)
 	, m_ui(new Ui::ReportsWidgetStatistics())
-	, m_errIcon(icons()->icon("dialog-error"))
+	, m_errIcon(icons()->icon(QStringLiteral("dialog-error")))
 {
 	m_ui->setupUi(this);
 

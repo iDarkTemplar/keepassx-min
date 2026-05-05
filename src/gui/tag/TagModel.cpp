@@ -28,13 +28,12 @@
 TagModel::TagModel(QObject *parent)
 	: QAbstractListModel(parent)
 {
-	m_defaultSearches << qMakePair(tr("Clear Search"), QString(""))
-		<< qMakePair(tr("All Entries"), QString("*"))
-		<< qMakePair(tr("Expired"), QString("is:expired"))
-		<< qMakePair(tr("Weak Passwords"), QString("is:weak"))
-		<< qMakePair(tr("TOTP Entries"), QString("has:totp"));
+	m_defaultSearches << qMakePair(tr("Clear Search"), QString())
+		<< qMakePair(tr("All Entries"), QStringLiteral("*"))
+		<< qMakePair(tr("Expired"), QStringLiteral("is:expired"))
+		<< qMakePair(tr("Weak Passwords"), QStringLiteral("is:weak"))
+		<< qMakePair(tr("TOTP Entries"), QStringLiteral("has:totp"));
 }
-
 
 void TagModel::setDatabase(QSharedPointer<Database> db)
 {
@@ -73,8 +72,8 @@ void TagModel::updateTagList()
 	for (auto tag: m_db->tagList())
 	{
 		auto escapedTag = tag;
-		escapedTag.replace("\"", "\\\"");
-		m_tagList << qMakePair(tag, QString("tag:\"%1\"").arg(escapedTag));
+		escapedTag.replace(QStringLiteral("\""), QStringLiteral("\\\""));
+		m_tagList << qMakePair(tag, QStringLiteral("tag:\"%1\"").arg(escapedTag));
 	}
 
 	endResetModel();
@@ -114,10 +113,10 @@ QVariant TagModel::data(const QModelIndex &index, int role) const
 	case Qt::DecorationRole:
 		if (row < m_tagListStart)
 		{
-			return icons()->icon("database-search");
+			return icons()->icon(QStringLiteral("database-search"));
 		}
 
-		return icons()->icon("tag");
+		return icons()->icon(QStringLiteral("tag"));
 	case Qt::DisplayRole:
 		return m_tagList.at(row).first;
 	case Qt::UserRole:

@@ -376,8 +376,8 @@ bool GroupModel::dropMimeData(const QMimeData *data,
 QStringList GroupModel::mimeTypes() const
 {
 	QStringList types;
-	types << "application/x-keepassx-group";
-	types << "application/x-keepassx-entry";
+	types << QStringLiteral("application/x-keepassx-group");
+	types << QStringLiteral("application/x-keepassx-entry");
 	return types;
 }
 

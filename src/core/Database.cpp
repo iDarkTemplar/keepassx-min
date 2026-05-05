@@ -353,7 +353,7 @@ bool Database::saveAs(const QString &filePath, const QString &backupFilePath, QS
 
 	// Add random data to prevent side-channel data deduplication attacks
 	int length = Random::instance()->randomUIntRange(64, 512);
-	m_metadata->customData()->set(CustomData::RandomSlug, Random::instance()->randomArray(length).toHex());
+	m_metadata->customData()->set(CustomData::RandomSlug, QString::fromUtf8(Random::instance()->randomArray(length).toHex()));
 
 	// Prevent destructive operations while saving
 	QMutexLocker locker(&m_saveMutex);
@@ -1145,18 +1145,18 @@ void Database::stopModifiedTimer()
 
 QString Database::publicName()
 {
-	return publicCustomData().value("KPXC_PUBLIC_NAME").toString();
+	return publicCustomData().value(QStringLiteral("KPXC_PUBLIC_NAME")).toString();
 }
 
 void Database::setPublicName(const QString &name)
 {
 	if (name.isEmpty())
 	{
-		publicCustomData().remove("KPXC_PUBLIC_NAME");
+		publicCustomData().remove(QStringLiteral("KPXC_PUBLIC_NAME"));
 	}
 	else
 	{
-		publicCustomData().insert("KPXC_PUBLIC_NAME", name);
+		publicCustomData().insert(QStringLiteral("KPXC_PUBLIC_NAME"), name);
 	}
 
 	markAsModified();
@@ -1164,18 +1164,18 @@ void Database::setPublicName(const QString &name)
 
 QString Database::publicColor()
 {
-	return publicCustomData().value("KPXC_PUBLIC_COLOR").toString();
+	return publicCustomData().value(QStringLiteral("KPXC_PUBLIC_COLOR")).toString();
 }
 
 void Database::setPublicColor(const QString &color)
 {
 	if (color.isEmpty())
 	{
-		publicCustomData().remove("KPXC_PUBLIC_COLOR");
+		publicCustomData().remove(QStringLiteral("KPXC_PUBLIC_COLOR"));
 	}
 	else
 	{
-		publicCustomData().insert("KPXC_PUBLIC_COLOR", color);
+		publicCustomData().insert(QStringLiteral("KPXC_PUBLIC_COLOR"), color);
 	}
 
 	markAsModified();
@@ -1183,9 +1183,9 @@ void Database::setPublicColor(const QString &color)
 
 int Database::publicIcon()
 {
-	if (publicCustomData().contains("KPXC_PUBLIC_ICON"))
+	if (publicCustomData().contains(QStringLiteral("KPXC_PUBLIC_ICON")))
 	{
-		return publicCustomData().value("KPXC_PUBLIC_ICON").toInt();
+		return publicCustomData().value(QStringLiteral("KPXC_PUBLIC_ICON")).toInt();
 	}
 
 	return -1;
@@ -1195,11 +1195,11 @@ void Database::setPublicIcon(int iconIndex)
 {
 	if (iconIndex < 0)
 	{
-		publicCustomData().remove("KPXC_PUBLIC_ICON");
+		publicCustomData().remove(QStringLiteral("KPXC_PUBLIC_ICON"));
 	}
 	else
 	{
-		publicCustomData().insert("KPXC_PUBLIC_ICON", iconIndex);
+		publicCustomData().insert(QStringLiteral("KPXC_PUBLIC_ICON"), iconIndex);
 	}
 
 	markAsModified();

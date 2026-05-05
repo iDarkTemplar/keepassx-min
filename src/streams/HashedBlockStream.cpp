@@ -144,7 +144,7 @@ bool HashedBlockStream::readHashedBlock()
 	if (!ok || index != m_blockIndex)
 	{
 		m_error = true;
-		setErrorString("Invalid block index.");
+		setErrorString(tr("Invalid block index."));
 		return false;
 	}
 
@@ -152,7 +152,7 @@ bool HashedBlockStream::readHashedBlock()
 	if (hash.size() != 32)
 	{
 		m_error = true;
-		setErrorString("Invalid hash size.");
+		setErrorString(tr("Invalid hash size."));
 		return false;
 	}
 
@@ -160,7 +160,7 @@ bool HashedBlockStream::readHashedBlock()
 	if (!ok || m_blockSize < 0)
 	{
 		m_error = true;
-		setErrorString("Invalid block size.");
+		setErrorString(tr("Invalid block size."));
 		return false;
 	}
 
@@ -169,7 +169,7 @@ bool HashedBlockStream::readHashedBlock()
 		if (hash.count('\0') != 32)
 		{
 			m_error = true;
-			setErrorString("Invalid hash of final block.");
+			setErrorString(tr("Invalid hash of final block."));
 			return false;
 		}
 
@@ -181,14 +181,14 @@ bool HashedBlockStream::readHashedBlock()
 	if (m_buffer.size() != m_blockSize)
 	{
 		m_error = true;
-		setErrorString("Block too short.");
+		setErrorString(tr("Block too short."));
 		return false;
 	}
 
 	if (hash != CryptoHash::hash(m_buffer, CryptoHash::Sha256))
 	{
 		m_error = true;
-		setErrorString("Mismatch between hash and data.");
+		setErrorString(tr("Mismatch between hash and data."));
 		return false;
 	}
 

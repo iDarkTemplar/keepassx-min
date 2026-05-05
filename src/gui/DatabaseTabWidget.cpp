@@ -126,11 +126,11 @@ DatabaseWidget* DatabaseTabWidget::newDatabase()
 
 void DatabaseTabWidget::openDatabase()
 {
-	auto filter = QString("%1 (*.kdbxm);;%2 (*)").arg(tr("KeePassX-min Database"), tr("All files"));
-	auto fileName = fileDialog()->getOpenFileName(this, tr("Open database"), FileDialog::getLastDir("db"), filter);
+	auto filter = QStringLiteral("%1 (*.kdbxm);;%2 (*)").arg(tr("KeePassX-min Database"), tr("All files"));
+	auto fileName = fileDialog()->getOpenFileName(this, tr("Open database"), FileDialog::getLastDir(QStringLiteral("db")), filter);
 	if (!fileName.isEmpty())
 	{
-		FileDialog::saveLastDir("db", fileName, true);
+		FileDialog::saveLastDir(QStringLiteral("db"), fileName, true);
 		addDatabaseTab(fileName);
 	}
 }
@@ -233,7 +233,7 @@ void DatabaseTabWidget::addDatabaseTab(DatabaseWidget *dbWidget, bool inBackgrou
 	// emit before index change
 	Q_EMIT databaseOpened(dbWidget);
 
-	int index = addTab(dbWidget, "");
+	int index = addTab(dbWidget, QString());
 	updateTabName(index);
 	toggleTabbar();
 	if (!inBackground)
@@ -320,11 +320,11 @@ void DatabaseTabWidget::mergeDatabase()
 	auto dbWidget = currentDatabaseWidget();
 	if (dbWidget && !dbWidget->isLocked())
 	{
-		auto filter = QString("%1 (*.kdbxm);;%2 (*)").arg(tr("KeePassX-min Database"), tr("All files"));
-		auto fileName = fileDialog()->getOpenFileName(this, tr("Merge database"), FileDialog::getLastDir("merge"), filter);
+		auto filter = QStringLiteral("%1 (*.kdbxm);;%2 (*)").arg(tr("KeePassX-min Database"), tr("All files"));
+		auto fileName = fileDialog()->getOpenFileName(this, tr("Merge database"), FileDialog::getLastDir(QStringLiteral("merge")), filter);
 		if (!fileName.isEmpty())
 		{
-			FileDialog::saveLastDir("merge", fileName, true);
+			FileDialog::saveLastDir(QStringLiteral("merge"), fileName, true);
 			mergeDatabase(fileName);
 		}
 	}
@@ -486,25 +486,24 @@ void DatabaseTabWidget::exportToCsv()
 		return;
 	}
 
-	auto fileName = fileDialog()->getSaveFileName(this, tr("Export database to CSV file"), FileDialog::getLastDir("csv"), tr("CSV file").append(" (*.csv)"));
+	auto fileName = fileDialog()->getSaveFileName(this, tr("Export database to CSV file"), FileDialog::getLastDir(QStringLiteral("csv")), tr("CSV file").append(QStringLiteral(" (*.csv)")));
 	if (fileName.isEmpty())
 	{
 		return;
 	}
 
-	FileDialog::saveLastDir("csv", fileName, true);
+	FileDialog::saveLastDir(QStringLiteral("csv"), fileName, true);
 
 	CsvExporter csvExporter;
 	if (!csvExporter.exportDatabase(fileName, db))
 	{
-		Q_EMIT messageGlobal(tr("Writing the CSV file failed.").append("\n").append(csvExporter.errorString()),
-			MessageWidget::Error);
+		Q_EMIT messageGlobal(tr("Writing the CSV file failed.").append(QStringLiteral("\n")).append(csvExporter.errorString()), MessageWidget::Error);
 	}
 }
 
 void DatabaseTabWidget::handleExportError(const QString &reason)
 {
-	Q_EMIT messageGlobal(tr("Writing the HTML file failed.").append("\n").append(reason), MessageWidget::Error);
+	Q_EMIT messageGlobal(tr("Writing the HTML file failed.").append(QStringLiteral("\n")).append(reason), MessageWidget::Error);
 }
 
 void DatabaseTabWidget::exportToHtml()
@@ -535,26 +534,25 @@ void DatabaseTabWidget::exportToXML()
 		return;
 	}
 
-	auto fileName = fileDialog()->getSaveFileName(this, tr("Export database to XML file"), FileDialog::getLastDir("xml"), tr("XML file").append(" (*.xml)"));
+	auto fileName = fileDialog()->getSaveFileName(this, tr("Export database to XML file"), FileDialog::getLastDir(QStringLiteral("xml")), tr("XML file").append(QStringLiteral(" (*.xml)")));
 	if (fileName.isEmpty())
 	{
 		return;
 	}
 
-	FileDialog::saveLastDir("xml", fileName, true);
+	FileDialog::saveLastDir(QStringLiteral("xml"), fileName, true);
 
 	QByteArray xmlData;
 	QString err;
 	if (!db->extract(xmlData, &err))
 	{
-		Q_EMIT messageGlobal(tr("Writing the XML file failed").append("\n").append(err), MessageWidget::Error);
+		Q_EMIT messageGlobal(tr("Writing the XML file failed").append(QStringLiteral("\n")).append(err), MessageWidget::Error);
 	}
 
 	QFile file(fileName);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
 	{
-		Q_EMIT messageGlobal(tr("Writing the XML file failed").append("\n").append(file.errorString()),
-			MessageWidget::Error);
+		Q_EMIT messageGlobal(tr("Writing the XML file failed").append(QStringLiteral("\n")).append(file.errorString()), MessageWidget::Error);
 	}
 
 	file.write(xmlData);
@@ -659,7 +657,7 @@ QString DatabaseTabWidget::tabName(int index)
 
 	if (dbWidget->database()->isModified())
 	{
-		tabName.append("*");
+		tabName.append(QStringLiteral("*"));
 	}
 
 	return tabName;

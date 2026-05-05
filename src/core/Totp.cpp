@@ -30,20 +30,20 @@
 #include <cmath>
 
 static QList<Totp::Encoder> totpEncoders{
-	{"", "", "0123456789", Totp::DEFAULT_DIGITS, Totp::DEFAULT_STEP, false},
-	{"steam", Totp::STEAM_SHORTNAME, "23456789BCDFGHJKMNPQRTVWXY", Totp::STEAM_DIGITS, Totp::DEFAULT_STEP, true},
+	{QString(), QString(), QStringLiteral("0123456789"), Totp::DEFAULT_DIGITS, Totp::DEFAULT_STEP, false},
+	{QStringLiteral("steam"), Totp::STEAM_SHORTNAME, QStringLiteral("23456789BCDFGHJKMNPQRTVWXY"), Totp::STEAM_DIGITS, Totp::DEFAULT_STEP, true},
 };
 
 static Totp::Algorithm getHashTypeByName(const QString &name)
 {
 	auto nameUpper = name.toUpper();
 
-	if (nameUpper == "SHA512" || nameUpper == "HMAC-SHA-512")
+	if (nameUpper == QStringLiteral("SHA512") || nameUpper == QStringLiteral("HMAC-SHA-512"))
 	{
 		return Totp::Algorithm::Sha512;
 	}
 
-	if (nameUpper == "SHA256" || nameUpper == "HMAC-SHA-256")
+	if (nameUpper == QStringLiteral("SHA256") || nameUpper == QStringLiteral("HMAC-SHA-256"))
 	{
 		return Totp::Algorithm::Sha256;
 	}
@@ -109,55 +109,55 @@ QSharedPointer<Totp::Settings> Totp::parseSettings(const QString &rawSettings, c
 	auto settings = createSettings(key);
 
 	QUrl url(rawSettings);
-	if (url.isValid() && url.scheme() == "otpauth")
+	if (url.isValid() && url.scheme() == QStringLiteral("otpauth"))
 	{
 		// Default OTP url format
 		QUrlQuery query(url);
 		settings->format = StorageFormat::OTPURL;
-		settings->key = query.queryItemValue("secret");
+		settings->key = query.queryItemValue(QStringLiteral("secret"));
 
-		if (query.hasQueryItem("digits"))
+		if (query.hasQueryItem(QStringLiteral("digits")))
 		{
-			settings->digits = query.queryItemValue("digits").toUInt();
+			settings->digits = query.queryItemValue(QStringLiteral("digits")).toUInt();
 		}
 
-		if (query.hasQueryItem("period"))
+		if (query.hasQueryItem(QStringLiteral("period")))
 		{
-			settings->step = query.queryItemValue("period").toUInt();
+			settings->step = query.queryItemValue(QStringLiteral("period")).toUInt();
 		}
 
-		if (query.hasQueryItem("encoder"))
+		if (query.hasQueryItem(QStringLiteral("encoder")))
 		{
-			settings->encoder = getEncoderByName(query.queryItemValue("encoder"));
+			settings->encoder = getEncoderByName(query.queryItemValue(QStringLiteral("encoder")));
 		}
 
-		if (query.hasQueryItem("algorithm"))
+		if (query.hasQueryItem(QStringLiteral("algorithm")))
 		{
-			settings->algorithm = getHashTypeByName(query.queryItemValue("algorithm"));
+			settings->algorithm = getHashTypeByName(query.queryItemValue(QStringLiteral("algorithm")));
 		}
 	}
 	else
 	{
 		QUrlQuery query(rawSettings);
-		if (query.hasQueryItem("key"))
+		if (query.hasQueryItem(QStringLiteral("key")))
 		{
 			// Compatibility with "KeeOtp" plugin
 			settings->format = StorageFormat::KEEOTP;
-			settings->key = query.queryItemValue("key");
+			settings->key = query.queryItemValue(QStringLiteral("key"));
 
-			if (query.hasQueryItem("size"))
+			if (query.hasQueryItem(QStringLiteral("size")))
 			{
-				settings->digits = query.queryItemValue("size").toUInt();
+				settings->digits = query.queryItemValue(QStringLiteral("size")).toUInt();
 			}
 
-			if (query.hasQueryItem("step"))
+			if (query.hasQueryItem(QStringLiteral("step")))
 			{
-				settings->step = query.queryItemValue("step").toUInt();
+				settings->step = query.queryItemValue(QStringLiteral("step")).toUInt();
 			}
 
-			if (query.hasQueryItem("otpHashMode"))
+			if (query.hasQueryItem(QStringLiteral("otpHashMode")))
 			{
-				settings->algorithm = getHashTypeByName(query.queryItemValue("otpHashMode"));
+				settings->algorithm = getHashTypeByName(query.queryItemValue(QStringLiteral("otpHashMode")));
 			}
 		}
 		else
@@ -170,7 +170,7 @@ QSharedPointer<Totp::Settings> Totp::parseSettings(const QString &rawSettings, c
 
 			// Parse semi-colon separated values ([step];[digits|S])
 			settings->format = StorageFormat::LEGACY;
-			auto vars = rawSettings.split(";");
+			auto vars = rawSettings.split(QLatin1Char(';'));
 			if (vars.size() >= 2)
 			{
 				if (vars[1] == STEAM_SHORTNAME)
@@ -222,20 +222,20 @@ QString Totp::writeSettings(
 	if (settings->format == StorageFormat::OTPURL || forceOtp)
 	{
 		auto urlstring = QStringLiteral("otpauth://totp/%1:%2?secret=%3&period=%4&digits=%5&issuer=%1")
-			.arg(title.isEmpty() ? "KeePassX-min" : QString(QUrl::toPercentEncoding(title)),
-				username.isEmpty() ? "none" : QString(QUrl::toPercentEncoding(username)),
-				QString(QUrl::toPercentEncoding(Base32::sanitizeInput(settings->key.toLatin1()))),
+			.arg(title.isEmpty() ? QStringLiteral("KeePassX-min") : QString::fromUtf8(QUrl::toPercentEncoding(title)),
+				username.isEmpty() ? QStringLiteral("none") : QString::fromUtf8(QUrl::toPercentEncoding(username)),
+				QString::fromUtf8(QUrl::toPercentEncoding(QString::fromLocal8Bit(Base32::sanitizeInput(settings->key.toLatin1())))),
 				QString::number(settings->step),
 				QString::number(settings->digits));
 
 		if (!settings->encoder.name.isEmpty())
 		{
-			urlstring.append("&encoder=").append(settings->encoder.name);
+			urlstring.append(QStringLiteral("&encoder=")).append(settings->encoder.name);
 		}
 
 		if (settings->algorithm != Totp::DEFAULT_ALGORITHM)
 		{
-			urlstring.append("&algorithm=").append(getNameForHashType(settings->algorithm));
+			urlstring.append(QStringLiteral("&algorithm=")).append(getNameForHashType(settings->algorithm));
 		}
 
 		return urlstring;
@@ -244,13 +244,13 @@ QString Totp::writeSettings(
 	{
 		// KeeOtp output
 		auto keyString = QStringLiteral("key=%1&size=%2&step=%3")
-			.arg(QString(Base32::sanitizeInput(settings->key.toLatin1())))
+			.arg(QString::fromLocal8Bit(Base32::sanitizeInput(settings->key.toLatin1())))
 			.arg(settings->digits)
 			.arg(settings->step);
 
 		if (settings->algorithm != Totp::DEFAULT_ALGORITHM)
 		{
-			keyString.append("&otpHashMode=").append(getNameForHashType(settings->algorithm));
+			keyString.append(QStringLiteral("&otpHashMode=")).append(getNameForHashType(settings->algorithm));
 		}
 
 		return keyString;
@@ -411,7 +411,7 @@ Totp::Encoder& Totp::defaultEncoder()
 
 Totp::Encoder& Totp::steamEncoder()
 {
-	return getEncoderByShortName("S");
+	return getEncoderByShortName(QStringLiteral("S"));
 }
 
 Totp::Encoder& Totp::getEncoderByShortName(const QString &shortName)

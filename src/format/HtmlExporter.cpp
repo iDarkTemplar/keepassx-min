@@ -32,31 +32,31 @@ QString formatEntry(const Entry &entry)
 	const auto &u = entry.username();
 	if (!u.isEmpty())
 	{
-		item.append("<tr><th>");
+		item.append(QStringLiteral("<tr><th>"));
 		item.append(QObject::tr("User name"));
-		item.append("</th><td class=\"username\">");
+		item.append(QStringLiteral("</th><td class=\"username\">"));
 		item.append(entry.username().toHtmlEscaped());
-		item.append("</td></tr>");
+		item.append(QStringLiteral("</td></tr>"));
 	}
 
 	const auto &p = entry.password();
 	if (!p.isEmpty())
 	{
-		item.append("<tr><th>");
+		item.append(QStringLiteral("<tr><th>"));
 		item.append(QObject::tr("Password"));
-		item.append("</th><td class=\"password\">");
+		item.append(QStringLiteral("</th><td class=\"password\">"));
 		item.append(entry.password().toHtmlEscaped());
-		item.append("</td></tr>");
+		item.append(QStringLiteral("</td></tr>"));
 	}
 
 	const auto &r = entry.url();
 	if (!r.isEmpty())
 	{
-		item.append("<tr><th>");
+		item.append(QStringLiteral("<tr><th>"));
 		item.append(QObject::tr("URL"));
-		item.append("</th><td class=\"url\"><a href=\"");
+		item.append(QStringLiteral("</th><td class=\"url\"><a href=\""));
 		item.append(r.toHtmlEscaped());
-		item.append("\">");
+		item.append(QStringLiteral("\">"));
 
 		// Restrict the length of what we display of the URL -
 		// even from a paper backup, nobody will every type in
@@ -69,10 +69,10 @@ QString formatEntry(const Entry &entry)
 		else
 		{
 			item.append(r.mid(0, maxlen).toHtmlEscaped());
-			item.append("&hellip;");
+			item.append(QStringLiteral("&hellip;"));
 		}
 
-		item.append("</a></td></tr>");
+		item.append(QStringLiteral("</a></td></tr>"));
 	}
 
 	// Now add the attributes (if there are any)
@@ -81,22 +81,22 @@ QString formatEntry(const Entry &entry)
 	{
 		for (const auto &key: attr->customKeys())
 		{
-			item.append("<tr><th>");
+			item.append(QStringLiteral("<tr><th>"));
 			item.append(key.toHtmlEscaped());
-			item.append("</th><td class=\"attr\">");
-			item.append(attr->value(key).toHtmlEscaped().replace(" ", "&nbsp;").replace("\n", "<br>"));
-			item.append("</td></tr>");
+			item.append(QStringLiteral("</th><td class=\"attr\">"));
+			item.append(attr->value(key).toHtmlEscaped().replace(QStringLiteral(" "), QStringLiteral("&nbsp;")).replace(QStringLiteral("\n"), QStringLiteral("<br>")));
+			item.append(QStringLiteral("</td></tr>"));
 		}
 	}
 
 	const auto &n = entry.notes();
 	if (!n.isEmpty())
 	{
-		item.append("<tr><th>");
+		item.append(QStringLiteral("<tr><th>"));
 		item.append(QObject::tr("Notes"));
-		item.append("</th><td class=\"notes\">");
-		item.append(entry.notes().toHtmlEscaped().replace("\n", "<br>"));
-		item.append("</td></tr>");
+		item.append(QStringLiteral("</th><td class=\"notes\">"));
+		item.append(entry.notes().toHtmlEscaped().replace(QStringLiteral("\n"), QStringLiteral("<br>")));
+		item.append(QStringLiteral("</td></tr>"));
 	}
 	return item;
 }
@@ -187,17 +187,17 @@ QString HtmlExporter::exportHeader(const QSharedPointer<const Database> &db)
 	const auto meta = db->metadata();
 	if (!meta)
 	{
-		m_error = "Internal error: metadata is NULL";
+		m_error = QObject::tr("Internal error: metadata is NULL");
 		return QString();
 	}
 
-	const auto header = QString(
+	const auto header = QStringLiteral(
 		"<html>"
 		"<head>"
 		"<meta charset=\"UTF-8\">"
-		"<title>"
+		"<title>")
 		+ meta->name().toHtmlEscaped()
-		+ "</title>"
+		+ QStringLiteral("</title>"
 		"<style>"
 		"body "
 		"{ font-family: \"Open Sans\", Helvetica, Arial, sans-serif; }"
@@ -217,14 +217,15 @@ QString HtmlExporter::exportHeader(const QSharedPointer<const Database> &db)
 		"</style>"
 		"</head>\n"
 		"<body>"
-		"<h1>"
+		"<h1>")
 		+ meta->name().toHtmlEscaped()
-		+ "</h1>"
-		"<p>"
-		+ meta->description().toHtmlEscaped().replace("\n", "<br>")
-		+ "</p>"
-		"<p><code>"
-		+ db->filePath().toHtmlEscaped() + "</code></p>");
+		+ QStringLiteral("</h1>"
+		"<p>")
+		+ meta->description().toHtmlEscaped().replace(QStringLiteral("\n"), QStringLiteral("<br>"))
+		+ QStringLiteral("</p>"
+		"<p><code>")
+		+ db->filePath().toHtmlEscaped()
+		+ QStringLiteral("</code></p>");
 
 	return header;
 }
@@ -250,7 +251,7 @@ QString HtmlExporter::exportGroup(const Group &group, QString path, bool sorted,
 
 	if (!path.isEmpty())
 	{
-		path.append(" &rarr; ");
+		path.append(QStringLiteral(" &rarr; "));
 	}
 
 	path.append(group.name().toHtmlEscaped());
@@ -262,23 +263,23 @@ QString HtmlExporter::exportGroup(const Group &group, QString path, bool sorted,
 	if (!group.entries().empty() || !notes.isEmpty())
 	{
 		// Header line
-		auto header = QString("<hr><h2>");
+		auto header = QStringLiteral("<hr><h2>");
 		auto groupIcon = this->groupIconToHtml(&group);
 		if (!groupIcon.isEmpty())
 		{
 			header.append(groupIcon);
-			header.append("&nbsp;");
+			header.append(QStringLiteral("&nbsp;"));
 		}
 
 		header.append(path);
-		header.append("</h2>\n");
+		header.append(QStringLiteral("</h2>\n"));
 
 		// Group notes
 		if (!notes.isEmpty())
 		{
-			header.append("<p>");
-			header.append(notes.toHtmlEscaped().replace("\n", "<br>"));
-			header.append("</p>");
+			header.append(QStringLiteral("<p>"));
+			header.append(notes.toHtmlEscaped().replace(QStringLiteral("\n"), QStringLiteral("<br>")));
+			header.append(QStringLiteral("</p>"));
 		}
 
 		// Append it to the output
@@ -286,7 +287,7 @@ QString HtmlExporter::exportGroup(const Group &group, QString path, bool sorted,
 	}
 
 	// Begin the table for the entries in this group
-	auto table = QString("<table width=\"95%\">");
+	auto table = QStringLiteral("<table width=\"95%\">");
 
 	auto entries = group.entries();
 	if (sorted)
@@ -307,22 +308,22 @@ QString HtmlExporter::exportGroup(const Group &group, QString path, bool sorted,
 
 		// Output it into our table. First the left side with
 		// icon and entry title ...
-		table += "<tr>";
+		table += QStringLiteral("<tr>");
 		auto entryIcon = this->entryIconToHtml(entry);
 		if (!entryIcon.isEmpty())
 		{
-			table += "<td width=\"1%\">" + entryIcon + "</td>";
+			table += QStringLiteral("<td width=\"1%\">") + entryIcon + QStringLiteral("</td>");
 		}
 
-		auto caption = "<caption>" + entry->title().toHtmlEscaped() + "</caption>";
+		auto caption = QStringLiteral("<caption>") + entry->title().toHtmlEscaped() + QStringLiteral("</caption>");
 
 		// ... then the right side with the data fields
-		table += "<td style=\"padding-bottom: 0.5em;\"><table width=\"100%\">" + caption + formatted_entry + "</table></td>";
-		table += "</tr>";
+		table += QStringLiteral("<td style=\"padding-bottom: 0.5em;\"><table width=\"100%\">") + caption + formatted_entry + QStringLiteral("</table></td>");
+		table += QStringLiteral("</tr>");
 	}
 
 	// Append the complete table of this group to the output
-	table.append("</table>\n");
+	table.append(QStringLiteral("</table>\n"));
 	response.append(table);
 
 	auto children = group.children();

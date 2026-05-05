@@ -81,20 +81,20 @@ void PasswordHealth::adjustScore(int amount)
 
 QString PasswordHealth::scoreReason() const
 {
-	return m_scoreReasons.join("\n");
+	return m_scoreReasons.join(QLatin1Char('\n'));
 }
 
-void PasswordHealth::addScoreReason(QString reason)
+void PasswordHealth::addScoreReason(const QString &reason)
 {
 	m_scoreReasons << reason;
 }
 
 QString PasswordHealth::scoreDetails() const
 {
-	return m_scoreDetails.join("\n");
+	return m_scoreDetails.join(QLatin1Char('\n'));
 }
 
-void PasswordHealth::addScoreDetails(QString details)
+void PasswordHealth::addScoreDetails(const QString &details)
 {
 	m_scoreDetails.append(details);
 }
@@ -130,9 +130,9 @@ HealthChecker::HealthChecker(QSharedPointer<Database> db)
 	// Build the cache of re-used passwords
 	for (const auto *entry: db->rootGroup()->entriesRecursive())
 	{
-		if (!entry->isRecycled() && !entry->isAttributeReference("Password"))
+		if (!entry->isRecycled() && !entry->isAttributeReference(QStringLiteral("Password")))
 		{
-			m_reuse[entry->password()] << QObject::tr("Used in %1/%2").arg(entry->group()->hierarchy().join('/'), entry->title());
+			m_reuse[entry->password()] << QObject::tr("Used in %1/%2").arg(entry->group()->hierarchy().join(QLatin1Char('/')), entry->title());
 		}
 	}
 }
@@ -170,7 +170,7 @@ QSharedPointer<PasswordHealth> HealthChecker::evaluate(const Entry *entry) const
 			health->addScoreDetails(used[i]);
 			if (i == 19)
 			{
-				health->addScoreDetails("…");
+				health->addScoreDetails(QStringLiteral("…"));
 				break;
 			}
 		}

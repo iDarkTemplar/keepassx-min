@@ -39,12 +39,12 @@ PasswordWidget::PasswordWidget(QWidget *parent)
 	setFocusProxy(m_ui->passwordEdit);
 	m_ui->passwordEdit->installEventFilter(this);
 
-	const QIcon errorIcon = icons()->icon("dialog-error");
+	const QIcon errorIcon = icons()->icon(QStringLiteral("dialog-error"));
 	m_errorAction = m_ui->passwordEdit->addAction(errorIcon, QLineEdit::TrailingPosition);
 	m_errorAction->setVisible(false);
 	m_errorAction->setToolTip(tr("Passwords do not match"));
 
-	const QIcon correctIcon = icons()->icon("dialog-ok");
+	const QIcon correctIcon = icons()->icon(QStringLiteral("dialog-ok"));
 	m_correctAction = m_ui->passwordEdit->addAction(correctIcon, QLineEdit::TrailingPosition);
 	m_correctAction->setVisible(false);
 	m_correctAction->setToolTip(tr("Passwords match so far"));
@@ -57,7 +57,7 @@ PasswordWidget::PasswordWidget(QWidget *parent)
 	m_ui->passwordEdit->setFont(passwordFont);
 
 	m_toggleVisibleAction = new QAction(
-		icons()->onOffIcon("password-show", false),
+		icons()->onOffIcon(QStringLiteral("password-show"), false),
 		tr("Toggle Password (%1)").arg(QKeySequence(Qt::ControlModifier | Qt::Key_H).toString(QKeySequence::NativeText)),
 		this);
 	m_toggleVisibleAction->setCheckable(true);
@@ -67,7 +67,7 @@ PasswordWidget::PasswordWidget(QWidget *parent)
 	connect(m_toggleVisibleAction, &QAction::triggered, this, &PasswordWidget::setShowPassword);
 
 	m_passwordGeneratorAction = new QAction(
-		icons()->icon("password-generator"),
+		icons()->icon(QStringLiteral("password-generator")),
 		tr("Generate Password (%1)").arg(QKeySequence(Qt::ControlModifier | Qt::Key_G).toString(QKeySequence::NativeText)),
 		this);
 
@@ -159,7 +159,7 @@ void PasswordWidget::enablePasswordGenerator()
 void PasswordWidget::setShowPassword(bool show)
 {
 	setEchoMode(show ? QLineEdit::Normal : QLineEdit::Password);
-	m_toggleVisibleAction->setIcon(icons()->onOffIcon("password-show", show));
+	m_toggleVisibleAction->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), show));
 	m_toggleVisibleAction->setChecked(show);
 
 	if (m_repeatPasswordWidget)
@@ -232,10 +232,10 @@ void PasswordWidget::updatePasswordStrength(const QString &password)
 	m_ui->qualityProgressBar->setValue(std::min(int(health.entropy()), m_ui->qualityProgressBar->maximum()));
 
 	QString style = m_ui->qualityProgressBar->styleSheet();
-	QRegularExpression re("(QProgressBar::chunk\\s*\\{.*?background-color:)[^;]+;",
+	QRegularExpression re(QStringLiteral("(QProgressBar::chunk\\s*\\{.*?background-color:)[^;]+;"),
 		QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption);
 
-	style.replace(re, "\\1 %1;");
+	style.replace(re, QStringLiteral("\\1 %1;"));
 
 	switch (health.quality())
 	{

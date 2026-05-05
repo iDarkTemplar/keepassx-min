@@ -30,12 +30,12 @@ ImportWizardPageSelect::ImportWizardPageSelect(QWidget *parent)
 {
 	m_ui->setupUi(this);
 
-	new QListWidgetItem(icons()->icon("csv"), tr("Comma Separated Values (.csv)"), m_ui->importTypeList);
-	new QListWidgetItem(icons()->icon("onepassword"), tr("1Password Export (.1pux)"), m_ui->importTypeList);
-	new QListWidgetItem(icons()->icon("onepassword"), tr("1Password Vault (.opvault)"), m_ui->importTypeList);
-	new QListWidgetItem(icons()->icon("bitwarden"), tr("Bitwarden (.json)"), m_ui->importTypeList);
-	new QListWidgetItem(icons()->icon("proton"), tr("Proton Pass (.json)"), m_ui->importTypeList);
-	new QListWidgetItem(icons()->icon("keepassxc", false), tr("KeepassXC (.kdbx)"), m_ui->importTypeList);
+	new QListWidgetItem(icons()->icon(QStringLiteral("csv")), tr("Comma Separated Values (.csv)"), m_ui->importTypeList);
+	new QListWidgetItem(icons()->icon(QStringLiteral("onepassword")), tr("1Password Export (.1pux)"), m_ui->importTypeList);
+	new QListWidgetItem(icons()->icon(QStringLiteral("onepassword")), tr("1Password Vault (.opvault)"), m_ui->importTypeList);
+	new QListWidgetItem(icons()->icon(QStringLiteral("bitwarden")), tr("Bitwarden (.json)"), m_ui->importTypeList);
+	new QListWidgetItem(icons()->icon(QStringLiteral("proton")), tr("Proton Pass (.json)"), m_ui->importTypeList);
+	new QListWidgetItem(icons()->icon(QStringLiteral("keepassxc"), false), tr("KeepassXC (.kdbx)"), m_ui->importTypeList);
 
 	m_ui->importTypeList->item(0)->setData(Qt::UserRole, ImportWizard::IMPORT_CSV);
 	m_ui->importTypeList->item(1)->setData(Qt::UserRole, ImportWizard::IMPORT_OPUX);
@@ -55,11 +55,11 @@ ImportWizardPageSelect::ImportWizardPageSelect(QWidget *parent)
 
 	updateDatabaseChoices();
 
-	registerField("ImportType", this);
-	registerField("ImportFile*", m_ui->importFileEdit);
-	registerField("ImportInto", m_ui->importIntoLabel);
-	registerField("ImportPassword", m_ui->passwordEdit, "text", "textChanged");
-	registerField("ImportKeyFile", m_ui->keyFileEdit);
+	registerField(QStringLiteral("ImportType"), this);
+	registerField(QStringLiteral("ImportFile*"), m_ui->importFileEdit);
+	registerField(QStringLiteral("ImportInto"), m_ui->importIntoLabel);
+	registerField(QStringLiteral("ImportPassword"), m_ui->passwordEdit, "text", "textChanged");
+	registerField(QStringLiteral("ImportKeyFile"), m_ui->keyFileEdit);
 }
 
 ImportWizardPageSelect::~ImportWizardPageSelect()
@@ -68,7 +68,7 @@ ImportWizardPageSelect::~ImportWizardPageSelect()
 
 void ImportWizardPageSelect::initializePage()
 {
-	setField("ImportType", m_ui->importTypeList->currentItem()->data(Qt::UserRole).toInt());
+	setField(QStringLiteral("ImportType"), m_ui->importTypeList->currentItem()->data(Qt::UserRole).toInt());
 	adjustSize();
 }
 
@@ -81,11 +81,11 @@ bool ImportWizardPageSelect::validatePage()
 			return false;
 		}
 
-		setField("ImportInto", m_ui->existingDatabaseChoice->currentData());
+		setField(QStringLiteral("ImportInto"), m_ui->existingDatabaseChoice->currentData());
 	}
 	else
 	{
-		setField("ImportInto", {});
+		setField(QStringLiteral("ImportInto"), {});
 	}
 
 	return true;
@@ -106,7 +106,7 @@ void ImportWizardPageSelect::itemSelected(QListWidgetItem *current, QListWidgetI
 	m_ui->keyFileEdit->clear();
 
 	auto type = current->data(Qt::UserRole).toInt();
-	setField("ImportType", type);
+	setField(QStringLiteral("ImportType"), type);
 
 	switch (type)
 	{
@@ -151,7 +151,7 @@ void ImportWizardPageSelect::updateDatabaseChoices() const
 
 			// Enable the selection of an existing database
 			m_ui->existingDatabaseRadio->setEnabled(true);
-			m_ui->existingDatabaseRadio->setToolTip("");
+			m_ui->existingDatabaseRadio->setToolTip(QString());
 
 			// Add a separator between databases
 			if (m_ui->existingDatabaseChoice->count() > 0)
@@ -162,7 +162,7 @@ void ImportWizardPageSelect::updateDatabaseChoices() const
 			// Add the root group as a special line item
 			auto db = dbWidget->database();
 			m_ui->existingDatabaseChoice->addItem(
-				QString("%1 (%2)").arg(dbWidget->displayName(), db->rootGroup()->name()),
+				QStringLiteral("%1 (%2)").arg(dbWidget->displayName(), db->rootGroup()->name()),
 				QList<QVariant>() << db->uuid() << db->rootGroup()->uuid());
 
 			if (dbWidget->isVisible())
@@ -177,7 +177,7 @@ void ImportWizardPageSelect::updateDatabaseChoices() const
 				{
 					auto path = group->hierarchy();
 					path.removeFirst();
-					m_ui->existingDatabaseChoice->addItem(QString("  / %1").arg(path.join(" / ")),
+					m_ui->existingDatabaseChoice->addItem(QStringLiteral("  / %1").arg(path.join(QStringLiteral(" / "))),
 						QList<QVariant>() << db->uuid() << group->uuid());
 				}
 			}
@@ -195,7 +195,7 @@ void ImportWizardPageSelect::chooseImportFile()
 {
 	QString file;
 	// OPVault is a folder except on macOS
-	if (field("ImportType").toInt() == ImportWizard::IMPORT_OPVAULT)
+	if (field(QStringLiteral("ImportType")).toInt() == ImportWizard::IMPORT_OPVAULT)
 	{
 		file = fileDialog()->getExistingDirectory(this, tr("Open OPVault"), QDir::homePath());
 	}
@@ -212,7 +212,7 @@ void ImportWizardPageSelect::chooseImportFile()
 
 void ImportWizardPageSelect::chooseKeyFile()
 {
-	auto filter = QString("%1 (*);;%2 (*.keyx; *.key)").arg(tr("All files"), tr("Key files"));
+	auto filter = QStringLiteral("%1 (*);;%2 (*.keyx; *.key)").arg(tr("All files"), tr("Key files"));
 	auto file = fileDialog()->getOpenFileName(this, tr("Select key file"), QDir::homePath(), filter);
 	if (!file.isEmpty())
 	{
@@ -253,20 +253,20 @@ void ImportWizardPageSelect::setCredentialState(bool passwordEnabled, bool keyFi
 
 QString ImportWizardPageSelect::importFileFilter()
 {
-	switch (field("ImportType").toInt())
+	switch (field(QStringLiteral("ImportType")).toInt())
 	{
 	case ImportWizard::IMPORT_CSV:
-		return QString("%1 (*.csv);;%2 (*)").arg(tr("Comma Separated Values"), tr("All files"));
+		return QStringLiteral("%1 (*.csv);;%2 (*)").arg(tr("Comma Separated Values"), tr("All files"));
 	case ImportWizard::IMPORT_OPUX:
-		return QString("%1 (*.1pux)").arg(tr("1Password Export"));
+		return QStringLiteral("%1 (*.1pux)").arg(tr("1Password Export"));
 	case ImportWizard::IMPORT_BITWARDEN:
-		return QString("%1 (*.json)").arg(tr("Bitwarden JSON Export"));
+		return QStringLiteral("%1 (*.json)").arg(tr("Bitwarden JSON Export"));
 	case ImportWizard::IMPORT_PROTONPASS:
-		return QString("%1 (*.json)").arg(tr("Proton Pass JSON Export"));
+		return QStringLiteral("%1 (*.json)").arg(tr("Proton Pass JSON Export"));
 	case ImportWizard::IMPORT_OPVAULT:
-		return QString("%1 (*.opvault)").arg(tr("1Password Vault"));
+		return QStringLiteral("%1 (*.opvault)").arg(tr("1Password Vault"));
 	case ImportWizard::IMPORT_KEEPASSXC2:
-		return QString("%1 (*.kdbx)").arg(tr("KeepassXC database"));
+		return QStringLiteral("%1 (*.kdbx)").arg(tr("KeepassXC database"));
 	default:
 		return {};
 	}

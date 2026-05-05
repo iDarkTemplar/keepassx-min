@@ -185,7 +185,7 @@ void EntryAttachmentsWidget::insertAttachments()
 		return;
 	}
 
-	QString defaultDirPath = FileDialog::getLastDir("attachments");
+	QString defaultDirPath = FileDialog::getLastDir(QStringLiteral("attachments"));
 	const auto filenames = fileDialog()->getOpenFileNames(this, tr("Select files"), defaultDirPath);
 	if (filenames.isEmpty())
 	{
@@ -199,7 +199,7 @@ void EntryAttachmentsWidget::insertAttachments()
 	}
 
 	// Save path to first filename
-	FileDialog::saveLastDir("attachments", filenames[0]);
+	FileDialog::saveLastDir(QStringLiteral("attachments"), filenames[0]);
 	QString errorMessage;
 	if (!insertAttachments(confirmedFileNames, errorMessage))
 	{
@@ -374,7 +374,7 @@ void EntryAttachmentsWidget::saveSelectedAttachments()
 		return;
 	}
 
-	QString defaultDirPath = FileDialog::getLastDir("attachments");
+	QString defaultDirPath = FileDialog::getLastDir(QStringLiteral("attachments"));
 	const QString saveDirPath = fileDialog()->getExistingDirectory(this, tr("Save attachments"), defaultDirPath);
 	if (saveDirPath.isEmpty())
 	{
@@ -391,7 +391,7 @@ void EntryAttachmentsWidget::saveSelectedAttachments()
 		}
 	}
 
-	FileDialog::saveLastDir("attachments", saveDirPath);
+	FileDialog::saveLastDir(QStringLiteral("attachments"), saveDirPath);
 
 	QStringList errors;
 	for (const QModelIndex &index: indexes)
@@ -429,13 +429,13 @@ void EntryAttachmentsWidget::saveSelectedAttachments()
 
 		if (!saveOk)
 		{
-			errors.append(QString("%1 - %2").arg(filename, file.errorString()));
+			errors.append(QStringLiteral("%1 - %2").arg(filename, file.errorString()));
 		}
 	}
 
 	if (!errors.isEmpty())
 	{
-		errorOccurred(tr("Unable to save attachments:\n%1").arg(errors.join('\n')));
+		errorOccurred(tr("Unable to save attachments:\n%1").arg(errors.join(QLatin1Char('\n'))));
 	}
 }
 
@@ -469,13 +469,13 @@ void EntryAttachmentsWidget::openSelectedAttachments()
 		if (!m_entryAttachments->openAttachment(m_attachmentsModel->keyByIndex(index), &errorMessage))
 		{
 			const QString filename = m_attachmentsModel->keyByIndex(index);
-			errors.append(QString("%1 - %2").arg(filename, errorMessage));
+			errors.append(QStringLiteral("%1 - %2").arg(filename, errorMessage));
 		}
 	}
 
 	if (!errors.isEmpty())
 	{
-		errorOccurred(tr("Unable to open attachments:\n%1").arg(errors.join('\n')));
+		errorOccurred(tr("Unable to open attachments:\n%1").arg(errors.join(QLatin1Char('\n'))));
 	}
 }
 
@@ -537,13 +537,13 @@ bool EntryAttachmentsWidget::insertAttachments(const QStringList &filenames, QSt
 		}
 		else
 		{
-			errors.append(QString("%1 - %2").arg(fInfo.fileName(), file.errorString()));
+			errors.append(QStringLiteral("%1 - %2").arg(fInfo.fileName(), file.errorString()));
 		}
 	}
 
 	if (!errors.isEmpty())
 	{
-		errorMessage = tr("Unable to open file(s):\n%1", "", errors.size()).arg(errors.join('\n'));
+		errorMessage = tr("Unable to open file(s):\n%1", "", errors.size()).arg(errors.join(QLatin1Char('\n')));
 	}
 
 	return errors.isEmpty();

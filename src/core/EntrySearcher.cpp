@@ -158,7 +158,7 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 	QString hierarchy;
 	if (entry->group())
 	{
-		hierarchy = entry->group()->hierarchy().join('/').prepend("/");
+		hierarchy = entry->group()->hierarchy().join(QLatin1Char('/')).prepend(QStringLiteral("/"));
 	}
 
 	// By default, empty term matches every entry.
@@ -203,7 +203,7 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 			break;
 		case Field::Group:
 			// Match against the full hierarchy if the word contains a '/' otherwise just the group name
-			if (term.word.contains('/'))
+			if (term.word.contains(QLatin1Char('/')))
 			{
 				found = term.regex.match(hierarchy).hasMatch();
 			}
@@ -216,10 +216,10 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 			found = entry->tagList().indexOf(term.regex) != -1;
 			break;
 		case Field::Is:
-			if (term.word.startsWith("expired", Qt::CaseInsensitive))
+			if (term.word.startsWith(QStringLiteral("expired"), Qt::CaseInsensitive))
 			{
 				auto days = 0;
-				auto parts = term.word.split("-", Qt::SkipEmptyParts);
+				auto parts = term.word.split(QStringLiteral("-"), Qt::SkipEmptyParts);
 				if (parts.length() >= 2)
 				{
 					days = parts[1].toInt();
@@ -228,7 +228,7 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 				found = entry->willExpireInDays(days) && !entry->isRecycled();
 				break;
 			}
-			else if (term.word.compare("weak", Qt::CaseInsensitive) == 0)
+			else if (term.word.compare(QStringLiteral("weak"), Qt::CaseInsensitive) == 0)
 			{
 				if (!entry->excludeFromReports() && !entry->password().isEmpty() && !entry->isExpired())
 				{
@@ -245,7 +245,7 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 			found = false;
 			break;
 		case Field::Has:
-			if (term.word.compare("totp", Qt::CaseInsensitive) == 0)
+			if (term.word.compare(QStringLiteral("totp"), Qt::CaseInsensitive) == 0)
 			{
 				found = entry->hasTotp();
 				break;
@@ -297,7 +297,7 @@ void EntrySearcher::parseSearchTerms(const QString &searchString)
 		{QStringLiteral("uuid"), Field::Uuid}};
 
 	// Group 1 = modifiers, Group 2 = field, Group 3 = quoted string, Group 4 = unquoted string
-	static QRegularExpression termParser(R"re(([-!*+]+)?(?:(\w*):)?(?:(?=")"((?:[^"\\]|\\.)*)"|([^ ]*))( |$))re");
+	static QRegularExpression termParser(QStringLiteral(R"re(([-!*+]+)?(?:(\w*):)?(?:(?=")"((?:[^"\\]|\\.)*)"|([^ ]*))( |$))re"));
 
 	m_searchTerms.clear();
 	auto results = termParser.globalMatch(searchString);
@@ -309,7 +309,7 @@ void EntrySearcher::parseSearchTerms(const QString &searchString)
 		// Quoted string group
 		term.word = result.captured(3);
 		// Unescape quotes
-		term.word.replace("\\\"", "\"");
+		term.word.replace(QStringLiteral("\\\""), QStringLiteral("\""));
 
 		// If empty, use the unquoted string group
 		if (term.word.isEmpty())
@@ -327,12 +327,12 @@ void EntrySearcher::parseSearchTerms(const QString &searchString)
 
 		// Convert term to regex
 		int opts = m_caseSensitive ? Tools::RegexConvertOpts::CASE_SENSITIVE : Tools::RegexConvertOpts::DEFAULT;
-		if (!mods.contains("*"))
+		if (!mods.contains(QStringLiteral("*")))
 		{
 			opts |= Tools::RegexConvertOpts::WILDCARD_ALL;
 		}
 
-		if (mods.contains("+"))
+		if (mods.contains(QStringLiteral("+")))
 		{
 			opts |= Tools::RegexConvertOpts::EXACT_MATCH;
 		}
@@ -340,7 +340,7 @@ void EntrySearcher::parseSearchTerms(const QString &searchString)
 		term.regex = Tools::convertToRegex(term.word, opts);
 
 		// Exclude modifier
-		term.exclude = mods.contains("-") || mods.contains("!");
+		term.exclude = mods.contains(QStringLiteral("-")) || mods.contains(QStringLiteral("!"));
 
 		// Determine the field to search
 		term.field = Field::Undefined;
@@ -348,7 +348,7 @@ void EntrySearcher::parseSearchTerms(const QString &searchString)
 		QString field = result.captured(2);
 		if (!field.isEmpty())
 		{
-			if (field.startsWith("_", Qt::CaseInsensitive))
+			if (field.startsWith(QStringLiteral("_"), Qt::CaseInsensitive))
 			{
 				term.field = Field::AttributeValue;
 				// searching a custom attribute

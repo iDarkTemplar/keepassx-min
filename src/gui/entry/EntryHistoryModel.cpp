@@ -227,7 +227,7 @@ void EntryHistoryModel::calculateHistoryModifications()
 
 		auto modifiedFields = curr->calculateDifference(compare);
 
-		m_historyModifications << modifiedFields.join(", ");
+		m_historyModifications << modifiedFields.join(QStringLiteral(", "));
 
 		compare = curr;
 	}

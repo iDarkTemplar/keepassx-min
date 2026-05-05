@@ -33,7 +33,7 @@ QString PixmapToHTML(const QPixmap &pixmap)
 	QByteArray a;
 	QBuffer buffer(&a);
 	pixmap.save(&buffer, "PNG");
-	return QString("<img src=\"data:image/png;base64,") + a.toBase64() + "\"/>";
+	return QStringLiteral("<img src=\"data:image/png;base64,") + QString::fromUtf8(a.toBase64()) + QStringLiteral("\"/>");
 }
 
 } // namespace

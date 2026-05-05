@@ -114,7 +114,7 @@ void KeyFileEditWidget::createKeyFile()
 		return;
 	}
 
-	QString filters = QString("%1 (*.keyx *.key);;%2 (*)").arg(tr("Key files"), tr("All files"));
+	QString filters = QStringLiteral("%1 (*.keyx *.key);;%2 (*)").arg(tr("Key files"), tr("All files"));
 	QString fileName = fileDialog()->getSaveFileName(this, tr("Create Key File…"), QString(), filters);
 
 	if (!fileName.isEmpty())
@@ -143,7 +143,7 @@ void KeyFileEditWidget::browseKeyFile()
 		return;
 	}
 
-	QString filters = QString("%1 (*.keyx *.key);;%2 (*)").arg(tr("Key files"), tr("All files"));
+	QString filters = QStringLiteral("%1 (*.keyx *.key);;%2 (*)").arg(tr("Key files"), tr("All files"));
 	QString fileName = fileDialog()->getOpenFileName(this, tr("Select a key file"), QString(), filters);
 
 	if (fileName.isEmpty())
@@ -160,7 +160,7 @@ void KeyFileEditWidget::browseKeyFile()
 				"file or generate a new key file."));
 		return;
 	}
-	else if (fileName.endsWith(".kdbxm", Qt::CaseInsensitive))
+	else if (fileName.endsWith(QStringLiteral(".kdbxm"), Qt::CaseInsensitive))
 	{
 		auto response = MessageBox::warning(getMainWindow(),
 			tr("Suspicious Key File"),

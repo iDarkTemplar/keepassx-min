@@ -180,32 +180,32 @@ void ReportsWidgetHealthcheck::addHealthRow(
 	bool excluded)
 {
 	QString tip;
-	QString iconName = "lock-question";
+	QString iconName = QStringLiteral("lock-question");
 	QColor qualityColor;
 	const auto quality = health->quality();
 	switch (quality)
 	{
 	case PasswordHealth::Quality::Bad:
 		tip = tr("Bad — password must be changed");
-		iconName = "lock-open-alert";
+		iconName = QStringLiteral("lock-open-alert");
 		qualityColor = QColor::fromString(ColorRole::HealthCritical);
 		break;
 
 	case PasswordHealth::Quality::Poor:
 		tip = tr("Poor — password should be changed");
-		iconName = "lock-open-alert";
+		iconName = QStringLiteral("lock-open-alert");
 		qualityColor = QColor::fromString(ColorRole::HealthBad);
 		break;
 
 	case PasswordHealth::Quality::Weak:
 		tip = tr("Weak — consider changing the password");
-		iconName = "lock-open";
+		iconName = QStringLiteral("lock-open");
 		qualityColor = QColor::fromString(ColorRole::HealthWeak);
 		break;
 
 	case PasswordHealth::Quality::Good:
 	case PasswordHealth::Quality::Excellent:
-		iconName = "lock";
+		iconName = QStringLiteral("lock");
 		qualityColor = QColor::fromString(ColorRole::HealthOk);
 		break;
 	}
@@ -222,9 +222,9 @@ void ReportsWidgetHealthcheck::addHealthRow(
 	}
 
 	QList<QStandardItem*> row;
-	row << new QStandardItem(Icons::instance()->icon(iconName, true, qualityColor), "");
+	row << new QStandardItem(Icons::instance()->icon(iconName, true, qualityColor), QString());
 	row << new QStandardItem(Icons::entryIconPixmap(entry), title);
-	row << new QStandardItem(Icons::groupIconPixmap(group), group->hierarchy().join("/"));
+	row << new QStandardItem(Icons::groupIconPixmap(group), group->hierarchy().join(QLatin1Char('/')));
 	row << new QStandardItem(QString::number(health->score()));
 	row << new QStandardItem(health->scoreReason());
 
@@ -353,7 +353,7 @@ void ReportsWidgetHealthcheck::customMenuRequested(QPoint pos)
 	// Create the "edit entry" menu item (only if 1 row is selected)
 	if (selected.size() == 1)
 	{
-		const auto edit = new QAction(icons()->icon("entry-edit"), tr("Edit Entry…"), this);
+		const auto edit = new QAction(icons()->icon(QStringLiteral("entry-edit")), tr("Edit Entry…"), this);
 		menu->addAction(edit);
 		connect(edit, &QAction::triggered, edit, [this, selected] {
 			auto row = m_modelProxy->mapToSource(selected[0]).row();
@@ -363,17 +363,17 @@ void ReportsWidgetHealthcheck::customMenuRequested(QPoint pos)
 	}
 
 	// Create the "Expire entry" menu item
-	const auto expEntry = new QAction(icons()->icon("entry-expire"), tr("Expire Entry(s)…", "", selected.size()), this);
+	const auto expEntry = new QAction(icons()->icon(QStringLiteral("entry-expire")), tr("Expire Entry(s)…", "", selected.size()), this);
 	menu->addAction(expEntry);
 	connect(expEntry, &QAction::triggered, this, &ReportsWidgetHealthcheck::expireSelectedEntries);
 
 	// Create the "delete entry" menu item
-	const auto delEntry = new QAction(icons()->icon("entry-delete"), tr("Delete Entry(s)…", "", selected.size()), this);
+	const auto delEntry = new QAction(icons()->icon(QStringLiteral("entry-delete")), tr("Delete Entry(s)…", "", selected.size()), this);
 	menu->addAction(delEntry);
 	connect(delEntry, &QAction::triggered, this, &ReportsWidgetHealthcheck::deleteSelectedEntries);
 
 	// Create the "exclude from reports" menu item
-	const auto exclude = new QAction(icons()->icon("reports-exclude"), tr("Exclude from reports"), this);
+	const auto exclude = new QAction(icons()->icon(QStringLiteral("reports-exclude")), tr("Exclude from reports"), this);
 
 	bool isExcluded = false;
 	for (auto index: selected)

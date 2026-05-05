@@ -224,12 +224,12 @@ void DatabaseSettingsWidgetGeneral::setupPublicColorButton(const QColor &color)
 	m_ui->dbPublicColorClearButton->setVisible(color.isValid());
 	if (color.isValid())
 	{
-		m_ui->dbPublicColorButton->setStyleSheet(QString("background-color:%1").arg(color.name()));
+		m_ui->dbPublicColorButton->setStyleSheet(QStringLiteral("background-color:%1").arg(color.name()));
 		m_ui->dbPublicColorButton->setProperty("color", color.name());
 	}
 	else
 	{
-		m_ui->dbPublicColorButton->setStyleSheet("");
+		m_ui->dbPublicColorButton->setStyleSheet(QString());
 		m_ui->dbPublicColorButton->setProperty("color", {});
 	}
 }

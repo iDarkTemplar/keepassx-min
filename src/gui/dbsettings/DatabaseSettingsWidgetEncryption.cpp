@@ -29,7 +29,7 @@
 
 #include <QPushButton>
 
-const char *DatabaseSettingsWidgetEncryption::CD_DECRYPTION_TIME_PREFERENCE_KEY = "KPXC_DECRYPTION_TIME_PREFERENCE";
+const QString DatabaseSettingsWidgetEncryption::CD_DECRYPTION_TIME_PREFERENCE_KEY = QStringLiteral("KPXC_DECRYPTION_TIME_PREFERENCE");
 
 #define IS_ARGON2(uuid) (uuid == KeePass2::KDF_ARGON2D || uuid == KeePass2::KDF_ARGON2ID)
 #define IS_AES_KDF(uuid) (uuid == KeePass2::KDF_AES_KDBX3 || uuid == KeePass2::KDF_AES_KDBX4)
@@ -326,7 +326,7 @@ bool DatabaseSettingsWidgetEncryption::saveSettings()
 
 		QApplication::restoreOverrideCursor();
 
-		m_db->metadata()->customData()->set(CD_DECRYPTION_TIME_PREFERENCE_KEY, QString("%1").arg(time));
+		m_db->metadata()->customData()->set(CD_DECRYPTION_TIME_PREFERENCE_KEY, QStringLiteral("%1").arg(time));
 
 		return ok;
 	}

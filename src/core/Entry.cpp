@@ -36,7 +36,7 @@ const int Entry::DefaultIconNumber = 0;
 namespace {
 
 const int ResolveMaximumDepth = 10;
-const QRegularExpression TagDelimiterRegex(R"([,;\t])");
+const QRegularExpression TagDelimiterRegex(QStringLiteral(R"([,;\t])"));
 
 } // namespace
 
@@ -117,23 +117,23 @@ QString Entry::buildReference(const QUuid &uuid, const QString &field)
 
 	if (field == EntryAttributes::TitleKey)
 	{
-		shortField = "T";
+		shortField = QStringLiteral("T");
 	}
 	else if (field == EntryAttributes::UserNameKey)
 	{
-		shortField = "U";
+		shortField = QStringLiteral("U");
 	}
 	else if (field == EntryAttributes::PasswordKey)
 	{
-		shortField = "P";
+		shortField = QStringLiteral("P");
 	}
 	else if (field == EntryAttributes::URLKey)
 	{
-		shortField = "A";
+		shortField = QStringLiteral("A");
 	}
 	else if (field == EntryAttributes::NotesKey)
 	{
-		shortField = "N";
+		shortField = QStringLiteral("N");
 	}
 
 	if (shortField.isEmpty())
@@ -141,38 +141,38 @@ QString Entry::buildReference(const QUuid &uuid, const QString &field)
 		return {};
 	}
 
-	return QString("{REF:%1@I:%2}").arg(shortField, uuidStr);
+	return QStringLiteral("{REF:%1@I:%2}").arg(shortField, uuidStr);
 }
 
 EntryReferenceType Entry::referenceType(const QString &referenceStr)
 {
 	const QString referenceLowerStr = referenceStr.toLower();
 	EntryReferenceType result = EntryReferenceType::Unknown;
-	if (referenceLowerStr == QLatin1String("t"))
+	if (referenceLowerStr == QStringLiteral("t"))
 	{
 		result = EntryReferenceType::Title;
 	}
-	else if (referenceLowerStr == QLatin1String("u"))
+	else if (referenceLowerStr == QStringLiteral("u"))
 	{
 		result = EntryReferenceType::UserName;
 	}
-	else if (referenceLowerStr == QLatin1String("p"))
+	else if (referenceLowerStr == QStringLiteral("p"))
 	{
 		result = EntryReferenceType::Password;
 	}
-	else if (referenceLowerStr == QLatin1String("a"))
+	else if (referenceLowerStr == QStringLiteral("a"))
 	{
 		result = EntryReferenceType::Url;
 	}
-	else if (referenceLowerStr == QLatin1String("n"))
+	else if (referenceLowerStr == QStringLiteral("n"))
 	{
 		result = EntryReferenceType::Notes;
 	}
-	else if (referenceLowerStr == QLatin1String("i"))
+	else if (referenceLowerStr == QStringLiteral("i"))
 	{
 		result = EntryReferenceType::QUuid;
 	}
-	else if (referenceLowerStr == QLatin1String("o"))
+	else if (referenceLowerStr == QStringLiteral("o"))
 	{
 		result = EntryReferenceType::CustomAttributes;
 	}
@@ -217,7 +217,7 @@ QString Entry::overrideUrl() const
 
 QString Entry::tags() const
 {
-	return m_data.tags.join(",");
+	return m_data.tags.join(QLatin1Char(','));
 }
 
 QStringList Entry::tagList() const
@@ -301,7 +301,7 @@ QStringList Entry::getAdditionalUrls() const
 	for (const auto &key: m_attributes->keys())
 	{
 		if (key.startsWith(EntryAttributes::AdditionalUrlAttribute)
-			|| (key == QString("%1_RELYING_PARTY").arg(EntryAttributes::PasskeyAttribute)))
+			|| (key == QStringLiteral("%1_RELYING_PARTY").arg(EntryAttributes::PasskeyAttribute)))
 		{
 			auto additionalUrl = m_attributes->value(key);
 			if (!additionalUrl.isEmpty())
@@ -581,7 +581,7 @@ QString Entry::path() const
 {
 	auto path = group()->hierarchy();
 	path << title();
-	return path.mid(1).join("/");
+	return path.mid(1).join(QLatin1Char('/'));
 }
 
 void Entry::setUuid(const QUuid &uuid)
@@ -689,8 +689,8 @@ void Entry::setTitle(const QString &title)
 void Entry::setUrl(const QString &url)
 {
 	bool remove = (url != m_attributes->value(EntryAttributes::URLKey))
-		&& (m_attributes->value(EntryAttributes::RememberCmdExecAttr) == "1"
-			|| m_attributes->value(EntryAttributes::RememberCmdExecAttr) == "0");
+		&& (m_attributes->value(EntryAttributes::RememberCmdExecAttr) == QStringLiteral("1")
+			|| m_attributes->value(EntryAttributes::RememberCmdExecAttr) == QStringLiteral("0"));
 
 	if (remove)
 	{
@@ -1094,7 +1094,7 @@ void Entry::updateModifiedSinceBegin()
 
 QString Entry::resolveMultiplePlaceholdersRecursive(const QString &str, int maxDepth) const
 {
-	static const QRegularExpression placeholderRegEx("({(?>[^{}]+?|(?1))+?})");
+	static const QRegularExpression placeholderRegEx(QStringLiteral("({(?>[^{}]+?|(?1))+?})"));
 
 	if (--maxDepth < 0)
 	{
@@ -1103,12 +1103,12 @@ QString Entry::resolveMultiplePlaceholdersRecursive(const QString &str, int maxD
 	}
 
 	// Short circuit if we have escaped the placeholder brackets
-	if (str.startsWith("\\{") && str.endsWith("\\}"))
+	if (str.startsWith(QStringLiteral("\\{")) && str.endsWith(QStringLiteral("\\}")))
 	{
 		// Replace the escaped brackets with actuals and move on
 		auto ret = str;
-		ret.replace(0, 2, "{");
-		ret.replace(ret.size() - 2, 2, "}");
+		ret.replace(0, 2, QStringLiteral("{"));
+		ret.replace(ret.size() - 2, 2, QStringLiteral("}"));
 		return ret;
 	}
 
@@ -1142,7 +1142,7 @@ QString Entry::resolvePlaceholderRecursive(const QString &placeholder, int maxDe
 	case PlaceholderType::NotPlaceholder:
 		return resolveMultiplePlaceholdersRecursive(placeholder, maxDepth);
 	case PlaceholderType::Unknown:
-		return "{" % resolveMultiplePlaceholdersRecursive(placeholder.mid(1, placeholder.length() - 2), maxDepth) % "}";
+		return QStringLiteral("{") % resolveMultiplePlaceholdersRecursive(placeholder.mid(1, placeholder.length() - 2), maxDepth) % QStringLiteral("}");
 	case PlaceholderType::Title:
 		return resolveMultiplePlaceholdersRecursive(title(), maxDepth);
 	case PlaceholderType::UserName:
@@ -1218,33 +1218,33 @@ QString Entry::resolveDateTimePlaceholder(Entry::PlaceholderType placeholderType
 	switch (placeholderType)
 	{
 	case PlaceholderType::DateTimeSimple:
-		return time.toString("yyyyMMddhhmmss");
+		return time.toString(QStringLiteral("yyyyMMddhhmmss"));
 	case PlaceholderType::DateTimeYear:
-		return time.toString("yyyy");
+		return time.toString(QStringLiteral("yyyy"));
 	case PlaceholderType::DateTimeMonth:
-		return time.toString("MM");
+		return time.toString(QStringLiteral("MM"));
 	case PlaceholderType::DateTimeDay:
-		return time.toString("dd");
+		return time.toString(QStringLiteral("dd"));
 	case PlaceholderType::DateTimeHour:
-		return time.toString("hh");
+		return time.toString(QStringLiteral("hh"));
 	case PlaceholderType::DateTimeMinute:
-		return time.toString("mm");
+		return time.toString(QStringLiteral("mm"));
 	case PlaceholderType::DateTimeSecond:
-		return time.toString("ss");
+		return time.toString(QStringLiteral("ss"));
 	case PlaceholderType::DateTimeUtcSimple:
-		return time_utc.toString("yyyyMMddhhmmss");
+		return time_utc.toString(QStringLiteral("yyyyMMddhhmmss"));
 	case PlaceholderType::DateTimeUtcYear:
-		return time_utc.toString("yyyy");
+		return time_utc.toString(QStringLiteral("yyyy"));
 	case PlaceholderType::DateTimeUtcMonth:
-		return time_utc.toString("MM");
+		return time_utc.toString(QStringLiteral("MM"));
 	case PlaceholderType::DateTimeUtcDay:
-		return time_utc.toString("dd");
+		return time_utc.toString(QStringLiteral("dd"));
 	case PlaceholderType::DateTimeUtcHour:
-		return time_utc.toString("hh");
+		return time_utc.toString(QStringLiteral("hh"));
 	case PlaceholderType::DateTimeUtcMinute:
-		return time_utc.toString("mm");
+		return time_utc.toString(QStringLiteral("mm"));
 	case PlaceholderType::DateTimeUtcSecond:
-		return time_utc.toString("ss");
+		return time_utc.toString(QStringLiteral("ss"));
 	default:
 		{
 			Q_ASSERT_X(false, "Entry::resolveDateTimePlaceholder", "Bad DateTime placeholder type");
@@ -1263,7 +1263,7 @@ QString Entry::resolveConversionPlaceholder(const QString &str, QString *error) 
 	}
 
 	// Extract the inner conversion from the placeholder
-	QRegularExpression conversionRegEx("^{?t-conv:(.*)}?$", QRegularExpression::CaseInsensitiveOption);
+	QRegularExpression conversionRegEx(QStringLiteral("^{?t-conv:(.*)}?$"), QRegularExpression::CaseInsensitiveOption);
 	auto placeholder = conversionRegEx.match(str).captured(1);
 	if (!placeholder.isEmpty())
 	{
@@ -1275,27 +1275,27 @@ QString Entry::resolveConversionPlaceholder(const QString &str, QString *error) 
 			auto resolved = resolveMultiplePlaceholders(parts[1]);
 			auto type = parts[2].toLower();
 
-			if (type == "base64")
+			if (type == QStringLiteral("base64"))
 			{
-				resolved = resolved.toUtf8().toBase64();
+				resolved = QString::fromUtf8(resolved.toUtf8().toBase64());
 			}
-			else if (type == "hex")
+			else if (type == QStringLiteral("hex"))
 			{
-				resolved = resolved.toUtf8().toHex();
+				resolved = QString::fromUtf8(resolved.toUtf8().toHex());
 			}
-			else if (type == "uri")
+			else if (type == QStringLiteral("uri"))
 			{
-				resolved = QUrl::toPercentEncoding(resolved.toUtf8());
+				resolved = QString::fromUtf8(QUrl::toPercentEncoding(QString::fromUtf8(resolved.toUtf8())));
 			}
-			else if (type == "uri-dec")
+			else if (type == QStringLiteral("uri-dec"))
 			{
 				resolved = QUrl::fromPercentEncoding(resolved.toUtf8());
 			}
-			else if (type.startsWith("u"))
+			else if (type.startsWith(QStringLiteral("u")))
 			{
 				resolved = resolved.toUpper();
 			}
-			else if (type.startsWith("l"))
+			else if (type.startsWith(QStringLiteral("l")))
 			{
 				resolved = resolved.toLower();
 			}
@@ -1329,7 +1329,7 @@ QString Entry::resolveRegexPlaceholder(const QString &str, QString *error) const
 	}
 
 	// Extract the inner regex from the placeholder
-	QRegularExpression conversionRegEx("^{?t-replace-rx:(.*)}?$", QRegularExpression::CaseInsensitiveOption);
+	QRegularExpression conversionRegEx(QStringLiteral("^{?t-replace-rx:(.*)}?$"), QRegularExpression::CaseInsensitiveOption);
 	auto placeholder = conversionRegEx.match(str).captured(1);
 	if (!placeholder.isEmpty())
 	{
@@ -1342,7 +1342,7 @@ QString Entry::resolveRegexPlaceholder(const QString &str, QString *error) const
 			auto resolvedSearch = resolveMultiplePlaceholders(parts[2]);
 			auto resolvedReplace = resolveMultiplePlaceholders(parts[3]);
 			// Replace $<num> with \\<num> to support Qt substitutions
-			resolvedReplace.replace(QRegularExpression(R"(\$(\d+))"), R"(\\1)");
+			resolvedReplace.replace(QRegularExpression(QStringLiteral(R"(\$(\d+))")), QStringLiteral(R"(\\1)"));
 
 			auto searchRegex = QRegularExpression(resolvedSearch);
 			if (!searchRegex.isValid())
@@ -1662,23 +1662,23 @@ QString Entry::resolveUrl(const QString &url) const
 {
 	QString newUrl = url;
 
-	static const QRegularExpression fileRegEx(R"(^(?:[A-Za-z]:)?[\\/])");
+	static const QRegularExpression fileRegEx(QStringLiteral(R"(^(?:[A-Za-z]:)?[\\/])"));
 	if (url.contains(fileRegEx))
 	{
 		// Match possible file paths without the scheme and convert it to a file URL
 		newUrl = QDir::fromNativeSeparators(newUrl);
 		newUrl = QUrl::fromLocalFile(newUrl).toString();
 	}
-	else if (url.startsWith("cmd://"))
+	else if (url.startsWith(QStringLiteral("cmd://")))
 	{
-		QStringList cmdList = newUrl.split(" ");
+		QStringList cmdList = newUrl.split(QLatin1Char(' '));
 		for (int i = 1; i < cmdList.size(); ++i)
 		{
 			QString &cmd = cmdList[i];
 			// Don't pass arguments to the resolveUrl function (they look like URL's)
-			if (!cmd.startsWith("-") && !cmd.startsWith("/"))
+			if (!cmd.startsWith(QStringLiteral("-")) && !cmd.startsWith(QStringLiteral("/")))
 			{
-				static const QRegularExpression quotesRegEx("['\"]");
+				static const QRegularExpression quotesRegEx(QStringLiteral("['\"]"));
 				return resolveUrl(cmd.remove(quotesRegEx));
 			}
 		}
@@ -1687,15 +1687,15 @@ QString Entry::resolveUrl(const QString &url) const
 		return QString();
 	}
 
-	if ((!newUrl.isEmpty()) && (!newUrl.contains("://")))
+	if ((!newUrl.isEmpty()) && (!newUrl.contains(QStringLiteral("://"))))
 	{
 		// URL doesn't have a protocol, add https by default
-		newUrl.prepend("https://");
+		newUrl.prepend(QStringLiteral("https://"));
 	}
 
 	// Validate the URL
 	QUrl tempUrl(newUrl);
-	if (tempUrl.isValid() && (tempUrl.scheme() == "http" || tempUrl.scheme() == "https" || tempUrl.scheme() == "file"))
+	if (tempUrl.isValid() && (tempUrl.scheme() == QStringLiteral("http") || tempUrl.scheme() == QStringLiteral("https") || tempUrl.scheme() == QStringLiteral("file")))
 	{
 		return tempUrl.url();
 	}

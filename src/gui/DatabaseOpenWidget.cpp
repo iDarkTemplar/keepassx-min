@@ -164,7 +164,7 @@ void DatabaseOpenWidget::load(const QString &filename)
 	auto label = tr("Unlock KeePassX-min Database");
 	if (!m_db->publicName().isEmpty())
 	{
-		label.append(QString(": %1").arg(m_db->publicName()));
+		label.append(QStringLiteral(": %1").arg(m_db->publicName()));
 	}
 
 	m_ui->labelHeadline->setText(label);
@@ -173,7 +173,7 @@ void DatabaseOpenWidget::load(const QString &filename)
 	auto color = m_db->publicColor();
 	if (!color.isEmpty())
 	{
-		m_ui->centralStack->setStyleSheet(QString("QStackedWidget {border: 4px solid %1}").arg(color));
+		m_ui->centralStack->setStyleSheet(QStringLiteral("QStackedWidget {border: 4px solid %1}").arg(color));
 	}
 	else
 	{
@@ -393,8 +393,8 @@ void DatabaseOpenWidget::reject()
 
 bool DatabaseOpenWidget::browseKeyFile()
 {
-	QString filters = QString("%1 (*);;%2 (*.keyx; *.key)").arg(tr("All files"), tr("Key files"));
-	QString filename = fileDialog()->getOpenFileName(this, tr("Select key file"), FileDialog::getLastDir("keyfile"), filters);
+	QString filters = QStringLiteral("%1 (*);;%2 (*.keyx; *.key)").arg(tr("All files"), tr("Key files"));
+	QString filename = fileDialog()->getOpenFileName(this, tr("Select key file"), FileDialog::getLastDir(QStringLiteral("keyfile")), filters);
 	if (filename.isEmpty())
 	{
 		return false;
@@ -402,11 +402,11 @@ bool DatabaseOpenWidget::browseKeyFile()
 
 	if (config()->get(Config::RememberLastKeyFiles).toBool())
 	{
-		FileDialog::saveLastDir("keyfile", filename, true);
+		FileDialog::saveLastDir(QStringLiteral("keyfile"), filename, true);
 	}
 	else
 	{
-		FileDialog::saveLastDir("keyfile", {});
+		FileDialog::saveLastDir(QStringLiteral("keyfile"), {});
 	}
 
 	if (QFileInfo(filename).canonicalFilePath() == QFileInfo(m_filename).canonicalFilePath())
@@ -420,7 +420,7 @@ bool DatabaseOpenWidget::browseKeyFile()
 		return false;
 	}
 
-	if (filename.endsWith(".kdbxm") && MessageBox::warning(this,
+	if (filename.endsWith(QStringLiteral(".kdbxm")) && MessageBox::warning(this,
 		tr("KeePassX-min database file selected"),
 		tr("The file you selected looks like a database file.\nA database file is NOT a key "
 			"file!\n\nAre you sure you want to continue with this file?."),

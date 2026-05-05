@@ -143,7 +143,7 @@ bool HmacBlockStream::readHashedBlock()
 	if (hmac.size() != 32)
 	{
 		m_error = true;
-		setErrorString("Invalid HMAC size.");
+		setErrorString(tr("Invalid HMAC size."));
 		return false;
 	}
 
@@ -151,7 +151,7 @@ bool HmacBlockStream::readHashedBlock()
 	if (blockSizeBytes.size() != 4)
 	{
 		m_error = true;
-		setErrorString("Invalid block size size.");
+		setErrorString(tr("Invalid block size size."));
 		return false;
 	}
 
@@ -159,7 +159,7 @@ bool HmacBlockStream::readHashedBlock()
 	if (blockSize < 0)
 	{
 		m_error = true;
-		setErrorString("Invalid block size.");
+		setErrorString(tr("Invalid block size."));
 		return false;
 	}
 
@@ -167,7 +167,7 @@ bool HmacBlockStream::readHashedBlock()
 	if (m_buffer.size() != blockSize)
 	{
 		m_error = true;
-		setErrorString("Block too short.");
+		setErrorString(tr("Block too short."));
 		return false;
 	}
 
@@ -180,7 +180,7 @@ bool HmacBlockStream::readHashedBlock()
 	if (hmac != hasher.result())
 	{
 		m_error = true;
-		setErrorString("Mismatch between hash and data.");
+		setErrorString(tr("Mismatch between hash and data."));
 		return false;
 	}
 

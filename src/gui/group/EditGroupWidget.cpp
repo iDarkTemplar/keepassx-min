@@ -66,9 +66,9 @@ EditGroupWidget::EditGroupWidget(QWidget *parent)
 {
 	m_mainUi->setupUi(m_editGroupWidgetMain);
 
-	addPage(tr("Group"), icons()->icon("document-edit"), m_editGroupWidgetMain);
-	addPage(tr("Icon"), icons()->icon("preferences-desktop-icons"), m_editGroupWidgetIcons);
-	addPage(tr("Properties"), icons()->icon("document-properties"), m_editWidgetProperties);
+	addPage(tr("Group"), icons()->icon(QStringLiteral("document-edit")), m_editGroupWidgetMain);
+	addPage(tr("Icon"), icons()->icon(QStringLiteral("preferences-desktop-icons")), m_editGroupWidgetIcons);
+	addPage(tr("Properties"), icons()->icon(QStringLiteral("document-properties")), m_editWidgetProperties);
 
 	connect(m_mainUi->expireCheck, &QCheckBox::toggled, m_mainUi->expireDatePicker, &QDateTimeEdit::setEnabled);
 

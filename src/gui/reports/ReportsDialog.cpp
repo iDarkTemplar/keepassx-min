@@ -109,7 +109,7 @@ void ReportsDialog::reject()
 void ReportsDialog::entryActivationSignalReceived(Entry *entry)
 {
 	m_sender = qobject_cast<QWidget*>(sender());
-	m_editEntryWidget->loadEntry(entry, false, false, entry->group()->hierarchy().join(" > "), m_db);
+	m_editEntryWidget->loadEntry(entry, false, false, entry->group()->hierarchy().join(QStringLiteral(" > ")), m_db);
 	m_ui->stackedWidget->setCurrentWidget(m_editEntryWidget);
 }
 

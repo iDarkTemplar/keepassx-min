@@ -27,8 +27,8 @@
 #include "crypto/Random.h"
 
 const int PassphraseGenerator::DefaultWordCount = 7;
-const char *PassphraseGenerator::DefaultSeparator = " ";
-const char *PassphraseGenerator::DefaultWordList = "eff_large.wordlist";
+const QString PassphraseGenerator::DefaultSeparator = QStringLiteral(" ");
+const QString PassphraseGenerator::DefaultWordList = QStringLiteral("eff_large.wordlist");
 
 PassphraseGenerator::PassphraseGenerator()
 	: m_wordCount(DefaultWordCount)
@@ -78,7 +78,7 @@ void PassphraseGenerator::setWordList(const QString &path)
 
 	QTextStream in(&file);
 	QString line = in.readLine();
-	bool isSigned = line.startsWith("-----BEGIN PGP SIGNED MESSAGE-----");
+	bool isSigned = line.startsWith(QStringLiteral("-----BEGIN PGP SIGNED MESSAGE-----"));
 	if (isSigned)
 	{
 		while (!line.isNull() && !line.trimmed().isEmpty())
@@ -87,22 +87,22 @@ void PassphraseGenerator::setWordList(const QString &path)
 		}
 	}
 
-	QRegularExpression rx("^[0-9]+(-[0-9]+)*\\s+([^\\s]+)$");
+	QRegularExpression rx(QStringLiteral("^[0-9]+(-[0-9]+)*\\s+([^\\s]+)$"));
 	while (!line.isNull())
 	{
-		if (isSigned && line.startsWith("-----BEGIN PGP SIGNATURE-----"))
+		if (isSigned && line.startsWith(QStringLiteral("-----BEGIN PGP SIGNATURE-----")))
 		{
 			break;
 		}
 
 		// Handle dash-escaped lines (if the wordlist is signed)
-		if (isSigned && line.startsWith("- "))
+		if (isSigned && line.startsWith(QStringLiteral("- ")))
 		{
 			line.remove(0, 2);
 		}
 
 		line = line.trimmed();
-		line.replace(rx, "\\2");
+		line.replace(rx, QStringLiteral("\\2"));
 		if (!line.isEmpty())
 		{
 			wordset.insert(line);

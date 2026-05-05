@@ -41,11 +41,11 @@ PasswordGeneratorWidget::PasswordGeneratorWidget(QWidget *parent)
 {
 	m_ui->setupUi(this);
 
-	m_ui->buttonGenerate->setIcon(icons()->icon("refresh"));
+	m_ui->buttonGenerate->setIcon(icons()->icon(QStringLiteral("refresh")));
 	m_ui->buttonGenerate->setToolTip(tr("Regenerate password (%1)").arg(m_ui->buttonGenerate->shortcut().toString(QKeySequence::NativeText)));
-	m_ui->buttonCopy->setIcon(icons()->icon("clipboard-text"));
-	m_ui->buttonDeleteWordList->setIcon(icons()->icon("trash"));
-	m_ui->buttonAddWordList->setIcon(icons()->icon("document-new"));
+	m_ui->buttonCopy->setIcon(icons()->icon(QStringLiteral("clipboard-text")));
+	m_ui->buttonDeleteWordList->setIcon(icons()->icon(QStringLiteral("trash")));
+	m_ui->buttonAddWordList->setIcon(icons()->icon(QStringLiteral("document-new")));
 	m_ui->buttonClose->setShortcut(Qt::Key_Escape);
 
 	// Add two shortcuts to save the form CTRL+Enter and CTRL+S
@@ -102,23 +102,23 @@ PasswordGeneratorWidget::PasswordGeneratorWidget(QWidget *parent)
 	m_ui->wordCaseComboBox->addItem(tr("MIXED case"), PassphraseGenerator::MIXEDCASE);
 
 	// load system-wide wordlists
-	QDir path(resources()->wordlistPath(""));
+	QDir path(resources()->wordlistPath(QString()));
 	for (const auto &fileName: path.entryList(QDir::Files))
 	{
-		m_ui->comboBoxWordList->addItem(tr("(SYSTEM)") + " " + fileName, fileName);
+		m_ui->comboBoxWordList->addItem(tr("(SYSTEM)") + QStringLiteral(" ") + fileName, fileName);
 	}
 
 	m_firstCustomWordlistIndex = m_ui->comboBoxWordList->count();
 
 	// load user-provided wordlists
-	path = QDir(resources()->userWordlistPath(""));
+	path = QDir(resources()->userWordlistPath(QString()));
 	for (const auto &fileName: path.entryList(QDir::Files))
 	{
 		m_ui->comboBoxWordList->addItem(fileName, path.absolutePath() + QDir::separator() + fileName);
 	}
 
 	// Set color of wordlist warning
-	m_ui->labelWordListWarning->setStyleSheet(QString("QLabel { color: %1; }").arg(ColorRole::False));
+	m_ui->labelWordListWarning->setStyleSheet(QStringLiteral("QLabel { color: %1; }").arg(ColorRole::False));
 
 	loadSettings();
 }
@@ -316,10 +316,10 @@ void PasswordGeneratorWidget::updatePasswordStrength()
 
 	// Update the visual strength meter
 	QString style = m_ui->entropyProgressBar->styleSheet();
-	QRegularExpression re("(QProgressBar::chunk\\s*\\{.*?background-color:)[^;]+;",
+	QRegularExpression re(QStringLiteral("(QProgressBar::chunk\\s*\\{.*?background-color:)[^;]+;"),
 		QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption);
 
-	style.replace(re, "\\1 %1;");
+	style.replace(re, QStringLiteral("\\1 %1;"));
 
 	switch (passwordHealth.quality())
 	{
@@ -436,16 +436,16 @@ void PasswordGeneratorWidget::removeCustomWordList()
 
 void PasswordGeneratorWidget::addWordList()
 {
-	auto filter = QString("%1 (*.txt *.asc *.wordlist);;%2 (*)").arg(tr("Wordlists"), tr("All files"));
-	auto filePath = fileDialog()->getOpenFileName(this, tr("Select Custom Wordlist"), "", filter);
+	auto filter = QStringLiteral("%1 (*.txt *.asc *.wordlist);;%2 (*)").arg(tr("Wordlists"), tr("All files"));
+	auto filePath = fileDialog()->getOpenFileName(this, tr("Select Custom Wordlist"), QString(), filter);
 	if (filePath.isEmpty())
 	{
 		return;
 	}
 
 	// create directory for user-specified wordlists, if necessary
-	QDir destDir(resources()->userWordlistPath(""));
-	destDir.mkpath(".");
+	QDir destDir(resources()->userWordlistPath(QString()));
+	destDir.mkpath(QStringLiteral("."));
 
 	// check if destination wordlist already exists
 	QString fileName = QFileInfo(filePath).fileName();
@@ -500,13 +500,13 @@ void PasswordGeneratorWidget::setAdvancedMode(bool advanced)
 
 	if (advanced)
 	{
-		m_ui->checkBoxSpecialChars->setText("# $ % && @ ^ ` ~");
+		m_ui->checkBoxSpecialChars->setText(QStringLiteral("# $ % && @ ^ ` ~"));
 		m_ui->checkBoxSpecialChars->setToolTip(tr("Logograms"));
 		m_ui->checkBoxSpecialChars->setChecked(config()->get(Config::PasswordGenerator_Logograms).toBool());
 	}
 	else
 	{
-		m_ui->checkBoxSpecialChars->setText("/ * + && …");
+		m_ui->checkBoxSpecialChars->setText(QStringLiteral("/ * + && …"));
 		m_ui->checkBoxSpecialChars->setToolTip(tr("Special Characters"));
 		m_ui->checkBoxSpecialChars->setChecked(config()->get(Config::PasswordGenerator_SpecialChars).toBool());
 	}
@@ -526,7 +526,7 @@ void PasswordGeneratorWidget::setAdvancedMode(bool advanced)
 
 void PasswordGeneratorWidget::excludeHexChars()
 {
-	m_ui->editExcludedChars->setText("GHIJKLMNOPQRSTUVWXYZ");
+	m_ui->editExcludedChars->setText(QStringLiteral("GHIJKLMNOPQRSTUVWXYZ"));
 	m_ui->checkBoxNumbers->setChecked(true);
 	m_ui->checkBoxUpper->setChecked(true);
 

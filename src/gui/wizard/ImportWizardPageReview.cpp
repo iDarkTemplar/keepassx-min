@@ -54,33 +54,33 @@ void ImportWizardPageReview::initializePage()
 
 	m_ui->setupUi(this);
 
-	auto filename = field("ImportFile").toString();
+	auto filename = field(QStringLiteral("ImportFile")).toString();
 	m_ui->filenameLabel->setText(filename);
 
 	m_ui->messageWidget->hideMessage();
 	m_ui->messageWidget->setAnimate(false);
 	m_ui->messageWidget->setCloseButtonVisible(false);
 
-	auto importType = field("ImportType").toInt();
+	auto importType = field(QStringLiteral("ImportType")).toInt();
 	switch (importType)
 	{
 	case ImportWizard::IMPORT_CSV:
 		setupCsvImport(filename);
 		break;
 	case ImportWizard::IMPORT_OPVAULT:
-		m_db = importOPVault(filename, field("ImportPassword").toString());
+		m_db = importOPVault(filename, field(QStringLiteral("ImportPassword")).toString());
 		break;
 	case ImportWizard::IMPORT_OPUX:
 		m_db = importOPUX(filename);
 		break;
 	case ImportWizard::IMPORT_BITWARDEN:
-		m_db = importBitwarden(filename, field("ImportPassword").toString());
+		m_db = importBitwarden(filename, field(QStringLiteral("ImportPassword")).toString());
 		break;
 	case ImportWizard::IMPORT_PROTONPASS:
 		m_db = importProtonPass(filename);
 		break;
 	case ImportWizard::IMPORT_KEEPASSXC2:
-		m_db = importKeepassxc2(filename, field("ImportPassword").toString(), field("ImportKeyFile").toString());
+		m_db = importKeepassxc2(filename, field(QStringLiteral("ImportPassword")).toString(), field(QStringLiteral("ImportKeyFile")).toString());
 		break;
 	default:
 		break;
@@ -240,5 +240,5 @@ QSharedPointer<Database> ImportWizardPageReview::importKeepassxc2(const QString 
 
 bool ImportWizardPageReview::isCsvImport() const
 {
-	return m_csvWidget && field("ImportType").toInt() == ImportWizard::IMPORT_CSV;
+	return m_csvWidget && field(QStringLiteral("ImportType")).toInt() == ImportWizard::IMPORT_CSV;
 }

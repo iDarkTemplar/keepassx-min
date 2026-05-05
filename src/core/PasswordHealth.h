@@ -57,10 +57,10 @@ public:
 	 * May contain more than line, separated by '\n'.
 	 */
 	QString scoreReason() const;
-	void addScoreReason(QString reason);
+	void addScoreReason(const QString &reason);
 
 	QString scoreDetails() const;
-	void addScoreDetails(QString details);
+	void addScoreDetails(const QString &details);
 
 	/*
 	 * The password quality assessment (based on the score).

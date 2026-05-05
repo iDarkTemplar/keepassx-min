@@ -42,7 +42,7 @@
 #include "gui/SearchWidget.h"
 #include "gui/entry/EntryView.h"
 
-const QString MainWindow::BaseWindowTitle = "KeePassX-min";
+const QString MainWindow::BaseWindowTitle = QStringLiteral("KeePassX-min");
 
 static constexpr QSize TrayIconSize = { 256, 256 };
 
@@ -228,55 +228,55 @@ MainWindow::MainWindow()
 	shortcut = new QShortcut(Qt::ALT | Qt::Key_9, this);
 	connect(shortcut, &QShortcut::activated, [this]() { selectDatabaseTab(m_ui->tabWidget->count() - 1); });
 
-	m_ui->actionDatabaseNew->setIcon(icons()->icon("document-new"));
-	m_ui->actionDatabaseOpen->setIcon(icons()->icon("document-open"));
-	m_ui->menuRecentDatabases->setIcon(icons()->icon("document-open-recent"));
-	m_ui->actionDatabaseSave->setIcon(icons()->icon("document-save"));
-	m_ui->actionDatabaseSaveAs->setIcon(icons()->icon("document-save-as"));
-	m_ui->actionDatabaseSaveBackup->setIcon(icons()->icon("document-save-copy"));
-	m_ui->actionDatabaseClose->setIcon(icons()->icon("document-close"));
-	m_ui->actionReports->setIcon(icons()->icon("reports"));
-	m_ui->actionDatabaseSettings->setIcon(icons()->icon("database-settings"));
-	m_ui->actionDatabaseSecurity->setIcon(icons()->icon("database-change-key"));
-	m_ui->actionLockDatabase->setIcon(icons()->icon("database-lock"));
-	m_ui->actionLockDatabaseToolbar->setIcon(icons()->icon("database-lock"));
-	m_ui->actionLockAllDatabases->setIcon(icons()->icon("database-lock-all"));
-	m_ui->actionQuit->setIcon(icons()->icon("application-exit"));
-	m_ui->actionDatabaseMerge->setIcon(icons()->icon("database-merge"));
-	m_ui->actionImport->setIcon(icons()->icon("document-import"));
-	m_ui->menuExport->setIcon(icons()->icon("document-export"));
-	m_ui->actionEntryNew->setIcon(icons()->icon("entry-new"));
-	m_ui->actionEntryClone->setIcon(icons()->icon("entry-clone"));
-	m_ui->actionEntryEdit->setIcon(icons()->icon("entry-edit"));
-	m_ui->actionEntryExpire->setIcon(icons()->icon("entry-expire"));
-	m_ui->actionEntryDelete->setIcon(icons()->icon("entry-delete"));
-	m_ui->actionEntryRestore->setIcon(icons()->icon("entry-restore"));
-	m_ui->actionEntryMoveUp->setIcon(icons()->icon("move-up"));
-	m_ui->actionEntryMoveDown->setIcon(icons()->icon("move-down"));
-	m_ui->actionEntryCopyUsername->setIcon(icons()->icon("username-copy"));
-	m_ui->actionEntryCopyPassword->setIcon(icons()->icon("password-copy"));
-	m_ui->actionEntryCopyURL->setIcon(icons()->icon("url-copy"));
-	m_ui->menuEntryCopyAttribute->setIcon(icons()->icon("attributes-copy"));
-	m_ui->menuEntryTotp->setIcon(icons()->icon("totp"));
-	m_ui->actionEntryTotp->setIcon(icons()->icon("totp"));
-	m_ui->actionEntryCopyTotp->setIcon(icons()->icon("totp-copy"));
-	m_ui->actionEntryCopyPasswordTotp->setIcon(icons()->icon("totp-copy-password"));
-	m_ui->actionEntryTotpQRCode->setIcon(icons()->icon("qrcode"));
-	m_ui->actionEntrySetupTotp->setIcon(icons()->icon("totp-edit"));
-	m_ui->menuTags->setIcon(icons()->icon("tag-multiple"));
-	m_ui->actionGroupSortAsc->setIcon(icons()->icon("sort-alphabetical-ascending"));
-	m_ui->actionGroupSortDesc->setIcon(icons()->icon("sort-alphabetical-descending"));
+	m_ui->actionDatabaseNew->setIcon(icons()->icon(QStringLiteral("document-new")));
+	m_ui->actionDatabaseOpen->setIcon(icons()->icon(QStringLiteral("document-open")));
+	m_ui->menuRecentDatabases->setIcon(icons()->icon(QStringLiteral("document-open-recent")));
+	m_ui->actionDatabaseSave->setIcon(icons()->icon(QStringLiteral("document-save")));
+	m_ui->actionDatabaseSaveAs->setIcon(icons()->icon(QStringLiteral("document-save-as")));
+	m_ui->actionDatabaseSaveBackup->setIcon(icons()->icon(QStringLiteral("document-save-copy")));
+	m_ui->actionDatabaseClose->setIcon(icons()->icon(QStringLiteral("document-close")));
+	m_ui->actionReports->setIcon(icons()->icon(QStringLiteral("reports")));
+	m_ui->actionDatabaseSettings->setIcon(icons()->icon(QStringLiteral("database-settings")));
+	m_ui->actionDatabaseSecurity->setIcon(icons()->icon(QStringLiteral("database-change-key")));
+	m_ui->actionLockDatabase->setIcon(icons()->icon(QStringLiteral("database-lock")));
+	m_ui->actionLockDatabaseToolbar->setIcon(icons()->icon(QStringLiteral("database-lock")));
+	m_ui->actionLockAllDatabases->setIcon(icons()->icon(QStringLiteral("database-lock-all")));
+	m_ui->actionQuit->setIcon(icons()->icon(QStringLiteral("application-exit")));
+	m_ui->actionDatabaseMerge->setIcon(icons()->icon(QStringLiteral("database-merge")));
+	m_ui->actionImport->setIcon(icons()->icon(QStringLiteral("document-import")));
+	m_ui->menuExport->setIcon(icons()->icon(QStringLiteral("document-export")));
+	m_ui->actionEntryNew->setIcon(icons()->icon(QStringLiteral("entry-new")));
+	m_ui->actionEntryClone->setIcon(icons()->icon(QStringLiteral("entry-clone")));
+	m_ui->actionEntryEdit->setIcon(icons()->icon(QStringLiteral("entry-edit")));
+	m_ui->actionEntryExpire->setIcon(icons()->icon(QStringLiteral("entry-expire")));
+	m_ui->actionEntryDelete->setIcon(icons()->icon(QStringLiteral("entry-delete")));
+	m_ui->actionEntryRestore->setIcon(icons()->icon(QStringLiteral("entry-restore")));
+	m_ui->actionEntryMoveUp->setIcon(icons()->icon(QStringLiteral("move-up")));
+	m_ui->actionEntryMoveDown->setIcon(icons()->icon(QStringLiteral("move-down")));
+	m_ui->actionEntryCopyUsername->setIcon(icons()->icon(QStringLiteral("username-copy")));
+	m_ui->actionEntryCopyPassword->setIcon(icons()->icon(QStringLiteral("password-copy")));
+	m_ui->actionEntryCopyURL->setIcon(icons()->icon(QStringLiteral("url-copy")));
+	m_ui->menuEntryCopyAttribute->setIcon(icons()->icon(QStringLiteral("attributes-copy")));
+	m_ui->menuEntryTotp->setIcon(icons()->icon(QStringLiteral("totp")));
+	m_ui->actionEntryTotp->setIcon(icons()->icon(QStringLiteral("totp")));
+	m_ui->actionEntryCopyTotp->setIcon(icons()->icon(QStringLiteral("totp-copy")));
+	m_ui->actionEntryCopyPasswordTotp->setIcon(icons()->icon(QStringLiteral("totp-copy-password")));
+	m_ui->actionEntryTotpQRCode->setIcon(icons()->icon(QStringLiteral("qrcode")));
+	m_ui->actionEntrySetupTotp->setIcon(icons()->icon(QStringLiteral("totp-edit")));
+	m_ui->menuTags->setIcon(icons()->icon(QStringLiteral("tag-multiple")));
+	m_ui->actionGroupSortAsc->setIcon(icons()->icon(QStringLiteral("sort-alphabetical-ascending")));
+	m_ui->actionGroupSortDesc->setIcon(icons()->icon(QStringLiteral("sort-alphabetical-descending")));
 
-	m_ui->actionGroupNew->setIcon(icons()->icon("group-new"));
-	m_ui->actionGroupEdit->setIcon(icons()->icon("group-edit"));
-	m_ui->actionGroupClone->setIcon(icons()->icon("group-clone"));
-	m_ui->actionGroupDelete->setIcon(icons()->icon("group-delete"));
-	m_ui->actionGroupEmptyRecycleBin->setIcon(icons()->icon("group-empty-trash"));
+	m_ui->actionGroupNew->setIcon(icons()->icon(QStringLiteral("group-new")));
+	m_ui->actionGroupEdit->setIcon(icons()->icon(QStringLiteral("group-edit")));
+	m_ui->actionGroupClone->setIcon(icons()->icon(QStringLiteral("group-clone")));
+	m_ui->actionGroupDelete->setIcon(icons()->icon(QStringLiteral("group-delete")));
+	m_ui->actionGroupEmptyRecycleBin->setIcon(icons()->icon(QStringLiteral("group-empty-trash")));
 
-	m_ui->actionSettings->setIcon(icons()->icon("configure"));
-	m_ui->actionPasswordGenerator->setIcon(icons()->icon("password-generator"));
+	m_ui->actionSettings->setIcon(icons()->icon(QStringLiteral("configure")));
+	m_ui->actionPasswordGenerator->setIcon(icons()->icon(QStringLiteral("password-generator")));
 
-	m_ui->actionAbout->setIcon(icons()->icon("help-about"));
+	m_ui->actionAbout->setIcon(icons()->icon(QStringLiteral("help-about")));
 
 	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseCurrentModeChanged,        this, &MainWindow::updateMenuActionState);
 	connect(&m_actionMultiplexer, &SignalMultiplexer::databaseGroupChanged,              this, &MainWindow::updateMenuActionState);
@@ -554,7 +554,7 @@ void MainWindow::updateSetTagsMenu()
 			auto action = actionForTag(m_ui->menuTags, tag);
 			if (!action)
 			{
-				action = m_ui->menuTags->addAction(icons()->icon("tag"), tag);
+				action = m_ui->menuTags->addAction(icons()->icon(QStringLiteral("tag")), tag);
 				action->setCheckable(true);
 				m_setTagsMenuActions->addAction(action);
 			}
@@ -604,7 +604,7 @@ void MainWindow::updateMenuActionState()
 	auto dbMode = (dbWidget ? dbWidget->currentMode() : DatabaseWidget::Mode::None);
 
 	// Database State
-	bool databaseUnlocked = (dbWidget && !dbWidget->isLocked());
+	bool isDatabaseUnlocked = (dbWidget && !dbWidget->isLocked());
 	bool inDatabase = (dbMode == DatabaseWidget::Mode::ViewMode);
 	bool inDatabaseSettings = (dbMode == DatabaseWidget::Mode::DatabaseSettingsMode);
 	bool inReports = (dbMode == DatabaseWidget::Mode::ReportsMode);
@@ -690,7 +690,7 @@ void MainWindow::updateMenuActionState()
 	// Handle tear-off tags menu
 	if (m_ui->menuTags->isTearOffMenuVisible())
 	{
-		if (!databaseUnlocked)
+		if (!isDatabaseUnlocked)
 		{
 			m_ui->menuTags->hideTearOffMenu();
 		}
@@ -717,11 +717,11 @@ void MainWindow::updateMenuActionState()
 	m_ui->actionGroupEmptyRecycleBin->setEnabled(inRecycleBin);
 
 	// Database Menu
-	m_ui->actionDatabaseSave->setEnabled(databaseUnlocked && m_ui->tabWidget->canSave());
-	m_ui->actionDatabaseSaveAs->setEnabled(databaseUnlocked);
-	m_ui->actionDatabaseSaveBackup->setEnabled(databaseUnlocked);
+	m_ui->actionDatabaseSave->setEnabled(isDatabaseUnlocked && m_ui->tabWidget->canSave());
+	m_ui->actionDatabaseSaveAs->setEnabled(isDatabaseUnlocked);
+	m_ui->actionDatabaseSaveBackup->setEnabled(isDatabaseUnlocked);
 	m_ui->actionDatabaseClose->setEnabled(dbWidget);
-	m_ui->actionLockDatabase->setEnabled(databaseUnlocked);
+	m_ui->actionLockDatabase->setEnabled(isDatabaseUnlocked);
 	m_ui->actionLockAllDatabases->setEnabled(hasLockableDatabase);
 	m_ui->actionLockDatabaseToolbar->setEnabled(hasLockableDatabase);
 	m_ui->actionDatabaseSettings->setEnabled(inDatabase || inDatabaseSettings);
@@ -743,7 +743,7 @@ void MainWindow::updateWindowTitle()
 	if (stackedWidgetIndex == DatabaseTabScreen && tabWidgetIndex != -1)
 	{
 		customWindowTitlePart = m_ui->tabWidget->tabName(tabWidgetIndex);
-		if (isModified && customWindowTitlePart.endsWith("*"))
+		if (isModified && customWindowTitlePart.endsWith(QStringLiteral("*")))
 		{
 			customWindowTitlePart.remove(customWindowTitlePart.size() - 1, 1);
 		}
@@ -762,11 +762,11 @@ void MainWindow::updateWindowTitle()
 	QString windowTitle;
 	if (customWindowTitlePart.isEmpty())
 	{
-		windowTitle = QString("%1[*]").arg(BaseWindowTitle);
+		windowTitle = QStringLiteral("%1[*]").arg(BaseWindowTitle);
 	}
 	else
 	{
-		windowTitle = QString("%1[*] - %2").arg(customWindowTitlePart, BaseWindowTitle);
+		windowTitle = QStringLiteral("%1[*] - %2").arg(customWindowTitlePart, BaseWindowTitle);
 	}
 
 	setWindowTitle(windowTitle);
@@ -1181,7 +1181,7 @@ void MainWindow::updateTrayIcon()
 
 			auto *actionToggle = new QAction(tr("Toggle window"), menu);
 			menu->addAction(actionToggle);
-			actionToggle->setIcon(icons()->icon("keepassxmin"));
+			actionToggle->setIcon(icons()->icon(QStringLiteral("keepassxmin")));
 
 			menu->addAction(m_ui->actionLockAllDatabases);
 			menu->addAction(m_ui->actionQuit);
@@ -1196,7 +1196,7 @@ void MainWindow::updateTrayIcon()
 		// There is a bug in KDE that prevents tray icon to render an icon by name if it's not a file on disk.
 		// Convert it to pixmap and create icon from that pixmap to circumvent that bug.
 		m_trayIcon->setIcon(QIcon(icons()->trayIcon(showUnlocked).pixmap(TrayIconSize)));
-		m_trayIcon->setToolTip(windowTitle().replace("[*]", isWindowModified() ? "*" : ""));
+		m_trayIcon->setToolTip(windowTitle().replace(QStringLiteral("[*]"), isWindowModified() ? QStringLiteral("*") : QString()));
 		m_trayIcon->show();
 
 		if (!isTrayIconEnabled() || !QSystemTrayIcon::isSystemTrayAvailable())
@@ -1506,7 +1506,7 @@ QStringList MainWindow::kdbxFilesFromUrls(const QList<QUrl> &urls)
 	for (const QUrl &url: urls)
 	{
 		const QFileInfo fInfo(url.toLocalFile());
-		const bool isKdbxFile = fInfo.isFile() && fInfo.suffix().toLower() == "kdbxm";
+		const bool isKdbxFile = fInfo.isFile() && fInfo.suffix().toLower() == QStringLiteral("kdbxm");
 		if (isKdbxFile)
 		{
 			kdbxFiles.append(fInfo.absoluteFilePath());

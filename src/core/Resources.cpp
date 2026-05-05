@@ -29,12 +29,12 @@ std::unique_ptr<Resources> Resources::m_instance;
 
 QString Resources::dataPath(const QString &name) const
 {
-	if (name.isEmpty() || name.startsWith('/'))
+	if (name.isEmpty() || name.startsWith(QLatin1Char('/')))
 	{
 		return m_dataPath + name;
 	}
 
-	return m_dataPath + QStringLiteral("/") + name;
+	return m_dataPath + QLatin1Char('/') + name;
 }
 
 QString Resources::wordlistPath(const QString &name) const

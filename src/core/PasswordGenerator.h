@@ -76,8 +76,8 @@ public:
 	QString generatePassword() const;
 
 	static const int DefaultLength;
-	static const char *DefaultCustomCharacterSet;
-	static const char *DefaultExcludedChars;
+	static const QString DefaultCustomCharacterSet;
+	static const QString DefaultExcludedChars;
 
 private:
 	QVector<PasswordGroup> passwordGroups() const;

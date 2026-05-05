@@ -263,7 +263,7 @@ void FileKey::createXMLv2(QIODevice *device, int size)
 			w.writeCharacters(" ");
 		}
 
-		w.writeCharacters(QChar(key[i]));
+		w.writeCharacters(QLatin1Char(key[i]));
 	}
 
 	Botan::secure_scrub_memory(key.data(), static_cast<std::size_t>(key.capacity()));
@@ -296,7 +296,7 @@ bool FileKey::create(const QString &fileName, QString *errorMsg)
 		return false;
 	}
 
-	if (fileName.endsWith(".keyx"))
+	if (fileName.endsWith(QStringLiteral(".keyx")))
 	{
 		createXMLv2(&file);
 	}
@@ -336,7 +336,7 @@ bool FileKey::loadXml(QIODevice *device, QString *errorMsg)
 		return false;
 	}
 
-	if (xmlReader.readNextStartElement() && xmlReader.name() != "KeyFile")
+	if (xmlReader.readNextStartElement() && xmlReader.name() != QStringLiteral("KeyFile"))
 	{
 		return false;
 	}
@@ -350,18 +350,18 @@ bool FileKey::loadXml(QIODevice *device, QString *errorMsg)
 
 	while (!xmlReader.error() && xmlReader.readNextStartElement())
 	{
-		if (xmlReader.name() == "Meta")
+		if (xmlReader.name() == QStringLiteral("Meta"))
 		{
 			while (!xmlReader.error() && xmlReader.readNextStartElement())
 			{
-				if (xmlReader.name() == "Version")
+				if (xmlReader.name() == QStringLiteral("Version"))
 				{
 					keyFileData.version = xmlReader.readElementText();
-					if (keyFileData.version.startsWith("1.0"))
+					if (keyFileData.version.startsWith(QStringLiteral("1.0")))
 					{
 						m_type = KeePass2XML;
 					}
-					else if (keyFileData.version == "2.0")
+					else if (keyFileData.version == QStringLiteral("2.0"))
 					{
 						m_type = KeePass2XMLv2;
 					}
@@ -377,20 +377,20 @@ bool FileKey::loadXml(QIODevice *device, QString *errorMsg)
 				}
 			}
 		}
-		else if (xmlReader.name() == "Key")
+		else if (xmlReader.name() == QStringLiteral("Key"))
 		{
 			while (!xmlReader.error() && xmlReader.readNextStartElement())
 			{
-				if (xmlReader.name() == "Data")
+				if (xmlReader.name() == QStringLiteral("Data"))
 				{
 					keyFileData.hash = QByteArray::fromHex(xmlReader.attributes().value("Hash").toLatin1());
-					keyFileData.data = xmlReader.readElementText().simplified().replace(" ", "").toLatin1();
+					keyFileData.data = xmlReader.readElementText().simplified().replace(QStringLiteral(" "), QString()).toLatin1();
 
-					if (keyFileData.version.startsWith("1.0") && Tools::isBase64(keyFileData.data))
+					if (keyFileData.version.startsWith(QStringLiteral("1.0")) && Tools::isBase64(keyFileData.data))
 					{
 						keyFileData.data = QByteArray::fromBase64(keyFileData.data);
 					}
-					else if (keyFileData.version == "2.0" && Tools::isHex(keyFileData.data))
+					else if (keyFileData.version == QStringLiteral("2.0") && Tools::isHex(keyFileData.data))
 					{
 						keyFileData.data = QByteArray::fromHex(keyFileData.data);
 

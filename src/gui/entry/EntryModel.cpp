@@ -34,7 +34,7 @@
 EntryModel::EntryModel(QObject *parent)
 	: QAbstractTableModel(parent)
 	, m_group(nullptr)
-	, HiddenContentDisplay(QString("\u25cf").repeated(6))
+	, HiddenContentDisplay(QStringLiteral("\u25cf").repeated(6))
 {
 	connect(config(), &Config::changed, this, &EntryModel::onConfigChanged);
 }
@@ -179,7 +179,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 
 			if (entry->username().isEmpty() && !config()->get(Config::Security_PasswordEmptyPlaceholder).toBool())
 			{
-				result = "";
+				result = QString();
 			}
 			return result;
 		case Password:
@@ -199,7 +199,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 
 			if (entry->password().isEmpty() && !config()->get(Config::Security_PasswordEmptyPlaceholder).toBool())
 			{
-				result = "";
+				result = QString();
 			}
 
 			return result;
@@ -221,7 +221,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 				else
 				{
 					// Display only first line of notes in simplified format if not hidden
-					result = entry->notes().section("\n", 0, 0).simplified();
+					result = entry->notes().section(QStringLiteral("\n"), 0, 0).simplified();
 				}
 
 				if (attr->isReference(EntryAttributes::NotesKey))
@@ -253,7 +253,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 						continue;
 					}
 
-					result.append(QString(", ") + attachment);
+					result.append(QStringLiteral(", ") + attachment);
 				}
 
 				return result;
@@ -261,7 +261,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 		case Size:
 			{
 				const int unitsSize = 4;
-				QString units[unitsSize] = {"B", "KiB", "MiB", "GiB"};
+				QString units[unitsSize] = {QStringLiteral("B"), QStringLiteral("KiB"), QStringLiteral("MiB"), QStringLiteral("GiB")};
 				float resultInt = entry->size();
 
 				for (int i = 0; i < unitsSize; ++i)
@@ -283,7 +283,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			backgroundColor.setNamedColor(entry->backgroundColor());
 			if (backgroundColor.isValid())
 			{
-				result = "▍";
+				result = QString::fromUtf8(QByteArray::fromHex("e2968d"));
 				return result;
 			}
 		}
@@ -341,19 +341,19 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 		case Paperclip:
 			if (!entry->attachments()->isEmpty())
 			{
-				return icons()->icon("paperclip");
+				return icons()->icon(QStringLiteral("paperclip"));
 			}
 			break;
 		case Totp:
 			if (entry->hasTotp())
 			{
-				return entry->hasValidTotp() ? icons()->icon("totp") : icons()->icon("totp-invalid");
+				return entry->hasValidTotp() ? icons()->icon(QStringLiteral("totp")) : icons()->icon(QStringLiteral("totp-invalid"));
 			}
 			break;
 		case PasswordStrength:
 			if (!entry->password().isEmpty() && !entry->excludeFromReports())
 			{
-				QString iconName = "lock-question";
+				QString iconName = QStringLiteral("lock-question");
 
 				QColor color = QColor::fromString(ColorRole::Error);
 
@@ -361,16 +361,16 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 				{
 				case PasswordHealth::Quality::Bad:
 				case PasswordHealth::Quality::Poor:
-					iconName = "lock-open-alert";
+					iconName = QStringLiteral("lock-open-alert");
 					color = QColor::fromString(ColorRole::HealthCritical);
 					break;
 				case PasswordHealth::Quality::Weak:
-					iconName = "lock-open";
+					iconName = QStringLiteral("lock-open");
 					color = QColor::fromString(ColorRole::HealthBad);
 					break;
 				case PasswordHealth::Quality::Good:
 				case PasswordHealth::Quality::Excellent:
-					iconName = "lock";
+					iconName = QStringLiteral("lock");
 					color = QColor::fromString(ColorRole::HealthExcellent);
 					break;
 				}
@@ -482,11 +482,11 @@ QVariant EntryModel::headerData(int section, Qt::Orientation orientation, int ro
 		switch (section)
 		{
 		case Paperclip:
-			return icons()->icon("paperclip");
+			return icons()->icon(QStringLiteral("paperclip"));
 		case Totp:
-			return icons()->icon("totp");
+			return icons()->icon(QStringLiteral("totp"));
 		case PasswordStrength:
-			return icons()->icon("lock-question");
+			return icons()->icon(QStringLiteral("lock-question"));
 		}
 	}
 	else if (role == Qt::ToolTipRole)
@@ -556,7 +556,7 @@ Qt::ItemFlags EntryModel::flags(const QModelIndex &modelIndex) const
 QStringList EntryModel::mimeTypes() const
 {
 	QStringList types;
-	types << QLatin1String("application/x-keepassx-entry");
+	types << QStringLiteral("application/x-keepassx-entry");
 	return types;
 }
 

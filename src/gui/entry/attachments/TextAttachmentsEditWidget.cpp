@@ -55,6 +55,6 @@ attachments::Attachment TextAttachmentsEditWidget::getAttachment() const
 
 void TextAttachmentsEditWidget::updateUi()
 {
-	m_ui->attachmentsTextEdit->setPlainText(m_attachment.data);
+	m_ui->attachmentsTextEdit->setPlainText(QString::fromUtf8(m_attachment.data));
 	m_ui->attachmentsTextEdit->setReadOnly(m_mode == attachments::OpenMode::ReadOnly);
 }

@@ -31,7 +31,7 @@ AttachmentWidget::AttachmentWidget(QWidget *parent)
 
 	auto verticalLayout = new QVBoxLayout(this);
 	verticalLayout->setSpacing(0);
-	verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+	verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
 	verticalLayout->setContentsMargins(0, 0, 0, 0);
 	verticalLayout->setAlignment(Qt::AlignCenter);
 }

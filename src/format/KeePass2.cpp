@@ -31,20 +31,20 @@ const QUuid KeePass2::KDF_AES_KDBX4 = QUuid("7c02bb82-79a7-4ac0-927d-114a0064823
 const QUuid KeePass2::KDF_ARGON2D = QUuid("ef636ddf-8c29-444b-91f7-a9a403e30a0c");
 const QUuid KeePass2::KDF_ARGON2ID = QUuid("9e298b19-56db-4773-b23d-fc3ec6f0a1e6");
 
-const QByteArray KeePass2::INNER_STREAM_SALSA20_IV("\xe8\x30\x09\x4b\x97\x20\x5d\x2a");
+const QByteArray KeePass2::INNER_STREAM_SALSA20_IV = "\xe8\x30\x09\x4b\x97\x20\x5d\x2a";
 
-const QString KeePass2::KDFPARAM_UUID("$UUID");
+const QString KeePass2::KDFPARAM_UUID = QStringLiteral("$UUID");
 // AES parameters
-const QString KeePass2::KDFPARAM_AES_ROUNDS("R");
-const QString KeePass2::KDFPARAM_AES_SEED("S");
+const QString KeePass2::KDFPARAM_AES_ROUNDS = QStringLiteral("R");
+const QString KeePass2::KDFPARAM_AES_SEED = QStringLiteral("S");
 // Argon2 parameters
-const QString KeePass2::KDFPARAM_ARGON2_SALT("S");
-const QString KeePass2::KDFPARAM_ARGON2_PARALLELISM("P");
-const QString KeePass2::KDFPARAM_ARGON2_MEMORY("M");
-const QString KeePass2::KDFPARAM_ARGON2_ITERATIONS("I");
-const QString KeePass2::KDFPARAM_ARGON2_VERSION("V");
-const QString KeePass2::KDFPARAM_ARGON2_SECRET("K");
-const QString KeePass2::KDFPARAM_ARGON2_ASSOCDATA("A");
+const QString KeePass2::KDFPARAM_ARGON2_SALT = QStringLiteral("S");
+const QString KeePass2::KDFPARAM_ARGON2_PARALLELISM = QStringLiteral("P");
+const QString KeePass2::KDFPARAM_ARGON2_MEMORY = QStringLiteral("M");
+const QString KeePass2::KDFPARAM_ARGON2_ITERATIONS = QStringLiteral("I");
+const QString KeePass2::KDFPARAM_ARGON2_VERSION = QStringLiteral("V");
+const QString KeePass2::KDFPARAM_ARGON2_SECRET = QStringLiteral("K");
+const QString KeePass2::KDFPARAM_ARGON2_ASSOCDATA = QStringLiteral("A");
 
 const QList<QUuid> KeePass2::CIPHERS{KeePass2::CIPHER_AES256, KeePass2::CIPHER_TWOFISH, KeePass2::CIPHER_CHACHA20};
 

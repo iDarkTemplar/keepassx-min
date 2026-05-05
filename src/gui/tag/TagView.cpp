@@ -81,7 +81,7 @@ void TagView::contextMenuRequested(const QPoint &pos)
 	{
 		// Allow deleting saved searches
 		QMenu menu;
-		auto action = menu.exec({new QAction(icons()->icon("trash"), tr("Remove Search"), nullptr)}, mapToGlobal(pos));
+		auto action = menu.exec({new QAction(icons()->icon(QStringLiteral("trash")), tr("Remove Search"), nullptr)}, mapToGlobal(pos));
 		if (action)
 		{
 			m_db->metadata()->deleteSavedSearch(index.data(Qt::DisplayRole).toString());
@@ -91,7 +91,7 @@ void TagView::contextMenuRequested(const QPoint &pos)
 	{
 		// Allow removing tags from all entries in a database
 		QMenu menu;
-		auto action = menu.exec({new QAction(icons()->icon("trash"), tr("Remove Tag"), nullptr)}, mapToGlobal(pos));
+		auto action = menu.exec({new QAction(icons()->icon(QStringLiteral("trash")), tr("Remove Tag"), nullptr)}, mapToGlobal(pos));
 		if (action)
 		{
 			auto tag = index.data(Qt::DisplayRole).toString();

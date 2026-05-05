@@ -66,8 +66,8 @@ ApplicationSettingsWidget::ApplicationSettingsWidget(QWidget *parent)
 
 	m_secUi->setupUi(m_secWidget);
 	m_generalUi->setupUi(m_generalWidget);
-	addPage(tr("General"), icons()->icon("preferences-other"), m_generalWidget);
-	addPage(tr("Security"), icons()->icon("security-high"), m_secWidget);
+	addPage(tr("General"), icons()->icon(QStringLiteral("preferences-other")), m_generalWidget);
+	addPage(tr("Security"), icons()->icon(QStringLiteral("security-high")), m_secWidget);
 
 	connect(this, &ApplicationSettingsWidget::accepted, this, &ApplicationSettingsWidget::saveSettings);
 
@@ -365,7 +365,7 @@ void ApplicationSettingsWidget::resetSettings()
 
 void ApplicationSettingsWidget::importSettings()
 {
-	auto file = fileDialog()->getOpenFileName(this, tr("Import KeePassX-min Settings"), {}, "*.ini");
+	auto file = fileDialog()->getOpenFileName(this, tr("Import KeePassX-min Settings"), {}, QStringLiteral("*.ini"));
 	if (file.isEmpty())
 	{
 		return;
@@ -373,8 +373,7 @@ void ApplicationSettingsWidget::importSettings()
 
 	if (!config()->importSettings(file))
 	{
-		showMessage(tr("Failed to import settings from %1, not a valid settings file.").arg(file),
-			MessageWidget::Error);
+		showMessage(tr("Failed to import settings from %1, not a valid settings file.").arg(file), MessageWidget::Error);
 		return;
 	}
 
@@ -384,7 +383,7 @@ void ApplicationSettingsWidget::importSettings()
 
 void ApplicationSettingsWidget::exportSettings()
 {
-	auto file = fileDialog()->getSaveFileName(this, tr("Export KeePassX-min Settings"), {}, "*.ini");
+	auto file = fileDialog()->getSaveFileName(this, tr("Export KeePassX-min Settings"), {}, QStringLiteral("*.ini"));
 	if (file.isEmpty())
 	{
 		return;

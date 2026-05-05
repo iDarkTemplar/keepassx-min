@@ -866,7 +866,7 @@ void TagsEdit::keyPressEvent(QKeyEvent *event)
 		auto clipboard = QApplication::clipboard();
 		if (clipboard)
 		{
-			for (auto tagtext: clipboard->text().split(","))
+			for (auto tagtext: clipboard->text().split(QLatin1Char(',')))
 			{
 				impl->currentText().insert(impl->cursor, tagtext);
 				impl->editNewTag(impl->editing_index + 1);

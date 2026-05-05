@@ -93,7 +93,7 @@ MessageBox::Button MessageBox::messageBox(
 		msgBox.setWindowTitle(title);
 		// Replace newlines with HTML line breaks
 		auto fixedText = text;
-		msgBox.setText(fixedText.replace("\n", "<br>"));
+		msgBox.setText(fixedText.replace(QStringLiteral("\n"), QStringLiteral("<br>")));
 
 		if (m_overrideParent)
 		{

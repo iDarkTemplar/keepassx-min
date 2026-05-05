@@ -58,7 +58,7 @@ static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
 	{Config::AutoSaveOnExit,{QS("AutoSaveOnExit"), Roaming, true}},
 	{Config::AutoSaveNonDataChanges,{QS("AutoSaveNonDataChanges"), Roaming, true}},
 	{Config::BackupBeforeSave,{QS("BackupBeforeSave"), Roaming, false}},
-	{Config::BackupFilePathPattern,{QS("BackupFilePathPattern"), Roaming, QString("{DB_FILENAME}.old.kdbxm")}},
+	{Config::BackupFilePathPattern,{QS("BackupFilePathPattern"), Roaming, QS("{DB_FILENAME}.old.kdbxm")}},
 	{Config::SearchLimitGroup,{QS("SearchLimitGroup"), Roaming, false}},
 	{Config::URLDoubleClickAction, {QS("URLDoubleClickAction"), Roaming, 0}},
 	{Config::HideWindowOnCopy,{QS("HideWindowOnCopy"), Roaming, false}},
@@ -497,25 +497,25 @@ QPair<QString, QString> Config::defaultConfigFiles()
 	// Check if we are running in portable mode, if so store the config files local to the app
 	if (isPortable())
 	{
-		return {portableConfigDir().append("/keepassxmin.ini"), portableConfigDir().append("/keepassxmin_local.ini")};
+		return {portableConfigDir().append(QStringLiteral("/keepassxmin.ini")), portableConfigDir().append(QStringLiteral("/keepassxmin_local.ini"))};
 	}
 
 	QString configPath;
 	QString localConfigPath;
 
 	// On case-sensitive Operating Systems, force use of lowercase app directories
-	configPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + "/keepassxmin";
-	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/keepassxmin";
+	configPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/keepassxmin");
+	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + QStringLiteral("/keepassxmin");
 
 	QString suffix;
 
-	configPath += QString("/keepassxmin.ini");
-	localConfigPath += QString("/keepassxmin.ini");
+	configPath += QStringLiteral("/keepassxmin.ini");
+	localConfigPath += QStringLiteral("/keepassxmin.ini");
 
 	// Allow overriding the default location with env vars
 	const auto &env = QProcessEnvironment::systemEnvironment();
-	configPath = env.value("KPXM_CONFIG", configPath);
-	localConfigPath = env.value("KPXM_CONFIG_LOCAL", localConfigPath);
+	configPath = env.value(QStringLiteral("KPXM_CONFIG"), configPath);
+	localConfigPath = env.value(QStringLiteral("KPXM_CONFIG_LOCAL"), localConfigPath);
 
 	return {QDir::toNativeSeparators(configPath), QDir::toNativeSeparators(localConfigPath)};
 }
@@ -551,8 +551,7 @@ void Config::createTempFileInstance()
 
 bool Config::isPortable()
 {
-	auto portablePath = QCoreApplication::applicationDirPath().append("/%1");
-	auto portableFile = portablePath.arg(".portable");
+	auto portableFile = QCoreApplication::applicationDirPath().append(QStringLiteral("/.portable"));
 	auto isPortable = QFile::exists(portableFile) && QFileInfo(portableFile).isWritable();
 
 	return isPortable;
@@ -560,7 +559,7 @@ bool Config::isPortable()
 
 QString Config::portableConfigDir()
 {
-	return QCoreApplication::applicationDirPath().append("/config");
+	return QCoreApplication::applicationDirPath().append(QStringLiteral("/config"));
 }
 
 #undef QS

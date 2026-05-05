@@ -825,7 +825,7 @@ void DatabaseWidget::filterByTag()
 	{
 		searchTerms << index.data(Qt::UserRole).toString();
 	}
-	Q_EMIT requestSearch(searchTerms.join(" "));
+	Q_EMIT requestSearch(searchTerms.join(QLatin1Char(' ')));
 }
 
 void DatabaseWidget::setTag(QAction *action)
@@ -998,7 +998,7 @@ void DatabaseWidget::switchToMainView(bool previousDialogAccepted)
 
 void DatabaseWidget::switchToHistoryView(Entry *entry)
 {
-	auto entryTitle = m_editEntryWidget->currentEntry() ? m_editEntryWidget->currentEntry()->title() : "";
+	auto entryTitle = m_editEntryWidget->currentEntry() ? m_editEntryWidget->currentEntry()->title() : QString();
 	m_historyEditEntryWidget->loadEntry(entry, false, true, entryTitle, m_db);
 	setCurrentWidget(m_historyEditEntryWidget);
 }
@@ -1086,7 +1086,7 @@ void DatabaseWidget::loadDatabase(bool accepted)
 					tr("Entries expiring within %1 day(s)", "", expirationOffset).arg(expirationOffset);
 			}
 
-			requestSearch(QString("is:expired-%1").arg(expirationOffset));
+			requestSearch(QStringLiteral("is:expired-%1").arg(expirationOffset));
 		}
 
 		m_groupBeforeLock = QUuid();
@@ -1859,7 +1859,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 		auto result = MessageBox::question(
 			this,
 			tr("File has changed"),
-			QString("%1.\n%2").arg(tr("The database file \"%1\" was modified externally").arg(displayFileName()),
+			QStringLiteral("%1.\n%2").arg(tr("The database file \"%1\" was modified externally").arg(displayFileName()),
 				tr("Do you want to load the changes?")),
 			MessageBox::Yes | MessageBox::No);
 
@@ -1893,7 +1893,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 		m_reloading = false;
 
 		// Keep the previous message visible for 2 seconds if not hiding
-		QTimer::singleShot(hideMsg ? 0 : 2000, this, [this] { Q_EMIT updateSyncProgress(-1, ""); });
+		QTimer::singleShot(hideMsg ? 0 : 2000, this, [this] { Q_EMIT updateSyncProgress(-1, QString()); });
 
 		Q_EMIT reloadEnd();
 	};
@@ -2250,12 +2250,12 @@ bool DatabaseWidget::saveAs()
 	if (!QFileInfo::exists(oldFilePath))
 	{
 		QString defaultFileName = config()->get(Config::DefaultDatabaseFileName).toString();
-		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir("db") + "/"
-			+ (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbxm") : defaultFileName));
+		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir(QStringLiteral("db")) + QStringLiteral("/")
+			+ (defaultFileName.isEmpty() ? tr("Passwords").append(QStringLiteral(".kdbxm")) : defaultFileName));
 	}
 
 	const QString newFilePath = fileDialog()->getSaveFileName(
-		this, tr("Save database as"), oldFilePath, tr("KeePassX-min Database").append(" (*.kdbxm)"));
+		this, tr("Save database as"), oldFilePath, tr("KeePassX-min Database").append(QStringLiteral(" (*.kdbxm)")));
 
 	bool ok = false;
 	if (!newFilePath.isEmpty())
@@ -2345,14 +2345,14 @@ bool DatabaseWidget::saveBackup()
 	if (!QFileInfo::exists(oldFilePath))
 	{
 		QString defaultFileName = config()->get(Config::DefaultDatabaseFileName).toString();
-		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir("db") + "/"
-			+ (defaultFileName.isEmpty() ? tr("Passwords").append(".kdbxm") : defaultFileName));
+		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir(QStringLiteral("db")) + QStringLiteral("/")
+			+ (defaultFileName.isEmpty() ? tr("Passwords").append(QStringLiteral(".kdbxm")) : defaultFileName));
 	}
 
 	const QString newFilePath = fileDialog()->getSaveFileName(this,
 		tr("Save Database Backup"),
-		FileDialog::getLastDir("backup", oldFilePath),
-		tr("KeePassX-min Database").append(" (*.kdbxm)"));
+		FileDialog::getLastDir(QStringLiteral("backup"), oldFilePath),
+		tr("KeePassX-min Database").append(QStringLiteral(" (*.kdbxm)")));
 
 	// Early out if we canceled the file selection
 	if (newFilePath.isEmpty())
@@ -2381,7 +2381,7 @@ bool DatabaseWidget::saveBackup()
 		return false;
 	}
 
-	FileDialog::saveLastDir("backup", newFilePath, true);
+	FileDialog::saveLastDir(QStringLiteral("backup"), newFilePath, true);
 	return true;
 }
 
@@ -2459,13 +2459,13 @@ void DatabaseWidget::openDatabaseFromEntry(const Entry *entry, bool inBackground
 	auto password = entry->resolveMultiplePlaceholders(entry->password());
 	auto databaseUrl = entry->resolveMultiplePlaceholders(entry->url());
 
-	if (databaseUrl.startsWith("kdbxm://"))
+	if (databaseUrl.startsWith(QStringLiteral("kdbxm://")))
 	{
 		databaseUrl = databaseUrl.mid(7);
 	}
 
 	QFileInfo dbFileInfo;
-	if (databaseUrl.startsWith("file://"))
+	if (databaseUrl.startsWith(QStringLiteral("file://")))
 	{
 		QUrl url(databaseUrl);
 		dbFileInfo.setFile(url.toLocalFile());
@@ -2489,7 +2489,7 @@ void DatabaseWidget::openDatabaseFromEntry(const Entry *entry, bool inBackground
 	QFileInfo keyFileInfo;
 	if (!keyFile.isEmpty())
 	{
-		if (keyFile.startsWith("file://"))
+		if (keyFile.startsWith(QStringLiteral("file://")))
 		{
 			QUrl keyfileUrl(keyFile);
 			keyFileInfo.setFile(keyfileUrl.toLocalFile());

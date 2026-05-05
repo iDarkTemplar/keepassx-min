@@ -33,19 +33,19 @@ bool OpVaultReader::decryptBandEntry(
 	QByteArray &key,
 	QByteArray &hmacKey)
 {
-	if (!bandEntry.contains("d"))
+	if (!bandEntry.contains(QStringLiteral("d")))
 	{
 		qWarning() << "Band entries must contain a \"d\" key: " << bandEntry.keys();
 		return false;
 	}
 
-	if (!bandEntry.contains("k"))
+	if (!bandEntry.contains(QStringLiteral("k")))
 	{
 		qWarning() << "Band entries must contain a \"k\" key: " << bandEntry.keys();
 		return false;
 	}
 
-	const QString uuid = bandEntry.value("uuid").toString();
+	const QString uuid = bandEntry.value(QStringLiteral("uuid")).toString();
 
 	/*!
 	 * This is the encrypted item and MAC keys.
@@ -60,7 +60,7 @@ bool OpVaultReader::decryptBandEntry(
 	 * \endcode
 	 * \sa https://support.1password.com/opvault-design/#k
 	 */
-	const QString &entKStr = bandEntry["k"].toString();
+	const QString &entKStr = bandEntry[QStringLiteral("k")].toString();
 	QByteArray kBA = QByteArray::fromBase64(entKStr.toUtf8());
 	const int wantKsize = 16 + 32 + 32 + 32;
 	if (kBA.size() != wantKsize)
@@ -73,7 +73,7 @@ bool OpVaultReader::decryptBandEntry(
 	const QByteArray &realHmacSig = CryptoHash::hmac(kBA.mid(0, kBA.size() - hmacSig.size()), m_masterHmacKey, CryptoHash::Sha256);
 	if (realHmacSig != hmacSig)
 	{
-		qCritical() << QString(R"(Entry "k" failed its HMAC in UUID "%1", wanted "%2" got "%3")")
+		qCritical() << QStringLiteral(R"(Entry "k" failed its HMAC in UUID "%1", wanted "%2" got "%3")")
 			.arg(uuid)
 			.arg(QString::fromUtf8(hmacSig.toHex()))
 			.arg(QString::fromUtf8(realHmacSig));
@@ -99,7 +99,7 @@ bool OpVaultReader::decryptBandEntry(
 	key = keyAndMacKey.mid(0, 32);
 	hmacKey = keyAndMacKey.mid(32);
 
-	QString dKeyB64 = bandEntry.value("d").toString();
+	QString dKeyB64 = bandEntry.value(QStringLiteral("d")).toString();
 	OpData01 entD01;
 	if (!entD01.decodeBase64(dKeyB64, key, hmacKey))
 	{
@@ -115,23 +115,23 @@ bool OpVaultReader::decryptBandEntry(
 
 Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir &attachmentDir, Group *rootGroup)
 {
-	const QString uuid = bandEntry.value("uuid").toString();
+	const QString uuid = bandEntry.value(QStringLiteral("uuid")).toString();
 	if (!(uuid.size() == 32 || uuid.size() == 36))
 	{
-		qWarning() << QString("Skipping suspicious band UUID <<%1>> with length %2").arg(uuid).arg(uuid.size());
+		qWarning() << QStringLiteral("Skipping suspicious band UUID <<%1>> with length %2").arg(uuid).arg(uuid.size());
 		return nullptr;
 	}
 
 	QScopedPointer<Entry> entry(new Entry());
 
-	if (bandEntry.contains("trashed") && bandEntry["trashed"].toBool())
+	if (bandEntry.contains(QStringLiteral("trashed")) && bandEntry[QStringLiteral("trashed")].toBool())
 	{
 		// Send this entry to the recycle bin
 		rootGroup->database()->recycleEntry(entry.data());
 	}
-	else if (bandEntry.contains("category"))
+	else if (bandEntry.contains(QStringLiteral("category")))
 	{
-		const QJsonValue &categoryValue = bandEntry["category"];
+		const QJsonValue &categoryValue = bandEntry[QStringLiteral("category")];
 		if (categoryValue.isString())
 		{
 			bool found = false;
@@ -149,13 +149,13 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 
 			if (!found)
 			{
-				qWarning() << QString("Unable to place Entry.Category \"%1\" so using the Root instead").arg(category);
+				qWarning() << QStringLiteral("Unable to place Entry.Category \"%1\" so using the Root instead").arg(category);
 				entry->setGroup(rootGroup);
 			}
 		}
 		else
 		{
-			qWarning() << QString(R"(Skipping non-String Category type "%1" in UUID "%2")")
+			qWarning() << QStringLiteral(R"(Skipping non-String Category type "%1" in UUID "%2")")
 				.arg(categoryValue.type())
 				.arg(uuid);
 
@@ -172,16 +172,16 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 	entry->setUpdateTimeinfo(false);
 	TimeInfo ti;
 	bool timeInfoOk = false;
-	if (bandEntry.contains("created"))
+	if (bandEntry.contains(QStringLiteral("created")))
 	{
-		auto createdTime = static_cast<uint>(bandEntry["created"].toInt());
+		auto createdTime = static_cast<uint>(bandEntry[QStringLiteral("created")].toInt());
 		ti.setCreationTime(QDateTime::fromSecsSinceEpoch(createdTime, QTimeZone::utc()));
 		timeInfoOk = true;
 	}
 
-	if (bandEntry.contains("updated"))
+	if (bandEntry.contains(QStringLiteral("updated")))
 	{
-		auto updateTime = static_cast<uint>(bandEntry["updated"].toInt());
+		auto updateTime = static_cast<uint>(bandEntry[QStringLiteral("updated")].toInt());
 		ti.setLastModificationTime(QDateTime::fromSecsSinceEpoch(updateTime, QTimeZone::utc()));
 		timeInfoOk = true;
 	}
@@ -208,18 +208,18 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 		return nullptr;
 	}
 
-	if (data.contains("notesPlain"))
+	if (data.contains(QStringLiteral("notesPlain")))
 	{
-		entry->setNotes(data.value("notesPlain").toString());
+		entry->setNotes(data.value(QStringLiteral("notesPlain")).toString());
 	}
 
 	// it seems sometimes the password is a top-level field, and not in "fields" themselves
-	if (data.contains("password"))
+	if (data.contains(QStringLiteral("password")))
 	{
-		entry->setPassword(data.value("password").toString());
+		entry->setPassword(data.value(QStringLiteral("password")).toString());
 	}
 
-	for (const auto fieldValue: data.value("fields").toArray())
+	for (const auto fieldValue: data.value(QStringLiteral("fields")).toArray())
 	{
 		if (!fieldValue.isObject())
 		{
@@ -227,20 +227,20 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 		}
 
 		auto field = fieldValue.toObject();
-		auto designation = field["designation"].toString();
-		auto value = field["value"].toString();
+		auto designation = field[QStringLiteral("designation")].toString();
+		auto value = field[QStringLiteral("value")].toString();
 
-		if (designation == "password")
+		if (designation == QStringLiteral("password"))
 		{
 			entry->setPassword(value);
 		}
-		else if (designation == "username")
+		else if (designation == QStringLiteral("username"))
 		{
 			entry->setUsername(value);
 		}
 	}
 
-	const QJsonArray &sectionsArray = data["sections"].toArray();
+	const QJsonArray &sectionsArray = data[QStringLiteral("sections")].toArray();
 	for (const QJsonValue &sectionValue: sectionsArray)
 	{
 		if (!sectionValue.isObject())
@@ -261,7 +261,7 @@ Entry *OpVaultReader::processBandEntry(const QJsonObject &bandEntry, const QDir 
 
 bool OpVaultReader::fillAttributes(Entry *entry, const QJsonObject &bandEntry)
 {
-	const QString overviewStr = bandEntry.value("o").toString();
+	const QString overviewStr = bandEntry.value(QStringLiteral("o")).toString();
 	OpData01 entOver01;
 	if (!entOver01.decodeBase64(overviewStr, m_overviewKey, m_overviewHmacKey))
 	{
@@ -275,30 +275,30 @@ bool OpVaultReader::fillAttributes(Entry *entry, const QJsonObject &bandEntry)
 	auto overviewDoc = QJsonDocument::fromJson(overviewJsonBytes);
 	auto overviewJson = overviewDoc.object();
 
-	QString title = overviewJson.value("title").toString();
+	QString title = overviewJson.value(QStringLiteral("title")).toString();
 	entry->setTitle(title);
 
-	QString url = overviewJson["url"].toString();
+	QString url = overviewJson[QStringLiteral("url")].toString();
 	entry->setUrl(url);
 
 	int i = 1;
-	for (const auto urlV: overviewJson["URLs"].toArray())
+	for (const auto urlV: overviewJson[QStringLiteral("URLs")].toArray())
 	{
 		const auto &urlObj = urlV.toObject();
-		if (urlObj.contains("u"))
+		if (urlObj.contains(QStringLiteral("u")))
 		{
-			auto newUrl = urlObj["u"].toString();
+			auto newUrl = urlObj[QStringLiteral("u")].toString();
 			if (newUrl != url)
 			{
 				// Add this url if it isn't the base one
-				entry->attributes()->set(QString("%1_%2").arg(EntryAttributes::AdditionalUrlAttribute, QString::number(i)), newUrl);
+				entry->attributes()->set(QStringLiteral("%1_%2").arg(EntryAttributes::AdditionalUrlAttribute, QString::number(i)), newUrl);
 				++i;
 			}
 		}
 	}
 
 	QStringList tagsList;
-	for (const auto tagV: overviewJson["tags"].toArray())
+	for (const auto tagV: overviewJson[QStringLiteral("tags")].toArray())
 	{
 		if (tagV.isString())
 		{
@@ -306,7 +306,7 @@ bool OpVaultReader::fillAttributes(Entry *entry, const QJsonObject &bandEntry)
 		}
 	}
 
-	entry->setTags(tagsList.join(','));
+	entry->setTags(tagsList.join(QLatin1Char(',')));
 
 	return true;
 }

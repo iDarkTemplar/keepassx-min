@@ -70,13 +70,13 @@ void ExportDialog::exportDatabase()
 	bool ascendingOrder = sortBy == ExportSortingStrategy::BY_NAME_ASC;
 
 	const QString fileName = fileDialog()->getSaveFileName(
-		this, tr("Export database to HTML file"), FileDialog::getLastDir("html"), tr("HTML file").append(" (*.html)"));
+		this, tr("Export database to HTML file"), FileDialog::getLastDir(QStringLiteral("html")), tr("HTML file").append(QStringLiteral(" (*.html)")));
 	if (fileName.isEmpty())
 	{
 		return;
 	}
 
-	FileDialog::saveLastDir("html", fileName, true);
+	FileDialog::saveLastDir(QStringLiteral("html"), fileName, true);
 
 	HtmlGuiExporter htmlExporter;
 	if (!htmlExporter.exportDatabase(fileName, m_db, sortBy != ExportSortingStrategy::BY_DATABASE_ORDER, ascendingOrder))

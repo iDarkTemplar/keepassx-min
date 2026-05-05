@@ -49,7 +49,7 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 
 	// https://support.1password.com/opvault-design/#directory-layout
 	QDir defaultDir = QDir(opdataDir);
-	if (!defaultDir.cd("default"))
+	if (!defaultDir.cd(QStringLiteral("default")))
 	{
 		m_error = tr("Directory .opvault/default must exist");
 		return {};
@@ -65,12 +65,12 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 
 	auto db = QSharedPointer<Database>::create();
 	auto rootGroup = db->rootGroup();
-	rootGroup->setName(vaultName.remove(".opvault"));
+	rootGroup->setName(vaultName.remove(QStringLiteral(".opvault")));
 
 	populateCategoryGroups(rootGroup);
 
-	QFile profileJsFile(defaultDir.absoluteFilePath("profile.js"));
-	QJsonObject profileJson = readAndAssertJsonFile(profileJsFile, "var profile=", ";");
+	QFile profileJsFile(defaultDir.absoluteFilePath(QStringLiteral("profile.js")));
+	QJsonObject profileJson = readAndAssertJsonFile(profileJsFile, QStringLiteral("var profile="), QStringLiteral(";"));
 	if (profileJson.isEmpty())
 	{
 		return {};
@@ -82,10 +82,10 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 		return {};
 	}
 
-	QFile foldersJsFile(defaultDir.filePath("folders.js"));
+	QFile foldersJsFile(defaultDir.filePath(QStringLiteral("folders.js")));
 	if (foldersJsFile.exists())
 	{
-		QJsonObject foldersJs = readAndAssertJsonFile(foldersJsFile, "loadFolders(", ");");
+		QJsonObject foldersJs = readAndAssertJsonFile(foldersJsFile, QStringLiteral("loadFolders("), QStringLiteral(");"));
 		if (!processFolderJson(foldersJs, rootGroup))
 		{
 			zeroKeys();
@@ -93,8 +93,8 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 		}
 	}
 
-	const QString bandChars("0123456789ABCDEF");
-	QString bandPattern("band_%1.js");
+	const QString bandChars = QStringLiteral("0123456789ABCDEF");
+	QString bandPattern = QStringLiteral("band_%1.js");
 	for (QChar ch: bandChars)
 	{
 		QFile bandFile(defaultDir.filePath(bandPattern.arg(ch)));
@@ -104,20 +104,20 @@ QSharedPointer<Database> OpVaultReader::convert(QDir &opdataDir, const QString &
 		}
 
 		// https://support.1password.com/opvault-design/#band-files
-		QJsonObject bandJs = readAndAssertJsonFile(bandFile, "ld(", ");");
+		QJsonObject bandJs = readAndAssertJsonFile(bandFile, QStringLiteral("ld("), QStringLiteral(");"));
 		const QStringList keys = bandJs.keys();
 		for (const QString &entryKey: keys)
 		{
 			const QJsonObject bandEnt = bandJs[entryKey].toObject();
-			const QString uuid = bandEnt["uuid"].toString();
+			const QString uuid = bandEnt[QStringLiteral("uuid")].toString();
 			if (entryKey != uuid)
 			{
-				qWarning() << QString("Mismatched Entry UUID, its JSON key <<%1>> and its UUID <<%2>>")
+				qWarning() << QStringLiteral("Mismatched Entry UUID, its JSON key <<%1>> and its UUID <<%2>>")
 					.arg(entryKey)
 					.arg(uuid);
 			}
 
-			QStringList requiredKeys({"d", "k", "hmac"});
+			QStringList requiredKeys({QStringLiteral("d"), QStringLiteral("k"), QStringLiteral("hmac")});
 			bool ok = true;
 			for (const QString &requiredKey: asConst(requiredKeys))
 			{
@@ -168,24 +168,24 @@ QString OpVaultReader::errorString()
 
 bool OpVaultReader::processProfileJson(QJsonObject &profileJson, const QString &password, Group *rootGroup)
 {
-	unsigned long iterations = profileJson["iterations"].toInt();
+	unsigned long iterations = profileJson[QStringLiteral("iterations")].toInt();
 	// QString lastUpdatedBy = profileJson["lastUpdatedBy"].toString();
-	QString masterKeyB64 = profileJson["masterKey"].toString();
-	QString overviewKeyB64 = profileJson["overviewKey"].toString();
+	QString masterKeyB64 = profileJson[QStringLiteral("masterKey")].toString();
+	QString overviewKeyB64 = profileJson[QStringLiteral("overviewKey")].toString();
 	// QString profileName = profileJs["profileName"].toString();
 
 	QByteArray salt;
 	{
-		QString saltB64 = profileJson["salt"].toString();
+		QString saltB64 = profileJson[QStringLiteral("salt")].toString();
 		salt = QByteArray::fromBase64(saltB64.toUtf8());
 	}
 
 	auto rootGroupTime = rootGroup->timeInfo();
-	auto createdAt = static_cast<uint>(profileJson["createdAt"].toInt());
+	auto createdAt = static_cast<uint>(profileJson[QStringLiteral("createdAt")].toInt());
 	rootGroupTime.setCreationTime(QDateTime::fromSecsSinceEpoch(createdAt, QTimeZone::utc()));
-	auto updatedAt = static_cast<uint>(profileJson["updatedAt"].toInt());
+	auto updatedAt = static_cast<uint>(profileJson[QStringLiteral("updatedAt")].toInt());
 	rootGroupTime.setLastModificationTime(QDateTime::fromSecsSinceEpoch(updatedAt, QTimeZone::utc()));
-	rootGroup->setUuid(Tools::hexToUuid(profileJson["uuid"].toString()));
+	rootGroup->setUuid(Tools::hexToUuid(profileJson[QStringLiteral("uuid")].toString()));
 
 	QScopedPointer derivedKeys(deriveKeysFromPassPhrase(salt, password, iterations));
 	if (!derivedKeys->error.isEmpty())
@@ -235,7 +235,7 @@ bool OpVaultReader::processFolderJson(QJsonObject &foldersJson, Group *rootGroup
 
 		const QJsonObject folder = folderValue.toObject();
 		QJsonObject overviewJs;
-		const QString overviewStr = folder.value("overview").toString();
+		const QString overviewStr = folder.value(QStringLiteral("overview")).toString();
 		OpData01 foldOverview01;
 		if (!foldOverview01.decodeBase64(overviewStr, m_overviewKey, m_overviewHmacKey))
 		{
@@ -248,42 +248,42 @@ bool OpVaultReader::processFolderJson(QJsonObject &foldersJson, Group *rootGroup
 		QJsonDocument fOverJSON = QJsonDocument::fromJson(foldOverview);
 		overviewJs = fOverJSON.object();
 
-		const QString &folderTitle = overviewJs["title"].toString();
+		const QString &folderTitle = overviewJs[QStringLiteral("title")].toString();
 		auto myGroup = new Group();
 		myGroup->setParent(rootGroup);
 		myGroup->setName(folderTitle);
-		if (folder.contains("uuid"))
+		if (folder.contains(QStringLiteral("uuid")))
 		{
-			myGroup->setUuid(Tools::hexToUuid(folder["uuid"].toString()));
+			myGroup->setUuid(Tools::hexToUuid(folder[QStringLiteral("uuid")].toString()));
 		}
 
-		if (overviewJs.contains("smart") && overviewJs["smart"].toBool())
+		if (overviewJs.contains(QStringLiteral("smart")) && overviewJs[QStringLiteral("smart")].toBool())
 		{
-			if (!overviewJs.contains("predicate_b64"))
+			if (!overviewJs.contains(QStringLiteral("predicate_b64")))
 			{
-				QString errMsg = QString(R"(Expected a predicate in smart folder[uuid="%1"; title="%2"]))").arg(key, folderTitle);
+				QString errMsg = QStringLiteral(R"(Expected a predicate in smart folder[uuid="%1"; title="%2"]))").arg(key, folderTitle);
 				qWarning() << errMsg;
 				myGroup->setNotes(errMsg);
 			}
 			else
 			{
-				QByteArray pB64 = QByteArray::fromBase64(overviewJs["predicate_b64"].toString().toUtf8());
-				myGroup->setNotes(pB64.toHex());
+				QByteArray pB64 = QByteArray::fromBase64(overviewJs[QStringLiteral("predicate_b64")].toString().toUtf8());
+				myGroup->setNotes(QString::fromUtf8(pB64.toHex()));
 			}
 		}
 
 		TimeInfo ti;
 		bool timeInfoOk = false;
-		if (folder.contains("created"))
+		if (folder.contains(QStringLiteral("created")))
 		{
-			auto createdTime = static_cast<uint>(folder["created"].toInt());
+			auto createdTime = static_cast<uint>(folder[QStringLiteral("created")].toInt());
 			ti.setCreationTime(QDateTime::fromSecsSinceEpoch(createdTime, QTimeZone::utc()));
 			timeInfoOk = true;
 		}
 
-		if (folder.contains("updated"))
+		if (folder.contains(QStringLiteral("updated")))
 		{
-			auto updateTime = static_cast<uint>(folder["updated"].toInt());
+			auto updateTime = static_cast<uint>(folder[QStringLiteral("updated")].toInt());
 			ti.setLastModificationTime(QDateTime::fromSecsSinceEpoch(updateTime, QTimeZone::utc()));
 			timeInfoOk = true;
 		}
@@ -315,19 +315,19 @@ QJsonObject OpVaultReader::readAndAssertJsonFile(QFile &file, const QString &str
 	auto absFilePath = fileInfo.absoluteFilePath();
 	if (!fileInfo.exists())
 	{
-		qCritical() << QString("File \"%1\" must exist").arg(absFilePath);
+		qCritical() << QObject::tr("File \"%1\" must exist").arg(absFilePath);
 		return QJsonObject();
 	}
 
 	if (!fileInfo.isReadable())
 	{
-		qCritical() << QString("File \"%1\" must be readable").arg(absFilePath);
+		qCritical() << QObject::tr("File \"%1\" must be readable").arg(absFilePath);
 		return QJsonObject();
 	}
 
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
-		qCritical() << QString("Unable to open \"%1\" readonly+text").arg(absFilePath);
+		qCritical() << QObject::tr("Unable to open \"%1\" readonly+text").arg(absFilePath);
 	}
 
 	filePayload = file.readAll();
@@ -438,24 +438,24 @@ void OpVaultReader::populateCategoryGroups(Group *rootGroup)
 {
 	QMap<QString, QString> categoryMap;
 
-	categoryMap.insert("001", "Login");
-	categoryMap.insert("002", "Credit Card");
-	categoryMap.insert("003", "Secure Note");
-	categoryMap.insert("004", "Identity");
-	categoryMap.insert("005", "Password");
-	categoryMap.insert("099", "Tombstone");
-	categoryMap.insert("100", "Software License");
-	categoryMap.insert("101", "Bank Account");
-	categoryMap.insert("102", "Database");
-	categoryMap.insert("103", "Driver License");
-	categoryMap.insert("104", "Outdoor License");
-	categoryMap.insert("105", "Membership");
-	categoryMap.insert("106", "Passport");
-	categoryMap.insert("107", "Rewards");
-	categoryMap.insert("108", "SSN");
-	categoryMap.insert("109", "Router");
-	categoryMap.insert("110", "Server");
-	categoryMap.insert("111", "Email");
+	categoryMap.insert(QStringLiteral("001"), QStringLiteral("Login"));
+	categoryMap.insert(QStringLiteral("002"), QStringLiteral("Credit Card"));
+	categoryMap.insert(QStringLiteral("003"), QStringLiteral("Secure Note"));
+	categoryMap.insert(QStringLiteral("004"), QStringLiteral("Identity"));
+	categoryMap.insert(QStringLiteral("005"), QStringLiteral("Password"));
+	categoryMap.insert(QStringLiteral("099"), QStringLiteral("Tombstone"));
+	categoryMap.insert(QStringLiteral("100"), QStringLiteral("Software License"));
+	categoryMap.insert(QStringLiteral("101"), QStringLiteral("Bank Account"));
+	categoryMap.insert(QStringLiteral("102"), QStringLiteral("Database"));
+	categoryMap.insert(QStringLiteral("103"), QStringLiteral("Driver License"));
+	categoryMap.insert(QStringLiteral("104"), QStringLiteral("Outdoor License"));
+	categoryMap.insert(QStringLiteral("105"), QStringLiteral("Membership"));
+	categoryMap.insert(QStringLiteral("106"), QStringLiteral("Passport"));
+	categoryMap.insert(QStringLiteral("107"), QStringLiteral("Rewards"));
+	categoryMap.insert(QStringLiteral("108"), QStringLiteral("SSN"));
+	categoryMap.insert(QStringLiteral("109"), QStringLiteral("Router"));
+	categoryMap.insert(QStringLiteral("110"), QStringLiteral("Server"));
+	categoryMap.insert(QStringLiteral("111"), QStringLiteral("Email"));
 
 	for (const QString &catNum: categoryMap.keys())
 	{

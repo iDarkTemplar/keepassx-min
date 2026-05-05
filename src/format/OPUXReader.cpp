@@ -65,103 +65,103 @@ QByteArray extractFile(unzFile uf, const QString &filename)
 Entry* readItem(const QJsonObject &item, unzFile uf = nullptr)
 {
 	const auto itemMap = item.toVariantMap();
-	const auto overviewMap = itemMap.value("overview").toMap();
-	const auto detailsMap = itemMap.value("details").toMap();
+	const auto overviewMap = itemMap.value(QStringLiteral("overview")).toMap();
+	const auto detailsMap = itemMap.value(QStringLiteral("details")).toMap();
 
 	// Create entry and assign basic values
 	QScopedPointer<Entry> entry(new Entry());
 	entry->setUuid(QUuid::createUuid());
-	entry->setTitle(overviewMap.value("title").toString());
-	entry->setUrl(overviewMap.value("url").toString());
-	if (overviewMap.contains("urls"))
+	entry->setTitle(overviewMap.value(QStringLiteral("title")).toString());
+	entry->setUrl(overviewMap.value(QStringLiteral("url")).toString());
+	if (overviewMap.contains(QStringLiteral("urls")))
 	{
 		int i = 1;
-		for (const auto &urlRaw: overviewMap.value("urls").toList())
+		for (const auto &urlRaw: overviewMap.value(QStringLiteral("urls")).toList())
 		{
 			const auto urlMap = urlRaw.toMap();
-			const auto url = urlMap.value("url").toString();
+			const auto url = urlMap.value(QStringLiteral("url")).toString();
 			if (entry->url() != url)
 			{
-				entry->attributes()->set(QString("%1_%2").arg(EntryAttributes::AdditionalUrlAttribute, QString::number(i)), url);
+				entry->attributes()->set(QStringLiteral("%1_%2").arg(EntryAttributes::AdditionalUrlAttribute, QString::number(i)), url);
 				++i;
 			}
 		}
 	}
 
-	if (overviewMap.contains("tags"))
+	if (overviewMap.contains(QStringLiteral("tags")))
 	{
-		entry->setTags(overviewMap.value("tags").toStringList().join(","));
+		entry->setTags(overviewMap.value(QStringLiteral("tags")).toStringList().join(QLatin1Char(',')));
 	}
 
-	if (itemMap.value("favIndex").toString() == "1")
+	if (itemMap.value(QStringLiteral("favIndex")).toString() == QStringLiteral("1"))
 	{
 		entry->addTag(QObject::tr("Favorite", "Tag for favorite entries"));
 	}
 
-	if (itemMap.value("state").toString() == "archived")
+	if (itemMap.value(QStringLiteral("state")).toString() == QStringLiteral("archived"))
 	{
 		entry->addTag(QObject::tr("Archived", "Tag for archived entries"));
 	}
 
 	// Parse the details map by setting the username, password, and notes first
-	const auto loginFields = detailsMap.value("loginFields").toList();
+	const auto loginFields = detailsMap.value(QStringLiteral("loginFields")).toList();
 	for (const auto &field: loginFields)
 	{
 		const auto fieldMap = field.toMap();
-		const auto designation = fieldMap.value("designation").toString();
-		if (designation.compare("username", Qt::CaseInsensitive) == 0)
+		const auto designation = fieldMap.value(QStringLiteral("designation")).toString();
+		if (designation.compare(QStringLiteral("username"), Qt::CaseInsensitive) == 0)
 		{
-			entry->setUsername(fieldMap.value("value").toString());
+			entry->setUsername(fieldMap.value(QStringLiteral("value")).toString());
 		}
-		else if (designation.compare("password", Qt::CaseInsensitive) == 0)
+		else if (designation.compare(QStringLiteral("password"), Qt::CaseInsensitive) == 0)
 		{
-			entry->setPassword(fieldMap.value("value").toString());
+			entry->setPassword(fieldMap.value(QStringLiteral("value")).toString());
 		}
 	}
 
-	if (entry->password().isEmpty() && detailsMap.contains("password"))
+	if (entry->password().isEmpty() && detailsMap.contains(QStringLiteral("password")))
 	{
-		entry->setPassword(detailsMap.value("password").toString());
+		entry->setPassword(detailsMap.value(QStringLiteral("password")).toString());
 	}
 
-	entry->setNotes(detailsMap.value("notesPlain").toString());
+	entry->setNotes(detailsMap.value(QStringLiteral("notesPlain")).toString());
 
 	// Dive into the item sections to pull out advanced attributes
-	const auto sections = detailsMap.value("sections").toList();
+	const auto sections = detailsMap.value(QStringLiteral("sections")).toList();
 	for (const auto &section: sections)
 	{
 		// Derive a prefix for attribute names using the title or uuid if missing
 		const auto sectionMap = section.toMap();
-		auto prefix = sectionMap.value("title").toString();
+		auto prefix = sectionMap.value(QStringLiteral("title")).toString();
 		if (prefix.isEmpty())
 		{
 			prefix = QUuid::createUuid().toString().mid(1, 5);
 		}
 
-		for (const auto &field: sectionMap.value("fields").toList())
+		for (const auto &field: sectionMap.value(QStringLiteral("fields")).toList())
 		{
 			// Form the name of the attribute using the prefix and title or id
 			const auto fieldMap = field.toMap();
-			auto name = fieldMap.value("title").toString();
+			auto name = fieldMap.value(QStringLiteral("title")).toString();
 			if (name.isEmpty())
 			{
-				name = fieldMap.value("id").toString();
+				name = fieldMap.value(QStringLiteral("id")).toString();
 			}
 
 			name = QStringLiteral("%1_%2").arg(prefix, name);
 
-			const auto valueMap = fieldMap.value("value").toMap();
+			const auto valueMap = fieldMap.value(QStringLiteral("value")).toMap();
 			const auto key = valueMap.firstKey();
-			if (key == "totp")
+			if (key == QStringLiteral("totp"))
 			{
 				auto totp = valueMap.value(key).toString();
-				if (!totp.startsWith("otpauth://"))
+				if (!totp.startsWith(QStringLiteral("otpauth://")))
 				{
 					// Build otpauth url
-					QUrl url(QString("otpauth://totp/%1:%2?secret=%3")
-						.arg(QString(QUrl::toPercentEncoding(entry->title())),
-							QString(QUrl::toPercentEncoding(entry->username())),
-							QString(QUrl::toPercentEncoding(totp))));
+					QUrl url(QStringLiteral("otpauth://totp/%1:%2?secret=%3")
+						.arg(QString::fromUtf8(QUrl::toPercentEncoding(entry->title())),
+							QString::fromUtf8(QUrl::toPercentEncoding(entry->username())),
+							QString::fromUtf8(QUrl::toPercentEncoding(totp))));
 
 					totp = url.toString(QUrl::FullyEncoded);
 				}
@@ -170,11 +170,11 @@ Entry* readItem(const QJsonObject &item, unzFile uf = nullptr)
 				{
 					// Store multiple TOTP definitions as additional otp attributes
 					int i = 0;
-					name = "otp";
+					name = QStringLiteral("otp");
 					const auto attributes = entry->attributes()->keys();
 					while (attributes.contains(name))
 					{
-						name = QString("otp_%1").arg(++i);
+						name = QStringLiteral("otp_%1").arg(++i);
 					}
 
 					entry->attributes()->set(name, totp, true);
@@ -185,13 +185,13 @@ Entry* readItem(const QJsonObject &item, unzFile uf = nullptr)
 					entry->setTotp(Totp::parseSettings(totp));
 				}
 			}
-			else if (key == "file")
+			else if (key == QStringLiteral("file"))
 			{
 				// Add a file to the entry attachments
 				const auto fileMap = valueMap.value(key).toMap();
-				const auto fileName = fileMap.value("fileName").toString();
-				const auto docId = fileMap.value("documentId").toString();
-				const auto data = extractFile(uf, QString("files/%1__%2").arg(docId, fileName));
+				const auto fileName = fileMap.value(QStringLiteral("fileName")).toString();
+				const auto docId = fileMap.value(QStringLiteral("documentId")).toString();
+				const auto data = extractFile(uf, QStringLiteral("files/%1__%2").arg(docId, fileName));
 
 				if (!data.isNull())
 				{
@@ -201,40 +201,40 @@ Entry* readItem(const QJsonObject &item, unzFile uf = nullptr)
 			else
 			{
 				auto value = valueMap.value(key).toString();
-				if (key == "date")
+				if (key == QStringLiteral("date"))
 				{
 					// Convert date fields from Unix time
 					value = QDateTime::fromSecsSinceEpoch(valueMap.value(key).toULongLong(), Qt::UTC).toString();
 				}
-				else if (key == "email")
+				else if (key == QStringLiteral("email"))
 				{
 					// Email address is buried in a sub-value
-					value = valueMap.value(key).toMap().value("email_address").toString();
+					value = valueMap.value(key).toMap().value(QStringLiteral("email_address")).toString();
 				}
-				else if (key == "address")
+				else if (key == QStringLiteral("address"))
 				{
 					// Combine all the address attributes into a fully formed structure
 					const auto address = valueMap.value(key).toMap();
-					value = address.value("street").toString() + "\n" + address.value("city").toString() + ", "
-						+ address.value("state").toString() + " " + address.value("zip").toString() + "\n"
-						+ address.value("country").toString();
+					value = address.value(QStringLiteral("street")).toString() + QStringLiteral("\n") + address.value(QStringLiteral("city")).toString() + QStringLiteral(", ")
+						+ address.value(QStringLiteral("state")).toString() + QStringLiteral(" ") + address.value(QStringLiteral("zip")).toString() + QStringLiteral("\n")
+						+ address.value(QStringLiteral("country")).toString();
 				}
 
 				if (!value.isEmpty())
 				{
-					entry->attributes()->set(name, value, key == "concealed");
+					entry->attributes()->set(name, value, key == QStringLiteral("concealed"));
 				}
 			}
 		}
 	}
 
 	// Add a document attachment if defined
-	if (detailsMap.contains("documentAttributes"))
+	if (detailsMap.contains(QStringLiteral("documentAttributes")))
 	{
-		const auto document = detailsMap.value("documentAttributes").toMap();
-		const auto fileName = document.value("fileName").toString();
-		const auto docId = document.value("documentId").toString();
-		const auto data = extractFile(uf, QString("files/%1__%2").arg(docId, fileName));
+		const auto document = detailsMap.value(QStringLiteral("documentAttributes")).toMap();
+		const auto fileName = document.value(QStringLiteral("fileName")).toString();
+		const auto docId = document.value(QStringLiteral("documentId")).toString();
+		const auto data = extractFile(uf, QStringLiteral("files/%1__%2").arg(docId, fileName));
 
 		if (!data.isNull())
 		{
@@ -247,8 +247,8 @@ Entry* readItem(const QJsonObject &item, unzFile uf = nullptr)
 
 	// Adjust the created and modified times
 	auto timeInfo = entry->timeInfo();
-	const auto createdTime = QDateTime::fromSecsSinceEpoch(itemMap.value("createdAt").toULongLong(), Qt::UTC);
-	const auto modifiedTime = QDateTime::fromSecsSinceEpoch(itemMap.value("updatedAt").toULongLong(), Qt::UTC);
+	const auto createdTime = QDateTime::fromSecsSinceEpoch(itemMap.value(QStringLiteral("createdAt")).toULongLong(), Qt::UTC);
+	const auto modifiedTime = QDateTime::fromSecsSinceEpoch(itemMap.value(QStringLiteral("updatedAt")).toULongLong(), Qt::UTC);
 	timeInfo.setCreationTime(createdTime);
 	timeInfo.setLastModificationTime(modifiedTime);
 	timeInfo.setLastAccessTime(modifiedTime);
@@ -259,21 +259,21 @@ Entry* readItem(const QJsonObject &item, unzFile uf = nullptr)
 
 void writeVaultToDatabase(const QJsonObject &vault, QSharedPointer<Database> db, unzFile uf = nullptr)
 {
-	if (!vault.contains("attrs") || !vault.contains("items"))
+	if (!vault.contains(QStringLiteral("attrs")) || !vault.contains(QStringLiteral("items")))
 	{
 		// Early out if the vault is missing critical items
 		return;
 	}
 
-	const auto attr = vault.value("attrs").toObject().toVariantMap();
+	const auto attr = vault.value(QStringLiteral("attrs")).toObject().toVariantMap();
 
 	// Create group and assign basic values
 	auto group = new Group();
 	group->setUuid(QUuid::createUuid());
-	group->setName(attr.value("name").toString());
+	group->setName(attr.value(QStringLiteral("name")).toString());
 	group->setParent(db->rootGroup());
 
-	const auto items = vault.value("items").toArray();
+	const auto items = vault.value(QStringLiteral("items")).toArray();
 	for (const auto &item: items)
 	{
 		auto entry = readItem(item.toObject(), uf);
@@ -284,10 +284,10 @@ void writeVaultToDatabase(const QJsonObject &vault, QSharedPointer<Database> db,
 	}
 
 	// Add the group icon if present
-	const auto icon = attr.value("avatar").toString();
+	const auto icon = attr.value(QStringLiteral("avatar")).toString();
 	if (!icon.isEmpty())
 	{
-		auto data = extractFile(uf, QString("files/%1").arg(icon));
+		auto data = extractFile(uf, QStringLiteral("files/%1").arg(icon));
 		if (!data.isNull())
 		{
 			const auto uuid = QUuid::createUuid();
@@ -329,7 +329,7 @@ QSharedPointer<Database> OPUXReader::convert(const QString &path)
 	}
 
 	// Find the export.data file, if not found this isn't a 1PUX file
-	auto data = extractFile(uf, "export.data");
+	auto data = extractFile(uf, QStringLiteral("export.data"));
 	if (data.isNull())
 	{
 		m_error = QObject::tr("Invalid 1PUX file format: Missing export.data");
@@ -341,8 +341,8 @@ QSharedPointer<Database> OPUXReader::convert(const QString &path)
 	db->rootGroup()->setName(QObject::tr("1Password Import"));
 	const auto json = QJsonDocument::fromJson(data);
 
-	const auto account = json.object().value("accounts").toArray().first().toObject();
-	const auto vaults = account.value("vaults").toArray();
+	const auto account = json.object().value(QStringLiteral("accounts")).toArray().first().toObject();
+	const auto vaults = account.value(QStringLiteral("vaults")).toArray();
 
 	for (const auto &vault: vaults)
 	{

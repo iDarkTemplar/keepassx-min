@@ -111,7 +111,7 @@ void GroupView::dragMoveEvent(QDragMoveEvent *event)
 
 	// entries may only be dropped on groups
 	if (event->isAccepted()
-		&& event->mimeData()->hasFormat("application/x-keepassx-entry")
+		&& event->mimeData()->hasFormat(QStringLiteral("application/x-keepassx-entry"))
 		&& (dropIndicatorPosition() == AboveItem
 			|| dropIndicatorPosition() == BelowItem))
 	{

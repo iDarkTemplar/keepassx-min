@@ -19,6 +19,7 @@
 
 #include <QDateTime>
 #include <QXmlStreamWriter>
+#include <QAnyStringView>
 
 #include "core/CustomData.h"
 #include "core/Group.h"
@@ -66,15 +67,15 @@ private:
 	void writeDeletedObject(const DeletedObject &delObj);
 	void writeEntry(const Entry *entry);
 	void writeEntryHistory(const Entry *entry);
-	void writeString(const QString &qualifiedName, const QString &string);
-	void writeNumber(const QString &qualifiedName, int number);
-	void writeBool(const QString &qualifiedName, bool b);
-	void writeDateTime(const QString &qualifiedName, const QDateTime &dateTime);
-	void writeUuid(const QString &qualifiedName, const QUuid &uuid);
-	void writeUuid(const QString &qualifiedName, const Group *group);
-	void writeUuid(const QString &qualifiedName, const Entry *entry);
-	void writeBinary(const QString &qualifiedName, const QByteArray &ba);
-	void writeTriState(const QString &qualifiedName, Group::TriState triState);
+	void writeString(QAnyStringView qualifiedName, const QString &string);
+	void writeNumber(QAnyStringView qualifiedName, int number);
+	void writeBool(QAnyStringView qualifiedName, bool b);
+	void writeDateTime(QAnyStringView qualifiedName, const QDateTime &dateTime);
+	void writeUuid(QAnyStringView qualifiedName, const QUuid &uuid);
+	void writeUuid(QAnyStringView qualifiedName, const Group *group);
+	void writeUuid(QAnyStringView qualifiedName, const Entry *entry);
+	void writeBinary(QAnyStringView qualifiedName, const QByteArray &ba);
+	void writeTriState(QAnyStringView qualifiedName, Group::TriState triState);
 	QString colorPartToString(int value);
 	QString stripInvalidXml10Chars(QString str);
 

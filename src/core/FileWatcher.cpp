@@ -54,7 +54,7 @@ void FileWatcher::start(const QString &filePath, int checksumIntervalSeconds, in
 		forcePolling = true;
 	}
 
-	auto objectName = forcePolling ? QLatin1String("_qt_autotest_force_engine_poller") : QLatin1String("");
+	auto objectName = forcePolling ? QStringLiteral("_qt_autotest_force_engine_poller") : QString();
 	m_fileWatcher.setObjectName(objectName);
 
 	m_fileWatcher.addPath(filePath);

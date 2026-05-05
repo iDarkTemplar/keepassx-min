@@ -47,12 +47,12 @@ EntryPreviewWidget::EntryPreviewWidget(QWidget *parent)
 	m_ui->setupUi(this);
 
 	// Entry
-	m_ui->entryTotpButton->setIcon(icons()->icon("totp"));
-	m_ui->entryCloseButton->setIcon(icons()->icon("arrow-collapse-down"));
-	m_ui->toggleUsernameButton->setIcon(icons()->onOffIcon("password-show", true));
-	m_ui->togglePasswordButton->setIcon(icons()->onOffIcon("password-show", true));
-	m_ui->toggleEntryNotesButton->setIcon(icons()->onOffIcon("password-show", true));
-	m_ui->toggleGroupNotesButton->setIcon(icons()->onOffIcon("password-show", true));
+	m_ui->entryTotpButton->setIcon(icons()->icon(QStringLiteral("totp")));
+	m_ui->entryCloseButton->setIcon(icons()->icon(QStringLiteral("arrow-collapse-down")));
+	m_ui->toggleUsernameButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), true));
+	m_ui->togglePasswordButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), true));
+	m_ui->toggleEntryNotesButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), true));
+	m_ui->toggleGroupNotesButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), true));
 
 	m_ui->entryAttachmentsWidget->setReadOnly(true);
 	m_ui->entryAttachmentsWidget->setButtonsVisible(false);
@@ -101,7 +101,7 @@ EntryPreviewWidget::EntryPreviewWidget(QWidget *parent)
 	});
 
 	// Group
-	m_ui->groupCloseButton->setIcon(icons()->icon("dialog-close"));
+	m_ui->groupCloseButton->setIcon(icons()->icon(QStringLiteral("dialog-close")));
 	connect(m_ui->groupCloseButton, &QToolButton::clicked, this, &EntryPreviewWidget::hide);
 	connect(m_ui->groupTabWidget, &QTabWidget::tabBarClicked, this, &EntryPreviewWidget::updateTabIndexes, Qt::QueuedConnection);
 
@@ -300,11 +300,11 @@ void EntryPreviewWidget::setUsernameVisible(bool state)
 	}
 	else
 	{
-		m_ui->entryUsernameLabel->setText(QString("\u25cf").repeated(6));
+		m_ui->entryUsernameLabel->setText(QStringLiteral("\u25cf").repeated(6));
 		m_ui->entryUsernameLabel->setFont(Font::fixedFont());
 	}
 
-	m_ui->toggleUsernameButton->setIcon(icons()->onOffIcon("password-show", state));
+	m_ui->toggleUsernameButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), state));
 }
 
 void EntryPreviewWidget::setPasswordVisible(bool state)
@@ -320,11 +320,11 @@ void EntryPreviewWidget::setPasswordVisible(bool state)
 			QString html;
 			for (const auto c : password)
 			{
-				const auto color = c.isDigit() ? "blue"
-					: c.isUpper() ? "darkgreen"
-					: c.isLower() ? "red"
-					: "black";
-				html += "<span style=\"color: " + QString(color) + ";\">" + QString(c).toHtmlEscaped() + "</span>";
+				const QString color = c.isDigit() ? QStringLiteral("blue")
+					: c.isUpper() ? QStringLiteral("darkgreen")
+					: c.isLower() ? QStringLiteral("red")
+					: QStringLiteral("black");
+				html += QStringLiteral("<span style=\"color: %1;\">%2</span>").arg(color).arg(QString(c).toHtmlEscaped());
 			}
 
 			m_ui->entryPasswordLabel->setTextFormat(Qt::RichText);
@@ -339,29 +339,29 @@ void EntryPreviewWidget::setPasswordVisible(bool state)
 	}
 	else if (password.isEmpty() && !config()->get(Config::Security_PasswordEmptyPlaceholder).toBool())
 	{
-		m_ui->entryPasswordLabel->setText("");
+		m_ui->entryPasswordLabel->setText(QString());
 	}
 	else
 	{
-		m_ui->entryPasswordLabel->setText(QString("\u25cf").repeated(6));
+		m_ui->entryPasswordLabel->setText(QStringLiteral("\u25cf").repeated(6));
 	}
 
 	m_ui->passwordScrollArea->setMaximumHeight(m_ui->entryPasswordLabel->sizeHint().height()
 		+ m_ui->passwordScrollArea->horizontalScrollBar()->sizeHint().height());
 
-	m_ui->togglePasswordButton->setIcon(icons()->onOffIcon("password-show", state));
+	m_ui->togglePasswordButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), state));
 }
 
 void EntryPreviewWidget::setEntryNotesVisible(bool state)
 {
 	setNotesVisible(m_ui->entryNotesTextEdit, m_currentEntry->resolveMultiplePlaceholders(m_currentEntry->notes()), state);
-	m_ui->toggleEntryNotesButton->setIcon(icons()->onOffIcon("password-show", state));
+	m_ui->toggleEntryNotesButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), state));
 }
 
 void EntryPreviewWidget::setGroupNotesVisible(bool state)
 {
 	setNotesVisible(m_ui->groupNotesTextEdit, m_currentGroup->notes(), state);
-	m_ui->toggleGroupNotesButton->setIcon(icons()->onOffIcon("password-show", state));
+	m_ui->toggleGroupNotesButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), state));
 }
 
 void EntryPreviewWidget::setNotesVisible(QTextEdit *notesWidget, const QString &notes, bool state)
@@ -376,11 +376,11 @@ void EntryPreviewWidget::setNotesVisible(QTextEdit *notesWidget, const QString &
 	{
 		if (!notes.isEmpty())
 		{
-			notesWidget->setPlainText(QString("\u25cf").repeated(6));
+			notesWidget->setPlainText(QStringLiteral("\u25cf").repeated(6));
 		}
 		else
 		{
-			notesWidget->setPlainText("");
+			notesWidget->setPlainText(QString());
 		}
 	}
 }
@@ -488,12 +488,12 @@ void EntryPreviewWidget::updateEntryAdvancedTab()
 				auto button = new QToolButton();
 				button->setCheckable(true);
 				button->setChecked(false);
-				button->setIcon(icons()->onOffIcon("password-show", false));
+				button->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), false));
 				button->setProperty("row", i);
 				button->setIconSize({12, 12});
 				connect(button, &QToolButton::clicked, this, [this](bool state) {
 					auto btn = qobject_cast<QToolButton*>(sender());
-					btn->setIcon(icons()->onOffIcon("password-show", state));
+					btn->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), state));
 					auto item = m_ui->entryAttributesTable->item(btn->property("row").toInt(), 2);
 					if (state)
 					{
@@ -501,7 +501,7 @@ void EntryPreviewWidget::updateEntryAdvancedTab()
 					}
 					else
 					{
-						item->setText(QString("\u25cf").repeated(6));
+						item->setText(QStringLiteral("\u25cf").repeated(6));
 					}
 
 					// Maintain button height while showing contents of cell
@@ -511,7 +511,7 @@ void EntryPreviewWidget::updateEntryAdvancedTab()
 				});
 
 				m_ui->entryAttributesTable->setCellWidget(i, 1, button);
-				m_ui->entryAttributesTable->setItem(i, 2, new QTableWidgetItem(QString("\u25cf").repeated(6)));
+				m_ui->entryAttributesTable->setItem(i, 2, new QTableWidgetItem(QStringLiteral("\u25cf").repeated(6)));
 			}
 			else
 			{
@@ -579,7 +579,7 @@ void EntryPreviewWidget::updateTotpLabel()
 		auto totpCode = m_currentEntry->totp(&isValid);
 		if (isValid)
 		{
-			totpCode.insert(totpCode.size() / 2, " ");
+			totpCode.insert(totpCode.size() / 2, QStringLiteral(" "));
 
 			auto step = m_currentEntry->totpSettings()->step;
 			auto timeleft = step - (Clock::currentSecondsSinceEpoch() % step);
@@ -625,8 +625,8 @@ QString EntryPreviewWidget::hierarchy(const Group *group, const QString &title)
 {
 	if (group)
 	{
-		QString groupList = QString("%1").arg(group->hierarchy().join(" / "));
-		return title.isEmpty() ? groupList : QString("%1 / %2").arg(groupList, title);
+		QString groupList = group->hierarchy().join(QStringLiteral(" / "));
+		return title.isEmpty() ? groupList : QStringLiteral("%1 / %2").arg(groupList, title);
 	}
 
 	return {};

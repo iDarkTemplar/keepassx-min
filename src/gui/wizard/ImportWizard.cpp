@@ -65,7 +65,7 @@ bool ImportWizard::validateCurrentPage()
 
 QPair<QUuid, QUuid> ImportWizard::importInto()
 {
-	auto list = field("ImportInto").toList();
+	auto list = field(QStringLiteral("ImportInto")).toList();
 	if (list.size() >= 2)
 	{
 		return qMakePair(QUuid(list[0].toString()), QUuid(list[1].toString()));

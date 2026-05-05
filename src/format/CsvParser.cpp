@@ -22,11 +22,11 @@
 #include "core/Tools.h"
 
 CsvParser::CsvParser()
-	: m_comment('#')
+	: m_comment(QLatin1Char('#'))
 	, m_isBackslashSyntax(false)
 	, m_isFileLoaded(false)
-	, m_qualifier('"')
-	, m_separator(',')
+	, m_qualifier(QLatin1Char('"'))
+	, m_separator(QLatin1Char(','))
 {
 	reset();
 	m_csv.setBuffer(&m_array);
@@ -89,7 +89,7 @@ bool CsvParser::readFile(QIODevice *device)
 		m_array.replace("\r", "\n");
 		if (m_array.isEmpty())
 		{
-			appendStatusMsg(QObject::tr("file empty").append("\n"));
+			appendStatusMsg(QObject::tr("file empty").append(QStringLiteral("\n")));
 		}
 
 		m_isFileLoaded = true;
@@ -184,7 +184,7 @@ void CsvParser::parseField(CsvRow &row)
 {
 	QString field;
 	peek(m_ch);
-	if ((m_ch != m_separator) && (m_ch != '\n'))
+	if ((m_ch != m_separator) && (m_ch != QLatin1Char('\n')))
 	{
 		if (isQualifier(m_ch))
 		{
@@ -203,7 +203,7 @@ void CsvParser::parseSimple(QString &s)
 {
 	QChar c;
 	getChar(c);
-	while ((c != '\n') && (c != m_separator) && (!m_isEof))
+	while ((c != QLatin1Char('\n')) && (c != m_separator) && (!m_isEof))
 	{
 		s.append(c);
 		getChar(c);
@@ -257,7 +257,7 @@ bool CsvParser::processEscapeMark(QString &s, QChar c)
 	if (m_isBackslashSyntax)
 	{
 		// escape-character syntax, e.g. \"
-		if (c != '\\')
+		if (c != QLatin1Char('\\'))
 		{
 			return false;
 		}
@@ -266,8 +266,8 @@ bool CsvParser::processEscapeMark(QString &s, QChar c)
 		getChar(c2);
 		if (m_isEof)
 		{
-			c2 = '\\';
-			s.append('\\');
+			c2 = QLatin1Char('\\');
+			s.append(QLatin1Char('\\'));
 			return false;
 		}
 
@@ -306,7 +306,7 @@ void CsvParser::fillColumns()
 			CsvRow r = m_table.at(i);
 			for (int j = 0; j < gap; ++j)
 			{
-				r.append(QString(""));
+				r.append(QString());
 			}
 
 			m_table.replace(i, r);
@@ -323,7 +323,7 @@ void CsvParser::skipLine()
 bool CsvParser::skipEndline()
 {
 	getChar(m_ch);
-	return m_ch == '\n';
+	return m_ch == QLatin1Char('\n');
 }
 
 void CsvParser::getChar(QChar &c)
@@ -358,7 +358,7 @@ bool CsvParser::isQualifier(const QChar &c) const
 {
 	if (m_isBackslashSyntax && c != m_qualifier)
 	{
-		return (c == '\\');
+		return (c == QLatin1Char('\\'));
 	}
 
 	return (c == m_qualifier);
@@ -373,7 +373,7 @@ bool CsvParser::isComment()
 	do
 	{
 		getChar(c2);
-	} while (((c2 == ' ') || (c2 == '\t')) && (!m_isEof));
+	} while (((c2 == QLatin1Char(' ')) || (c2 == QLatin1Char('\t'))) && (!m_isEof));
 
 	if (c2 == m_comment)
 	{
@@ -388,7 +388,7 @@ bool CsvParser::isEmptyRow(const CsvRow &row) const
 {
 	for (auto it = row.constBegin(); it != row.constEnd(); ++it)
 	{
-		if ((*it != "\n") && (*it != ""))
+		if ((*it != QStringLiteral("\n")) && (*it != QString()))
 		{
 			return false;
 		}
@@ -451,7 +451,7 @@ void CsvParser::appendStatusMsg(const QString &s, bool isCritical)
 {
 	if (!m_statusMsg.isEmpty())
 	{
-		m_statusMsg.append("\n");
+		m_statusMsg.append(QStringLiteral("\n"));
 	}
 
 	m_statusMsg += QObject::tr("%1, row: %2, column: %3").arg(s, QString::number(m_currRow), QString::number(m_currCol));

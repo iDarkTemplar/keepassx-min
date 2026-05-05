@@ -450,12 +450,12 @@ void KdbxXmlWriter::writeEntry(const Entry *entry)
 	{
 		m_xml.writeStartElement("String");
 
-		bool protect = (((key == "Title") && m_meta->protectTitle())
-				|| ((key == "UserName") && m_meta->protectUsername())
-				|| ((key == "Password") && m_meta->protectPassword())
-				|| ((key == "URL") && m_meta->protectUrl())
-				|| ((key == "Notes") && m_meta->protectNotes())
-				|| entry->attributes()->isProtected(key));
+		bool protect = (((key == QStringLiteral("Title")) && m_meta->protectTitle())
+			|| ((key == QStringLiteral("UserName")) && m_meta->protectUsername())
+			|| ((key == QStringLiteral("Password")) && m_meta->protectPassword())
+			|| ((key == QStringLiteral("URL")) && m_meta->protectUrl())
+			|| ((key == QStringLiteral("Notes")) && m_meta->protectNotes())
+			|| entry->attributes()->isProtected(key));
 
 		writeString("Key", key);
 
@@ -538,7 +538,7 @@ void KdbxXmlWriter::writeEntryHistory(const Entry *entry)
 	m_xml.writeEndElement();
 }
 
-void KdbxXmlWriter::writeString(const QString &qualifiedName, const QString &string)
+void KdbxXmlWriter::writeString(QAnyStringView qualifiedName, const QString &string)
 {
 	if (string.isEmpty())
 	{
@@ -550,24 +550,24 @@ void KdbxXmlWriter::writeString(const QString &qualifiedName, const QString &str
 	}
 }
 
-void KdbxXmlWriter::writeNumber(const QString &qualifiedName, int number)
+void KdbxXmlWriter::writeNumber(QAnyStringView qualifiedName, int number)
 {
 	writeString(qualifiedName, QString::number(number));
 }
 
-void KdbxXmlWriter::writeBool(const QString &qualifiedName, bool b)
+void KdbxXmlWriter::writeBool(QAnyStringView qualifiedName, bool b)
 {
 	if (b)
 	{
-		writeString(qualifiedName, "True");
+		writeString(qualifiedName, QStringLiteral("True"));
 	}
 	else
 	{
-		writeString(qualifiedName, "False");
+		writeString(qualifiedName, QStringLiteral("False"));
 	}
 }
 
-void KdbxXmlWriter::writeDateTime(const QString &qualifiedName, const QDateTime &dateTime)
+void KdbxXmlWriter::writeDateTime(QAnyStringView qualifiedName, const QDateTime &dateTime)
 {
 	Q_ASSERT(dateTime.isValid());
 	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
@@ -578,9 +578,9 @@ void KdbxXmlWriter::writeDateTime(const QString &qualifiedName, const QDateTime 
 		dateTimeStr = dateTime.toString(Qt::ISODate);
 
 		// Qt < 4.8 doesn't append a 'Z' at the end
-		if (!dateTimeStr.isEmpty() && dateTimeStr[dateTimeStr.size() - 1] != 'Z')
+		if (!dateTimeStr.isEmpty() && dateTimeStr[dateTimeStr.size() - 1] != QLatin1Char('Z'))
 		{
-			dateTimeStr.append('Z');
+			dateTimeStr.append(QLatin1Char('Z'));
 		}
 	}
 	else
@@ -593,12 +593,12 @@ void KdbxXmlWriter::writeDateTime(const QString &qualifiedName, const QDateTime 
 	writeString(qualifiedName, dateTimeStr);
 }
 
-void KdbxXmlWriter::writeUuid(const QString &qualifiedName, const QUuid &uuid)
+void KdbxXmlWriter::writeUuid(QAnyStringView qualifiedName, const QUuid &uuid)
 {
-	writeString(qualifiedName, uuid.toRfc4122().toBase64());
+	writeString(qualifiedName, QString::fromUtf8(uuid.toRfc4122().toBase64()));
 }
 
-void KdbxXmlWriter::writeUuid(const QString &qualifiedName, const Group *group)
+void KdbxXmlWriter::writeUuid(QAnyStringView qualifiedName, const Group *group)
 {
 	if (group)
 	{
@@ -610,7 +610,7 @@ void KdbxXmlWriter::writeUuid(const QString &qualifiedName, const Group *group)
 	}
 }
 
-void KdbxXmlWriter::writeUuid(const QString &qualifiedName, const Entry *entry)
+void KdbxXmlWriter::writeUuid(QAnyStringView qualifiedName, const Entry *entry)
 {
 	if (entry)
 	{
@@ -622,26 +622,26 @@ void KdbxXmlWriter::writeUuid(const QString &qualifiedName, const Entry *entry)
 	}
 }
 
-void KdbxXmlWriter::writeBinary(const QString &qualifiedName, const QByteArray &ba)
+void KdbxXmlWriter::writeBinary(QAnyStringView qualifiedName, const QByteArray &ba)
 {
 	writeString(qualifiedName, QString::fromLatin1(ba.toBase64()));
 }
 
-void KdbxXmlWriter::writeTriState(const QString &qualifiedName, Group::TriState triState)
+void KdbxXmlWriter::writeTriState(QAnyStringView qualifiedName, Group::TriState triState)
 {
 	QString value;
 
 	if (triState == Group::Inherit)
 	{
-		value = "null";
+		value = QStringLiteral("null");
 	}
 	else if (triState == Group::Enable)
 	{
-		value = "true";
+		value = QStringLiteral("true");
 	}
 	else
 	{
-		value = "false";
+		value = QStringLiteral("false");
 	}
 
 	writeString(qualifiedName, value);
@@ -652,7 +652,7 @@ QString KdbxXmlWriter::colorPartToString(int value)
 	QString str = QString::number(value, 16).toUpper();
 	if (str.length() == 1)
 	{
-		str.prepend("0");
+		str.prepend(QStringLiteral("0"));
 	}
 
 	return str;

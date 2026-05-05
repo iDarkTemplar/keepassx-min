@@ -54,7 +54,7 @@ bool SymmetricCipher::init(Mode mode, Direction direction, const QByteArray &key
 		m_mode = InvalidMode;
 		m_cipher.reset();
 
-		m_error = e.what();
+		m_error = QString::fromLocal8Bit(e.what());
 		reset();
 		return false;
 	}
@@ -90,7 +90,7 @@ bool SymmetricCipher::process(char *data, int len)
 	}
 	catch (const std::exception &e)
 	{
-		m_error = e.what();
+		m_error = QString::fromLocal8Bit(e.what());
 		return false;
 	}
 }
@@ -123,7 +123,7 @@ bool SymmetricCipher::finish(QByteArray &data)
 	}
 	catch (const std::exception &e)
 	{
-		m_error = e.what();
+		m_error = QString::fromLocal8Bit(e.what());
 		return false;
 	}
 }
@@ -198,35 +198,35 @@ SymmetricCipher::Mode SymmetricCipher::cipherUuidToMode(const QUuid &uuid)
 SymmetricCipher::Mode SymmetricCipher::stringToMode(const QString &cipher)
 {
 	auto cs = Qt::CaseInsensitive;
-	if (cipher.compare("aes-128-cbc", cs) == 0 || cipher.compare("aes128-cbc", cs) == 0)
+	if (cipher.compare(QStringLiteral("aes-128-cbc"), cs) == 0 || cipher.compare(QStringLiteral("aes128-cbc"), cs) == 0)
 	{
 		return Aes128_CBC;
 	}
-	else if (cipher.compare("aes-256-cbc", cs) == 0 || cipher.compare("aes256-cbc", cs) == 0)
+	else if (cipher.compare(QStringLiteral("aes-256-cbc"), cs) == 0 || cipher.compare(QStringLiteral("aes256-cbc"), cs) == 0)
 	{
 		return Aes256_CBC;
 	}
-	else if (cipher.compare("aes-128-ctr", cs) == 0 || cipher.compare("aes128-ctr", cs) == 0)
+	else if (cipher.compare(QStringLiteral("aes-128-ctr"), cs) == 0 || cipher.compare(QStringLiteral("aes128-ctr"), cs) == 0)
 	{
 		return Aes128_CTR;
 	}
-	else if (cipher.compare("aes-256-ctr", cs) == 0 || cipher.compare("aes256-ctr", cs) == 0)
+	else if (cipher.compare(QStringLiteral("aes-256-ctr"), cs) == 0 || cipher.compare(QStringLiteral("aes256-ctr"), cs) == 0)
 	{
 		return Aes256_CTR;
 	}
-	else if (cipher.compare("aes-256-gcm", cs) == 0 || cipher.compare("aes256-gcm", cs) == 0)
+	else if (cipher.compare(QStringLiteral("aes-256-gcm"), cs) == 0 || cipher.compare(QStringLiteral("aes256-gcm"), cs) == 0)
 	{
 		return Aes256_GCM;
 	}
-	else if (cipher.startsWith("twofish", cs))
+	else if (cipher.startsWith(QStringLiteral("twofish"), cs))
 	{
 		return Twofish_CBC;
 	}
-	else if (cipher.startsWith("salsa", cs))
+	else if (cipher.startsWith(QStringLiteral("salsa"), cs))
 	{
 		return Salsa20;
 	}
-	else if (cipher.startsWith("chacha", cs))
+	else if (cipher.startsWith(QStringLiteral("chacha"), cs))
 	{
 		return ChaCha20;
 	}

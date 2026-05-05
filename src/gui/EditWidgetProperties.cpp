@@ -44,10 +44,10 @@ EditWidgetProperties::~EditWidgetProperties()
 
 void EditWidgetProperties::setFields(const TimeInfo &timeInfo, const QUuid &uuid)
 {
-	static const QString timeFormat("d MMM yyyy HH:mm:ss");
+	static const QString timeFormat = QStringLiteral("d MMM yyyy HH:mm:ss");
 	m_ui->modifiedEdit->setText(timeInfo.lastModificationTime().toLocalTime().toString(timeFormat));
 	m_ui->createdEdit->setText(timeInfo.creationTime().toLocalTime().toString(timeFormat));
-	m_ui->uuidEdit->setText(uuid.toRfc4122().toHex());
+	m_ui->uuidEdit->setText(QString::fromUtf8(uuid.toRfc4122().toHex()));
 }
 
 void EditWidgetProperties::setCustomData(CustomData *customData)

@@ -102,7 +102,7 @@ void TotpDialog::updateTotp()
 	QString totpCode = m_entry->totp(&isValid);
 	if (isValid)
 	{
-		totpCode.insert(totpCode.size() / 2, " ");
+		totpCode.insert(totpCode.size() / 2, QStringLiteral(" "));
 	}
 
 	m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(isValid);

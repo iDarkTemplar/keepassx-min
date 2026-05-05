@@ -614,8 +614,7 @@ void EntryView::startDrag(Qt::DropActions supportedActions)
 
 	listWidget.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	listWidget.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	listWidget.setStyleSheet("QListWidget { background-color: palette(highlight); border: 1px solid palette(dark); "
-		"padding: 4px; color: palette(highlighted-text); }");
+	listWidget.setStyleSheet(QStringLiteral("QListWidget { background-color: palette(highlight); border: 1px solid palette(dark); padding: 4px; color: palette(highlighted-text); }"));
 	auto width = listWidget.sizeHintForColumn(0) + 2 * listWidget.frameWidth();
 	auto height = listWidget.sizeHintForRow(0) * listWidget.count() + 2 * listWidget.frameWidth();
 	listWidget.setFixedWidth(width);

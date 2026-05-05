@@ -43,8 +43,8 @@ int main(int argc, char **argv)
 	Application app(argc, argv);
 	// don't set organizationName as that changes the return value of
 	// QStandardPaths::writableLocation(QDesktopServices::DataLocation)
-	Application::setApplicationName("KeePassX-min");
-	Application::setApplicationVersion(KEEPASSXM_VERSION);
+	Application::setApplicationName(QStringLiteral("KeePassX-min"));
+	Application::setApplicationVersion(QStringLiteral(KEEPASSXM_VERSION));
 
 	// HACK: Prevent long-running threads from deadlocking the program with only 1 CPU
 	// See https://github.com/keepassxreboot/keepassxc/issues/10391
@@ -53,18 +53,20 @@ int main(int argc, char **argv)
 		QThreadPool::globalInstance()->setMaxThreadCount(2);
 	}
 
+	Application::bootstrap();
+
 	QCommandLineParser parser;
 	parser.setApplicationDescription(QObject::tr("KeePassX-min - password manager"));
-	parser.addPositionalArgument("filename(s)", QObject::tr("filenames of the password databases to open (*.kdbxm)"), "[filename(s)]");
+	parser.addPositionalArgument(QStringLiteral("filename(s)"), QObject::tr("filenames of the password databases to open (*.kdbxm)"), QStringLiteral("[filename(s)]"));
 
-	QCommandLineOption configOption("config", QObject::tr("path to a custom config file"), "config");
-	QCommandLineOption localConfigOption("localconfig", QObject::tr("path to a custom local config file"), "localconfig");
-	QCommandLineOption keyfileOption("keyfile", QObject::tr("key file of the database"), "keyfile");
-	QCommandLineOption startMinimized("minimized", QObject::tr("start minimized to the system tray"));
+	QCommandLineOption configOption(QStringLiteral("config"), QObject::tr("path to a custom config file"), QStringLiteral("config"));
+	QCommandLineOption localConfigOption(QStringLiteral("localconfig"), QObject::tr("path to a custom local config file"), QStringLiteral("localconfig"));
+	QCommandLineOption keyfileOption(QStringLiteral("keyfile"), QObject::tr("key file of the database"), QStringLiteral("keyfile"));
+	QCommandLineOption startMinimized(QStringLiteral("minimized"), QObject::tr("start minimized to the system tray"));
 
 	QCommandLineOption helpOption = parser.addHelpOption();
 	QCommandLineOption versionOption = parser.addVersionOption();
-	QCommandLineOption debugInfoOption(QStringList() << "debug-info", QObject::tr("Displays debugging information."));
+	QCommandLineOption debugInfoOption(QStringList() << QStringLiteral("debug-info"), QObject::tr("Displays debugging information."));
 
 	parser.addOption(configOption);
 	parser.addOption(localConfigOption);
@@ -84,7 +86,7 @@ int main(int argc, char **argv)
 	if (parser.isSet(debugInfoOption))
 	{
 		QTextStream out(stdout, QIODevice::WriteOnly);
-		QString debugInfo = Tools::debugInfo().append("\n").append(Crypto::debugInfo());
+		QString debugInfo = Tools::debugInfo().append(QStringLiteral("\n")).append(Crypto::debugInfo());
 		out << debugInfo << Qt::endl;
 		return EXIT_SUCCESS;
 	}
@@ -108,15 +110,13 @@ int main(int argc, char **argv)
 	if (!Crypto::init())
 	{
 		QString error = QObject::tr("Fatal error while testing the cryptographic functions.");
-		error.append("\n");
+		error.append(QStringLiteral("\n"));
 		error.append(Crypto::errorString());
 		MessageBox::critical(nullptr, QObject::tr("KeePassX-min - Error"), error);
 		return EXIT_FAILURE;
 	}
 
 	QGuiApplication::setDesktopFileName(QStringLiteral("keepassx-min.desktop"));
-
-	Application::bootstrap();
 
 	MainWindow mainWindow;
 

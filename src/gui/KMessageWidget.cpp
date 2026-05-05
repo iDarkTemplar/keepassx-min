@@ -63,7 +63,7 @@ void KMessageWidgetPrivate::init(KMessageWidget *q_ptr)
 	QAction *closeAction = new QAction(q);
 	closeAction->setText(KMessageWidget::tr("&Close"));
 	closeAction->setToolTip(KMessageWidget::tr("Close message"));
-	closeAction->setIcon(icons()->icon("message-close"));
+	closeAction->setIcon(icons()->icon(QStringLiteral("message-close")));
 
 	QObject::connect(closeAction,&QAction::triggered, q, &KMessageWidget::animatedHide);
 
