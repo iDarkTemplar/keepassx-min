@@ -63,8 +63,9 @@ public:
 		RawZipFormat
 	};
 
-	QtIOCompressor(QIODevice *device, int compressionLevel = 6, int bufferSize = 65500);
+	explicit QtIOCompressor(QIODevice *device, int compressionLevel = 6, int bufferSize = 65500);
 	~QtIOCompressor();
+
 	void setStreamFormat(StreamFormat format);
 	StreamFormat streamFormat() const;
 	static bool isGzipSupported();
