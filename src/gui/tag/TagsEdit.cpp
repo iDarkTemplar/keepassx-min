@@ -429,9 +429,7 @@ struct TagsEdit::Impl
 	{
 		completer->setWidget(ifce);
 		completer->setCaseSensitivity(Qt::CaseInsensitive);
-		connect(completer.get(),
-			static_cast<void (QCompleter::*)(QString const &)>(&QCompleter::activated),
-			[this](QString const &text) { currentText(text); });
+		connect(completer.get(), qOverload<const QString&>(&QCompleter::activated), [this](const QString &text) { currentText(text); });
 	}
 
 	QVector<QTextLayout::FormatRange> formatting() const
