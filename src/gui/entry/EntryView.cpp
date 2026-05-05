@@ -621,14 +621,13 @@ void EntryView::startDrag(Qt::DropActions supportedActions)
 	listWidget.setFixedHeight(height);
 
 	// Grab the screen pixel ratio where the window resides
-	// TODO: Use direct call to screen() when moving to Qt 6
-	auto screen = QGuiApplication::screenAt(window()->geometry().center());
-	if (!screen)
+	auto screen_ptr = screen();
+	if (!screen_ptr)
 	{
-		screen = QGuiApplication::primaryScreen();
+		screen_ptr = QGuiApplication::primaryScreen();
 	}
 
-	auto pixelRatio = screen->devicePixelRatio();
+	auto pixelRatio = screen_ptr->devicePixelRatio();
 
 	// Render the list widget to a pixmap
 	QPixmap pixmap(QSize(width, height) * pixelRatio);
