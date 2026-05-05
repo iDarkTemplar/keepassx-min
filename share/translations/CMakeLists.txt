@@ -16,7 +16,10 @@
 
 message(STATUS "Including translations...")
 
-add_custom_target(translations)
+add_custom_target(translations
+	SOURCES
+	update.sh
+	)
 
 file(GLOB TRANSLATION_FILES *.ts)
 
