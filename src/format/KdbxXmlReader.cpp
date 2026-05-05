@@ -56,7 +56,13 @@ KdbxXmlReader::KdbxXmlReader(quint32 version, QHash<QString, QByteArray> binaryP
 QSharedPointer<Database> KdbxXmlReader::readDatabase(const QString &filename)
 {
 	QFile file(filename);
-	file.open(QIODevice::ReadOnly);
+
+	if (!file.open(QIODevice::ReadOnly))
+	{
+		raiseError(tr("Failed to open file %1 for reading.").arg(filename));
+		return {};
+	}
+
 	return readDatabase(&file);
 }
 
@@ -1300,7 +1306,7 @@ QDateTime KdbxXmlReader::readDateTime()
 	{
 		QByteArray secsBytes = QByteArray::fromBase64(str.toUtf8()).leftJustified(8, '\0', true).left(8);
 		qint64 secs = Endian::bytesToSizedInt<quint64>(secsBytes, KeePass2::BYTEORDER);
-		return QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0), Qt::UTC).addSecs(secs);
+		return QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0), QTimeZone::utc()).addSecs(secs);
 	}
 
 	QDateTime dt = Clock::parse(str, Qt::ISODate);

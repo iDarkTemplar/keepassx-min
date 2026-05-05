@@ -19,6 +19,7 @@
 #include <QBuffer>
 #include <QFile>
 #include <QMap>
+#include <QTimeZone>
 
 #include "core/Endian.h"
 #include "crypto/CryptoHash.h"
@@ -80,7 +81,13 @@ void KdbxXmlWriter::writeDatabase(
 void KdbxXmlWriter::writeDatabase(const QString &filename, Database *db)
 {
 	QFile file(filename);
-	file.open(QIODevice::WriteOnly | QIODevice::Truncate);
+
+	if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+	{
+		raiseError(QObject::tr("Failed to open file %1 for writing.").arg(filename));
+		return;
+	}
+
 	writeDatabase(&file, db);
 }
 
@@ -570,7 +577,7 @@ void KdbxXmlWriter::writeBool(QAnyStringView qualifiedName, bool b)
 void KdbxXmlWriter::writeDateTime(QAnyStringView qualifiedName, const QDateTime &dateTime)
 {
 	Q_ASSERT(dateTime.isValid());
-	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC || (dateTime.timeSpec() == Qt::TimeZone && dateTime.timeZone() == QTimeZone::utc()));
 
 	QString dateTimeStr;
 	if (m_kdbxVersion < KeePass2::FILE_VERSION_4)
@@ -585,7 +592,7 @@ void KdbxXmlWriter::writeDateTime(QAnyStringView qualifiedName, const QDateTime 
 	}
 	else
 	{
-		qint64 secs = QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0), Qt::UTC).secsTo(dateTime);
+		qint64 secs = QDateTime(QDate(1, 1, 1), QTime(0, 0, 0, 0), QTimeZone::utc()).secsTo(dateTime);
 		QByteArray secsBytes = Endian::sizedIntToBytes(secs, KeePass2::BYTEORDER);
 		dateTimeStr = QString::fromLatin1(secsBytes.toBase64());
 	}

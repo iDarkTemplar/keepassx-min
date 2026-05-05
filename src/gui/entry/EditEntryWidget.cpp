@@ -227,16 +227,16 @@ void EditEntryWidget::setupEntryUpdate()
 	connect(m_mainUi->passwordEdit, &PasswordWidget::textChanged, this, [this] () { setModified(); });
 	connect(m_mainUi->urlEdit, &QLineEdit::textChanged, this, [this] () { setModified(); });
 	connect(m_mainUi->tagsList, &TagsEdit::tagsEdited, this, [this] () { setModified(); });
-	connect(m_mainUi->expireCheck, &QCheckBox::stateChanged, this, [this] () { setModified(); });
+	connect(m_mainUi->expireCheck, &QCheckBox::checkStateChanged, this, [this] () { setModified(); });
 	connect(m_mainUi->expireDatePicker, &QDateTimeEdit::dateTimeChanged, this, [this] () { setModified(); });
 	connect(m_mainUi->notesEdit, &QPlainTextEdit::textChanged, this, [this] () { setModified(); });
 
 	// Advanced tab
 	connect(m_advancedUi->attributesEdit, &QPlainTextEdit::textChanged, this, [this] () { setModified(); });
-	connect(m_advancedUi->protectAttributeButton, &QCheckBox::stateChanged, this, [this] () { setModified(); });
-	connect(m_advancedUi->excludeReportsCheckBox, &QCheckBox::stateChanged, this, [this] () { setModified(); });
-	connect(m_advancedUi->fgColorCheckBox, &QCheckBox::stateChanged, this, [this] () { setModified(); });
-	connect(m_advancedUi->bgColorCheckBox, &QCheckBox::stateChanged, this, [this] () { setModified(); });
+	connect(m_advancedUi->protectAttributeButton, &QCheckBox::checkStateChanged, this, [this] () { setModified(); });
+	connect(m_advancedUi->excludeReportsCheckBox, &QCheckBox::checkStateChanged, this, [this] () { setModified(); });
+	connect(m_advancedUi->fgColorCheckBox, &QCheckBox::checkStateChanged, this, [this] () { setModified(); });
+	connect(m_advancedUi->bgColorCheckBox, &QCheckBox::checkStateChanged, this, [this] () { setModified(); });
 	connect(m_advancedUi->attachmentsWidget, &EntryAttachmentsWidget::widgetUpdated, this, [this] () { setModified(); });
 
 	// Icon tab

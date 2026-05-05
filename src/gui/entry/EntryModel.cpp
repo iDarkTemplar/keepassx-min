@@ -285,8 +285,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 				return result;
 			}
 		case Color:
-			QColor backgroundColor;
-			backgroundColor.setNamedColor(entry->backgroundColor());
+			QColor backgroundColor = QColor::fromString(entry->backgroundColor());
 			if (backgroundColor.isValid())
 			{
 				result = QString::fromUtf8(QByteArray::fromHex("e2968d"));
@@ -403,16 +402,14 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 	{
 		if (index.column() == Color)
 		{
-			QColor backgroundColor;
-			backgroundColor.setNamedColor(entry->backgroundColor());
+			QColor backgroundColor = QColor::fromString(entry->backgroundColor());
 			if (backgroundColor.isValid())
 			{
 				return backgroundColor;
 			}
 		}
 
-		QColor foregroundColor;
-		foregroundColor.setNamedColor(entry->foregroundColor());
+		QColor foregroundColor = QColor::fromString(entry->foregroundColor());
 		if (entry->hasReferences())
 		{
 			QPalette p;
@@ -430,8 +427,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 	{
 		if (m_backgroundColorVisible)
 		{
-			QColor backgroundColor;
-			backgroundColor.setNamedColor(entry->backgroundColor());
+			QColor backgroundColor = QColor::fromString(entry->backgroundColor());
 			if (backgroundColor.isValid())
 			{
 				return QVariant(backgroundColor);

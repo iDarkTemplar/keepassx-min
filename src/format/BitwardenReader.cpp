@@ -38,6 +38,8 @@
 #include <QScopedPointer>
 #include <QUrl>
 
+#include <memory>
+
 namespace {
 
 Entry* readItem(const QJsonObject &item, QString &folderId)
@@ -56,7 +58,7 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 	}
 
 	// Create entry and assign basic values
-	QScopedPointer<Entry> entry(new Entry());
+	std::unique_ptr<Entry> entry = std::make_unique<Entry>();
 	entry->setEmitModified(false);
 	entry->setUuid(QUuid::createUuid());
 	entry->setTitle(itemMap.value(QStringLiteral("name")).toString());
@@ -300,7 +302,7 @@ Entry* readItem(const QJsonObject &item, QString &folderId)
 	}
 
 	entry->setEmitModified(true);
-	return entry.take();
+	return entry.release();
 }
 
 void writeVaultToDatabase(const QJsonObject &vault, QSharedPointer<Database> db)
@@ -447,11 +449,11 @@ QSharedPointer<Database> BitwardenReader::convert(const QString &path, const QSt
 		auto hkdf = Botan::KDF::create_or_throw("HKDF-Expand(SHA-256)");
 
 		// Derive the MAC Key
-		auto stretched_mac = hkdf->derive_key(32, reinterpret_cast<const uint8_t*>(key.data()), key.size(), "", "mac");
+		auto stretched_mac = hkdf->derive_key(32, std::span(reinterpret_cast<const uint8_t*>(key.data()), key.size()), "", "mac");
 		auto mac = QByteArray(reinterpret_cast<const char*>(stretched_mac.data()), stretched_mac.size());
 
 		// Stretch the Master Key
-		auto stretched_key = hkdf->derive_key(32, reinterpret_cast<const uint8_t*>(key.data()), key.size(), "", "enc");
+		auto stretched_key = hkdf->derive_key(32, std::span(reinterpret_cast<const uint8_t*>(key.data()), key.size()), "", "enc");
 		key = QByteArray(reinterpret_cast<const char*>(stretched_key.data()), stretched_key.size());
 
 		// Validate the encryption key

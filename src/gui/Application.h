@@ -23,7 +23,8 @@
 #include <QApplication>
 #include <QString>
 #include <QTranslator>
-#include <QPointer>
+
+#include <memory>
 
 class Application: public QApplication
 {
@@ -46,7 +47,7 @@ Q_SIGNALS:
 	void openFile(const QString &filename);
 
 private:
-	QPointer<QTranslator> m_translator;
+	std::unique_ptr<QTranslator> m_translator;
 };
 
 #define kpxcApp qobject_cast<Application*>(Application::instance())

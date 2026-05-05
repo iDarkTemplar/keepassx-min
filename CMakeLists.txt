@@ -157,10 +157,7 @@ add_gcc_compiler_cxxflags("-fvisibility-inlines-hidden")
 if (IS_DEBUG_BUILD)
 	check_add_gcc_compiler_flag("-Wshadow-compatible-local")
 	check_add_gcc_compiler_flag("-Wshadow-local")
-	# TODO: re-enable Werror in debug builds
-	# add_gcc_compiler_flags("-Werror")
-	# This is needed since compiling against Botan3 requires compiling against C++20
-	add_gcc_compiler_cxxflags("-Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated")
+	check_add_gcc_compiler_flag("-Werror")
 endif()
 
 if ((CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.8.999) OR CMAKE_COMPILER_IS_CLANGXX)

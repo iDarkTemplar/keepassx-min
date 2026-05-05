@@ -48,7 +48,7 @@ public:
 	{
 		QStyledItemDelegate::initStyleOption(option, index);
 		auto value = index.data(Qt::DecorationRole);
-		if (value.isValid() && value.type() == QVariant::Color && option->rect.width() > 0)
+		if (value.isValid() && value.typeId() == QMetaType::QColor && option->rect.width() > 0)
 		{
 			// Rebuild the password strength icon to add a dark border
 			QColor pen(Qt::black);
@@ -380,8 +380,8 @@ void EntryView::showHeaderMenu(const QPoint &position)
 	const QList<QAction*> actions = m_columnActions->actions();
 	for (auto &action: actions)
 	{
-		Q_ASSERT(static_cast<QMetaType::Type>(action->data().type()) == QMetaType::Int);
-		if (static_cast<QMetaType::Type>(action->data().type()) != QMetaType::Int)
+		Q_ASSERT(static_cast<QMetaType::Type>(action->data().typeId()) == QMetaType::Int);
+		if (static_cast<QMetaType::Type>(action->data().typeId()) != QMetaType::Int)
 		{
 			continue;
 		}
@@ -402,8 +402,8 @@ void EntryView::toggleColumnVisibility(QAction *action)
 	// Verify action carries a column index as data. Since QVariant.toInt()
 	// below will accept anything that's interpretable as int, perform a type
 	// check here to make sure data actually IS int
-	Q_ASSERT(static_cast<QMetaType::Type>(action->data().type()) == QMetaType::Int);
-	if (static_cast<QMetaType::Type>(action->data().type()) != QMetaType::Int)
+	Q_ASSERT(static_cast<QMetaType::Type>(action->data().typeId()) == QMetaType::Int);
+	if (static_cast<QMetaType::Type>(action->data().typeId()) != QMetaType::Int)
 	{
 		return;
 	}

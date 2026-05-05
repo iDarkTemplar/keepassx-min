@@ -29,6 +29,8 @@
 #include <QScopedPointer>
 #include <QUrl>
 
+#include <memory>
+
 #include <minizip/unzip.h>
 
 namespace {
@@ -69,7 +71,7 @@ Entry* readItem(const QJsonObject &item, unzFile uf = nullptr)
 	const auto detailsMap = itemMap.value(QStringLiteral("details")).toMap();
 
 	// Create entry and assign basic values
-	QScopedPointer<Entry> entry(new Entry());
+	std::unique_ptr<Entry> entry = std::make_unique<Entry>();
 	entry->setUuid(QUuid::createUuid());
 	entry->setTitle(overviewMap.value(QStringLiteral("title")).toString());
 	entry->setUrl(overviewMap.value(QStringLiteral("url")).toString());
@@ -204,7 +206,7 @@ Entry* readItem(const QJsonObject &item, unzFile uf = nullptr)
 				if (key == QStringLiteral("date"))
 				{
 					// Convert date fields from Unix time
-					value = QDateTime::fromSecsSinceEpoch(valueMap.value(key).toULongLong(), Qt::UTC).toString();
+					value = QDateTime::fromSecsSinceEpoch(valueMap.value(key).toULongLong(), QTimeZone::utc()).toString();
 				}
 				else if (key == QStringLiteral("email"))
 				{
@@ -247,14 +249,14 @@ Entry* readItem(const QJsonObject &item, unzFile uf = nullptr)
 
 	// Adjust the created and modified times
 	auto timeInfo = entry->timeInfo();
-	const auto createdTime = QDateTime::fromSecsSinceEpoch(itemMap.value(QStringLiteral("createdAt")).toULongLong(), Qt::UTC);
-	const auto modifiedTime = QDateTime::fromSecsSinceEpoch(itemMap.value(QStringLiteral("updatedAt")).toULongLong(), Qt::UTC);
+	const auto createdTime = QDateTime::fromSecsSinceEpoch(itemMap.value(QStringLiteral("createdAt")).toULongLong(), QTimeZone::utc());
+	const auto modifiedTime = QDateTime::fromSecsSinceEpoch(itemMap.value(QStringLiteral("updatedAt")).toULongLong(), QTimeZone::utc());
 	timeInfo.setCreationTime(createdTime);
 	timeInfo.setLastModificationTime(modifiedTime);
 	timeInfo.setLastAccessTime(modifiedTime);
 	entry->setTimeInfo(timeInfo);
 
-	return entry.take();
+	return entry.release();
 }
 
 void writeVaultToDatabase(const QJsonObject &vault, QSharedPointer<Database> db, unzFile uf = nullptr)

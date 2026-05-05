@@ -48,7 +48,6 @@ Application::~Application()
 	if (m_translator)
 	{
 		QCoreApplication::removeTranslator(m_translator.get());
-		delete m_translator;
 	}
 }
 
@@ -113,26 +112,25 @@ void Application::installTranslator(const QString &uiLanguage)
 		languages << uiLanguage;
 	}
 
-	QPointer<QTranslator> old_translator = m_translator;
+	std::unique_ptr<QTranslator> old_translator = std::move(m_translator);
 
 	const auto path = resources()->dataPath(QStringLiteral("translations"));
 
 	for (const auto &language: languages)
 	{
 		QLocale locale(language);
-		QScopedPointer<QTranslator> translator(new QTranslator(qApp));
+		std::unique_ptr<QTranslator> translator = std::make_unique<QTranslator>(qApp);
 		if (translator->load(locale, QStringLiteral("keepassxmin_"), QString(), path))
 		{
-			m_translator = translator.take();
-			QCoreApplication::installTranslator(m_translator);
+			m_translator = std::move(translator);
+			QCoreApplication::installTranslator(m_translator.get());
 			break;
 		}
 	}
 
 	if (old_translator)
 	{
-		QCoreApplication::removeTranslator(old_translator);
-		delete old_translator;
+		QCoreApplication::removeTranslator(old_translator.get());
 	}
 }
 
@@ -167,7 +165,7 @@ QList<QPair<QString, QString>> Application::availableLanguages()
 
 			if (langcode.contains(QStringLiteral("_")))
 			{
-				languageStr += QStringLiteral(" (%1)").arg(QLocale::countryToString(locale.country()));
+				languageStr += QStringLiteral(" (%1)").arg(QLocale::territoryToString(locale.territory()));
 			}
 
 			QPair<QString, QString> language(langcode, languageStr);

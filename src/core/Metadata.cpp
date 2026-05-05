@@ -25,6 +25,7 @@
 #include <QApplication>
 #include <QCryptographicHash>
 #include <QJsonDocument>
+#include <QTimeZone>
 
 const int Metadata::DefaultHistoryMaxItems = 10;
 const int Metadata::DefaultHistoryMaxSize = 6 * 1024 * 1024;
@@ -324,7 +325,7 @@ void Metadata::setName(const QString &value)
 
 void Metadata::setNameChanged(const QDateTime &value)
 {
-	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	Q_ASSERT(value.timeSpec() == Qt::UTC || (value.timeSpec() == Qt::TimeZone && value.timeZone() == QTimeZone::utc()));
 	m_data.nameChanged = value;
 }
 
@@ -335,7 +336,7 @@ void Metadata::setDescription(const QString &value)
 
 void Metadata::setDescriptionChanged(const QDateTime &value)
 {
-	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	Q_ASSERT(value.timeSpec() == Qt::UTC || (value.timeSpec() == Qt::TimeZone && value.timeZone() == QTimeZone::utc()));
 	m_data.descriptionChanged = value;
 }
 
@@ -346,7 +347,7 @@ void Metadata::setDefaultUserName(const QString &value)
 
 void Metadata::setDefaultUserNameChanged(const QDateTime &value)
 {
-	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	Q_ASSERT(value.timeSpec() == Qt::UTC || (value.timeSpec() == Qt::TimeZone && value.timeZone() == QTimeZone::utc()));
 	m_data.defaultUserNameChanged = value;
 }
 
@@ -467,7 +468,7 @@ void Metadata::setRecycleBin(Group *group)
 
 void Metadata::setRecycleBinChanged(const QDateTime &value)
 {
-	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	Q_ASSERT(value.timeSpec() == Qt::UTC || (value.timeSpec() == Qt::TimeZone && value.timeZone() == QTimeZone::utc()));
 	m_recycleBinChanged = value;
 }
 
@@ -478,7 +479,7 @@ void Metadata::setEntryTemplatesGroup(Group *group)
 
 void Metadata::setEntryTemplatesGroupChanged(const QDateTime &value)
 {
-	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	Q_ASSERT(value.timeSpec() == Qt::UTC || (value.timeSpec() == Qt::TimeZone && value.timeZone() == QTimeZone::utc()));
 	m_entryTemplatesGroupChanged = value;
 }
 
@@ -494,7 +495,7 @@ void Metadata::setLastTopVisibleGroup(Group *group)
 
 void Metadata::setDatabaseKeyChanged(const QDateTime &value)
 {
-	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	Q_ASSERT(value.timeSpec() == Qt::UTC || (value.timeSpec() == Qt::TimeZone && value.timeZone() == QTimeZone::utc()));
 	m_masterKeyChanged = value;
 }
 
@@ -531,7 +532,7 @@ QDateTime Metadata::settingsChanged() const
 
 void Metadata::setSettingsChanged(const QDateTime &value)
 {
-	Q_ASSERT(value.timeSpec() == Qt::UTC);
+	Q_ASSERT(value.timeSpec() == Qt::UTC || (value.timeSpec() == Qt::TimeZone && value.timeZone() == QTimeZone::utc()));
 	m_settingsChanged = value;
 }
 

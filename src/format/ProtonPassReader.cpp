@@ -33,6 +33,8 @@
 #include <QScopedPointer>
 #include <QUrl>
 
+#include <memory>
+
 namespace {
 
 Entry* readItem(const QJsonObject &item)
@@ -42,7 +44,7 @@ Entry* readItem(const QJsonObject &item)
 	const auto metadataMap = dataMap.value(QStringLiteral("metadata")).toMap();
 
 	// Create entry and assign basic values
-	QScopedPointer<Entry> entry(new Entry());
+	std::unique_ptr<Entry> entry = std::make_unique<Entry>();
 	entry->setUuid(QUuid::createUuid());
 	entry->setTitle(metadataMap.value(QStringLiteral("name")).toString());
 	entry->setNotes(metadataMap.value(QStringLiteral("note")).toString());
@@ -165,14 +167,14 @@ Entry* readItem(const QJsonObject &item)
 
 	// Adjust the created and modified times
 	auto timeInfo = entry->timeInfo();
-	const auto createdTime = QDateTime::fromSecsSinceEpoch(itemMap.value(QStringLiteral("createTime")).toULongLong(), Qt::UTC);
-	const auto modifiedTime = QDateTime::fromSecsSinceEpoch(itemMap.value(QStringLiteral("modifyTime")).toULongLong(), Qt::UTC);
+	const auto createdTime = QDateTime::fromSecsSinceEpoch(itemMap.value(QStringLiteral("createTime")).toULongLong(), QTimeZone::utc());
+	const auto modifiedTime = QDateTime::fromSecsSinceEpoch(itemMap.value(QStringLiteral("modifyTime")).toULongLong(), QTimeZone::utc());
 	timeInfo.setCreationTime(createdTime);
 	timeInfo.setLastModificationTime(modifiedTime);
 	timeInfo.setLastAccessTime(modifiedTime);
 	entry->setTimeInfo(timeInfo);
 
-	return entry.take();
+	return entry.release();
 }
 
 void writeVaultToDatabase(const QJsonObject &vault, QSharedPointer<Database> db)

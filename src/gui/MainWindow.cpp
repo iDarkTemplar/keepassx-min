@@ -1287,13 +1287,13 @@ void MainWindow::showGroupContextMenu(const QPoint &globalPos)
 	m_ui->menuGroups->popup(globalPos);
 }
 
-void MainWindow::setShortcut(QAction *action, QKeySequence::StandardKey standard, int fallback)
+void MainWindow::setShortcut(QAction *action, QKeySequence::StandardKey standard, QKeyCombination fallback)
 {
 	if (!QKeySequence::keyBindings(standard).isEmpty())
 	{
 		action->setShortcuts(standard);
 	}
-	else if (fallback != 0)
+	else if (fallback.key() != Qt::Key_unknown)
 	{
 		action->setShortcut(QKeySequence(fallback));
 	}

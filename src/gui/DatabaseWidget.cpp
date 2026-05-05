@@ -460,13 +460,13 @@ void DatabaseWidget::createEntry()
 		return;
 	}
 
-	m_newEntry.reset(new Entry());
+	m_newEntry = std::make_unique<Entry>();
 
 	m_newEntry->setUuid(QUuid::createUuid());
 	m_newEntry->setUsername(m_db->metadata()->defaultUserName());
 	m_newParent = m_groupView->currentGroup();
-	m_newParent->applyGroupIconOnCreateTo(m_newEntry.data());
-	switchToEntryEdit(m_newEntry.data(), true);
+	m_newParent->applyGroupIconOnCreateTo(m_newEntry.get());
+	switchToEntryEdit(m_newEntry.get(), true);
 }
 
 void DatabaseWidget::replaceDatabase(QSharedPointer<Database> db)
@@ -883,10 +883,10 @@ void DatabaseWidget::createGroup()
 		return;
 	}
 
-	m_newGroup.reset(new Group());
+	m_newGroup = std::make_unique<Group>();
 	m_newGroup->setUuid(QUuid::createUuid());
 	m_newParent = m_groupView->currentGroup();
-	switchToGroupEdit(m_newGroup.data(), true);
+	switchToGroupEdit(m_newGroup.get(), true);
 }
 
 void DatabaseWidget::cloneGroup()
@@ -900,7 +900,7 @@ void DatabaseWidget::cloneGroup()
 
 	m_newGroup.reset(currentGroup->clone(Entry::CloneCopy, Group::CloneDefault | Group::CloneRenameTitle));
 	m_newParent = currentGroup->parentGroup();
-	switchToGroupEdit(m_newGroup.data(), true);
+	switchToGroupEdit(m_newGroup.get(), true);
 }
 
 void DatabaseWidget::deleteGroup()
@@ -964,7 +964,7 @@ void DatabaseWidget::switchToMainView(bool previousDialogAccepted)
 		if (previousDialogAccepted)
 		{
 			m_newGroup->setParent(m_newParent);
-			m_groupView->setCurrentGroup(m_newGroup.take());
+			m_groupView->setCurrentGroup(m_newGroup.release());
 			m_groupView->expandGroup(m_newParent);
 		}
 		else
@@ -980,7 +980,7 @@ void DatabaseWidget::switchToMainView(bool previousDialogAccepted)
 		{
 			m_newEntry->setGroup(m_newParent);
 			m_entryView->setFocus();
-			m_entryView->setCurrentEntry(m_newEntry.take());
+			m_entryView->setCurrentEntry(m_newEntry.release());
 		}
 		else
 		{

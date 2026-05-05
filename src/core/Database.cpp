@@ -500,7 +500,16 @@ bool Database::import(const QString &xmlExportPath, QString *error)
 {
 	KdbxXmlReader reader(KeePass2::FILE_VERSION_4);
 	QFile file(xmlExportPath);
-	file.open(QIODevice::ReadOnly);
+
+	if (!file.open(QIODevice::ReadOnly))
+	{
+		if (error)
+		{
+			*error = tr("Failed to open file %1 for reading").arg(xmlExportPath);
+		}
+
+		return false;
+	}
 
 	reader.readDatabase(&file, this);
 
@@ -785,7 +794,7 @@ void Database::setDeletedObjects(const QList<DeletedObject> &delObjs)
 
 void Database::addDeletedObject(const DeletedObject &delObj)
 {
-	Q_ASSERT(delObj.deletionTime.timeSpec() == Qt::UTC);
+	Q_ASSERT(delObj.deletionTime.timeSpec() == Qt::UTC || (delObj.deletionTime.timeSpec() == Qt::TimeZone && delObj.deletionTime.timeZone() == QTimeZone::utc()));
 	m_deletedObjects.append(delObj);
 }
 

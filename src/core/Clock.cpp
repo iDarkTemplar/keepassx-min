@@ -16,6 +16,7 @@
 #include "Clock.h"
 
 #include <QLocale>
+#include <QTimeZone>
 
 std::unique_ptr<Clock> Clock::m_instance;
 
@@ -53,22 +54,22 @@ QDateTime Clock::serialized(const QDateTime &dateTime)
 
 QDateTime Clock::datetimeUtc(int year, int month, int day, int hour, int min, int second)
 {
-	return QDateTime(QDate(year, month, day), QTime(hour, min, second), Qt::UTC);
+	return QDateTime(QDate(year, month, day), QTime(hour, min, second), QTimeZone::utc());
 }
 
 QDateTime Clock::datetime(int year, int month, int day, int hour, int min, int second)
 {
-	return QDateTime(QDate(year, month, day), QTime(hour, min, second), Qt::LocalTime);
+	return QDateTime(QDate(year, month, day), QTime(hour, min, second), QTimeZone::utc());
 }
 
 QDateTime Clock::datetimeUtc(qint64 msecSinceEpoch)
 {
-	return QDateTime::fromMSecsSinceEpoch(msecSinceEpoch, Qt::UTC);
+	return QDateTime::fromMSecsSinceEpoch(msecSinceEpoch, QTimeZone::utc());
 }
 
 QDateTime Clock::datetime(qint64 msecSinceEpoch)
 {
-	return QDateTime::fromMSecsSinceEpoch(msecSinceEpoch, Qt::LocalTime);
+	return QDateTime::fromMSecsSinceEpoch(msecSinceEpoch, QTimeZone::systemTimeZone());
 }
 
 QDateTime Clock::parse(const QString &text, Qt::DateFormat format)

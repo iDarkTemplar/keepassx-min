@@ -16,6 +16,8 @@
 
 #include "TimeInfo.h"
 
+#include <QTimeZone>
+
 TimeInfo::TimeInfo()
 	: m_expires(false)
 	, m_usageCount(0)
@@ -65,25 +67,25 @@ QDateTime TimeInfo::locationChanged() const
 
 void TimeInfo::setLastModificationTime(const QDateTime &dateTime)
 {
-	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC || (dateTime.timeSpec() == Qt::TimeZone && dateTime.timeZone() == QTimeZone::utc()));
 	m_lastModificationTime = dateTime;
 }
 
 void TimeInfo::setCreationTime(const QDateTime &dateTime)
 {
-	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC || (dateTime.timeSpec() == Qt::TimeZone && dateTime.timeZone() == QTimeZone::utc()));
 	m_creationTime = dateTime;
 }
 
 void TimeInfo::setLastAccessTime(const QDateTime &dateTime)
 {
-	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC || (dateTime.timeSpec() == Qt::TimeZone && dateTime.timeZone() == QTimeZone::utc()));
 	m_lastAccessTime = dateTime;
 }
 
 void TimeInfo::setExpiryTime(const QDateTime &dateTime)
 {
-	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC || (dateTime.timeSpec() == Qt::TimeZone && dateTime.timeZone() == QTimeZone::utc()));
 	m_expiryTime = dateTime;
 }
 
@@ -99,7 +101,7 @@ void TimeInfo::setUsageCount(int count)
 
 void TimeInfo::setLocationChanged(const QDateTime &dateTime)
 {
-	Q_ASSERT(dateTime.timeSpec() == Qt::UTC);
+	Q_ASSERT(dateTime.timeSpec() == Qt::UTC || (dateTime.timeSpec() == Qt::TimeZone && dateTime.timeZone() == QTimeZone::utc()));
 	m_locationChanged = dateTime;
 }
 

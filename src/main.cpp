@@ -37,9 +37,6 @@ int main(int argc, char **argv)
 {
 	QT_REQUIRE_VERSION(argc, argv, QT_VERSION_STR)
 
-	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-	QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-
 	Application app(argc, argv);
 	// don't set organizationName as that changes the return value of
 	// QStandardPaths::writableLocation(QDesktopServices::DataLocation)

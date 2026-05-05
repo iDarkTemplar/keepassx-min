@@ -32,7 +32,8 @@ void SortFilterHideProxyModel::hideColumn(int column, bool hide)
 	m_hiddenColumns.resize(column + 1);
 	m_hiddenColumns[column] = hide;
 
-	invalidateFilter();
+	beginFilterChange();
+	endFilterChange();
 }
 
 bool SortFilterHideProxyModel::filterAcceptsColumn(int sourceColumn, const QModelIndex &sourceParent) const
@@ -46,7 +47,7 @@ bool SortFilterHideProxyModel::lessThan(const QModelIndex &left, const QModelInd
 {
 	auto leftData = sourceModel()->data(left, sortRole());
 	auto rightData = sourceModel()->data(right, sortRole());
-	if (leftData.type() == QVariant::String)
+	if (leftData.typeId() == QMetaType::QString)
 	{
 		return m_collator.compare(leftData.toString(), rightData.toString()) < 0;
 	}

@@ -282,7 +282,7 @@ bool Kdbx4Writer::serializeVariantMap(const QVariantMap &map, QByteArray &output
 		KeePass2::VariantMapFieldType fieldType;
 		QByteArray data;
 		QVariant v = map.value(k);
-		switch (static_cast<QMetaType::Type>(v.type()))
+		switch (static_cast<QMetaType::Type>(v.typeId()))
 		{
 		case QMetaType::Type::Int:
 			fieldType = KeePass2::VariantMapFieldType::Int32;
@@ -317,7 +317,7 @@ bool Kdbx4Writer::serializeVariantMap(const QVariantMap &map, QByteArray &output
 			data = v.toByteArray();
 			break;
 		default:
-			qWarning() << tr("Unknown object type %1 in QVariantMap").arg(v.type());
+			qWarning() << tr("Unknown object type %1 in QVariantMap").arg(v.typeId());
 			return false;
 		}
 		QByteArray typeBytes;

@@ -163,8 +163,8 @@ ReportsWidgetHealthcheck::ReportsWidgetHealthcheck(QWidget *parent)
 
 	connect(m_ui->healthcheckTableView, &QTableView::customContextMenuRequested, this, &ReportsWidgetHealthcheck::customMenuRequested);
 	connect(m_ui->healthcheckTableView, &QTableView::doubleClicked, this, &ReportsWidgetHealthcheck::emitEntryActivated);
-	connect(m_ui->showExcluded, &QCheckBox::stateChanged, this, &ReportsWidgetHealthcheck::calculateHealth);
-	connect(m_ui->showExpired, &QCheckBox::stateChanged, this, &ReportsWidgetHealthcheck::calculateHealth);
+	connect(m_ui->showExcluded, &QCheckBox::checkStateChanged, this, &ReportsWidgetHealthcheck::calculateHealth);
+	connect(m_ui->showExpired, &QCheckBox::checkStateChanged, this, &ReportsWidgetHealthcheck::calculateHealth);
 
 	new QShortcut(Qt::Key_Delete, this, [this]() { this->deleteSelectedEntries(); });
 }

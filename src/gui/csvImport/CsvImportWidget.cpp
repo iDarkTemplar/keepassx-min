@@ -52,7 +52,7 @@ Group* createGroupStructure(Database *db, const QString &groupPath, const QStrin
 		nameList.removeFirst();
 	}
 
-	for (const auto &name: qAsConst(nameList))
+	for (const auto &name: std::as_const(nameList))
 	{
 		auto child = group->findChildByName(name);
 		if (!child)

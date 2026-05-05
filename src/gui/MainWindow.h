@@ -134,7 +134,7 @@ private Q_SLOTS:
 	void focusSearchWidget();
 
 private:
-	static void setShortcut(QAction *action, QKeySequence::StandardKey standard, int fallback = 0);
+	static void setShortcut(QAction *action, QKeySequence::StandardKey standard, QKeyCombination fallback = QKeyCombination());
 
 	static const QString BaseWindowTitle;
 

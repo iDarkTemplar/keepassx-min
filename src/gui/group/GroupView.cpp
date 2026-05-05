@@ -98,7 +98,7 @@ void GroupView::changeDatabase(const QSharedPointer<Database> &newDb)
 
 void GroupView::dragMoveEvent(QDragMoveEvent *event)
 {
-	if (event->keyboardModifiers() & Qt::ControlModifier)
+	if (event->modifiers() & Qt::ControlModifier)
 	{
 		event->setDropAction(Qt::CopyAction);
 	}

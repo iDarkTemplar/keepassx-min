@@ -78,7 +78,7 @@ qint64 HashingStream::readData(char *data, qint64 maxSize)
 
 			if (sizeToHash > 0)
 			{
-				m_hash.addData(data, sizeToHash);
+				m_hash.addData(QByteArrayView(data, sizeToHash));
 				m_sizeHashed += sizeToHash;
 			}
 		}
@@ -104,7 +104,7 @@ qint64 HashingStream::writeData(const char *data, qint64 maxSize)
 
 			if (sizeToHash > 0)
 			{
-				m_hash.addData(data, sizeToHash);
+				m_hash.addData(QByteArrayView(data, sizeToHash));
 				m_sizeHashed += sizeToHash;
 			}
 		}

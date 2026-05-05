@@ -91,7 +91,7 @@ void EditGroupWidget::setupModifiedTracking()
 	// Group tab
 	connect(m_mainUi->editName, &QLineEdit::textChanged, this, [this] () { setModified(); });
 	connect(m_mainUi->editNotes, &QPlainTextEdit::textChanged, [this] () { setModified(); });
-	connect(m_mainUi->expireCheck, &QCheckBox::stateChanged, [this] () { setModified(); });
+	connect(m_mainUi->expireCheck, &QCheckBox::checkStateChanged, [this] () { setModified(); });
 	connect(m_mainUi->expireDatePicker, &QDateTimeEdit::dateTimeChanged, [this] () { setModified(); });
 	connect(m_mainUi->searchComboBox, &QComboBox::currentIndexChanged, [this] () { setModified(); });
 

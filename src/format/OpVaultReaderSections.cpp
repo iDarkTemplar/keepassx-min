@@ -35,7 +35,7 @@ QDateTime resolveDate(const QString &kind, const QJsonValue &value)
 		// 1Password programmers are sadistic...
 		auto dateValue = QString::number(value.toInt());
 		date = QDateTime::fromString(dateValue, QStringLiteral("yyyyMM"));
-		date.setTimeSpec(Qt::UTC);
+		date.setTimeZone(QTimeZone::utc());
 	}
 	else if (value.isString())
 	{

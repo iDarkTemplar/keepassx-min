@@ -18,6 +18,8 @@
 #ifndef KEEPASSX_ENTRY_H
 #define KEEPASSX_ENTRY_H
 
+#include <memory>
+
 #include <QMap>
 #include <QPointer>
 #include <QUuid>
@@ -297,7 +299,7 @@ private:
 	QPointer<CustomData> m_customData;
 	QList<Entry*> m_history; // Items sorted from oldest to newest
 
-	QScopedPointer<Entry> m_tmpHistoryItem;
+	std::unique_ptr<Entry> m_tmpHistoryItem;
 	bool m_modifiedSinceBegin;
 	QPointer<Group> m_group;
 	bool m_updateTimeinfo;

@@ -1060,9 +1060,9 @@ void Entry::copyDataFrom(const Entry *other)
 
 void Entry::beginUpdate()
 {
-	Q_ASSERT(m_tmpHistoryItem.isNull());
+	Q_ASSERT(!m_tmpHistoryItem);
 
-	m_tmpHistoryItem.reset(new Entry());
+	m_tmpHistoryItem = std::make_unique<Entry>();
 	m_tmpHistoryItem->setUpdateTimeinfo(false);
 	m_tmpHistoryItem->m_uuid = m_uuid;
 	m_tmpHistoryItem->m_data = m_data;
@@ -1074,15 +1074,14 @@ void Entry::beginUpdate()
 
 bool Entry::endUpdate()
 {
-	Q_ASSERT(!m_tmpHistoryItem.isNull());
+	Q_ASSERT(m_tmpHistoryItem);
+
 	if (m_modifiedSinceBegin)
 	{
 		m_tmpHistoryItem->setUpdateTimeinfo(true);
-		addHistoryItem(m_tmpHistoryItem.take());
+		addHistoryItem(m_tmpHistoryItem.release());
 		truncateHistory();
 	}
-
-	m_tmpHistoryItem.reset();
 
 	return m_modifiedSinceBegin;
 }
