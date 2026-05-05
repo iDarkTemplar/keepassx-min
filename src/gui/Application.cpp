@@ -59,9 +59,9 @@ Application::~Application()
  */
 void Application::bootstrap(const QString &uiLanguage)
 {
-	Bootstrap::bootstrap();
-
 	kpxcApp->installTranslator(uiLanguage);
+
+	Bootstrap::bootstrap();
 
 	applyFontSize();
 
