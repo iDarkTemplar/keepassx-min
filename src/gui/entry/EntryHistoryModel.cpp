@@ -26,6 +26,7 @@
 EntryHistoryModel::EntryHistoryModel(QObject *parent)
 	: QAbstractTableModel(parent)
 	, m_systemLocale(QLocale::system())
+	, m_parentEntry(nullptr)
 {
 }
 

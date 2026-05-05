@@ -38,8 +38,8 @@ Clipboard::Clipboard(QObject *parent)
 
 void Clipboard::setText(const QString &text, bool clear)
 {
-	auto *clipboard = QApplication::clipboard();
-	if (!clipboard)
+	auto *clipboard_ptr = QApplication::clipboard();
+	if (!clipboard_ptr)
 	{
 		qWarning() << tr("Unable to access the clipboard.");
 		return;
@@ -49,12 +49,12 @@ void Clipboard::setText(const QString &text, bool clear)
 	mime->setText(text);
 	mime->setData(QStringLiteral("x-kde-passwordManagerHint"), QByteArrayLiteral("secret"));
 
-	if (clipboard->supportsSelection())
+	if (clipboard_ptr->supportsSelection())
 	{
-		clipboard->setMimeData(mime, QClipboard::Selection);
+		clipboard_ptr->setMimeData(mime, QClipboard::Selection);
 	}
 
-	clipboard->setMimeData(mime, QClipboard::Clipboard);
+	clipboard_ptr->setMimeData(mime, QClipboard::Clipboard);
 
 	if (clear)
 	{
@@ -86,18 +86,18 @@ void Clipboard::clearCopiedText()
 	m_timer->stop();
 	Q_EMIT updateCountdown(-1, QString());
 
-	auto *clipboard = QApplication::clipboard();
-	if (!clipboard)
+	auto *clipboard_ptr = QApplication::clipboard();
+	if (!clipboard_ptr)
 	{
 		qWarning() << tr("Unable to access the clipboard.");
 		return;
 	}
 
 	if (!m_lastCopied.isEmpty()
-		&& (m_lastCopied == clipboard->text(QClipboard::Clipboard) || m_lastCopied == clipboard->text(QClipboard::Selection)))
+		&& (m_lastCopied == clipboard_ptr->text(QClipboard::Clipboard) || m_lastCopied == clipboard_ptr->text(QClipboard::Selection)))
 	{
-		clipboard->clear(QClipboard::Clipboard);
-		clipboard->clear(QClipboard::Selection);
+		clipboard_ptr->clear(QClipboard::Clipboard);
+		clipboard_ptr->clear(QClipboard::Selection);
 
 		// Gnome Wayland doesn't let apps modify the clipboard when not in focus, so force clear
 		if (QProcessEnvironment::systemEnvironment().contains(QStringLiteral("WAYLAND_DISPLAY")))

@@ -27,28 +27,28 @@ const static int ZXCVBN_ESTIMATE_THRESHOLD = 256;
 
 } // namespace
 
-PasswordHealth::PasswordHealth(double entropy)
+PasswordHealth::PasswordHealth(double entropy_value)
 {
-	init(entropy);
+	init(entropy_value);
 }
 
 PasswordHealth::PasswordHealth(const QString &pwd)
 {
-	auto entropy = 0.0;
-	entropy += ZxcvbnMatch(pwd.left(ZXCVBN_ESTIMATE_THRESHOLD).toUtf8(), nullptr, nullptr);
+	auto entropy_value = 0.0;
+	entropy_value += ZxcvbnMatch(pwd.left(ZXCVBN_ESTIMATE_THRESHOLD).toUtf8(), nullptr, nullptr);
 	if (pwd.length() > ZXCVBN_ESTIMATE_THRESHOLD)
 	{
 		// Add the average entropy per character for any characters above the estimate threshold
-		auto average = entropy / ZXCVBN_ESTIMATE_THRESHOLD;
-		entropy += average * (pwd.length() - ZXCVBN_ESTIMATE_THRESHOLD);
+		auto average = entropy_value / ZXCVBN_ESTIMATE_THRESHOLD;
+		entropy_value += average * (pwd.length() - ZXCVBN_ESTIMATE_THRESHOLD);
 	}
 
-	init(entropy);
+	init(entropy_value);
 }
 
-void PasswordHealth::init(double entropy)
+void PasswordHealth::init(double entropy_value)
 {
-	m_score = m_entropy = entropy;
+	m_score = m_entropy = entropy_value;
 
 	switch (quality())
 	{

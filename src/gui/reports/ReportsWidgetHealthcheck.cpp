@@ -79,7 +79,7 @@ private:
 class ReportSortProxyModel: public QSortFilterProxyModel
 {
 public:
-	ReportSortProxyModel(QObject *parent)
+	explicit ReportSortProxyModel(QObject *parent)
 		: QSortFilterProxyModel(parent)
 	{
 	}

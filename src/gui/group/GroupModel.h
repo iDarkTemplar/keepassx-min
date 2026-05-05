@@ -52,7 +52,7 @@ public:
 
 private:
 	QModelIndex parent(Group *group) const;
-	void collectIndexesRecursively(QList<QModelIndex> &indexes, QList<Group*> groups);
+	void collectIndexesRecursively(QList<QModelIndex> &indexes, const QList<Group*> &groups);
 
 private Q_SLOTS:
 	void groupDataChanged(Group *group);

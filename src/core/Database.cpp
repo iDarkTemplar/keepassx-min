@@ -939,21 +939,21 @@ bool Database::setKey(
 		oldTransformedDatabaseKey.setRawKey(m_data.transformedDatabaseKey->rawKey());
 	}
 
-	QByteArray transformedDatabaseKey;
+	QByteArray transformedDatabaseKeyValue;
 
 	if (!transformKey)
 	{
-		transformedDatabaseKey = QByteArray(oldTransformedDatabaseKey.rawKey());
+		transformedDatabaseKeyValue = QByteArray(oldTransformedDatabaseKey.rawKey());
 	}
-	else if (!key->transform(*m_data.kdf, transformedDatabaseKey))
+	else if (!key->transform(*m_data.kdf, transformedDatabaseKeyValue))
 	{
 		return false;
 	}
 
 	m_data.key = key;
-	if (!transformedDatabaseKey.isEmpty())
+	if (!transformedDatabaseKeyValue.isEmpty())
 	{
-		m_data.transformedDatabaseKey->setRawKey(transformedDatabaseKey);
+		m_data.transformedDatabaseKey->setRawKey(transformedDatabaseKeyValue);
 	}
 
 	if (updateChangedTime)
@@ -1122,19 +1122,19 @@ void Database::setKdf(QSharedPointer<Kdf> kdf)
 bool Database::changeKdf(const QSharedPointer<Kdf> &kdf)
 {
 	kdf->randomizeSeed();
-	QByteArray transformedDatabaseKey;
+	QByteArray transformedDatabaseKeyValue;
 	if (!m_data.key)
 	{
 		m_data.key = QSharedPointer<CompositeKey>::create();
 	}
 
-	if (!m_data.key->transform(*kdf, transformedDatabaseKey))
+	if (!m_data.key->transform(*kdf, transformedDatabaseKeyValue))
 	{
 		return false;
 	}
 
 	setKdf(kdf);
-	m_data.transformedDatabaseKey->setRawKey(transformedDatabaseKey);
+	m_data.transformedDatabaseKey->setRawKey(transformedDatabaseKeyValue);
 	markAsModified();
 
 	return true;

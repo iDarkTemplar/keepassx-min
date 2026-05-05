@@ -388,20 +388,20 @@ QMimeData* GroupModel::mimeData(const QModelIndexList &indexes) const
 		return nullptr;
 	}
 
-	QMimeData *data = new QMimeData();
+	QMimeData *data_ptr = new QMimeData();
 	QByteArray encoded;
 	QDataStream stream(&encoded, QIODevice::WriteOnly);
 
 	QSet<Group*> seenGroups;
 
-	for (const QModelIndex &index: indexes)
+	for (const QModelIndex &index_iter: indexes)
 	{
-		if (!index.isValid())
+		if (!index_iter.isValid())
 		{
 			continue;
 		}
 
-		Group *group = groupFromIndex(index);
+		Group *group = groupFromIndex(index_iter);
 		if (!seenGroups.contains(group))
 		{
 			// make sure we don't add groups multiple times when we get indexes
@@ -413,13 +413,13 @@ QMimeData* GroupModel::mimeData(const QModelIndexList &indexes) const
 
 	if (seenGroups.isEmpty())
 	{
-		delete data;
+		delete data_ptr;
 		return nullptr;
 	}
 	else
 	{
-		data->setData(mimeTypes().at(0), encoded);
-		return data;
+		data_ptr->setData(mimeTypes().at(0), encoded);
+		return data_ptr;
 	}
 }
 
@@ -504,7 +504,7 @@ void GroupModel::sortChildren(Group *rootGroup, bool reverse)
 	Q_EMIT layoutChanged();
 }
 
-void GroupModel::collectIndexesRecursively(QList<QModelIndex> &indexes, QList<Group*> groups)
+void GroupModel::collectIndexesRecursively(QList<QModelIndex> &indexes, const QList<Group*> &groups)
 {
 	for (auto group: groups)
 	{

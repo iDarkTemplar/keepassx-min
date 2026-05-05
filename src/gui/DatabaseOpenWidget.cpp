@@ -394,22 +394,22 @@ void DatabaseOpenWidget::reject()
 bool DatabaseOpenWidget::browseKeyFile()
 {
 	QString filters = QStringLiteral("%1 (*);;%2 (*.keyx; *.key)").arg(tr("All files"), tr("Key files"));
-	QString filename = fileDialog()->getOpenFileName(this, tr("Select key file"), FileDialog::getLastDir(QStringLiteral("keyfile")), filters);
-	if (filename.isEmpty())
+	QString filename_value = fileDialog()->getOpenFileName(this, tr("Select key file"), FileDialog::getLastDir(QStringLiteral("keyfile")), filters);
+	if (filename_value.isEmpty())
 	{
 		return false;
 	}
 
 	if (config()->get(Config::RememberLastKeyFiles).toBool())
 	{
-		FileDialog::saveLastDir(QStringLiteral("keyfile"), filename, true);
+		FileDialog::saveLastDir(QStringLiteral("keyfile"), filename_value, true);
 	}
 	else
 	{
 		FileDialog::saveLastDir(QStringLiteral("keyfile"), {});
 	}
 
-	if (QFileInfo(filename).canonicalFilePath() == QFileInfo(m_filename).canonicalFilePath())
+	if (QFileInfo(filename_value).canonicalFilePath() == QFileInfo(m_filename).canonicalFilePath())
 	{
 		MessageBox::warning(this,
 			tr("Cannot use database file as key file"),
@@ -420,7 +420,7 @@ bool DatabaseOpenWidget::browseKeyFile()
 		return false;
 	}
 
-	if (filename.endsWith(QStringLiteral(".kdbxm")) && MessageBox::warning(this,
+	if (filename_value.endsWith(QStringLiteral(".kdbxm")) && MessageBox::warning(this,
 		tr("KeePassX-min database file selected"),
 		tr("The file you selected looks like a database file.\nA database file is NOT a key "
 			"file!\n\nAre you sure you want to continue with this file?."),
@@ -431,7 +431,7 @@ bool DatabaseOpenWidget::browseKeyFile()
 		return false;
 	}
 
-	m_ui->keyFileLineEdit->setText(filename);
+	m_ui->keyFileLineEdit->setText(filename_value);
 	return true;
 }
 

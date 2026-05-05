@@ -184,8 +184,8 @@ QPixmap Icons::customIconPixmap(const Database *db, const QUuid &uuid, IconSize 
 	}
 
 	// Generate QIcon with pre-baked resolutions
-	auto icon = QImage::fromData(db->metadata()->customIcon(uuid).data);
-	auto basePixmap = QPixmap::fromImage(icon.scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	auto icon_data = QImage::fromData(db->metadata()->customIcon(uuid).data);
+	auto basePixmap = QPixmap::fromImage(icon_data.scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 	return QIcon(basePixmap).pixmap(databaseIcons()->iconSize(size));
 }
 
@@ -203,48 +203,48 @@ QHash<QUuid, QPixmap> Icons::customIconsPixmaps(const Database *db, IconSize siz
 
 QPixmap Icons::entryIconPixmap(const Entry *entry, IconSize size)
 {
-	QPixmap icon(size, size);
+	QPixmap icon_pixmap(size, size);
 	if (entry->iconUuid().isNull())
 	{
-		icon = databaseIcons()->icon(entry->iconNumber(), size);
+		icon_pixmap = databaseIcons()->icon(entry->iconNumber(), size);
 	}
 	else
 	{
 		if (entry->database())
 		{
-			icon = Icons::customIconPixmap(entry->database(), entry->iconUuid(), size);
+			icon_pixmap = Icons::customIconPixmap(entry->database(), entry->iconUuid(), size);
 		}
 	}
 
 	if (entry->isExpired())
 	{
-		icon = databaseIcons()->applyBadge(icon, DatabaseIcons::Badges::Expired);
+		icon_pixmap = databaseIcons()->applyBadge(icon_pixmap, DatabaseIcons::Badges::Expired);
 	}
 
-	return icon;
+	return icon_pixmap;
 }
 
 QPixmap Icons::groupIconPixmap(const Group *group, IconSize size)
 {
-	QPixmap icon(size, size);
+	QPixmap icon_pixmap(size, size);
 	if (group->iconUuid().isNull())
 	{
-		icon = databaseIcons()->icon(group->iconNumber(), size);
+		icon_pixmap = databaseIcons()->icon(group->iconNumber(), size);
 	}
 	else
 	{
 		if (group->database())
 		{
-			icon = Icons::customIconPixmap(group->database(), group->iconUuid(), size);
+			icon_pixmap = Icons::customIconPixmap(group->database(), group->iconUuid(), size);
 		}
 	}
 
 	if (group->isExpired())
 	{
-		icon = databaseIcons()->applyBadge(icon, DatabaseIcons::Badges::Expired);
+		icon_pixmap = databaseIcons()->applyBadge(icon_pixmap, DatabaseIcons::Badges::Expired);
 	}
 
-	return icon;
+	return icon_pixmap;
 }
 
 QString Icons::imageFormatsFilter()

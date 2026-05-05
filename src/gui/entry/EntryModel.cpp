@@ -569,7 +569,7 @@ QMimeData* EntryModel::mimeData(const QModelIndexList &indexes) const
 		return nullptr;
 	}
 
-	QMimeData *data = new QMimeData();
+	QMimeData *data_ptr = new QMimeData();
 	QByteArray encoded;
 	QDataStream stream(&encoded, QIODevice::WriteOnly);
 
@@ -594,13 +594,13 @@ QMimeData* EntryModel::mimeData(const QModelIndexList &indexes) const
 
 	if (seenEntries.isEmpty())
 	{
-		delete data;
+		delete data_ptr;
 		return nullptr;
 	}
 	else
 	{
-		data->setData(mimeTypes().at(0), encoded);
-		return data;
+		data_ptr->setData(mimeTypes().at(0), encoded);
+		return data_ptr;
 	}
 }
 

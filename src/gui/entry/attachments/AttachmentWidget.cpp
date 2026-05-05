@@ -26,6 +26,7 @@
 
 AttachmentWidget::AttachmentWidget(QWidget *parent)
 	: QWidget(parent)
+	, m_mode(attachments::OpenMode::ReadOnly)
 {
 	setWindowTitle(tr("Attachment Viewer"));
 

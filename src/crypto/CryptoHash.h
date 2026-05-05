@@ -33,6 +33,7 @@ public:
 
 	explicit CryptoHash(Algorithm algo, bool hmac = false);
 	~CryptoHash();
+	Q_DISABLE_COPY(CryptoHash)
 
 	void addData(const QByteArray &data);
 	QByteArray result() const;

@@ -654,17 +654,6 @@ void KdbxXmlWriter::writeTriState(QAnyStringView qualifiedName, Group::TriState 
 	writeString(qualifiedName, value);
 }
 
-QString KdbxXmlWriter::colorPartToString(int value)
-{
-	QString str = QString::number(value, 16).toUpper();
-	if (str.length() == 1)
-	{
-		str.prepend(QStringLiteral("0"));
-	}
-
-	return str;
-}
-
 QString KdbxXmlWriter::stripInvalidXml10Chars(QString str)
 {
 	for (int i = str.size() - 1; i >= 0; i--)

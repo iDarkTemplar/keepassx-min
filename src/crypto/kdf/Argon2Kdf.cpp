@@ -110,8 +110,8 @@ bool Argon2Kdf::processParameters(const QVariantMap &p)
 	}
 
 	bool ok;
-	quint32 version = p.value(KeePass2::KDFPARAM_ARGON2_VERSION).toUInt(&ok);
-	if (!ok || !setVersion(version))
+	quint32 version_value = p.value(KeePass2::KDFPARAM_ARGON2_VERSION).toUInt(&ok);
+	if (!ok || !setVersion(version_value))
 	{
 		return false;
 	}
@@ -122,8 +122,8 @@ bool Argon2Kdf::processParameters(const QVariantMap &p)
 		return false;
 	}
 
-	quint64 memory = p.value(KeePass2::KDFPARAM_ARGON2_MEMORY).toULongLong(&ok) / 1024ULL;
-	if (!ok || !setMemory(memory))
+	quint64 memory_value = p.value(KeePass2::KDFPARAM_ARGON2_MEMORY).toULongLong(&ok) / 1024ULL;
+	if (!ok || !setMemory(memory_value))
 	{
 		return false;
 	}

@@ -238,7 +238,6 @@ bool SymmetricCipherStream::writeBlock(bool lastBlock)
 
 	if (lastBlock && !m_streamCipher)
 	{
-		QByteArray end;
 		if (!m_cipher->finish(m_buffer))
 		{
 			m_error = true;

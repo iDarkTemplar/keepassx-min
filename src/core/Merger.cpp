@@ -40,9 +40,9 @@ Merger::Change::Change(Type type, const Entry &entry, QString details)
 	, m_uuid{entry.uuid()}
 	, m_details{std::move(details)}
 {
-	if (const auto *group = entry.group())
+	if (const auto *group_iter = entry.group())
 	{
-		m_group = group->fullPath();
+		m_group = group_iter->fullPath();
 	}
 }
 

@@ -76,7 +76,6 @@ private:
 	void writeUuid(QAnyStringView qualifiedName, const Entry *entry);
 	void writeBinary(QAnyStringView qualifiedName, const QByteArray &ba);
 	void writeTriState(QAnyStringView qualifiedName, Group::TriState triState);
-	QString colorPartToString(int value);
 	QString stripInvalidXml10Chars(QString str);
 
 	void raiseError(const QString &errorMessage);

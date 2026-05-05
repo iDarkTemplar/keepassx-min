@@ -507,8 +507,6 @@ QPair<QString, QString> Config::defaultConfigFiles()
 	configPath = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/keepassxmin");
 	localConfigPath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + QStringLiteral("/keepassxmin");
 
-	QString suffix;
-
 	configPath += QStringLiteral("/keepassxmin.ini");
 	localConfigPath += QStringLiteral("/keepassxmin.ini");
 

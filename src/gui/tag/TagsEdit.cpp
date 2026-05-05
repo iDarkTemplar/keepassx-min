@@ -591,8 +591,8 @@ struct TagsEdit::Impl
 
 	void ensureCursorIsVisibleH()
 	{
-		auto const hscroll = ifce->horizontalScrollBar()->value();
-		auto const contents_rect = contentsRect().translated(hscroll, 0);
+		auto const hscroll_value = ifce->horizontalScrollBar()->value();
+		auto const contents_rect = contentsRect().translated(hscroll_value, 0);
 		auto const cursor_x = (currentRect() - tag_inner).left() + qRound(cursorToX());
 
 		if (contents_rect.right() < cursor_x)
@@ -616,7 +616,6 @@ struct TagsEdit::Impl
 	int select_size;
 	bool cross_deleter;
 	std::unique_ptr<QCompleter> completer;
-	int hscroll{0};
 };
 
 TagsEdit::TagsEdit(QWidget *parent)

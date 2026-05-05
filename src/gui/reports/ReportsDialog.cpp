@@ -71,7 +71,7 @@ ReportsDialog::ReportsDialog(QWidget *parent)
 	adjustSize();
 
 	connect(m_ui->categoryList, &CategoryListWidget::categoryChanged, m_ui->stackedWidget, &QStackedWidget::setCurrentIndex);
-	connect(m_healthPage->m_healthWidget, &ReportsWidgetHealthcheck::entryActivated, this, &ReportsDialog::entryActivationSignalReceived);
+	connect(m_healthPage->getHealthWidget(), &ReportsWidgetHealthcheck::entryActivated, this, &ReportsDialog::entryActivationSignalReceived);
 	connect(m_editEntryWidget, &EditEntryWidget::editFinished, this, &ReportsDialog::switchToMainView);
 }
 
@@ -128,9 +128,9 @@ void ReportsDialog::switchToMainView(bool previousDialogAccepted)
 	// re-compute Health Check
 	if (previousDialogAccepted)
 	{
-		if (m_sender == m_healthPage->m_healthWidget)
+		if (m_sender == m_healthPage->getHealthWidget())
 		{
-			m_healthPage->m_healthWidget->calculateHealth();
+			m_healthPage->getHealthWidget()->calculateHealth();
 		}
 	}
 

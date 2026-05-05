@@ -77,6 +77,7 @@ public:
 
 	QtIOCompressorPrivate(QtIOCompressor *q_ptr, QIODevice *device, int compressionLevel, int bufferSize);
 	~QtIOCompressorPrivate();
+	Q_DISABLE_COPY(QtIOCompressorPrivate)
 
 	void flushZlib(int flushMode);
 	bool writeBytes(ZlibByte *buffer, ZlibSize outputSize);
@@ -101,6 +102,7 @@ QtIOCompressorPrivate::QtIOCompressorPrivate(QtIOCompressor *q_ptr,
                                              int bufferSize)
 	: q_ptr(q_ptr)
 	, device(device)
+	, manageDevice(false)
 	, compressionLevel(compressionLevel)
 	, bufferSize(bufferSize)
 	, buffer(new ZlibByte[bufferSize])
@@ -601,11 +603,11 @@ qint64 QtIOCompressor::readData(char *data, qint64 maxSize)
 		// from a previous readData call.
 		if (d->zlibStream.avail_in == 0)
 		{
-			qint64 bytesAvailable = d->device->read(reinterpret_cast<char*>(d->buffer), d->bufferSize);
+			qint64 bytesAvailableValue = d->device->read(reinterpret_cast<char*>(d->buffer), d->bufferSize);
 			d->zlibStream.next_in = d->buffer;
-			d->zlibStream.avail_in = bytesAvailable;
+			d->zlibStream.avail_in = bytesAvailableValue;
 
-			if (bytesAvailable == -1)
+			if (bytesAvailableValue == -1)
 			{
 				d->state = QtIOCompressorPrivate::Error;
 				setErrorString(QObject::tr("Error reading data from underlying device: %1").arg(d->device->errorString()));
@@ -616,11 +618,11 @@ qint64 QtIOCompressor::readData(char *data, qint64 maxSize)
 			if (d->state != QtIOCompressorPrivate::InStream)
 			{
 				// If we are not in a stream and get 0 bytes, we are probably trying to read from an empty device.
-				if (bytesAvailable == 0)
+				if (bytesAvailableValue == 0)
 				{
 					return 0;
 				}
-				else if (bytesAvailable > 0)
+				else if (bytesAvailableValue > 0)
 				{
 					d->state = QtIOCompressorPrivate::InStream;
 				}

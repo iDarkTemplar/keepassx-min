@@ -201,11 +201,11 @@ void FileKey::deserialize(const QByteArray &data)
 	if (uuid().toRfc4122() == uuidData)
 	{
 		QByteArray key;
-		qint32 type;
-		stream >> key >> type >> m_file;
+		qint32 type_value;
+		stream >> key >> type_value >> m_file;
 
 		setRawKey(key);
-		m_type = static_cast<Type>(type);
+		m_type = static_cast<Type>(type_value);
 	}
 }
 

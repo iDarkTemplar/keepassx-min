@@ -50,3 +50,8 @@ void ReportsPageHealthcheck::saveSettings(QWidget *widget)
 	const auto settingsWidget = reinterpret_cast<ReportsWidgetHealthcheck*>(widget);
 	settingsWidget->saveSettings();
 }
+
+ReportsWidgetHealthcheck* ReportsPageHealthcheck::getHealthWidget() const
+{
+	return m_healthWidget;
+}

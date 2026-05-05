@@ -891,43 +891,43 @@ void DatabaseWidget::createGroup()
 
 void DatabaseWidget::cloneGroup()
 {
-	Group *currentGroup = m_groupView->currentGroup();
-	Q_ASSERT(currentGroup && canCloneCurrentGroup());
-	if (!currentGroup || !canCloneCurrentGroup())
+	Group *currentGroupPtr = m_groupView->currentGroup();
+	Q_ASSERT(currentGroupPtr && canCloneCurrentGroup());
+	if (!currentGroupPtr || !canCloneCurrentGroup())
 	{
 		return;
 	}
 
-	m_newGroup.reset(currentGroup->clone(Entry::CloneCopy, Group::CloneDefault | Group::CloneRenameTitle));
-	m_newParent = currentGroup->parentGroup();
+	m_newGroup.reset(currentGroupPtr->clone(Entry::CloneCopy, Group::CloneDefault | Group::CloneRenameTitle));
+	m_newParent = currentGroupPtr->parentGroup();
 	switchToGroupEdit(m_newGroup.get(), true);
 }
 
 void DatabaseWidget::deleteGroup()
 {
-	Group *currentGroup = m_groupView->currentGroup();
-	Q_ASSERT(currentGroup && canDeleteCurrentGroup());
-	if (!currentGroup || !canDeleteCurrentGroup())
+	Group *currentGroupPtr = m_groupView->currentGroup();
+	Q_ASSERT(currentGroupPtr && canDeleteCurrentGroup());
+	if (!currentGroupPtr || !canDeleteCurrentGroup())
 	{
 		return;
 	}
 
 	auto *recycleBin = m_db->metadata()->recycleBin();
-	bool inRecycleBin = recycleBin && recycleBin->findGroupByUuid(currentGroup->uuid());
-	bool isRecycleBin = recycleBin && (currentGroup == recycleBin);
-	bool isRecycleBinSubgroup = recycleBin && currentGroup->findGroupByUuid(recycleBin->uuid());
+	bool inRecycleBin = recycleBin && recycleBin->findGroupByUuid(currentGroupPtr->uuid());
+	bool isRecycleBin = recycleBin && (currentGroupPtr == recycleBin);
+	bool isRecycleBinSubgroup = recycleBin && currentGroupPtr->findGroupByUuid(recycleBin->uuid());
 	if (inRecycleBin || isRecycleBin || isRecycleBinSubgroup || !m_db->metadata()->recycleBinEnabled())
 	{
 		auto result = MessageBox::question(
 			this,
 			tr("Confirm Delete Group"),
-			tr("Do you really want to permanently delete the group \"%1\"?").arg(currentGroup->name().toHtmlEscaped()),
+			tr("Do you really want to permanently delete the group \"%1\"?").arg(currentGroupPtr->name().toHtmlEscaped()),
 			MessageBox::Delete | MessageBox::Cancel,
 			MessageBox::Cancel);
 
 		if (result == MessageBox::Delete)
 		{
-			delete currentGroup;
+			delete currentGroupPtr;
 		}
 	}
 	else
@@ -936,13 +936,13 @@ void DatabaseWidget::deleteGroup()
 			tr("Confirm Recycle Group"),
 			tr("Do you really want to move the group "
 				"\"%1\" to the recycle bin?")
-				.arg(currentGroup->name().toHtmlEscaped()),
+				.arg(currentGroupPtr->name().toHtmlEscaped()),
 			MessageBox::Move | MessageBox::Cancel,
 			MessageBox::Cancel);
 
 		if (result == MessageBox::Move)
 		{
-			m_db->recycleGroup(currentGroup);
+			m_db->recycleGroup(currentGroupPtr);
 		}
 	}
 }
@@ -1610,8 +1610,8 @@ void DatabaseWidget::onEntryChanged(Entry *entry)
 
 bool DatabaseWidget::canCloneCurrentGroup() const
 {
-	auto currentGroup = m_groupView->currentGroup();
-	return currentGroup != m_db->rootGroup() && currentGroup != m_db->metadata()->recycleBin();
+	auto currentGroupPtr = m_groupView->currentGroup();
+	return currentGroupPtr != m_db->rootGroup() && currentGroupPtr != m_db->metadata()->recycleBin();
 }
 
 bool DatabaseWidget::canDeleteCurrentGroup() const
@@ -1957,7 +1957,7 @@ void DatabaseWidget::reloadDatabaseFile(bool triggeredBySave)
 	}
 
 	bool merge = false;
-	QString changesActionStr;
+
 	if (triggeredBySave || m_db->isModified() || m_db->hasNonDataChanges())
 	{
 		Q_EMIT updateSyncProgress(50, tr("Reload pending user action…"));

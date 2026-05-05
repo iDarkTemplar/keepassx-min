@@ -250,11 +250,9 @@ void wait(int ms)
 	}
 	else
 	{
-		int timeLeft;
-
 		do
 		{
-			timeLeft = ms - timer.elapsed();
+			int timeLeft = ms - timer.elapsed();
 			if (timeLeft > 0)
 			{
 				QCoreApplication::processEvents(QEventLoop::AllEvents, timeLeft);

@@ -50,14 +50,14 @@ Group::~Group()
 
 	// Destroy entries and children manually so DeletedObjects can be added
 	// to database.
-	const QList<Entry*> entries = m_entries;
-	for (Entry *entry: entries)
+	const QList<Entry*> entries_list = m_entries;
+	for (Entry *entry: entries_list)
 	{
 		delete entry;
 	}
 
-	const QList<Group*> children = m_children;
-	for (Group *group: children)
+	const QList<Group*> children_list = m_children;
+	for (Group *group: children_list)
 	{
 		delete group;
 	}
@@ -624,9 +624,9 @@ QList<Entry*> Group::entriesRecursive(bool includeHistoryItems) const
 
 QList<Entry*> Group::referencesRecursive(const Entry *entry) const
 {
-	auto entries = entriesRecursive();
+	auto entries_list = entriesRecursive();
 	return QtConcurrent::blockingFiltered(
-		entries,
+		entries_list,
 		[entry](const Entry *e) { return e->hasReferencesTo(entry->uuid()); });
 }
 
@@ -637,13 +637,13 @@ Entry* Group::findEntryByUuid(const QUuid &uuid, bool recursive) const
 		return nullptr;
 	}
 
-	auto entries = m_entries;
+	auto entries_list = m_entries;
 	if (recursive)
 	{
-		entries = entriesRecursive(false);
+		entries_list = entriesRecursive(false);
 	}
 
-	for (auto entry: entries)
+	for (auto entry: entries_list)
 	{
 		if (entry->uuid() == uuid)
 		{

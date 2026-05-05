@@ -190,10 +190,10 @@ QByteArray Base32::encode(const QByteArray &data)
 		}
 
 		mask = MASK_40BIT;
-		int index;
+
 		for (n = 35; n >= 0; n -= 5)
 		{
-			index = (quantum & mask) >> n;
+			int index = (quantum & mask) >> n;
 			Q_ASSERT((0 <= index) && (index <= 31));
 			encodedData[o++] = alphabet[index];
 			mask >>= 5;

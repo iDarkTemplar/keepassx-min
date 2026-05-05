@@ -316,14 +316,14 @@ QStringList Entry::getAdditionalUrls() const
 
 QString Entry::webUrl() const
 {
-	QString url = resolveMultiplePlaceholders(m_attributes->value(EntryAttributes::URLKey));
-	return resolveUrl(url);
+	QString url_value = resolveMultiplePlaceholders(m_attributes->value(EntryAttributes::URLKey));
+	return resolveUrl(url_value);
 }
 
 QString Entry::displayUrl() const
 {
-	QString url = maskPasswordPlaceholders(m_attributes->value(EntryAttributes::URLKey));
-	return resolveMultiplePlaceholders(url);
+	QString url_value = maskPasswordPlaceholders(m_attributes->value(EntryAttributes::URLKey));
+	return resolveMultiplePlaceholders(url_value);
 }
 
 QString Entry::username() const
@@ -818,8 +818,7 @@ void Entry::truncateHistory()
 	int histMaxSize = db->metadata()->historyMaxSize();
 	if (histMaxSize > -1)
 	{
-		int size = 0;
-		QSet<QByteArray> foundAttachments = attachments()->values();
+		int size_value = 0;
 
 		QMutableListIterator<Entry*> i(m_history);
 		i.toBack();
@@ -828,13 +827,12 @@ void Entry::truncateHistory()
 			Entry *historyItem = i.previous();
 
 			// don't calculate size if it's already above the maximum
-			if (size <= histMaxSize)
+			if (size_value <= histMaxSize)
 			{
-				size += historyItem->size();
-				foundAttachments += historyItem->attachments()->values();
+				size_value += historyItem->size();
 			}
 
-			if (size > histMaxSize)
+			if (size_value > histMaxSize)
 			{
 				delete historyItem;
 				i.remove();
@@ -1469,13 +1467,16 @@ void Entry::setGroup(Group *group, bool trackPrevious)
 	if (m_group)
 	{
 		m_group->removeEntry(this);
+
 		if (m_group->database() && m_group->database() != group->database())
 		{
 			setPreviousParentGroup(nullptr);
 			m_group->database()->addDeletedObject(m_uuid);
 
 			// copy custom icon to the new database
-			if ((!iconUuid().isNull()) && group->database() && m_group->database()->metadata()->hasCustomIcon(iconUuid())
+			if ((!iconUuid().isNull())
+				&& group->database()
+				&& m_group->database()->metadata()->hasCustomIcon(iconUuid())
 				&& (!group->database()->metadata()->hasCustomIcon(iconUuid())))
 			{
 				group->database()->metadata()->addCustomIcon(
@@ -1483,7 +1484,7 @@ void Entry::setGroup(Group *group, bool trackPrevious)
 					m_group->database()->metadata()->customIcon(iconUuid()));
 			}
 		}
-		else if (trackPrevious && m_group->database() && (group != m_group))
+		else if (trackPrevious && m_group->database())
 		{
 			setPreviousParentGroup(m_group);
 		}

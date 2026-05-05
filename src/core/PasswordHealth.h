@@ -31,10 +31,10 @@ class Entry;
 class PasswordHealth
 {
 public:
-	explicit PasswordHealth(double entropy);
+	explicit PasswordHealth(double entropy_value);
 	explicit PasswordHealth(const QString &pwd);
 
-	void init(double entropy);
+	void init(double entropy_value);
 
 	/*
 	 * The password score is defined to be the greater the better

@@ -24,15 +24,19 @@ class ReportsWidgetHealthcheck;
 class ReportsPageHealthcheck: public IReportsPage
 {
 public:
-	ReportsWidgetHealthcheck *m_healthWidget;
-
 	ReportsPageHealthcheck();
+	Q_DISABLE_COPY(ReportsPageHealthcheck)
 
 	QString name() override;
 	QIcon icon() override;
 	QWidget *createWidget() override;
 	void loadSettings(QWidget *widget, QSharedPointer<Database> db) override;
 	void saveSettings(QWidget *widget) override;
+
+	ReportsWidgetHealthcheck* getHealthWidget() const;
+
+private:
+	ReportsWidgetHealthcheck *m_healthWidget;
 };
 
 #endif // KEEPASSXC_REPORTSPAGEHEALTHCHECK_H

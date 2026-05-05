@@ -249,7 +249,7 @@ int CustomData::size() const
 
 int CustomData::dataSize() const
 {
-	int size = 0;
+	int size_value = 0;
 
 	QHashIterator<QString, CustomDataItem> i(m_data);
 	while (i.hasNext())
@@ -260,8 +260,8 @@ int CustomData::dataSize() const
 		// length calculations rather unpredictable. We also don't know if this instance
 		// is entry/group-level CustomData or global CustomData (the only CustomData that
 		// actually retains the datetime in the KDBX file).
-		size += i.key().toUtf8().size() + i.value().value.toUtf8().size();
+		size_value += i.key().toUtf8().size() + i.value().value.toUtf8().size();
 	}
 
-	return size;
+	return size_value;
 }
