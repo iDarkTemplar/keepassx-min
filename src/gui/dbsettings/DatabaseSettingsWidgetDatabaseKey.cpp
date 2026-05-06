@@ -166,19 +166,6 @@ bool DatabaseSettingsWidgetDatabaseKey::saveSettings()
 
 	if (m_passwordEditWidget->visiblePage() == KeyComponentWidget::Page::Edit && !m_passwordEditWidget->isEmpty())
 	{
-		// Prevent setting password with a quality less than the minimum required
-		auto minQuality = qBound(0, config()->get(Config::Security_DatabasePasswordMinimumQuality).toInt(), 4);
-		if (m_passwordEditWidget->getPasswordQuality() < static_cast<PasswordHealth::Quality>(minQuality))
-		{
-			MessageBox::critical(this,
-				tr("Weak password"),
-				tr("The provided password does not meet the minimum quality requirement."),
-				MessageBox::Ok,
-				MessageBox::Ok);
-
-			return false;
-		}
-
 		// Show warning if database password is weak or poor
 		if (m_passwordEditWidget->getPasswordQuality() < PasswordHealth::Quality::Good)
 		{

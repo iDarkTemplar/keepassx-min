@@ -53,11 +53,9 @@ public:
 		AutoGeneratePasswordForNewEntries,
 		DropToBackgroundOnCopy,
 		UseGroupIconOnEntryCreation,
-		DefaultDatabaseFileName,
 
 		LastDatabases,
 		LastKeyFiles,
-		LastChallengeResponse,
 		LastActiveDatabase,
 		LastOpenedDatabases,
 		LastDir,
@@ -105,13 +103,6 @@ public:
 		Security_HideTotpPreviewPanel,
 		Security_NoConfirmMoveEntryToRecycleBin,
 		Security_EnableCopyOnDoubleClick,
-		Security_DatabasePasswordMinimumQuality,
-
-		FdoSecrets_Enabled,
-		FdoSecrets_ShowNotification,
-		FdoSecrets_ConfirmDeleteItem,
-		FdoSecrets_ConfirmAccessItem,
-		FdoSecrets_UnlockBeforeSearch,
 
 		PasswordGenerator_LowerCase,
 		PasswordGenerator_UpperCase,
@@ -137,7 +128,6 @@ public:
 		PasswordGenerator_Type,
 
 		Messages_NoLegacyKeyFileWarning,
-		Messages_HidePreReleaseWarning,
 
 		// Special internal value
 		Deleted

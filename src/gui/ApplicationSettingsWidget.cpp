@@ -310,7 +310,6 @@ void ApplicationSettingsWidget::saveSettings()
 	{
 		config()->remove(Config::LastDir);
 		config()->remove(Config::LastKeyFiles);
-		config()->remove(Config::LastChallengeResponse);
 	}
 
 	for (const ExtraPage &page: asConst(m_extraPages))

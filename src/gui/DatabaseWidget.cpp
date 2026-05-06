@@ -51,7 +51,6 @@
 #include "gui/group/GroupView.h"
 #include "gui/reports/ReportsDialog.h"
 #include "gui/tag/TagView.h"
-#include "gui/widgets/ElidedLabel.h"
 
 DatabaseWidget::DatabaseWidget(QSharedPointer<Database> db, QWidget *parent)
 	: QStackedWidget(parent)
@@ -2249,9 +2248,7 @@ bool DatabaseWidget::saveAs()
 	QString oldFilePath = m_db->filePath();
 	if (!QFileInfo::exists(oldFilePath))
 	{
-		QString defaultFileName = config()->get(Config::DefaultDatabaseFileName).toString();
-		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir(QStringLiteral("db")) + QStringLiteral("/")
-			+ (defaultFileName.isEmpty() ? tr("Passwords").append(QStringLiteral(".kdbxm")) : defaultFileName));
+		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir(QStringLiteral("db")) + QStringLiteral("/") + tr("Passwords") + QStringLiteral(".kdbxm"));
 	}
 
 	const QString newFilePath = fileDialog()->getSaveFileName(
@@ -2344,9 +2341,7 @@ bool DatabaseWidget::saveBackup()
 	QString oldFilePath = m_db->filePath();
 	if (!QFileInfo::exists(oldFilePath))
 	{
-		QString defaultFileName = config()->get(Config::DefaultDatabaseFileName).toString();
-		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir(QStringLiteral("db")) + QStringLiteral("/")
-			+ (defaultFileName.isEmpty() ? tr("Passwords").append(QStringLiteral(".kdbxm")) : defaultFileName));
+		oldFilePath = QDir::toNativeSeparators(FileDialog::getLastDir(QStringLiteral("db")) + QStringLiteral("/") + tr("Passwords") + QStringLiteral(".kdbxm"));
 	}
 
 	const QString newFilePath = fileDialog()->getSaveFileName(this,

@@ -45,7 +45,6 @@ class QSplitter;
 class QLabel;
 class EntryPreviewWidget;
 class TagView;
-class ElidedLabel;
 
 namespace Ui {
 

@@ -28,7 +28,7 @@
 #include <QStandardPaths>
 #include <QTemporaryFile>
 
-#define CONFIG_VERSION 20260505
+#define CONFIG_VERSION 20260506
 #define QS QStringLiteral
 
 enum ConfigType
@@ -67,11 +67,9 @@ static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
 	{Config::MinimizeAfterUnlock,{QS("MinimizeAfterUnlock"), Roaming, false}},
 	{Config::DropToBackgroundOnCopy,{QS("DropToBackgroundOnCopy"), Roaming, false}},
 	{Config::UseGroupIconOnEntryCreation,{QS("UseGroupIconOnEntryCreation"), Roaming, true}},
-	{Config::DefaultDatabaseFileName,{QS("DefaultDatabaseFileName"), Roaming, {}}},
 
 	{Config::LastDatabases, {QS("LastDatabases"), Local, {}}},
 	{Config::LastKeyFiles, {QS("LastKeyFiles"), Local, {}}},
-	{Config::LastChallengeResponse, {QS("LastChallengeResponse"), Local, {}}},
 	{Config::LastActiveDatabase, {QS("LastActiveDatabase"), Local, {}}},
 	{Config::LastOpenedDatabases, {QS("LastOpenedDatabases"), Local, {}}},
 	{Config::LastDir, {QS("LastDir"), Local, QDir::homePath()}},
@@ -121,14 +119,6 @@ static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
 	{Config::Security_HideTotpPreviewPanel, {QS("Security/HideTotpPreviewPanel"), Roaming, false}},
 	{Config::Security_NoConfirmMoveEntryToRecycleBin,{QS("Security/NoConfirmMoveEntryToRecycleBin"), Roaming, true}},
 	{Config::Security_EnableCopyOnDoubleClick,{QS("Security/EnableCopyOnDoubleClick"), Roaming, false}},
-	{Config::Security_DatabasePasswordMinimumQuality, {QS("Security/DatabasePasswordMinimumQuality"), Local, 0}},
-
-	// FdoSecrets
-	{Config::FdoSecrets_Enabled, {QS("FdoSecrets/Enabled"), Roaming, false}},
-	{Config::FdoSecrets_ShowNotification, {QS("FdoSecrets/ShowNotification"), Roaming, true}},
-	{Config::FdoSecrets_ConfirmDeleteItem, {QS("FdoSecrets/ConfirmDeleteItem"), Roaming, true}},
-	{Config::FdoSecrets_ConfirmAccessItem, {QS("FdoSecrets/ConfirmAccessItem"), Roaming, true}},
-	{Config::FdoSecrets_UnlockBeforeSearch, {QS("FdoSecrets/UnlockBeforeSearch"), Roaming, true}},
 
 	// PasswordGenerator
 	{Config::PasswordGenerator_LowerCase, {QS("PasswordGenerator/LowerCase"), Roaming, true}},
@@ -156,7 +146,7 @@ static const QHash<Config::ConfigKey, ConfigDirective> configStrings = {
 
 	// Messages
 	{Config::Messages_NoLegacyKeyFileWarning, {QS("Messages/NoLegacyKeyFileWarning"), Roaming, false}},
-	{Config::Messages_HidePreReleaseWarning, {QS("Messages/HidePreReleaseWarning"), Local, {}}}};
+};
 
 std::unique_ptr<Config> Config::m_instance;
 
@@ -426,6 +416,17 @@ static const QHash<QString, Config::ConfigKey> deprecationMap = {
 	{QS("KeeShare/Own"), Config::Deleted},
 	{QS("KeeShare/Foreign"), Config::Deleted},
 	{QS("KeeShare/Active"), Config::Deleted},
+
+	// KeePassX-min 20260506
+	{QS("Messages/HidePreReleaseWarning"), Config::Deleted},
+	{QS("DefaultDatabaseFileName"), Config::Deleted},
+	{QS("LastChallengeResponse"), Config::Deleted},
+	{QS("Security/DatabasePasswordMinimumQuality"), Config::Deleted},
+	{QS("FdoSecrets/Enabled"), Config::Deleted},
+	{QS("FdoSecrets/ShowNotification"), Config::Deleted},
+	{QS("FdoSecrets/ConfirmDeleteItem"), Config::Deleted},
+	{QS("FdoSecrets/ConfirmAccessItem"), Config::Deleted},
+	{QS("FdoSecrets/UnlockBeforeSearch"), Config::Deleted},
 };
 
 /**
