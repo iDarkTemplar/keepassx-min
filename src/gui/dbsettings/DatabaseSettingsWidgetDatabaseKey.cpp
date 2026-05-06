@@ -121,7 +121,6 @@ bool DatabaseSettingsWidgetDatabaseKey::saveSettings()
 
 	QSharedPointer<Key> oldPasswordKey;
 	QSharedPointer<Key> oldFileKey;
-	QSharedPointer<ChallengeResponseKey> oldChallengeResponse;
 
 	for (const auto &key: m_db->key()->keys())
 	{

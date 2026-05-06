@@ -24,11 +24,9 @@
 class Database;
 class Key;
 class CompositeKey;
-class ChallengeResponseKey;
 class KeyComponentWidget;
 class PasswordEditWidget;
 class KeyFileEditWidget;
-class YubiKeyEditWidget;
 class QPushButton;
 
 class DatabaseSettingsWidgetDatabaseKey: public DatabaseSettingsWidget
