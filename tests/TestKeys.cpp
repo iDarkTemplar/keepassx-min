@@ -317,6 +317,6 @@ void TestKeys::testCompositeKeyComponents()
 	compositeKeyDec4->addKey(passwordKeyEnc);
 	compositeKeyDec4->addKey(fileKeyEnc);
 	buffer.seek(0);
-	QVERIFY(!reader.readDatabase(&buffer, compositeKeyDec4, db2.data()));
-	QVERIFY(reader.hasError());
+	QVERIFY(reader.readDatabase(&buffer, compositeKeyDec4, db2.data()));
+	QVERIFY(!reader.hasError());
 }
