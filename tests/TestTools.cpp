@@ -394,7 +394,7 @@ void TestTools::testGetMimeTypeByFileInfo()
 
 	for (const auto &unknown: UnknownHeaders)
 	{
-		QCOMPARE(Tools::getMimeType(unknown.toUtf8()), Tools::MimeType::Unknown);
+		QCOMPARE(Tools::getMimeType(QFileInfo(unknown)), Tools::MimeType::Unknown);
 	}
 }
 
