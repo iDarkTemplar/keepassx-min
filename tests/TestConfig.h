@@ -22,9 +22,9 @@
 class TestConfig: public QObject
 {
 	Q_OBJECT
+
 private slots:
 	void testUpgrade();
-	void testURLDoubleClickMigration();
 };
 
 #endif // KEEPASSX_TESTCONFIG_H
