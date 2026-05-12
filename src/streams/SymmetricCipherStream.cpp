@@ -245,11 +245,14 @@ bool SymmetricCipherStream::writeBlock(bool lastBlock)
 			return false;
 		}
 	}
-	else if (!m_cipher->process(m_buffer))
+	else if (!m_buffer.isEmpty())
 	{
-		m_error = true;
-		setErrorString(m_cipher->errorString());
-		return false;
+		if (!m_cipher->process(m_buffer))
+		{
+			m_error = true;
+			setErrorString(m_cipher->errorString());
+			return false;
+		}
 	}
 
 	if (m_baseDevice->write(m_buffer) != m_buffer.size())
