@@ -30,7 +30,6 @@ private slots:
 	void testAttributesModel();
 	void testDefaultIconModel();
 	void testCustomIconModel();
-	void testAutoTypeAssociationsModel();
 	void testProxyModel();
 	void testDatabaseDelete();
 };

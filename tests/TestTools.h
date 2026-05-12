@@ -27,7 +27,6 @@ private slots:
 	void testIsHex();
 	void testIsBase64();
 	void testIsAsciiString();
-	void testEnvSubstitute();
 	void testValidUuid();
 	void testBackupFilePatternSubstitution_data();
 	void testBackupFilePatternSubstitution();

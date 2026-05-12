@@ -38,26 +38,26 @@ void TestGroupModel::test()
 
 	Group *groupRoot = db->rootGroup();
 	groupRoot->setObjectName("groupRoot");
-	groupRoot->setName("groupRoot");
+	groupRoot->setName(QStringLiteral("groupRoot"));
 
 	Group *group1 = new Group();
 	group1->setObjectName("group1");
-	group1->setName("group1");
+	group1->setName(QStringLiteral("group1"));
 	group1->setParent(groupRoot);
 
 	Group *group11 = new Group();
 	group1->setObjectName("group11");
-	group11->setName("group11");
+	group11->setName(QStringLiteral("group11"));
 	group11->setParent(group1);
 
 	Group *group12 = new Group();
 	group1->setObjectName("group12");
-	group12->setName("group12");
+	group12->setName(QStringLiteral("group12"));
 	group12->setParent(group1);
 
 	Group *group121 = new Group();
 	group1->setObjectName("group121");
-	group121->setName("group121");
+	group121->setName(QStringLiteral("group121"));
 	group121->setParent(group12);
 
 	GroupModel *model = new GroupModel(db, this);
@@ -70,17 +70,17 @@ void TestGroupModel::test()
 	QPersistentModelIndex index12 = model->index(1, 0, index1);
 	QModelIndex index121 = model->index(0, 0, index12);
 
-	QCOMPARE(model->data(indexRoot).toString(), QString("groupRoot"));
-	QCOMPARE(model->data(index1).toString(), QString("group1"));
-	QCOMPARE(model->data(index11).toString(), QString("group11"));
-	QCOMPARE(model->data(index12).toString(), QString("group12"));
-	QCOMPARE(model->data(index121).toString(), QString("group121"));
+	QCOMPARE(model->data(indexRoot).toString(), QStringLiteral("groupRoot"));
+	QCOMPARE(model->data(index1).toString(), QStringLiteral("group1"));
+	QCOMPARE(model->data(index11).toString(), QStringLiteral("group11"));
+	QCOMPARE(model->data(index12).toString(), QStringLiteral("group12"));
+	QCOMPARE(model->data(index121).toString(), QStringLiteral("group121"));
 
 	QSignalSpy spy1(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)));
-	group11->setName("test");
+	group11->setName(QStringLiteral("test"));
 	group121->setIcon(4);
 	QCOMPARE(spy1.count(), 2);
-	QCOMPARE(model->data(index11).toString(), QString("test"));
+	QCOMPARE(model->data(index11).toString(), QStringLiteral("test"));
 
 	QSignalSpy spyAboutToAdd(model, SIGNAL(rowsAboutToBeInserted(QModelIndex, int, int)));
 	QSignalSpy spyAdded(model, SIGNAL(rowsInserted(QModelIndex, int, int)));
@@ -91,7 +91,7 @@ void TestGroupModel::test()
 
 	Group *group2 = new Group();
 	group2->setObjectName("group2");
-	group2->setName("group2");
+	group2->setName(QStringLiteral("group2"));
 	group2->setParent(groupRoot);
 	QModelIndex index2 = model->index(1, 0, indexRoot);
 	QCOMPARE(spyAboutToAdd.count(), 1);
@@ -100,7 +100,7 @@ void TestGroupModel::test()
 	QCOMPARE(spyRemoved.count(), 0);
 	QCOMPARE(spyAboutToMove.count(), 0);
 	QCOMPARE(spyMoved.count(), 0);
-	QCOMPARE(model->data(index2).toString(), QString("group2"));
+	QCOMPARE(model->data(index2).toString(), QStringLiteral("group2"));
 
 	group12->setParent(group1, 0);
 	QCOMPARE(spyAboutToAdd.count(), 1);
@@ -109,7 +109,7 @@ void TestGroupModel::test()
 	QCOMPARE(spyRemoved.count(), 0);
 	QCOMPARE(spyAboutToMove.count(), 1);
 	QCOMPARE(spyMoved.count(), 1);
-	QCOMPARE(model->data(index12).toString(), QString("group12"));
+	QCOMPARE(model->data(index12).toString(), QStringLiteral("group12"));
 
 	group12->setParent(group1, 1);
 	QCOMPARE(spyAboutToAdd.count(), 1);
@@ -118,7 +118,7 @@ void TestGroupModel::test()
 	QCOMPARE(spyRemoved.count(), 0);
 	QCOMPARE(spyAboutToMove.count(), 2);
 	QCOMPARE(spyMoved.count(), 2);
-	QCOMPARE(model->data(index12).toString(), QString("group12"));
+	QCOMPARE(model->data(index12).toString(), QStringLiteral("group12"));
 
 	group12->setParent(group2);
 	QCOMPARE(spyAboutToAdd.count(), 1);
@@ -128,8 +128,8 @@ void TestGroupModel::test()
 	QCOMPARE(spyAboutToMove.count(), 3);
 	QCOMPARE(spyMoved.count(), 3);
 	QVERIFY(index12.isValid());
-	QCOMPARE(model->data(index12).toString(), QString("group12"));
-	QCOMPARE(model->data(index12.model()->index(0, 0, index12)).toString(), QString("group121"));
+	QCOMPARE(model->data(index12).toString(), QStringLiteral("group12"));
+	QCOMPARE(model->data(index12.model()->index(0, 0, index12)).toString(), QStringLiteral("group121"));
 
 	delete group12;
 	QCOMPARE(spyAboutToAdd.count(), 1);

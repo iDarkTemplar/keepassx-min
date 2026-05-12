@@ -28,35 +28,35 @@ void TestPasswordHealth::initTestCase()
 
 void TestPasswordHealth::testNoDb()
 {
-	const auto empty = PasswordHealth("");
+	const auto empty = PasswordHealth(QString());
 	QCOMPARE(empty.score(), 0);
 	QCOMPARE(empty.entropy(), 0.0);
 	QCOMPARE(empty.quality(), PasswordHealth::Quality::Bad);
 	QVERIFY(!empty.scoreReason().isEmpty());
 	QVERIFY(!empty.scoreDetails().isEmpty());
 
-	const auto poor = PasswordHealth("secret");
+	const auto poor = PasswordHealth(QStringLiteral("secret"));
 	QCOMPARE(poor.score(), 6);
 	QCOMPARE(int(poor.entropy()), 6);
 	QCOMPARE(poor.quality(), PasswordHealth::Quality::Poor);
 	QVERIFY(!poor.scoreReason().isEmpty());
 	QVERIFY(!poor.scoreDetails().isEmpty());
 
-	const auto weak = PasswordHealth("Yohb2ChR4");
+	const auto weak = PasswordHealth(QStringLiteral("Yohb2ChR4"));
 	QCOMPARE(weak.score(), 47);
 	QCOMPARE(int(weak.entropy()), 47);
 	QCOMPARE(weak.quality(), PasswordHealth::Quality::Weak);
 	QVERIFY(!weak.scoreReason().isEmpty());
 	QVERIFY(!weak.scoreDetails().isEmpty());
 
-	const auto good = PasswordHealth("MIhIN9UKrgtPL2hp");
+	const auto good = PasswordHealth(QStringLiteral("MIhIN9UKrgtPL2hp"));
 	QCOMPARE(good.score(), 78);
 	QCOMPARE(int(good.entropy()), 78);
 	QCOMPARE(good.quality(), PasswordHealth::Quality::Good);
 	QVERIFY(good.scoreReason().isEmpty());
 	QVERIFY(good.scoreDetails().isEmpty());
 
-	const auto excellent = PasswordHealth("prompter-ream-oversleep-step-extortion-quarrel-reflected-prefix");
+	const auto excellent = PasswordHealth(QStringLiteral("prompter-ream-oversleep-step-extortion-quarrel-reflected-prefix"));
 	QCOMPARE(excellent.score(), 164);
 	QCOMPARE(int(excellent.entropy()), 164);
 	QCOMPARE(excellent.quality(), PasswordHealth::Quality::Excellent);

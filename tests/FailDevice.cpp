@@ -33,7 +33,7 @@ qint64 FailDevice::readData(char *data, qint64 len)
 {
 	if (m_readCount >= m_failAfter)
 	{
-		setErrorString("FAILDEVICE");
+		setErrorString(QStringLiteral("FAILDEVICE"));
 		return -1;
 	}
 	else
@@ -52,7 +52,7 @@ qint64 FailDevice::writeData(const char *data, qint64 len)
 {
 	if (m_writeCount >= m_failAfter)
 	{
-		setErrorString("FAILDEVICE");
+		setErrorString(QStringLiteral("FAILDEVICE"));
 		return -1;
 	}
 	else

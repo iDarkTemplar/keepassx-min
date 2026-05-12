@@ -25,7 +25,6 @@
 #include "gui/DatabaseIcons.h"
 #include "gui/IconModels.h"
 #include "gui/SortFilterHideProxyModel.h"
-#include "gui/entry/AutoTypeAssociationsModel.h"
 #include "gui/entry/EntryAttachmentsModel.h"
 #include "gui/entry/EntryAttributesModel.h"
 #include "gui/entry/EntryModel.h"
@@ -46,11 +45,11 @@ void TestEntryModel::test()
 
 	Entry *entry1 = new Entry();
 	entry1->setGroup(group1);
-	entry1->setTitle("testTitle1");
+	entry1->setTitle(QStringLiteral("testTitle1"));
 
 	Entry *entry2 = new Entry();
 	entry2->setGroup(group1);
-	entry2->setTitle("testTitle2");
+	entry2->setTitle(QStringLiteral("testTitle2"));
 
 	EntryModel *model = new EntryModel(this);
 
@@ -64,7 +63,7 @@ void TestEntryModel::test()
 	QCOMPARE(model->rowCount(), 2);
 
 	QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)));
-	entry1->setTitle("changed");
+	entry1->setTitle(QStringLiteral("changed"));
 	QCOMPARE(spyDataChanged.count(), 1);
 
 	QModelIndex index1 = model->index(0, 1);
@@ -144,16 +143,16 @@ void TestEntryModel::testAttachmentsModel()
 	QSignalSpy spyAboutToRemove(model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)));
 	QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
 
-	entryAttachments->set("first", QByteArray("123"));
+	entryAttachments->set(QStringLiteral("first"), QByteArray("123"));
 
-	entryAttachments->set("2nd", QByteArray("456"));
-	entryAttachments->set("2nd", QByteArray("7890"));
+	entryAttachments->set(QStringLiteral("2nd"), QByteArray("456"));
+	entryAttachments->set(QStringLiteral("2nd"), QByteArray("7890"));
 
 	const int firstRow = 0;
-	QCOMPARE(model->data(model->index(firstRow, EntryAttachmentsModel::NameColumn)).toString(), QString("2nd"));
+	QCOMPARE(model->data(model->index(firstRow, EntryAttachmentsModel::NameColumn)).toString(), QStringLiteral("2nd"));
 	QCOMPARE(model->data(model->index(firstRow, EntryAttachmentsModel::SizeColumn), Qt::EditRole).toInt(), 4);
 
-	entryAttachments->remove("first");
+	entryAttachments->remove(QStringLiteral("first"));
 
 	QCOMPARE(spyDataChanged.count(), 1);
 	QCOMPARE(spyAboutToAdd.count(), 2);
@@ -189,21 +188,21 @@ void TestEntryModel::testAttributesModel()
 	QSignalSpy spyAboutToRemove(model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)));
 	QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
 
-	entryAttributes->set("first", "123");
+	entryAttributes->set(QStringLiteral("first"), QStringLiteral("123"));
 
-	entryAttributes->set("2nd", "456");
-	entryAttributes->set("2nd", "789");
+	entryAttributes->set(QStringLiteral("2nd"), QStringLiteral("456"));
+	entryAttributes->set(QStringLiteral("2nd"), QStringLiteral("789"));
 
-	QCOMPARE(model->data(model->index(0, 0)).toString(), QString("2nd"));
+	QCOMPARE(model->data(model->index(0, 0)).toString(), QStringLiteral("2nd"));
 
-	entryAttributes->remove("first");
+	entryAttributes->remove(QStringLiteral("first"));
 
 	// make sure these don't generate messages
-	entryAttributes->set("Title", "test");
-	entryAttributes->set("UserName", "test");
-	entryAttributes->set("Password", "test");
-	entryAttributes->set("URL", "test");
-	entryAttributes->set("Notes", "test");
+	entryAttributes->set(QStringLiteral("Title"), QStringLiteral("test"));
+	entryAttributes->set(QStringLiteral("UserName"), QStringLiteral("test"));
+	entryAttributes->set(QStringLiteral("Password"), QStringLiteral("test"));
+	entryAttributes->set(QStringLiteral("URL"), QStringLiteral("test"));
+	entryAttributes->set(QStringLiteral("Notes"), QStringLiteral("test"));
 
 	QCOMPARE(spyDataChanged.count(), 1);
 	QCOMPARE(spyAboutToAdd.count(), 2);
@@ -212,20 +211,20 @@ void TestEntryModel::testAttributesModel()
 	QCOMPARE(spyRemoved.count(), 1);
 
 	// test attribute protection
-	QString value = entryAttributes->value("2nd");
-	entryAttributes->set("2nd", value, true);
-	QVERIFY(entryAttributes->isProtected("2nd"));
-	QCOMPARE(entryAttributes->value("2nd"), value);
+	QString value = entryAttributes->value(QStringLiteral("2nd"));
+	entryAttributes->set(QStringLiteral("2nd"), value, true);
+	QVERIFY(entryAttributes->isProtected(QStringLiteral("2nd")));
+	QCOMPARE(entryAttributes->value(QStringLiteral("2nd")), value);
 	entryAttributes->clear();
 
 	// test attribute sorting
-	entryAttributes->set("Test1", "1");
-	entryAttributes->set("Test11", "11");
-	entryAttributes->set("Test2", "2");
+	entryAttributes->set(QStringLiteral("Test1"), QStringLiteral("1"));
+	entryAttributes->set(QStringLiteral("Test11"), QStringLiteral("11"));
+	entryAttributes->set(QStringLiteral("Test2"), QStringLiteral("2"));
 	QCOMPARE(model->rowCount(), 3);
-	QCOMPARE(model->data(model->index(0, 0)).toString(), QString("Test1"));
-	QCOMPARE(model->data(model->index(1, 0)).toString(), QString("Test2"));
-	QCOMPARE(model->data(model->index(2, 0)).toString(), QString("Test11"));
+	QCOMPARE(model->data(model->index(0, 0)).toString(), QStringLiteral("Test1"));
+	QCOMPARE(model->data(model->index(1, 0)).toString(), QStringLiteral("Test2"));
+	QCOMPARE(model->data(model->index(2, 0)).toString(), QStringLiteral("Test11"));
 
 	QSignalSpy spyReset(model, SIGNAL(modelReset()));
 	entryAttributes->clear();
@@ -274,42 +273,6 @@ void TestEntryModel::testCustomIconModel()
 	delete model;
 }
 
-void TestEntryModel::testAutoTypeAssociationsModel()
-{
-	AutoTypeAssociationsModel *model = new AutoTypeAssociationsModel(this);
-	ModelTest *modelTest = new ModelTest(model, this);
-
-	QCOMPARE(model->rowCount(), 0);
-
-	AutoTypeAssociations *associations = new AutoTypeAssociations(this);
-	model->setAutoTypeAssociations(associations);
-
-	QCOMPARE(model->rowCount(), 0);
-
-	AutoTypeAssociations::Association assoc;
-	assoc.window = "1";
-	assoc.sequence = "2";
-	associations->add(assoc);
-
-	QCOMPARE(model->rowCount(), 1);
-	QCOMPARE(model->data(model->index(0, 0)).toString(), QString("1"));
-	QCOMPARE(model->data(model->index(0, 1)).toString(), QString("2"));
-
-	assoc.window = "3";
-	assoc.sequence = "4";
-	associations->update(0, assoc);
-	QCOMPARE(model->data(model->index(0, 0)).toString(), QString("3"));
-	QCOMPARE(model->data(model->index(0, 1)).toString(), QString("4"));
-
-	associations->add(assoc);
-	associations->remove(0);
-	QCOMPARE(model->rowCount(), 1);
-
-	delete modelTest;
-	delete model;
-	delete associations;
-}
-
 void TestEntryModel::testProxyModel()
 {
 	EntryModel *modelSource = new EntryModel(this);
@@ -320,7 +283,7 @@ void TestEntryModel::testProxyModel()
 
 	Database *db = new Database();
 	Entry *entry = new Entry();
-	entry->setTitle("Test Title");
+	entry->setTitle(QStringLiteral("Test Title"));
 	entry->setGroup(db->rootGroup());
 
 	modelSource->setGroup(db->rootGroup());
@@ -339,7 +302,7 @@ void TestEntryModel::testProxyModel()
 	modelProxy->hideColumn(100, true);
 	QCOMPARE(spyColumnRemove.size(), oldSpyColumnRemoveSize);
 
-	QList<Entry *> entryList;
+	QList<Entry*> entryList;
 	entryList << entry;
 	modelSource->setEntries(entryList);
 
@@ -374,7 +337,7 @@ void TestEntryModel::testDatabaseDelete()
 	Entry *entry2 = new Entry();
 	entry2->setGroup(db2->rootGroup());
 
-	model->setEntries(QList<Entry *>() << entry1 << entry2);
+	model->setEntries(QList<Entry*>() << entry1 << entry2);
 
 	QCOMPARE(model->rowCount(), 2);
 

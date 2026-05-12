@@ -47,7 +47,7 @@ void TestImports::testOPUX()
 	QVERIFY(db);
 
 	// Confirm specific entry details are valid
-	auto entry = db->rootGroup()->findEntryByPath("/Personal/Login");
+	auto entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Personal/Login"));
 	QVERIFY(entry);
 	QCOMPARE(entry->title(), QStringLiteral("Login"));
 	QCOMPARE(entry->username(), QStringLiteral("team@keepassxc.org"));
@@ -55,25 +55,25 @@ void TestImports::testOPUX()
 	QCOMPARE(entry->url(), QStringLiteral("https://keepassxc.org"));
 	QCOMPARE(entry->notes(), QStringLiteral("Note to self"));
 	// Check extra URL's
-	QCOMPARE(entry->attribute("KP2A_URL_1"), QStringLiteral("https://twitter.com"));
+	QCOMPARE(entry->attribute(QStringLiteral("KP2A_URL_1")), QStringLiteral("https://twitter.com"));
 	// Check TOTP
 	QVERIFY(entry->hasTotp());
-	QVERIFY(!entry->attribute("otp_1").isEmpty());
+	QVERIFY(!entry->attribute(QStringLiteral("otp_1")).isEmpty());
 	// Check tags
-	QVERIFY(entry->tagList().contains("Favorite"));
-	QVERIFY(entry->tagList().contains("website"));
+	QVERIFY(entry->tagList().contains(QStringLiteral("Favorite")));
+	QVERIFY(entry->tagList().contains(QStringLiteral("website")));
 
 	// Check attachments
-	entry = db->rootGroup()->findEntryByPath("/Personal/KeePassXC Logo");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Personal/KeePassXC Logo"));
 	auto attachments = entry->attachments();
 	QCOMPARE(attachments->keys().count(), 1);
-	QCOMPARE(attachments->keys()[0], QString("keepassxc.png"));
+	QCOMPARE(attachments->keys()[0], QStringLiteral("keepassxc.png"));
 
 	// Confirm advanced attributes
 	// NOTE: 1PUX does not support an explicit expiration field
-	entry = db->rootGroup()->findEntryByPath("/Personal/Credit Card");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Personal/Credit Card"));
 	QVERIFY(entry);
-	auto tmpl = QString("Credit Card Fields_%1");
+	auto tmpl = QStringLiteral("Credit Card Fields_%1");
 	auto attr = entry->attributes();
 	QCOMPARE(attr->value(tmpl.arg("cardholder name")), QStringLiteral("KeePassXC"));
 	QCOMPARE(attr->value(tmpl.arg("expiry date")), QStringLiteral("202206"));
@@ -81,24 +81,24 @@ void TestImports::testOPUX()
 	QVERIFY(attr->isProtected(tmpl.arg("verification number")));
 
 	// Confirm address fields
-	entry = db->rootGroup()->findEntryByPath("/Personal/Identity");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Personal/Identity"));
 	QVERIFY(entry);
 	attr = entry->attributes();
-	QCOMPARE(attr->value("Address_address"), QStringLiteral("123 Avenue Rd\nBoston, MA 12345\nus"));
+	QCOMPARE(attr->value(QStringLiteral("Address_address")), QStringLiteral("123 Avenue Rd\nBoston, MA 12345\nus"));
 
 	// Check archived entries
-	entry = db->rootGroup()->findEntryByPath("/Personal/Login Archived");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Personal/Login Archived"));
 	QVERIFY(entry);
-	QVERIFY(entry->tagList().contains("Archived"));
+	QVERIFY(entry->tagList().contains(QStringLiteral("Archived")));
 
 	// Check vault to group structure
-	entry = db->rootGroup()->findEntryByPath("/Shared/Bank Account");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Shared/Bank Account"));
 	QVERIFY(entry);
 	// Check custom group icon
 	QVERIFY(!entry->group()->iconUuid().isNull());
 
 	// Check Category UUID 05 Passwords
-	entry = db->rootGroup()->findEntryByPath("/Personal/UUID 005 Password");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Personal/UUID 005 Password"));
 	QVERIFY(entry);
 	QCOMPARE(entry->password(), QStringLiteral("uuid005password"));
 }
@@ -129,12 +129,12 @@ void TestImports::testOPVault()
 	QDir opVaultDir(opVaultPath);
 
 	OpVaultReader reader;
-	auto db = reader.convert(opVaultDir, "a");
+	auto db = reader.convert(opVaultDir, QStringLiteral("a"));
 	QVERIFY2(!reader.hasError(), qPrintable(reader.errorString()));
 	QVERIFY(db);
 
 	// Confirm specific entry details are valid
-	auto entry = db->rootGroup()->findEntryByPath("/Login/KeePassXC");
+	auto entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Login/KeePassXC"));
 	QVERIFY(entry);
 	QCOMPARE(entry->title(), QStringLiteral("KeePassXC"));
 	QCOMPARE(entry->username(), QStringLiteral("keepassxc"));
@@ -142,7 +142,7 @@ void TestImports::testOPVault()
 	QCOMPARE(entry->url(), QStringLiteral("https://www.keepassxc.org"));
 	QCOMPARE(entry->notes(), QStringLiteral("KeePassXC Account"));
 	// Check extra URL's
-	QCOMPARE(entry->attribute("KP2A_URL_1"), QStringLiteral("https://snapshot.keepassxc.org"));
+	QCOMPARE(entry->attribute(QStringLiteral("KP2A_URL_1")), QStringLiteral("https://snapshot.keepassxc.org"));
 	// Check TOTP
 	QVERIFY(entry->hasTotp());
 	// Check attachments
@@ -151,26 +151,26 @@ void TestImports::testOPVault()
 	QCOMPARE(*attachments->values().begin(), QByteArray("attachment"));
 
 	// Confirm expired entries
-	entry = db->rootGroup()->findEntryByPath("/Login/Expired Login");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Login/Expired Login"));
 	QVERIFY(entry->isExpired());
 
 	// Confirm advanced attributes
-	entry = db->rootGroup()->findEntryByPath("/Credit Card/My Credit Card");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Credit Card/My Credit Card"));
 	QVERIFY(entry);
 	auto attr = entry->attributes();
-	QCOMPARE(attr->value("cardholder name"), QStringLiteral("Team KeePassXC"));
-	QVERIFY(!attr->value("valid from").isEmpty());
-	QCOMPARE(attr->value("Additional Details_PIN"), QStringLiteral("1234"));
-	QVERIFY(attr->isProtected("Additional Details_PIN"));
+	QCOMPARE(attr->value(QStringLiteral("cardholder name")), QStringLiteral("Team KeePassXC"));
+	QVERIFY(!attr->value(QStringLiteral("valid from")).isEmpty());
+	QCOMPARE(attr->value(QStringLiteral("Additional Details_PIN")), QStringLiteral("1234"));
+	QVERIFY(attr->isProtected(QStringLiteral("Additional Details_PIN")));
 
 	// Confirm address fields
-	entry = db->rootGroup()->findEntryByPath("/Identity/Team KeePassXC");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Identity/Team KeePassXC"));
 	QVERIFY(entry);
 	attr = entry->attributes();
-	QCOMPARE(attr->value("address_street"), QStringLiteral("123 Password Lane"));
+	QCOMPARE(attr->value(QStringLiteral("address_street")), QStringLiteral("123 Password Lane"));
 
 	// Confirm complex passwords
-	entry = db->rootGroup()->findEntryByPath("/Password/Complex Password");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Password/Complex Password"));
 	QVERIFY(entry);
 	QCOMPARE(entry->password(), QStringLiteral("HfgcHjEL}iO}^3N!?*cv~O:9GJZQ0>oC"));
 	QVERIFY(entry->hasTotp());
@@ -179,19 +179,19 @@ void TestImports::testOPVault()
 	QCOMPARE(totpSettings->step, static_cast<unsigned int>(45));
 
 	// Add another OTP to this entry to confirm it doesn't overwrite the existing one
-	auto field = QJsonObject::fromVariantMap({{"n", "TOTP_SETTINGS"}, {"v", "otpauth://test.url?digits=6"}});
-	reader.fillFromSectionField(entry, "", field);
+	auto field = QJsonObject::fromVariantMap({{QStringLiteral("n"), QStringLiteral("TOTP_SETTINGS")}, {QStringLiteral("v"), QStringLiteral("otpauth://test.url?digits=6")}});
+	reader.fillFromSectionField(entry, QString(), field);
 	QVERIFY(entry->hasTotp());
 	totpSettings = entry->totpSettings();
 	QCOMPARE(totpSettings->digits, static_cast<unsigned int>(8));
 	QCOMPARE(totpSettings->step, static_cast<unsigned int>(45));
-	QVERIFY(entry->attributes()->contains("otp_1"));
+	QVERIFY(entry->attributes()->contains(QStringLiteral("otp_1")));
 
 	// Confirm trashed entries are sent to the recycle bin
 	auto recycleBin = db->metadata()->recycleBin();
 	QVERIFY(recycleBin);
 	QVERIFY(!recycleBin->isEmpty());
-	QVERIFY(recycleBin->findEntryByPath("Trashed Password"));
+	QVERIFY(recycleBin->findEntryByPath(QStringLiteral("Trashed Password")));
 
 	// Confirm created groups align with category names
 	for (const auto group: db->rootGroup()->children())
@@ -200,6 +200,7 @@ void TestImports::testOPVault()
 		{
 			continue;
 		}
+
 		QVERIFY2(categories.contains(group->name()),
 		         qPrintable(QStringLiteral("Invalid group name: %1").arg(group->name())));
 		// Confirm each group is not empty
@@ -217,7 +218,7 @@ void TestImports::testBitwarden()
 	QVERIFY(db);
 
 	// Confirm Login fields
-	auto entry = db->rootGroup()->findEntryByPath("/My Folder/Login Name");
+	auto entry = db->rootGroup()->findEntryByPath(QStringLiteral("/My Folder/Login Name"));
 	QVERIFY(entry);
 	QCOMPARE(entry->title(), QStringLiteral("Login Name"));
 	QCOMPARE(entry->username(), QStringLiteral("myusername@gmail.com"));
@@ -225,8 +226,8 @@ void TestImports::testBitwarden()
 	QCOMPARE(entry->url(), QStringLiteral("https://mail.google.com"));
 	QCOMPARE(entry->notes(), QStringLiteral("1st line of note text\n2nd Line of note text"));
 	// Check extra URL's
-	QCOMPARE(entry->attribute("KP2A_URL_1"), QStringLiteral("https://google.com"));
-	QCOMPARE(entry->attribute("KP2A_URL_2"), QStringLiteral("https://gmail.com"));
+	QCOMPARE(entry->attribute(QStringLiteral("KP2A_URL_1")), QStringLiteral("https://google.com"));
+	QCOMPARE(entry->attribute(QStringLiteral("KP2A_URL_2")), QStringLiteral("https://gmail.com"));
 	// Check TOTP
 	QVERIFY(entry->hasTotp());
 	// Check Modified and Created timestamps
@@ -243,30 +244,30 @@ void TestImports::testBitwarden()
 	// NOTE: Bitwarden does not export expiration dates
 
 	// Confirm Identity fields
-	entry = db->rootGroup()->findEntryByPath("/My Folder/My Identity");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/My Folder/My Identity"));
 	QVERIFY(entry);
 	auto attr = entry->attributes();
 	// NOTE: The extra spaces are deliberate to test unmodified ingest of data
-	QCOMPARE(attr->value("identity_address"),
+	QCOMPARE(attr->value(QStringLiteral("identity_address")),
 	         QStringLiteral(" 1 North Calle Cesar Chavez \nSanta Barbara, CA 93103\nUnited States "));
-	QCOMPARE(attr->value("identity_name"), QStringLiteral("Mrs Jane A Doe"));
-	QCOMPARE(attr->value("identity_ssn"), QStringLiteral("123-12-1234"));
-	QVERIFY(attr->isProtected("identity_ssn"));
+	QCOMPARE(attr->value(QStringLiteral("identity_name")), QStringLiteral("Mrs Jane A Doe"));
+	QCOMPARE(attr->value(QStringLiteral("identity_ssn")), QStringLiteral("123-12-1234"));
+	QVERIFY(attr->isProtected(QStringLiteral("identity_ssn")));
 
 	// Confirm Secure Note
-	entry = db->rootGroup()->findEntryByPath("/My Folder/My Secure Note");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/My Folder/My Secure Note"));
 	QVERIFY(entry);
 	QCOMPARE(entry->notes(),
 	         QStringLiteral("1st line of secure note\n2nd line of secure note\n3rd line of secure note"));
 
 	// Confirm Credit Card
-	entry = db->rootGroup()->findEntryByPath("/Second Folder/Card Name");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Second Folder/Card Name"));
 	QVERIFY(entry);
 	attr = entry->attributes();
-	QCOMPARE(attr->value("card_cardholderName"), QStringLiteral("Jane Doe"));
-	QCOMPARE(attr->value("card_number"), QStringLiteral("1234567891011121"));
-	QCOMPARE(attr->value("card_code"), QStringLiteral("123"));
-	QVERIFY(attr->isProtected("card_code"));
+	QCOMPARE(attr->value(QStringLiteral("card_cardholderName")), QStringLiteral("Jane Doe"));
+	QCOMPARE(attr->value(QStringLiteral("card_number")), QStringLiteral("1234567891011121"));
+	QCOMPARE(attr->value(QStringLiteral("card_code")), QStringLiteral("123"));
+	QVERIFY(attr->isProtected(QStringLiteral("card_code")));
 }
 
 void TestImports::testBitwardenEncrypted()
@@ -278,7 +279,7 @@ void TestImports::testBitwardenEncrypted()
 		QStringLiteral("%1/%2").arg(KEEPASSX_TEST_DATA_DIR, QStringLiteral("/bitwarden_encrypted_export.json"));
 
 	BitwardenReader reader;
-	auto db = reader.convert(bitwardenPath, "a");
+	auto db = reader.convert(bitwardenPath, QStringLiteral("a"));
 	if (reader.hasError())
 	{
 		QFAIL(qPrintable(reader.errorString()));
@@ -289,11 +290,12 @@ void TestImports::testBitwardenEncrypted()
 	bitwardenPath = QStringLiteral("%1/%2").arg(KEEPASSX_TEST_DATA_DIR,
 	                                            QStringLiteral("/bitwarden_encrypted_argon2id_export.json"));
 
-	db = reader.convert(bitwardenPath, "a");
+	db = reader.convert(bitwardenPath, QStringLiteral("a"));
 	if (reader.hasError())
 	{
 		QFAIL(qPrintable(reader.errorString()));
 	}
+
 	QVERIFY(db);
 }
 
@@ -308,7 +310,7 @@ void TestImports::testBitwardenPasskey()
 	QVERIFY(db);
 
 	// Confirm Login fields
-	auto entry = db->rootGroup()->findEntryByPath("/webauthn.io");
+	auto entry = db->rootGroup()->findEntryByPath(QStringLiteral("/webauthn.io"));
 	QVERIFY(entry);
 	QCOMPARE(entry->title(), QStringLiteral("webauthn.io"));
 	QCOMPARE(entry->username(), QStringLiteral("KPXC_BITWARDEN"));
@@ -341,7 +343,7 @@ void TestImports::testProtonPass()
 	QVERIFY(db);
 
 	// Confirm Login fields
-	auto entry = db->rootGroup()->findEntryByPath("/Personal/Test Login");
+	auto entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Personal/Test Login"));
 	QVERIFY(entry);
 	QCOMPARE(entry->title(), QStringLiteral("Test Login"));
 	QCOMPARE(entry->username(), QStringLiteral("Username"));
@@ -349,38 +351,38 @@ void TestImports::testProtonPass()
 	QCOMPARE(entry->url(), QStringLiteral("https://example.com/"));
 	QCOMPARE(entry->notes(), QStringLiteral("My login secure note."));
 	// Check extra URL's
-	QCOMPARE(entry->attribute("KP2A_URL_1"), QStringLiteral("https://example2.com/"));
+	QCOMPARE(entry->attribute(QStringLiteral("KP2A_URL_1")), QStringLiteral("https://example2.com/"));
 	// Check TOTP
 	QVERIFY(entry->hasTotp());
 	// Check attributes
 	auto attr = entry->attributes();
-	QVERIFY(attr->isProtected("hidden field"));
-	QCOMPARE(attr->value("second 2fa secret"), QStringLiteral("TOTPCODE"));
+	QVERIFY(attr->isProtected(QStringLiteral("hidden field")));
+	QCOMPARE(attr->value(QStringLiteral("second 2fa secret")), QStringLiteral("TOTPCODE"));
 	// NOTE: Proton Pass does not export attachments
 	// NOTE: Proton Pass does not export expiration dates
 
 	// Confirm Secure Note
-	entry = db->rootGroup()->findEntryByPath("/Personal/My Secure Note");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Personal/My Secure Note"));
 	QVERIFY(entry);
 	QCOMPARE(entry->notes(), QStringLiteral("Secure note contents."));
 
 	// Confirm Credit Card
-	entry = db->rootGroup()->findEntryByPath("/Personal/Test Card");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Personal/Test Card"));
 	QVERIFY(entry);
 	QCOMPARE(entry->username(), QStringLiteral("1234222233334444"));
 	QCOMPARE(entry->password(), QStringLiteral("333"));
 	attr = entry->attributes();
-	QCOMPARE(attr->value("card_cardholderName"), QStringLiteral("Test name"));
-	QCOMPARE(attr->value("card_expirationDate"), QStringLiteral("2025-01"));
-	QCOMPARE(attr->value("card_pin"), QStringLiteral("1234"));
-	QVERIFY(attr->isProtected("card_pin"));
+	QCOMPARE(attr->value(QStringLiteral("card_cardholderName")), QStringLiteral("Test name"));
+	QCOMPARE(attr->value(QStringLiteral("card_expirationDate")), QStringLiteral("2025-01"));
+	QCOMPARE(attr->value(QStringLiteral("card_pin")), QStringLiteral("1234"));
+	QVERIFY(attr->isProtected(QStringLiteral("card_pin")));
 
 	// Confirm Expired (deleted) entry
-	entry = db->rootGroup()->findEntryByPath("/Personal/My Deleted Note");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Personal/My Deleted Note"));
 	QVERIFY(entry);
 	QTRY_VERIFY(entry->isExpired());
 
 	// Confirm second group (vault)
-	entry = db->rootGroup()->findEntryByPath("/Test/Other vault login");
+	entry = db->rootGroup()->findEntryByPath(QStringLiteral("/Test/Other vault login"));
 	QVERIFY(entry);
 }

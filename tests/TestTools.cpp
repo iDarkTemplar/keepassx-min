@@ -28,9 +28,9 @@ QTEST_GUILESS_MAIN(TestTools)
 
 namespace
 {
-	QString createDecimal(QString wholes, QString fractions, QString unit)
+	QString createDecimal(const QString &wholes, const QString &fractions, const QString &unit)
 	{
-		return wholes + QLocale().decimalPoint() + fractions + " " + unit;
+		return wholes + QLocale().decimalPoint() + fractions + QStringLiteral(" ") + unit;
 	}
 } // namespace
 
@@ -39,15 +39,15 @@ void TestTools::testHumanReadableFileSize()
 	constexpr auto kibibyte = 1024u;
 	using namespace Tools;
 
-	QCOMPARE(QString("1 B"), humanReadableFileSize(1));
-	QCOMPARE(createDecimal("1", "00", "KiB"), humanReadableFileSize(kibibyte));
-	QCOMPARE(createDecimal("1", "00", "MiB"), humanReadableFileSize(kibibyte * kibibyte));
-	QCOMPARE(createDecimal("1", "00", "GiB"), humanReadableFileSize(kibibyte * kibibyte * kibibyte));
+	QCOMPARE(QStringLiteral("1 B"), humanReadableFileSize(1));
+	QCOMPARE(createDecimal(QStringLiteral("1"), QStringLiteral("00"), QStringLiteral("KiB")), humanReadableFileSize(kibibyte));
+	QCOMPARE(createDecimal(QStringLiteral("1"), QStringLiteral("00"), QStringLiteral("MiB")), humanReadableFileSize(kibibyte * kibibyte));
+	QCOMPARE(createDecimal(QStringLiteral("1"), QStringLiteral("00"), QStringLiteral("GiB")), humanReadableFileSize(kibibyte * kibibyte * kibibyte));
 
-	QCOMPARE(QString("100 B"), humanReadableFileSize(100, 0));
-	QCOMPARE(createDecimal("1", "10", "KiB"), humanReadableFileSize(kibibyte + 100));
-	QCOMPARE(createDecimal("1", "001", "KiB"), humanReadableFileSize(kibibyte + 1, 3));
-	QCOMPARE(createDecimal("15", "00", "KiB"), humanReadableFileSize(kibibyte * 15));
+	QCOMPARE(QStringLiteral("100 B"), humanReadableFileSize(100, 0));
+	QCOMPARE(createDecimal(QStringLiteral("1"), QStringLiteral("10"), QStringLiteral("KiB")), humanReadableFileSize(kibibyte + 100));
+	QCOMPARE(createDecimal(QStringLiteral("1"), QStringLiteral("001"), QStringLiteral("KiB")), humanReadableFileSize(kibibyte + 1, 3));
+	QCOMPARE(createDecimal(QStringLiteral("15"), QStringLiteral("00"), QStringLiteral("KiB")), humanReadableFileSize(kibibyte * 15));
 }
 
 void TestTools::testIsHex()
@@ -71,45 +71,20 @@ void TestTools::testIsBase64()
 
 void TestTools::testIsAsciiString()
 {
-	QVERIFY(Tools::isAsciiString("abcd9876DEFGhijkMNO"));
-	QVERIFY(Tools::isAsciiString("-!&5a?`~"));
-	QVERIFY(!Tools::isAsciiString("Štest"));
-	QVERIFY(!Tools::isAsciiString("Ãß"));
-}
-
-void TestTools::testEnvSubstitute()
-{
-	QProcessEnvironment environment;
-
-#if defined(Q_OS_WIN)
-	environment.insert("HOMEDRIVE", "C:");
-	environment.insert("HOMEPATH", "\\Users\\User");
-	environment.insert("USERPROFILE", "C:\\Users\\User");
-
-	QCOMPARE(Tools::envSubstitute("%HOMEDRIVE%%HOMEPATH%\\.ssh\\id_rsa", environment),
-	         QString("C:\\Users\\User\\.ssh\\id_rsa"));
-	QCOMPARE(Tools::envSubstitute("start%EMPTY%%EMPTY%%%HOMEDRIVE%%end", environment), QString("start%C:%end"));
-	QCOMPARE(Tools::envSubstitute("%USERPROFILE%\\.ssh\\id_rsa", environment),
-	         QString("C:\\Users\\User\\.ssh\\id_rsa"));
-	QCOMPARE(Tools::envSubstitute("~\\.ssh\\id_rsa", environment), QString("C:\\Users\\User\\.ssh\\id_rsa"));
-#else
-	environment.insert("HOME", QString("/home/user"));
-	environment.insert("USER", QString("user"));
-
-	QCOMPARE(Tools::envSubstitute("~/.ssh/id_rsa", environment), QString("/home/user/.ssh/id_rsa"));
-	QCOMPARE(Tools::envSubstitute("$HOME/.ssh/id_rsa", environment), QString("/home/user/.ssh/id_rsa"));
-	QCOMPARE(Tools::envSubstitute("start/$EMPTY$$EMPTY$HOME/end", environment), QString("start/$/home/user/end"));
-#endif
+	QVERIFY(Tools::isAsciiString(QStringLiteral("abcd9876DEFGhijkMNO")));
+	QVERIFY(Tools::isAsciiString(QStringLiteral("-!&5a?`~")));
+	QVERIFY(!Tools::isAsciiString(QStringLiteral("Štest")));
+	QVERIFY(!Tools::isAsciiString(QStringLiteral("Ãß")));
 }
 
 void TestTools::testValidUuid()
 {
 	auto validUuid = Tools::uuidToHex(QUuid::createUuid());
-	auto nonRfc4122Uuid = "1234567890abcdef1234567890abcdef";
+	auto nonRfc4122Uuid = QStringLiteral("1234567890abcdef1234567890abcdef");
 	auto emptyUuid = QString();
 	auto shortUuid = validUuid.left(10);
-	auto longUuid = validUuid + "baddata";
-	auto nonHexUuid = Tools::uuidToHex(QUuid::createUuid()).replace(0, 1, 'p');
+	auto longUuid = validUuid + QStringLiteral("baddata");
+	auto nonHexUuid = Tools::uuidToHex(QUuid::createUuid()).replace(0, 1, QLatin1Char('p'));
 
 	QVERIFY(Tools::isValidUuid(validUuid));
 	/* Before https://github.com/keepassxreboot/keepassxc/pull/1770/, entry
@@ -131,12 +106,12 @@ void TestTools::testBackupFilePatternSubstitution_data()
 	static const auto DEFAULT_DB_FILE_NAME = QStringLiteral("KeePassXC");
 	static const auto DEFAULT_DB_FILE_PATH = QStringLiteral("/tmp/") + DEFAULT_DB_FILE_NAME + QStringLiteral(".kdbx");
 	static const auto NOW = Clock::currentDateTime();
-	auto DEFAULT_FORMATTED_TIME = NOW.toString("dd_MM_yyyy_hh-mm-ss");
+	auto DEFAULT_FORMATTED_TIME = NOW.toString(QStringLiteral("dd_MM_yyyy_hh-mm-ss"));
 
 	QTest::newRow("Null pattern") << QString() << DEFAULT_DB_FILE_PATH << QString();
-	QTest::newRow("Empty pattern") << QString("") << DEFAULT_DB_FILE_PATH << QString("");
+	QTest::newRow("Empty pattern") << QString() << DEFAULT_DB_FILE_PATH << QString();
 	QTest::newRow("Null database path") << "valid_pattern" << QString() << QString();
-	QTest::newRow("Empty database path") << "valid_pattern" << QString("") << QString();
+	QTest::newRow("Empty database path") << "valid_pattern" << QString() << QString();
 	QTest::newRow("Unclosed/invalid pattern") << "{DB_FILENAME" << DEFAULT_DB_FILE_PATH << "{DB_FILENAME";
 	QTest::newRow("Unknown pattern") << "{NO_MATCH}" << DEFAULT_DB_FILE_PATH << "{NO_MATCH}";
 	QTest::newRow("Do not replace escaped patterns (filename)")
@@ -150,14 +125,14 @@ void TestTools::testBackupFilePatternSubstitution_data()
 	QTest::newRow("Default time pattern") << "{TIME}" << DEFAULT_DB_FILE_PATH << DEFAULT_FORMATTED_TIME;
 	QTest::newRow("Default time pattern (empty formatter)")
 		<< "{TIME:}" << DEFAULT_DB_FILE_PATH << DEFAULT_FORMATTED_TIME;
-	QTest::newRow("Custom time pattern") << "{TIME:dd-ss}" << DEFAULT_DB_FILE_PATH << NOW.toString("dd-ss");
+	QTest::newRow("Custom time pattern") << "{TIME:dd-ss}" << DEFAULT_DB_FILE_PATH << NOW.toString(QStringLiteral("dd-ss"));
 	QTest::newRow("Time pattern twice") << "{TIME:yy} {TIME}" << DEFAULT_DB_FILE_PATH
-										<< NOW.toString("yy") + QStringLiteral(" ") + DEFAULT_FORMATTED_TIME;
+										<< NOW.toString(QStringLiteral("yy")) + QStringLiteral(" ") + DEFAULT_FORMATTED_TIME;
 	QTest::newRow("Complex custom time pattern")
 		<< "./{TIME:yy}/{DB_FILENAME}_{TIME:yyyyMMdd_HHmmss}.old.kdbx" << DEFAULT_DB_FILE_PATH
-		<< QStringLiteral("./") + NOW.toString("yy") + QStringLiteral("/") + DEFAULT_DB_FILE_NAME + QStringLiteral("_")
-			   + NOW.toString("yyyyMMdd_HHmmss") + QStringLiteral(".old.kdbx");
-	QTest::newRow("Invalid custom time pattern") << "{TIME:dd/-ss}" << DEFAULT_DB_FILE_PATH << NOW.toString("dd/-ss");
+		<< QStringLiteral("./") + NOW.toString(QStringLiteral("yy")) + QStringLiteral("/") + DEFAULT_DB_FILE_NAME + QStringLiteral("_")
+			   + NOW.toString(QStringLiteral("yyyyMMdd_HHmmss")) + QStringLiteral(".old.kdbx");
+	QTest::newRow("Invalid custom time pattern") << "{TIME:dd/-ss}" << DEFAULT_DB_FILE_PATH << NOW.toString(QStringLiteral("dd/-ss"));
 	QTest::newRow("Recursive substitution") << "{TIME:'{TIME}'}" << DEFAULT_DB_FILE_PATH << DEFAULT_FORMATTED_TIME;
 	QTest::newRow("{DB_FILENAME} substitution")
 		<< "some {DB_FILENAME} thing" << DEFAULT_DB_FILE_PATH
@@ -183,7 +158,7 @@ void TestTools::testEscapeRegex_data()
 	QTest::addColumn<QString>("input");
 	QTest::addColumn<QString>("expected");
 
-	QString all_regular_characters = "0123456789";
+	QString all_regular_characters = QStringLiteral("0123456789");
 	for (char c = 'a'; c != 'z'; ++c)
 	{
 		all_regular_characters += QChar::fromLatin1(c);
@@ -220,54 +195,52 @@ void TestTools::testConvertToRegex()
 
 void TestTools::testConvertToRegex_data()
 {
-	const QString input = R"(te|st*t?[5]^(test);',.)";
+	const QString input = QStringLiteral(R"(te|st*t?[5]^(test);',.)");
 
 	QTest::addColumn<QString>("input");
 	QTest::addColumn<int>("options");
 	QTest::addColumn<QString>("expected");
 
 	QTest::newRow("No Options") << input << static_cast<int>(Tools::RegexConvertOpts::DEFAULT)
-								<< QString(R"(te|st*t?[5]^(test);',.)");
+								<< QStringLiteral(R"(te|st*t?[5]^(test);',.)");
 	// Escape regex
 	QTest::newRow("Escape Regex") << input << static_cast<int>(Tools::RegexConvertOpts::ESCAPE_REGEX)
 								  << Tools::escapeRegex(input);
 	QTest::newRow("Escape Regex and exact match")
 		<< input << static_cast<int>(Tools::RegexConvertOpts::ESCAPE_REGEX | Tools::RegexConvertOpts::EXACT_MATCH)
-		<< "^(?:" + Tools::escapeRegex(input) + ")$";
+		<< QStringLiteral("^(?:") + Tools::escapeRegex(input) + QStringLiteral(")$");
 
 	// Exact match does not escape the pattern
 	QTest::newRow("Exact Match") << input << static_cast<int>(Tools::RegexConvertOpts::EXACT_MATCH)
-								 << QString(R"(^(?:te|st*t?[5]^(test);',.)$)");
+								 << QStringLiteral(R"(^(?:te|st*t?[5]^(test);',.)$)");
 
 	// Exact match with improper regex
 	QTest::newRow("Exact Match") << ")av(" << static_cast<int>(Tools::RegexConvertOpts::EXACT_MATCH)
-								 << QString(R"(^(?:)av()$)");
+								 << QStringLiteral(R"(^(?:)av()$)");
 
 	QTest::newRow("Exact Match & Wildcard")
 		<< input << static_cast<int>(Tools::RegexConvertOpts::EXACT_MATCH | Tools::RegexConvertOpts::WILDCARD_ALL)
-		<< QString(R"(^(?:te|st.*t.\[5\]\^\(test\)\;\'\,\.)$)");
+		<< QStringLiteral(R"(^(?:te|st.*t.\[5\]\^\(test\)\;\'\,\.)$)");
 	QTest::newRow("Wildcard Single Match") << input << static_cast<int>(Tools::RegexConvertOpts::WILDCARD_SINGLE_MATCH)
-										   << QString(R"(te\|st\*t.\[5\]\^\(test\)\;\'\,\.)");
+										   << QStringLiteral(R"(te\|st\*t.\[5\]\^\(test\)\;\'\,\.)");
 	QTest::newRow("Wildcard OR") << input << static_cast<int>(Tools::RegexConvertOpts::WILDCARD_LOGICAL_OR)
-								 << QString(R"(te|st\*t\?\[5\]\^\(test\)\;\'\,\.)");
+								 << QStringLiteral(R"(te|st\*t\?\[5\]\^\(test\)\;\'\,\.)");
 	QTest::newRow("Wildcard Unlimited Match")
 		<< input << static_cast<int>(Tools::RegexConvertOpts::WILDCARD_UNLIMITED_MATCH)
-		<< QString(R"(te\|st.*t\?\[5\]\^\(test\)\;\'\,\.)");
+		<< QStringLiteral(R"(te\|st.*t\?\[5\]\^\(test\)\;\'\,\.)");
 }
 
 void TestTools::testArrayContainsValues()
 {
-	const auto values = QStringList() << "first" << "second" << "third";
+	const auto values = QStringList() << QStringLiteral("first") << QStringLiteral("second") << QStringLiteral("third");
 
 	// One missing
-	const auto result1 =
-		Tools::getMissingValuesFromList<QString>(values, QStringList() << "first" << "second" << "none");
+	const auto result1 = Tools::getMissingValuesFromList<QString>(values, QStringList() << QStringLiteral("first") << QStringLiteral("second") << QStringLiteral("none"));
 	QCOMPARE(result1.length(), 1);
-	QCOMPARE(result1.first(), QString("none"));
+	QCOMPARE(result1.first(), QStringLiteral("none"));
 
 	// All found
-	const auto result2 =
-		Tools::getMissingValuesFromList<QString>(values, QStringList() << "first" << "second" << "third");
+	const auto result2 = Tools::getMissingValuesFromList<QString>(values, QStringList() << QStringLiteral("first") << QStringLiteral("second") << QStringLiteral("third"));
 	QCOMPARE(result2.length(), 0);
 
 	// None are found
@@ -279,57 +252,56 @@ void TestTools::testArrayContainsValues()
 void TestTools::testMimeTypes()
 {
 	const QStringList TextMimeTypes = {
-		"text/plain", // Plain text
-		"text/css", // CSS stylesheets
-		"text/javascript", // JavaScript files
-		"text/xml", // XML documents
-		"text/rtf", // Rich Text Format
-		"text/vcard", // vCard files
-		"text/tab-separated-values", // Tab-separated values
-		"application/json", // JSON data
-		"application/xml", // XML data
-		"application/soap+xml", // SOAP messages
-		"application/x-yaml", // YAML data
-		"application/protobuf", // Protocol Buffers
+		QStringLiteral("text/plain"), // Plain text
+		QStringLiteral("text/css"), // CSS stylesheets
+		QStringLiteral("text/javascript"), // JavaScript files
+		QStringLiteral("text/xml"), // XML documents
+		QStringLiteral("text/rtf"), // Rich Text Format
+		QStringLiteral("text/vcard"), // vCard files
+		QStringLiteral("text/tab-separated-values"), // Tab-separated values
+		QStringLiteral("application/json"), // JSON data
+		QStringLiteral("application/xml"), // XML data
+		QStringLiteral("application/soap+xml"), // SOAP messages
+		QStringLiteral("application/x-yaml"), // YAML data
+		QStringLiteral("application/protobuf"), // Protocol Buffers
 	};
 
 	const QStringList ImageMimeTypes = {
-		"image/jpeg", // JPEG images
-		"image/png", // PNG images
-		"image/gif", // GIF images
-		"image/bmp", // BMP images
-		"image/webp", // WEBP images
-		"image/svg+xml" // SVG images
+		QStringLiteral("image/jpeg"), // JPEG images
+		QStringLiteral("image/png"), // PNG images
+		QStringLiteral("image/gif"), // GIF images
+		QStringLiteral("image/bmp"), // BMP images
+		QStringLiteral("image/webp"), // WEBP images
+		QStringLiteral("image/svg+xml") // SVG images
 	};
 
 	const QStringList UnknownMimeTypes = {
-		"audio/mpeg", // MPEG audio files
-		"video/mp4", // MP4 video files
-		"application/pdf", // PDF documents
-		"application/zip", // ZIP archives
-		"application/x-tar", // TAR archives
-		"application/x-rar-compressed", // RAR archives
-		"application/x-7z-compressed", // 7z archives
-		"application/x-shockwave-flash", // Adobe Flash files
-		"application/vnd.ms-excel", // Microsoft Excel files
-		"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // Microsoft Excel (OpenXML) files
-		"application/vnd.ms-powerpoint", // Microsoft PowerPoint files
-		"application/vnd.openxmlformats-officedocument.presentationml.presentation", // Microsoft PowerPoint (OpenXML)
-	                                                                                 // files
-		"application/msword", // Microsoft Word files
-		"application/vnd.openxmlformats-officedocument.wordprocessingml.document", // Microsoft Word (OpenXML) files
-		"application/vnd.oasis.opendocument.text", // OpenDocument Text
-		"application/vnd.oasis.opendocument.spreadsheet", // OpenDocument Spreadsheet
-		"application/vnd.oasis.opendocument.presentation", // OpenDocument Presentation
-		"application/x-httpd-php", // PHP files
-		"application/x-perl", // Perl scripts
-		"application/x-python", // Python scripts
-		"application/x-ruby", // Ruby scripts
-		"application/x-shellscript", // Shell scripts
+		QStringLiteral("audio/mpeg"), // MPEG audio files
+		QStringLiteral("video/mp4"), // MP4 video files
+		QStringLiteral("application/pdf"), // PDF documents
+		QStringLiteral("application/zip"), // ZIP archives
+		QStringLiteral("application/x-tar"), // TAR archives
+		QStringLiteral("application/x-rar-compressed"), // RAR archives
+		QStringLiteral("application/x-7z-compressed"), // 7z archives
+		QStringLiteral("application/x-shockwave-flash"), // Adobe Flash files
+		QStringLiteral("application/vnd.ms-excel"), // Microsoft Excel files
+		QStringLiteral("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"), // Microsoft Excel (OpenXML) files
+		QStringLiteral("application/vnd.ms-powerpoint"), // Microsoft PowerPoint files
+		QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.presentation"), // Microsoft PowerPoint (OpenXML) files
+		QStringLiteral("application/msword"), // Microsoft Word files
+		QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document"), // Microsoft Word (OpenXML) files
+		QStringLiteral("application/vnd.oasis.opendocument.text"), // OpenDocument Text
+		QStringLiteral("application/vnd.oasis.opendocument.spreadsheet"), // OpenDocument Spreadsheet
+		QStringLiteral("application/vnd.oasis.opendocument.presentation"), // OpenDocument Presentation
+		QStringLiteral("application/x-httpd-php"), // PHP files
+		QStringLiteral("application/x-perl"), // Perl scripts
+		QStringLiteral("application/x-python"), // Python scripts
+		QStringLiteral("application/x-ruby"), // Ruby scripts
+		QStringLiteral("application/x-shellscript"), // Shell scripts
 	};
 
-	QCOMPARE(Tools::toMimeType("text/html"), Tools::MimeType::Html);
-	QCOMPARE(Tools::toMimeType("text/markdown"), Tools::MimeType::Markdown);
+	QCOMPARE(Tools::toMimeType(QStringLiteral("text/html")), Tools::MimeType::Html);
+	QCOMPARE(Tools::toMimeType(QStringLiteral("text/markdown")), Tools::MimeType::Markdown);
 
 	for (const auto &mime: TextMimeTypes)
 	{
@@ -349,7 +321,7 @@ void TestTools::testMimeTypes()
 
 void TestTools::testGetMimeType()
 {
-	const QStringList Text = {"0x42", ""};
+	const QStringList Text = {QStringLiteral("0x42"), QString()};
 
 	for (const auto &text: Text)
 	{
@@ -390,39 +362,39 @@ void TestTools::testGetMimeType()
 
 void TestTools::testGetMimeTypeByFileInfo()
 {
-	const QStringList Text = {"test.txt", "test.csv", "test.xml", "test.json"};
+	const QStringList Text = {QStringLiteral("test.txt"), QStringLiteral("test.csv"), QStringLiteral("test.xml"), QStringLiteral("test.json")};
 
 	for (const auto &text: Text)
 	{
 		QCOMPARE(Tools::getMimeType(QFileInfo(text)), Tools::MimeType::PlainText);
 	}
 
-	const QStringList Images = {"test.jpg", "test.png", "test.bmp", "test.svg"};
+	const QStringList Images = {QStringLiteral("test.jpg"), QStringLiteral("test.png"), QStringLiteral("test.bmp"), QStringLiteral("test.svg")};
 
 	for (const auto &image: Images)
 	{
 		QCOMPARE(Tools::getMimeType(QFileInfo(image)), Tools::MimeType::Image);
 	}
 
-	const QStringList Htmls = {"test.html", "test.htm"};
+	const QStringList Htmls = {QStringLiteral("test.html"), QStringLiteral("test.htm")};
 
 	for (const auto &html: Htmls)
 	{
 		QCOMPARE(Tools::getMimeType(QFileInfo(html)), Tools::MimeType::Html);
 	}
 
-	const QStringList Markdowns = {"test.md", "test.markdown"};
+	const QStringList Markdowns = {QStringLiteral("test.md"), QStringLiteral("test.markdown")};
 
 	for (const auto &markdown: Markdowns)
 	{
 		QCOMPARE(Tools::getMimeType(QFileInfo(markdown)), Tools::MimeType::Markdown);
 	}
 
-	const QStringList UnknownHeaders = {"test.doc", "test.pdf", "test.docx"};
+	const QStringList UnknownHeaders = {QStringLiteral("test.doc"), QStringLiteral("test.pdf"), QStringLiteral("test.docx")};
 
 	for (const auto &unknown: UnknownHeaders)
 	{
-		QCOMPARE(Tools::getMimeType(unknown), Tools::MimeType::Unknown);
+		QCOMPARE(Tools::getMimeType(unknown.toUtf8()), Tools::MimeType::Unknown);
 	}
 }
 
@@ -468,11 +440,11 @@ void TestTools::testCleanUsername_data()
 
 void TestTools::testEscapeAccelerators()
 {
-	QCOMPARE(Tools::escapeAccelerators(""), "");
-	QCOMPARE(Tools::escapeAccelerators("NoAccelerator"), "NoAccelerator");
-	QCOMPARE(Tools::escapeAccelerators("&Accelerator"), "&&Accelerator");
-	QCOMPARE(Tools::escapeAccelerators("Accelerator&"), "Accelerator&&");
-	QCOMPARE(Tools::escapeAccelerators("Accel&erator&"), "Accel&&erator&&");
-	QCOMPARE(Tools::escapeAccelerators("Accel&&erator"), "Accel&&&&erator");
-	QCOMPARE(Tools::escapeAccelerators("Some & text"), "Some && text");
+	QCOMPARE(Tools::escapeAccelerators(QString()), QStringLiteral(""));
+	QCOMPARE(Tools::escapeAccelerators(QStringLiteral("NoAccelerator")), QStringLiteral("NoAccelerator"));
+	QCOMPARE(Tools::escapeAccelerators(QStringLiteral("&Accelerator")), QStringLiteral("&&Accelerator"));
+	QCOMPARE(Tools::escapeAccelerators(QStringLiteral("Accelerator&")), QStringLiteral("Accelerator&&"));
+	QCOMPARE(Tools::escapeAccelerators(QStringLiteral("Accel&erator&")), QStringLiteral("Accel&&erator&&"));
+	QCOMPARE(Tools::escapeAccelerators(QStringLiteral("Accel&&erator")), QStringLiteral("Accel&&&&erator"));
+	QCOMPARE(Tools::escapeAccelerators(QStringLiteral("Some & text")), QStringLiteral("Some && text"));
 }

@@ -43,7 +43,7 @@ private slots:
 private:
 	Group *m_rootGroup;
 	EntrySearcher m_entrySearcher;
-	QList<Entry *> m_searchResult;
+	QList<Entry*> m_searchResult;
 };
 
 #endif // KEEPASSX_TESTENTRYSEARCHER_H

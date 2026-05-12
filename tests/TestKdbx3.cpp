@@ -92,9 +92,9 @@ void TestKdbx3::writeKdbx(QIODevice *device, Database *db, bool &hasError, QStri
 
 void TestKdbx3::testFormat300()
 {
-	QString filename = QString(KEEPASSX_TEST_DATA_DIR).append("/Format300.kdbx");
+	QString filename = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/Format300.kdbx"));
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("a"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("a")));
 	KeePass2Reader reader;
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(reader.readDatabase(filename, key, db.data()));
@@ -102,13 +102,13 @@ void TestKdbx3::testFormat300()
 	QVERIFY(db.data());
 	QVERIFY(!reader.hasError());
 
-	QCOMPARE(db->rootGroup()->name(), QString("Format300"));
-	QCOMPARE(db->metadata()->name(), QString("Test Database Format 0x00030000"));
+	QCOMPARE(db->rootGroup()->name(), QStringLiteral("Format300"));
+	QCOMPARE(db->metadata()->name(), QStringLiteral("Test Database Format 0x00030000"));
 }
 
 void TestKdbx3::testNonAscii()
 {
-	QString filename = QString(KEEPASSX_TEST_DATA_DIR).append("/NonAscii.kdbx");
+	QString filename = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/NonAscii.kdbx"));
 	auto key = QSharedPointer<CompositeKey>::create();
 	key->addKey(QSharedPointer<PasswordKey>::create(QString::fromUtf8("\xce\x94\xc3\xb6\xd8\xb6")));
 	KeePass2Reader reader;
@@ -116,47 +116,47 @@ void TestKdbx3::testNonAscii()
 	QVERIFY(db->open(filename, key, nullptr));
 	QVERIFY(db.data());
 	QVERIFY(!reader.hasError());
-	QCOMPARE(db->metadata()->name(), QString("NonAsciiTest"));
+	QCOMPARE(db->metadata()->name(), QStringLiteral("NonAsciiTest"));
 	QCOMPARE(db->compressionAlgorithm(), Database::CompressionNone);
 }
 
 void TestKdbx3::testCompressed()
 {
-	QString filename = QString(KEEPASSX_TEST_DATA_DIR).append("/Compressed.kdbx");
+	QString filename = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/Compressed.kdbx"));
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create(""));
+	key->addKey(QSharedPointer<PasswordKey>::create(QString()));
 	KeePass2Reader reader;
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(db->open(filename, key, nullptr));
 	QVERIFY(db.data());
 	QVERIFY(!reader.hasError());
-	QCOMPARE(db->metadata()->name(), QString("Compressed"));
+	QCOMPARE(db->metadata()->name(), QStringLiteral("Compressed"));
 	QCOMPARE(db->compressionAlgorithm(), Database::CompressionGZip);
 }
 
 void TestKdbx3::testProtectedStrings()
 {
-	QString filename = QString(KEEPASSX_TEST_DATA_DIR).append("/ProtectedStrings.kdbx");
+	QString filename = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/ProtectedStrings.kdbx"));
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("masterpw"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("masterpw")));
 	KeePass2Reader reader;
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(db->open(filename, key, nullptr));
 	QVERIFY(db.data());
 	QVERIFY(!reader.hasError());
-	QCOMPARE(db->metadata()->name(), QString("Protected Strings Test"));
+	QCOMPARE(db->metadata()->name(), QStringLiteral("Protected Strings Test"));
 
 	Entry *entry = db->rootGroup()->entries().at(0);
 
-	QCOMPARE(entry->title(), QString("Sample Entry"));
-	QCOMPARE(entry->username(), QString("Protected User Name"));
-	QCOMPARE(entry->password(), QString("ProtectedPassword"));
-	QCOMPARE(entry->attributes()->value("TestProtected"), QString("ABC"));
-	QCOMPARE(entry->attributes()->value("TestUnprotected"), QString("DEF"));
+	QCOMPARE(entry->title(), QStringLiteral("Sample Entry"));
+	QCOMPARE(entry->username(), QStringLiteral("Protected User Name"));
+	QCOMPARE(entry->password(), QStringLiteral("ProtectedPassword"));
+	QCOMPARE(entry->attributes()->value(QStringLiteral("TestProtected")), QStringLiteral("ABC"));
+	QCOMPARE(entry->attributes()->value(QStringLiteral("TestUnprotected")), QStringLiteral("DEF"));
 
 	QVERIFY(db->metadata()->protectPassword());
-	QVERIFY(entry->attributes()->isProtected("TestProtected"));
-	QVERIFY(!entry->attributes()->isProtected("TestUnprotected"));
+	QVERIFY(entry->attributes()->isProtected(QStringLiteral("TestProtected")));
+	QVERIFY(!entry->attributes()->isProtected(QStringLiteral("TestUnprotected")));
 }
 
 void TestKdbx3::testBrokenHeaderHash()
@@ -164,9 +164,9 @@ void TestKdbx3::testBrokenHeaderHash()
 	// The protected stream key has been modified in the header.
 	// Make sure the database won't open.
 
-	QString filename = QString(KEEPASSX_TEST_DATA_DIR).append("/BrokenHeaderHash.kdbx");
+	QString filename = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/BrokenHeaderHash.kdbx"));
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create(""));
+	key->addKey(QSharedPointer<PasswordKey>::create(QString()));
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(!db->open(filename, key, nullptr));
 }
@@ -194,7 +194,7 @@ void TestKdbx3::testAttachmentIndexStability()
 	entry1->setUuid(QUuid::createUuid());
 	QVERIFY(!entry1->uuid().isNull());
 	auto uuid1 = entry1->uuid();
-	entry1->attachments()->set("a", attachment1);
+	entry1->attachments()->set(QStringLiteral("a"), attachment1);
 	QCOMPARE(entry1->attachments()->keys().size(), 1);
 	QCOMPARE(entry1->attachments()->values().size(), 1);
 	entry1->setGroup(root);
@@ -203,8 +203,8 @@ void TestKdbx3::testAttachmentIndexStability()
 	entry2->setUuid(QUuid::createUuid());
 	QVERIFY(!entry2->uuid().isNull());
 	auto uuid2 = entry2->uuid();
-	entry2->attachments()->set("a", attachment1);
-	entry2->attachments()->set("b", attachment2);
+	entry2->attachments()->set(QStringLiteral("a"), attachment1);
+	entry2->attachments()->set(QStringLiteral("b"), attachment2);
 	QCOMPARE(entry2->attachments()->keys().size(), 2);
 	QCOMPARE(entry2->attachments()->values().size(), 2);
 	entry2->setGroup(group1);
@@ -213,10 +213,10 @@ void TestKdbx3::testAttachmentIndexStability()
 	entry3->setUuid(QUuid::createUuid());
 	QVERIFY(!entry3->uuid().isNull());
 	auto uuid3 = entry3->uuid();
-	entry3->attachments()->set("a", attachment1);
-	entry3->attachments()->set("b", attachment2);
-	entry3->attachments()->set("x", attachment3);
-	entry3->attachments()->set("y", attachment3);
+	entry3->attachments()->set(QStringLiteral("a"), attachment1);
+	entry3->attachments()->set(QStringLiteral("b"), attachment2);
+	entry3->attachments()->set(QStringLiteral("x"), attachment3);
+	entry3->attachments()->set(QStringLiteral("y"), attachment3);
 	QCOMPARE(entry3->attachments()->keys().size(), 4);
 	QCOMPARE(entry3->attachments()->values().size(), 3);
 	entry3->setGroup(group1);
@@ -239,19 +239,19 @@ void TestKdbx3::testAttachmentIndexStability()
 	auto a1 = db2->rootGroup()->findEntryByUuid(uuid1)->attachments();
 	QCOMPARE(a1->keys().size(), 1);
 	QCOMPARE(a1->values().size(), 1);
-	QCOMPARE(a1->value("a"), attachment1);
+	QCOMPARE(a1->value(QStringLiteral("a")), attachment1);
 
 	auto a2 = db2->rootGroup()->findEntryByUuid(uuid2)->attachments();
 	QCOMPARE(a2->keys().size(), 2);
 	QCOMPARE(a2->values().size(), 2);
-	QCOMPARE(a2->value("a"), attachment1);
-	QCOMPARE(a2->value("b"), attachment2);
+	QCOMPARE(a2->value(QStringLiteral("a")), attachment1);
+	QCOMPARE(a2->value(QStringLiteral("b")), attachment2);
 
 	auto a3 = db2->rootGroup()->findEntryByUuid(uuid3)->attachments();
 	QCOMPARE(a3->keys().size(), 4);
 	QCOMPARE(a3->values().size(), 3);
-	QCOMPARE(a3->value("a"), attachment1);
-	QCOMPARE(a3->value("b"), attachment2);
-	QCOMPARE(a3->value("x"), attachment3);
-	QCOMPARE(a3->value("y"), attachment3);
+	QCOMPARE(a3->value(QStringLiteral("a")), attachment1);
+	QCOMPARE(a3->value(QStringLiteral("b")), attachment2);
+	QCOMPARE(a3->value(QStringLiteral("x")), attachment3);
+	QCOMPARE(a3->value(QStringLiteral("y")), attachment3);
 }

@@ -42,7 +42,6 @@ include(CheckCXXCompilerFlag)
 include(CheckCXXSourceCompiles)
 
 option(WITH_TESTS "Enable building of unit tests" OFF)
-option(WITH_GUI_TESTS "Enable building of GUI tests" OFF)
 option(WITH_ASAN "Enable address sanitizer checks (Linux / macOS only)" OFF)
 option(WITH_COVERAGE "Use to build with coverage tests (GCC only)." OFF)
 

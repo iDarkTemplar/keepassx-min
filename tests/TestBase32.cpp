@@ -26,7 +26,7 @@ void TestBase32::testDecode()
 	// 3 quanta, all upper case + padding
 	QByteArray encodedData = "JBSWY3DPEB3W64TMMQXC4LQ=";
 	QVariant data = Base32::decode(encodedData);
-	QString expectedData = "Hello world...";
+	QString expectedData = QStringLiteral("Hello world...");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
@@ -34,7 +34,7 @@ void TestBase32::testDecode()
 	// 4 quanta, all upper case
 	encodedData = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ";
 	data = Base32::decode(encodedData);
-	expectedData = "12345678901234567890";
+	expectedData = QStringLiteral("12345678901234567890");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
@@ -42,7 +42,7 @@ void TestBase32::testDecode()
 	// 4 quanta, all lower case
 	encodedData = "gezdgnbvgy3tqojqgezdgnbvgy3tqojq";
 	data = Base32::decode(encodedData);
-	expectedData = "12345678901234567890";
+	expectedData = QStringLiteral("12345678901234567890");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
@@ -50,7 +50,7 @@ void TestBase32::testDecode()
 	// 4 quanta, mixed upper and lower case
 	encodedData = "Gezdgnbvgy3tQojqgezdGnbvgy3tQojQ";
 	data = Base32::decode(encodedData);
-	expectedData = "12345678901234567890";
+	expectedData = QStringLiteral("12345678901234567890");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
@@ -58,7 +58,7 @@ void TestBase32::testDecode()
 	// 1 pad characters
 	encodedData = "ORSXG5A=";
 	data = Base32::decode(encodedData);
-	expectedData = "test";
+	expectedData = QStringLiteral("test");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
@@ -66,7 +66,7 @@ void TestBase32::testDecode()
 	// 3 pad characters
 	encodedData = "L5PV6===";
 	data = Base32::decode(encodedData);
-	expectedData = "___";
+	expectedData = QStringLiteral("___");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
@@ -74,7 +74,7 @@ void TestBase32::testDecode()
 	// 4 pad characters
 	encodedData = "MZXW6IDCMFZA====";
 	data = Base32::decode(encodedData);
-	expectedData = "foo bar";
+	expectedData = QStringLiteral("foo bar");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
@@ -82,14 +82,14 @@ void TestBase32::testDecode()
 	// six pad characters
 	encodedData = "MZXW6YTBOI======";
 	data = Base32::decode(encodedData);
-	expectedData = "foobar";
+	expectedData = QStringLiteral("foobar");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
 
 	encodedData = "IA======";
 	data = Base32::decode(encodedData);
-	expectedData = "@";
+	expectedData = QStringLiteral("@");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
@@ -107,21 +107,21 @@ void TestBase32::testDecode()
 	// RFC 4648 test vectors
 	encodedData = "";
 	data = Base32::decode(encodedData);
-	expectedData = "";
+	expectedData = QString();
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
 
 	encodedData = "MY======";
 	data = Base32::decode(encodedData);
-	expectedData = "f";
+	expectedData = QStringLiteral("f");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
 
 	encodedData = "MZXQ====";
 	data = Base32::decode(encodedData);
-	expectedData = "fo";
+	expectedData = QStringLiteral("fo");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
@@ -129,19 +129,19 @@ void TestBase32::testDecode()
 	encodedData = "MZXW6===";
 	data = Base32::decode(encodedData);
 	QVERIFY(!data.isNull());
-	expectedData = "foo";
+	expectedData = QStringLiteral("foo");
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
 
 	encodedData = "MZXW6YQ=";
 	data = Base32::decode(encodedData);
-	expectedData = "foob";
+	expectedData = QStringLiteral("foob");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
 
 	encodedData = "MZXW6YTB";
-	expectedData = "fooba";
+	expectedData = QStringLiteral("fooba");
 	data = Base32::decode(encodedData);
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
@@ -149,7 +149,7 @@ void TestBase32::testDecode()
 
 	encodedData = "MZXW6YTBOI======";
 	data = Base32::decode(encodedData);
-	expectedData = "foobar";
+	expectedData = QStringLiteral("foobar");
 	QVERIFY(!data.isNull());
 	QCOMPARE(data.toString(), expectedData);
 	QVERIFY(data.value<QByteArray>().size() == expectedData.size());
@@ -307,24 +307,24 @@ void TestBase32::testSanitizeInput()
 	QByteArray encodedData = "JBSW Y3DP EB3W 64TM MQXC 4LQA";
 	auto data = Base32::decode(Base32::sanitizeInput(encodedData));
 	QVERIFY(!data.isNull());
-	QCOMPARE(data.toString(), QString("Hello world..."));
+	QCOMPARE(data.toString(), QStringLiteral("Hello world..."));
 
 	// sanitize input (typo + missing padding)
 	encodedData = "J8SWY3DPE83W64TMMQXC4LQA";
 	data = Base32::decode(Base32::sanitizeInput(encodedData));
 	QVERIFY(!data.isNull());
-	QCOMPARE(data.toString(), QString("Hello world..."));
+	QCOMPARE(data.toString(), QStringLiteral("Hello world..."));
 
 	// sanitize input (other illegal characters)
 	encodedData = "J8SWY3D[PE83W64TMMQ]XC!4LQA";
 	data = Base32::decode(Base32::sanitizeInput(encodedData));
 	QVERIFY(!data.isNull());
-	QCOMPARE(data.toString(), QString("Hello world..."));
+	QCOMPARE(data.toString(), QStringLiteral("Hello world..."));
 
 	// sanitize input (NUL character)
 	encodedData = "J8SWY3DPE83W64TMMQXC4LQA";
 	encodedData.insert(3, '\0');
 	data = Base32::decode(Base32::sanitizeInput(encodedData));
 	QVERIFY(!data.isNull());
-	QCOMPARE(data.toString(), QString("Hello world..."));
+	QCOMPARE(data.toString(), QStringLiteral("Hello world..."));
 }

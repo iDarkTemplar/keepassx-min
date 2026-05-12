@@ -30,7 +30,7 @@ TemporaryFile::TemporaryFile(QObject *parent)
 	: QFile(parent)
 {
 	QTemporaryFile tmp;
-	tmp.open();
+	(void) tmp.open();
 	QFile::setFileName(tmp.fileName());
 	tmp.close();
 }
@@ -39,7 +39,7 @@ TemporaryFile::TemporaryFile(const QString &templateName, QObject *parent)
 	: QFile(parent)
 {
 	QTemporaryFile tmp(templateName);
-	tmp.open();
+	(void) tmp.open();
 	QFile::setFileName(tmp.fileName());
 	tmp.close();
 }

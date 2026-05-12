@@ -29,8 +29,7 @@
 QTEST_GUILESS_MAIN(TestCsvExporter)
 
 const QString TestCsvExporter::ExpectedHeaderLine =
-	QString("\"Group\",\"Title\",\"Username\",\"Password\",\"URL\",\"Notes\",\"TOTP\",\"Icon\",\"Last "
-            "Modified\",\"Created\"\n");
+	QStringLiteral("\"Group\",\"Title\",\"Username\",\"Password\",\"URL\",\"Notes\",\"TOTP\",\"Icon\",\"Last Modified\",\"Created\"\n");
 
 void TestCsvExporter::init()
 {
@@ -51,16 +50,16 @@ void TestCsvExporter::testExport()
 {
 	Group *groupRoot = m_db->rootGroup();
 	auto *group = new Group();
-	group->setName("Test Group Name");
+	group->setName(QStringLiteral("Test Group Name"));
 	group->setParent(groupRoot);
 	auto *entry = new Entry();
 	entry->setGroup(group);
-	entry->setTitle("Test Entry Title");
-	entry->setUsername("Test Username");
-	entry->setPassword("Test Password");
-	entry->setUrl("http://test.url");
-	entry->setNotes("Test Notes");
-	entry->setTotp(Totp::createSettings("DFDF", Totp::DEFAULT_DIGITS, Totp::DEFAULT_STEP));
+	entry->setTitle(QStringLiteral("Test Entry Title"));
+	entry->setUsername(QStringLiteral("Test Username"));
+	entry->setPassword(QStringLiteral("Test Password"));
+	entry->setUrl(QStringLiteral("http://test.url"));
+	entry->setNotes(QStringLiteral("Test Notes"));
+	entry->setTotp(Totp::createSettings(QStringLiteral("DFDF"), Totp::DEFAULT_DIGITS, Totp::DEFAULT_STEP));
 	entry->setIcon(5);
 
 	QBuffer buffer;
@@ -70,13 +69,13 @@ void TestCsvExporter::testExport()
 
 	QString expectedResult = QString()
 	                             .append(ExpectedHeaderLine)
-	                             .append("\"Passwords/Test Group Name\",\"Test Entry Title\",\"Test Username\",\"Test "
-	                                     "Password\",\"http://test.url\",\"Test Notes\"");
+	                             .append(QStringLiteral("\"Passwords/Test Group Name\",\"Test Entry Title\",\"Test Username\",\"Test "
+	                                     "Password\",\"http://test.url\",\"Test Notes\""));
 
 	QVERIFY(exported.startsWith(expectedResult));
 	exported.remove(expectedResult);
-	QVERIFY(exported.contains("otpauth://"));
-	QVERIFY(exported.contains(",\"5\","));
+	QVERIFY(exported.contains(QStringLiteral("otpauth://")));
+	QVERIFY(exported.contains(QStringLiteral(",\"5\",")));
 }
 
 void TestCsvExporter::testEmptyDatabase()
@@ -92,14 +91,14 @@ void TestCsvExporter::testNestedGroups()
 {
 	Group *groupRoot = m_db->rootGroup();
 	auto *group = new Group();
-	group->setName("Test Group Name");
+	group->setName(QStringLiteral("Test Group Name"));
 	group->setParent(groupRoot);
 	auto *childGroup = new Group();
-	childGroup->setName("Test Sub Group Name");
+	childGroup->setName(QStringLiteral("Test Sub Group Name"));
 	childGroup->setParent(group);
 	auto *entry = new Entry();
 	entry->setGroup(childGroup);
-	entry->setTitle("Test Entry Title");
+	entry->setTitle(QStringLiteral("Test Entry Title"));
 
 	QBuffer buffer;
 	QVERIFY(buffer.open(QIODevice::ReadWrite));
@@ -108,41 +107,41 @@ void TestCsvExporter::testNestedGroups()
 	QVERIFY(exported.startsWith(
 		QString()
 			.append(ExpectedHeaderLine)
-			.append("\"Passwords/Test Group Name/Test Sub Group Name\",\"Test Entry Title\",\"\",\"\",\"\",\"\"")));
+			.append(QStringLiteral("\"Passwords/Test Group Name/Test Sub Group Name\",\"Test Entry Title\",\"\",\"\",\"\",\"\""))));
 }
 
 void TestCsvExporter::testRoundTripWithCustomRootName()
 {
 	// Create a database with a custom root group name
 	Group *groupRoot = m_db->rootGroup();
-	groupRoot->setName("MyPasswords"); // Custom root name instead of default "Passwords"
+	groupRoot->setName(QStringLiteral("MyPasswords")); // Custom root name instead of default "Passwords"
 
 	auto *group = new Group();
-	group->setName("Test Group");
+	group->setName(QStringLiteral("Test Group"));
 	group->setParent(groupRoot);
 
 	auto *entry = new Entry();
 	entry->setGroup(group);
-	entry->setTitle("Test Entry");
-	entry->setUsername("testuser");
-	entry->setPassword("testpass");
+	entry->setTitle(QStringLiteral("Test Entry"));
+	entry->setUsername(QStringLiteral("testuser"));
+	entry->setPassword(QStringLiteral("testpass"));
 
 	// Export to CSV
 	QString csvData = m_csvExporter->exportDatabase(m_db);
 
 	// Verify export contains the root group name in the path
-	QVERIFY(csvData.contains("\"MyPasswords/Test Group\""));
+	QVERIFY(csvData.contains(QStringLiteral("\"MyPasswords/Test Group\"")));
 
 	// Test the heuristic approach: analyze multiple similar paths
-	QStringList groupPaths = {"MyPasswords/Test Group", "MyPasswords/Another Group", "MyPasswords/Third Group"};
+	QStringList groupPaths = {QStringLiteral("MyPasswords/Test Group"), QStringLiteral("MyPasswords/Another Group"), QStringLiteral("MyPasswords/Third Group")};
 
 	// Test the analyzeCommonRootGroup function logic
 	QStringList firstComponents;
 	for (const QString &path: groupPaths)
 	{
-		if (!path.isEmpty() && !path.startsWith("/"))
+		if (!path.isEmpty() && !path.startsWith(QStringLiteral("/")))
 		{
-			auto nameList = path.split("/", Qt::SkipEmptyParts);
+			auto nameList = path.split(QStringLiteral("/"), Qt::SkipEmptyParts);
 			if (!nameList.isEmpty())
 			{
 				firstComponents.append(nameList.first());
@@ -152,7 +151,7 @@ void TestCsvExporter::testRoundTripWithCustomRootName()
 
 	// All paths should have "MyPasswords" as first component
 	QCOMPARE(firstComponents.size(), 3);
-	QVERIFY(firstComponents.contains("MyPasswords"));
+	QVERIFY(firstComponents.contains(QStringLiteral("MyPasswords")));
 
 	// With 100% consistency, "MyPasswords" should be identified as common root
 	QMap<QString, int> componentCounts;
@@ -161,14 +160,14 @@ void TestCsvExporter::testRoundTripWithCustomRootName()
 		componentCounts[component]++;
 	}
 
-	QCOMPARE(componentCounts["MyPasswords"], 3); // All 3 paths have this root
+	QCOMPARE(componentCounts[QStringLiteral("MyPasswords")], 3); // All 3 paths have this root
 
 	// Simulate the group creation with identified root to skip
-	QString groupPathFromCsv = "MyPasswords/Test Group";
-	auto nameList = groupPathFromCsv.split("/", Qt::SkipEmptyParts);
+	QString groupPathFromCsv = QStringLiteral("MyPasswords/Test Group");
+	auto nameList = groupPathFromCsv.split(QStringLiteral("/"), Qt::SkipEmptyParts);
 
 	// New heuristic logic: skip identified root group name
-	QString rootGroupToSkip = "MyPasswords";
+	QString rootGroupToSkip = QStringLiteral("MyPasswords");
 	if (!rootGroupToSkip.isEmpty() && !nameList.isEmpty()
 	    && nameList.first().compare(rootGroupToSkip, Qt::CaseInsensitive) == 0)
 	{
@@ -177,7 +176,7 @@ void TestCsvExporter::testRoundTripWithCustomRootName()
 
 	// After this logic, nameList should contain only ["Test Group"]
 	QCOMPARE(nameList.size(), 1);
-	QCOMPARE(nameList.first(), QString("Test Group"));
+	QCOMPARE(nameList.first(), QStringLiteral("Test Group"));
 }
 
 void TestCsvExporter::testRoundTripWithDefaultRootName()
@@ -187,31 +186,31 @@ void TestCsvExporter::testRoundTripWithDefaultRootName()
 	// Default name is "Passwords" - don't change it
 
 	auto *group = new Group();
-	group->setName("Test Group");
+	group->setName(QStringLiteral("Test Group"));
 	group->setParent(groupRoot);
 
 	auto *entry = new Entry();
 	entry->setGroup(group);
-	entry->setTitle("Test Entry");
-	entry->setUsername("testuser");
-	entry->setPassword("testpass");
+	entry->setTitle(QStringLiteral("Test Entry"));
+	entry->setUsername(QStringLiteral("testuser"));
+	entry->setPassword(QStringLiteral("testpass"));
 
 	// Export to CSV
 	QString csvData = m_csvExporter->exportDatabase(m_db);
 
 	// Verify export contains the root group name in the path
-	QVERIFY(csvData.contains("\"Passwords/Test Group\""));
+	QVERIFY(csvData.contains(QStringLiteral("\"Passwords/Test Group\"")));
 
 	// Test the heuristic approach with consistent "Passwords" root
-	QStringList groupPaths = {"Passwords/Test Group", "Passwords/Work", "Passwords/Personal"};
+	QStringList groupPaths = {QStringLiteral("Passwords/Test Group"), QStringLiteral("Passwords/Work"), QStringLiteral("Passwords/Personal")};
 
 	// Simulate analysis to find common root
 	QStringList firstComponents;
 	for (const QString &path: groupPaths)
 	{
-		if (!path.isEmpty() && !path.startsWith("/"))
+		if (!path.isEmpty() && !path.startsWith(QStringLiteral("/")))
 		{
-			auto nameList = path.split("/", Qt::SkipEmptyParts);
+			auto nameList = path.split(QStringLiteral("/"), Qt::SkipEmptyParts);
 			if (!nameList.isEmpty())
 			{
 				firstComponents.append(nameList.first());
@@ -223,15 +222,15 @@ void TestCsvExporter::testRoundTripWithDefaultRootName()
 	QCOMPARE(firstComponents.size(), 3);
 	for (const QString &component: firstComponents)
 	{
-		QCOMPARE(component, QString("Passwords"));
+		QCOMPARE(component, QStringLiteral("Passwords"));
 	}
 
 	// Test group creation with identified root to skip
-	QString groupPathFromCsv = "Passwords/Test Group";
-	auto nameList = groupPathFromCsv.split("/", Qt::SkipEmptyParts);
+	QString groupPathFromCsv = QStringLiteral("Passwords/Test Group");
+	auto nameList = groupPathFromCsv.split(QStringLiteral("/"), Qt::SkipEmptyParts);
 
 	// Heuristic logic: skip the identified common root
-	QString rootGroupToSkip = "Passwords";
+	QString rootGroupToSkip = QStringLiteral("Passwords");
 	if (!rootGroupToSkip.isEmpty() && !nameList.isEmpty()
 	    && nameList.first().compare(rootGroupToSkip, Qt::CaseInsensitive) == 0)
 	{
@@ -240,7 +239,7 @@ void TestCsvExporter::testRoundTripWithDefaultRootName()
 
 	// After this logic, nameList should contain only ["Test Group"]
 	QCOMPARE(nameList.size(), 1);
-	QCOMPARE(nameList.first(), QString("Test Group"));
+	QCOMPARE(nameList.first(), QStringLiteral("Test Group"));
 }
 
 void TestCsvExporter::testSingleLevelGroup()
@@ -251,26 +250,26 @@ void TestCsvExporter::testSingleLevelGroup()
 	Group *groupRoot = m_db->rootGroup();
 	auto *entry = new Entry();
 	entry->setGroup(groupRoot); // Put entry directly in root
-	entry->setTitle("Root Entry");
-	entry->setUsername("rootuser");
-	entry->setPassword("rootpass");
+	entry->setTitle(QStringLiteral("Root Entry"));
+	entry->setUsername(QStringLiteral("rootuser"));
+	entry->setPassword(QStringLiteral("rootpass"));
 
 	// Export to CSV
 	QString csvData = m_csvExporter->exportDatabase(m_db);
 
 	// Verify export contains just the root group name (no sub-path)
-	QVERIFY(csvData.contains("\"Passwords\",\"Root Entry\""));
+	QVERIFY(csvData.contains(QStringLiteral("\"Passwords\",\"Root Entry\"")));
 
 	// Test heuristic with single-component paths
-	QStringList groupPaths = {"Passwords", "Work", "Personal"}; // Mixed single components
+	QStringList groupPaths = {QStringLiteral("Passwords"), QStringLiteral("Work"), QStringLiteral("Personal")}; // Mixed single components
 
 	// With inconsistent first components, no common root should be identified
 	QStringList firstComponents;
 	for (const QString &path: groupPaths)
 	{
-		if (!path.isEmpty() && !path.startsWith("/"))
+		if (!path.isEmpty() && !path.startsWith(QStringLiteral("/")))
 		{
-			auto nameList = path.split("/", Qt::SkipEmptyParts);
+			auto nameList = path.split(QStringLiteral("/"), Qt::SkipEmptyParts);
 			if (!nameList.isEmpty())
 			{
 				firstComponents.append(nameList.first());
@@ -283,11 +282,11 @@ void TestCsvExporter::testSingleLevelGroup()
 	QCOMPARE(uniqueComponents.size(), 3); // All different
 
 	// Test group creation with no identified root to skip
-	QString groupPathFromCsv = "Passwords"; // Single component
-	auto nameList = groupPathFromCsv.split("/", Qt::SkipEmptyParts);
+	QString groupPathFromCsv = QStringLiteral("Passwords"); // Single component
+	auto nameList = groupPathFromCsv.split(QStringLiteral("/"), Qt::SkipEmptyParts);
 
 	// With no common root identified, nothing should be removed
-	QString rootGroupToSkip = QString(); // Empty - no common root found
+	QString rootGroupToSkip; // Empty - no common root found
 	if (!rootGroupToSkip.isEmpty() && !nameList.isEmpty()
 	    && nameList.first().compare(rootGroupToSkip, Qt::CaseInsensitive) == 0)
 	{
@@ -296,7 +295,7 @@ void TestCsvExporter::testSingleLevelGroup()
 
 	// Should still have ["Passwords"] as nothing was removed
 	QCOMPARE(nameList.size(), 1);
-	QCOMPARE(nameList.first(), QString("Passwords"));
+	QCOMPARE(nameList.first(), QStringLiteral("Passwords"));
 }
 
 void TestCsvExporter::testAbsolutePaths()
@@ -304,15 +303,15 @@ void TestCsvExporter::testAbsolutePaths()
 	// Test case: paths that start with "/" (absolute paths)
 	// According to the comment, if every row starts with "/", the root group should be left as is
 
-	QStringList groupPaths = {"/Work/Subgroup1", "/Personal/Subgroup2", "/Finance/Subgroup3"};
+	QStringList groupPaths = {QStringLiteral("/Work/Subgroup1"), QStringLiteral("/Personal/Subgroup2"), QStringLiteral("/Finance/Subgroup3")};
 
 	// Test the heuristic analysis with absolute paths
 	QStringList firstComponents;
 	for (const QString &path: groupPaths)
 	{
-		if (!path.isEmpty() && !path.startsWith("/"))
+		if (!path.isEmpty() && !path.startsWith(QStringLiteral("/")))
 		{
-			auto nameList = path.split("/", Qt::SkipEmptyParts);
+			auto nameList = path.split(QStringLiteral("/"), Qt::SkipEmptyParts);
 			if (!nameList.isEmpty())
 			{
 				firstComponents.append(nameList.first());
@@ -325,11 +324,11 @@ void TestCsvExporter::testAbsolutePaths()
 	QCOMPARE(firstComponents.size(), 0);
 
 	// With no first components, no common root should be identified
-	QString rootGroupToSkip = QString(); // Should be empty
+	QString rootGroupToSkip; // Should be empty
 
 	// Test group creation with absolute path
-	QString groupPathFromCsv = "/Work/Subgroup1";
-	auto nameList = groupPathFromCsv.split("/", Qt::SkipEmptyParts);
+	QString groupPathFromCsv = QStringLiteral("/Work/Subgroup1");
+	auto nameList = groupPathFromCsv.split(QStringLiteral("/"), Qt::SkipEmptyParts);
 
 	// With no root to skip, the full path should be preserved
 	if (!rootGroupToSkip.isEmpty() && !nameList.isEmpty()
@@ -340,6 +339,6 @@ void TestCsvExporter::testAbsolutePaths()
 
 	// Should have ["Work", "Subgroup1"] - full path preserved
 	QCOMPARE(nameList.size(), 2);
-	QCOMPARE(nameList.at(0), QString("Work"));
-	QCOMPARE(nameList.at(1), QString("Subgroup1"));
+	QCOMPARE(nameList.at(0), QStringLiteral("Work"));
+	QCOMPARE(nameList.at(1), QStringLiteral("Subgroup1"));
 }

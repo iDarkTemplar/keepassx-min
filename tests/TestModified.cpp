@@ -93,7 +93,7 @@ void TestModified::testSignals()
 	++spyCount2;
 	QTRY_COMPARE(spyModified2.count(), spyCount2);
 
-	entry1->setTitle("test");
+	entry1->setTitle(QStringLiteral("test"));
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	++spyCount2;
 	QTRY_COMPARE(spyModified2.count(), spyCount2);
@@ -110,7 +110,7 @@ void TestModified::testSignals()
 	++spyCount2;
 	QTRY_COMPARE(spyModified2.count(), spyCount2);
 
-	entry2->setTitle("test2");
+	entry2->setTitle(QStringLiteral("test2"));
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	++spyCount2;
 	QTRY_COMPARE(spyModified2.count(), spyCount2);
@@ -154,13 +154,13 @@ void TestModified::testGroupSets()
 	root->setUuid(root->uuid());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	root->setName("test");
+	root->setName(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	root->setName(root->name());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	root->setNotes("test");
+	root->setNotes(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	root->setNotes(root->notes());
@@ -184,13 +184,13 @@ void TestModified::testGroupSets()
 	group->setUuid(group->uuid());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	group->setName("test");
+	group->setName(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	group->setName(group->name());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	group->setNotes("test");
+	group->setNotes(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	group->setNotes(group->notes());
@@ -228,31 +228,31 @@ void TestModified::testEntrySets()
 	entry->setUuid(entry->uuid());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->setTitle("test");
+	entry->setTitle(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	entry->setTitle(entry->title());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->setUrl("test");
+	entry->setUrl(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	entry->setUrl(entry->url());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->setUsername("test");
+	entry->setUsername(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	entry->setUsername(entry->username());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->setPassword("test");
+	entry->setPassword(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	entry->setPassword(entry->password());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->setNotes("test");
+	entry->setNotes(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	entry->setNotes(entry->notes());
@@ -270,7 +270,7 @@ void TestModified::testEntrySets()
 	entry->setIcon(entry->iconUuid());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->setTags("test");
+	entry->setTags(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	entry->setTags(entry->tags());
@@ -288,58 +288,40 @@ void TestModified::testEntrySets()
 	entry->setExpiryTime(entry->timeInfo().expiryTime());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->setAutoTypeEnabled(false);
-	++spyCount;
-	QTRY_COMPARE(spyModified.count(), spyCount);
-	entry->setAutoTypeEnabled(entry->autoTypeEnabled());
-	QTRY_COMPARE(spyModified.count(), spyCount);
-
-	entry->setAutoTypeObfuscation(1);
-	++spyCount;
-	QTRY_COMPARE(spyModified.count(), spyCount);
-	entry->setAutoTypeObfuscation(entry->autoTypeObfuscation());
-	QTRY_COMPARE(spyModified.count(), spyCount);
-
-	entry->setDefaultAutoTypeSequence("test");
-	++spyCount;
-	QTRY_COMPARE(spyModified.count(), spyCount);
-	entry->setDefaultAutoTypeSequence(entry->defaultAutoTypeSequence());
-	QTRY_COMPARE(spyModified.count(), spyCount);
-
-	entry->setForegroundColor(QString("#FF0000"));
+	entry->setForegroundColor(QStringLiteral("#FF0000"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	entry->setForegroundColor(entry->foregroundColor());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->setBackgroundColor(QString("#FF0000"));
+	entry->setBackgroundColor(QStringLiteral("#FF0000"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	entry->setBackgroundColor(entry->backgroundColor());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->setOverrideUrl("test");
+	entry->setOverrideUrl(QStringLiteral("test"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 	entry->setOverrideUrl(entry->overrideUrl());
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->attributes()->set("test key", "test value", false);
+	entry->attributes()->set(QStringLiteral("test key"), QStringLiteral("test value"), false);
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
-	entry->attributes()->set("test key", entry->attributes()->value("test key"), false);
+	entry->attributes()->set(QStringLiteral("test key"), entry->attributes()->value(QStringLiteral("test key")), false);
 	QTRY_COMPARE(spyModified.count(), spyCount);
-	entry->attributes()->set("test key", entry->attributes()->value("test key"), true);
+	entry->attributes()->set(QStringLiteral("test key"), entry->attributes()->value(QStringLiteral("test key")), true);
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
-	entry->attributes()->set("test key", "new test value", true);
+	entry->attributes()->set(QStringLiteral("test key"), QStringLiteral("new test value"), true);
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->attributes()->set("test key2", "test value2", true);
+	entry->attributes()->set(QStringLiteral("test key2"), QStringLiteral("test value2"), true);
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
-	entry->attributes()->set("test key2", entry->attributes()->value("test key2"), true);
+	entry->attributes()->set(QStringLiteral("test key2"), entry->attributes()->value(QStringLiteral("test key2")), true);
 	QTRY_COMPARE(spyModified.count(), spyCount);
 }
 
@@ -348,28 +330,28 @@ void TestModified::testHistoryItems()
 	QScopedPointer<Entry> entry(new Entry());
 	QDateTime created = entry->timeInfo().creationTime();
 	entry->setUuid(QUuid::createUuid());
-	entry->setTitle("a");
-	entry->setTags("a");
+	entry->setTitle(QStringLiteral("a"));
+	entry->setTags(QStringLiteral("a"));
 	QScopedPointer<EntryAttributes> attributes(new EntryAttributes());
 	attributes->copyCustomKeysFrom(entry->attributes());
 
 	int historyItemsSize = 0;
 
 	entry->beginUpdate();
-	entry->setTitle("a");
-	entry->setTags("a");
-	entry->setOverrideUrl("");
+	entry->setTitle(QStringLiteral("a"));
+	entry->setTags(QStringLiteral("a"));
+	entry->setOverrideUrl(QString());
 	entry->endUpdate();
 	QCOMPARE(entry->historyItems().size(), historyItemsSize);
 
 	QDateTime modified = entry->timeInfo().lastModificationTime();
 	m_clock->advanceSecond(10);
 	entry->beginUpdate();
-	entry->setTitle("b");
+	entry->setTitle(QStringLiteral("b"));
 	entry->endUpdate();
 	QCOMPARE(entry->historyItems().size(), ++historyItemsSize);
 	auto *historyEntry = entry->historyItems().at(historyItemsSize - 1);
-	QCOMPARE(historyEntry->title(), QString("a"));
+	QCOMPARE(historyEntry->title(), QStringLiteral("a"));
 	QCOMPARE(historyEntry->uuid(), entry->uuid());
 	QCOMPARE(historyEntry->tags(), entry->tags());
 	QCOMPARE(historyEntry->overrideUrl(), entry->overrideUrl());
@@ -378,23 +360,23 @@ void TestModified::testHistoryItems()
 	QCOMPARE(historyEntry->historyItems().size(), 0);
 
 	entry->beginUpdate();
-	entry->setTags("b");
+	entry->setTags(QStringLiteral("b"));
 	entry->endUpdate();
 	QCOMPARE(entry->historyItems().size(), ++historyItemsSize);
-	QCOMPARE(entry->historyItems().at(historyItemsSize - 1)->tags(), QString("a"));
+	QCOMPARE(entry->historyItems().at(historyItemsSize - 1)->tags(), QStringLiteral("a"));
 
 	entry->beginUpdate();
-	entry->attachments()->set("test", QByteArray("value"));
+	entry->attachments()->set(QStringLiteral("test"), QByteArray("value"));
 	entry->endUpdate();
 	QCOMPARE(entry->historyItems().size(), ++historyItemsSize);
 	QCOMPARE(entry->historyItems().at(historyItemsSize - 1)->attachments()->keys().size(), 0);
 
-	attributes->set("k", "myvalue");
+	attributes->set(QStringLiteral("k"), QStringLiteral("myvalue"));
 	entry->beginUpdate();
 	entry->attributes()->copyCustomKeysFrom(attributes.data());
 	entry->endUpdate();
 	QCOMPARE(entry->historyItems().size(), ++historyItemsSize);
-	QVERIFY(!entry->historyItems().at(historyItemsSize - 1)->attributes()->keys().contains("k"));
+	QVERIFY(!entry->historyItems().at(historyItemsSize - 1)->attributes()->keys().contains(QStringLiteral("k")));
 
 	QScopedPointer<Database> db(new Database());
 	auto *root = db->rootGroup();
@@ -404,41 +386,41 @@ void TestModified::testHistoryItems()
 	auto *entry2 = new Entry();
 	entry2->setGroup(root);
 	entry2->beginUpdate();
-	entry2->setTitle("1");
+	entry2->setTitle(QStringLiteral("1"));
 	entry2->endUpdate();
 
 	entry2->beginUpdate();
-	entry2->setTitle("2");
+	entry2->setTitle(QStringLiteral("2"));
 	entry2->endUpdate();
 	entry2->beginUpdate();
-	entry2->setTitle("3");
+	entry2->setTitle(QStringLiteral("3"));
 	entry2->endUpdate();
 	QCOMPARE(entry2->historyItems().size(), 3);
 
 	entry2->beginUpdate();
-	entry2->setTitle("4");
+	entry2->setTitle(QStringLiteral("4"));
 	entry2->endUpdate();
 	QCOMPARE(entry2->historyItems().size(), 3);
 
 	db->metadata()->setHistoryMaxItems(1);
 
 	entry2->beginUpdate();
-	entry2->setTitle("5");
+	entry2->setTitle(QStringLiteral("5"));
 	entry2->endUpdate();
 	QCOMPARE(entry2->historyItems().size(), 1);
 
 	auto *historyEntry2 = entry2->historyItems().at(0);
-	QCOMPARE(historyEntry2->title(), QString("4"));
+	QCOMPARE(historyEntry2->title(), QStringLiteral("4"));
 
 	db->metadata()->setHistoryMaxItems(-1);
 
 	for (int i = 0; i < 20; i++)
 	{
 		entry2->beginUpdate();
-		entry2->setTitle("6");
+		entry2->setTitle(QStringLiteral("6"));
 		entry2->endUpdate();
 		entry2->beginUpdate();
-		entry2->setTitle("6b");
+		entry2->setTitle(QStringLiteral("6b"));
 		entry2->endUpdate();
 	}
 	QCOMPARE(entry2->historyItems().size(), 41);
@@ -446,7 +428,7 @@ void TestModified::testHistoryItems()
 	db->metadata()->setHistoryMaxItems(0);
 
 	entry2->beginUpdate();
-	entry2->setTitle("7");
+	entry2->setTitle(QStringLiteral("7"));
 	entry2->endUpdate();
 	QCOMPARE(entry2->historyItems().size(), 0);
 
@@ -455,7 +437,7 @@ void TestModified::testHistoryItems()
 	db->metadata()->setHistoryMaxItems(-1);
 	db->metadata()->setHistoryMaxSize(historyMaxSize);
 
-	const QString key("test");
+	const QString key = QStringLiteral("test");
 	entry2->beginUpdate();
 	entry2->attachments()->set(key, QByteArray(18000, 'X'));
 	entry2->endUpdate();
@@ -463,10 +445,10 @@ void TestModified::testHistoryItems()
 	QCOMPARE(entry2->historyItems().size(), 1);
 
 	historyEntry2 = entry2->historyItems().at(0);
-	QCOMPARE(historyEntry2->title(), QString("7"));
+	QCOMPARE(historyEntry2->title(), QStringLiteral("7"));
 
 	entry2->beginUpdate();
-	entry2->setTitle("8");
+	entry2->setTitle(QStringLiteral("8"));
 	entry2->endUpdate();
 	QCOMPARE(entry2->historyItems().size(), 2);
 
@@ -477,25 +459,25 @@ void TestModified::testHistoryItems()
 	QCOMPARE(entry2->historyItems().size(), 1);
 
 	entry2->beginUpdate();
-	entry2->attachments()->set("test2", QByteArray(6000, 'a'));
+	entry2->attachments()->set(QStringLiteral("test2"), QByteArray(6000, 'a'));
 	entry2->endUpdate();
 	QCOMPARE(entry2->attachments()->attachmentsSize(), 6000 + key.size() + 1);
 	QCOMPARE(entry2->historyItems().size(), 2);
 
 	entry2->beginUpdate();
-	entry2->attachments()->set("test3", QByteArray(6000, 'b'));
+	entry2->attachments()->set(QStringLiteral("test3"), QByteArray(6000, 'b'));
 	entry2->endUpdate();
 	QCOMPARE(entry2->attachments()->attachmentsSize(), 12000 + (key.size() + 1) * 2);
 	QCOMPARE(entry2->historyItems().size(), 2);
 
 	entry2->beginUpdate();
-	entry2->attachments()->set("test4", QByteArray(6000, 'c'));
+	entry2->attachments()->set(QStringLiteral("test4"), QByteArray(6000, 'c'));
 	entry2->endUpdate();
 	QCOMPARE(entry2->attachments()->attachmentsSize(), 18000 + (key.size() + 1) * 3);
 	QCOMPARE(entry2->historyItems().size(), 3);
 
 	entry2->beginUpdate();
-	entry2->attachments()->set("test5", QByteArray(6000, 'd'));
+	entry2->attachments()->set(QStringLiteral("test5"), QByteArray(6000, 'd'));
 	entry2->endUpdate();
 	QCOMPARE(entry2->attachments()->attachmentsSize(), 24000 + (key.size() + 1) * 4);
 	QCOMPARE(entry2->historyItems().size(), 1);
@@ -504,7 +486,7 @@ void TestModified::testHistoryItems()
 void TestModified::testHistoryMaxSize()
 {
 	QScopedPointer<Database> db(new Database());
-	const QString key("test");
+	const QString key = QStringLiteral("test");
 
 	auto entry1 = new Entry();
 	entry1->setGroup(db->rootGroup());
@@ -583,31 +565,31 @@ void TestModified::testHistoryMaxSize()
 	QCOMPARE(entry2->historyItems().size(), 0);
 
 	entry2->beginUpdate();
-	entry2->setTags(QByteArray(historyMaxSize - reservedSize2 + 1, 'a'));
+	entry2->setTags(QString::fromUtf8(QByteArray(historyMaxSize - reservedSize2 + 1, 'a')));
 	entry2->endUpdate();
 	QCOMPARE(entry2->tags().size(), historyMaxSize - reservedSize2 + 1);
 	QCOMPARE(entry2->historyItems().size(), 1);
 
 	// history size overflow
 	entry2->beginUpdate();
-	entry2->setTags(QByteArray(historyMaxSize - reservedSize2 + 1, 'b'));
+	entry2->setTags(QString::fromUtf8(QByteArray(historyMaxSize - reservedSize2 + 1, 'b')));
 	entry2->endUpdate();
 	QCOMPARE(entry2->historyItems().size(), 0);
 
 	entry2->beginUpdate();
-	entry2->setTags("");
+	entry2->setTags(QString());
 	entry2->endUpdate();
 	QCOMPARE(entry2->historyItems().size(), 0);
 
 	entry2->beginUpdate();
-	entry2->attributes()->set(key, QByteArray(historyMaxSize - key.size() - reservedSize2 + 1, 'a'));
+	entry2->attributes()->set(key, QString::fromUtf8(QByteArray(historyMaxSize - key.size() - reservedSize2 + 1, 'a')));
 	entry2->endUpdate();
 	QCOMPARE(entry2->attributes()->attributesSize(), historyMaxSize + 1);
 	QCOMPARE(entry2->historyItems().size(), 1);
 
 	// history size overflow
 	entry2->beginUpdate();
-	entry2->attributes()->set(key, QByteArray(historyMaxSize - key.size() - reservedSize2 + 1, 'b'));
+	entry2->attributes()->set(key, QString::fromUtf8(QByteArray(historyMaxSize - key.size() - reservedSize2 + 1, 'b')));
 	entry2->endUpdate();
 	QCOMPARE(entry2->attributes()->attributesSize(), historyMaxSize + 1);
 	QCOMPARE(entry2->historyItems().size(), 0);
@@ -616,21 +598,6 @@ void TestModified::testHistoryMaxSize()
 	entry2->attributes()->remove(key);
 	entry2->endUpdate();
 	QCOMPARE(entry2->attributes()->attributesSize(), reservedSize2);
-	QCOMPARE(entry2->historyItems().size(), 0);
-
-	entry2->beginUpdate();
-	AutoTypeAssociations::Association association;
-	association.window = key;
-	association.sequence = QByteArray(historyMaxSize - key.size() - reservedSize2 + 1, 'a');
-	entry2->autoTypeAssociations()->add(association);
-	entry2->endUpdate();
-	QCOMPARE(entry2->autoTypeAssociations()->associationsSize(), historyMaxSize - reservedSize2 + 1);
-	QCOMPARE(entry2->historyItems().size(), 1);
-
-	entry2->beginUpdate();
-	entry2->autoTypeAssociations()->remove(0);
-	entry2->endUpdate();
-	QCOMPARE(entry2->autoTypeAssociations()->associationsSize(), 0);
 	QCOMPARE(entry2->historyItems().size(), 0);
 }
 
@@ -647,29 +614,29 @@ void TestModified::testCustomData()
 
 	QSignalSpy spyModified(db.data(), SIGNAL(modified()));
 
-	db->metadata()->customData()->set("Key", "Value");
+	db->metadata()->customData()->set(QStringLiteral("Key"), QStringLiteral("Value"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
-	db->metadata()->customData()->set("Key", "Value");
+	db->metadata()->customData()->set(QStringLiteral("Key"), QStringLiteral("Value"));
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	entry->customData()->set("Key", "Value");
+	entry->customData()->set(QStringLiteral("Key"), QStringLiteral("Value"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
-	entry->customData()->set("Key", "Value");
+	entry->customData()->set(QStringLiteral("Key"), QStringLiteral("Value"));
 	QTRY_COMPARE(spyModified.count(), spyCount);
 
-	group->customData()->set("Key", "Value");
+	group->customData()->set(QStringLiteral("Key"), QStringLiteral("Value"));
 	++spyCount;
 	QTRY_COMPARE(spyModified.count(), spyCount);
-	group->customData()->set("Key", "Value");
+	group->customData()->set(QStringLiteral("Key"), QStringLiteral("Value"));
 	QTRY_COMPARE(spyModified.count(), spyCount);
 }
 
 void TestModified::testBlockModifiedSignal()
 {
 	QScopedPointer<Database> db(new Database());
-	auto entry = db->rootGroup()->addEntryWithPath("/abc");
+	auto entry = db->rootGroup()->addEntryWithPath(QStringLiteral("/abc"));
 
 	QSignalSpy spyDbModified(db.data(), SIGNAL(modified()));
 	QSignalSpy spyMetadataModified(db->metadata(), SIGNAL(modified()));
@@ -680,7 +647,6 @@ void TestModified::testBlockModifiedSignal()
 	QSignalSpy spyEntryCustomDataModified(entry->customData(), SIGNAL(modified()));
 	QSignalSpy spyEntryAttributesModified(entry->attributes(), SIGNAL(modified()));
 	QSignalSpy spyEntryAttachmentModified(entry->attachments(), SIGNAL(modified()));
-	QSignalSpy spyEntryAutoTypeAssociationsModified(entry->autoTypeAssociations(), SIGNAL(modified()));
 
 	QVERIFY(spyDbModified.isValid());
 	QVERIFY(spyMetadataModified.isValid());
@@ -691,21 +657,19 @@ void TestModified::testBlockModifiedSignal()
 	QVERIFY(spyEntryCustomDataModified.isValid());
 	QVERIFY(spyEntryAttributesModified.isValid());
 	QVERIFY(spyEntryAttachmentModified.isValid());
-	QVERIFY(spyEntryAutoTypeAssociationsModified.isValid());
 
 	db->setEmitModified(false);
 
 	auto *group1 = new Group();
 	group1->setParent(db->rootGroup());
-	db->metadata()->setName("Modified Database");
-	db->metadata()->customData()->set("Key", "Value");
+	db->metadata()->setName(QStringLiteral("Modified Database"));
+	db->metadata()->customData()->set(QStringLiteral("Key"), QStringLiteral("Value"));
 
-	group1->customData()->set("abc", "dd");
-	entry->setTitle("Another Title");
-	entry->customData()->set("entryabc", "dd");
-	entry->attributes()->set("aaa", "dd");
-	entry->attachments()->set("aaa", {});
-	entry->autoTypeAssociations()->add({"", ""});
+	group1->customData()->set(QStringLiteral("abc"), QStringLiteral("dd"));
+	entry->setTitle(QStringLiteral("Another Title"));
+	entry->customData()->set(QStringLiteral("entryabc"), QStringLiteral("dd"));
+	entry->attributes()->set(QStringLiteral("aaa"), QStringLiteral("dd"));
+	entry->attachments()->set(QStringLiteral("aaa"), {});
 
 	db.reset();
 
@@ -718,5 +682,4 @@ void TestModified::testBlockModifiedSignal()
 	QCOMPARE(spyEntryCustomDataModified.count(), 0);
 	QCOMPARE(spyEntryAttributesModified.count(), 0);
 	QCOMPARE(spyEntryAttachmentModified.count(), 0);
-	QCOMPARE(spyEntryAutoTypeAssociationsModified.count(), 0);
 }

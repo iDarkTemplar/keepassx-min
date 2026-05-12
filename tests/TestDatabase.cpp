@@ -29,14 +29,9 @@
 #include "format/KeePass2Writer.h"
 #include "util/TemporaryFile.h"
 
-#ifdef Q_OS_WIN
-#include <QFileInfo>
-#include <Windows.h>
-#endif
-
 QTEST_GUILESS_MAIN(TestDatabase)
 
-static QString dbFileName = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append("/NewDatabase.kdbx");
+static QString dbFileName = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/NewDatabase.kdbx"));
 
 void TestDatabase::initTestCase()
 {
@@ -50,7 +45,7 @@ void TestDatabase::testOpen()
 	QVERIFY(!db->isModified());
 
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("a"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("a")));
 
 	bool ok = db->open(dbFileName, key);
 	QVERIFY(ok);
@@ -58,7 +53,7 @@ void TestDatabase::testOpen()
 	QVERIFY(db->isInitialized());
 	QVERIFY(!db->isModified());
 
-	db->metadata()->setName("test");
+	db->metadata()->setName(QStringLiteral("test"));
 	QVERIFY(db->isModified());
 }
 
@@ -69,33 +64,23 @@ void TestDatabase::testSave()
 
 	auto db = QSharedPointer<Database>::create();
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("a"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("a")));
 
 	QString error;
 	bool ok = db->open(tempFile.fileName(), key, &error);
 	QVERIFY(ok);
 
 	// Test safe saves
-	db->metadata()->setName("test");
+	db->metadata()->setName(QStringLiteral("test"));
 	QVERIFY(db->isModified());
-	QVERIFY2(db->save(Database::Atomic, {}, &error), error.toLatin1());
-	QVERIFY(!db->isModified());
-
-	// Test temp-file saves
-	db->metadata()->setName("test2");
-	QVERIFY2(db->save(Database::TempFile, QString(), &error), error.toLatin1());
-	QVERIFY(!db->isModified());
-
-	// Test direct-write saves
-	db->metadata()->setName("test3");
-	QVERIFY2(db->save(Database::DirectWrite, QString(), &error), error.toLatin1());
+	QVERIFY2(db->save({}, &error), error.toLatin1());
 	QVERIFY(!db->isModified());
 
 	// Test save backups
 	TemporaryFile backupFile;
 	auto backupFilePath = backupFile.fileName();
-	db->metadata()->setName("test4");
-	QVERIFY2(db->save(Database::Atomic, backupFilePath, &error), error.toLatin1());
+	db->metadata()->setName(QStringLiteral("test4"));
+	QVERIFY2(db->save(backupFilePath, &error), error.toLatin1());
 	QVERIFY(!db->isModified());
 
 	QVERIFY(QFile::exists(backupFilePath));
@@ -110,31 +95,26 @@ void TestDatabase::testSaveAs()
 
 	auto db = QSharedPointer<Database>::create();
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("a"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("a")));
 
 	QString error;
 	QVERIFY(db->open(tempFile.fileName(), key, &error));
 
 	// Happy path case when try to save as new DB.
 	QSignalSpy spyFilePathChanged(db.data(), SIGNAL(filePathChanged(const QString &, const QString &)));
-	QString newDbFileName = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append("/SaveAsNewDatabase.kdbx");
-	QVERIFY2(db->saveAs(newDbFileName, Database::Atomic, QString(), &error), error.toLatin1());
+	QString newDbFileName = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/SaveAsNewDatabase.kdbx"));
+	QVERIFY2(db->saveAs(newDbFileName, QString(), &error), error.toLatin1());
 	QVERIFY(!db->isModified());
 	QCOMPARE(spyFilePathChanged.count(), 1);
 	QVERIFY(QFile::exists(newDbFileName));
-#ifdef Q_OS_WIN
-	QVERIFY(!QFileInfo(newDbFileName).isHidden());
-	SetFileAttributes(newDbFileName.toStdString().c_str(), FILE_ATTRIBUTE_HIDDEN);
-	QVERIFY2(db->saveAs(newDbFileName, Database::Atomic, QString(), &error), error.toLatin1());
-	QVERIFY(QFileInfo(newDbFileName).isHidden());
-#endif
+
 	QFile::remove(newDbFileName);
 	QVERIFY(!QFile::exists(newDbFileName));
 
 	// Negative case when try to save not initialized DB.
 	db->releaseData();
-	QVERIFY2(!db->saveAs(newDbFileName, Database::Atomic, QString(), &error), error.toLatin1());
-	QCOMPARE(error, QString("Could not save, database has not been initialized!"));
+	QVERIFY2(!db->saveAs(newDbFileName, QString(), &error), error.toLatin1());
+	QCOMPARE(error, QStringLiteral("Could not save, database has not been initialized!"));
 }
 
 void TestDatabase::testSignals()
@@ -144,7 +124,7 @@ void TestDatabase::testSignals()
 
 	auto db = QSharedPointer<Database>::create();
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("a"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("a")));
 
 	QSignalSpy spyFilePathChanged(db.data(), SIGNAL(filePathChanged(const QString &, const QString &)));
 	QString error;
@@ -153,11 +133,11 @@ void TestDatabase::testSignals()
 	QCOMPARE(spyFilePathChanged.count(), 1);
 
 	QSignalSpy spyModified(db.data(), SIGNAL(modified()));
-	db->metadata()->setName("test1");
+	db->metadata()->setName(QStringLiteral("test1"));
 	QTRY_COMPARE(spyModified.count(), 1);
 
 	QSignalSpy spySaved(db.data(), SIGNAL(databaseSaved()));
-	QVERIFY(db->save(Database::Atomic, {}, &error));
+	QVERIFY(db->save({}, &error));
 	QCOMPARE(spySaved.count(), 1);
 
 	// Short delay to allow file system settling to reduce test failures
@@ -168,7 +148,7 @@ void TestDatabase::testSignals()
 	QTRY_COMPARE(spyFileChanged.count(), 1);
 	QTRY_VERIFY(!db->isModified());
 
-	db->metadata()->setName("test2");
+	db->metadata()->setName(QStringLiteral("test2"));
 	QTRY_VERIFY(db->isModified());
 
 	QSignalSpy spyDiscarded(db.data(), SIGNAL(databaseDiscarded()));
@@ -178,9 +158,9 @@ void TestDatabase::testSignals()
 
 void TestDatabase::testEmptyRecycleBinOnDisabled()
 {
-	QString filename = QString(KEEPASSX_TEST_DATA_DIR).append("/RecycleBinDisabled.kdbx");
+	QString filename = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/RecycleBinDisabled.kdbx"));
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("123"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("123")));
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(db->open(filename, key, nullptr));
 
@@ -193,9 +173,9 @@ void TestDatabase::testEmptyRecycleBinOnDisabled()
 
 void TestDatabase::testEmptyRecycleBinOnNotCreated()
 {
-	QString filename = QString(KEEPASSX_TEST_DATA_DIR).append("/RecycleBinNotYetCreated.kdbx");
+	QString filename = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/RecycleBinNotYetCreated.kdbx"));
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("123"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("123")));
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(db->open(filename, key, nullptr));
 
@@ -208,9 +188,9 @@ void TestDatabase::testEmptyRecycleBinOnNotCreated()
 
 void TestDatabase::testEmptyRecycleBinOnEmpty()
 {
-	QString filename = QString(KEEPASSX_TEST_DATA_DIR).append("/RecycleBinEmpty.kdbx");
+	QString filename = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/RecycleBinEmpty.kdbx"));
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("123"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("123")));
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(db->open(filename, key, nullptr));
 
@@ -223,9 +203,9 @@ void TestDatabase::testEmptyRecycleBinOnEmpty()
 
 void TestDatabase::testEmptyRecycleBinWithHierarchicalData()
 {
-	QString filename = QString(KEEPASSX_TEST_DATA_DIR).append("/RecycleBinWithData.kdbx");
+	QString filename = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/RecycleBinWithData.kdbx"));
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("123"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("123")));
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(db->open(filename, key, nullptr));
 
@@ -238,7 +218,7 @@ void TestDatabase::testEmptyRecycleBinWithHierarchicalData()
 	QVERIFY(db->metadata()->recycleBin()->children().empty());
 
 	QTemporaryFile afterCleanup;
-	afterCleanup.open();
+	QVERIFY(afterCleanup.open());
 
 	KeePass2Writer writer;
 	writer.writeDatabase(&afterCleanup, db.data());
@@ -261,10 +241,10 @@ void TestDatabase::testCustomIcons()
 	QUuid uuid2 = QUuid::createUuid();
 	QByteArray icon2("icon 2");
 	QDateTime date = QDateTime::currentDateTimeUtc();
-	db.metadata()->addCustomIcon(uuid2, icon2, "Test", date);
+	db.metadata()->addCustomIcon(uuid2, icon2, QStringLiteral("Test"), date);
 	iconData = db.metadata()->customIcon(uuid2);
 	QCOMPARE(iconData.data, icon2);
-	QCOMPARE(iconData.name, QString("Test"));
+	QCOMPARE(iconData.name, QStringLiteral("Test"));
 	QCOMPARE(iconData.lastModified, date);
 }
 
@@ -275,33 +255,33 @@ void TestDatabase::testExternallyModified()
 
 	auto db = QSharedPointer<Database>::create();
 	auto key = QSharedPointer<CompositeKey>::create();
-	key->addKey(QSharedPointer<PasswordKey>::create("a"));
+	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("a")));
 
 	QString error;
 	QVERIFY(db->open(tempFile.fileName(), key, &error) == true);
-	db->metadata()->setName("test2");
-	QVERIFY(db->save(Database::Atomic, {}, &error));
+	db->metadata()->setName(QStringLiteral("test2"));
+	QVERIFY(db->save({}, &error));
 
 	QSignalSpy spyFileChanged(db.data(), &Database::databaseFileChanged);
 	QVERIFY(tempFile.copyFromFile(dbFileName));
 	QTRY_COMPARE(spyFileChanged.count(), 1);
 	// the first argument of the databaseFileChanged signal (triggeredBySave) should be false
 	QVERIFY(spyFileChanged.at(0).length() == 1);
-	QVERIFY(spyFileChanged.at(0).at(0).type() == QVariant::Bool);
+	QVERIFY(spyFileChanged.at(0).at(0).typeId() == QMetaType::Bool);
 	QVERIFY(spyFileChanged.at(0).at(0).toBool() == false);
 	spyFileChanged.clear();
 	// shouldn't be able to save due to external changes
-	QVERIFY(db->save(Database::Atomic, {}, &error) == false);
+	QVERIFY(db->save({}, &error) == false);
 	QApplication::processEvents();
 	// save should have triggered another databaseFileChanged signal
 	QVERIFY(spyFileChanged.count() >= 1);
 	// the first argument of the databaseFileChanged signal (triggeredBySave) should be true
-	QVERIFY(spyFileChanged.at(0).at(0).type() == QVariant::Bool);
+	QVERIFY(spyFileChanged.at(0).at(0).typeId() == QMetaType::Bool);
 	QVERIFY(spyFileChanged.at(0).at(0).toBool() == true);
 
 	// should be able to overwrite externally modified changes when explicitly requested
 	db->setIgnoreFileChangesUntilSaved(true);
-	QVERIFY(db->save(Database::Atomic, {}, &error));
+	QVERIFY(db->save({}, &error));
 	// ignoreFileChangesUntilSaved should reset after save
 	QVERIFY(db->ignoreFileChangesUntilSaved() == false);
 }
