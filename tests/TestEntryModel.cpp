@@ -36,6 +36,9 @@ void TestEntryModel::initTestCase()
 {
 	qRegisterMetaType<QModelIndex>("QModelIndex");
 	QVERIFY(Crypto::init());
+	// EntryModel listens to config signals, and due to that instantiates config.
+	// Use mock config for test.
+	Config::createTempFileInstance();
 }
 
 void TestEntryModel::test()
