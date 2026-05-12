@@ -28,7 +28,7 @@ class TestKeePass2Format: public QObject
 {
 	Q_OBJECT
 
-private slots:
+private Q_SLOTS:
 	void initTestCase();
 
 	/**

@@ -23,7 +23,7 @@ class TestKdbx3: public TestKeePass2Format
 {
 	Q_OBJECT
 
-private slots:
+private Q_SLOTS:
 	void testNonAscii();
 	void testCompressed();
 	void testProtectedStrings();

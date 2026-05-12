@@ -31,7 +31,7 @@ class TestCsvExporter: public QObject
 public:
 	static const QString ExpectedHeaderLine;
 
-private slots:
+private Q_SLOTS:
 	void init();
 	void initTestCase();
 	void cleanup();

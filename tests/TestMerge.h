@@ -23,7 +23,8 @@
 class TestMerge: public QObject
 {
 	Q_OBJECT
-private slots:
+
+private Q_SLOTS:
 	void initTestCase();
 	void init();
 	void cleanup();

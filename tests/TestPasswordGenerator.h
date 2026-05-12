@@ -27,7 +27,7 @@ class TestPasswordGenerator: public QObject
 private:
 	PasswordGenerator m_generator;
 
-private slots:
+private Q_SLOTS:
 	void initTestCase();
 	void init();
 

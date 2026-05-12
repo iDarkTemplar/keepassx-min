@@ -25,7 +25,7 @@ class TestBase32: public QObject
 {
 	Q_OBJECT
 
-private slots:
+private Q_SLOTS:
 	void testEncode();
 	void testDecode();
 	void testAddPadding();

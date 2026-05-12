@@ -54,7 +54,7 @@ class TestKdbx4Format: public QObject
 {
 	Q_OBJECT
 
-private slots:
+private Q_SLOTS:
 	void testFormat400();
 	void testFormat400Upgrade();
 	void testFormat400Upgrade_data();
