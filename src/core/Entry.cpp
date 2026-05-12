@@ -1081,6 +1081,8 @@ bool Entry::endUpdate()
 		truncateHistory();
 	}
 
+	m_tmpHistoryItem.reset();
+
 	return m_modifiedSinceBegin;
 }
 
