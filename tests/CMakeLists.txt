@@ -81,14 +81,12 @@ endmacro(add_unit_test)
 set(TEST_LIBRARIES keepassx_core Qt6::Test)
 
 set(testsupport_SOURCES
-	modeltest.cpp
 	FailDevice.cpp
 	mock/MockClock.cpp
 	util/TemporaryFile.cpp
 	)
 
 set(testsupport_QT_HEADERS
-	modeltest.h
 	FailDevice.h
 	mock/MockClock.h
 	util/TemporaryFile.h

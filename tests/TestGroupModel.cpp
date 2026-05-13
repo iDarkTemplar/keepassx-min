@@ -18,13 +18,13 @@
 
 #include <QSignalSpy>
 #include <QTest>
+#include <QAbstractItemModelTester>
 
 #include "core/Group.h"
 #include "crypto/Crypto.h"
 #include "gui/group/GroupModel.h"
-#include "modeltest.h"
 
-QTEST_GUILESS_MAIN(TestGroupModel)
+QTEST_MAIN(TestGroupModel)
 
 void TestGroupModel::initTestCase()
 {
@@ -62,7 +62,7 @@ void TestGroupModel::test()
 
 	GroupModel *model = new GroupModel(db, this);
 
-	ModelTest *modelTest = new ModelTest(model, this);
+	QAbstractItemModelTester *modelTest = new QAbstractItemModelTester(model, this);
 
 	QModelIndex indexRoot = model->index(0, 0);
 	QModelIndex index1 = model->index(0, 0, indexRoot);

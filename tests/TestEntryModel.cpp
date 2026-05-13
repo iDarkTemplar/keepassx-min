@@ -18,6 +18,7 @@
 
 #include <QSignalSpy>
 #include <QTest>
+#include <QAbstractItemModelTester>
 
 #include "core/Entry.h"
 #include "core/Group.h"
@@ -28,9 +29,8 @@
 #include "gui/entry/EntryAttachmentsModel.h"
 #include "gui/entry/EntryAttributesModel.h"
 #include "gui/entry/EntryModel.h"
-#include "modeltest.h"
 
-QTEST_GUILESS_MAIN(TestEntryModel)
+QTEST_MAIN(TestEntryModel)
 
 void TestEntryModel::initTestCase()
 {
@@ -59,7 +59,7 @@ void TestEntryModel::test()
 	QSignalSpy spyAboutToBeMoved(model, SIGNAL(rowsAboutToBeMoved(QModelIndex, int, int, QModelIndex, int)));
 	QSignalSpy spyMoved(model, SIGNAL(rowsMoved(QModelIndex, int, int, QModelIndex, int)));
 
-	ModelTest *modelTest = new ModelTest(model, this);
+	QAbstractItemModelTester *modelTest = new QAbstractItemModelTester(model, this);
 
 	model->setGroup(group1);
 
@@ -134,7 +134,7 @@ void TestEntryModel::testAttachmentsModel()
 	EntryAttachments *entryAttachments = new EntryAttachments(this);
 
 	EntryAttachmentsModel *model = new EntryAttachmentsModel(this);
-	ModelTest *modelTest = new ModelTest(model, this);
+	QAbstractItemModelTester *modelTest = new QAbstractItemModelTester(model, this);
 
 	QCOMPARE(model->rowCount(), 0);
 	model->setEntryAttachments(entryAttachments);
@@ -179,7 +179,7 @@ void TestEntryModel::testAttributesModel()
 	EntryAttributes *entryAttributes = new EntryAttributes(this);
 
 	EntryAttributesModel *model = new EntryAttributesModel(this);
-	ModelTest *modelTest = new ModelTest(model, this);
+	QAbstractItemModelTester *modelTest = new QAbstractItemModelTester(model, this);
 
 	QCOMPARE(model->rowCount(), 0);
 	model->setEntryAttributes(entryAttributes);
@@ -242,7 +242,7 @@ void TestEntryModel::testAttributesModel()
 void TestEntryModel::testDefaultIconModel()
 {
 	DefaultIconModel *model = new DefaultIconModel(this);
-	ModelTest *modelTest = new ModelTest(model, this);
+	QAbstractItemModelTester *modelTest = new QAbstractItemModelTester(model, this);
 
 	QCOMPARE(model->rowCount(), databaseIcons()->count());
 
@@ -253,7 +253,7 @@ void TestEntryModel::testDefaultIconModel()
 void TestEntryModel::testCustomIconModel()
 {
 	CustomIconModel *model = new CustomIconModel(this);
-	ModelTest *modelTest = new ModelTest(model, this);
+	QAbstractItemModelTester *modelTest = new QAbstractItemModelTester(model, this);
 
 	QCOMPARE(model->rowCount(), 0);
 
@@ -282,7 +282,7 @@ void TestEntryModel::testProxyModel()
 	SortFilterHideProxyModel *modelProxy = new SortFilterHideProxyModel(this);
 	modelProxy->setSourceModel(modelSource);
 
-	ModelTest *modelTest = new ModelTest(modelProxy, this);
+	QAbstractItemModelTester *modelTest = new QAbstractItemModelTester(modelProxy, this);
 
 	Database *db = new Database();
 	Entry *entry = new Entry();
@@ -327,7 +327,7 @@ void TestEntryModel::testProxyModel()
 void TestEntryModel::testDatabaseDelete()
 {
 	EntryModel *model = new EntryModel(this);
-	ModelTest *modelTest = new ModelTest(model, this);
+	QAbstractItemModelTester *modelTest = new QAbstractItemModelTester(model, this);
 
 	Database *db1 = new Database();
 	Group *group1 = new Group();
