@@ -32,7 +32,6 @@
 #include "keys/PasswordKey.h"
 
 class Entry;
-enum class EntryReferenceType;
 class FileWatcher;
 class Group;
 class Metadata;
