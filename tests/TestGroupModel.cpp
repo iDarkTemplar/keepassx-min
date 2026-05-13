@@ -76,18 +76,18 @@ void TestGroupModel::test()
 	QCOMPARE(model->data(index12).toString(), QStringLiteral("group12"));
 	QCOMPARE(model->data(index121).toString(), QStringLiteral("group121"));
 
-	QSignalSpy spy1(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)));
+	QSignalSpy spy1(model, &GroupModel::dataChanged);
 	group11->setName(QStringLiteral("test"));
 	group121->setIcon(4);
 	QCOMPARE(spy1.count(), 2);
 	QCOMPARE(model->data(index11).toString(), QStringLiteral("test"));
 
-	QSignalSpy spyAboutToAdd(model, SIGNAL(rowsAboutToBeInserted(QModelIndex, int, int)));
-	QSignalSpy spyAdded(model, SIGNAL(rowsInserted(QModelIndex, int, int)));
-	QSignalSpy spyAboutToRemove(model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)));
-	QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
-	QSignalSpy spyAboutToMove(model, SIGNAL(rowsAboutToBeMoved(QModelIndex, int, int, QModelIndex, int)));
-	QSignalSpy spyMoved(model, SIGNAL(rowsMoved(QModelIndex, int, int, QModelIndex, int)));
+	QSignalSpy spyAboutToAdd(model, &GroupModel::rowsAboutToBeInserted);
+	QSignalSpy spyAdded(model, &GroupModel::rowsInserted);
+	QSignalSpy spyAboutToRemove(model, &GroupModel::rowsAboutToBeRemoved);
+	QSignalSpy spyRemoved(model, &GroupModel::rowsRemoved);
+	QSignalSpy spyAboutToMove(model, &GroupModel::rowsAboutToBeMoved);
+	QSignalSpy spyMoved(model, &GroupModel::rowsMoved);
 
 	Group *group2 = new Group();
 	group2->setObjectName("group2");

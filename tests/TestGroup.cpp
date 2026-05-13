@@ -108,7 +108,7 @@ void TestGroup::testParenting()
 	QVERIFY(db->rootGroup()->children().at(1) == g6);
 	QVERIFY(db->rootGroup()->children().at(2) == g5);
 
-	QSignalSpy spy(db, SIGNAL(groupDataChanged(Group *)));
+	QSignalSpy spy(db, &Database::groupDataChanged);
 	g2->setName(QStringLiteral("test"));
 	g4->setName(QStringLiteral("test"));
 	g3->setName(QStringLiteral("test"));
@@ -132,19 +132,19 @@ void TestGroup::testSignals()
 	Database *db2 = new Database();
 	QPointer<Group> root = db->rootGroup();
 
-	QSignalSpy spyAboutToAdd(db, SIGNAL(groupAboutToAdd(Group *, int)));
-	QSignalSpy spyAdded(db, SIGNAL(groupAdded()));
-	QSignalSpy spyAboutToRemove(db, SIGNAL(groupAboutToRemove(Group *)));
-	QSignalSpy spyRemoved(db, SIGNAL(groupRemoved()));
-	QSignalSpy spyAboutToMove(db, SIGNAL(groupAboutToMove(Group *, Group *, int)));
-	QSignalSpy spyMoved(db, SIGNAL(groupMoved()));
+	QSignalSpy spyAboutToAdd(db, &Database::groupAboutToAdd);
+	QSignalSpy spyAdded(db, &Database::groupAdded);
+	QSignalSpy spyAboutToRemove(db, &Database::groupAboutToRemove);
+	QSignalSpy spyRemoved(db, &Database::groupRemoved);
+	QSignalSpy spyAboutToMove(db, &Database::groupAboutToMove);
+	QSignalSpy spyMoved(db, &Database::groupMoved);
 
-	QSignalSpy spyAboutToAdd2(db2, SIGNAL(groupAboutToAdd(Group *, int)));
-	QSignalSpy spyAdded2(db2, SIGNAL(groupAdded()));
-	QSignalSpy spyAboutToRemove2(db2, SIGNAL(groupAboutToRemove(Group *)));
-	QSignalSpy spyRemoved2(db2, SIGNAL(groupRemoved()));
-	QSignalSpy spyAboutToMove2(db2, SIGNAL(groupAboutToMove(Group *, Group *, int)));
-	QSignalSpy spyMoved2(db2, SIGNAL(groupMoved()));
+	QSignalSpy spyAboutToAdd2(db2, &Database::groupAboutToAdd);
+	QSignalSpy spyAdded2(db2, &Database::groupAdded);
+	QSignalSpy spyAboutToRemove2(db2, &Database::groupAboutToRemove);
+	QSignalSpy spyRemoved2(db2, &Database::groupRemoved);
+	QSignalSpy spyAboutToMove2(db2, &Database::groupAboutToMove);
+	QSignalSpy spyMoved2(db2, &Database::groupMoved);
 
 	Group *g1 = new Group();
 	Group *g2 = new Group();
@@ -275,8 +275,8 @@ void TestGroup::testDeleteSignals()
 	groupChildChild->setObjectName("groupChildChild");
 	groupChild->setParent(groupRoot);
 	groupChildChild->setParent(groupChild);
-	QSignalSpy spyAboutToRemove(db.data(), SIGNAL(groupAboutToRemove(Group *)));
-	QSignalSpy spyRemoved(db.data(), SIGNAL(groupRemoved()));
+	QSignalSpy spyAboutToRemove(db.data(), &Database::groupAboutToRemove);
+	QSignalSpy spyRemoved(db.data(), &Database::groupRemoved);
 
 	delete groupChild;
 	QVERIFY(groupRoot->children().isEmpty());
@@ -286,8 +286,8 @@ void TestGroup::testDeleteSignals()
 	Group *group = new Group();
 	Entry *entry = new Entry();
 	entry->setGroup(group);
-	QSignalSpy spyEntryAboutToRemove(group, SIGNAL(entryAboutToRemove(Entry *)));
-	QSignalSpy spyEntryRemoved(group, SIGNAL(entryRemoved(Entry *)));
+	QSignalSpy spyEntryAboutToRemove(group, &Group::entryAboutToRemove);
+	QSignalSpy spyEntryRemoved(group, &Group::entryRemoved);
 
 	delete entry;
 	QVERIFY(group->entries().isEmpty());
@@ -301,8 +301,8 @@ void TestGroup::testDeleteSignals()
 	group2->setParent(groupRoot2);
 	Entry *entry2 = new Entry();
 	entry2->setGroup(group2);
-	QSignalSpy spyEntryAboutToRemove2(group2, SIGNAL(entryAboutToRemove(Entry *)));
-	QSignalSpy spyEntryRemoved2(group2, SIGNAL(entryRemoved(Entry *)));
+	QSignalSpy spyEntryAboutToRemove2(group2, &Group::entryAboutToRemove);
+	QSignalSpy spyEntryRemoved2(group2, &Group::entryRemoved);
 
 	delete group2;
 	QCOMPARE(spyEntryAboutToRemove2.count(), 1);
@@ -780,8 +780,8 @@ void TestGroup::testCopyDataFrom()
 	group3->setName(QStringLiteral("TestGroup3"));
 	group3->customData()->set(QStringLiteral("testKey"), QStringLiteral("value"));
 
-	QSignalSpy spyGroupModified(group.data(), SIGNAL(modified()));
-	QSignalSpy spyGroupDataChanged(group.data(), SIGNAL(groupDataChanged(Group *)));
+	QSignalSpy spyGroupModified(group.data(), &Group::modified);
+	QSignalSpy spyGroupDataChanged(group.data(), &Group::groupDataChanged);
 
 	group->copyDataFrom(group2.data());
 	QCOMPARE(spyGroupModified.count(), 1);

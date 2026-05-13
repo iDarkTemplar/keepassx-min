@@ -58,7 +58,7 @@ void TestModified::testSignals()
 
 	QScopedPointer<Database> db(new Database());
 	auto *root = db->rootGroup();
-	QSignalSpy spyModified(db.data(), SIGNAL(modified()));
+	QSignalSpy spyModified(db.data(), &Database::modified);
 
 	db->setKey(compositeKey);
 	++spyCount;
@@ -85,7 +85,7 @@ void TestModified::testSignals()
 
 	QScopedPointer<Database> db2(new Database());
 	auto *root2 = db2->rootGroup();
-	QSignalSpy spyModified2(db2.data(), SIGNAL(modified()));
+	QSignalSpy spyModified2(db2.data(), &Database::modified);
 
 	group1->setParent(root2);
 	++spyCount;
@@ -146,7 +146,7 @@ void TestModified::testGroupSets()
 	auto *group = new Group();
 	group->setParent(root);
 
-	QSignalSpy spyModified(db.data(), SIGNAL(modified()));
+	QSignalSpy spyModified(db.data(), &Database::modified);
 
 	root->setUuid(QUuid::createUuid());
 	++spyCount;
@@ -220,7 +220,7 @@ void TestModified::testEntrySets()
 	auto *entry = new Entry();
 	entry->setGroup(group);
 
-	QSignalSpy spyModified(db.data(), SIGNAL(modified()));
+	QSignalSpy spyModified(db.data(), &Database::modified);
 
 	entry->setUuid(QUuid::createUuid());
 	++spyCount;
@@ -612,7 +612,7 @@ void TestModified::testCustomData()
 	auto *entry = new Entry();
 	entry->setGroup(group);
 
-	QSignalSpy spyModified(db.data(), SIGNAL(modified()));
+	QSignalSpy spyModified(db.data(), &Database::modified);
 
 	db->metadata()->customData()->set(QStringLiteral("Key"), QStringLiteral("Value"));
 	++spyCount;
@@ -638,15 +638,15 @@ void TestModified::testBlockModifiedSignal()
 	QScopedPointer<Database> db(new Database());
 	auto entry = db->rootGroup()->addEntryWithPath(QStringLiteral("/abc"));
 
-	QSignalSpy spyDbModified(db.data(), SIGNAL(modified()));
-	QSignalSpy spyMetadataModified(db->metadata(), SIGNAL(modified()));
-	QSignalSpy spyCustomDataModified(db->metadata()->customData(), SIGNAL(modified()));
-	QSignalSpy spyGroupModified(db->rootGroup(), SIGNAL(modified()));
-	QSignalSpy spyGroupCustomDataModified(db->rootGroup()->customData(), SIGNAL(modified()));
-	QSignalSpy spyEntryModified(entry, SIGNAL(modified()));
-	QSignalSpy spyEntryCustomDataModified(entry->customData(), SIGNAL(modified()));
-	QSignalSpy spyEntryAttributesModified(entry->attributes(), SIGNAL(modified()));
-	QSignalSpy spyEntryAttachmentModified(entry->attachments(), SIGNAL(modified()));
+	QSignalSpy spyDbModified(db.data(), &Database::modified);
+	QSignalSpy spyMetadataModified(db->metadata(), &Metadata::modified);
+	QSignalSpy spyCustomDataModified(db->metadata()->customData(), &CustomData::modified);
+	QSignalSpy spyGroupModified(db->rootGroup(), &Group::modified);
+	QSignalSpy spyGroupCustomDataModified(db->rootGroup()->customData(), &CustomData::modified);
+	QSignalSpy spyEntryModified(entry, &Entry::modified);
+	QSignalSpy spyEntryCustomDataModified(entry->customData(), &CustomData::modified);
+	QSignalSpy spyEntryAttributesModified(entry->attributes(), &EntryAttributes::modified);
+	QSignalSpy spyEntryAttachmentModified(entry->attachments(), &EntryAttachments::modified);
 
 	QVERIFY(spyDbModified.isValid());
 	QVERIFY(spyMetadataModified.isValid());

@@ -101,7 +101,7 @@ void TestDatabase::testSaveAs()
 	QVERIFY(db->open(tempFile.fileName(), key, &error));
 
 	// Happy path case when try to save as new DB.
-	QSignalSpy spyFilePathChanged(db.data(), SIGNAL(filePathChanged(const QString &, const QString &)));
+	QSignalSpy spyFilePathChanged(db.data(), &Database::filePathChanged);
 	QString newDbFileName = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/SaveAsNewDatabase.kdbx"));
 	QVERIFY2(db->saveAs(newDbFileName, QString(), &error), error.toLatin1());
 	QVERIFY(!db->isModified());
@@ -126,17 +126,17 @@ void TestDatabase::testSignals()
 	auto key = QSharedPointer<CompositeKey>::create();
 	key->addKey(QSharedPointer<PasswordKey>::create(QStringLiteral("a")));
 
-	QSignalSpy spyFilePathChanged(db.data(), SIGNAL(filePathChanged(const QString &, const QString &)));
+	QSignalSpy spyFilePathChanged(db.data(), &Database::filePathChanged);
 	QString error;
 	bool ok = db->open(tempFile.fileName(), key, &error);
 	QVERIFY(ok);
 	QCOMPARE(spyFilePathChanged.count(), 1);
 
-	QSignalSpy spyModified(db.data(), SIGNAL(modified()));
+	QSignalSpy spyModified(db.data(), &Database::modified);
 	db->metadata()->setName(QStringLiteral("test1"));
 	QTRY_COMPARE(spyModified.count(), 1);
 
-	QSignalSpy spySaved(db.data(), SIGNAL(databaseSaved()));
+	QSignalSpy spySaved(db.data(), &Database::databaseSaved);
 	QVERIFY(db->save({}, &error));
 	QCOMPARE(spySaved.count(), 1);
 
@@ -151,7 +151,7 @@ void TestDatabase::testSignals()
 	db->metadata()->setName(QStringLiteral("test2"));
 	QTRY_VERIFY(db->isModified());
 
-	QSignalSpy spyDiscarded(db.data(), SIGNAL(databaseDiscarded()));
+	QSignalSpy spyDiscarded(db.data(), &Database::databaseDiscarded);
 	QVERIFY(db->open(tempFile.fileName(), key, &error));
 	QCOMPARE(spyDiscarded.count(), 1);
 }
@@ -164,7 +164,7 @@ void TestDatabase::testEmptyRecycleBinOnDisabled()
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(db->open(filename, key, nullptr));
 
-	QSignalSpy spyModified(db.data(), SIGNAL(modified()));
+	QSignalSpy spyModified(db.data(), &Database::modified);
 
 	db->emptyRecycleBin();
 	// The database must be unmodified in this test after emptying the recycle bin.
@@ -179,7 +179,7 @@ void TestDatabase::testEmptyRecycleBinOnNotCreated()
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(db->open(filename, key, nullptr));
 
-	QSignalSpy spyModified(db.data(), SIGNAL(modified()));
+	QSignalSpy spyModified(db.data(), &Database::modified);
 
 	db->emptyRecycleBin();
 	// The database must be unmodified in this test after emptying the recycle bin.
@@ -194,7 +194,7 @@ void TestDatabase::testEmptyRecycleBinOnEmpty()
 	auto db = QSharedPointer<Database>::create();
 	QVERIFY(db->open(filename, key, nullptr));
 
-	QSignalSpy spyModified(db.data(), SIGNAL(modified()));
+	QSignalSpy spyModified(db.data(), &Database::modified);
 
 	db->emptyRecycleBin();
 	// The database must be unmodified in this test after emptying the recycle bin.

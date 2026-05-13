@@ -1426,7 +1426,7 @@ void TestMerge::testMergeNotModified()
 	QScopedPointer<Database> dbSource(
 		createTestDatabaseStructureClone(dbDestination.data(), Entry::CloneNoFlags, Group::CloneIncludeEntries));
 
-	QSignalSpy modifiedSignalSpy(dbDestination.data(), SIGNAL(modified()));
+	QSignalSpy modifiedSignalSpy(dbDestination.data(), &Database::modified);
 	Merger merger(dbSource.data(), dbDestination.data());
 	merger.merge();
 	QTRY_VERIFY(modifiedSignalSpy.empty());
@@ -1438,7 +1438,7 @@ void TestMerge::testMergeModified()
 	QScopedPointer<Database> dbSource(
 		createTestDatabaseStructureClone(dbDestination.data(), Entry::CloneNoFlags, Group::CloneIncludeEntries));
 
-	QSignalSpy modifiedSignalSpy(dbDestination.data(), SIGNAL(modified()));
+	QSignalSpy modifiedSignalSpy(dbDestination.data(), &Database::modified);
 	// Make sure the two changes have a different timestamp.
 	QTest::qSleep(1);
 	Entry *entry = dbSource->rootGroup()->findEntryByPath(QStringLiteral("entry1"));

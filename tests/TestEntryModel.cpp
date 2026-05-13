@@ -56,8 +56,8 @@ void TestEntryModel::test()
 
 	EntryModel *model = new EntryModel(this);
 
-	QSignalSpy spyAboutToBeMoved(model, SIGNAL(rowsAboutToBeMoved(QModelIndex, int, int, QModelIndex, int)));
-	QSignalSpy spyMoved(model, SIGNAL(rowsMoved(QModelIndex, int, int, QModelIndex, int)));
+	QSignalSpy spyAboutToBeMoved(model, &EntryModel::rowsAboutToBeMoved);
+	QSignalSpy spyMoved(model, &EntryModel::rowsMoved);
 
 	QAbstractItemModelTester *modelTest = new QAbstractItemModelTester(model, this);
 
@@ -65,7 +65,7 @@ void TestEntryModel::test()
 
 	QCOMPARE(model->rowCount(), 2);
 
-	QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)));
+	QSignalSpy spyDataChanged(model, &EntryModel::dataChanged);
 	entry1->setTitle(QStringLiteral("changed"));
 	QCOMPARE(spyDataChanged.count(), 1);
 
@@ -75,10 +75,10 @@ void TestEntryModel::test()
 	QCOMPARE(model->data(index1).toString(), entry1->title());
 	QCOMPARE(model->data(index2).toString(), entry2->title());
 
-	QSignalSpy spyAboutToAdd(model, SIGNAL(rowsAboutToBeInserted(QModelIndex, int, int)));
-	QSignalSpy spyAdded(model, SIGNAL(rowsInserted(QModelIndex, int, int)));
-	QSignalSpy spyAboutToRemove(model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)));
-	QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
+	QSignalSpy spyAboutToAdd(model, &EntryModel::rowsAboutToBeInserted);
+	QSignalSpy spyAdded(model, &EntryModel::rowsInserted);
+	QSignalSpy spyAboutToRemove(model, &EntryModel::rowsAboutToBeRemoved);
+	QSignalSpy spyRemoved(model, &EntryModel::rowsRemoved);
 
 	Entry *entry3 = new Entry();
 	entry3->setGroup(group1);
@@ -118,7 +118,7 @@ void TestEntryModel::test()
 	QCOMPARE(spyAboutToRemove.count(), 1);
 	QCOMPARE(spyRemoved.count(), 1);
 
-	QSignalSpy spyReset(model, SIGNAL(modelReset()));
+	QSignalSpy spyReset(model, &EntryModel::modelReset);
 	model->setGroup(group2);
 	QCOMPARE(spyReset.count(), 1);
 
@@ -140,11 +140,11 @@ void TestEntryModel::testAttachmentsModel()
 	model->setEntryAttachments(entryAttachments);
 	QCOMPARE(model->rowCount(), 0);
 
-	QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)));
-	QSignalSpy spyAboutToAdd(model, SIGNAL(rowsAboutToBeInserted(QModelIndex, int, int)));
-	QSignalSpy spyAdded(model, SIGNAL(rowsInserted(QModelIndex, int, int)));
-	QSignalSpy spyAboutToRemove(model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)));
-	QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
+	QSignalSpy spyDataChanged(model, &EntryModel::dataChanged);
+	QSignalSpy spyAboutToAdd(model, &EntryModel::rowsAboutToBeInserted);
+	QSignalSpy spyAdded(model, &EntryModel::rowsInserted);
+	QSignalSpy spyAboutToRemove(model, &EntryModel::rowsAboutToBeRemoved);
+	QSignalSpy spyRemoved(model, &EntryModel::rowsRemoved);
 
 	entryAttachments->set(QStringLiteral("first"), QByteArray("123"));
 
@@ -163,7 +163,7 @@ void TestEntryModel::testAttachmentsModel()
 	QCOMPARE(spyAboutToRemove.count(), 1);
 	QCOMPARE(spyRemoved.count(), 1);
 
-	QSignalSpy spyReset(model, SIGNAL(modelReset()));
+	QSignalSpy spyReset(model, &EntryModel::modelReset);
 	entryAttachments->clear();
 	model->setEntryAttachments(0);
 	QCOMPARE(spyReset.count(), 2);
@@ -185,11 +185,11 @@ void TestEntryModel::testAttributesModel()
 	model->setEntryAttributes(entryAttributes);
 	QCOMPARE(model->rowCount(), 0);
 
-	QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)));
-	QSignalSpy spyAboutToAdd(model, SIGNAL(rowsAboutToBeInserted(QModelIndex, int, int)));
-	QSignalSpy spyAdded(model, SIGNAL(rowsInserted(QModelIndex, int, int)));
-	QSignalSpy spyAboutToRemove(model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)));
-	QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
+	QSignalSpy spyDataChanged(model, &EntryModel::dataChanged);
+	QSignalSpy spyAboutToAdd(model, &EntryModel::rowsAboutToBeInserted);
+	QSignalSpy spyAdded(model, &EntryModel::rowsInserted);
+	QSignalSpy spyAboutToRemove(model, &EntryModel::rowsAboutToBeRemoved);
+	QSignalSpy spyRemoved(model, &EntryModel::rowsRemoved);
 
 	entryAttributes->set(QStringLiteral("first"), QStringLiteral("123"));
 
@@ -229,7 +229,7 @@ void TestEntryModel::testAttributesModel()
 	QCOMPARE(model->data(model->index(1, 0)).toString(), QStringLiteral("Test2"));
 	QCOMPARE(model->data(model->index(2, 0)).toString(), QStringLiteral("Test11"));
 
-	QSignalSpy spyReset(model, SIGNAL(modelReset()));
+	QSignalSpy spyReset(model, &EntryModel::modelReset);
 	entryAttributes->clear();
 	model->setEntryAttributes(0);
 	QCOMPARE(spyReset.count(), 2);
@@ -293,7 +293,7 @@ void TestEntryModel::testProxyModel()
 
 	// Test hiding and showing a column
 	auto columnCount = modelProxy->columnCount();
-	QSignalSpy spyColumnRemove(modelProxy, SIGNAL(columnsAboutToBeRemoved(QModelIndex, int, int)));
+	QSignalSpy spyColumnRemove(modelProxy, &EntryModel::columnsAboutToBeRemoved);
 	modelProxy->hideColumn(0, true);
 	QCOMPARE(modelProxy->columnCount(), columnCount - 1);
 	QVERIFY(!spyColumnRemove.isEmpty());
@@ -309,7 +309,7 @@ void TestEntryModel::testProxyModel()
 	entryList << entry;
 	modelSource->setEntries(entryList);
 
-	QSignalSpy spyColumnInsert(modelProxy, SIGNAL(columnsAboutToBeInserted(QModelIndex, int, int)));
+	QSignalSpy spyColumnInsert(modelProxy, &EntryModel::columnsAboutToBeInserted);
 	modelProxy->hideColumn(0, false);
 	QCOMPARE(modelProxy->columnCount(), columnCount);
 	QVERIFY(!spyColumnInsert.isEmpty());
