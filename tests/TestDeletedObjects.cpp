@@ -90,6 +90,7 @@ void TestDeletedObjects::testDeletedObjectsFromFile()
 	reader.setStrictMode(true);
 	QString xmlFile = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append(QStringLiteral("/NewDatabase.xml"));
 	auto db = reader.readDatabase(xmlFile);
+	QVERIFY(db);
 
 	createAndDelete(db, 2);
 }
