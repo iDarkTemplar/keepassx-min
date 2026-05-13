@@ -262,7 +262,7 @@ void EntryPreviewWidget::setDatabaseMode(DatabaseWidget::Mode mode)
 void EntryPreviewWidget::updateEntryHeaderLine()
 {
 	Q_ASSERT(m_currentEntry);
-	const QString title = m_currentEntry->resolveMultiplePlaceholders(m_currentEntry->title());
+	const QString title = m_currentEntry->title();
 	m_ui->entryTitleLabel->setRawText(hierarchy(m_currentEntry->group(), title));
 	m_ui->entryIcon->setPixmap(Icons::entryIconPixmap(m_currentEntry, IconSize::Large));
 }
@@ -293,7 +293,7 @@ void EntryPreviewWidget::setUsernameVisible(bool state)
 {
 	if (state)
 	{
-		auto username = m_currentEntry->resolveMultiplePlaceholders(m_currentEntry->username());
+		auto username = m_currentEntry->username();
 		m_ui->entryUsernameLabel->setText(username);
 		m_ui->entryUsernameLabel->setFont(Font::defaultFont());
 		m_ui->entryUsernameLabel->setCursorPosition(0);
@@ -311,7 +311,7 @@ void EntryPreviewWidget::setPasswordVisible(bool state)
 {
 	m_ui->entryPasswordLabel->setFont(Font::fixedFont());
 
-	const QString password = m_currentEntry->resolveMultiplePlaceholders(m_currentEntry->password());
+	const QString password = m_currentEntry->password();
 	if (state)
 	{
 		if (config()->get(Config::GUI_ColorPasswords).toBool())
@@ -354,7 +354,7 @@ void EntryPreviewWidget::setPasswordVisible(bool state)
 
 void EntryPreviewWidget::setEntryNotesVisible(bool state)
 {
-	setNotesVisible(m_ui->entryNotesTextEdit, m_currentEntry->resolveMultiplePlaceholders(m_currentEntry->notes()), state);
+	setNotesVisible(m_ui->entryNotesTextEdit, m_currentEntry->notes(), state);
 	m_ui->toggleEntryNotesButton->setIcon(icons()->onOffIcon(QStringLiteral("password-show"), state));
 }
 
@@ -438,7 +438,7 @@ void EntryPreviewWidget::updateEntryGeneralTab()
 	if (!url.isEmpty())
 	{
 		// URL is well formed and can be opened in a browser
-		m_ui->entryUrlLabel->setUrl(m_currentEntry->resolveMultiplePlaceholders(url));
+		m_ui->entryUrlLabel->setUrl(url);
 		m_ui->entryUrlLabel->setCursor(Qt::PointingHandCursor);
 		m_ui->entryUrlLabel->setOpenExternalLinks(false);
 	}
@@ -480,7 +480,7 @@ void EntryPreviewWidget::updateEntryAdvancedTab()
 			m_ui->entryAttributesTable->item(i, 0)->setFont(font);
 			m_ui->entryAttributesTable->item(i, 0)->setTextAlignment(Qt::AlignTop | Qt::AlignLeft);
 
-			auto value = m_currentEntry->resolveMultiplePlaceholders(attributes->value(key));
+			auto value = attributes->value(key);
 
 			if (attributes->isProtected(key))
 			{

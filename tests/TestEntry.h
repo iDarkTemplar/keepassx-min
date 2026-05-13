@@ -30,15 +30,6 @@ private Q_SLOTS:
 	void testHistoryItemDeletion();
 	void testCopyDataFrom();
 	void testClone();
-	void testResolveUrl();
-	void testResolveUrlPlaceholders();
-	void testResolveRecursivePlaceholders();
-	void testResolveReferencePlaceholders();
-	void testResolveUuidPlaceholder();
-	void testResolveNonIdPlaceholdersToUuid();
-	void testResolveConversionPlaceholders();
-	void testResolveReplacePlaceholders();
-	void testResolveClonedEntry();
 	void testIsRecycled();
 	void testMoveUpDown();
 	void testPreviousParentGroup();

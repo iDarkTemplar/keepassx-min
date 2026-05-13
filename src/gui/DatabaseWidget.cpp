@@ -725,7 +725,7 @@ void DatabaseWidget::copyTitle()
 	auto currentEntry = currentSelectedEntry();
 	if (currentEntry)
 	{
-		setClipboardTextAndMinimize(currentEntry->resolveMultiplePlaceholders(currentEntry->title()));
+		setClipboardTextAndMinimize(currentEntry->title());
 	}
 }
 
@@ -734,7 +734,7 @@ void DatabaseWidget::copyUsername()
 	auto currentEntry = currentSelectedEntry();
 	if (currentEntry)
 	{
-		setClipboardTextAndMinimize(currentEntry->resolveMultiplePlaceholders(currentEntry->username()));
+		setClipboardTextAndMinimize(currentEntry->username());
 	}
 }
 
@@ -743,7 +743,7 @@ void DatabaseWidget::copyPassword()
 	auto currentEntry = currentSelectedEntry();
 	if (currentEntry)
 	{
-		setClipboardTextAndMinimize(currentEntry->resolveMultiplePlaceholders(currentEntry->password()));
+		setClipboardTextAndMinimize(currentEntry->password());
 	}
 }
 
@@ -752,8 +752,7 @@ void DatabaseWidget::copyPasswordTotp()
 	auto currentEntry = currentSelectedEntry();
 	if (currentEntry)
 	{
-		setClipboardTextAndMinimize(
-			currentEntry->resolveMultiplePlaceholders(currentEntry->password()).append(currentEntry->totp()));
+		setClipboardTextAndMinimize(currentEntry->password().append(currentEntry->totp()));
 	}
 }
 
@@ -762,7 +761,7 @@ void DatabaseWidget::copyURL()
 	auto currentEntry = currentSelectedEntry();
 	if (currentEntry)
 	{
-		setClipboardTextAndMinimize(currentEntry->resolveMultiplePlaceholders(currentEntry->url()));
+		setClipboardTextAndMinimize(currentEntry->url());
 	}
 }
 
@@ -771,7 +770,7 @@ void DatabaseWidget::copyNotes()
 	auto currentEntry = currentSelectedEntry();
 	if (currentEntry)
 	{
-		setClipboardTextAndMinimize(currentEntry->resolveMultiplePlaceholders(currentEntry->notes()));
+		setClipboardTextAndMinimize(currentEntry->notes());
 	}
 }
 
@@ -780,8 +779,7 @@ void DatabaseWidget::copyAttribute(QAction *action)
 	auto currentEntry = currentSelectedEntry();
 	if (currentEntry)
 	{
-		setClipboardTextAndMinimize(
-			currentEntry->resolveMultiplePlaceholders(currentEntry->attributes()->value(action->data().toString())));
+		setClipboardTextAndMinimize(currentEntry->attributes()->value(action->data().toString()));
 	}
 }
 
@@ -1218,7 +1216,7 @@ void DatabaseWidget::entryActivationSignalReceived(Entry *entry, EntryModel::Mod
 	case EntryModel::Username:
 		if (config()->get(Config::Security_EnableCopyOnDoubleClick).toBool())
 		{
-			setClipboardTextAndMinimize(entry->resolveMultiplePlaceholders(entry->username()));
+			setClipboardTextAndMinimize(entry->username());
 		}
 		else
 		{
@@ -1228,7 +1226,7 @@ void DatabaseWidget::entryActivationSignalReceived(Entry *entry, EntryModel::Mod
 	case EntryModel::Password:
 		if (config()->get(Config::Security_EnableCopyOnDoubleClick).toBool())
 		{
-			setClipboardTextAndMinimize(entry->resolveMultiplePlaceholders(entry->password()));
+			setClipboardTextAndMinimize(entry->password());
 		}
 		else
 		{
@@ -1268,7 +1266,7 @@ void DatabaseWidget::entryActivationSignalReceived(Entry *entry, EntryModel::Mod
 				break;
 			case 0: // Copy entry URL to clipboard
 			default:
-				setClipboardTextAndMinimize(entry->resolveMultiplePlaceholders(entry->url()));
+				setClipboardTextAndMinimize(entry->url());
 				break;
 			}
 		}
@@ -2111,7 +2109,7 @@ bool DatabaseWidget::currentEntryHasUsername()
 		return false;
 	}
 
-	return !currentEntry->resolveMultiplePlaceholders(currentEntry->username()).isEmpty();
+	return !currentEntry->username().isEmpty();
 }
 
 bool DatabaseWidget::currentEntryHasPassword()
@@ -2123,7 +2121,7 @@ bool DatabaseWidget::currentEntryHasPassword()
 		return false;
 	}
 
-	return !currentEntry->resolveMultiplePlaceholders(currentEntry->password()).isEmpty();
+	return !currentEntry->password().isEmpty();
 }
 
 bool DatabaseWidget::currentEntryHasUrl()
@@ -2135,7 +2133,7 @@ bool DatabaseWidget::currentEntryHasUrl()
 		return false;
 	}
 
-	return !currentEntry->resolveMultiplePlaceholders(currentEntry->url()).isEmpty();
+	return !currentEntry->url().isEmpty();
 }
 
 bool DatabaseWidget::currentEntryHasTotp()
@@ -2159,7 +2157,7 @@ bool DatabaseWidget::currentEntryHasNotes()
 		return false;
 	}
 
-	return !currentEntry->resolveMultiplePlaceholders(currentEntry->notes()).isEmpty();
+	return !currentEntry->notes().isEmpty();
 }
 
 GroupView* DatabaseWidget::groupView()
@@ -2446,60 +2444,4 @@ void DatabaseWidget::emptyRecycleBin()
 	{
 		m_db->emptyRecycleBin();
 	}
-}
-
-void DatabaseWidget::openDatabaseFromEntry(const Entry *entry, bool inBackground)
-{
-	auto keyFile = entry->resolveMultiplePlaceholders(entry->username());
-	auto password = entry->resolveMultiplePlaceholders(entry->password());
-	auto databaseUrl = entry->resolveMultiplePlaceholders(entry->url());
-
-	if (databaseUrl.startsWith(QStringLiteral("kdbxm://")))
-	{
-		databaseUrl = databaseUrl.mid(7);
-	}
-
-	QFileInfo dbFileInfo;
-	if (databaseUrl.startsWith(QStringLiteral("file://")))
-	{
-		QUrl url(databaseUrl);
-		dbFileInfo.setFile(url.toLocalFile());
-	}
-	else
-	{
-		dbFileInfo.setFile(databaseUrl);
-		if (dbFileInfo.isRelative())
-		{
-			QFileInfo currentpath(m_db->filePath());
-			dbFileInfo.setFile(currentpath.absoluteDir(), databaseUrl);
-		}
-	}
-
-	if (!dbFileInfo.isFile())
-	{
-		showErrorMessage(tr("Could not find database file: %1").arg(databaseUrl));
-		return;
-	}
-
-	QFileInfo keyFileInfo;
-	if (!keyFile.isEmpty())
-	{
-		if (keyFile.startsWith(QStringLiteral("file://")))
-		{
-			QUrl keyfileUrl(keyFile);
-			keyFileInfo.setFile(keyfileUrl.toLocalFile());
-		}
-		else
-		{
-			keyFileInfo.setFile(keyFile);
-			if (keyFileInfo.isRelative())
-			{
-				QFileInfo currentpath(m_db->filePath());
-				keyFileInfo.setFile(currentpath.absoluteDir(), keyFile);
-			}
-		}
-	}
-
-	// Request to open the database file in the background with a password and keyfile
-	Q_EMIT requestOpenDatabase(dbFileInfo.canonicalFilePath(), inBackground, password, keyFileInfo.canonicalFilePath());
 }

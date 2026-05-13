@@ -169,20 +169,20 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 		switch (term.field)
 		{
 		case Field::Title:
-			found = term.regex.match(entry->resolvePlaceholder(entry->title())).hasMatch();
+			found = term.regex.match(entry->title()).hasMatch();
 			break;
 		case Field::Username:
-			found = term.regex.match(entry->resolvePlaceholder(entry->username())).hasMatch();
+			found = term.regex.match(entry->username()).hasMatch();
 			break;
 		case Field::Password:
 			if (m_skipProtected)
 			{
 				continue;
 			}
-			found = term.regex.match(entry->resolvePlaceholder(entry->password())).hasMatch();
+			found = term.regex.match(entry->password()).hasMatch();
 			break;
 		case Field::Url:
-			found = term.regex.match(entry->resolvePlaceholder(entry->url())).hasMatch();
+			found = term.regex.match(entry->url()).hasMatch();
 			break;
 		case Field::Notes:
 			found = term.regex.match(entry->notes()).hasMatch();
@@ -257,9 +257,9 @@ bool EntrySearcher::searchEntryImpl(const Entry *entry)
 			break;
 		default:
 			// Terms without a specific field try to match title, username, url, and notes
-			found = term.regex.match(entry->resolvePlaceholder(entry->title())).hasMatch()
-				|| term.regex.match(entry->resolvePlaceholder(entry->username())).hasMatch()
-				|| term.regex.match(entry->resolvePlaceholder(entry->url())).hasMatch()
+			found = term.regex.match(entry->title()).hasMatch()
+				|| term.regex.match(entry->username()).hasMatch()
+				|| term.regex.match(entry->url()).hasMatch()
 				|| (entry->tagList().indexOf(term.regex) != -1)
 				|| term.regex.match(entry->notes()).hasMatch();
 		}

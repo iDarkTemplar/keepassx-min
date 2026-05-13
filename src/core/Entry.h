@@ -91,10 +91,8 @@ public:
 	const TimeInfo& timeInfo() const;
 	QString title() const;
 	QString url() const;
-	QString resolveUrl() const;
 	QStringList getAllUrls() const;
 	QStringList getAdditionalUrls() const;
-	QString webUrl() const;
 	QString displayUrl() const;
 	QString username() const;
 	QString password() const;
@@ -181,52 +179,8 @@ public:
 		CloneDefault = CloneNewUuid | CloneResetTimeInfo,
 		CloneCopy = CloneNewUuid | CloneResetTimeInfo | CloneIncludeHistory,
 		CloneRenameTitle = 8, // add "-Clone" after the original title
-		CloneUserAsRef = 16, // Add the user as a reference to the original entry
-		ClonePassAsRef = 32, // Add the password as a reference to the original entry
 	};
 	Q_DECLARE_FLAGS(CloneFlags, CloneFlag)
-
-	enum class PlaceholderType
-	{
-		NotPlaceholder,
-		Unknown,
-		Title,
-		UserName,
-		Password,
-		Notes,
-		Totp,
-		Url,
-		Uuid,
-		UrlWithoutScheme,
-		UrlScheme,
-		UrlHost,
-		UrlPort,
-		UrlPath,
-		UrlQuery,
-		UrlFragment,
-		UrlUserInfo,
-		UrlUserName,
-		UrlPassword,
-		Reference,
-		CustomAttribute,
-		DateTimeSimple,
-		DateTimeYear,
-		DateTimeMonth,
-		DateTimeDay,
-		DateTimeHour,
-		DateTimeMinute,
-		DateTimeSecond,
-		DateTimeUtcSimple,
-		DateTimeUtcYear,
-		DateTimeUtcMonth,
-		DateTimeUtcDay,
-		DateTimeUtcHour,
-		DateTimeUtcMinute,
-		DateTimeUtcSecond,
-		DbDir,
-		Conversion,
-		Regex
-	};
 
 	static const int DefaultIconNumber;
 
@@ -238,16 +192,6 @@ public:
 	 */
 	Entry* clone(CloneFlags flags = CloneDefault) const;
 	void copyDataFrom(const Entry *other);
-	QString maskPasswordPlaceholders(const QString &str) const;
-	Entry* resolveReference(const QString &str) const;
-	QString resolveMultiplePlaceholders(const QString &str) const;
-	QString resolvePlaceholder(const QString &str) const;
-	QString resolveUrlPlaceholder(const QString &str, PlaceholderType placeholderType) const;
-	QString resolveDateTimePlaceholder(PlaceholderType placeholderType) const;
-	QString resolveConversionPlaceholder(const QString &str, QString *error = nullptr) const;
-	QString resolveRegexPlaceholder(const QString &str, QString *error = nullptr) const;
-	PlaceholderType placeholderType(const QString &placeholder) const;
-	QString resolveUrl(const QString &url) const;
 
 	/**
 	 * Call before and after set*() methods to create a history item
@@ -281,9 +225,6 @@ private Q_SLOTS:
 	void updateTotp();
 
 private:
-	QString resolveMultiplePlaceholdersRecursive(const QString &str, int maxDepth) const;
-	QString resolvePlaceholderRecursive(const QString &placeholder, int maxDepth) const;
-	QString resolveReferencePlaceholderRecursive(const QString &placeholder, int maxDepth) const;
 	QString referenceFieldValue(EntryReferenceType referenceType) const;
 
 	static QString buildReference(const QUuid &uuid, const QString &field);

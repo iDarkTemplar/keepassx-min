@@ -155,7 +155,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			}
 			break;
 		case Title:
-			result = entry->resolveMultiplePlaceholders(entry->title());
+			result = entry->title();
 			if (attr->isReference(EntryAttributes::TitleKey))
 			{
 				result.prepend(tr("Ref: ", "Reference abbreviation"));
@@ -169,7 +169,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			}
 			else
 			{
-				result = entry->resolveMultiplePlaceholders(entry->username());
+				result = entry->username();
 			}
 
 			if (attr->isReference(EntryAttributes::UserNameKey))
@@ -189,7 +189,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			}
 			else
 			{
-				result = entry->resolveMultiplePlaceholders(entry->password());
+				result = entry->password();
 			}
 
 			if (attr->isReference(EntryAttributes::PasswordKey))
@@ -204,7 +204,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 
 			return result;
 		case Url:
-			result = entry->resolveMultiplePlaceholders(entry->displayUrl());
+			result = entry->displayUrl();
 			if (attr->isReference(EntryAttributes::URLKey))
 			{
 				result.prepend(tr("Ref: ", "Reference abbreviation"));
@@ -298,9 +298,9 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 		switch (index.column())
 		{
 		case Username:
-			return entry->resolveMultiplePlaceholders(entry->username());
+			return entry->username();
 		case Password:
-			return entry->resolveMultiplePlaceholders(entry->password());
+			return entry->password();
 		case PasswordStrength:
 			{
 				if (!entry->password().isEmpty() && !entry->excludeFromReports())

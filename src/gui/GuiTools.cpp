@@ -35,8 +35,7 @@ bool confirmDeleteEntries(QWidget *parent, const QList<Entry*> &entries, bool pe
 		if (entries.size() == 1)
 		{
 			auto entry = entries.first();
-			prompt = QObject::tr("Do you really want to permanently delete the entry \"%1\"?")
-						 .arg(entry->resolvePlaceholder(entry->title()).toHtmlEscaped());
+			prompt = QObject::tr("Do you really want to permanently delete the entry \"%1\"?").arg(entry->title().toHtmlEscaped());
 		}
 		else
 		{
@@ -61,8 +60,7 @@ bool confirmDeleteEntries(QWidget *parent, const QList<Entry*> &entries, bool pe
 		if (entries.size() == 1)
 		{
 			auto entry = entries.first();
-			prompt = QObject::tr("Do you really want to move entry \"%1\" to the recycle bin?")
-				.arg(entry->resolvePlaceholder(entry->title()).toHtmlEscaped());
+			prompt = QObject::tr("Do you really want to move entry \"%1\" to the recycle bin?").arg(entry->title().toHtmlEscaped());
 		}
 		else
 		{
@@ -126,7 +124,7 @@ size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry*> &entr
 						"Do you want to overwrite references with values, skip this entry, or delete anyway?",
 						"",
 						references.size())
-						.arg(entry->resolvePlaceholder(entry->title()).toHtmlEscaped())
+						.arg(entry->title().toHtmlEscaped())
 						.arg(references.size()),
 					MessageBox::Overwrite | MessageBox::Skip | MessageBox::Delete,
 					MessageBox::Overwrite);

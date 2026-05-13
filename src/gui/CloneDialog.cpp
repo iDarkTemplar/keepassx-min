@@ -49,12 +49,6 @@ void CloneDialog::cloneEntry()
 		flags |= Entry::CloneRenameTitle;
 	}
 
-	if (m_ui->referencesClone->isChecked())
-	{
-		flags |= Entry::CloneUserAsRef;
-		flags |= Entry::ClonePassAsRef;
-	}
-
 	if (m_ui->historyClone->isChecked())
 	{
 		flags |= Entry::CloneIncludeHistory;

@@ -257,7 +257,6 @@ private Q_SLOTS:
 
 private:
 	int addChildWidget(QWidget *w);
-	void openDatabaseFromEntry(const Entry *entry, bool inBackground = true);
 	bool performSave(QString &errorMessage, const QString &fileName = {});
 
 	QSharedPointer<Database> m_db;
