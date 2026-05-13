@@ -93,61 +93,9 @@ bool confirmDeletePluginData(QWidget *parent, const QList<Entry*> &entries)
 	return answer == MessageBox::Delete;
 }
 
-size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry*> &entries, bool permanent)
+size_t deleteEntries(const QList<Entry*> &entries, bool permanent)
 {
-	if (!parent || entries.isEmpty())
-	{
-		return 0;
-	}
-
-	QList<Entry*> selectedEntries;
-	// Find references to entries and prompt for direction if necessary
 	for (auto entry: entries)
-	{
-		if (permanent)
-		{
-			auto references = entry->database()->rootGroup()->referencesRecursive(entry);
-			if (!references.isEmpty())
-			{
-				// Ignore references that are part of this cohort
-				for (auto e: entries)
-				{
-					references.removeAll(e);
-				}
-
-				// Prompt the user on what to do with the reference (Overwrite, Delete, Skip)
-				auto result = MessageBox::question(
-					parent,
-					QObject::tr("Confirm Replace Entry References"),
-					QObject::tr(
-						"Entry \"%1\" has %2 reference(s). "
-						"Do you want to overwrite references with values, skip this entry, or delete anyway?",
-						"",
-						references.size())
-						.arg(entry->title().toHtmlEscaped())
-						.arg(references.size()),
-					MessageBox::Overwrite | MessageBox::Skip | MessageBox::Delete,
-					MessageBox::Overwrite);
-
-				if (result == MessageBox::Overwrite)
-				{
-					for (auto ref: references)
-					{
-						ref->replaceReferencesWithValues(entry);
-					}
-				}
-				else if (result == MessageBox::Skip)
-				{
-					continue;
-				}
-			}
-		}
-
-		// Marked for deletion
-		selectedEntries << entry;
-	}
-
-	for (auto entry: asConst(selectedEntries))
 	{
 		if (permanent)
 		{
@@ -159,7 +107,7 @@ size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry*> &entr
 		}
 	}
 
-	return selectedEntries.size();
+	return entries.size();
 }
 
 } // namespace GuiTools

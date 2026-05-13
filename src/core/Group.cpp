@@ -622,14 +622,6 @@ QList<Entry*> Group::entriesRecursive(bool includeHistoryItems) const
 	return entryList;
 }
 
-QList<Entry*> Group::referencesRecursive(const Entry *entry) const
-{
-	auto entries_list = entriesRecursive();
-	return QtConcurrent::blockingFiltered(
-		entries_list,
-		[entry](const Entry *e) { return e->hasReferencesTo(entry->uuid()); });
-}
-
 Entry* Group::findEntryByUuid(const QUuid &uuid, bool recursive) const
 {
 	if (uuid.isNull())
@@ -670,57 +662,6 @@ Entry* Group::findEntryByPath(const QString &entryPath) const
 	}
 
 	return findEntryByPathRecursive(normalizedEntryPath, QStringLiteral("/"));
-}
-
-Entry* Group::findEntryBySearchTerm(const QString &term, EntryReferenceType referenceType)
-{
-	Q_ASSERT_X(referenceType != EntryReferenceType::Unknown,
-		"Database::findEntryRecursive",
-		qPrintable(tr("Can't search entry with \"referenceType\" parameter equal to \"Unknown\"")));
-
-	const QList<Group*> groups = groupsRecursive(true);
-
-	for (const Group *group: groups)
-	{
-		bool found = false;
-		const QList<Entry*> &entryList = group->entries();
-		for (Entry *entry: entryList)
-		{
-			switch (referenceType)
-			{
-			case EntryReferenceType::Unknown:
-				return nullptr;
-			case EntryReferenceType::Title:
-				found = entry->title() == term;
-				break;
-			case EntryReferenceType::UserName:
-				found = entry->username() == term;
-				break;
-			case EntryReferenceType::Password:
-				found = entry->password() == term;
-				break;
-			case EntryReferenceType::Url:
-				found = entry->url() == term;
-				break;
-			case EntryReferenceType::Notes:
-				found = entry->notes() == term;
-				break;
-			case EntryReferenceType::QUuid:
-				found = entry->uuid() == QUuid::fromRfc4122(QByteArray::fromHex(term.toLatin1()));
-				break;
-			case EntryReferenceType::CustomAttributes:
-				found = entry->attributes()->containsValue(term);
-				break;
-			}
-
-			if (found)
-			{
-				return entry;
-			}
-		}
-	}
-
-	return nullptr;
 }
 
 Entry* Group::findEntryByPathRecursive(const QString &entryPath, const QString &basePath) const
@@ -899,7 +840,7 @@ QList<QString> Group::usernamesRecursive(qsizetype topN) const
 	for (const auto *entry: entriesRecursive())
 	{
 		const auto username = entry->username();
-		if (!username.isEmpty() && !entry->isAttributeReference(EntryAttributes::UserNameKey))
+		if (!username.isEmpty())
 		{
 			countedUsernames.insert(username, ++countedUsernames[username]);
 		}

@@ -652,7 +652,7 @@ void DatabaseWidget::deleteEntries(QList<Entry*> selectedEntries, bool confirm)
 		return;
 	}
 
-	GuiTools::deleteEntriesResolveReferences(this, selectedEntries, permanent);
+	GuiTools::deleteEntries(selectedEntries, permanent);
 
 	// Select the row above the deleted entries
 	if (index.isValid())

@@ -40,18 +40,6 @@ struct Settings;
 
 } // namespace Totp
 
-enum class EntryReferenceType
-{
-	Unknown,
-	Title,
-	UserName,
-	Password,
-	Url,
-	Notes,
-	QUuid,
-	CustomAttributes
-};
-
 struct EntryData
 {
 	int iconNumber;
@@ -120,11 +108,6 @@ public:
 	bool willExpireInDays(int days) const;
 	void expireNow();
 	bool isRecycled() const;
-	bool isAttributeReference(const QString &key) const;
-	bool isAttributeReferenceOf(const QString &key, const QUuid &uuid) const;
-	void replaceReferencesWithValues(const Entry *other);
-	bool hasReferences() const;
-	bool hasReferencesTo(const QUuid &uuid) const;
 	EntryAttributes* attributes();
 	const EntryAttributes* attributes() const;
 	EntryAttachments* attachments();
@@ -225,11 +208,6 @@ private Q_SLOTS:
 	void updateTotp();
 
 private:
-	QString referenceFieldValue(EntryReferenceType referenceType) const;
-
-	static QString buildReference(const QUuid &uuid, const QString &field);
-	static EntryReferenceType referenceType(const QString &referenceStr);
-
 	template <class T>
 	bool set(T &property, const T &value);
 

@@ -137,18 +137,6 @@ bool EntryAttributes::isProtected(const QString &key) const
 	return m_protectedAttributes.contains(key);
 }
 
-bool EntryAttributes::isReference(const QString &key) const
-{
-	if (!m_attributes.contains(key))
-	{
-		Q_ASSERT(false);
-		return false;
-	}
-
-	const QString data = value(key);
-	return matchReference(data).hasMatch();
-}
-
 void EntryAttributes::set(const QString &key, const QString &value, bool protect)
 {
 	bool shouldEmitModified = false;
@@ -329,27 +317,6 @@ void EntryAttributes::copyDataFrom(const EntryAttributes *other)
 	}
 }
 
-QUuid EntryAttributes::referenceUuid(const QString &key) const
-{
-	if (!m_attributes.contains(key))
-	{
-		Q_ASSERT(false);
-		return {};
-	}
-
-	auto match = matchReference(value(key));
-	if (match.hasMatch())
-	{
-		const QString uuid = match.captured("SearchText");
-		if (!uuid.isEmpty())
-		{
-			return QUuid::fromRfc4122(QByteArray::fromHex(uuid.toLatin1()));
-		}
-	}
-
-	return {};
-}
-
 bool EntryAttributes::operator==(const EntryAttributes &other) const
 {
 	return (m_attributes == other.m_attributes && m_protectedAttributes == other.m_protectedAttributes);
@@ -358,16 +325,6 @@ bool EntryAttributes::operator==(const EntryAttributes &other) const
 bool EntryAttributes::operator!=(const EntryAttributes &other) const
 {
 	return (m_attributes != other.m_attributes || m_protectedAttributes != other.m_protectedAttributes);
-}
-
-QRegularExpressionMatch EntryAttributes::matchReference(const QString &text)
-{
-	// Updated regex to handle nested braces in SearchText (e.g., {UUID})
-	static const QRegularExpression referenceRegExp(
-		QStringLiteral(R"(\{REF:(?<WantedField>[TUPANI])@(?<SearchIn>[TUPANIO]):(?<SearchText>(?:[^{}]|\{[^}]*\})+)\})"),
-		QRegularExpression::CaseInsensitiveOption);
-
-	return referenceRegExp.match(text);
 }
 
 void EntryAttributes::clear()

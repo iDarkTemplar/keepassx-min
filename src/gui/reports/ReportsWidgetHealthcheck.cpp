@@ -446,7 +446,7 @@ void ReportsWidgetHealthcheck::deleteSelectedEntries()
 	bool permanent = !m_db->metadata()->recycleBinEnabled();
 	if (GuiTools::confirmDeleteEntries(this, selectedEntries, permanent))
 	{
-		GuiTools::deleteEntriesResolveReferences(this, selectedEntries, permanent);
+		GuiTools::deleteEntries(selectedEntries, permanent);
 	}
 
 	calculateHealth();

@@ -27,7 +27,7 @@ namespace GuiTools {
 
 bool confirmDeleteEntries(QWidget *parent, const QList<Entry*> &entries, bool permanent);
 bool confirmDeletePluginData(QWidget *parent, const QList<Entry*> &entries);
-size_t deleteEntriesResolveReferences(QWidget *parent, const QList<Entry*> &entries, bool permanent);
+size_t deleteEntries(const QList<Entry*> &entries, bool permanent);
 
 } // namespace GuiTools
 

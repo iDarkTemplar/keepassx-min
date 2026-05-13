@@ -135,7 +135,6 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 	}
 
 	Entry *entry = entryFromIndex(index);
-	EntryAttributes *attr = entry->attributes();
 
 	if (role == Qt::DisplayRole)
 	{
@@ -155,13 +154,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			}
 			break;
 		case Title:
-			result = entry->title();
-			if (attr->isReference(EntryAttributes::TitleKey))
-			{
-				result.prepend(tr("Ref: ", "Reference abbreviation"));
-			}
-
-			return result;
+			return entry->title();
 		case Username:
 			if (config()->get(Config::GUI_HideUsernames).toBool())
 			{
@@ -170,11 +163,6 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 			else
 			{
 				result = entry->username();
-			}
-
-			if (attr->isReference(EntryAttributes::UserNameKey))
-			{
-				result.prepend(tr("Ref: ", "Reference abbreviation"));
 			}
 
 			if (entry->username().isEmpty() && !config()->get(Config::Security_PasswordEmptyPlaceholder).toBool())
@@ -192,11 +180,6 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 				result = entry->password();
 			}
 
-			if (attr->isReference(EntryAttributes::PasswordKey))
-			{
-				result.prepend(tr("Ref: ", "Reference abbreviation"));
-			}
-
 			if (entry->password().isEmpty() && !config()->get(Config::Security_PasswordEmptyPlaceholder).toBool())
 			{
 				result = QString();
@@ -204,13 +187,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 
 			return result;
 		case Url:
-			result = entry->displayUrl();
-			if (attr->isReference(EntryAttributes::URLKey))
-			{
-				result.prepend(tr("Ref: ", "Reference abbreviation"));
-			}
-
-			return result;
+			return entry->displayUrl();
 		case Notes:
 			if (!entry->notes().isEmpty())
 			{
@@ -222,11 +199,6 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 				{
 					// Display only first line of notes in simplified format if not hidden
 					result = entry->notes().section(QStringLiteral("\n"), 0, 0).simplified();
-				}
-
-				if (attr->isReference(EntryAttributes::NotesKey))
-				{
-					result.prepend(tr("Ref: ", "Reference abbreviation"));
 				}
 			}
 
@@ -410,15 +382,7 @@ QVariant EntryModel::data(const QModelIndex &index, int role) const
 		}
 
 		QColor foregroundColor = QColor::fromString(entry->foregroundColor());
-		if (entry->hasReferences())
-		{
-			QPalette p;
-			foregroundColor = p.color(QPalette::Current, QPalette::Text);
-			int lightness = qMin(255, qMax(0, foregroundColor.lightness() + (foregroundColor.lightness() < 110 ? 85 : -51)));
-			foregroundColor.setHsl(foregroundColor.hue(), foregroundColor.saturation(), lightness);
-			return QVariant(foregroundColor);
-		}
-		else if (foregroundColor.isValid())
+		if (foregroundColor.isValid())
 		{
 			return QVariant(foregroundColor);
 		}

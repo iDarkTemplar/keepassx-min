@@ -130,7 +130,7 @@ HealthChecker::HealthChecker(QSharedPointer<Database> db)
 	// Build the cache of re-used passwords
 	for (const auto *entry: db->rootGroup()->entriesRecursive())
 	{
-		if (!entry->isRecycled() && !entry->isAttributeReference(QStringLiteral("Password")))
+		if (!entry->isRecycled())
 		{
 			m_reuse[entry->password()] << QObject::tr("Used in %1/%2").arg(entry->group()->hierarchy().join(QLatin1Char('/')), entry->title());
 		}

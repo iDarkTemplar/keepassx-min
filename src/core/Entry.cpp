@@ -107,78 +107,6 @@ void Entry::setUpdateTimeinfo(bool value)
 	m_updateTimeinfo = value;
 }
 
-QString Entry::buildReference(const QUuid &uuid, const QString &field)
-{
-	Q_ASSERT(EntryAttributes::DefaultAttributes.count(field) > 0);
-
-	QString uuidStr = Tools::uuidToHex(uuid).toUpper();
-	QString shortField;
-
-	if (field == EntryAttributes::TitleKey)
-	{
-		shortField = QStringLiteral("T");
-	}
-	else if (field == EntryAttributes::UserNameKey)
-	{
-		shortField = QStringLiteral("U");
-	}
-	else if (field == EntryAttributes::PasswordKey)
-	{
-		shortField = QStringLiteral("P");
-	}
-	else if (field == EntryAttributes::URLKey)
-	{
-		shortField = QStringLiteral("A");
-	}
-	else if (field == EntryAttributes::NotesKey)
-	{
-		shortField = QStringLiteral("N");
-	}
-
-	if (shortField.isEmpty())
-	{
-		return {};
-	}
-
-	return QStringLiteral("{REF:%1@I:%2}").arg(shortField, uuidStr);
-}
-
-EntryReferenceType Entry::referenceType(const QString &referenceStr)
-{
-	const QString referenceLowerStr = referenceStr.toLower();
-	EntryReferenceType result = EntryReferenceType::Unknown;
-	if (referenceLowerStr == QStringLiteral("t"))
-	{
-		result = EntryReferenceType::Title;
-	}
-	else if (referenceLowerStr == QStringLiteral("u"))
-	{
-		result = EntryReferenceType::UserName;
-	}
-	else if (referenceLowerStr == QStringLiteral("p"))
-	{
-		result = EntryReferenceType::Password;
-	}
-	else if (referenceLowerStr == QStringLiteral("a"))
-	{
-		result = EntryReferenceType::Url;
-	}
-	else if (referenceLowerStr == QStringLiteral("n"))
-	{
-		result = EntryReferenceType::Notes;
-	}
-	else if (referenceLowerStr == QStringLiteral("i"))
-	{
-		result = EntryReferenceType::QUuid;
-	}
-	else if (referenceLowerStr == QStringLiteral("o"))
-	{
-		result = EntryReferenceType::CustomAttributes;
-	}
-
-	return result;
-}
-
 const QUuid& Entry::uuid() const
 {
 	return m_uuid;
@@ -366,58 +294,6 @@ bool Entry::isRecycled() const
 	}
 
 	return m_group->isRecycled();
-}
-
-bool Entry::isAttributeReference(const QString &key) const
-{
-	return m_attributes->isReference(key);
-}
-
-bool Entry::isAttributeReferenceOf(const QString &key, const QUuid &uuid) const
-{
-	if (!m_attributes->isReference(key))
-	{
-		return false;
-	}
-
-	return m_attributes->value(key).contains(Tools::uuidToHex(uuid), Qt::CaseInsensitive);
-}
-
-bool Entry::hasReferences() const
-{
-	for (const QString &key: EntryAttributes::DefaultAttributes)
-	{
-		if (m_attributes->isReference(key))
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-bool Entry::hasReferencesTo(const QUuid &uuid) const
-{
-	for (const QString &key: EntryAttributes::DefaultAttributes)
-	{
-		if (isAttributeReferenceOf(key, uuid))
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-void Entry::replaceReferencesWithValues(const Entry *other)
-{
-	for (const QString &key: EntryAttributes::DefaultAttributes)
-	{
-		if (isAttributeReferenceOf(key, other->uuid()))
-		{
-			setDefaultAttribute(key, other->attribute(key));
-		}
-	}
 }
 
 EntryAttributes* Entry::attributes()
@@ -1054,29 +930,6 @@ bool Entry::endUpdate()
 void Entry::updateModifiedSinceBegin()
 {
 	m_modifiedSinceBegin = true;
-}
-
-QString Entry::referenceFieldValue(EntryReferenceType referenceType) const
-{
-	switch (referenceType)
-	{
-	case EntryReferenceType::Title:
-		return title();
-	case EntryReferenceType::UserName:
-		return username();
-	case EntryReferenceType::Password:
-		return password();
-	case EntryReferenceType::Url:
-		return url();
-	case EntryReferenceType::Notes:
-		return notes();
-	case EntryReferenceType::QUuid:
-		return uuidToHex();
-	default:
-		break;
-	}
-
-	return QString();
 }
 
 void Entry::moveUp()
