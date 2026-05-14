@@ -143,7 +143,6 @@ set(keepassx_SOURCES
 	gui/HtmlGuiExporter.cpp
 	gui/IconModels.cpp
 	gui/Icons.cpp
-	gui/KMessageWidget.cpp
 	gui/MainWindow.cpp
 	gui/MergeDialog.cpp
 	gui/MessageBox.cpp
@@ -320,8 +319,6 @@ set(keepassx_QT_HEADERS
 	gui/group/GroupModel.h
 	gui/group/GroupView.h
 	gui/IconModels.h
-	gui/KMessageWidget.h
-	gui/KMessageWidget_p.h
 	gui/MainWindow.h
 	gui/MergeDialog.h
 	gui/MessageWidget.h
@@ -432,6 +429,7 @@ target_link_libraries(keepassx_core
 	Qt6::DBus
 	Qt6::Widgets
 	Qt6::SvgWidgets
+	KF6::WidgetsAddons
 	${BOTAN_LIBRARIES}
 	${ZXCVBN_LIBRARY}
 	${ZLIB_LIBRARIES}

@@ -18,7 +18,7 @@
 #ifndef MESSAGEWIDGET_H
 #define MESSAGEWIDGET_H
 
-#include "gui/KMessageWidget.h"
+#include <KMessageWidget>
 
 class QTimer;
 

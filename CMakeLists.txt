@@ -271,6 +271,7 @@ if (WITH_TESTS)
 	list(APPEND QT_COMPONENTS Test)
 endif()
 find_package(Qt6 6.10.0 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+find_package(KF6WidgetsAddons REQUIRED)
 
 include(GNUInstallDirs)
 
