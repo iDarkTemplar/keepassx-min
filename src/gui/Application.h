@@ -41,8 +41,6 @@ public:
 
 	void installTranslator(const QString &uiLanguage = QStringLiteral("system"));
 
-	static QList<QPair<QString, QString>> availableLanguages();
-
 Q_SIGNALS:
 	void openFile(const QString &filename);
 
