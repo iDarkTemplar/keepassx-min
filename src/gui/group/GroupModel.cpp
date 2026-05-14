@@ -388,7 +388,6 @@ QMimeData* GroupModel::mimeData(const QModelIndexList &indexes) const
 		return nullptr;
 	}
 
-	QMimeData *data_ptr = new QMimeData();
 	QByteArray encoded;
 	QDataStream stream(&encoded, QIODevice::WriteOnly);
 
@@ -413,13 +412,13 @@ QMimeData* GroupModel::mimeData(const QModelIndexList &indexes) const
 
 	if (seenGroups.isEmpty())
 	{
-		delete data_ptr;
 		return nullptr;
 	}
 	else
 	{
+		std::unique_ptr<QMimeData> data_ptr = std::make_unique<QMimeData>();
 		data_ptr->setData(mimeTypes().at(0), encoded);
-		return data_ptr;
+		return data_ptr.release();
 	}
 }
 
