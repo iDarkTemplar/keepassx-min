@@ -288,9 +288,7 @@ void TestMerge::testResolveConflictExisting()
 	}
 }
 
-void TestMerge::testResolveConflictTemplate(
-	int mergeMode,
-	std::function<void(Database *, const QMap<const char *, QDateTime> &)> verification)
+void TestMerge::testResolveConflictTemplate(std::function<void(Database *, const QMap<const char *, QDateTime> &)> verification)
 {
 	QMap<const char *, QDateTime> timestamps;
 	timestamps["initialTime"] = m_clock->currentDateTimeUtc();
@@ -395,8 +393,6 @@ void TestMerge::testResolveConflictTemplate(
 	sourceEntrySingle->setTitle(QStringLiteral("entrySource"));
 	sourceEntrySingle->endUpdate();
 
-	dbDestination->rootGroup()->setMergeMode(static_cast<Group::MergeMode>(mergeMode));
-
 	// Make sure the merge changes have a different timestamp.
 	timestamps["mergeTime"] = m_clock->advanceSecond(1);
 
@@ -422,8 +418,7 @@ void TestMerge::testResolveConflictTemplate(
 	QVERIFY(dbDestination->rootGroup()->findEntryByPath(QStringLiteral("entrySource")));
 }
 
-void TestMerge::testDeletionConflictTemplate(int mergeMode,
-                                             std::function<void(Database *, const QMap<QString, QUuid> &)> verification)
+void TestMerge::testDeletionConflictTemplate(std::function<void(Database *, const QMap<QString, QUuid> &)> verification)
 {
 	QMap<QString, QUuid> identifiers;
 	m_clock->currentDateTimeUtc();
@@ -553,87 +548,10 @@ void TestMerge::testDeletionConflictTemplate(int mergeMode,
 	delete targetGroupDeletedInTargetAfterEntryUpdatedInSource.data();
 	m_clock->advanceMinute(1);
 
-	dbDestination->rootGroup()->setMergeMode(static_cast<Group::MergeMode>(mergeMode));
-
 	Merger merger(dbSource.data(), dbDestination.data());
 	merger.merge();
 
 	verification(dbDestination.data(), identifiers);
-}
-
-void TestMerge::assertDeletionNewerOnly(Database *db, const QMap<QString, QUuid> &identifiers)
-{
-	QPointer<Group> mergedRootGroup = db->rootGroup();
-	// newer change in target prevents deletion
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInSourceBeforeChangedInTarget")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInSourceBeforeChangedInTarget")]));
-	// newer deletion in source forces deletion
-	QVERIFY(!mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInSourceAfterChangedInTarget")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInSourceAfterChangedInTarget")]));
-	// newer change in source privents deletion
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInTargetBeforeChangedInSource")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInTargetBeforeChangedInSource")]));
-	// newer deletion in target forces deletion
-	QVERIFY(!mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInTargetAfterChangedInSource")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInTargetAfterChangedInSource")]));
-	// newer change in target prevents deletion
-	QVERIFY(mergedRootGroup->findGroupByUuid(identifiers[QStringLiteral("GroupDeletedInSourceBeforeEntryUpdatedInTarget")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("GroupDeletedInSourceBeforeEntryUpdatedInTarget")]));
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInSourceBeforeEntryUpdatedInTarget")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInSourceBeforeEntryUpdatedInTarget")]));
-	// newer deletion in source forces deletion
-	QVERIFY(!mergedRootGroup->findGroupByUuid(identifiers[QStringLiteral("GroupDeletedInSourceAfterEntryUpdatedInTarget")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("GroupDeletedInSourceAfterEntryUpdatedInTarget")]));
-	QVERIFY(!mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInSourceAfterEntryUpdatedInTarget")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInSourceAfterEntryUpdatedInTarget")]));
-	// newer change in source privents deletion
-	QVERIFY(mergedRootGroup->findGroupByUuid(identifiers[QStringLiteral("GroupDeletedInTargetBeforeEntryUpdatedInSource")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("GroupDeletedInTargetBeforeEntryUpdatedInSource")]));
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInTargetBeforeEntryUpdatedInSource")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInTargetBeforeEntryUpdatedInSource")]));
-	// newer deletion in target forces deletion
-	QVERIFY(!mergedRootGroup->findGroupByUuid(identifiers[QStringLiteral("GroupDeletedInTargetAfterEntryUpdatedInSource")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("GroupDeletedInTargetAfterEntryUpdatedInSource")]));
-	QVERIFY(!mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInTargetAfterEntryUpdatedInSource")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInTargetAfterEntryUpdatedInSource")]));
-}
-
-void TestMerge::assertDeletionLocalOnly(Database *db, const QMap<QString, QUuid> &identifiers)
-{
-	QPointer<Group> mergedRootGroup = db->rootGroup();
-
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInSourceBeforeChangedInTarget")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInSourceBeforeChangedInTarget")]));
-
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInSourceAfterChangedInTarget")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInSourceAfterChangedInTarget")]));
-
-	// Uuids in db and deletedObjects is intended according to KeePass #1752
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInTargetBeforeChangedInSource")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInTargetBeforeChangedInSource")]));
-
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInTargetAfterChangedInSource")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInTargetAfterChangedInSource")]));
-
-	QVERIFY(mergedRootGroup->findGroupByUuid(identifiers[QStringLiteral("GroupDeletedInSourceBeforeEntryUpdatedInTarget")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("GroupDeletedInSourceBeforeEntryUpdatedInTarget")]));
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInSourceBeforeEntryUpdatedInTarget")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInSourceBeforeEntryUpdatedInTarget")]));
-
-	QVERIFY(mergedRootGroup->findGroupByUuid(identifiers[QStringLiteral("GroupDeletedInSourceAfterEntryUpdatedInTarget")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("GroupDeletedInSourceAfterEntryUpdatedInTarget")]));
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInSourceAfterEntryUpdatedInTarget")]));
-	QVERIFY(!db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInSourceAfterEntryUpdatedInTarget")]));
-
-	QVERIFY(mergedRootGroup->findGroupByUuid(identifiers[QStringLiteral("GroupDeletedInTargetBeforeEntryUpdatedInSource")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("GroupDeletedInTargetBeforeEntryUpdatedInSource")]));
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInTargetBeforeEntryUpdatedInSource")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInTargetBeforeEntryUpdatedInSource")]));
-
-	QVERIFY(mergedRootGroup->findGroupByUuid(identifiers[QStringLiteral("GroupDeletedInTargetAfterEntryUpdatedInSource")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("GroupDeletedInTargetAfterEntryUpdatedInSource")]));
-	QVERIFY(mergedRootGroup->findEntryByUuid(identifiers[QStringLiteral("EntryDeletedInTargetAfterEntryUpdatedInSource")]));
-	QVERIFY(db->containsDeletedObject(identifiers[QStringLiteral("EntryDeletedInTargetAfterEntryUpdatedInSource")]));
 }
 
 void TestMerge::assertUpdateMergedEntry1(Entry *mergedEntry1, const QMap<const char *, QDateTime> &timestamps)
@@ -712,39 +630,6 @@ void TestMerge::assertUpdateMergedEntry2(Entry *mergedEntry2, const QMap<const c
 	         timestamps["oldestDivergingHistoryTime"]);
 	QCOMPARE(mergedEntry2->notes(), QStringLiteral("3 Source"));
 	QCOMPARE(mergedEntry2->timeInfo().lastModificationTime(), timestamps["newestDivergingHistoryTime"]);
-}
-
-void TestMerge::testDeletionConflictEntry_Synchronized()
-{
-	testDeletionConflictTemplate(Group::Synchronize, &TestMerge::assertDeletionNewerOnly);
-}
-
-void TestMerge::testDeletionConflictEntry_KeepNewer()
-{
-	testDeletionConflictTemplate(Group::KeepNewer, &TestMerge::assertDeletionLocalOnly);
-}
-
-/**
- * Tests the KeepNewer mode concerning history.
- */
-void TestMerge::testResolveConflictEntry_Synchronize()
-{
-	testResolveConflictTemplate(Group::Synchronize, [](Database *db, const QMap<const char *, QDateTime> &timestamps) {
-		QPointer<Group> mergedRootGroup = db->rootGroup();
-		QPointer<Group> mergedGroup1 = mergedRootGroup->children().at(0);
-		TestMerge::assertUpdateMergedEntry1(mergedGroup1->entries().at(0), timestamps);
-		TestMerge::assertUpdateMergedEntry2(mergedGroup1->entries().at(1), timestamps);
-	});
-}
-
-void TestMerge::testResolveConflictEntry_KeepNewer()
-{
-	testResolveConflictTemplate(Group::KeepNewer, [](Database *db, const QMap<const char *, QDateTime> &timestamps) {
-		QPointer<Group> mergedRootGroup = db->rootGroup();
-		QPointer<Group> mergedGroup1 = mergedRootGroup->children().at(0);
-		TestMerge::assertUpdateMergedEntry1(mergedGroup1->entries().at(0), timestamps);
-		TestMerge::assertUpdateMergedEntry2(mergedGroup1->entries().at(1), timestamps);
-	});
 }
 
 /**

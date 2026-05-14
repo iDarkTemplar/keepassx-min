@@ -127,11 +127,6 @@ bool EntryAttributes::contains(const QString &key) const
 	return m_attributes.contains(key);
 }
 
-bool EntryAttributes::containsValue(const QString &value) const
-{
-	return asConst(m_attributes).values().contains(value);
-}
-
 bool EntryAttributes::isProtected(const QString &key) const
 {
 	return m_protectedAttributes.contains(key);

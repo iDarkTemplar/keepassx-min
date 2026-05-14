@@ -30,8 +30,6 @@ public:
 	Merger(const Database *sourceDb, Database *targetDb);
 	Merger(const Group *sourceGroup, Group *targetGroup);
 
-	void setForcedMergeMode(Group::MergeMode mode);
-	void resetForcedMergeMode();
 	void setSkipDatabaseCustomData(bool state);
 
 	class Change
@@ -89,9 +87,8 @@ private:
 	};
 
 	ChangeList mergeGroup(const MergeContext &context);
-	ChangeList mergeDeletions(const MergeContext &context);
 	ChangeList mergeMetadata(const MergeContext &context);
-	bool mergeHistory(const Entry *sourceEntry, Entry *targetEntry, Group::MergeMode mergeMethod, const int maxItems);
+	bool mergeHistory(const Entry *sourceEntry, Entry *targetEntry, const int maxItems);
 	void moveEntry(Entry *entry, Group *targetGroup);
 	void moveGroup(Group *group, Group *targetGroup);
 	// remove an entry without a trace in the deletedObjects - needed for elemination cloned entries
@@ -103,12 +100,10 @@ private:
 	Merger::ChangeList resolveEntryConflict_MergeHistories(
 		const MergeContext &context,
 		const Entry *sourceEntry,
-		Entry *targetEntry,
-		Group::MergeMode mergeMethod);
+		Entry *targetEntry);
 
 private:
 	MergeContext m_context;
-	Group::MergeMode m_mode;
 	bool m_skipCustomData = false;
 	bool m_dryRun = false;
 };

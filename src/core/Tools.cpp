@@ -391,16 +391,6 @@ bool isValidUuid(const QString &uuidStr)
 	return true;
 }
 
-QString cleanFilename(QString filename)
-{
-	// Remove forward slash from title on all platforms
-	filename.replace(QStringLiteral("/"), QStringLiteral("_"));
-	// Remove invalid characters
-	filename.remove(QRegularExpression(QStringLiteral("[:*?\"<>|]")));
-
-	return filename.trimmed();
-}
-
 QString cleanUsername()
 {
 	QString userName = QString::fromLocal8Bit(qgetenv("USER"));

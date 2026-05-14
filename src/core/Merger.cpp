@@ -140,7 +140,6 @@ QString Merger::Change::toString() const
 }
 
 Merger::Merger(const Database *sourceDb, Database *targetDb)
-	: m_mode(Group::Default)
 {
 	if (!sourceDb || !targetDb)
 	{
@@ -158,7 +157,6 @@ Merger::Merger(const Database *sourceDb, Database *targetDb)
 }
 
 Merger::Merger(const Group *sourceGroup, Group *targetGroup)
-	: m_mode(Group::Default)
 {
 	if (!sourceGroup || !targetGroup)
 	{
@@ -175,16 +173,6 @@ Merger::Merger(const Group *sourceGroup, Group *targetGroup)
 		targetGroup};
 }
 
-void Merger::setForcedMergeMode(Group::MergeMode mode)
-{
-	m_mode = mode;
-}
-
-void Merger::resetForcedMergeMode()
-{
-	m_mode = Group::Default;
-}
-
 void Merger::setSkipDatabaseCustomData(bool state)
 {
 	m_skipCustomData = state;
@@ -197,7 +185,6 @@ Merger::ChangeList Merger::merge(bool dryRun)
 	// create some items before deleting them afterwards
 	ChangeList changes;
 	changes << mergeGroup(m_context);
-	changes << mergeDeletions(m_context);
 	changes << mergeMetadata(m_context);
 
 	// At this point we have a list of changes we may want to show the user
@@ -534,8 +521,7 @@ void Merger::eraseGroup(Group *group)
 Merger::ChangeList Merger::resolveEntryConflict_MergeHistories(
 	const MergeContext &context,
 	const Entry *sourceEntry,
-	Entry *targetEntry,
-	Group::MergeMode mergeMethod)
+	Entry *targetEntry)
 {
 	Q_UNUSED(context);
 
@@ -563,7 +549,7 @@ Merger::ChangeList Merger::resolveEntryConflict_MergeHistories(
 			*targetEntry,
 			tr("%1 (Add local modifications to new entry)").arg(differences.join(QStringLiteral(", "))));
 
-		mergeHistory(targetEntry, clonedEntry, mergeMethod, maxItems);
+		mergeHistory(targetEntry, clonedEntry, maxItems);
 		eraseEntry(targetEntry);
 		moveEntry(clonedEntry, currentGroup);
 	}
@@ -574,7 +560,7 @@ Merger::ChangeList Merger::resolveEntryConflict_MergeHistories(
 			.arg(sourceEntry->title())
 			.arg(targetEntry->group()->name());
 
-		const bool changed = mergeHistory(sourceEntry, targetEntry, mergeMethod, maxItems);
+		const bool changed = mergeHistory(sourceEntry, targetEntry, maxItems);
 		if (changed)
 		{
 			changes << Change(
@@ -592,22 +578,14 @@ Merger::ChangeList Merger::resolveEntryConflict(const MergeContext &context, con
 	// We need to cut off the milliseconds since the persistent format only supports times down to seconds
 	// so when we import data from a remote source, it may represent the (or even some msec newer) data
 	// which may be discarded due to higher runtime precision
-	Group::MergeMode mergeMode = m_mode;
-	if (mergeMode == Group::Default && context.m_targetGroup)
-	{
-		mergeMode = context.m_targetGroup->mergeMode();
-	}
-
-	return resolveEntryConflict_MergeHistories(context, sourceEntry, targetEntry, mergeMode);
+	return resolveEntryConflict_MergeHistories(context, sourceEntry, targetEntry);
 }
 
 bool Merger::mergeHistory(
 	const Entry *sourceEntry,
 	Entry *targetEntry,
-	Group::MergeMode mergeMethod,
 	const int maxItems)
 {
-	Q_UNUSED(mergeMethod);
 	const auto targetHistoryItems = targetEntry->historyItems();
 	const auto sourceHistoryItems = sourceEntry->historyItems();
 	const int comparison = compare(
@@ -746,133 +724,6 @@ bool Merger::mergeHistory(
 	}
 
 	return true;
-}
-
-Merger::ChangeList Merger::mergeDeletions(const MergeContext &context)
-{
-	ChangeList changes;
-	Group::MergeMode mergeMode = m_mode == Group::Default ? context.m_targetGroup->mergeMode() : m_mode;
-	if (mergeMode != Group::Synchronize)
-	{
-		// no deletions are applied for any other strategy!
-		return changes;
-	}
-
-	const auto targetDeletions = context.m_targetDb->deletedObjects();
-	const auto sourceDeletions = context.m_sourceDb->deletedObjects();
-
-	QList<DeletedObject> deletions;
-	QMap<QUuid, DeletedObject> mergedDeletions;
-	QList<Entry*> entries;
-	QList<Group*> groups;
-
-	for (const auto &object: (targetDeletions + sourceDeletions))
-	{
-		if (!mergedDeletions.contains(object.uuid))
-		{
-			mergedDeletions[object.uuid] = object;
-			auto *entry = context.m_targetRootGroup->findEntryByUuid(object.uuid);
-			if (entry)
-			{
-				entries << entry;
-				continue;
-			}
-
-			auto *group = context.m_targetRootGroup->findGroupByUuid(object.uuid);
-			if (group)
-			{
-				groups << group;
-				continue;
-			}
-
-			deletions << object;
-			continue;
-		}
-
-		if (mergedDeletions[object.uuid].deletionTime > object.deletionTime)
-		{
-			mergedDeletions[object.uuid] = object;
-		}
-	}
-
-	while (!entries.isEmpty())
-	{
-		auto *entry = entries.takeFirst();
-		const auto &object = mergedDeletions[entry->uuid()];
-		if (entry->timeInfo().lastModificationTime() > object.deletionTime)
-		{
-			// keep deleted entry since it was changed after deletion date
-			continue;
-		}
-
-		deletions << object;
-
-		if (entry->group())
-		{
-			changes << Change(Change::Type::Deleted, *entry, tr("Explicit deletion"));
-		}
-		else
-		{
-			changes << Change(Change::Type::Deleted, *entry, tr("Implicit deletion (e.g. removal of parent group)"));
-		}
-
-		if (!m_dryRun)
-		{
-			eraseEntry(entry);
-		}
-	}
-
-	while (!groups.isEmpty())
-	{
-		auto *group = groups.takeFirst();
-		auto group_children = group->children();
-
-		if (!(QSet(group_children.begin(), group_children.end()) & QSet(groups.begin(), groups.end())).isEmpty())
-		{
-			// we need to finish all children before we are able to determine if the group can be removed
-			groups << group;
-			continue;
-		}
-
-		const auto &object = mergedDeletions[group->uuid()];
-		if (group->timeInfo().lastModificationTime() > object.deletionTime)
-		{
-			// keep deleted group since it was changed after deletion date
-			continue;
-		}
-
-		if (!group->entriesRecursive(false).isEmpty() || !group->groupsRecursive(false).isEmpty())
-		{
-			// keep deleted group since it contains undeleted content
-			continue;
-		}
-
-		deletions << object;
-		if (group->parentGroup())
-		{
-			changes << Change(Change::Type::Deleted, *group, tr("Explicit deletion"));
-		}
-		else
-		{
-			changes << Change(Change::Type::Deleted, *group, tr("Implicit deletion (e.g. removal of parent group)"));
-		}
-
-		if (!m_dryRun)
-		{
-			eraseGroup(group);
-		}
-	}
-	// Put every deletion to the earliest date of deletion
-	if (deletions != context.m_targetDb->deletedObjects())
-	{
-		changes << Change(Change::Type::Metadata, tr("Changed deleted objects"));
-		if (!m_dryRun)
-		{
-			context.m_targetDb->setDeletedObjects(deletions);
-		}
-	}
-
-	return changes;
 }
 
 Merger::ChangeList Merger::mergeMetadata(const MergeContext &context)

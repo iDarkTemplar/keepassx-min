@@ -36,10 +36,6 @@ private Q_SLOTS:
 	void testResolveGroupConflictOlder();
 	void testMergeNotModified();
 	void testMergeModified();
-	void testResolveConflictEntry_Synchronize();
-	void testResolveConflictEntry_KeepNewer();
-	void testDeletionConflictEntry_Synchronized();
-	void testDeletionConflictEntry_KeepNewer();
 	void testMoveEntry();
 	void testMoveEntryPreserveChanges();
 	void testMoveEntryIntoNewGroup();
@@ -60,13 +56,8 @@ private Q_SLOTS:
 private:
 	Database *createTestDatabase();
 	Database *createTestDatabaseStructureClone(Database *source, int entryFlags, int groupFlags);
-	void testResolveConflictTemplate(
-		int mergeMode,
-		std::function<void(Database *, const QMap<const char *, QDateTime> &)> verification);
-	void testDeletionConflictTemplate(int mergeMode,
-	                                  std::function<void(Database *, const QMap<QString, QUuid> &)> verification);
-	static void assertDeletionNewerOnly(Database *db, const QMap<QString, QUuid> &identifiers);
-	static void assertDeletionLocalOnly(Database *db, const QMap<QString, QUuid> &identifiers);
+	void testResolveConflictTemplate(std::function<void(Database *, const QMap<const char *, QDateTime> &)> verification);
+	void testDeletionConflictTemplate(std::function<void(Database *, const QMap<QString, QUuid> &)> verification);
 	static void assertUpdateMergedEntry1(Entry *entry, const QMap<const char *, QDateTime> &timestamps);
 	static void assertUpdateReappliedEntry2(Entry *entry, const QMap<const char *, QDateTime> &timestamps);
 	static void assertUpdateReappliedEntry1(Entry *entry, const QMap<const char *, QDateTime> &timestamps);

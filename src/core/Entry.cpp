@@ -197,19 +197,6 @@ QString Entry::url() const
 	return m_attributes->value(EntryAttributes::URLKey);
 }
 
-QStringList Entry::getAllUrls() const
-{
-	QStringList urlList;
-
-	const auto entryUrl = url();
-	if (!entryUrl.isEmpty())
-	{
-		urlList << entryUrl;
-	}
-
-	return (urlList << getAdditionalUrls());
-}
-
 QStringList Entry::getAdditionalUrls() const
 {
 	QStringList urlList;
@@ -340,12 +327,6 @@ bool Entry::hasValidTotp() const
 bool Entry::hasPasskey() const
 {
 	return m_attributes->hasPasskey();
-}
-
-void Entry::removePasskey()
-{
-	m_attributes->removePasskeyAttributes();
-	removeTag(tr("Passkey"));
 }
 
 QString Entry::totp(bool *isValid) const
@@ -572,18 +553,6 @@ void Entry::setPassword(const QString &password)
 void Entry::setNotes(const QString &notes)
 {
 	m_attributes->set(EntryAttributes::NotesKey, notes, m_attributes->isProtected(EntryAttributes::NotesKey));
-}
-
-void Entry::setDefaultAttribute(const QString &attribute, const QString &value)
-{
-	Q_ASSERT(EntryAttributes::isDefaultAttribute(attribute));
-
-	if (!EntryAttributes::isDefaultAttribute(attribute))
-	{
-		return;
-	}
-
-	m_attributes->set(attribute, value, m_attributes->isProtected(attribute));
 }
 
 void Entry::setExpires(const bool &value)

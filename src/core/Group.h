@@ -36,13 +36,6 @@ public:
 		Disable
 	};
 
-	enum MergeMode
-	{
-		Default, // Determine merge strategy from parent or fallback (Synchronize)
-		KeepNewer, // merge history
-		Synchronize, // merge history keeping most recent as top entry and appling deletions
-	};
-
 	enum CloneFlag
 	{
 		CloneNoFlags = 0,
@@ -64,7 +57,6 @@ public:
 		TimeInfo timeInfo;
 		bool isExpanded;
 		Group::TriState searchingEnabled;
-		Group::MergeMode mergeMode;
 		QString tags;
 		QUuid previousParentGroupUuid;
 
@@ -87,7 +79,6 @@ public:
 	const TimeInfo& timeInfo() const;
 	bool isExpanded() const;
 	Group::TriState searchingEnabled() const;
-	Group::MergeMode mergeMode() const;
 	bool resolveSearchingEnabled() const;
 	Entry* lastTopVisibleEntry() const;
 	bool isExpired() const;
@@ -95,9 +86,6 @@ public:
 	bool isEmpty() const;
 	CustomData* customData();
 	const CustomData* customData() const;
-	Group::TriState resolveCustomDataTriState(const QString &key, bool checkParent = true) const;
-	void setCustomDataTriState(const QString &key, const Group::TriState &value);
-	QString resolveCustomDataString(const QString &key, bool checkParent = true) const;
 	const Group* previousParentGroup() const;
 	QUuid previousParentGroupUuid() const;
 
@@ -126,7 +114,6 @@ public:
 	void setLastTopVisibleEntry(Entry *entry);
 	void setExpires(bool value);
 	void setExpiryTime(const QDateTime &dateTime);
-	void setMergeMode(MergeMode newMode);
 	void setPreviousParentGroup(const Group *group);
 	void setPreviousParentGroupUuid(const QUuid &uuid);
 

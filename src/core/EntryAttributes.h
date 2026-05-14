@@ -39,7 +39,6 @@ public:
 	QString value(const QString &key) const;
 	QList<QString> values(const QList<QString> &keys) const;
 	bool contains(const QString &key) const;
-	bool containsValue(const QString &value) const;
 	bool isProtected(const QString &key) const;
 	void set(const QString &key, const QString &value, bool protect = false);
 	void remove(const QString &key);

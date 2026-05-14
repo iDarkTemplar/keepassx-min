@@ -37,7 +37,6 @@ Group::Group()
 	m_data.iconNumber = DefaultIconNumber;
 	m_data.isExpanded = true;
 	m_data.searchingEnabled = Inherit;
-	m_data.mergeMode = Default;
 
 	connect(m_customData, &CustomData::modified, this, &Group::modified);
 	connect(this, &Group::modified, this, &Group::updateTimeinfo);
@@ -171,21 +170,6 @@ Group::TriState Group::searchingEnabled() const
 	return m_data.searchingEnabled;
 }
 
-Group::MergeMode Group::mergeMode() const
-{
-	if (m_data.mergeMode == Group::MergeMode::Default)
-	{
-		if (m_parent)
-		{
-			return m_parent->mergeMode();
-		}
-
-		return Group::MergeMode::KeepNewer; // fallback
-	}
-
-	return m_data.mergeMode;
-}
-
 Entry* Group::lastTopVisibleEntry() const
 {
 	return m_lastTopVisibleEntry;
@@ -230,59 +214,6 @@ CustomData* Group::customData()
 const CustomData* Group::customData() const
 {
 	return m_customData;
-}
-
-Group::TriState Group::resolveCustomDataTriState(const QString &key, bool checkParent) const
-{
-	// If not defined, check our parent up to the root group
-	if (!m_customData->contains(key))
-	{
-		if (!m_parent || !checkParent)
-		{
-			return Inherit;
-		}
-		else
-		{
-			return m_parent->resolveCustomDataTriState(key);
-		}
-	}
-
-	return m_customData->value(key) == TRUE_STR ? Enable : Disable;
-}
-
-void Group::setCustomDataTriState(const QString &key, const Group::TriState &value)
-{
-	switch (value)
-	{
-	case Enable:
-		m_customData->set(key, TRUE_STR);
-		break;
-	case Disable:
-		m_customData->set(key, FALSE_STR);
-		break;
-	case Inherit:
-		m_customData->remove(key);
-		break;
-	}
-}
-
-// Note that this returns an empty string both if the key is missing *or* if the key is present but value is empty.
-QString Group::resolveCustomDataString(const QString &key, bool checkParent) const
-{
-	// If not defined, check our parent up to the root group
-	if (!m_customData->contains(key))
-	{
-		if (!m_parent || !checkParent)
-		{
-			return QString();
-		}
-		else
-		{
-			return m_parent->resolveCustomDataString(key);
-		}
-	}
-
-	return m_customData->value(key);
 }
 
 bool Group::equals(const Group *other, CompareItemOptions options) const
@@ -421,11 +352,6 @@ void Group::setExpiryTime(const QDateTime &dateTime)
 		m_data.timeInfo.setExpiryTime(dateTime);
 		emitModified();
 	}
-}
-
-void Group::setMergeMode(MergeMode newMode)
-{
-	set(m_data.mergeMode, newMode);
 }
 
 Group* Group::parentGroup()
@@ -614,7 +540,7 @@ QList<Entry*> Group::entriesRecursive(bool includeHistoryItems) const
 		}
 	}
 
-	for (Group *group: m_children)
+	for (const Group *group: m_children)
 	{
 		entryList.append(group->entriesRecursive(includeHistoryItems));
 	}
@@ -678,7 +604,7 @@ Entry* Group::findEntryByPathRecursive(const QString &entryPath, const QString &
 		}
 	}
 
-	for (Group *group: children())
+	for (const Group *group: children())
 	{
 		Entry *entry = group->findEntryByPathRecursive(entryPath, basePath + group->name() + QStringLiteral("/"));
 		if (entry != nullptr)
@@ -825,7 +751,7 @@ QSet<QUuid> Group::customIconsRecursive() const
 		}
 	}
 
-	for (Group *group: m_children)
+	for (const Group *group: m_children)
 	{
 		result.unite(group->customIconsRecursive());
 	}
@@ -1241,7 +1167,7 @@ void Group::applyGroupIconToChildEntries()
 
 void Group::sortChildrenRecursively(bool reverse)
 {
-	Group *recycleBin = nullptr;
+	const Group *recycleBin = nullptr;
 	if (database())
 	{
 		recycleBin = database()->metadata()->recycleBin();
@@ -1340,11 +1266,6 @@ bool Group::GroupData::equals(const Group::GroupData &other, CompareItemOptions 
 	}
 
 	if (::compare(searchingEnabled, other.searchingEnabled, options) != 0)
-	{
-		return false;
-	}
-
-	if (::compare(mergeMode, other.mergeMode, options) != 0)
 	{
 		return false;
 	}

@@ -77,22 +77,6 @@ bool confirmDeleteEntries(QWidget *parent, const QList<Entry*> &entries, bool pe
 	}
 }
 
-bool confirmDeletePluginData(QWidget *parent, const QList<Entry*> &entries)
-{
-	if (!parent || entries.isEmpty())
-	{
-		return false;
-	}
-
-	auto answer = MessageBox::question(parent,
-		QObject::tr("Confirm Delete Plugin Data"),
-		QObject::tr("Delete plugin data from the selected entry(s)?", "", entries.size()),
-		MessageBox::Delete | MessageBox::Cancel,
-		MessageBox::Cancel);
-
-	return answer == MessageBox::Delete;
-}
-
 size_t deleteEntries(const QList<Entry*> &entries, bool permanent)
 {
 	for (auto entry: entries)

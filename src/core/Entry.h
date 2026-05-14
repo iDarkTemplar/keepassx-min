@@ -79,7 +79,6 @@ public:
 	const TimeInfo& timeInfo() const;
 	QString title() const;
 	QString url() const;
-	QStringList getAllUrls() const;
 	QStringList getAdditionalUrls() const;
 	QString displayUrl() const;
 	QString username() const;
@@ -100,7 +99,6 @@ public:
 	void setExcludeFromReports(bool state);
 
 	bool hasPasskey() const;
-	void removePasskey();
 
 	bool hasTotp() const;
 	bool hasValidTotp() const;
@@ -128,7 +126,6 @@ public:
 	void setUsername(const QString &username);
 	void setPassword(const QString &password);
 	void setNotes(const QString &notes);
-	void setDefaultAttribute(const QString &attribute, const QString &value);
 	void setExpires(const bool &value);
 	void setExpiryTime(const QDateTime &dateTime);
 	void setTotp(QSharedPointer<Totp::Settings> settings);

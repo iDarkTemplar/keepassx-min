@@ -159,7 +159,7 @@ void EntryAttachments::clear()
 	m_attachments.clear();
 
 	const auto externalPath = m_openedAttachments.values();
-	for (auto &path: externalPath)
+	for (const auto &path: externalPath)
 	{
 		disconnectAndEraseExternalFile(path);
 	}
@@ -202,7 +202,7 @@ void EntryAttachments::copyDataFrom(const EntryAttachments *other)
 
 		// Reset all externally opened files
 		const auto externalPath = m_openedAttachments.values();
-		for (auto &path: externalPath)
+		for (const auto &path: externalPath)
 		{
 			disconnectAndEraseExternalFile(path);
 		}

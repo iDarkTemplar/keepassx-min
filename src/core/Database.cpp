@@ -496,36 +496,6 @@ bool Database::extract(QByteArray &xmlOutput, QString *error)
 	return true;
 }
 
-bool Database::import(const QString &xmlExportPath, QString *error)
-{
-	KdbxXmlReader reader(KeePass2::FILE_VERSION_4);
-	QFile file(xmlExportPath);
-
-	if (!file.open(QIODevice::ReadOnly))
-	{
-		if (error)
-		{
-			*error = tr("Failed to open file \"%1\" for reading.").arg(xmlExportPath);
-		}
-
-		return false;
-	}
-
-	reader.readDatabase(&file, this);
-
-	if (reader.hasError())
-	{
-		if (error)
-		{
-			*error = reader.errorString();
-		}
-
-		return false;
-	}
-
-	return true;
-}
-
 /**
  * Release all stored group, entry, and meta data of this database.
  *
@@ -598,30 +568,6 @@ bool Database::backupDatabase(const QString &filePath, const QString &destinatio
 	}
 
 	return res;
-}
-
-/**
- * Restores the database file from the backup file with
- * name <filename>.old.<extension> to filePath. This will
- * overwrite the existing file!
- *
- * @param filePath Path to the file to restore
- * @return true on success
- */
-bool Database::restoreDatabase(const QString &filePath, const QString &fromBackupFilePath)
-{
-	auto perms = QFile::permissions(filePath);
-	// Only try to restore if the backup file actually exists
-	if (QFile::exists(fromBackupFilePath))
-	{
-		QFile::remove(filePath);
-		if (QFile::copy(fromBackupFilePath, filePath))
-		{
-			return QFile::setPermissions(filePath, perms);
-		}
-	}
-
-	return false;
 }
 
 /**

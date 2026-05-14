@@ -73,7 +73,6 @@ private:
 
 	bool writeDatabase(QIODevice *device, QString *error = nullptr);
 	bool backupDatabase(const QString &filePath, const QString &destinationFilePath);
-	bool restoreDatabase(const QString &filePath, const QString &fromBackupFilePath);
 	bool performSave(const QString &filePath, const QString &backupFilePath, QString *error);
 
 public:
@@ -82,7 +81,6 @@ public:
 	bool save(const QString &backupFilePath = QString(), QString *error = nullptr);
 	bool saveAs(const QString &filePath, const QString &backupFilePath = QString(), QString *error = nullptr);
 	bool extract(QByteArray &, QString *error = nullptr);
-	bool import(const QString &xmlExportPath, QString *error = nullptr);
 
 	quint32 formatVersion() const;
 	void setFormatVersion(quint32 version);

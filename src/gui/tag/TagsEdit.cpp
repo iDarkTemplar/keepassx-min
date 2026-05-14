@@ -832,8 +832,8 @@ int TagsEdit::heightForWidth(int w) const
 	auto const content_width = w;
 	QRect contents_rect(0, 0, content_width, 100);
 	contents_rect -= contentsMargins() + viewport()->contentsMargins() + viewportMargins();
-	auto tags = impl->tags;
-	contents_rect = impl->calcRects(tags, contents_rect);
+	auto tags_value = impl->tags;
+	contents_rect = impl->calcRects(tags_value, contents_rect);
 	contents_rect += contentsMargins() + viewport()->contentsMargins() + viewportMargins();
 	return contents_rect.height();
 }

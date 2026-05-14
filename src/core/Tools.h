@@ -45,7 +45,6 @@ QString uuidToHex(const QUuid &uuid);
 QUuid hexToUuid(const QString &uuid);
 bool isValidUuid(const QString &uuidStr);
 
-QString cleanFilename(QString filename);
 QString cleanUsername();
 QString escapeAccelerators(QString string);
 
