@@ -25,15 +25,6 @@
     </message>
 </context>
 <context>
-    <name>Application</name>
-    <message>
-        <location filename="../../src/gui/Application.cpp" line="143"/>
-        <source>System default</source>
-        <comment>Language selection</comment>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ApplicationSettingsWidget</name>
     <message>
         <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="64"/>
@@ -53,7 +44,7 @@
     <message>
         <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="124"/>
         <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="236"/>
-        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="338"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="337"/>
         <source>Access error for config file %1</source>
         <translation>Access error for config file %1</translation>
     </message>
@@ -83,32 +74,32 @@
         <translation>Follow style</translation>
     </message>
     <message>
-        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="368"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="367"/>
         <source>Import KeePassX-min Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="386"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="385"/>
         <source>Export KeePassX-min Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="439"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="438"/>
         <source>Select backup storage directory</source>
         <translation>Select backup storage directory</translation>
     </message>
     <message>
-        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="326"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="325"/>
         <source>Confirm Reset</source>
         <translation>Confirm Reset</translation>
     </message>
     <message>
-        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="327"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="326"/>
         <source>Are you sure you want to reset all settings to default?</source>
         <translation>Are you sure you want to reset all settings to default?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="376"/>
+        <location filename="../../src/gui/ApplicationSettingsWidget.cpp" line="375"/>
         <source>Failed to import settings from %1, not a valid settings file.</source>
         <translation>Failed to import settings from %1, not a valid settings file.</translation>
     </message>
@@ -491,12 +482,12 @@
 <context>
     <name>AttachmentWidget</name>
     <message>
-        <location filename="../../src/gui/entry/attachments/AttachmentWidget.cpp" line="30"/>
+        <location filename="../../src/gui/entry/attachments/AttachmentWidget.cpp" line="31"/>
         <source>Attachment Viewer</source>
         <translation>Attachment Viewer</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/attachments/AttachmentWidget.cpp" line="73"/>
+        <location filename="../../src/gui/entry/attachments/AttachmentWidget.cpp" line="74"/>
         <source>Unknown attachment type</source>
         <translation>Unknown attachment type</translation>
     </message>
@@ -524,11 +515,6 @@
     </message>
     <message>
         <location filename="../../src/gui/CloneDialog.ui" line="33"/>
-        <source>Replace username and password with references</source>
-        <translation>Replace username and password with references</translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/CloneDialog.ui" line="40"/>
         <source>Copy history</source>
         <translation>Copy history</translation>
     </message>
@@ -727,7 +713,7 @@ Are you sure you want to import?</translation>
 <context>
     <name>Database</name>
     <message>
-        <location filename="../../src/core/Database.cpp" line="670"/>
+        <location filename="../../src/core/Database.cpp" line="616"/>
         <source>Passwords</source>
         <comment>Root group name</comment>
         <translation>Passwords</translation>
@@ -774,12 +760,7 @@ Are you sure you want to import?</translation>
         <translation>Key not transformed. This is a bug, please report it to the developers.</translation>
     </message>
     <message>
-        <location filename="../../src/core/Database.cpp" line="508"/>
-        <source>Failed to open file &quot;%1&quot; for reading.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Database.cpp" line="997"/>
+        <location filename="../../src/core/Database.cpp" line="943"/>
         <source>Recycle Bin</source>
         <translation>Recycle Bin</translation>
     </message>
@@ -1038,12 +1019,12 @@ Are you sure you want to continue with this file?.</translation>
         <translation>Add additional protection…</translation>
     </message>
     <message>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="146"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="145"/>
         <source>No password set</source>
         <translation>No password set</translation>
     </message>
     <message>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="147"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="146"/>
         <source>WARNING! You have not set a password. Using a database without a password is strongly discouraged!
 
 Are you sure you want to continue without a password?</source>
@@ -1052,45 +1033,39 @@ Are you sure you want to continue without a password?</source>
 Are you sure you want to continue without a password?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="151"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="150"/>
         <source>Continue without password</source>
         <translation>Continue without password</translation>
     </message>
     <message>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="207"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="193"/>
         <source>No encryption key added</source>
         <translation>No encryption key added</translation>
     </message>
     <message>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="208"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="194"/>
         <source>You must add at least one encryption key to secure your database!</source>
         <translation>You must add at least one encryption key to secure your database!</translation>
     </message>
     <message>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="253"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="239"/>
         <source>Unknown error</source>
         <translation>Unknown error</translation>
     </message>
     <message>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="256"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="242"/>
         <source>Failed to change database credentials</source>
         <translation>Failed to change database credentials</translation>
     </message>
     <message>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="174"/>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="186"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="172"/>
         <source>Weak password</source>
         <translation>Weak password</translation>
     </message>
     <message>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="187"/>
+        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="173"/>
         <source>This is a weak password! For better protection of your secrets, you should choose a stronger password.</source>
         <translation>This is a weak password! For better protection of your secrets, you should choose a stronger password.</translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/dbsettings/DatabaseSettingsWidgetDatabaseKey.cpp" line="175"/>
-        <source>The provided password does not meet the minimum quality requirement.</source>
-        <translation>The provided password does not meet the minimum quality requirement.</translation>
     </message>
 </context>
 <context>
@@ -1680,241 +1655,236 @@ This is definitely a bug, please report it to the developers.</translation>
 <context>
     <name>DatabaseWidget</name>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="148"/>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1578"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="147"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1575"/>
         <source>Searching…</source>
         <translation>Searching…</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="937"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="934"/>
         <source>Do you really want to move the group &quot;%1&quot; to the recycle bin?</source>
         <translation>Do you really want to move the group &quot;%1&quot; to the recycle bin?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1081"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1078"/>
         <source>Expired entries</source>
         <translation>Expired entries</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1118"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1115"/>
         <source>No current database.</source>
         <translation>No current database.</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1132"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1129"/>
         <source>No source database, nothing to do.</source>
         <translation>No source database, nothing to do.</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1413"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1410"/>
         <source>Search Results (%1)</source>
         <translation>Search Results (%1)</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1417"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1414"/>
         <source>No Results</source>
         <translation>No Results</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1448"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1445"/>
         <source>Enter a unique name or overwrite an existing search from the list:</source>
         <translation>Enter a unique name or overwrite an existing search from the list:</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1449"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1446"/>
         <source>Save Search</source>
         <translation>Save Search</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1740"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1737"/>
         <source>Lock Database?</source>
         <translation>Lock Database?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1741"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1738"/>
         <source>You are editing an entry. Discard changes and lock anyway?</source>
         <translation>You are editing an entry. Discard changes and lock anyway?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1779"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1776"/>
         <source>&quot;%1&quot; was modified.
 Save changes?</source>
         <translation>&quot;%1&quot; was modified.
 Save changes?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1783"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1780"/>
         <source>Database was modified.
 Save changes?</source>
         <translation>Database was modified.
 Save changes?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1787"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1784"/>
         <source>Save changes?</source>
         <translation>Save changes?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1861"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1858"/>
         <source>File has changed</source>
         <translation>File has changed</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2219"/>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2266"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2216"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2261"/>
         <source>Writing the database failed: %1</source>
         <translation>Writing the database failed: %1</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2254"/>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2349"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2249"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2342"/>
         <source>Passwords</source>
         <translation>Passwords</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2258"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2253"/>
         <source>Save database as</source>
         <translation>Save database as</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2445"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2438"/>
         <source>Empty recycle bin?</source>
         <translation>Empty recycle bin?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2446"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2439"/>
         <source>Are you sure you want to permanently delete everything from your recycle bin?</source>
         <translation>Are you sure you want to permanently delete everything from your recycle bin?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2485"/>
-        <source>Could not find database file: %1</source>
-        <translation>Could not find database file: %1</translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="342"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="341"/>
         <source>New Database</source>
         <translation>New Database</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="346"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="345"/>
         <source>%1 [New Database]</source>
         <comment>Database tab name modifier</comment>
         <translation>%1 [New Database]</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1862"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1859"/>
         <source>The database file &quot;%1&quot; was modified externally</source>
         <translation>The database file &quot;%1&quot; was modified externally</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1863"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1860"/>
         <source>Do you want to load the changes?</source>
         <translation>Do you want to load the changes?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1879"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1876"/>
         <source>Reloading database…</source>
         <translation>Reloading database…</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1905"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1902"/>
         <source>Reload canceled</source>
         <translation>Reload canceled</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1933"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1930"/>
         <source>Reload successful</source>
         <translation>Reload successful</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1963"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1960"/>
         <source>Reload pending user action…</source>
         <translation>Reload pending user action…</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1966"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1963"/>
         <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes&lt;br&gt;Ignore the changes on disk until save&lt;br&gt;Discard unsaved changes</source>
         <translation>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes&lt;br&gt;Ignore the changes on disk until save&lt;br&gt;Discard unsaved changes</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1977"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1974"/>
         <source>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes then save&lt;br&gt;Overwrite the changes on disk&lt;br&gt;Discard unsaved changes</source>
         <translation>The database file &quot;%1&quot; was modified externally.&lt;br&gt;How would you like to proceed?&lt;br&gt;&lt;br&gt;Merge all changes then save&lt;br&gt;Overwrite the changes on disk&lt;br&gt;Discard unsaved changes</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1987"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1984"/>
         <source>Reload database</source>
         <translation>Reload database</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2002"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1999"/>
         <source>Database file overwritten.</source>
         <translation>Database file overwritten.</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2038"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2035"/>
         <source>Database file on disk cannot be unlocked with current credentials.&lt;br&gt;Enter new credentials and/or present hardware key to continue.</source>
         <translation>Database file on disk cannot be unlocked with current credentials.&lt;br&gt;Enter new credentials and/or present hardware key to continue.</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2258"/>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2355"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2253"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2348"/>
         <source>KeePassX-min Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2380"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2373"/>
         <source>Failed to save backup database: %1</source>
         <translation>Failed to save backup database: %1</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="923"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="920"/>
         <source>Confirm Delete Group</source>
         <translation>Confirm Delete Group</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="924"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="921"/>
         <source>Do you really want to permanently delete the group &quot;%1&quot;?</source>
         <translation>Do you really want to permanently delete the group &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="936"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="933"/>
         <source>Confirm Recycle Group</source>
         <translation>Confirm Recycle Group</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1447"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1444"/>
         <source>Save</source>
         <translation>Save</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="2353"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="2346"/>
         <source>Save Database Backup</source>
         <translation>Save Database Backup</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1140"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1137"/>
         <source>Successfully merged the selected database.</source>
         <translation>Successfully merged the selected database.</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1145"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1142"/>
         <source>No changes were made by the merge operation.</source>
         <translation>No changes were made by the merge operation.</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1151"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1148"/>
         <source>Merge canceled, no changes were made.</source>
         <translation>Merge cancelled, no changes were made.</translation>
     </message>
     <message>
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="101"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="100"/>
         <source>Searches and Tags</source>
         <translation>Searches and Tags</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/DatabaseWidget.cpp" line="1086"/>
+        <location filename="../../src/gui/DatabaseWidget.cpp" line="1083"/>
         <source>Entries expiring within %1 day(s)</source>
         <translation>
             <numerusform>Entries expiring within %1 day</numerusform>
@@ -2610,112 +2580,72 @@ This may cause the affected plugins to malfunction.</translation>
 <context>
     <name>Entry</name>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1043"/>
+        <location filename="../../src/core/Entry.cpp" line="851"/>
         <source>%1 - Clone</source>
         <translation>%1 - Clone</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="491"/>
-        <source>Passkey</source>
-        <translation>Passkey</translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Entry.cpp" line="1100"/>
-        <location filename="../../src/core/Entry.cpp" line="1134"/>
-        <location filename="../../src/core/Entry.cpp" line="1373"/>
-        <source>Maximum depth of replacement has been reached. Entry uuid: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Entry.cpp" line="1249"/>
-        <source>Bad DateTime placeholder type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Entry.cpp" line="1305"/>
-        <source>Invalid conversion type: %1</source>
-        <translation>Invalid conversion type: %1</translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Entry.cpp" line="1317"/>
-        <location filename="../../src/core/Entry.cpp" line="1363"/>
-        <source>Invalid conversion syntax: %1</source>
-        <translation>Invalid conversion syntax: %1</translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Entry.cpp" line="1351"/>
-        <source>Invalid regular expression syntax %1
-%2</source>
-        <translation>Invalid regular expression syntax %1
-%2</translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Entry.cpp" line="913"/>
+        <location filename="../../src/core/Entry.cpp" line="737"/>
         <source>Title</source>
         <translation>Title</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="919"/>
+        <location filename="../../src/core/Entry.cpp" line="743"/>
         <source>Username</source>
         <translation>Username</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="925"/>
+        <location filename="../../src/core/Entry.cpp" line="749"/>
         <source>Password</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="931"/>
+        <location filename="../../src/core/Entry.cpp" line="755"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="937"/>
+        <location filename="../../src/core/Entry.cpp" line="761"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="943"/>
+        <location filename="../../src/core/Entry.cpp" line="767"/>
         <source>Custom Attributes</source>
         <translation>Custom Attributes</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="949"/>
+        <location filename="../../src/core/Entry.cpp" line="773"/>
         <source>Icon</source>
         <translation>Icon</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="954"/>
+        <location filename="../../src/core/Entry.cpp" line="778"/>
         <source>Color</source>
         <translation>Colour</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="960"/>
+        <location filename="../../src/core/Entry.cpp" line="784"/>
         <source>Expiration</source>
         <translation>Expiration</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="965"/>
+        <location filename="../../src/core/Entry.cpp" line="789"/>
         <source>TOTP</source>
         <translation>TOTP</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="970"/>
+        <location filename="../../src/core/Entry.cpp" line="794"/>
         <source>Custom Data</source>
         <translation>Custom Data</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="975"/>
+        <location filename="../../src/core/Entry.cpp" line="799"/>
         <source>Attachments</source>
         <translation>Attachments</translation>
     </message>
     <message>
-        <location filename="../../src/core/Entry.cpp" line="1590"/>
-        <source>Bad url placeholder type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Entry.cpp" line="980"/>
+        <location filename="../../src/core/Entry.cpp" line="804"/>
         <source>Tags</source>
         <translation>Tags</translation>
     </message>
@@ -2985,27 +2915,27 @@ Would you like to overwrite the existing attachment?</translation>
 <context>
     <name>EntryHistoryModel</name>
     <message>
-        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="93"/>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="94"/>
         <source>Current (%1)</source>
         <translation>Current (%1)</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="134"/>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="135"/>
         <source>Last modified</source>
         <translation>Last modified</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="136"/>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="137"/>
         <source>Age</source>
         <translation>Age</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="138"/>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="139"/>
         <source>Difference</source>
         <translation>Difference</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="140"/>
+        <location filename="../../src/gui/entry/EntryHistoryModel.cpp" line="141"/>
         <source>Size</source>
         <translation>Size</translation>
     </message>
@@ -3013,165 +2943,155 @@ Would you like to overwrite the existing attachment?</translation>
 <context>
     <name>EntryModel</name>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="161"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="177"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="197"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="210"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="229"/>
-        <source>Ref: </source>
-        <comment>Reference abbreviation</comment>
-        <translation>Ref: </translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="236"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="208"/>
         <source>Never</source>
         <translation>Never</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="265"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="237"/>
         <source>B</source>
         <comment>file size unit</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="266"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="238"/>
         <source>KiB</source>
         <comment>file size unit</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="267"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="239"/>
         <source>MiB</source>
         <comment>file size unit</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="268"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="240"/>
         <source>GiB</source>
         <comment>file size unit</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="457"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="421"/>
         <source>Group</source>
         <translation>Group</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="461"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="425"/>
         <source>Title</source>
         <translation>Title</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="463"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="505"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="427"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="469"/>
         <source>Username</source>
         <translation>Username</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="465"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="507"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="429"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="471"/>
         <source>Password</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="467"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="511"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="431"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="475"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="469"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="433"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="471"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="435"/>
         <source>Expires</source>
         <translation>Expires</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="473"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="437"/>
         <source>Created</source>
         <translation>Created</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="475"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="439"/>
         <source>Modified</source>
         <translation>Modified</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="477"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="441"/>
         <source>Attachments</source>
         <translation>Attachments</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="479"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="443"/>
         <source>Size</source>
         <translation>Size</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="499"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="463"/>
         <source>Group name</source>
         <translation>Group name</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="503"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="467"/>
         <source>Entry title</source>
         <translation>Entry title</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="509"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="473"/>
         <source>Password Strength</source>
         <translation>Password Strength</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="513"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="477"/>
         <source>Entry notes</source>
         <translation>Entry notes</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="515"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="479"/>
         <source>Entry expires at</source>
         <translation>Entry expires at</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="517"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="481"/>
         <source>Creation date</source>
         <translation>Creation date</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="519"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="483"/>
         <source>Last modification date</source>
         <translation>Last modification date</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="521"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="485"/>
         <source>Attached files</source>
         <translation>Attached files</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="523"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="487"/>
         <source>Entry size</source>
         <translation>Entry size</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="525"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="489"/>
         <source>Has attachments</source>
         <translation>Has attachments</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="527"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="491"/>
         <source>Has TOTP</source>
         <translation>Has TOTP</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="529"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="493"/>
         <source>Background Color</source>
         <translation>Background Color</translation>
     </message>
     <message>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="459"/>
-        <location filename="../../src/gui/entry/EntryModel.cpp" line="501"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="423"/>
+        <location filename="../../src/gui/entry/EntryModel.cpp" line="465"/>
         <source>Group Path</source>
         <translation>Group Path</translation>
     </message>
@@ -3370,23 +3290,18 @@ This will leave your passwords and sensitive information vulnerable!
 <context>
     <name>Group</name>
     <message>
-        <location filename="../../src/core/Group.cpp" line="679"/>
-        <source>Can&apos;t search entry with &quot;referenceType&quot; parameter equal to &quot;Unknown&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Group.cpp" line="816"/>
+        <location filename="../../src/core/Group.cpp" line="683"/>
         <source>[empty]</source>
         <comment>group has no children</comment>
         <translation>[empty]</translation>
     </message>
     <message>
-        <location filename="../../src/core/Group.cpp" line="1039"/>
+        <location filename="../../src/core/Group.cpp" line="906"/>
         <source>%1 - Clone</source>
         <translation>%1 - Clone</translation>
     </message>
     <message>
-        <location filename="../../src/core/Group.cpp" line="1078"/>
+        <location filename="../../src/core/Group.cpp" line="945"/>
         <source>Group %1 does not contain %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3500,32 +3415,32 @@ This will leave your passwords and sensitive information vulnerable!
         <translation>WizardPage</translation>
     </message>
     <message>
-        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="145"/>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="146"/>
         <source>Entry count: %1</source>
         <translation>Entry count: %1</translation>
     </message>
     <message>
-        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="148"/>
         <source>Group</source>
         <translation>Group</translation>
     </message>
     <message>
-        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="148"/>
         <source>Title</source>
         <translation>Title</translation>
     </message>
     <message>
-        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="148"/>
         <source>Username</source>
         <translation>Username</translation>
     </message>
     <message>
-        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="148"/>
         <source>Password</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="147"/>
+        <location filename="../../src/gui/wizard/ImportWizardPageReview.cpp" line="148"/>
         <source>Url</source>
         <translation>Url</translation>
     </message>
@@ -3668,19 +3583,6 @@ This will leave your passwords and sensitive information vulnerable!
         <location filename="../../src/gui/wizard/ImportWizardPageSelect.cpp" line="265"/>
         <source>Proton Pass JSON Export</source>
         <translation>Proton Pass JSON Export</translation>
-    </message>
-</context>
-<context>
-    <name>KMessageWidget</name>
-    <message>
-        <location filename="../../src/gui/KMessageWidget.cpp" line="64"/>
-        <source>&amp;Close</source>
-        <translation>&amp;Close</translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/KMessageWidget.cpp" line="65"/>
-        <source>Close message</source>
-        <translation>Close message</translation>
     </message>
 </context>
 <context>
@@ -4212,37 +4114,37 @@ Line %2, column %3</translation>
 <context>
     <name>KeePass2Reader</name>
     <message>
-        <location filename="../../src/format/KeePass2Reader.cpp" line="63"/>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="61"/>
         <source>No file path was provided.</source>
         <translation type="unfinished">No file path was provided.</translation>
     </message>
     <message>
-        <location filename="../../src/format/KeePass2Reader.cpp" line="70"/>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="68"/>
         <source>File %1 does not exist.</source>
         <translation type="unfinished">File %1 does not exist.</translation>
     </message>
     <message>
-        <location filename="../../src/format/KeePass2Reader.cpp" line="83"/>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="81"/>
         <source>Unable to open file %1.</source>
         <translation type="unfinished">Unable to open file %1.</translation>
     </message>
     <message>
-        <location filename="../../src/format/KeePass2Reader.cpp" line="89"/>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="87"/>
         <source>Error while reading the database: %1</source>
         <translation type="unfinished">Error while reading the database: %1</translation>
     </message>
     <message>
-        <location filename="../../src/format/KeePass2Reader.cpp" line="144"/>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="142"/>
         <source>Failed to read database file.</source>
         <translation type="unfinished">Failed to read database file.</translation>
     </message>
     <message>
-        <location filename="../../src/format/KeePass2Reader.cpp" line="150"/>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="148"/>
         <source>Not a KeePass database.</source>
         <translation type="unfinished">Not a KeePass database.</translation>
     </message>
     <message>
-        <location filename="../../src/format/KeePass2Reader.cpp" line="157"/>
+        <location filename="../../src/format/KeePass2Reader.cpp" line="155"/>
         <source>Unsupported KeePass 2 database version.</source>
         <translation type="unfinished">Unsupported KeePass 2 database version.</translation>
     </message>
@@ -5018,17 +4920,12 @@ Are you sure you want to continue with this file?</translation>
 <context>
     <name>Merger</name>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="868"/>
-        <source>Changed deleted objects</source>
-        <translation>Changed deleted objects</translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Merger.cpp" line="923"/>
+        <location filename="../../src/core/Merger.cpp" line="774"/>
         <source>Removed custom data %1 [%2]</source>
         <translation>Removed custom data %1 [%2]</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="945"/>
+        <location filename="../../src/core/Merger.cpp" line="796"/>
         <source>Adding custom data %1 [%2]</source>
         <translation>Adding custom data %1 [%2]</translation>
     </message>
@@ -5063,95 +4960,83 @@ Are you sure you want to continue with this file?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="238"/>
-        <location filename="../../src/core/Merger.cpp" line="278"/>
+        <location filename="../../src/core/Merger.cpp" line="225"/>
+        <location filename="../../src/core/Merger.cpp" line="265"/>
         <source>Previous location: %1</source>
         <translation>Previous location: %1</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="260"/>
+        <location filename="../../src/core/Merger.cpp" line="247"/>
         <source>Number of entries in group: %1</source>
         <translation>Number of entries in group: %1</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="345"/>
+        <location filename="../../src/core/Merger.cpp" line="332"/>
         <source>Group name</source>
         <translation>Group name</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="351"/>
+        <location filename="../../src/core/Merger.cpp" line="338"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="359"/>
+        <location filename="../../src/core/Merger.cpp" line="346"/>
         <source>Icon (UUID)</source>
         <translation>Icon (UUID)</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="367"/>
+        <location filename="../../src/core/Merger.cpp" line="354"/>
         <source>Icon (Number)</source>
         <translation>Icon (Number)</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="374"/>
+        <location filename="../../src/core/Merger.cpp" line="361"/>
         <source>Expiry time</source>
         <translation>Expiry time</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="384"/>
+        <location filename="../../src/core/Merger.cpp" line="371"/>
         <source>Modification time</source>
         <translation>Modification time</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="556"/>
+        <location filename="../../src/core/Merger.cpp" line="542"/>
         <source>Merge %1/%2 with alien on top under %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="564"/>
+        <location filename="../../src/core/Merger.cpp" line="550"/>
         <source>%1 (Add local modifications to new entry)</source>
         <translation>%1 (Add local modifications to new entry)</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="572"/>
+        <location filename="../../src/core/Merger.cpp" line="558"/>
         <source>Merge %1/%2 with local on top/under %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="583"/>
+        <location filename="../../src/core/Merger.cpp" line="569"/>
         <source>%1 (Add new modifications to existing entry)</source>
         <translation>%1 (Add new modifications to existing entry)</translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="628"/>
+        <location filename="../../src/core/Merger.cpp" line="606"/>
         <source>Inconsistent history entry of %1[%2] at %3 contains conflicting changes - conflict resolution may lose data!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="644"/>
+        <location filename="../../src/core/Merger.cpp" line="622"/>
         <source>History entry of %1[%2] at %3 contains conflicting changes - conflict resolution may lose data!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="667"/>
+        <location filename="../../src/core/Merger.cpp" line="645"/>
         <source>Entry of %1[%2] contains conflicting changes - conflict resolution may lose data!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/core/Merger.cpp" line="812"/>
-        <location filename="../../src/core/Merger.cpp" line="853"/>
-        <source>Explicit deletion</source>
-        <translation>Explicit deletion</translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Merger.cpp" line="816"/>
-        <location filename="../../src/core/Merger.cpp" line="857"/>
-        <source>Implicit deletion (e.g. removal of parent group)</source>
-        <translation>Implicit deletion (e.g. removal of parent group)</translation>
-    </message>
-    <message>
-        <location filename="../../src/core/Merger.cpp" line="891"/>
+        <location filename="../../src/core/Merger.cpp" line="742"/>
         <source>Adding new icon %1</source>
         <translation>Adding new icon %1</translation>
     </message>
@@ -6508,24 +6393,16 @@ Kernel: %3 %4
         </translation>
     </message>
     <message>
-        <location filename="../../src/gui/GuiTools.cpp" line="64"/>
+        <location filename="../../src/gui/GuiTools.cpp" line="63"/>
         <source>Do you really want to move entry &quot;%1&quot; to the recycle bin?</source>
         <translation>Do you really want to move entry &quot;%1&quot; to the recycle bin?</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/GuiTools.cpp" line="69"/>
+        <location filename="../../src/gui/GuiTools.cpp" line="67"/>
         <source>Do you really want to move %n entry(s) to the recycle bin?</source>
         <translation>
             <numerusform>Do you really want to move %n entry to the recycle bin?</numerusform>
             <numerusform>Do you really want to move %n entries to the recycle bin?</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../../src/gui/GuiTools.cpp" line="124"/>
-        <source>Entry &quot;%1&quot; has %2 reference(s). Do you want to overwrite references with values, skip this entry, or delete anyway?</source>
-        <translation>
-            <numerusform>Entry &quot;%1&quot; has %2 reference. Do you want to overwrite references with values, skip this entry, or delete anyway?</numerusform>
-            <numerusform>Entry &quot;%1&quot; has %2 references. Do you want to overwrite references with values, skip this entry, or delete anyway?</numerusform>
         </translation>
     </message>
     <message>
@@ -6776,7 +6653,7 @@ Kernel: %3 %4
         <translation>Do you really want to permanently delete the entry &quot;%1&quot;?</translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/GuiTools.cpp" line="43"/>
+        <location filename="../../src/gui/GuiTools.cpp" line="42"/>
         <source>Do you really want to permanently delete %n entry(s)?</source>
         <translation>
             <numerusform>Do you really want to permanently delete %n entry(s)?</numerusform>
@@ -6784,7 +6661,7 @@ Kernel: %3 %4
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/GuiTools.cpp" line="47"/>
+        <location filename="../../src/gui/GuiTools.cpp" line="46"/>
         <source>Confirm Delete Entry(s)</source>
         <translation>
             <numerusform>Confirm Delete Entry(s)</numerusform>
@@ -6792,30 +6669,12 @@ Kernel: %3 %4
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../../src/gui/GuiTools.cpp" line="73"/>
+        <location filename="../../src/gui/GuiTools.cpp" line="71"/>
         <source>Confirm Recycle Entry(s)</source>
         <translation>
             <numerusform>Confirm Recycle Entry(s)</numerusform>
             <numerusform>Confirm Recycle Entry(s)</numerusform>
         </translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/GuiTools.cpp" line="90"/>
-        <source>Confirm Delete Plugin Data</source>
-        <translation>Confirm Delete Plugin Data</translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../../src/gui/GuiTools.cpp" line="91"/>
-        <source>Delete plugin data from the selected entry(s)?</source>
-        <translation>
-            <numerusform>Delete plugin data from the selected entry(s)?</numerusform>
-            <numerusform>Delete plugin data from the selected entry(s)?</numerusform>
-        </translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/GuiTools.cpp" line="123"/>
-        <source>Confirm Replace Entry References</source>
-        <translation>Confirm Replace Entry References</translation>
     </message>
     <message>
         <location filename="../../src/format/BitwardenReader.cpp" line="399"/>
@@ -6873,7 +6732,7 @@ Kernel: %3 %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/format/KdbxXmlWriter.cpp" line="687"/>
+        <location filename="../../src/format/KdbxXmlWriter.cpp" line="676"/>
         <source>Stripping invalid XML 1.0 codepoint %1</source>
         <translation type="unfinished"></translation>
     </message>
