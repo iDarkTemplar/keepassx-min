@@ -28,6 +28,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QFileOpenEvent>
+#include <QLibraryInfo>
 #include <QPixmapCache>
 #include <QRegularExpression>
 #include <QStandardPaths>
@@ -48,6 +49,11 @@ Application::~Application()
 	if (m_translator)
 	{
 		QCoreApplication::removeTranslator(m_translator.get());
+	}
+
+	if (m_translator_qtbase)
+	{
+		QCoreApplication::removeTranslator(m_translator_qtbase.get());
 	}
 }
 
@@ -112,26 +118,30 @@ void Application::installTranslator(const QString &uiLanguage)
 		languages << uiLanguage;
 	}
 
-	std::unique_ptr<QTranslator> old_translator = std::move(m_translator);
-
-	const auto path = resources()->dataPath(QStringLiteral("translations"));
-
-	for (const auto &language: languages)
+	auto load_translation = [&languages](std::unique_ptr<QTranslator> &translator_holder, const QString &basename, const QString &path)
 	{
-		QLocale locale(language);
-		std::unique_ptr<QTranslator> translator = std::make_unique<QTranslator>(qApp);
-		if (translator->load(locale, QStringLiteral("keepassxmin_"), QString(), path))
+		std::unique_ptr<QTranslator> old_translator = std::move(translator_holder);
+
+		for (const auto &language: languages)
 		{
-			m_translator = std::move(translator);
-			QCoreApplication::installTranslator(m_translator.get());
-			break;
+			QLocale locale(language);
+			std::unique_ptr<QTranslator> translator = std::make_unique<QTranslator>(qApp);
+			if (translator->load(locale, basename, QStringLiteral("_"), path))
+			{
+				translator_holder = std::move(translator);
+				QCoreApplication::installTranslator(translator_holder.get());
+				break;
+			}
 		}
-	}
 
-	if (old_translator)
-	{
-		QCoreApplication::removeTranslator(old_translator.get());
-	}
+		if (old_translator)
+		{
+			QCoreApplication::removeTranslator(old_translator.get());
+		}
+	};
+
+	load_translation(m_translator_qtbase, QStringLiteral("qtbase"), QLibraryInfo::path(QLibraryInfo::TranslationsPath));
+	load_translation(m_translator, QStringLiteral("keepassxmin"), resources()->dataPath(QStringLiteral("translations")));
 }
 
 /**

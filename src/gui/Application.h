@@ -47,6 +47,7 @@ Q_SIGNALS:
 	void openFile(const QString &filename);
 
 private:
+	std::unique_ptr<QTranslator> m_translator_qtbase;
 	std::unique_ptr<QTranslator> m_translator;
 };
 
