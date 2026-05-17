@@ -48,7 +48,7 @@ configure_file(linux/keepassx-min.xml.in ${CMAKE_CURRENT_BINARY_DIR}/linux/keepa
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/linux/keepassxmin.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/packages)
 
 install(DIRECTORY icons/application/ DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor
-	FILES_MATCHING PATTERN "keepassx*.png" PATTERN "keepassx*.svg"
+	FILES_MATCHING PATTERN "keepassxmin.png" PATTERN "keepassxmin.svg"
 	PATTERN "status" EXCLUDE PATTERN "actions" EXCLUDE PATTERN "categories" EXCLUDE)
 
 install(DIRECTORY icons/application/ DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor
